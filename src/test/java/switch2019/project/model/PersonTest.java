@@ -282,4 +282,27 @@ class PersonTest {
         assertTrue(p1.checkSameSiblings(p2));
     }
 
+    @Test
+    @DisplayName("Validate if two people have the same siblings - False")
+    void compareSameSiblings2(){
+        //Arrange
+        Person p1=new Person("John",1996,12,9);
+        Person p2=new Person("Anna",1993,2,23);
+        //siblings:
+        Person s1=new Person("Susan",1993,3,9);
+        Person s2=new Person("Frank",1996,12,5);
+        Person s3=new Person("Jessica",2002,12,3);
+        Person s4= new Person("Jack", 1990,1,3);
+        //siblingList arrangement
+        HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(s1,s2));
+        HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(s3,s4));
+
+        //Act
+        p1.addMultipleSiblings(p1siblings);
+        p2.addMultipleSiblings(p2siblings);
+
+        //Assert
+        assertFalse(p1.checkSameSiblings(p2));
+    }
+
 }
