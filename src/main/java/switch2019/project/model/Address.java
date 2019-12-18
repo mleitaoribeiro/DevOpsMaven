@@ -25,7 +25,7 @@ public class Address {
             this.city = city;
         }
     }
-    //Auxiliar method to check if method is
+    //Auxiliar method to check if String is numeric
     public static boolean isNumeric(String city) {
         for (char c : city.toCharArray()) {
             if (!Character.isDigit(c))
