@@ -11,6 +11,63 @@ class AddressTest {
      * Test - Validate input for Street
      */
 
+    @Test
+    @DisplayName("validate input for street - happy case")
+    void setStreet_happyCase() {
+        //Arrange
+        Address A = new Address("Rua das Flores", null, null);
+
+        //Act
+        A.setStreet("Rua das Flores");
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals("Rua das Flores", actual);
+
+    }
+    @Test
+    @DisplayName("validate input for street - nulll")
+    void setStreet_null() {
+        //Arrange
+        Address A= new Address(null,null,null);
+
+        //Act
+        A.setStreet(null);
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals(null, actual);
+
+    }
+
+    @Test
+    @DisplayName("validate input for street - not sensitive Case")
+    void setStreet_SensitiveCase() {
+        //Arrange
+        Address A= new Address("RUA DAS FLORES",null,null);
+
+        //Act
+        A.setStreet("Rua das Flores");
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals("Rua das Flores", actual);
+
+    }
+
+    @Test
+    @DisplayName("validate input for street - ChangeStreet")
+    void setStreet_ChangeStreet() {
+        //Arrange
+        Address A= new Address("Rua das Flores",null,null);
+
+        //Act
+        A.setStreet("Rua das Camelias");
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals("Rua das Camelias", actual);
+    }
 
     /**
      * Test - Validate input for City
