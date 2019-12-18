@@ -1,7 +1,6 @@
 package switch2019.project.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -129,6 +128,34 @@ public class Person {
     public HashSet<Person> getSiblingList () {
         HashSet <Person> siblingsClone = new HashSet<>(this.siblingList);
         return siblingsClone;
+    }
+
+    /**
+     * Set Mother
+     */
+    public void setMother (Person mother){
+        this.mother = mother;
+    }
+
+    /**
+     * Validate if a person is the Mother of another person
+     */
+    public boolean isMother (Person mother){
+        return this.mother.equals(mother);
+    }
+
+    /**
+     * Set Father
+     */
+    public void setFather (Person father){
+        this.father = father;
+    }
+
+    /**
+     * Validate if a person is the Father of another person
+     */
+    public boolean isFather (Person father){
+        return this.father.equals(father);
     }
 
     /**
