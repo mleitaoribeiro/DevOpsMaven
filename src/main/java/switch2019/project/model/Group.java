@@ -27,6 +27,9 @@ public class Group {
     }
     
     public void setStartingDate(int startingDateYear, int startingDateMonth, int startingDateDay) {
+        if(startingDate.of(startingDateYear, startingDateMonth, startingDateDay).isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Start Date Not Supported.");
+        }
         startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
     }
 
@@ -51,11 +54,45 @@ public class Group {
     }
 
     /**
+     * Add a new member to a group
+     */
+    public void addMember(Person member){
+
+    }
+    /**
+     * Remove one member from a group
+     */
+    public void removeMember(Person member){
+
+    }
+
+    /**
+     * Getter function for the group members
+     * @return membersClone;
+     */
+    public HashSet<Person> getMembers () {
+        HashSet <Person> membersClone = new HashSet<>(this.members);
+        return membersClone;
+    }
+
+    /**
+     * @param: newMembers;
      * Add multiple members to Group
      */
-
     public void addMultipleMembers(HashSet<Person>newMembers) {
-        //put code here
+        for (Person member : newMembers){
+            addMember(member);
+        }
+    }
+
+    /**
+     * Remove multiple Siblings
+     * @param toRemove HashSet of members that are going to be removed.
+     */
+    public void removeMultipleMembers(HashSet<Person> toRemove) {
+        for (Person member : toRemove) {
+            removeMember(member);
+        }
     }
 }
 

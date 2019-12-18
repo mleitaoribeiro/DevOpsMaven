@@ -1,6 +1,10 @@
 package switch2019.project.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,12 +16,182 @@ class GroupTest {
      * Test if member was added to Group
      */
 
+    @Test
+    @DisplayName("Validate is a member was added to a group")
+    void addMember() {
+
+        //Arrange
+        Person marta = new Person("Marta", 2000, 10, 10);
+        Group A = new Group("OsMaisFixes", 2019, 10, 10);
+
+        //Act
+        A.addMember(marta);
+
+        //Assert
+        assertTrue(A.members.contains(marta));
+    }
+
+
+    @Test
+    @DisplayName("Validate is a member was added to a group - Person null")
+    void addMember_null() {
+
+        //Arrange
+        Person marta = null;
+        Group A = new Group("OsMaisFixes", 2019, 10, 10);
+
+        //Act
+        A.addMember(marta);
+
+        //Assert
+        assertFalse(A.members.contains(marta));
+    }
+
+    /**
+     * Test if multiple members were added to Group
+     */
+
+    @Test
+    @DisplayName("Test if all members were added to Group => Sucess Case")
+    void addMultipleMembers_Sucess() {
+        //Arrange
+        Group newGroup = new Group("M'Nation", 2019,12, 18 );
+
+        Person person1 = new Person("Maria", 1994, 05, 01);
+        Person person2 = new Person("Mariana",1986,12,01);
+        Person person3 = new Person("Marisa",2000,8,27);
+
+        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person3,person2));
+
+        //Act
+        newGroup.addMultipleMembers(finalGroup);
+
+        //Assert
+        assertTrue(newGroup.getMembers().containsAll(finalGroup));
+    }
+
+    @Test
+    @DisplayName("Test if the same person is not added twice")
+    void addMultipleMembers__ErrorCase() {
+        //Arrange
+        Group newGroup = new Group("Maria's Group", 2019,12, 18 );
+
+        Person person1 = new Person("Maria", 1994, 05, 01);
+        Person person2 = new Person("Maria", 1994, 05, 01);
+
+        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person2));
+
+        //Act
+        newGroup.addMultipleMembers(finalGroup);
+
+        //Assert
+        assertFalse(newGroup.getMembers().containsAll(finalGroup));
+        assertTrue(newGroup.getMembers().contains(person1));
+    }
+
+    @Test
+    @DisplayName("Test if a null case is added to group")
+    void addMultipleMembers__ErrorCase2() {
+        //Arrange
+        Group newGroup = new Group("Grupo das M'Nation", 2019,12, 18 );
+
+        Person person1 = new Person("Maria", 1994, 05, 01);
+        Person person2 = null;
+
+        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person2));
+
+        //Act
+        newGroup.addMultipleMembers(finalGroup);
+
+        //Assert
+        assertTrue(newGroup.getMembers().contains(person1));
+    }
 
     /**
      * Test if member was removed from Group
      */
 
+    @Test
+    @DisplayName("Test if a member was removed from a Group")
+    void removeMemberFromGroup() {
+        //Arrange
 
+        //New Group
+        String description = "123";
+        //Starting date
+        int year = 2005;
+        int month = 4;
+        int day = 15;
+
+        //One Member
+        String oneMemberName = "João";
+        //One Member BirthDate
+        int oneMemberYear = 1993;
+        int oneMemberMonth = 9;
+        int oneMemberDay = 1;
+
+        //Other Member
+        String otherMemberName = "Elsa";
+        //Other Member BirthDate
+        int otherMemberYear = 1992;
+        int otherMemberMonth = 10;
+        int otherMemberDay = 9;
+
+        Group oneGroup = new Group(description, year, month, day);
+
+        Person oneMember = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay);
+        Person otherMember = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay);
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(oneMember, otherMember));
+
+        //Act
+        oneGroup.addMultipleMembers(putMembers);
+
+        oneGroup.removeMember(oneMember);
+
+        //Assert
+        assertFalse(oneGroup.getMembers().contains(oneMember));
+    }
+
+    /**
+     * Test if multiple members were removed from a Group
+     */
+
+    @Test
+    @DisplayName("Test if multiple members were removed from a Group - remove all ")
+    void removeMultipleMembersFromAGroup(){
+        //Arrange
+        Group g1=new Group("G1",2005,2,12);
+        Person p1=new Person("Pedro",1999,12,9);
+        Person p2=new Person("Gabriel",1996,3,6);
+        HashSet<Person>putMembers=new HashSet<>(Arrays.asList(p1,p2));
+
+        //Act
+        g1.addMultipleMembers(putMembers);
+        g1.removeMultipleMembers(putMembers);
+
+        //Assert
+        assertTrue(g1.getMembers().size()==0);
+    }
+
+    @Test
+    @DisplayName("Test if multiple members were removed from a Group - only the members I choose ")
+    void removeMultipleMembers() {
+        //Arrange
+        Group g1 = new Group("G1", 2005, 2, 12);
+        Person p1 = new Person("Pedro", 1999, 12, 9);
+        Person p2 = new Person("Gabriel", 1996, 3, 6);
+        Person p3 = new Person("Laurinda", 1998, 3, 14);
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(p1, p2, p3));
+        HashSet<Person> removeSome = new HashSet<>(Arrays.asList(p2, p3));
+
+        //Act
+        g1.addMultipleMembers(putMembers);
+        g1.removeMultipleMembers(removeSome);
+
+        //Assert
+        assertTrue(g1.getMembers().size() == 1);
+    }
     /**
      * Check if member was promoted to Admin
      */
