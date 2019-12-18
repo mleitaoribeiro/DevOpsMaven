@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -180,7 +181,17 @@ class PersonTest {
     /**
      * Validate if a sibling was removed from to siblings list
      */
-    
+    @Test
+    @DisplayName("Validate if a sibling was removed from to siblings list")
+    void validateRemoveSibling (){
+        Person p1=new Person("Maria",1996,12,9);
+        Person p2=new Person("António",1993,2,23);
+
+        p1.addSibling(p2);
+        p1.removeSibling(p2);
+
+        assertTrue(p1.getSiblingList().size()==0);
+    }
 
     /**
      * Test if multiple siblings were removed to siblings list

@@ -68,6 +68,13 @@ public class Person {
     }
 
     /**
+     * Remove a Sibling
+     */
+    public void removeSibling (Person sibling){
+
+    }
+
+    /**
      *
      * @return siblingList
      */
