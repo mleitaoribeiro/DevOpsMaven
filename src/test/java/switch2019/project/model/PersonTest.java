@@ -63,8 +63,82 @@ class PersonTest {
 
 
     /**
-     *Test if two individuals are the same or not
+     *Test if two individuals are the same
      */
+
+    @Test
+    @DisplayName("Test if two people are the same | True")
+    public void individualsAreTheSame() {
+        //Arrange
+
+        //One Person
+        String name = "João";
+        //One Person BirthDate
+        int year  = 1996;
+        int month = 3;
+        int day = 4;
+
+        //Act
+        Person onePerson = new Person(name, year, month, day);
+        Person samePerson = new Person(name, year, month, day);
+
+        //Assert
+        assertEquals(onePerson, samePerson);
+    }
+
+    @Test
+    @DisplayName("Test if two people are the same | True")
+    public void individualsAreTheSame_2() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1996;
+        int month = 3;
+        int day = 4;
+
+        //Other Person
+        String otherPersonName = "João Cardoso";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //Act
+        Person onePerson = new Person(name, year, month, day);
+        Person samePerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+
+        //Assert
+        assertEquals(onePerson, samePerson);
+    }
+
+    @Test
+    @DisplayName("Test if two people are the same | False")
+    public void notTheSamePerson() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1996;
+        int month = 3;
+        int day = 4;
+
+        //Other Person
+        String otherPersonName = "Marta";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //Act
+        Person onePerson = new Person(name, year, month, day);
+        Person samePerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+
+        //Assert
+        assertEquals(onePerson, samePerson);
+    }
 
 
     /**
