@@ -41,8 +41,8 @@ class GroupTest {
         //Arrange
        // Person p1=new Person("Elsa",null,null,null);
 
-        Group g1=new Group("Familia","16-01-1987");
-        Group g2= new Group("Familia","16-07-1986");
+        Group g1=new Group("Familia",1987,01,16);
+        Group g2= new Group("Familia",1987,01,16);
 
         //Act
         boolean result= g1.equals(g2);
