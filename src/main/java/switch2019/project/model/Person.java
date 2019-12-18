@@ -145,6 +145,7 @@ public class Person {
      * Validate if a person is the Mother of another person
      */
     public boolean isMother (Person mother){
+        if(this.mother == null) return false;
         return this.mother.equals(mother);
     }
 
@@ -159,6 +160,7 @@ public class Person {
      * Validate if a person is the Father of another person
      */
     public boolean isFather (Person father){
+        if(this.father == null) return false;
         return this.father.equals(father);
     }
 
