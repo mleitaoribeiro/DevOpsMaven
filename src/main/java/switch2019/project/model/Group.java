@@ -63,8 +63,8 @@ public class Group {
     /**
      * Remove one member from a group
      */
-    public void removeMember(Person member){
-
+    public void removeMember(Person oldMember){
+        members.remove(oldMember);
     }
 
     /**
