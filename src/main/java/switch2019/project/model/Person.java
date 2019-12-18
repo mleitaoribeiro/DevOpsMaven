@@ -11,7 +11,7 @@ public class Person {
     private HashSet<Person> siblingList;
     private Person mother;
     private Person father;
-    private Address adress;
+    private Address address;
     private Address birthPlace;
 
     /**
@@ -39,11 +39,10 @@ public class Person {
         this.name = name;
         this.birthDate = birthDate;
         siblingList = new HashSet<>();
-        this.adress = adress;
+        this.address = adress;
         this.mother = mother;
         this.father = father;
     }
-
 
     /**
      * Set Person Name
@@ -56,7 +55,7 @@ public class Person {
 
     /**
      * Get Person Name
-     * @return
+     * @return Person's name
      */
 
     public String getName () {
@@ -92,13 +91,14 @@ public class Person {
     }
 
     /**
-     *
+     * Getter function for the sibling's list
      * @return siblingList
      */
-
-    public HashSet<Person> getSiblingList() {
-        return siblingList;
+    public HashSet<Person> getSiblingList () {
+        HashSet <Person> siblingsClone = new HashSet<>(this.siblingList);
+        return siblingsClone;
     }
+
     /**
      * override of equals for Person Instance and @overrode hashcode
      */
