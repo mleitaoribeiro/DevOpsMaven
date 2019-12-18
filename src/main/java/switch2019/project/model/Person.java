@@ -116,8 +116,11 @@ public class Person {
      * Remove multiple Siblings
      * @param toRemove HashSet of siblings that are going to be removed.
      */
-
-    public void removeMultipleSibling(HashSet<Person> toRemove){}
+    public void removeMultipleSibling(HashSet<Person> toRemove) {
+        for (Person person : toRemove) {
+            removeSibling(person);
+        }
+    }
 
     /**
      * Getter function for the sibling's list
