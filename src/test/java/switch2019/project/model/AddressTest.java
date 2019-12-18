@@ -7,7 +7,7 @@ class AddressTest {
     /**
      * Test - Validate input for Street
      */
-    
+
 
     /**
      * Test - Validate input for City
