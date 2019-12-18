@@ -21,6 +21,7 @@ public class Group {
         this.description=description;
         startingDate = Calendar.getInstance();
         setStartingDate(year, month, day);
+        members = new HashSet<>();
     }
     
     public void setStartingDate(int year, int month, int day) {
