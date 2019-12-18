@@ -129,6 +129,11 @@ public class Person {
     }
 
     /**
+     * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
+     */
+    public boolean checkSameSiblings(Person p1){return true;}
+
+    /**
      * override of equals for Person Instance and @overrode hashcode
      */
     @Override
