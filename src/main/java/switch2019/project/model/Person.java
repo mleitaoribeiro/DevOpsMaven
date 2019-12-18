@@ -146,7 +146,7 @@ public class Person {
      */
     public boolean isMother (Person mother){
         if(this.mother == null) return false;
-        return this.mother.equals(mother);
+        else return this.mother.equals(mother);
     }
 
     /**
@@ -161,7 +161,7 @@ public class Person {
      */
     public boolean isFather (Person father){
         if(this.father == null) return false;
-        return this.father.equals(father);
+        else return this.father.equals(father);
     }
 
     /**

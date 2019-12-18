@@ -101,7 +101,25 @@ public class Group {
      * @return boolean
      */
     public boolean isFamily() {
-        return true;
+        Person dadPerson = null;
+        Person momPerson = null;
+        int siblings = 0;
+        for (Person person : members) {
+            for (Person person2 : members) {
+                if (!person.equals(person2)) {
+                    if (person.isFather(person2))
+                        dadPerson = person2;
+                    else if (person.isMother(person2))
+                        momPerson = person2;
+                }
+            }
+        } if (dadPerson == null || momPerson == null) return false;
+
+        for (Person person : members) {
+            if (!person.equals(dadPerson) && !person.equals(momPerson))
+                if(!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
+                else siblings++;
+        } return siblings == getMembers().size() - 2; // not counting the mom and dad
     }
 }
 
