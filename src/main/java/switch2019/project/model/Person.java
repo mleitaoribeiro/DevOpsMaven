@@ -54,6 +54,11 @@ public class Person {
     public void addSibling(Person newSibling) {
 
     }
+    /**
+     * Add Multiple Siblings
+     */
+    public void addMultipleSiblings(HashSet<Person>newSiblings) {
+    }
 
     /**
      *
