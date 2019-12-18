@@ -85,8 +85,8 @@ class GroupTest {
         newGroup.addMultipleMembers(finalGroup);
 
         //Assert
-        assertFalse(newGroup.getMembers().containsAll(finalGroup));
-        assertTrue(newGroup.getMembers().contains(person1));
+        assertFalse(newGroup.getMembers().size() ==2);
+        assertTrue(newGroup.getMembers().size()==1);
     }
 
     @Test
@@ -153,6 +153,49 @@ class GroupTest {
         assertFalse(oneGroup.getMembers().contains(oneMember));
     }
 
+    @Test
+    @DisplayName("Test if a member was removed from a Group - Remove all members")
+    void removeMemberFromGroup_1() {
+        //Arrange
+
+        //New Group
+        String description = "123";
+        //Starting date
+        int year = 2005;
+        int month = 4;
+        int day = 15;
+
+        //One Member
+        String oneMemberName = "João";
+        //One Member BirthDate
+        int oneMemberYear = 1993;
+        int oneMemberMonth = 9;
+        int oneMemberDay = 1;
+
+        //Other Member
+        String otherMemberName = "Elsa";
+        //Other Member BirthDate
+        int otherMemberYear = 1992;
+        int otherMemberMonth = 10;
+        int otherMemberDay = 9;
+
+        Group oneGroup = new Group(description, year, month, day);
+
+        Person oneMember = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay);
+        Person otherMember = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay);
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(oneMember, otherMember));
+
+        //Act
+        oneGroup.addMultipleMembers(putMembers);
+
+        oneGroup.removeMember(oneMember);
+        oneGroup.removeMember(otherMember);
+
+        //Assert
+        assertEquals(0, oneGroup.getMembers().size());
+    }
+
     /**
      * Test if multiple members were removed from a Group
      */
@@ -192,6 +235,7 @@ class GroupTest {
         //Assert
         assertTrue(g1.getMembers().size() == 1);
     }
+
     /**
      * Check if member was promoted to Admin
      */
