@@ -215,6 +215,46 @@ class PersonTest {
     /**
      * Test if multiple siblings were removed to siblings list
      */
+    @Test
+    @DisplayName("Validate if multiple siblings were removed from a siblings list - 1 remaining")
+    void validateMultipleSiblingRemoval (){
+        //Arrange
+        Person p1=new Person("John",1996,12,9);
+        Person p2=new Person("Anna",1993,2,23);
+        Person p3=new Person("Susan",1993,3,9);
+        Person p4=new Person("Frank",1996,12,5);
+        HashSet<Person>threeSiblings=new HashSet<>(Arrays.asList(p2,p3,p4));
+        HashSet<Person>twoSiblings= new HashSet<>(Arrays.asList(p3,p4));
+
+        //Act
+        p1.addMultipleSiblings(threeSiblings);
+        p1.removeMultipleSibling(twoSiblings);
+
+        //Assert
+        assertTrue(p1.getSiblingList().size()==1);
+    }
+
+    @Test
+    @DisplayName("Validate if multiple siblings were removed from a siblings list - multiple remaining")
+    void validateMultipleSiblingRemoval2 (){
+        //Arrange
+        Person p1=new Person("John",1996,12,9);
+        Person p2=new Person("Anna",1993,2,23);
+        Person p3=new Person("Susan",1993,3,9);
+        Person p4=new Person("Frank",1996,12,5);
+        Person p5=new Person("Jessica",2002,12,3);
+        Person p6= new Person("Jack", 1990,1,3);
+        HashSet<Person>totalSib=new HashSet<>(Arrays.asList(p2,p3,p4,p5,p6));
+        HashSet<Person>removeSib= new HashSet<>(Arrays.asList(p3,p4));
+
+        //Act
+        p1.addMultipleSiblings(totalSib);
+        p1.removeMultipleSibling(removeSib);
+
+        //Assert
+        assertTrue(p1.getSiblingList().size()==3);
+    }
+
 
     /**
      * Test if two people have the same siblings
