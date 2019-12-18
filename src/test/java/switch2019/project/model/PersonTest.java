@@ -80,11 +80,10 @@ class PersonTest {
         int month = 3;
         int day = 4;
 
-        //Act
         Person onePerson = new Person(name, year, month, day);
         Person samePerson = new Person(name, year, month, day);
 
-        //Assert
+        //Act & Assert
         assertEquals(onePerson, samePerson);
     }
 
@@ -107,11 +106,11 @@ class PersonTest {
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
 
-        //Act
+
         Person onePerson = new Person(name, year, month, day);
         Person samePerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
 
-        //Assert
+        //Act & Assert
         assertEquals(onePerson, samePerson);
     }
 
@@ -134,11 +133,10 @@ class PersonTest {
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
 
-        //Act
         Person onePerson = new Person(name, year, month, day);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
 
-        //Assert
+        //Act & Assert
         assertNotEquals(onePerson, otherPerson);
     }
 
@@ -306,7 +304,4 @@ class PersonTest {
         //Assert
         assertFalse(p1.checkSameSiblings(p2));
     }
-
-
-
 }
