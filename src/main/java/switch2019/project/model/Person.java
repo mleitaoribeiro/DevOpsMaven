@@ -129,7 +129,7 @@ public class Person {
     }
 
     /**
-     * override of equals for Person Instance and @overrode hashcode
+     * override of equals for Person Instance and @override hashcode
      */
     @Override
     public boolean equals(Object o) {
