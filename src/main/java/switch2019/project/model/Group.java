@@ -51,11 +51,20 @@ public class Group {
     }
 
     /**
+     * Add a new member to a group
+     */
+    public void addMember(Person member){
+
+    }
+
+    /**
      * Add multiple members to Group
      */
 
     public void addMultipleMembers(HashSet<Person>newMembers) {
-        //put code here
+        for (Person member : newMembers){
+            addMember(member);
+        }
     }
 }
 
