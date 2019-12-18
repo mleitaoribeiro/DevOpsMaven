@@ -19,6 +19,7 @@ public class Person {
 
     public Person(String name, int year, int month, int day) {
         this.name = name;
+        birthDate = Calendar.getInstance();
         setBirthDate(year, month, day);
         siblingList = new HashSet<>();
     }
@@ -26,4 +27,23 @@ public class Person {
     public void setBirthDate(int year, int month, int day) {
         birthDate.set(year, month, day);
     }
+
+    /**
+     * Set Person Name
+     * @param newName
+     */
+
+    public void setName (String newName) {
+        this.name = newName;
+    }
+
+    /**
+     * Get Person Name
+     * @return
+     */
+
+    public String getName () {
+        return this.name;
+    }
+
 }
