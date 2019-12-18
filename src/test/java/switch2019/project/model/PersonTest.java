@@ -62,7 +62,6 @@ class PersonTest {
      *Validate Input for Birthday Date
      */
 
-
     /**
      *Test if two individuals are the same
      */
