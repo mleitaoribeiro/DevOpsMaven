@@ -16,6 +16,65 @@ class GroupTest {
      * Test if member was added to Group
      */
 
+    /**
+     * Test if multiple members were added to Group
+     */
+
+    @Test
+    @DisplayName("Test if all members were added to Group => Sucess Case")
+    void addMultipleMembers_Sucess() {
+        //Arrange
+        Group newGroup = new Group("M'Nation", 2019,12, 18 );
+
+        Person person1 = new Person("Maria", 1994, 05, 01);
+        Person person2 = new Person("Mariana",1986,12,01);
+        Person person3 = new Person("Marisa",2000,8,27);
+
+        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person3,person2));
+
+        //Act
+        newGroup.addMultipleMembers(finalGroup);
+
+        //Assert
+        assertTrue(newGroup.getMembers().containsAll(finalGroup));
+    }
+
+    @Test
+    @DisplayName("Test if the same person is not added twice")
+    void addMultipleMembers__ErrorCase() {
+        //Arrange
+        Group newGroup = new Group("Maria's Group", 2019,12, 18 );
+
+        Person person1 = new Person("Maria", 1994, 05, 01);
+        Person person2 = new Person("Maria", 1994, 05, 01);
+
+        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person2));
+
+        //Act
+        newGroup.addMultipleMembers(finalGroup);
+
+        //Assert
+        assertFalse(newGroup.getMembers().containsAll(finalGroup));
+        assertTrue(newGroup.getMembers().contains(person1));
+    }
+
+    @Test
+    @DisplayName("Test if a null case is added to group")
+    void addMultipleMembers__ErrorCase2() {
+        //Arrange
+        Group newGroup = new Group("Grupo das M'Nation", 2019,12, 18 );
+
+        Person person1 = new Person("Maria", 1994, 05, 01);
+        Person person2 = null;
+
+        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person2));
+
+        //Act
+        newGroup.addMultipleMembers(finalGroup);
+
+        //Assert
+        assertTrue(newGroup.getMembers().contains(person1));
+    }
 
     /**
      * Test if member was removed from Group
