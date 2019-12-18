@@ -60,7 +60,7 @@ public class Group {
 
     }
     /**
-     * Remove a new member to a group
+     * Remove one member from a group
      */
     public void removeMember(Person member){
 

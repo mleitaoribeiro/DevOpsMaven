@@ -111,6 +111,47 @@ class GroupTest {
      * Test if member was removed from Group
      */
 
+    @Test
+    @DisplayName("Test if a member was removed from a Group")
+    void removeMemberFromGroup() {
+        //Arrange
+
+        //New Group
+        String description = "123";
+        //Starting date
+        int year = 2005;
+        int month = 4;
+        int day = 15;
+
+        //One Member
+        String oneMemberName = "João";
+        //One Member BirthDate
+        int oneMemberYear = 1993;
+        int oneMemberMonth = 9;
+        int oneMemberDay = 1;
+
+        //Other Member
+        String otherMemberName = "Elsa";
+        //Other Member BirthDate
+        int otherMemberYear = 1992;
+        int otherMemberMonth = 10;
+        int otherMemberDay = 9;
+
+        Group oneGroup = new Group(description, year, month, day);
+
+        Person oneMember = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay);
+        Person otherMember = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay);
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(oneMember, otherMember));
+
+        //Act
+        oneGroup.addMultipleMembers(putMembers);
+
+        oneGroup.removeMember(oneMember);
+
+        //Assert
+        assertFalse(oneGroup.getMembers().contains(oneMember));
+    }
 
     /**
      * Test if multiple members were removed from a Group
