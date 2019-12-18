@@ -18,9 +18,9 @@ class AddressTest {
 
     @Test
     @DisplayName("validate input for city - happy case")
-    void setCity() {
+    void setCity_happycase() {
         //Arrange
-        Address A = new Address ();
+        Address A = new Address ("Rua XPTO", "Gaia", "4430-444");
         String expected = "Porto";
         //Act
         A.setCity("Porto");
@@ -30,9 +30,9 @@ class AddressTest {
 
     @Test
     @DisplayName("validate input for city - null")
-    void setCity_2() {
+    void setCity_null_input() {
         //Arrange
-        Address A = new Address();
+        Address A = new Address("Rua XPTO", "Gaia", "4430-444");
         //Act
         A.setCity(null);
         //Assert
@@ -41,9 +41,9 @@ class AddressTest {
 
     @Test
     @DisplayName("validate input for city - different type")
-    void setCity_3() {
+    void setCity_different_type() {
         //Arrange
-        Address A = new Address ();
+        Address A = new Address ("Rua XPTO", "Gaia", "4430-444");
         String expected = null;
         //Act
         A.setCity("211");
@@ -54,9 +54,9 @@ class AddressTest {
 
     @Test
     @DisplayName("validate input for city - not case sensitive")
-    void setCity_4() {
+    void setCity_not_case_sensitive() {
         //Arrange
-        Address A = new Address ();
+        Address A = new Address ("Rua XPTO", "Gaia", "4430-444");
         String expected = "Porto";
         //Act
         A.setCity("PORTO");
