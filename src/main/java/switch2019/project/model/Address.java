@@ -1,6 +1,8 @@
 package switch2019.project.model;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Address {
 
@@ -46,7 +48,32 @@ public class Address {
     }
 
 
-    public void setZipCode(String Zip){/* code here */ }
+    public void setZipCode(String zip){
+        // Adds '-' in case user forget to add it.
+        if (zip.length() == 7 ) {
+            zip = addHyphenToZipCode(zip);
+            }
+
+        //Validates if the zip code is in the correct format (4620-580)
+       String regex = "^[0-9]{4}(?:-[0-9]{3})?$";
+       Pattern pattern = Pattern.compile(regex);
+       Matcher matcher = pattern.matcher(zip);
+       if (matcher.matches()) {
+           this.zipCode = zip;
+       }
+       else {
+           this.zipCode = null;
+       }
+    }
+
+    //auxiliary method to Add '-' in case user forget to add it.
+    public String addHyphenToZipCode (String zip) {
+        if (zip.length() == 7 ) {
+            return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
+        }
+        return zip;
+    }
+
 
     public String getZipCode(){
         return zipCode;
