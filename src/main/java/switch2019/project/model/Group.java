@@ -57,7 +57,8 @@ public class Group {
      * Add a new member to a group
      */
     public void addMember(Person member){
-
+        if (member != null)
+        members.add(member);
     }
     /**
      * Remove one member from a group
