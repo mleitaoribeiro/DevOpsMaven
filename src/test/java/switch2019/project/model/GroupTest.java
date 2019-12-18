@@ -17,7 +17,7 @@ class GroupTest {
      */
 
     @Test
-    @DisplayName("Validate is a member was added to a group")
+    @DisplayName("Validate if a member was added to a group")
     void addMember() {
 
         //Arrange
@@ -165,6 +165,112 @@ class GroupTest {
      * Test if a Group is a family
      */
 
+    @Test
+    @DisplayName("Validate if a group is a family - All Family")
+    void ifGroupIsFamily_AllFamily() {
+
+        //Arrange
+        Person oscar = new Person("Oscar", 1990, 10, 10);
+        Person marta = new Person("Marta", 1990, 10, 10);
+        Person joao = new Person("Joao", 1990, 10, 10);
+        Person manuela = new Person("Manuela", 1990, 10, 10);
+        Person carlos = new Person("Carlos", 1990, 10, 10);
+        HashSet<Person> famList = new HashSet<>(Arrays.asList(oscar, marta, joao, manuela, carlos));
+
+        oscar.setMother(manuela);
+        oscar.setFather(carlos);
+        marta.setMother(manuela);
+        marta.setFather(carlos);
+        joao.setMother(manuela);
+        joao.setFather(carlos);
+
+        Group family = new Group("Family", 2019, 10, 10);
+        family.addMultipleMembers(famList);
+
+        // Act
+        family.addMultipleMembers(famList);
+
+        // Assert
+        assertTrue(family.isFamily());
+    }
+
+    @Test
+    @DisplayName("Validate if a group is a family - All except one")
+    void ifGroupIsFamily_AllFamilyExceptOne() {
+
+        //Arrange
+        Person oscar = new Person("Oscar", 1990, 10, 10);
+        Person marta = new Person("Marta", 1990, 10, 10);
+        Person joao = new Person("Joao", 1990, 10, 10);
+        Person manuela = new Person("Manuela", 1990, 10, 10);
+        Person carlos = new Person("Carlos", 1990, 10, 10);
+        Person random = new Person("Diana", 1990, 10, 10);
+        HashSet<Person> famList = new HashSet<>(Arrays.asList(oscar, marta, joao, manuela, carlos, random));
+
+        oscar.setMother(manuela);
+        oscar.setFather(carlos);
+        marta.setMother(manuela);
+        marta.setFather(carlos);
+        joao.setMother(manuela);
+        joao.setFather(carlos);
+
+        Group family = new Group("Family", 2019, 10, 10);
+        family.addMultipleMembers(famList);
+
+        // Act
+        family.addMultipleMembers(famList);
+
+        // Assert
+        assertFalse(family.isFamily());
+    }
+
+    @Test
+    @DisplayName("Validate if a group is a family - No one is family")
+    void ifGroupIsFamily_NoneFamily() {
+
+        //Arrange
+        Person oscar = new Person("Oscar", 1990, 10, 10);
+        Person marta = new Person("Marta", 1990, 10, 10);
+        Person joao = new Person("Joao", 1990, 10, 10);
+        Person manuela = new Person("Manuela", 1990, 10, 10);
+        Person carlos = new Person("Carlos", 1990, 10, 10);
+        HashSet<Person> famList = new HashSet<>(Arrays.asList(oscar, marta, joao, manuela, carlos));
+
+        Group family = new Group("Family", 2019, 10, 10);
+        family.addMultipleMembers(famList);
+
+        // Act
+        family.addMultipleMembers(famList);
+
+        // Assert
+        assertFalse(family.isFamily());
+    }
+
+    @Test
+    @DisplayName("Validate if a group is a family - No Mother")
+    void ifGroupIsFamily_FamilyButNoMother() {
+
+        //Arrange
+        Person oscar = new Person("Oscar", 1990, 10, 10);
+        Person marta = new Person("Marta", 1990, 10, 10);
+        Person joao = new Person("Joao", 1990, 10, 10);
+        Person manuela = new Person("Manuela", 1990, 10, 10);
+        Person carlos = new Person("Carlos", 1990, 10, 10);
+        HashSet<Person> famList = new HashSet<>(Arrays.asList(oscar, marta, joao, manuela, carlos));
+
+        oscar.setFather(carlos);
+        marta.setFather(carlos);
+        joao.setFather(carlos);
+
+        Group family = new Group("Family", 2019, 10, 10);
+        family.addMultipleMembers(famList);
+
+        // Act
+        family.addMultipleMembers(famList);
+
+        // Assert
+        assertFalse(family.isFamily());
+    }
 
     /**
      * Test Equals method for the Group class

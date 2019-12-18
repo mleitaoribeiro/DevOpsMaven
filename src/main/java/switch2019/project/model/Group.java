@@ -91,6 +91,14 @@ public class Group {
             removeMember(member);
         }
     }
+
+    /**
+     * Validate if a group is a family
+     * @return boolean
+     */
+    public boolean isFamily() {
+        return true;
+    }
 }
 
 
