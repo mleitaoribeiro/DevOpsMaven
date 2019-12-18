@@ -57,7 +57,9 @@ public class Person {
 
     /**
      * Add Multiple Siblings
+     * @param newSiblings
      */
+
     public void addMultipleSiblings(HashSet<Person>newSiblings) {
         for(Person person : newSiblings) {
             addSibling(person);
