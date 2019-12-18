@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,6 +12,21 @@ class GroupTest {
     /**
      * Test if member was added to Group
      */
+
+    @Test
+    @DisplayName("Validate is a member was added to a group")
+    void addMember() {
+
+        //Arrange
+        Person marta = new Person("Marta", 2000, 10, 10);
+        Group A = new Group("OsMaisFixes", 2019, 10, 10);
+
+        //Act
+        A.addMember(marta);
+
+        //Assert
+        assertTrue(A.members.contains(marta));
+    }
 
 
     /**

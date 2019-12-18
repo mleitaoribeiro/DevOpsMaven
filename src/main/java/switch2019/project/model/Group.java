@@ -51,6 +51,14 @@ public class Group {
     }
 
     /**
+     * Add a member to Group
+     */
+
+    public void addMember(Person member) {
+        //put code here
+    }
+
+    /**
      * Add multiple members to Group
      */
 
