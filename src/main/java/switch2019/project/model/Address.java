@@ -6,6 +6,12 @@ public class Address {
     private String city;
     private String zipCode;
 
+    public Address (String street, String city, String zipCode){
+        this.street=street;
+        this.city=city;
+        this.zipCode=zipCode;
+    }
+
     public String getCity() {
         //ecrever código
         return "";
