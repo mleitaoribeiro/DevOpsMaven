@@ -36,9 +36,9 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(street, address.street) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(zipCode, address.zipCode);
+        return street.equalsIgnoreCase(address.street) &&
+                city.equalsIgnoreCase(address.city) &&
+                zipCode.equalsIgnoreCase(address.zipCode);
     }
 
     @Override
