@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
@@ -7,43 +8,62 @@ import java.util.Objects;
 public class Person {
     // Private instance variables
     private String name;
-    private String birthDate;
+    private LocalDate birthDate;
     private HashSet<Person> siblingList;
     private Person mother;
     private Person father;
-    private Address adress;
+    private Address address;
     private Address birthPlace;
 
     /**
      * Default Person constructor
      * @param name
-     * @param birthDate
+     * @param birthDay
+     * @param birthMonth
+     * @param birthYear
      */
 
-    public Person(String name, String birthDate) {
+    public Person(String name, int birthYear, int birthMonth, int birthDay) {
         this.name = name;
-        this.birthDate = birthDate;
+        birthDate = birthDate.of(birthYear, birthMonth,birthDay);
+        setBirthDate(birthYear, birthMonth,birthDay);
         siblingList = new HashSet<>();
     }
 
     /**
      * Second Person constructor
      * @param name
-     * @param birthDate
+     * @param birthdayDay
+     * @param birthdayMonth
+     * @param birthdayYear
      * @param adress
      * @param mother
      * @param father
      */
 
-    public Person(String name, String birthDate, Address adress, Person mother, Person father) {
+    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address adress, Person mother, Person father) {
         this.name = name;
-        this.birthDate = birthDate;
+        birthDate = birthDate.of(birthdayYear, birthdayMonth,birthdayDay);
+        setBirthDate(birthdayYear, birthdayMonth,birthdayDay);
         siblingList = new HashSet<>();
-        this.adress = adress;
+        this.address = adress;
         this.mother = mother;
         this.father = father;
     }
+    /**
+     * Set Person Birth Date
+     * @param newYear
+     * @param newMonth
+     * @param newDay
+     */
 
+    public void setBirthDate(int newYear, int newMonth, int newDay) {
+        birthDate = birthDate.of(newYear, newMonth, newDay);
+    }
+    //Getter for Person Birth Date
+    public LocalDate getBirthDate() {
+        return this.birthDate;
+    }
 
     /**
      * Set Person Name
@@ -56,7 +76,7 @@ public class Person {
 
     /**
      * Get Person Name
-     * @return
+     * @return Person's name
      */
 
     public String getName () {
@@ -100,13 +120,14 @@ public class Person {
     public void removeMultipleSibling(HashSet<Person> toRemove){}
 
     /**
-     *
+     * Getter function for the sibling's list
      * @return siblingList
      */
-
-    public HashSet<Person> getSiblingList() {
-        return siblingList;
+    public HashSet<Person> getSiblingList () {
+        HashSet <Person> siblingsClone = new HashSet<>(this.siblingList);
+        return siblingsClone;
     }
+
     /**
      * override of equals for Person Instance and @overrode hashcode
      */
