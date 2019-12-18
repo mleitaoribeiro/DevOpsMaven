@@ -134,12 +134,11 @@ class PersonTest {
 
         //Act
         Person onePerson = new Person(name, year, month, day);
-        Person samePerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
 
         //Assert
-        assertEquals(onePerson, samePerson);
+        assertNotEquals(onePerson, otherPerson);
     }
-
 
     /**
      *Validate if a sibling was added to siblings list
