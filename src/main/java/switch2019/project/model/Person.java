@@ -53,7 +53,8 @@ public class Person {
      */
 
     public void addSibling(Person newSibling) {
-
+        siblingList.add(newSibling);
+        newSibling.siblingList.add(this);
     }
 
     /**
@@ -65,6 +66,13 @@ public class Person {
         for(Person person : newSiblings) {
             addSibling(person);
         }
+    }
+
+    /**
+     * Remove a Sibling
+     */
+    public void removeSibling (Person sibling){
+
     }
 
     /**
