@@ -53,12 +53,26 @@ public class Person {
      */
 
     public void addSibling(Person newSibling) {
-
+        siblingList.add(newSibling);
+        newSibling.siblingList.add(this);
     }
+
     /**
      * Add Multiple Siblings
+     * @param newSiblings
      */
+
     public void addMultipleSiblings(HashSet<Person>newSiblings) {
+        for(Person person : newSiblings) {
+            addSibling(person);
+        }
+    }
+
+    /**
+     * Remove a Sibling
+     */
+    public void removeSibling (Person sibling){
+
     }
 
     /**
