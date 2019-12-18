@@ -112,15 +112,19 @@ public class Person {
      * Remove a Sibling
      */
     public void removeSibling (Person sibling){
-
+        this.siblingList.remove(sibling);
+        sibling.siblingList.remove(this);
     }
 
     /**
      * Remove multiple Siblings
      * @param toRemove HashSet of siblings that are going to be removed.
      */
-
-    public void removeMultipleSibling(HashSet<Person> toRemove){}
+    public void removeMultipleSibling(HashSet<Person> toRemove) {
+        for (Person person : toRemove) {
+            removeSibling(person);
+        }
+    }
 
     /**
      * Getter function for the sibling's list
@@ -132,7 +136,7 @@ public class Person {
     }
 
     /**
-     * override of equals for Person Instance and @overrode hashcode
+     * override of equals for Person Instance and @override hashcode
      */
     @Override
     public boolean equals(Object o) {
