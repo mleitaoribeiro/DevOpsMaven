@@ -184,12 +184,15 @@ class PersonTest {
     @Test
     @DisplayName("Validate if a sibling was removed from to siblings list")
     void validateRemoveSibling (){
+        //Arrange
         Person p1=new Person("Maria",1996,12,9);
         Person p2=new Person("António",1993,2,23);
 
+        //Act
         p1.addSibling(p2);
         p1.removeSibling(p2);
 
+        //Assert
         assertTrue(p1.getSiblingList().size()==0);
     }
 
