@@ -56,6 +56,12 @@ public class Group {
     public void addMember(Person member){
 
     }
+    /**
+     * Remove a new member to a group
+     */
+    public void removeMember(Person member){
+
+    }
 
     /**
      * Getter function for the group members
@@ -67,12 +73,22 @@ public class Group {
     }
 
     /**
+     * @param: newMembers;
      * Add multiple members to Group
      */
-
     public void addMultipleMembers(HashSet<Person>newMembers) {
         for (Person member : newMembers){
             addMember(member);
+        }
+    }
+
+    /**
+     * Remove multiple Siblings
+     * @param toRemove HashSet of members that are going to be removed.
+     */
+    public void removeMultipleMembers(HashSet<Person> toRemove) {
+        for (Person member : toRemove) {
+            removeMember(member);
         }
     }
 }
