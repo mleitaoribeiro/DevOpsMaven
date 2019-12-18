@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="switch2019_training" />
         <module name="switch2019_project" />
+        <module name="switch2019_g2" />
         <module name="training" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="switch2019_g2" options="-Xlint:all" />
       <module name="switch2019_project" options="-Xlint:all" />
       <module name="switch2019_training" options="-Xlint:all" />
       <module name="training" options="-Xlint:all" />
