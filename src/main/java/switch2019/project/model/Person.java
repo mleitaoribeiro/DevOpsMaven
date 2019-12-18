@@ -88,7 +88,8 @@ public class Person {
      * Remove a Sibling
      */
     public void removeSibling (Person sibling){
-
+        this.siblingList.remove(sibling);
+        sibling.siblingList.remove(this);
     }
 
     /**
