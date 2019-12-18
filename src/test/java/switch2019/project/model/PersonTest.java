@@ -274,7 +274,7 @@ class PersonTest {
         Person s4= new Person("Jack", 1990,1,3);
         //siblingList arrangement
         HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(p2,s1,s2,s3,s4));
-        HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(s1,s2,s3,s4));
+        HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(p1,s1,s2,s3,s4));
 
         //Act
         p1.addMultipleSiblings(p1siblings);
