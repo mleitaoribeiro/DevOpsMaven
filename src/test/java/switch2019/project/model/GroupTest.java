@@ -87,7 +87,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if multiple members were removed from a Group - remove all ")
-    void removeMultipleMembers(){
+    void removeMultipleMembersFromAGroup(){
         //Arrange
         Group g1=new Group("G1",2005,2,12);
         Person p1=new Person("Pedro",1999,12,9);
@@ -99,7 +99,7 @@ class GroupTest {
         g1.removeMultipleMembers(putMembers);
 
         //Assert
-        assertTrue(g1.getMembersList().size()==0);
+        assertTrue(g1.getMembers().size()==0);
     }
 
     @Test
@@ -111,13 +111,14 @@ class GroupTest {
         Person p2=new Person("Gabriel",1996,3,6);
         Person p3=new Person("Laurinda",1998,3,14);
         HashSet<Person>putMembers=new HashSet<>(Arrays.asList(p1,p2,p3));
+        HashSet<Person>removeSome=new HashSet<>(Arrays.asList(p2,p3));
 
         //Act
         g1.addMultipleMembers(putMembers);
-        g1.removeMultipleMembers(p2,p3);
+        g1.removeMultipleMembers(removeSome);
 
         //Assert
-        assertTrue(g1.getMembersList().size()==1);
+        assertTrue(g1.getMembers().size()==1);
     /**
      * Check if member was promoted to Admin
      */
