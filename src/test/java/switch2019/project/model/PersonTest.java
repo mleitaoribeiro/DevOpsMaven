@@ -4,6 +4,8 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -60,7 +62,69 @@ class PersonTest {
 
     /**
      *Validate Input for Birthday Date
-     */
+     **/
+    @Test
+    @DisplayName("Test for validating birth date input => sucess case")
+    public void validateBirthDate() {
+        //Arrange
+        Person A = new Person(null, 1996, 3, 4);
+
+        //Act
+        A.setBirthDate(1995,4, 4);
+
+        LocalDate expected = LocalDate.parse("1995-04-04");
+
+        //Assert
+        assertEquals(expected, A.getBirthDate());
+    }
+    @Test
+    @DisplayName("Test for validating birth date input => error case ")
+    public void validateBirthDate_invalideMonth() {
+        //Arrange
+        Person A = new Person(null, 1995, 04, 15);
+
+        //Act
+        try {
+            A.setBirthDate(1995, 13, 15);
+            fail();
+        }
+        //Assert
+        catch (DateTimeException ex) {
+            assertEquals("Invalid value for MonthOfYear (valid values 1 - 12): 13",ex.getMessage());
+        }
+    }
+    @Test
+    @DisplayName("Test for validating birth date input => error case ")
+    public void validateBirthDate_birthDateAfterCurrentDate() {
+        //Arrange
+        Person A = new Person(null, 1995, 04, 15);
+
+        //Act
+        try {
+            A.setBirthDate(2021, 12, 15);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException ex) {
+            assertEquals("Birth Date Not Supported.",ex.getMessage());
+        }
+    }
+    @Test
+    @DisplayName("Test for validating birth date input => error case")
+    public void validateBirthDate_invalideDay() {
+        //Arrange
+        Person A = new Person(null, 1995, 04, 15);
+
+        //Act
+        try {
+            A.setBirthDate(2000, 12, 50);
+            fail();
+        }
+        //Assert
+        catch (DateTimeException ex) {
+            assertEquals("Invalid value for DayOfMonth (valid values 1 - 28/31): 50",ex.getMessage());
+        }
+    }
 
     /**
      *Test if two individuals are the same
@@ -165,10 +229,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person p1 = new Person("Teresa", "1987-01-16");
-        Person p2 = new Person("Paulo", "1994-04-27");
-        Person p3 = new Person("Paulo","1985-05-27");
-        Person p4 = new Person("Luis","2000-8-15");
+        Person p1 = new Person("Teresa", 1987, 01, 16);
+        Person p2 = new Person("Paulo", 1994, 04, 27);
+        Person p3 = new Person("Paulo",1985,05,27);
+        Person p4 = new Person("Luis",2000,8,15);
         HashSet<Person>newSiblings= new HashSet<>(Arrays.asList(p2,p4,p3));
         //Act
         p1.addMultipleSiblings(newSiblings);

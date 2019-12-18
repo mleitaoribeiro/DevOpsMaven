@@ -58,8 +58,12 @@ public class Person {
      */
 
     public void setBirthDate(int newYear, int newMonth, int newDay) {
+        if(birthDate.of(newYear, newMonth, newDay).isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Birth Date Not Supported.");
+        }
         birthDate = birthDate.of(newYear, newMonth, newDay);
     }
+
     //Getter for Person Birth Date
     public LocalDate getBirthDate() {
         return this.birthDate;
