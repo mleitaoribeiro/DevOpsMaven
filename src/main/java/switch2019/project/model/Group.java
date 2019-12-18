@@ -27,6 +27,9 @@ public class Group {
     }
     
     public void setStartingDate(int startingDateYear, int startingDateMonth, int startingDateDay) {
+        if(startingDate.of(startingDateYear, startingDateMonth, startingDateDay).isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Start Date Not Supported.");
+        }
         startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
     }
 
@@ -54,10 +57,11 @@ public class Group {
      * Add a new member to a group
      */
     public void addMember(Person member){
-
+        if (member != null)
+        members.add(member);
     }
     /**
-     * Remove a new member to a group
+     * Remove one member from a group
      */
     public void removeMember(Person member){
 

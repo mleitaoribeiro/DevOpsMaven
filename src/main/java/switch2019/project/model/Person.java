@@ -165,7 +165,16 @@ public class Person {
     /**
      * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
      */
-    public boolean checkSameSiblings(Person p1){return true;}
+    public boolean checkSameSiblings(Person p1){
+        HashSet<Person> list1 = this.getSiblingList();
+        HashSet<Person> list2 = p1.getSiblingList();
+        list1.remove(p1);
+        list2.remove(this);
+        if (list1.equals(list2)){
+            return true;
+        }
+        else return false;
+    }
 
     /**
      * override of equals for Person Instance and @override hashcode
