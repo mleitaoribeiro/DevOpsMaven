@@ -27,4 +27,23 @@ public class Person {
     public void setBirthDate(int year, int month, int day) {
         birthDate.set(year, month, day);
     }
+
+    /**
+     * Set Person Name
+     * @param newName
+     */
+
+    public void setName (String newName) {
+        this.name = newName;
+    }
+
+    /**
+     * Get Person Name
+     * @return
+     */
+
+    public String getName () {
+        return this.name;
+    }
+
 }
