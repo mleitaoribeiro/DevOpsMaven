@@ -13,17 +13,21 @@ public class Group {
     /**
      * Default Person constructor
      * @param description
-     * @param startingDate
+     * @param startingDateYear
+     * @param startingDateMonth
+     * @param startingDateDay
      */
 
-    public Group(String description,String startingDate){
+    public Group(String description, int startingDateYear, int startingDateMonth, int startingDateDay){
         this.description=description;
-        this.startingDate=startingDate;
+        startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
+        setStartingDate(startingDateYear,startingDateMonth, startingDateDay);
+
         members = new HashSet<>();
     }
     
-    public void setStartingDate(String startingDate) {
-        this.startingDate=startingDate;
+    public void setStartingDate(int startingDateYear, int startingDateMonth, int startingDateDay) {
+        startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
     }
 
     /**
