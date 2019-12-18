@@ -8,4 +8,10 @@ public class Person {
     private String name;
     private Calendar birthDate;
     private HashSet<Person> siblingList;
+
+    public Person(String name, Calendar birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+        siblingList = new HashSet<>();
+    }
 }
