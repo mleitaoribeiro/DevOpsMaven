@@ -85,8 +85,8 @@ class GroupTest {
         newGroup.addMultipleMembers(finalGroup);
 
         //Assert
-        assertFalse(newGroup.getMembers().containsAll(finalGroup));
-        assertTrue(newGroup.getMembers().contains(person1));
+        assertFalse(newGroup.getMembers().size() ==2);
+        assertTrue(newGroup.getMembers().size()==1);
     }
 
     @Test
@@ -192,6 +192,7 @@ class GroupTest {
         //Assert
         assertTrue(g1.getMembers().size() == 1);
     }
+
     /**
      * Check if member was promoted to Admin
      */
