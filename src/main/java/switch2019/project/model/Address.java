@@ -19,7 +19,7 @@ public class Address {
     }
 
     public void setCity(String city) {
-        if (isNumeric(city) || city.equals(null)) {
+        if (isNumeric(city) || city == null) {
             this.city = null;
         } else {
             this.city = city;
@@ -27,11 +27,14 @@ public class Address {
     }
     //Auxiliar method to check if String is numeric
     public static boolean isNumeric(String city) {
-        for (char c : city.toCharArray()) {
-            if (!Character.isDigit(c))
-                return false;
+        if (!(city == null)) {
+            for (char c : city.toCharArray()) {
+                if (!Character.isDigit(c))
+                    return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     public String getStreet() {

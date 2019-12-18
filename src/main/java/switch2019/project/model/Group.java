@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
@@ -45,4 +46,7 @@ public class Group {
     public int hashCode() {
         return Objects.hash(description, startingDate, members);
     }
+
 }
+
+
