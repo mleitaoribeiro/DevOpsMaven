@@ -11,6 +11,63 @@ class AddressTest {
      * Test - Validate input for Street
      */
 
+    @Test
+    @DisplayName("validate input for street - happy case")
+    void setStreet_happyCase() {
+        //Arrange
+        Address A = new Address("Rua das Flores", null, null);
+
+        //Act
+        A.setStreet("Rua das Flores");
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals("Rua das Flores", actual);
+
+    }
+    @Test
+    @DisplayName("validate input for street - nulll")
+    void setStreet_null() {
+        //Arrange
+        Address A= new Address(null,null,null);
+
+        //Act
+        A.setStreet(null);
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals(null, actual);
+
+    }
+
+    @Test
+    @DisplayName("validate input for street - not sensitive Case")
+    void setStreet_SensitiveCase() {
+        //Arrange
+        Address A= new Address("RUA DAS FLORES",null,null);
+
+        //Act
+        A.setStreet("Rua das Flores");
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals("Rua das Flores", actual);
+
+    }
+
+    @Test
+    @DisplayName("validate input for street - ChangeStreet")
+    void setStreet_ChangeStreet() {
+        //Arrange
+        Address A= new Address("Rua das Flores",null,null);
+
+        //Act
+        A.setStreet("Rua das Camelias");
+        String actual = A.getStreet();
+
+        //Assert
+        assertEquals("Rua das Camelias", actual);
+    }
 
     /**
      * Test - Validate input for City
@@ -65,14 +122,116 @@ class AddressTest {
     }
 
 
-
     /**
      * Test - Validate input for ZIP-CODE
      */
+    @Test
+    @DisplayName("validate input for ZIP-CODE - with(-) ")
+    public void setZIP_standard() {
+        //Arrange
+        Address a1 = new Address(null,null,null);
+        String zip = "4430-094";
+
+        //Act
+        a1.setZipCode("4430-094");
+
+        //Assert
+        assertEquals(zip, a1.getZipCode());
+    }
+
+    @Test
+    @DisplayName("validate input for ZIP-CODE - without (-) ")
+    public void setZIP_notStandard() {
+        //Arrange
+        Address a1 = new Address(null,null,null);
+        String zip = "4430-094";
+
+        //Act
+        a1.setZipCode("4430094");
+
+        //Assert
+        assertEquals(zip, a1.getZipCode());
+    }
+
+    @Test
+    @DisplayName("validate input for ZIP-CODE - validate Length")
+    public void setZIP_lengthstandard() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "4430-094";
+
+        //Act
+        a1.setZipCode(zip);
+        int result = zip.length();
+
+        //Assert
+        assertEquals(8, result);
+    }
+
+    @Test
+    @DisplayName("validate input for ZIP-CODE - validate Length with no (-)")
+    public void setZIP_length() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "4430094";
+
+        //Act
+        a1.setZipCode(zip);
+        int result = zip.length();
+
+        //Assert
+        assertEquals(8, result);
+    }
+
 
 
     /**
      * Test Equals method for the Adress class
      */
+
+    @Test
+    @DisplayName("Testing if two Addresses are equal - happy case")
+    void sameAddressHappyCase () {
+        //Arrange
+        Address a1 = new Address("Rua das Flores, 36", "Porto", "4050-262");
+        Address a2 = new Address("Rua das Flores, 36", "Porto", "4050-262");
+
+        //Act and Assert
+        assertTrue(a1.equals(a2));
+    }
+
+    @Test
+    @DisplayName("Testing if two Addresses are equal - different addresses")
+    void sameAddressDifferentAddresses () {
+        //Arrange
+        Address a1 = new Address("Rua das Flores, 36", "Porto", "4050-262");
+        Address a2 = new Address("Rua de S.Tomé, 133", "Porto", "44200-485");
+
+        //Act and Assert
+        assertFalse(a1.equals(a2));
+    }
+
+    @Test
+    @DisplayName("Testing if two Addresses are equal - one address with null parameters")
+    void sameAddressNullParameterAddress () {
+        //Arrange
+        Address a1 = new Address("Rua das Flores, 36", null, null);
+        Address a2 = new Address("Rua das Flores, 36", "Porto", "4050-262");
+
+        //Act and Assert
+        assertFalse(a1.equals(a2));
+    }
+
+    @Test
+    @DisplayName("Testing if two Addresses are equal - lowCase and upperCase")
+    void sameAddressUpperCaseLowerCase() {
+        //Arrange
+        Address a1 = new Address("rua das Flores, 36", "porto", "4050-262");
+        Address a2 = new Address("Rua das flores, 36", "PortO", "4050-262");
+
+        //Act and Assert
+        assertTrue(a1.equals(a2));
+    }
+
 
 }

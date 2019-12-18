@@ -196,6 +196,23 @@ class PersonTest {
         assertTrue(p1.getSiblingList().size()==0);
     }
 
+    @Test
+    @DisplayName("Validate if a sibling was removed from to siblings list - more than one sibling")
+    void validateRemoveSiblingMoreThanOne (){
+        //Arrange
+        Person p1=new Person("Maria",1996,12,9);
+        Person p2=new Person("António",1993,2,23);
+        Person p3=new Person("Manuel",1993,3,9);
+        HashSet<Person>threeSiblings=new HashSet<>(Arrays.asList(p2,p3));
+
+        //Act
+        p1.addMultipleSiblings(threeSiblings);
+        p1.removeSibling(p2);
+
+        //Assert
+        assertTrue(p1.getSiblingList().size()==1);
+    }
+
     /**
      * Test if multiple siblings were removed to siblings list
      */

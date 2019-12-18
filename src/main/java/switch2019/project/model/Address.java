@@ -42,6 +42,14 @@ public class Address {
         this.street = street;
     }
 
+
+    public void setZipCode(String Zip){/* code here */ }
+
+    public String getZipCode(){
+        return zipCode;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
