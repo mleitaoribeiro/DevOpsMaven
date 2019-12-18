@@ -49,20 +49,11 @@ class PersonTest {
      */
 
     /**
-     * Validate if a sibling was added to siblings list
+     * Validate if a sibling was removed from to siblings list
      */
 
     /**
      * Test if two people have the same siblings
      */
-
-    @Test
-    @DisplayName("Test to check if a sibling was removed from a Person siblingList")
-    public void checkSiblingRemoval() {
-        //Arrange:
-        Person p1 = new Person("John", );
-        //Act:
-        //Assert:
-    }
 
 }
