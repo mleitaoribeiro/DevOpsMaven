@@ -50,6 +50,13 @@ public class Group {
         return Objects.hash(description, startingDate, members);
     }
 
+    /**
+     * Add multiple members to Group
+     */
+
+    public void addMultipleMembers(HashSet<Person>newMembers) {
+        //put code here
+    }
 }
 
 

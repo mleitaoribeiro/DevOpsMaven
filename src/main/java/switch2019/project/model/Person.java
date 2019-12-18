@@ -57,8 +57,12 @@ public class Person {
      */
 
     public void setBirthDate(int newYear, int newMonth, int newDay) {
+        if(birthDate.of(newYear, newMonth, newDay).isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Birth Date Not Supported.");
+        }
         birthDate = birthDate.of(newYear, newMonth, newDay);
     }
+
     //Getter for Person Birth Date
     public LocalDate getBirthDate() {
         return this.birthDate;
@@ -159,7 +163,12 @@ public class Person {
     }
 
     /**
-     * override of equals for Person Instance and @overrode hashcode
+     * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
+     */
+    public boolean checkSameSiblings(Person p1){return true;}
+
+    /**
+     * override of equals for Person Instance and @override hashcode
      */
     @Override
     public boolean equals(Object o) {

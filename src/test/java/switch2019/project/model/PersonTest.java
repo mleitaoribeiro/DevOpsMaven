@@ -4,6 +4,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -166,8 +167,8 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person p1 = new Person("Teresa",1987,01,16);
-        Person p2 = new Person("Paulo", 1994,04,27);
+        Person p1 = new Person("Teresa", 1987, 01, 16);
+        Person p2 = new Person("Paulo", 1994, 04, 27);
         Person p3 = new Person("Paulo",1985,05,27);
         Person p4 = new Person("Luis",2000,8,15);
         HashSet<Person>newSiblings= new HashSet<>(Arrays.asList(p2,p4,p3));
@@ -260,6 +261,51 @@ class PersonTest {
     /**
      * Test if two people have the same siblings
      */
+    @Test
+    @DisplayName("Validate if two people have the same siblings")
+    void compareSameSiblings(){
+        //Arrange
+        Person p1=new Person("John",1996,12,9);
+        Person p2=new Person("Anna",1993,2,23);
+        //siblings:
+        Person s1=new Person("Susan",1993,3,9);
+        Person s2=new Person("Frank",1996,12,5);
+        Person s3=new Person("Jessica",2002,12,3);
+        Person s4= new Person("Jack", 1990,1,3);
+        //siblingList arrangement
+        HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(p2,s1,s2,s3,s4));
+        HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(s1,s2,s3,s4));
+
+        //Act
+        p1.addMultipleSiblings(p1siblings);
+        p2.addMultipleSiblings(p2siblings);
+
+        //Assert
+        assertTrue(p1.checkSameSiblings(p2));
+    }
+
+    @Test
+    @DisplayName("Validate if two people have the same siblings - False")
+    void compareSameSiblings2(){
+        //Arrange
+        Person p1=new Person("John",1996,12,9);
+        Person p2=new Person("Anna",1993,2,23);
+        //siblings:
+        Person s1=new Person("Susan",1993,3,9);
+        Person s2=new Person("Frank",1996,12,5);
+        Person s3=new Person("Jessica",2002,12,3);
+        Person s4= new Person("Jack", 1990,1,3);
+        //siblingList arrangement
+        HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(s1,s2));
+        HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(s3,s4));
+
+        //Act
+        p1.addMultipleSiblings(p1siblings);
+        p2.addMultipleSiblings(p2siblings);
+
+        //Assert
+        assertFalse(p1.checkSameSiblings(p2));
+    }
 
 
 
