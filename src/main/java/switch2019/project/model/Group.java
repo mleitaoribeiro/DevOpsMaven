@@ -1,11 +1,12 @@
 package switch2019.project.model;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 
 public class Group {
     String description;
-    String startingDate;
+    LocalDate startingDate;
     HashSet<Person> members; 
 
 
