@@ -9,9 +9,21 @@ public class Person {
     private Calendar birthDate;
     private HashSet<Person> siblingList;
 
-    public Person(String name, Calendar birthDate) {
+    /**
+     * Default Person constructor
+     * @param name
+     * @param year
+     * @param month
+     * @param day
+     */
+
+    public Person(String name, int year, int month, int day) {
         this.name = name;
-        this.birthDate = birthDate;
+        setBirthDate(year, month, day);
         siblingList = new HashSet<>();
+    }
+
+    public void setBirthDate(int year, int month, int day) {
+        birthDate.set(year, month, day);
     }
 }
