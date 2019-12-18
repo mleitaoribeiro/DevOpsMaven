@@ -6,4 +6,12 @@ public class Address {
     private String city;
     private String zipCode;
 
+    public String getCity() {
+        //ecrever código
+        return "";
+    }
+
+    public void setCity(String city) {
+        //escrever código;
+    }
 }
