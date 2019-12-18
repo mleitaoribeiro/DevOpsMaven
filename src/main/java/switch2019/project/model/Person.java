@@ -1,5 +1,9 @@
 package switch2019.project.model;
 
-public class Person {
+import java.util.Calendar;
 
+public class Person {
+    // Private instance variables
+    private String name;
+    private Calendar birthDate;
 }
