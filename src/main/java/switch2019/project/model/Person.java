@@ -16,14 +16,31 @@ public class Person {
     /**
      * Default Person constructor
      * @param name
-     * @param year
-     * @param month
-     * @param day
+     * @param birthDate
      */
 
-    public Person(String name, int year, int month, int day) {
+    public Person(String name, String birthDate) {
         this.name = name;
+        this.birthDate = birthDate;
         siblingList = new HashSet<>();
+    }
+
+    /**
+     * Second Person constructor
+     * @param name
+     * @param birthDate
+     * @param adress
+     * @param mother
+     * @param father
+     */
+
+    public Person(String name, String birthDate, Address adress, Person mother, Person father) {
+        this.name = name;
+        this.birthDate = birthDate;
+        siblingList = new HashSet<>();
+        this.adress = adress;
+        this.mother = mother;
+        this.father = father;
     }
 
 
