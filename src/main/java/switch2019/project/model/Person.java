@@ -46,4 +46,21 @@ public class Person {
         return this.name;
     }
 
+    /**
+     * Add a new Sibling to siblingList
+     * @param newSibling
+     */
+
+    public void addSibling(Person newSibling) {
+
+    }
+
+    /**
+     *
+     * @return siblingList
+     */
+
+    public HashSet<Person> getSiblingList() {
+        return siblingList;
+    }
 }

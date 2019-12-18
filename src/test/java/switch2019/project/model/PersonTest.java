@@ -39,6 +39,20 @@ class PersonTest {
      *Validate if a sibling was added to siblings list
      */
 
+    @Test
+    @DisplayName("Test for validating add a new sibling")
+    public void validateAddSibling() {
+        //Arrange
+        Person A = new Person("Marta", 1996, 4, 27);
+        Person B = new Person("Elsa", 1996, 1, 16);
+
+        //Act
+        A.addSibling(B);
+
+        //Assert
+        assertTrue(A.getSiblingList().contains(B) && B.getSiblingList().contains(A));
+    }
+
     /**
      *Test if multiple siblings were added to siblings list
      */
