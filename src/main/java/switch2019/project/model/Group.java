@@ -1,7 +1,5 @@
 package switch2019.project.model;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
 
