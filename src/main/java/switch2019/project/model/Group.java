@@ -51,6 +51,13 @@ public class Group {
     }
 
     /**
+     * Add a new member to a group
+     */
+    public void addMember(Person member){
+
+    }
+
+    /**
      * Getter function for the group members
      * @return membersClone;
      */
@@ -61,10 +68,12 @@ public class Group {
 
     /**
      * Add multiple members to Group
-     **/
+     */
 
     public void addMultipleMembers(HashSet<Person>newMembers) {
-        //put code here
+        for (Person member : newMembers){
+            addMember(member);
+        }
     }
 }
 

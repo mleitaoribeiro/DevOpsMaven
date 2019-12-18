@@ -184,8 +184,4 @@ public class Person {
         return Objects.hash(name, birthDate);
     }
 
-    public boolean sameSiblings (Person otherPerson) {
-        return false;
-    }
-
 }
