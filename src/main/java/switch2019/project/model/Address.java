@@ -8,19 +8,30 @@ public class Address {
     private String city;
     private String zipCode;
 
-    public Address (String street, String city, String zipCode){
-        this.street=street;
-        this.city=city;
-        this.zipCode=zipCode;
+    public Address(String street, String city, String zipCode) {
+        this.street = street;
+        this.city = city;
+        this.zipCode = zipCode;
     }
 
     public String getCity() {
-        //ecrever código
-        return "";
+        return this.city;
     }
 
     public void setCity(String city) {
-        //escrever código;
+        if (isNumeric(city) || city.equals(null)) {
+            this.city = null;
+        } else {
+            this.city = city;
+        }
+    }
+    //Auxiliar method to check if method is
+    public static boolean isNumeric(String city) {
+        for (char c : city.toCharArray()) {
+            if (!Character.isDigit(c))
+                return false;
+        }
+        return true;
     }
 
     public String getStreet() {
