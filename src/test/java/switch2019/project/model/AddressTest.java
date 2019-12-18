@@ -69,6 +69,64 @@ class AddressTest {
     /**
      * Test - Validate input for ZIP-CODE
      */
+    @Test
+    @DisplayName("validate input for ZIP-CODE - with(-) ")
+    public void setZIP_standard() {
+        //Arrange
+        Address a1 = new Address(null,null,null);
+        String zip = "4430-094";
+
+        //Act
+        a1.setZipCode("4430-094");
+
+        //Assert
+        assertEquals(zip, a1.getZipCode());
+    }
+
+    @Test
+    @DisplayName("validate input for ZIP-CODE - without (-) ")
+    public void setZIP_notStandard() {
+        //Arrange
+        Address a1 = new Address(null,null,null);
+        String zip = "4430-094";
+
+        //Act
+        a1.setZipCode("4430094");
+
+        //Assert
+        assertEquals(zip, a1.getZipCode());
+    }
+
+    @Test
+    @DisplayName("validate input for ZIP-CODE - validate Length")
+    public void setZIP_lengthstandard() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "4430-094";
+
+        //Act
+        a1.setZipCode(zip);
+        int result = zip.length();
+
+        //Assert
+        assertEquals(8, result);
+    }
+
+    @Test
+    @DisplayName("validate input for ZIP-CODE - validate Length with no (-)")
+    public void setZIP_length() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "4430094";
+
+        //Act
+        a1.setZipCode(zip);
+        int result = zip.length();
+
+        //Assert
+        assertEquals(8, result);
+    }
+
 
 
     /**
