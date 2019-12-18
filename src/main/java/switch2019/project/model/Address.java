@@ -14,4 +14,12 @@ public class Address {
     public void setCity(String city) {
         //escrever código;
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
 }
