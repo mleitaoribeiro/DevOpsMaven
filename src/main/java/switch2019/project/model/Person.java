@@ -53,7 +53,8 @@ public class Person {
      */
 
     public void addSibling(Person newSibling) {
-
+        siblingList.add(newSibling);
+        newSibling.siblingList.add(this);
     }
 
     /**
