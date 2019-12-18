@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Group {
     String description;
-    Calendar startingDate;
+    String startingDate;
     HashSet<Person> members; 
 
 
