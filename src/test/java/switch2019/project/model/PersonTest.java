@@ -36,20 +36,21 @@ class PersonTest {
 
 
     /**
+     *Validate if a sibling was added to siblings list
+     */
+
+    /**
      *Test if multiple siblings were added to siblings list
      */
 
 
     /**
-     *Validate if a sibling was added to siblings list
+     * Validate if a sibling was removed from to siblings list
      */
+    
 
     /**
      * Test if multiple siblings were removed to siblings list
-     */
-
-    /**
-     * Validate if a sibling was removed from to siblings list
      */
 
     /**
