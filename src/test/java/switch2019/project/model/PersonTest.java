@@ -16,7 +16,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test for validating imput's name, name is null before")
-    public void validateName1() {
+    public void validateNameNullBefore() {
         //Arrange
         Person A = new Person(null, 1996, 3, 4);
 
@@ -30,7 +30,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test for validating imput's name, name is not null before")
-    public void validateName2() {
+    public void validateNameNotNullBefore() {
         //Arrange
         Person A = new Person("João", 1996, 3, 4);
 
@@ -43,8 +43,8 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Test for validating imput's name, name is null")
-    public void validateName3() {
+    @DisplayName("Test for validating imput's name, name is empty")
+    public void validateNameEmpty() {
         //Arrange
         Person A = new Person("João", 1996, 3, 4);
 
