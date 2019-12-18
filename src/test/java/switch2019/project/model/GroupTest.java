@@ -31,6 +31,22 @@ class GroupTest {
         assertTrue(A.members.contains(marta));
     }
 
+
+    @Test
+    @DisplayName("Validate is a member was added to a group - Person null")
+    void addMember_null() {
+
+        //Arrange
+        Person marta = null;
+        Group A = new Group("OsMaisFixes", 2019, 10, 10);
+
+        //Act
+        A.addMember(marta);
+
+        //Assert
+        assertFalse(A.members.contains(marta));
+    }
+
     /**
      * Test if multiple members were added to Group
      */
