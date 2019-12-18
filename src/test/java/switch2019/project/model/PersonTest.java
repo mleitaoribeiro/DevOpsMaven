@@ -80,11 +80,10 @@ class PersonTest {
         int month = 3;
         int day = 4;
 
-        //Act
         Person onePerson = new Person(name, year, month, day);
         Person samePerson = new Person(name, year, month, day);
 
-        //Assert
+        //Act & Assert
         assertEquals(onePerson, samePerson);
     }
 
@@ -107,11 +106,11 @@ class PersonTest {
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
 
-        //Act
+
         Person onePerson = new Person(name, year, month, day);
         Person samePerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
 
-        //Assert
+        //Act & Assert
         assertEquals(onePerson, samePerson);
     }
 
@@ -134,11 +133,10 @@ class PersonTest {
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
 
-        //Act
         Person onePerson = new Person(name, year, month, day);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
 
-        //Assert
+        //Act & Assert
         assertNotEquals(onePerson, otherPerson);
     }
 
@@ -307,6 +305,165 @@ class PersonTest {
         assertFalse(p1.checkSameSiblings(p2));
     }
 
+    @Test
+    @DisplayName("Test if two people have the same siblings | True")
+    public void individualsHaveTheSameSiblings_1() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1993;
+        int month = 9;
+        int day = 1;
+
+        //Other Person
+        String otherPersonName = "Marta";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //One Brother
+        String bortherName = "Paulo";
+        //One brother BirthDate
+        int brotherYear  = 1993;
+        int brotherMonth = 9;
+        int brotherDay = 1;
+
+        //one Sister
+        String sisterName = "Diana";
+        //One Sister BirthDate
+        int sisterYear  = 2000;
+        int sisterMonth = 9;
+        int sisterDay = 1;
+
+        Person onePerson = new Person(name, year, month, day);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+
+        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+
+        //Act
+        onePerson.addSibling(brother);
+        onePerson.addSibling(sister);
+        onePerson.addSibling(otherPerson);
+
+        otherPerson.addSibling(brother);
+        otherPerson.addSibling(sister);
+        otherPerson.addSibling(onePerson);
+
+        boolean sameSiblings= onePerson.sameSiblings(otherPerson);
+        //Assert
+        assertTrue(sameSiblings);
+
+    }
+
+    @Test
+    @DisplayName("Test if two people have the same siblings | True")
+    public void individualsHaveTheSameSiblings_2() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1993;
+        int month = 9;
+        int day = 1;
+
+        //Other Person
+        String otherPersonName = "Marta";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //One Brother
+        String bortherName = "Paulo";
+        //One brother BirthDate
+        int brotherYear  = 1993;
+        int brotherMonth = 9;
+        int brotherDay = 1;
+
+        //One Sister
+        String sisterName = "Diana";
+        //One Sister BirthDate
+        int sisterYear  = 2000;
+        int sisterMonth = 9;
+        int sisterDay = 1;
+
+        Person onePerson = new Person(name, year, month, day);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+
+        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+
+        //Act
+        onePerson.addSibling(brother);
+        onePerson.addSibling(sister);
+        onePerson.addSibling(otherPerson);
+
+        otherPerson.addSibling(brother);
+        otherPerson.addSibling(sister);
+
+        boolean sameSiblings= onePerson.sameSiblings(otherPerson);
+
+        //Assert
+        assertTrue(sameSiblings);
+
+    }
+
+    @Test
+    @DisplayName("Test if two people have the same siblings | False")
+    public void individualsDoNotHaveTheSameSiblings_3() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1993;
+        int month = 9;
+        int day = 1;
+
+        //Other Person
+        String otherPersonName = "Marta";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //One Brother
+        String bortherName = "Paulo";
+        //One brother BirthDate
+        int brotherYear  = 1993;
+        int brotherMonth = 9;
+        int brotherDay = 1;
+
+        //One Sister
+        String sisterName = "Diana";
+        //One Sister BirthDate
+        int sisterYear  = 2000;
+        int sisterMonth = 9;
+        int sisterDay = 1;
+
+        Person onePerson = new Person(name, year, month, day);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+
+        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+
+        //Act
+        onePerson.addSibling(otherPerson);
+
+        otherPerson.addSibling(brother);
+        otherPerson.addSibling(sister);
+
+        boolean sameSiblings= onePerson.sameSiblings(otherPerson);
+
+        //Assert
+        assertFalse(sameSiblings);
+
+    }
 
 
 }
