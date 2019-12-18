@@ -58,8 +58,12 @@ public class Person {
      */
 
     public void setBirthDate(int newYear, int newMonth, int newDay) {
+        if(birthDate.of(newYear, newMonth, newDay).isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Birth Date Not Supported.");
+        }
         birthDate = birthDate.of(newYear, newMonth, newDay);
     }
+
     //Getter for Person Birth Date
     public LocalDate getBirthDate() {
         return this.birthDate;
@@ -116,8 +120,11 @@ public class Person {
      * Remove multiple Siblings
      * @param toRemove HashSet of siblings that are going to be removed.
      */
-
-    public void removeMultipleSibling(HashSet<Person> toRemove){}
+    public void removeMultipleSibling(HashSet<Person> toRemove) {
+        for (Person person : toRemove) {
+            removeSibling(person);
+        }
+    }
 
     /**
      * Getter function for the sibling's list
@@ -134,7 +141,7 @@ public class Person {
     public boolean checkSameSiblings(Person p1){return true;}
 
     /**
-     * override of equals for Person Instance and @overrode hashcode
+     * override of equals for Person Instance and @override hashcode
      */
     @Override
     public boolean equals(Object o) {

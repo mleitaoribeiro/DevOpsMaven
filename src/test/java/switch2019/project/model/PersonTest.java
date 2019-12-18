@@ -4,6 +4,8 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -165,10 +167,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person p1 = new Person("Teresa", "1987-01-16");
-        Person p2 = new Person("Paulo", "1994-04-27");
-        Person p3 = new Person("Paulo","1985-05-27");
-        Person p4 = new Person("Luis","2000-8-15");
+        Person p1 = new Person("Teresa", 1987, 01, 16);
+        Person p2 = new Person("Paulo", 1994, 04, 27);
+        Person p3 = new Person("Paulo",1985,05,27);
+        Person p4 = new Person("Luis",2000,8,15);
         HashSet<Person>newSiblings= new HashSet<>(Arrays.asList(p2,p4,p3));
         //Act
         p1.addMultipleSiblings(newSiblings);
@@ -304,5 +306,7 @@ class PersonTest {
         //Assert
         assertFalse(p1.checkSameSiblings(p2));
     }
+
+
 
 }
