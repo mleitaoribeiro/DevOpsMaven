@@ -7,8 +7,11 @@ import java.util.Objects;
 public class Person {
     // Private instance variables
     private String name;
-    private Calendar birthDate;
+    private String birthDate;
     private HashSet<Person> siblingList;
+    private Person mother;
+    private Person father;
+    private Address adress;
 
     /**
      * Default Person constructor
@@ -20,14 +23,9 @@ public class Person {
 
     public Person(String name, int year, int month, int day) {
         this.name = name;
-        birthDate = Calendar.getInstance();
-        setBirthDate(year, month, day);
         siblingList = new HashSet<>();
     }
 
-    public void setBirthDate(int year, int month, int day) {
-        birthDate.set(year, month, day);
-    }
 
     /**
      * Set Person Name
