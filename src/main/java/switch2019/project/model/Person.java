@@ -19,6 +19,7 @@ public class Person {
 
     public Person(String name, int year, int month, int day) {
         this.name = name;
+        birthDate = Calendar.getInstance();
         setBirthDate(year, month, day);
         siblingList = new HashSet<>();
     }
