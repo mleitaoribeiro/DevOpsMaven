@@ -51,8 +51,17 @@ public class Group {
     }
 
     /**
-     * Add multiple members to Group
+     * Getter function for the group members
+     * @return membersClone;
      */
+    public HashSet<Person> getMembers () {
+        HashSet <Person> membersClone = new HashSet<>(this.members);
+        return membersClone;
+    }
+
+    /**
+     * Add multiple members to Group
+     **/
 
     public void addMultipleMembers(HashSet<Person>newMembers) {
         //put code here
