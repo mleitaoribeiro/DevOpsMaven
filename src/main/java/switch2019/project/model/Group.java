@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Objects;
@@ -13,20 +14,17 @@ public class Group {
     /**
      * Default Person constructor
      * @param description
-     * @param year
-     * @param month
-     * @param day
+     * @param startingDate
      */
 
-    public Group(String description, int year, int month, int day){
+    public Group(String description,String startingDate){
         this.description=description;
-        startingDate = Calendar.getInstance();
-        setStartingDate(year, month, day);
+        this.startingDate=startingDate;
         members = new HashSet<>();
     }
     
-    public void setStartingDate(int year, int month, int day) {
-        startingDate.set(year, month, day);
+    public void setStartingDate(String startingDate) {
+        this.startingDate=startingDate;
     }
 
     /**
@@ -48,4 +46,7 @@ public class Group {
     public int hashCode() {
         return Objects.hash(description, startingDate, members);
     }
+
 }
+
+

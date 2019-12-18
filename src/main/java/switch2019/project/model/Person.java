@@ -12,6 +12,7 @@ public class Person {
     private Person mother;
     private Person father;
     private Address adress;
+    private Address birthPlace;
 
     /**
      * Default Person constructor
