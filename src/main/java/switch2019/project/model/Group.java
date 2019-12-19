@@ -18,7 +18,7 @@ public class Group {
      */
 
     public Group(String description, int startingDateYear, int startingDateMonth, int startingDateDay){
-        this.description=description;
+        this.description=description.toUpperCase();
         startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
         setStartingDate(startingDateYear,startingDateMonth, startingDateDay);
 
@@ -37,6 +37,14 @@ public class Group {
             throw new IllegalArgumentException("Start Date Not Supported.");
         }
         startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
+    }
+    /**
+     * setter Description
+     * @param description
+     */
+
+    public void setDescription(String description){
+        this.description = description.toUpperCase(); 
     }
 
     /**
