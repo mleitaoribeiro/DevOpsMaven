@@ -33,7 +33,7 @@ class GroupTest {
 
 
     @Test
-    @DisplayName("Validate is a member was added to a group - Person null")
+    @DisplayName("Validate if a member was added to a group - Person null")
     void addMember_null() {
 
         //Arrange
@@ -86,7 +86,7 @@ class GroupTest {
 
         //Assert
         assertFalse(newGroup.getMembers().size() ==2);
-        assertTrue(newGroup.getMembers().size()==1);
+        assertTrue(newGroup.getMembers().size() ==1);
     }
 
     @Test
@@ -104,7 +104,7 @@ class GroupTest {
         newGroup.addMultipleMembers(finalGroup);
 
         //Assert
-        assertTrue(newGroup.getMembers().contains(person1));
+        assertFalse(newGroup.getMembers().contains(person2));
     }
 
     /**

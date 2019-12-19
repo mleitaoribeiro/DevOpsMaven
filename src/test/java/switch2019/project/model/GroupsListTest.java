@@ -11,9 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsListTest {
 
-
-
-
     /**
      * Test if a Group was added to the list
      */
