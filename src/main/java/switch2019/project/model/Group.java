@@ -7,11 +7,10 @@ import java.util.Objects;
 public class Group {
     String description;
     LocalDate startingDate;
-    HashSet<Person> members; 
-
+    HashSet<Person> members;
 
     /**
-     * Default Person constructor
+     * Default Group constructor
      * @param description
      * @param startingDateYear
      * @param startingDateMonth
@@ -25,7 +24,14 @@ public class Group {
 
         members = new HashSet<>();
     }
-    
+
+    /**
+     * Input Validation for Starting Date of Group
+     * @param startingDateYear
+     * @param startingDateMonth
+     * @param startingDateDay
+     */
+
     public void setStartingDate(int startingDateYear, int startingDateMonth, int startingDateDay) {
         if(startingDate.of(startingDateYear, startingDateMonth, startingDateDay).isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Start Date Not Supported.");
@@ -35,7 +41,7 @@ public class Group {
 
     /**
      * Override of equals for Group
-     *
+     * @param o
      */
 
     @Override
@@ -55,14 +61,19 @@ public class Group {
 
     /**
      * Add a new member to a group
+     * @param member
      */
+
     public void addMember(Person member){
         if (member != null)
         members.add(member);
     }
+
     /**
      * Remove one member from a group
+     * @param memberToRemove
      */
+
     public void removeMember(Person memberToRemove){
         if (memberToRemove != null)
         members.remove(memberToRemove);
@@ -72,6 +83,7 @@ public class Group {
      * Getter function for the group members
      * @return membersClone;
      */
+
     public HashSet<Person> getMembers () {
         HashSet <Person> membersClone = new HashSet<>(this.members);
         return membersClone;
@@ -81,6 +93,7 @@ public class Group {
      * @param: newMembers;
      * Add multiple members to Group
      */
+
     public void addMultipleMembers(HashSet<Person>newMembers) {
         for (Person member : newMembers){
             addMember(member);
@@ -88,18 +101,21 @@ public class Group {
     }
 
     /**
-     * Remove multiple Siblings
+     * Remove multiple Members
      * @param toRemove HashSet of members that are going to be removed.
      */
+
     public void removeMultipleMembers(HashSet<Person> toRemove) {
         for (Person member : toRemove) {
             removeMember(member);
         }
     }
+
     /**
      * Validate if a group is a family
      * @return boolean
      */
+
     public boolean isFamily() {
         Person dadPerson = null;
         Person momPerson = null;
