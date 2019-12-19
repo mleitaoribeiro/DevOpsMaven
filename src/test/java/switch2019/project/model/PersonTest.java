@@ -484,5 +484,59 @@ class PersonTest {
         //Assert
         assertFalse(personExistsOtherSiblingsList);
     }
+/**
+ *
+ */
+    @Test
+    @DisplayName("Two Equals father_true")
+    void checkSameFather_True() {
+    //Arrange
+    Person p1=new Person("Elsa",2000,02,24);
+    Person p2=new Person("Filipa",1990,01,05);
+    Person father1=new Person("Antonio",1970,02,15);
 
+    //Act
+    p1.setFather(father1);
+    p2.setFather(father1);
+
+    boolean result= p1.checkSameFather(p2);
+
+    //Assert
+    assertTrue(result);
+    }
+    @Test
+    @DisplayName("Two Equals father_null")
+    void checkSameFather() {
+        //Arrange
+        Person p1=new Person("Elsa",2000,02,24);
+        Person p2=new Person("Filipa",1990,01,05);
+        Person father1=new Person("null",0,0,0);
+
+        //Act
+        p1.setFather(father1);
+        p2.setFather(father1);
+
+        boolean result= p1.checkSameFather(p2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Two Equals father_false")
+    void checkSameFather_FalseFather() {
+        //Arrange
+        Person p1=new Person("Elsa",2000,02,24);
+        Person p2=new Person("Filipa",1990,01,05);
+        Person father1=new Person("jose",1980,05,04);
+        Person father2=new Person("Pedro",1970,05,04);
+        //Act
+        p1.setFather(father1);
+        p2.setFather(father2);
+
+        boolean result= p1.checkSameFather(p2);
+
+        //Assert
+        assertFalse(result);
+    }
 }

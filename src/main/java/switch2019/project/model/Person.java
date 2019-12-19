@@ -181,6 +181,21 @@ public class Person {
         }
         else return false;
     }
+/**
+ * Develop a method to check if two people have the Same Mother
+ */
+    public boolean checkSameMother(Person p1) {
+        if (mother == null || p1.mother == null) {
+            return false;
+        } else return mother.equals(p1.mother);
+    }
+
+/**
+ * Develop a method to check if two people have the Same Father
+ */
+    public boolean checkSameFather(Person p1){
+        return false;
+        }
 
     /**
      * override of equals for Person Instance and @override hashcode
