@@ -283,5 +283,17 @@ public class Person {
         }
         return true;
     }
+
+    
+    /**
+     *
+     * Develop method to check if two individuals are siblings (USER STORIES)
+     * @return boolean
+     */
+
+    public boolean isSibling(Person otherPerson){
+        return (this.personExistsOnTheOtherPersonSiblingsList(otherPerson) ||
+                this.checkSameFather(otherPerson) ||this.checkSameMother(otherPerson));
+    }
 }
 
