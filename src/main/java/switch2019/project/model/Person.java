@@ -136,6 +136,7 @@ public class Person {
 
     /**
      * Set Mother
+     * @param mother new mother Person
      */
     public void setMother (Person mother){
         this.mother = mother;
@@ -143,6 +144,7 @@ public class Person {
 
     /**
      * Validate if a person is the Mother of another person
+     * @param mother Person to validate if it's the mother
      */
     public boolean isMother (Person mother){
         if(this.mother == null) return false;
@@ -151,6 +153,7 @@ public class Person {
 
     /**
      * Set Father
+     * @param father new father Person
      */
     public void setFather (Person father){
         this.father = father;
@@ -158,6 +161,7 @@ public class Person {
 
     /**
      * Validate if a person is the Father of another person
+     * @param father Person to validate if it's the father
      */
     public boolean isFather (Person father){
         if(this.father == null) return false;
@@ -193,6 +197,14 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(name, birthDate);
+    }
+
+    /**
+     *  Person exists on the other siblings list (USER STORIES)
+     */
+
+    public boolean personExistsOtherSiblingsList () {
+        return false;
     }
 
 }

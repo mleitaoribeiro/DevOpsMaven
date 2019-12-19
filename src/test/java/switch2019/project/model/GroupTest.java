@@ -361,9 +361,8 @@ class GroupTest {
      * Test Equals method for the Group class
      */
     @Test
-    void equalsGroupClass_true() {
-        //Arrange
-       // Person p1=new Person("Elsa",null,null,null);
+    @DisplayName( "Two group are the same")
+    void equalsGroupClass_JustGrouptrue() {
 
         Group g1=new Group("Familia",1987,01,16);
         Group g2= new Group("Familia",1987,01,16);
@@ -375,4 +374,62 @@ class GroupTest {
         assertTrue(result);
 
     }
+
+    @Test
+    @DisplayName("Two Equals group add person")
+    void equalsGroupClass_addPersonTrue() {
+        //Arrange
+        Person p1=new Person("Elsa",2000,02,24);
+        Person p2=new Person("Filipa",1990,01,05);
+        Group g1=new Group("Familia",1987,01,16);
+        Group g2= new Group("Familia",1987,01,16);
+        HashSet<Person>members= new HashSet<>(Arrays.asList(p2,p1));
+
+        //Act
+        g1.addMultipleMembers(members);
+        g2.addMultipleMembers(members);
+        boolean result= g1.equals(g2);
+
+        //Assert
+        assertTrue(result);
+    }
+    @Test
+    @DisplayName("Two Equals group add person")
+    void equalsGroupClass_GroupFalse() {
+        //Arrange
+        Person p1=new Person("Elsa",2000,02,24);
+        Person p2=new Person("Filipa",1990,01,05);
+        Group g1=new Group("Familia",1987,01,16);
+        Group g2= new Group("Familia",1985,01,16);
+        HashSet<Person>members= new HashSet<>(Arrays.asList(p2,p1));
+
+        //Act
+        g1.addMultipleMembers(members);
+        g2.addMultipleMembers(members);
+        boolean result= g1.equals(g2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Two Equals group add person")
+    void equalsGroupClass_addPersonFalse() {
+        //Arrange
+        Person p1=new Person("Elsa",2000,02,24);
+        Person p2=new Person("Filipa",1990,01,05);
+        Person p3=new Person("Pedro",1990,01,05);
+        Group g1=new Group("Familia",1987,01,16);
+        Group g2= new Group("Familia",1985,01,16);
+        HashSet<Person>members= new HashSet<>(Arrays.asList(p2,p1));
+        HashSet<Person>members2= new HashSet<>(Arrays.asList(p2,p3));
+        //Act
+        g1.addMultipleMembers(members);
+        g2.addMultipleMembers(members2);
+        boolean result= g1.equals(g2);
+
+        //Assert
+        assertFalse(result);
+    }
 }
+
