@@ -367,4 +367,122 @@ class PersonTest {
         //Assert
         assertFalse(p1.checkSameSiblings(p2));
     }
+
+    /**
+     *  Test if person exists on the other siblings list (USER STORIES)
+     */
+
+    @Test
+    @DisplayName("Test if person exists on the other siblings lis | True")
+    public void personExistsOtherSiblingsList_1() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1993;
+        int month = 9;
+        int day = 1;
+
+        //Other Person
+        String otherPersonName = "Marta";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //One Brother
+        String bortherName = "Paulo";
+        //One brother BirthDate
+        int brotherYear  = 1993;
+        int brotherMonth = 9;
+        int brotherDay = 1;
+
+        //one Sister
+        String sisterName = "Diana";
+        //One Sister BirthDate
+        int sisterYear  = 2000;
+        int sisterMonth = 9;
+        int sisterDay = 1;
+
+        Person onePerson = new Person(name, year, month, day);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+
+        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+
+        //Act
+        onePerson.addSibling(brother);
+        onePerson.addSibling(sister);
+        onePerson.addSibling(otherPerson);
+
+        otherPerson.addSibling(brother);
+        otherPerson.addSibling(sister);
+        otherPerson.addSibling(onePerson);
+
+        brother.addSibling(onePerson);
+        sister.addSibling(onePerson);
+
+        boolean personExistsOtherSiblingsList= onePerson.personExistsOtherSiblingsList();
+
+        //Assert
+        assertTrue(personExistsOtherSiblingsList);
+    }
+
+    @Test
+    @DisplayName("Test if person exists on the other siblings lis | False")
+    public void personDoNotExistsOtherSiblingsList_1() {
+        //Arrange
+
+        //One Person
+        String name = "João Cardoso";
+        //One Person BirthDate
+        int year  = 1993;
+        int month = 9;
+        int day = 1;
+
+        //Other Person
+        String otherPersonName = "Marta";
+        //Other Person BirthDate
+        int otherPersonYear  = 1996;
+        int otherPersonMonth = 3;
+        int otherPersonDay = 4;
+
+        //One Brother
+        String bortherName = "Paulo";
+        //One brother BirthDate
+        int brotherYear  = 1993;
+        int brotherMonth = 9;
+        int brotherDay = 1;
+
+        //one Sister
+        String sisterName = "Diana";
+        //One Sister BirthDate
+        int sisterYear  = 2000;
+        int sisterMonth = 9;
+        int sisterDay = 1;
+
+        Person onePerson = new Person(name, year, month, day);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+
+        //Act
+        onePerson.addSibling(brother);
+        onePerson.addSibling(sister);
+        onePerson.addSibling(otherPerson);
+
+        otherPerson.addSibling(onePerson);
+        otherPerson.addSibling(sister);
+
+        brother.addSibling(onePerson);
+
+        sister.addSibling(otherPerson);
+
+        boolean personExistsOtherSiblingsList = onePerson.personExistsOtherSiblingsList();
+
+        //Assert
+        assertFalse(personExistsOtherSiblingsList);
+    }
+
 }

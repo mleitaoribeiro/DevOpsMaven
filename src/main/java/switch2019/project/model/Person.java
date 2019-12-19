@@ -199,4 +199,12 @@ public class Person {
         return Objects.hash(name, birthDate);
     }
 
+    /**
+     *  Person exists on the other siblings list (USER STORIES)
+     */
+
+    public boolean personExistsOtherSiblingsList () {
+        return false;
+    }
+
 }
