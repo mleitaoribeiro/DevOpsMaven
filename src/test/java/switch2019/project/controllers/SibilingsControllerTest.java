@@ -26,7 +26,8 @@ class SibilingsControllerTest {
         Person p1=new Person("Manuel",1986,9,12);
 
         //Act
-        antonio.addSibling(p1);
+        antonio.setMother(mae);
+        p1.setMother(mae);
         boolean resultado=antonio.isSibling(p1);
 
         //Assert
@@ -46,7 +47,8 @@ class SibilingsControllerTest {
         Person p1=new Person("Manuel",1986,9,12);
 
         //Act
-        antonio.addSibling(p1);
+        antonio.setFather(pai);
+        p1.setFather(pai);
         boolean resultado=antonio.isSibling(p1);
 
         //Assert
