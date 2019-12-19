@@ -198,16 +198,19 @@ public class Person {
 
 /**
  * Develop a method to check if two people have the Same Father
+ * @param p Person to validate if has the same father
  */
-    public boolean checkSameFather(Person p1){
-        return false;
-        }
+    public boolean checkSameFather(Person p) {
+        if (this.father == null || p.father == null) {
+            return false;
+        } else return father.equals(p.father);
+    }
 
-    /**
-     * override of equals for Person Instance and @override hashcode
-     * @param o
-     * @return boolean
-     */
+        /**
+         * override of equals for Person Instance and @override hashcode
+         * @param o
+         * @return boolean
+         */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
