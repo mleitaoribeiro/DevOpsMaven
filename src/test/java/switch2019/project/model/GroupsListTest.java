@@ -149,16 +149,6 @@ class GroupsListTest {
     }
 
 
-    /**
-     * Test if a Group was removed from the list
-     */
 
-    /**
-     * Test if all groups that are family are retrieved from the list
-     */
-
-    /**
-     * Test equals method of the GroupList class
-     */
 
 }
