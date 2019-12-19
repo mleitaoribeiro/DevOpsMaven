@@ -42,4 +42,14 @@ public class GroupsList {
         }
         return groupsFamily;
     }
+
+    /**
+     * Method to check if a Group is inside a GroupList:
+     */
+    public boolean groupListContains (Group g1) {
+        if (!this.groupsList.contains(g1)) {
+            return false;
+        }
+        return true;
+    }
 }

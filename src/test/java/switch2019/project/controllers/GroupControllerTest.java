@@ -10,46 +10,78 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupControllerTest {
+    /**
+     * Method to check if a Group was created (with HashSet.contains function) - TRUE
+     */
+    @Test
+    public void isGroupInList() {
+        // Arrange Groups
+        Group group1 = new Group(null, 2019, 12, 19);
+        // Arrange GroupList
+        GroupsList gl = new GroupsList();
+
+        // Act
+        gl.addGroupToGroupList(group1);
+
+        // Assert
+        assertTrue(gl.groupListContains(group1));
+    }
 
     /**
-     * Method to check if a Group exists
+     * Method to check if a Group was created (with HashSet.contains function) - FALSE
      */
-
     @Test
-    public void isGroupInList(){
+    public void isGroupNotInList() {
         // Arrange Groups
-        Group g1 = new Group(null,2019,12,19);
-
-        //Arrange Group List
+        Group group1 = new Group(null,2019,5,18);
+        Group group2 = new Group(null,2019,3,13);
+        // Arrange GroupList
         GroupsList gl = new GroupsList();
 
-        //Act
-        gl.addGroupToGroupList(g1);
-        HashSet<Group> expected = new HashSet<>(Arrays.asList(g1));
+        // Act
+        gl.addGroupToGroupList(group2);
+
+        // Assert
+        assertFalse(gl.groupListContains(group1));
+    }
+
+    /**
+     * Method to check if a Group was created inside a GroupList (Compare with Group HashSet)
+     */
+    @Test
+    public void isGroupInListCompare(){
+        // Arrange Groups
+        Group group1 = new Group(null,2019,12,19);
+
+        // Arrange Group List
+        GroupsList gl = new GroupsList();
+
+        // Act
+        gl.addGroupToGroupList(group1);
+        HashSet<Group> expected = new HashSet<>(Arrays.asList(group1));
 
         //Assert
         assertEquals(gl.getGroups(), expected);
     }
 
+    /**
+     * Method to check if Groups were created inside a GroupList (Compare with Group HashSet)
+     */
     @Test
-    public void areGroupsInList(){
+    public void areGroupsInListCompare(){
         // Arrange Groups
-        Group g1 = new Group(null,2019,12,19);
-        Group g2 = new Group(null, 2019,11,19);
+        Group group1 = new Group(null,2019,12,19);
+        Group group2 = new Group(null, 2019,11,19);
 
-        //Arrange Group List
+        // Arrange Group List
         GroupsList gl = new GroupsList();
 
-        //Act
-        gl.addGroupToGroupList(g1);
-        gl.addGroupToGroupList(g2);
-        HashSet<Group> expected = new HashSet<>(Arrays.asList(g1,g2));
+        // Act
+        gl.addGroupToGroupList(group1);
+        gl.addGroupToGroupList(group2);
+        HashSet<Group> expected = new HashSet<>(Arrays.asList(group1,group2));
 
-        //Assert
+        // Assert
         assertEquals(gl.getGroups(), expected);
     }
-
-
-
-
 }
