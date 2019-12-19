@@ -29,6 +29,10 @@ public class GroupsList {
         HashSet <Group> groupsClone = new HashSet<>(this.groupsList);
         return groupsClone;
     }
-
-
+    /**
+    * Method to return Only Families
+    */
+    public HashSet<Group> returnOnlyFamilies() {
+        return null;
+    }
 }
