@@ -25,6 +25,11 @@ public class GroupsList {
         }
     }
 
-
+    /**
+     * method to add group  if is a Family to the list
+     */
+    public void addGroupFamilyToFamiliesGroupList (Group familyGroup) {
+      // write code here
+    }
 
 }
