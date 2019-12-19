@@ -475,8 +475,8 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Test if person exists on the other siblings lis | False")
-    public void personDoNotExistsOtherSiblingsList_1() {
+    @DisplayName("Test if person exists on the other siblings lis | True")
+    public void personExistsOnOtherSiblingsList_2() {
         //Arrange
 
         //One Person
@@ -526,7 +526,7 @@ class PersonTest {
         boolean personExistsOtherSiblingsList = onePerson.personExistsOtherSiblingsList();
 
         //Assert
-        assertFalse(personExistsOtherSiblingsList);
+        assertTrue(personExistsOtherSiblingsList);
     }
 /**
  *
