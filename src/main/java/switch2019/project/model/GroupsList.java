@@ -35,6 +35,12 @@ public class GroupsList {
     * Method to return Only Families
     */
     public HashSet<Group> returnOnlyFamilies() {
-        return null;
+        HashSet<Group> groupsFamily = new HashSet<>(this.groupsList);
+        for (Group a : groupsList) {
+            if (a.isFamily()) {
+                groupsFamily.add(a);
+            }
+        }
+        return groupsFamily;
     }
 }
