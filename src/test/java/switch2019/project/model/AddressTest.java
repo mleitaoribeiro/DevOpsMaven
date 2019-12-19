@@ -22,7 +22,7 @@ class AddressTest {
         String actual = A.getStreet();
 
         //Assert
-        assertEquals("Rua das Flores", actual);
+        assertEquals("RUA DAS FLORES", actual);
 
     }
     @Test
@@ -51,7 +51,7 @@ class AddressTest {
         String actual = A.getStreet();
 
         //Assert
-        assertEquals("Rua das Flores", actual);
+        assertEquals("RUA DAS FLORES", actual);
 
     }
 
@@ -66,7 +66,7 @@ class AddressTest {
         String actual = A.getStreet();
 
         //Assert
-        assertEquals("Rua das Camelias", actual);
+        assertEquals("RUA DAS CAMELIAS", actual);
     }
 
     /**
@@ -78,7 +78,7 @@ class AddressTest {
     void setCity_happycase() {
         //Arrange
         Address A = new Address ("Rua XPTO", "Gaia", "4430-444");
-        String expected = "Porto";
+        String expected = "PORTO";
         //Act
         A.setCity("Porto");
         //Assert

@@ -18,9 +18,9 @@ public class Address {
      */
 
     public Address(String street, String city, String zipCode) {
-        this.street = street.toUpperCase();
-        this.city = city.toUpperCase();
-        this.zipCode = zipCode.toUpperCase();
+        if(street != null) this.street = street.toUpperCase();
+        if(city != null) this.city = city.toUpperCase();
+        if(zipCode != null) this.zipCode = zipCode.toUpperCase();
     }
     /**
      * Public get for City
@@ -70,7 +70,9 @@ public class Address {
      */
 
     public void setStreet(String street) {
-        this.street = street.toUpperCase();
+        if (isNumeric(street) || street == null) {
+            this.city = null;
+        }this.street = street.toUpperCase();
     }
 
     /**
