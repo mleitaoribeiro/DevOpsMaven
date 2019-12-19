@@ -54,7 +54,7 @@ class SibilingsControllerTest {
     }
 
     @Test
-    @DisplayName("Test if two individuals are brothers - in each other list")
+    @DisplayName("Test if two individuals are siblings - in each other list")
     void isSiblingsInTheSiblingsList() {
         //Arrange
         Person mae =new Person("Maria",1965,3,4);
