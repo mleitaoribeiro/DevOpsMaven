@@ -114,9 +114,9 @@ class AddressTest {
     void setCity_not_case_sensitive() {
         //Arrange
         Address A = new Address ("Rua XPTO", "Gaia", "4430-444");
-        String expected = "Porto";
+        String expected = "PORTO";
         //Act
-        A.setCity("PORTO");
+        A.setCity("Porto");
         //Assert
         assertEquals(expected, A.getCity());
     }
