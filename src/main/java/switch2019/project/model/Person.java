@@ -113,6 +113,7 @@ public class Person {
 
     /**
      * Remove a Sibling
+     * @param sibling
      */
     public void removeSibling (Person sibling){
         this.siblingList.remove(sibling);
@@ -149,6 +150,7 @@ public class Person {
     /**
      * Validate if a person is the Mother of another person
      * @param mother Person to validate if it's the mother
+     * @return boolean
      */
     public boolean isMother (Person mother){
         if(this.mother == null) return false;
@@ -159,6 +161,7 @@ public class Person {
      * Set Father
      * @param father new father Person
      */
+
     public void setFather (Person father){
         this.father = father;
     }
@@ -166,7 +169,9 @@ public class Person {
     /**
      * Validate if a person is the Father of another person
      * @param father Person to validate if it's the father
+     * @return boolean
      */
+
     public boolean isFather (Person father){
         if(this.father == null) return false;
         else return this.father.equals(father);
@@ -186,22 +191,28 @@ public class Person {
         }
         else return false;
     }
-/**
- * Develop a method to check if two people have the Same Mother
- * @param p1 Person to validate if has the same mother
- */
-    public boolean checkSameMother(Person p1) {
-        if (mother == null || p1.mother == null) {
+
+    /**
+    * Develop a method to check if two people have the Same Mother
+    * @param otherPerson Person to validate if has the same mother
+    * @return boolean
+    */
+    public boolean checkSameMother(Person otherPerson) {
+        if (mother == null || otherPerson.mother == null) {
             return false;
-        } else return mother.equals(p1.mother);
+        } else return mother.equals(otherPerson.mother);
     }
+
 
 /**
  * Develop a method to check if two people have the Same Father
+ * @param otherPerson to validate if has the same father
  */
-    public boolean checkSameFather(Person p1){
-        return false;
-        }
+    public boolean checkSameFather(Person otherPerson) {
+        if (this.father == null || otherPerson.father == null) {
+            return false;
+        } else return father.equals(otherPerson.father);
+    }
 
     /**
      * override of equals for Person Instance and @override hashcode
@@ -223,20 +234,11 @@ public class Person {
     }
 
     /**
-     *  Person exists on the other siblings list
+     * If Person exists on the other Person list
      * @return boolean
      */
 
     public boolean personExistsOtherSiblingsList () {
-        return false;
-    }
-
-    /**
-     *  Person exists on the other Person siblings list (USER STORIES)
-     * @return boolean
-     */
-
-    public boolean personExistsOnTheOtherPersonSiblingsList (Person otherPerson) {
         return false;
     }
 
