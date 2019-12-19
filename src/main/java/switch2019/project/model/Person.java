@@ -246,9 +246,8 @@ public class Person {
         return Objects.equals(name, person.name) &&
                 Objects.equals(birthDate, person.birthDate) &&
                 Objects.equals(birthPlace, person.birthPlace) &&
-                Objects.equals(mother, person.mother) &&
-                Objects.equals(father, person.father)
-                ;
+                Objects.equals(father, person.father) &&
+                Objects.equals(mother, person.mother);
     }
 
     @Override
@@ -281,11 +280,8 @@ public class Person {
      *
      * @return boolean
      */
-    public boolean personExistsOnTheOtherPersonSiblingsList(Person otherPerson) {
-        if (! this.siblingList.contains(otherPerson)){
-            return false;
-        }
-        return true;
+    public boolean personExistsOnSiblingsList(Person otherPerson) {
+        return this.siblingList.contains(otherPerson);
     }
 
     
@@ -296,7 +292,7 @@ public class Person {
      */
 
     public boolean isSibling(Person otherPerson){
-        return (this.personExistsOnTheOtherPersonSiblingsList(otherPerson) ||
+        return (this.personExistsOnSiblingsList(otherPerson) ||
                 this.checkSameFather(otherPerson) ||this.checkSameMother(otherPerson));
     }
 }

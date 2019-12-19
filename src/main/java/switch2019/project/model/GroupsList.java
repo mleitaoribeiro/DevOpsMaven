@@ -27,6 +27,11 @@ public class GroupsList {
         }
     }
 
+    public void newGroup(String description, int startingDateYear, int startingDateMonth, int startingDateDay) {
+        Group newGroup = new Group(description, startingDateYear, startingDateMonth, startingDateDay);
+        addGroupToGroupList(newGroup);
+    }
+
     public HashSet<Group> getGroups(){
         return new HashSet<>(this.groupsList);
     }

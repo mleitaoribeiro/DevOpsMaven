@@ -129,7 +129,7 @@ class SibilingsControllerTest {
         onePerson.addSibling(brother);
         onePerson.addSibling(sister);
 
-        boolean personExistsOtherPersonSiblingsList = onePerson.personExistsOnTheOtherPersonSiblingsList(otherPerson);
+        boolean personExistsOtherPersonSiblingsList = onePerson.personExistsOnSiblingsList(otherPerson);
 
         //Assert
         assertTrue(personExistsOtherPersonSiblingsList);
@@ -180,7 +180,7 @@ class SibilingsControllerTest {
         otherPerson.addSibling(brother);
         otherPerson.addSibling(sister);
 
-        boolean personExistsOtherPersonSiblingsList = onePerson.personExistsOnTheOtherPersonSiblingsList(otherPerson);
+        boolean personExistsOtherPersonSiblingsList = onePerson.personExistsOnSiblingsList(otherPerson);
 
         //Assert
         assertFalse(personExistsOtherPersonSiblingsList);
