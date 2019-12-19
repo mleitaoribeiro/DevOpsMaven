@@ -1,6 +1,5 @@
 package switch2019.project.controllers;
 
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
