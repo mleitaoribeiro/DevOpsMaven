@@ -18,7 +18,7 @@ public class Group {
      */
 
     public Group(String description, int startingDateYear, int startingDateMonth, int startingDateDay){
-        this.description=description.toUpperCase();
+        setDescription(description);
         startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
         setStartingDate(startingDateYear,startingDateMonth, startingDateDay);
 
@@ -44,7 +44,9 @@ public class Group {
      */
 
     public void setDescription(String description){
-        this.description = description.toUpperCase(); 
+        if (description != null) {
+            this.description = description.toUpperCase();
+        }
     }
 
     /**

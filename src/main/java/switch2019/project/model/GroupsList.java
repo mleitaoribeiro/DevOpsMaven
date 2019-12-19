@@ -20,8 +20,10 @@ public class GroupsList {
      * method to add group to the list
      */
     public void addGroupToGroupList (Group group1) {
-        if (! groupsList.contains(group1)) {
-            groupsList.add(group1);
+        if ( group1 != null) {
+            if (!groupsList.contains(group1)) {
+                groupsList.add(group1);
+            }
         }
     }
 
