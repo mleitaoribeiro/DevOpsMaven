@@ -545,7 +545,7 @@ class PersonTest {
     }
 
     /**
-     *  Person exists on the other Person siblings list (USER STORIES)
+     *  Test if Person exists on the other Person siblings list (USER STORIES)
      * @return boolean
      */
 

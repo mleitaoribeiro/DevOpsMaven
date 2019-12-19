@@ -1,5 +1,6 @@
 package switch2019.project.controllers;
 
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.Group;
@@ -81,18 +82,20 @@ class MembersControllerTest {
         //Group g1 - add several members to the group
         HashSet<Person> finalGroup1= new HashSet<>(Arrays.asList(p2,p4,p5));
         g1.addMultipleMembers(finalGroup1);
+
+        //Group g2 - add just one member to the group
+        g2.addMember(p1);
+
         //Group g2 - add several members to the group
         HashSet<Person> finalGroup2= new HashSet<>(Arrays.asList(p3,p6));
         g2.addMultipleMembers(finalGroup2);
+
+        //Group g3 - add just one member to the group
+        g3.addMember(p4);
+
         //Group g3 - add several members to the group
         HashSet<Person> finalGroup3= new HashSet<>(Arrays.asList(p7,p3,p5));
-        g3.addMultipleMembers(finalGroup3);
-
-
-        //Assert
-        assertTrue(g1.getMembers().containsAll(finalGroup1));
-        assertTrue(g2.getMembers().containsAll(finalGroup2));
-        assertTrue(g3.getMembers().containsAll(finalGroup3));
+        g2.addMultipleMembers(finalGroup3);
     }
 
     @Test
@@ -119,5 +122,5 @@ class MembersControllerTest {
         //Assert
         assertFalse(g2.getMembers().contains(p8));
     }
-    
+
 }
