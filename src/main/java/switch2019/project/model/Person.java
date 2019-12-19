@@ -223,11 +223,20 @@ public class Person {
     }
 
     /**
-     *  Person exists on the other siblings list (USER STORIES)
+     *  Person exists on the other siblings list
      * @return boolean
      */
 
     public boolean personExistsOtherSiblingsList () {
+        return false;
+    }
+
+    /**
+     *  Person exists on the other Person siblings list (USER STORIES)
+     * @return boolean
+     */
+
+    public boolean personExistsOnTheOtherPersonSiblingsList (Person otherPerson) {
         return false;
     }
 
