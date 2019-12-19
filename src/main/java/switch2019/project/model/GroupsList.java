@@ -28,14 +28,13 @@ public class GroupsList {
     }
 
     public HashSet<Group> getGroups(){
-        HashSet <Group> groupsClone = new HashSet<>(this.groupsList);
-        return groupsClone;
+        return new HashSet<>(this.groupsList);
     }
     /**
     * Method to return Only Families
     */
     public HashSet<Group> returnOnlyFamilies() {
-        HashSet<Group> groupsFamily = new HashSet<>(this.groupsList);
+        HashSet<Group> groupsFamily = new HashSet<>();
         for (Group a : groupsList) {
             if (a.isFamily()) {
                 groupsFamily.add(a);
