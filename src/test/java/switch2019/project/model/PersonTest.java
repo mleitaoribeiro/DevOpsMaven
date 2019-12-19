@@ -319,6 +319,50 @@ class PersonTest {
         assertTrue(p1.getSiblingList().size()==3);
     }
 
+    /**
+     *  Test if two people have the same mother
+     */
+    @Test
+    @DisplayName("Validate if two people have the same mother - False")
+    void checkSameMother_false(){
+        Person motherP1 = new Person("Maria",1988,3,23);
+        Person motherP2 = new Person("Josefa",1987,4,23);
+        Person p1 = new Person("Ricardo",2005,4,20);
+        Person p2 = new Person("Pedro",2006,4,21);
+        p1.setMother(motherP1);
+        p2.setMother(motherP2);
+        //Act
+        boolean result = p1.checkSameMother(p2);
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Validate if two people have the same mother - True")
+    void checkSameMother_true(){
+        Person motherP1 = new Person("Maria",1988,3,23);
+        Person p1 = new Person("Ricardo",2005,4,20);
+        Person p2 = new Person("Pedro",2006,4,21);
+        p1.setMother(motherP1);
+        p2.setMother(motherP1);
+        //Act
+        boolean result = p1.checkSameMother(p2);
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Validate if two people have the same mother - Null mother")
+    void checkSameMother_null_mother(){
+        Person motherP1 = new Person("Teresa",1980,1,23);
+        Person p1 = new Person("Ricardo",2005,4,20);
+        Person p2 = new Person("Pedro",2006,4,21);
+        p1.setMother(motherP1);
+        //Act
+        boolean result = p1.checkSameMother(p2);
+        //Assert
+        assertFalse(result);
+    }
 
     /**
      * Test if two people have the same siblings
