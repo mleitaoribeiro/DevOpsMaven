@@ -37,7 +37,7 @@ public class Person {
      * @param birthdayDay
      * @param birthdayMonth
      * @param birthdayYear
-     * @param adress
+     * @param birthPlace
      * @param mother
      * @param father
      */
