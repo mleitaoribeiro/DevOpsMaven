@@ -1,15 +1,10 @@
 package switch2019.project.model;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GroupListTest {
+class GroupsListTest {
 
     /**
      * Test if a Group was added to the list
