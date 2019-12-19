@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -467,17 +468,16 @@ class PersonTest {
         Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
         Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
 
+        HashSet<Person> onePersonSiblings = new HashSet<>(Arrays.asList(brother,sister,otherPerson));
+        HashSet<Person> otherPersonSiblings = new HashSet<>(Arrays.asList(onePerson,sister));
+        HashSet<Person> brotherSiblings = new HashSet<>(Collections.singletonList(onePerson));
+        HashSet<Person> sisterSiblings = new HashSet<>(Collections.singletonList(otherPerson));
+
         //Act
-        onePerson.addSibling(brother);
-        onePerson.addSibling(sister);
-        onePerson.addSibling(otherPerson);
-
-        otherPerson.addSibling(onePerson);
-        otherPerson.addSibling(sister);
-
-        brother.addSibling(onePerson);
-
-        sister.addSibling(otherPerson);
+        onePerson.addMultipleSiblings(onePersonSiblings);
+        otherPerson.addMultipleSiblings(otherPersonSiblings);
+        brother.addMultipleSiblings(brotherSiblings);
+        sister.addMultipleSiblings(sisterSiblings);
 
         boolean personExistsOtherSiblingsList = onePerson.personExistsOtherSiblingsList();
 
