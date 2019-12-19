@@ -177,7 +177,7 @@ class AddressTest {
 
         //Act
         a1.setZipCode(zip);
-        int result = zip.length();
+        int result = a1.getZipCode().length();
 
         //Assert
         assertEquals(8, result);

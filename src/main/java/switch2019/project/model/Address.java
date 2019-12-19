@@ -5,20 +5,36 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Address {
-
+    // The private Address variables
     private String street;
     private String city;
     private String zipCode;
+
+    /**
+     * Address constructor
+     * @param street
+     * @param city
+     * @param zipCode
+     */
 
     public Address(String street, String city, String zipCode) {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
     }
+    /**
+     * Public get for City
+     * @return city
+     */
 
     public String getCity() {
         return this.city;
     }
+
+    /**
+     * Public set for City: Validate if City Name is not a number.
+     * @param city
+     */
 
     public void setCity(String city) {
         if (isNumeric(city) || city == null) {
@@ -39,31 +55,44 @@ public class Address {
         return false;
     }
 
+    /**
+     * Public get for Street
+     * @return street
+     */
+
     public String getStreet() {
         return street;
     }
+
+    /**
+     * Public set for Street : no validation
+     * @return street
+     */
 
     public void setStreet(String street) {
         this.street = street;
     }
 
+    /**
+     * Public set for Zip-Code: with input validation
+     * @param zip
+     */
 
     public void setZipCode(String zip){
 
         if (zip.length() == 7) {
             zip = addHyphenToZipCode(zip);
         }
-
         //Validates if the zip code is in the correct format (4620-580)
-       String regex = "^[0-9]{4}-[0-9]{3}$";
-       Pattern pattern = Pattern.compile(regex);
-       Matcher matcher = pattern.matcher(zip);
-       if (matcher.matches()) {
-           this.zipCode = zip;
-       }
-       else {
-           throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
-       }
+        String regex = "^[0-9]{4}-[0-9]{3}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(zip);
+        if (matcher.matches()) {
+            this.zipCode = zip;
+        }
+        else {
+            throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
+        }
     }
 
     //auxiliary method to Add '-' in case user forget to add it.
@@ -73,12 +102,20 @@ public class Address {
         }
         return zip;
     }
-
+    /**
+     * Public get for Zip-Code: with input validation
+     * @return zipCode
+     */
 
     public String getZipCode(){
         return zipCode;
     }
 
+    /**
+     * Override method equals
+     * @param o
+     * @return boolean
+     */
 
     @Override
     public boolean equals(Object o) {
