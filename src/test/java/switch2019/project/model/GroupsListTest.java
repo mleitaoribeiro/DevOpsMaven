@@ -1,6 +1,5 @@
 package switch2019.project.model;
 
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsListTest {
 
-        @BeforeClass
         public static GroupsList groupsListSetUp() {
 
                 // Global Groups List
@@ -106,12 +104,12 @@ class GroupsListTest {
         //Arrange
         Group A = new Group("Switchieees",2019,12,19);
         GroupsList groupsList = groupsListSetUp();
-        groupsList.addGroupToGroupList(A);
 
         //Act
+            groupsList.addGroupToGroupList(A);
 
         //Assert
-        assertEquals(1 , 1);
+        assertEquals(1, 1);
     }
 
 
