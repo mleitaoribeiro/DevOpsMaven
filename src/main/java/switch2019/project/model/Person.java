@@ -173,16 +173,6 @@ public class Person {
     }
 
     /**
-     *  Validate if two people have the same mother
-     *  @param p Person to validate if has the same mother
-     */
-    public boolean checkSameMother(Person p){
-        //write code here
-        return false;
-    }
-
-
-    /**
      * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
      * @param otherPerson
      */
@@ -198,6 +188,7 @@ public class Person {
     }
 /**
  * Develop a method to check if two people have the Same Mother
+ * @param p1 Person to validate if has the same mother
  */
     public boolean checkSameMother(Person p1) {
         if (mother == null || p1.mother == null) {
