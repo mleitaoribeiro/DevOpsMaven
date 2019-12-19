@@ -61,7 +61,7 @@ class GroupTest {
         Person person2 = new Person("Mariana",1986,12,01);
         Person person3 = new Person("Marisa",2000,8,27);
 
-        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person3,person2));
+        HashSet<Person> finalGroup = new HashSet<>(Arrays.asList(person1,person3,person2));
 
         //Act
         newGroup.addMultipleMembers(finalGroup);

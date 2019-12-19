@@ -4,6 +4,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -143,9 +144,31 @@ class PersonTest {
         int year  = 1996;
         int month = 3;
         int day = 4;
+        //One Person BirthPlace
+        String onePersonStreet = "Rua 1";
+        String onePersonCity = "Porto";
+        String onePersonZipCode = "4560-345";
+        //One Person Mother
+        String onepersonMotherName = "Maria";
+        //Mother BirthDate
+        int onePersonMotherYear  = 1960;
+        int onePersonMotherMonth = 3;
+        int onePersonMotherDay = 4;
+        // One Person Father
+        String onepersonFatherName = "Artur";
+        //Father BirthDate
+        int onePersonFatherYear  = 1960;
+        int onePersonFatherMonth = 3;
+        int onePersonFatherDay = 4;
 
-        Person onePerson = new Person(name, year, month, day);
-        Person samePerson = new Person(name, year, month, day);
+
+        Address onePersonAddress = new Address(onePersonStreet, onePersonCity,onePersonZipCode);
+
+        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay);
+        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay);
+
+        Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
+        Person samePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
 
         //Act & Assert
         assertEquals(onePerson, samePerson);
@@ -162,6 +185,22 @@ class PersonTest {
         int year  = 1996;
         int month = 3;
         int day = 4;
+        //One Person BirthPlace
+        String onePersonStreet = "Rua 1";
+        String onePersonCity = "Porto";
+        String onePersonZipCode = "4560-345";
+        //One Person Mother
+        String onepersonMotherName = "Maria";
+        //Mother BirthDate
+        int onePersonMotherYear  = 1960;
+        int onePersonMotherMonth = 3;
+        int onePersonMotherDay = 4;
+        // One Person Father
+        String onepersonFatherName = "Artur";
+        //Father BirthDate
+        int onePersonFatherYear  = 1960;
+        int onePersonFatherMonth = 3;
+        int onePersonFatherDay = 4;
 
         //Other Person
         String otherPersonName = "João Cardoso";
@@ -169,13 +208,36 @@ class PersonTest {
         int otherPersonYear  = 1996;
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
+        //Other Person BirthPlace
+        String otherPersonStreet = "Rua 1";
+        String otherPersonCity = "Porto";
+        String otherPersonZipCode = "4560-345";
+        //One Person Mother
+        String otherPersonMotherName = "Maria";
+        //Mother BirthDate
+        int otherPersonMotherYear  = 1960;
+        int otherPersonMotherMonth = 3;
+        int otherPersonMotherDay = 4;
+        // One Person Father
+        String otherpersonFatherName = "Artur";
+        //Father BirthDate
+        int otherPersonFatherYear  = 1960;
+        int otherPersonFatherMonth = 3;
+        int otherPersonFatherDay = 4;
 
+        Address onePersonAddress = new Address(onePersonStreet, onePersonCity,onePersonZipCode);
+        Address otherPersonAddress = new Address(otherPersonStreet, otherPersonCity,otherPersonZipCode);
 
-        Person onePerson = new Person(name, year, month, day);
-        Person samePerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay);
+        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay);
+        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay);
+        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay);
+
+        Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, otherPersonAddress, otherPersonMother, otherPersonFather);
 
         //Act & Assert
-        assertEquals(onePerson, samePerson);
+        assertEquals(onePerson, otherPerson);
     }
 
     @Test
@@ -189,16 +251,57 @@ class PersonTest {
         int year  = 1996;
         int month = 3;
         int day = 4;
+        //One Person BirthPlace
+        String onePersonStreet = "Rua 1";
+        String onePersonCity = "Porto";
+        String onePersonZipCode = "4560-345";
+        //One Person Mother
+        String onepersonMotherName = "Maria";
+        //Mother BirthDate
+        int onePersonMotherYear  = 1960;
+        int onePersonMotherMonth = 3;
+        int onePersonMotherDay = 4;
+        // One Person Father
+        String onepersonFatherName = "Artur";
+        //Father BirthDate
+        int onePersonFatherYear  = 1960;
+        int onePersonFatherMonth = 3;
+        int onePersonFatherDay = 4;
 
         //Other Person
-        String otherPersonName = "Marta";
+        String otherPersonName = "João Cardoso";
         //Other Person BirthDate
         int otherPersonYear  = 1996;
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
+        //Other Person BirthPlace
+        String otherPersonStreet = "Rua 1";
+        String otherPersonCity = "Lisboa";
+        String otherPersonZipCode = "4500-012";
+        //One Person Mother
+        String otherPersonMotherName = "Maria";
+        //Mother BirthDate
+        int otherPersonMotherYear  = 1960;
+        int otherPersonMotherMonth = 3;
+        int otherPersonMotherDay = 4;
+        // One Person Father
+        String otherpersonFatherName = "Raul";
+        //Father BirthDate
+        int otherPersonFatherYear  = 1960;
+        int otherPersonFatherMonth = 3;
+        int otherPersonFatherDay = 4;
 
-        Person onePerson = new Person(name, year, month, day);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
+        Address onePersonAddress = new Address(onePersonStreet, onePersonCity,onePersonZipCode);
+        Address otherPersonAddress = new Address(otherPersonStreet, otherPersonCity,otherPersonZipCode);
+
+        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay);
+        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay);
+        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay);
+        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay);
+
+        Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, otherPersonAddress, otherPersonMother, otherPersonFather);
+
 
         //Act & Assert
         assertNotEquals(onePerson, otherPerson);
