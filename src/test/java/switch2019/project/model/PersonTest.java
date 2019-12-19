@@ -554,11 +554,12 @@ class PersonTest {
         //Arrange
         Person p1=new Person("Elsa",2000,02,24);
         Person p2=new Person("Filipa",1990,01,05);
-        Person father1=new Person("null",0,0,0);
+        Person father1=new Person(null,1990,1,12);
+        Person father2=new Person("Afonso",1950,8,07);
 
         //Act
         p1.setFather(father1);
-        p2.setFather(father1);
+        p2.setFather(father2);
 
         boolean result= p1.checkSameFather(p2);
 
