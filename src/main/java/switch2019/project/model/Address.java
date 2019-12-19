@@ -18,9 +18,9 @@ public class Address {
      */
 
     public Address(String street, String city, String zipCode) {
-        this.street = street;
-        this.city = city;
-        this.zipCode = zipCode;
+        this.street = street.toUpperCase();
+        this.city = city.toUpperCase();
+        this.zipCode = zipCode.toUpperCase();
     }
     /**
      * Public get for City
@@ -40,7 +40,7 @@ public class Address {
         if (isNumeric(city) || city == null) {
             this.city = null;
         } else {
-            this.city = city;
+            this.city = city.toUpperCase();
         }
     }
     //Auxiliar method to check if String is numeric
@@ -70,7 +70,7 @@ public class Address {
      */
 
     public void setStreet(String street) {
-        this.street = street;
+        this.street = street.toUpperCase();
     }
 
     /**

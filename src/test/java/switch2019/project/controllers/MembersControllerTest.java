@@ -1,6 +1,5 @@
 package switch2019.project.controllers;
 
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.Group;
