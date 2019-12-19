@@ -42,12 +42,12 @@ public class Person {
      * @param father
      */
 
-    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address adress, Person mother, Person father) {
+    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Person mother, Person father) {
         this.name = name;
         birthDate = birthDate.of(birthdayYear, birthdayMonth, birthdayDay);
         setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
         siblingList = new HashSet<>();
-        this.address = adress;
+        this.address = birthPlace;
         this.mother = mother;
         this.father = father;
     }
