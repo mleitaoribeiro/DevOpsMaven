@@ -72,7 +72,7 @@ public class Address {
     public void setStreet(String street) {
         if (isNumeric(street) || street == null) {
             this.city = null;
-        }this.street = street.toUpperCase();
+        } else this.street = street.toUpperCase();
     }
 
     /**
