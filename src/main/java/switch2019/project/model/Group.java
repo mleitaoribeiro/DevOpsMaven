@@ -103,7 +103,6 @@ public class Group {
     public boolean isFamily() {
         Person dadPerson = null;
         Person momPerson = null;
-        int siblings = 0;
         for (Person person : members) {
             for (Person person2 : members) {
                 if (!person.equals(person2)) {
@@ -118,8 +117,7 @@ public class Group {
         for (Person person : members) {
             if (!person.equals(dadPerson) && !person.equals(momPerson))
                 if(!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
-                else siblings++;
-        } return siblings == getMembers().size() - 2; // not counting the mom and dad
+        } return true;
     }
 }
 
