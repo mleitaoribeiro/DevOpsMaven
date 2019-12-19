@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -318,6 +319,50 @@ class PersonTest {
         assertTrue(p1.getSiblingList().size()==3);
     }
 
+    /**
+     *  Test if two people have the same mother
+     */
+    @Test
+    @DisplayName("Validate if two people have the same mother - False")
+    void checkSameMother_false(){
+        Person motherP1 = new Person("Maria",1988,3,23);
+        Person motherP2 = new Person("Josefa",1987,4,23);
+        Person p1 = new Person("Ricardo",2005,4,20);
+        Person p2 = new Person("Pedro",2006,4,21);
+        p1.setMother(motherP1);
+        p2.setMother(motherP2);
+        //Act
+        boolean result = p1.checkSameMother(p2);
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Validate if two people have the same mother - True")
+    void checkSameMother_true(){
+        Person motherP1 = new Person("Maria",1988,3,23);
+        Person p1 = new Person("Ricardo",2005,4,20);
+        Person p2 = new Person("Pedro",2006,4,21);
+        p1.setMother(motherP1);
+        p2.setMother(motherP1);
+        //Act
+        boolean result = p1.checkSameMother(p2);
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Validate if two people have the same mother - Null mother")
+    void checkSameMother_null_mother(){
+        Person motherP1 = new Person("Teresa",1980,1,23);
+        Person p1 = new Person("Ricardo",2005,4,20);
+        Person p2 = new Person("Pedro",2006,4,21);
+        p1.setMother(motherP1);
+        //Act
+        boolean result = p1.checkSameMother(p2);
+        //Assert
+        assertFalse(result);
+    }
 
     /**
      * Test if two people have the same siblings
@@ -467,17 +512,16 @@ class PersonTest {
         Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
         Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
 
+        HashSet<Person> onePersonSiblings = new HashSet<>(Arrays.asList(brother,sister,otherPerson));
+        HashSet<Person> otherPersonSiblings = new HashSet<>(Arrays.asList(onePerson,sister));
+        HashSet<Person> brotherSiblings = new HashSet<>(Collections.singletonList(onePerson));
+        HashSet<Person> sisterSiblings = new HashSet<>(Collections.singletonList(otherPerson));
+
         //Act
-        onePerson.addSibling(brother);
-        onePerson.addSibling(sister);
-        onePerson.addSibling(otherPerson);
-
-        otherPerson.addSibling(onePerson);
-        otherPerson.addSibling(sister);
-
-        brother.addSibling(onePerson);
-
-        sister.addSibling(otherPerson);
+        onePerson.addMultipleSiblings(onePersonSiblings);
+        otherPerson.addMultipleSiblings(otherPersonSiblings);
+        brother.addMultipleSiblings(brotherSiblings);
+        sister.addMultipleSiblings(sisterSiblings);
 
         boolean personExistsOtherSiblingsList = onePerson.personExistsOtherSiblingsList();
 

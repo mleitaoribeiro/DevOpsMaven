@@ -12,7 +12,7 @@ public class GroupsList {
     /**
      *Develop @override of equals for Group and @override of hashcode
      */
-    public GroupsList(HashSet <Group> groupsList){
+    public GroupsList(){
         groupsList = new HashSet<Group>();
     }
 
@@ -25,11 +25,10 @@ public class GroupsList {
         }
     }
 
-    /**
-     * method to add group  if is a Family to the list
-     */
-    public void addGroupFamilyToFamiliesGroupList (Group familyGroup) {
-      // write code here
+    public HashSet<Group> getGroups(){
+        HashSet <Group> groupsClone = new HashSet<>(this.groupsList);
+        return groupsClone;
     }
+
 
 }

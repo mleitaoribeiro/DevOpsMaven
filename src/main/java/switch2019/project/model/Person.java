@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class Person {
-    // Private instance variables
+    // Private Person variables
     private String name;
-    private LocalDate birthDate;
+    private LocalDate birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private HashSet<Person> siblingList;
     private Person mother;
     private Person father;
@@ -30,7 +30,7 @@ public class Person {
     }
 
     /**
-     * Second Person constructor
+     * Overload Person constructor
      * @param name
      * @param birthdayDay
      * @param birthdayMonth
@@ -50,7 +50,7 @@ public class Person {
         this.father = father;
     }
     /**
-     * Set Person Birth Date
+     * Set Person Birth Date: with input validation
      * @param newYear
      * @param newMonth
      * @param newDay
@@ -63,13 +63,17 @@ public class Person {
         birthDate = birthDate.of(newYear, newMonth, newDay);
     }
 
-    //Getter for Person Birth Date
+    /**
+     * Get BirthDate
+     * @return birthDate
+     */
+
     public LocalDate getBirthDate() {
         return this.birthDate;
     }
 
     /**
-     * Set Person Name
+     * Set Person Name: No input Validation
      * @param newName
      */
 
@@ -169,12 +173,23 @@ public class Person {
     }
 
     /**
-     * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
+     *  Validate if two people have the same mother
+     *  @param p Person to validate if has the same mother
      */
-    public boolean checkSameSiblings(Person p1){
+    public boolean checkSameMother(Person p){
+        //write code here
+        return false;
+    }
+
+
+    /**
+     * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
+     * @param otherPerson
+     */
+    public boolean checkSameSiblings(Person otherPerson){
         HashSet<Person> list1 = this.getSiblingList();
-        HashSet<Person> list2 = p1.getSiblingList();
-        list1.remove(p1);
+        HashSet<Person> list2 = otherPerson.getSiblingList();
+        list1.remove(otherPerson);
         list2.remove(this);
         if (list1.equals(list2)){
             return true;
@@ -199,6 +214,8 @@ public class Person {
 
     /**
      * override of equals for Person Instance and @override hashcode
+     * @param o
+     * @return boolean
      */
     @Override
     public boolean equals(Object o) {
@@ -216,6 +233,7 @@ public class Person {
 
     /**
      *  Person exists on the other siblings list (USER STORIES)
+     * @return boolean
      */
 
     public boolean personExistsOtherSiblingsList () {

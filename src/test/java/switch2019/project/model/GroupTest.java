@@ -270,7 +270,6 @@ class GroupTest {
         joao.setFather(carlos);
 
         Group family = new Group("Family", 2019, 10, 10);
-        family.addMultipleMembers(famList);
 
         // Act
         family.addMultipleMembers(famList);
@@ -300,7 +299,6 @@ class GroupTest {
         joao.setFather(carlos);
 
         Group family = new Group("Family", 2019, 10, 10);
-        family.addMultipleMembers(famList);
 
         // Act
         family.addMultipleMembers(famList);
@@ -322,7 +320,6 @@ class GroupTest {
         HashSet<Person> famList = new HashSet<>(Arrays.asList(oscar, marta, joao, manuela, carlos));
 
         Group family = new Group("Family", 2019, 10, 10);
-        family.addMultipleMembers(famList);
 
         // Act
         family.addMultipleMembers(famList);
@@ -348,7 +345,6 @@ class GroupTest {
         joao.setFather(carlos);
 
         Group family = new Group("Family", 2019, 10, 10);
-        family.addMultipleMembers(famList);
 
         // Act
         family.addMultipleMembers(famList);
