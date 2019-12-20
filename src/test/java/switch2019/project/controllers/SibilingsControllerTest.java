@@ -50,7 +50,7 @@ class SibilingsControllerTest {
         boolean resultado=antonio.isSibling(p1);
 
         //Assert
-        assertEquals(false,resultado);
+        assertFalse(resultado);
     }
 
 
