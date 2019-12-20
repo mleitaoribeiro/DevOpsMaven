@@ -5,6 +5,7 @@ import switch2019.project.model.Group;
 import switch2019.project.model.GroupsList;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,24 +29,6 @@ class GroupControllerTest {
     }
 
     /**
-     * Method to check if a Group was created (with HashSet.contains function) - FALSE
-     */
-    @Test
-    public void isGroupNotInList() {
-        // Arrange Groups
-        Group group1 = new Group(null,2019,5,18);
-        Group group2 = new Group(null,2019,3,13);
-        // Arrange GroupList
-        GroupsList gl = new GroupsList();
-
-        // Act
-        gl.addGroupToGroupList(group2);
-
-        // Assert
-        assertFalse(gl.groupListContains(group1));
-    }
-
-    /**
      * Method to check if a Group was created inside a GroupList (Compare with Group HashSet)
      */
     @Test
@@ -58,7 +41,7 @@ class GroupControllerTest {
 
         // Act
         gl.addGroupToGroupList(group1);
-        HashSet<Group> expected = new HashSet<>(Arrays.asList(group1));
+        HashSet<Group> expected = new HashSet<>(Collections.singleton(group1));
 
         //Assert
         assertEquals(gl.getGroups(), expected);
