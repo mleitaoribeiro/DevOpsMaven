@@ -494,7 +494,7 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - Null mother")
     void checkSameMother_null_mother(){
         Person motherP1 = new Person("Teresa",1980,1,23);
-        Person motherP2 = new Person(null,2005,4,20);
+        Person motherP2 = null;
         Person p1 = new Person("Ricardo",2005,4,20);
         Person p2 = new Person("Pedro",2006,4,21);
         p1.setMother(motherP1);
