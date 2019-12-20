@@ -3,6 +3,8 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddressTest {
@@ -182,8 +184,37 @@ class AddressTest {
         //Assert
         assertEquals(8, result);
     }
+    @Test
+    @DisplayName("Zip code not valide - test exception")
+    public void setZIP_exception() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "44300945";
+        try {
+            //Act
+            a1.setZipCode(zip);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException zipcode) {
+            assertEquals("Zip-Code is not in the correct format! (xxxx-xxx)", zipcode.getMessage());
+        }
+    }
 
+    @Test
+    @DisplayName("Add hyphen to zip code - 8 numbers")
+    public void addHyphenToZipCode() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "44300942";
 
+        //Act
+        a1.addHyphenToZipCode(zip);
+        String result = "44300942";
+
+        //Assert
+        assertEquals(zip, result);
+    }
 
     /**
      * Test Equals method for the Adress class
@@ -232,7 +263,5 @@ class AddressTest {
         //Act and Assert
         assertTrue(a1.equals(a2));
     }
-
-
 
 }
