@@ -201,6 +201,21 @@ class AddressTest {
         }
     }
 
+    @Test
+    @DisplayName("Add hyphen to zip code - 8 numbers")
+    public void addHyphenToZipCode() {
+        //Arrange
+        Address a1 = new Address(null, null, null);
+        String zip = "44300942";
+
+        //Act
+        a1.addHyphenToZipCode(zip);
+        String result = "44300942";
+
+        //Assert
+        assertEquals(zip, result);
+    }
+
     /**
      * Test Equals method for the Adress class
      */
@@ -248,7 +263,5 @@ class AddressTest {
         //Act and Assert
         assertTrue(a1.equals(a2));
     }
-
-
 
 }

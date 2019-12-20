@@ -81,7 +81,7 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-        if(zip==null) this.zipCode=null;
+        if(zip==null) this.zipCode = null;
         else {
 
             if (zip.length() == 7) {
@@ -106,6 +106,7 @@ public class Address {
         }
         return zip;
     }
+
     /**
      * Public get for Zip-Code: with input validation
      * @return zipCode
