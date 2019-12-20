@@ -104,7 +104,7 @@ class GroupsListTest {
 
         //Arrange
         Group A = new Group("Switchieees", 2019, 12, 19);
-        GroupsList groupsList = groupsListSetUp();
+        GroupsList groupsList = new GroupsList();
 
         //Act
         groupsList.addGroupToGroupList(A);
