@@ -422,6 +422,29 @@ class PersonTest {
         assertTrue(p1.getSiblingList().size()==3);
     }
 
+    @Test
+    @DisplayName("Validate if multiple siblings were removed from a siblings list - not contains exact ones")
+    void validateMultipleSiblingRemoval_not_contains_exact_ones (){
+        //Arrange
+        Person p1=new Person("John",1996,12,9);
+        Person p2=new Person("Anna",1993,2,23);
+        Person p3=new Person("Susan",1993,3,9);
+        Person p4=new Person("Frank",1996,12,5);
+        Person p5=new Person("Jessica",2002,12,3);
+        HashSet<Person>totalSib=new HashSet<>(Arrays.asList(p2,p3,p4,p5));
+        HashSet<Person>removeSib= new HashSet<>(Arrays.asList(p3,p4));
+        HashSet<Person>expectedSib=new HashSet<>(Arrays.asList(p2,p5));
+
+        //Act
+        p1.addMultipleSiblings(totalSib);
+        p1.removeMultipleSibling(removeSib);
+
+        //Assert
+        assertTrue(p1.getSiblingList().containsAll(expectedSib));
+    }
+
+
+
     /**
      *  Test if two people have the same mother
      */
