@@ -53,7 +53,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if all members were added to Group => Sucess Case")
-    void addMultipleMembers_Sucess() {
+    void addMultipleMembers_Success() {
         //Arrange
         Group newGroup = new Group("M'Nation", 2019,12, 18 );
 

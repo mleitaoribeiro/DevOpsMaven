@@ -9,12 +9,15 @@ public class GroupsList {
     /**
      * Default Constructor for Group List
      */
-    /**
-     *Develop @override of equals for Group and @override of hashcode
-     */
+
     public GroupsList(){
         groupsList = new HashSet<Group>();
     }
+
+    /**
+     *Develop @override of equals for Group and @override of hashcode
+     */
+
 
     /**
      * method to add group to the list

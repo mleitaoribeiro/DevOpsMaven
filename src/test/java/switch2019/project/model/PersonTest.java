@@ -67,7 +67,7 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Test for validating birth date input => sucess case")
+    @DisplayName("Test for validating birth date input => success case")
     public void validateBirthDate() {
         //Arrange
         Person A = new Person(null, 1996, 3, 4);
@@ -82,7 +82,7 @@ class PersonTest {
     }
     @Test
     @DisplayName("Test for validating birth date input => error case ")
-    public void validateBirthDate_invalideMonth() {
+    public void validateBirthDate_invalidMonth() {
         //Arrange
         Person A = new Person(null, 1995, 04, 15);
 
@@ -114,7 +114,7 @@ class PersonTest {
     }
     @Test
     @DisplayName("Test for validating birth date input => error case")
-    public void validateBirthDate_invalideDay() {
+    public void validateBirthDate_invalidDay() {
         //Arrange
         Person A = new Person(null, 1995, 04, 15);
 
@@ -578,7 +578,7 @@ class PersonTest {
         int otherPersonDay = 4;
 
         //One Brother
-        String bortherName = "Paulo";
+        String brotherName = "Paulo";
         //One brother BirthDate
         int brotherYear  = 1993;
         int brotherMonth = 9;
@@ -594,7 +594,7 @@ class PersonTest {
         Person onePerson = new Person(name, year, month, day);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
 
-        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
         Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
 
         //Act
@@ -635,7 +635,7 @@ class PersonTest {
         int otherPersonDay = 4;
 
         //One Brother
-        String bortherName = "Paulo";
+        String brotherName = "Paulo";
         //One brother BirthDate
         int brotherYear  = 1993;
         int brotherMonth = 9;
@@ -650,7 +650,7 @@ class PersonTest {
 
         Person onePerson = new Person(name, year, month, day);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
         Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
 
         HashSet<Person> onePersonSiblings = new HashSet<>(Arrays.asList(brother,sister,otherPerson));
@@ -695,7 +695,7 @@ class PersonTest {
         int otherPersonDay = 4;
 
         //One Brother
-        String bortherName = "Paulo";
+        String brotherName = "Paulo";
         //One brother BirthDate
         int brotherYear  = 1993;
         int brotherMonth = 9;
@@ -710,7 +710,7 @@ class PersonTest {
 
         Person onePerson = new Person(name, year, month, day);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
         Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
 
         //Act
@@ -744,7 +744,7 @@ class PersonTest {
         int otherPersonDay = 4;
 
         //One Brother
-        String bortherName = "Paulo";
+        String brotherName = "Paulo";
         //One brother BirthDate
         int brotherYear  = 1993;
         int brotherMonth = 9;
@@ -759,7 +759,7 @@ class PersonTest {
 
         Person onePerson = new Person(name, year, month, day);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay);
+        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
         Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
 
         //Act
@@ -777,7 +777,7 @@ class PersonTest {
 
 
 /**
- *
+ *Test if two people have the same father
  */
     @Test
     @DisplayName("Two Equals father_true")
