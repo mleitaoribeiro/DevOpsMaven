@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class Group {
-    String description;
-    LocalDate startingDate;
-    HashSet<Person> members;
+    private String description;
+    private LocalDate startingDate;
+    private HashSet<Person> members;
 
     /**
      * Default Group constructor

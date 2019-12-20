@@ -28,7 +28,7 @@ class GroupTest {
         A.addMember(marta);
 
         //Assert
-        assertTrue(A.members.contains(marta));
+        assertTrue(A.getMembers().contains(marta));
     }
 
 
@@ -44,7 +44,7 @@ class GroupTest {
         A.addMember(marta);
 
         //Assert
-        assertFalse(A.members.contains(marta));
+        assertFalse(A.getMembers().contains(marta));
     }
 
     /**
