@@ -24,12 +24,17 @@ public class GroupsList {
      */
     public void addGroupToGroupList (Group group1) {
         if ( group1 != null) {
-            if (!groupsList.contains(group1)) {
-                groupsList.add(group1);
-            }
+            groupsList.add(group1);
         }
     }
 
+    /**
+     * Method to when a new group is created, is immediately put in the groups lists
+     * @param description
+     * @param startingDateYear
+     * @param startingDateMonth
+     * @param startingDateDay
+     */
     public void newGroup(String description, int startingDateYear, int startingDateMonth, int startingDateDay) {
         Group newGroup = new Group(description, startingDateYear, startingDateMonth, startingDateDay);
         addGroupToGroupList(newGroup);
