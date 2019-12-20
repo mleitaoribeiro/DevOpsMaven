@@ -205,7 +205,7 @@ class AddressTest {
     void sameAddressDifferentAddresses () {
         //Arrange
         Address a1 = new Address("Rua das Flores, 36", "Porto", "4050-262");
-        Address a2 = new Address("Rua de S.Tomé, 133", "Porto", "44200-485");
+        Address a2 = new Address("Rua de S.Tomé, 133", "Porto", "4420-485");
 
         //Act and Assert
         assertFalse(a1.equals(a2));
