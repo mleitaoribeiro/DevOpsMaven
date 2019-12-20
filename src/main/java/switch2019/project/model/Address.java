@@ -18,9 +18,9 @@ public class Address {
      */
 
     public Address(String street, String city, String zipCode) {
-        if(street != null) this.street = street.toUpperCase();
-        if(city != null) this.city = city.toUpperCase();
-        if(zipCode != null) this.zipCode = zipCode.toUpperCase();
+        setStreet(street);
+        setCity(city);
+        setZipCode(zipCode);
     }
     /**
      * Public get for City
@@ -81,19 +81,21 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-
-        if (zip.length() == 7) {
-            zip = addHyphenToZipCode(zip);
-        }
-        //Validates if the zip code is in the correct format (4620-580)
-        String regex = "^[0-9]{4}-[0-9]{3}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(zip);
-        if (matcher.matches()) {
-            this.zipCode = zip;
-        }
+        if(zip==null) this.zipCode=null;
         else {
-            throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
+
+            if (zip.length() == 7) {
+                zip = addHyphenToZipCode(zip);
+            }
+            //Validates if the zip code is in the correct format (4620-580)
+            String regex = "^[0-9]{4}-[0-9]{3}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(zip);
+            if (matcher.matches()) {
+                this.zipCode = zip;
+            } else {
+                throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
+            }
         }
     }
 
