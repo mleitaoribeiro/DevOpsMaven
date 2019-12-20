@@ -32,11 +32,11 @@ class FamilyControllerTest {
         Person manuelaMOM = new Person("Manuela", 1990, 10, 10);
         Person carlosDAD = new Person("Carlos", 1990, 10, 10);
         Person oscar = new Person("Oscar", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), manuelaMOM, carlosDAD);
+                new Address("Matosinhos", "Porto", "4620-585"), manuelaMOM, carlosDAD);
         Person marta = new Person("Marta", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), manuelaMOM, carlosDAD);
+                new Address("Matosinhos", "Porto", "4620-585"), manuelaMOM, carlosDAD);
         Person joao = new Person("Joao", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), manuelaMOM, carlosDAD);
+                new Address("Matosinhos", "Porto", "4620-585"), manuelaMOM, carlosDAD);
 
         // Group
         HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, manuelaMOM, carlosDAD));
@@ -49,11 +49,11 @@ class FamilyControllerTest {
         Person homer = new Person("Homer", 1990, 10, 10);
         Person marge = new Person("Marge", 1990, 10, 10);
         Person bart = new Person("Bart", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), marge, homer);
+                new Address("Matosinhos", "Porto", "4620-585"), marge, homer);
         Person lisa = new Person("Lisa", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), marge, homer);
+                new Address("Matosinhos", "Porto", "4620-585"), marge, homer);
         Person maggie = new Person("Maggie", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), marge, homer);
+                new Address("Matosinhos", "Porto", "4620-585"), marge, homer);
 
         // Group
         HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(homer, marge, bart, lisa, maggie));
@@ -65,11 +65,11 @@ class FamilyControllerTest {
         // Third global group - No Mom
         Person joaoDAD = new Person("Joao", 1990, 10, 10);
         Person diana = new Person("Diana", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), null, joaoDAD);
+                new Address("Matosinhos", "Porto", "4620-585"), null, joaoDAD);
         Person elsa = new Person("Elsa", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), null, joaoDAD);
+                new Address("Matosinhos", "Porto", "4620-585"), null, joaoDAD);
         Person ines = new Person("Ines", 1990, 10, 10,
-                new Address("Matosinhos", "Porto", "000"), null, joaoDAD);
+                new Address("Matosinhos", "Porto", "4620-585"), null, joaoDAD);
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines, joao));
