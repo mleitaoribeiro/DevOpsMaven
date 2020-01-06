@@ -351,10 +351,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person p1 = new Person("Teresa",1987,04,05,new Address("Lisboa"));
-        Person p2 = new Person("Paulo", 1994,05,18,new Address("Porto"));
-        Person p3 = new Person("Paulo",1985,05,17, new Address("Coimbra"));
-        Person p4 = new Person("Luis",2000,15,04,new Address("Mozelos"));
+        Person p1 = new Person("Teresa",1987,4,5,new Address("Lisboa"));
+        Person p2 = new Person("Paulo", 1994,5,18,new Address("Porto"));
+        Person p3 = new Person("Paulo",1985,5,17, new Address("Coimbra"));
+        Person p4 = new Person("Luis",2000,10,4,new Address("Mozelos"));
         HashSet<Person>newSiblings= new HashSet<>(Arrays.asList(p2,p4,p3));
         //Act
         p1.addMultipleSiblings(newSiblings);
@@ -461,8 +461,6 @@ class PersonTest {
         //Assert
         assertTrue(p1.getSiblingList().containsAll(expectedSib));
     }
-
-
 
     /**
      *  Test if two people have the same mother
