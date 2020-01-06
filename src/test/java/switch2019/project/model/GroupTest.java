@@ -22,7 +22,7 @@ class GroupTest {
 
         //Arrange
         Person marta = new Person("Marta", 2000, 10, 10, new Address("Porto"));
-        Group grupoMaisFixe = new Group("OsMaisFixes", 2019, 10, 10);
+        Group grupoMaisFixe = new Group("OsMaisFixes");
 
         //Act
         grupoMaisFixe.addMember(marta);
@@ -38,7 +38,7 @@ class GroupTest {
 
         //Arrange
         Person Marta = null;
-        Group osMaisFixes = new Group("OsMaisFixes", 2019, 10, 10);
+        Group osMaisFixes = new Group("OsMaisFixes");
 
         //Act
         osMaisFixes.addMember(Marta);
@@ -55,7 +55,7 @@ class GroupTest {
     @DisplayName("Test if all members were added to Group => Success Case")
     void addMultipleMembers_Success() {
         //Arrange
-        Group Mnation = new Group("MNation", 2019,12, 18);
+        Group Mnation = new Group("MNation");
 
         Person Maria = new Person("Maria", 1994, 05, 01, new Address("Porto"));
         Person Mariana = new Person("Mariana",1986,12,01, new Address("Lisboa"));
@@ -74,7 +74,7 @@ class GroupTest {
     @DisplayName("Test if the same person is not added twice")
     void addMultipleMembers__ErrorCase() {
         //Arrange
-        Group grupoDaMaria = new Group("Maria's Group", 2019,12, 18 );
+        Group grupoDaMaria = new Group("Maria's Group");
 
         Person Maria = new Person("Maria", 1994, 05, 01, new Address("Porto"));
         Person Maria1 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
@@ -92,7 +92,7 @@ class GroupTest {
     @DisplayName("Test if a null case is added to group")
     void addMultipleMembers__ErrorCase2() {
         //Arrange
-        Group mNation = new Group("Grupo das M'Nation", 2019,12, 18 );
+        Group mNation = new Group("Grupo das M'Nation");
 
         Person Maria = new Person("Maria", 1994, 05, 01, new Address("Porto"));
         Person Mariana = null;
@@ -117,10 +117,7 @@ class GroupTest {
 
         //New Group
         String description = "Grupo a ser submetido aos testes";
-        //Starting date
-        int year = 2005;
-        int month = 4;
-        int day = 15;
+
 
         //One Member
         String oneMemberName = "João";
@@ -136,7 +133,7 @@ class GroupTest {
         int otherMemberMonth = 10;
         int otherMemberDay = 9;
 
-        Group grupoDoJoaoEdaElsa = new Group(description, year, month, day);
+        Group grupoDoJoaoEdaElsa = new Group(description);
 
         Person Joao = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay, new Address("Paranhos"));
         Person Elsa = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay, new Address("Porto"));
@@ -159,10 +156,7 @@ class GroupTest {
 
         //New Group
         String description = "123 são os primeiros três números inteiros";
-        //Starting date
-        int year = 2005;
-        int month = 4;
-        int day = 15;
+
 
         //One Member
         String oneMemberName = "João";
@@ -178,7 +172,7 @@ class GroupTest {
         int otherMemberMonth = 10;
         int otherMemberDay = 9;
 
-        Group grupoDoJoaoeElsa = new Group(description, year, month, day);
+        Group grupoDoJoaoeElsa = new Group(description);
 
         Person Joao = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay, new Address("Lisboa"));
         Person Elsa = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay, new Address("Porto"));
@@ -203,7 +197,7 @@ class GroupTest {
     @DisplayName("Test if multiple members were removed from a Group - remove all ")
     void removeMultipleMembersFromAGroup(){
         //Arrange
-        Group grupoDoPedrodoGabriel=new Group("G1",2005,2,12);
+        Group grupoDoPedrodoGabriel=new Group("grupo dos amiguinhos");
         Person Pedro =new Person("Pedro",1999,12,9, new Address("Porto"));
         Person Gabriel=new Person("Gabriel",1996,3,6, new Address("Porto"));
         HashSet<Person>putMembers=new HashSet<>(Arrays.asList(Pedro, Gabriel));
@@ -220,7 +214,7 @@ class GroupTest {
     @DisplayName("Test if multiple members were removed from a Group - only the members I choose ")
     void removeMultipleMembers() {
         //Arrange
-        Group grupoPedroGabrielLaurinda = new Group("G1", 2005, 2, 12);
+        Group grupoPedroGabrielLaurinda = new Group("Grupo ainda mais fixe que o outro");
         Person Pedro = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
         Person Gabriel = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
         Person Laurinda = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
@@ -268,7 +262,7 @@ class GroupTest {
         joao.setMother(manuela);
         joao.setFather(carlos);
 
-        Group family = new Group("Family", 2019, 10, 10);
+        Group family = new Group("Family");
 
         // Act
         family.addMultipleMembers(familyList);
@@ -297,7 +291,7 @@ class GroupTest {
         joao.setMother(manuela);
         joao.setFather(carlos);
 
-        Group family = new Group("Family", 2019, 10, 10);
+        Group family = new Group("Family");
 
         // Act
         family.addMultipleMembers(familyList);
@@ -318,7 +312,7 @@ class GroupTest {
         Person carlos = new Person("Carlos", 1990, 10, 10, new Address("Porto"));
         HashSet<Person> famList = new HashSet<>(Arrays.asList(oscar, marta, joao, manuela, carlos));
 
-        Group family = new Group("Family", 2019, 10, 10);
+        Group family = new Group("Family");
 
         // Act
         family.addMultipleMembers(famList);
@@ -343,7 +337,7 @@ class GroupTest {
         marta.setFather(carlos);
         joao.setFather(carlos);
 
-        Group family = new Group("Family", 2019, 10, 10);
+        Group family = new Group("Family");
 
         // Act
         family.addMultipleMembers(familyList);
@@ -359,8 +353,8 @@ class GroupTest {
     @DisplayName( "Two group are the same")
     void equalsGroupClass_JustGrouptrue() {
 
-        Group grupoFamilia=new Group("Familia",1987,01,16);
-        Group grupoOutraFamilia= new Group("Familia",1987,01,16);
+        Group grupoFamilia=new Group("Familia");
+        Group grupoOutraFamilia= new Group("Familia");
 
         //Act
         boolean result= grupoFamilia.equals(grupoOutraFamilia);
@@ -376,8 +370,8 @@ class GroupTest {
         //Arrange
         Person Elsa=new Person("Elsa",2000,02,24, new Address("Porto"));
         Person Filipa=new Person("Filipa",1990,01,05, new Address("Porto"));
-        Group Familia=new Group("Familia",1987,01,16);
-        Group outraFamilia= new Group("Familia",1987,01,16);
+        Group Familia=new Group("Familia");
+        Group outraFamilia= new Group("Familia");
         HashSet<Person>members= new HashSet<>(Arrays.asList(Elsa,Filipa));
 
         //Act
@@ -394,8 +388,8 @@ class GroupTest {
         //Arrange
         Person Elsa=new Person("Elsa",2000,02,24, new Address("Porto"));
         Person Filipa=new Person("Filipa",1990,01,05, new Address("Porto"));
-        Group Familia=new Group("Familia",1987,01,16);
-        Group outraFamilia= new Group("Familia",1985,01,16);
+        Group Familia=new Group("Familia");
+        Group outraFamilia= new Group("Familia");
         HashSet<Person>members= new HashSet<>(Arrays.asList(Elsa,Filipa));
 
         //Act
@@ -414,8 +408,8 @@ class GroupTest {
         Person Elsa=new Person("Elsa",2000,02,24, new Address("Porto"));
         Person Filipa=new Person("Filipa",1990,01,05, new Address("Porto"));
         Person Pedro=new Person("Pedro",1990,01,05, new Address("Porto"));
-        Group Familia=new Group("Familia",1987,01,16);
-        Group outraFamilia= new Group("Familia",1985,01,16);
+        Group Familia=new Group("Familia fixe");
+        Group outraFamilia= new Group("Familia mais fixe");
         HashSet<Person>members= new HashSet<>(Arrays.asList(Filipa,Elsa));
         HashSet<Person>members2= new HashSet<>(Arrays.asList(Filipa,Pedro));
         //Act
