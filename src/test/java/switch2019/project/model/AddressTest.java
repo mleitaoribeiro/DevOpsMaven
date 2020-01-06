@@ -111,24 +111,34 @@ class AddressTest {
     void setCity_null_input() {
         //Arrange
         Address armazem = new Address("Beco do Paniceiro", "Gaia", "4430-444");
-        //Act
-        armazem.setCity(null);
+        String city = null;
+        try {
+            //Act
+            armazem.setCity (city);
+            fail();
+        }
         //Assert
-        assertEquals(null, armazem.getCity());
+        catch (IllegalArgumentException zipcode) {
+            assertEquals("The city in your Address is not valid or it's missing. Please try again.", zipcode.getMessage());
+        }
     }
 
     @Test
-    @DisplayName("validate input for city - different type")
-    void setCity_different_type() {
+    @DisplayName("validate input for city - numeric")
+    void setCity_numeric_input() {
         //Arrange
-        Address casino = new Address ("Largo 5 de Outubro", "Gaia", "4430-444");
-        String expected = null;
-        //Act
-        casino.setCity("211");
+        Address armazem = new Address("Beco do Paniceiro", "Gaia", "4430-444");
+        String city = "1234";
+        try {
+            //Act
+            armazem.setCity (city);
+            fail();
+        }
         //Assert
-        assertEquals(null, casino.getCity());
+        catch (IllegalArgumentException zipcode) {
+            assertEquals("The city in your Address is not valid or it's missing. Please try again.", zipcode.getMessage());
+        }
     }
-
 
     @Test
     @DisplayName("validate input for city - not case sensitive")
