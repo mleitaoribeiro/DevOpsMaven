@@ -9,14 +9,15 @@ public class Address {
     private String street;
     private String city;
     private String zipCode;
+    private String birthPlace;
 
     /**
      * Address constructor
-     * @param birthplace
+     * @param birthPlace
      */
 
-    public Address (String birthplace) {
-        setCity(birthplace);
+    public Address (String birthPlace) {
+        this.birthPlace = birthPlace;
     }
 
     /**
@@ -91,7 +92,7 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-        if(zip==null)
+        if (zip==null)
             throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
             if (zip.length() == 7) {
