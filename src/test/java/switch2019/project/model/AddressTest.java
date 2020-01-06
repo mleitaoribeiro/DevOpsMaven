@@ -31,15 +31,34 @@ class AddressTest {
     @DisplayName("validate input for street - null")
     void setStreet_null() {
         //Arrange
-        Address casa= new Address(null,"Porto","4450-362");
-
-        //Act
-        casa.setStreet(null);
-        String actual = casa.getStreet();
-
+        Address casa= new Address("Rua 1","Porto","4450-362");
+        String street = null;
+        try {
+            //Act
+            casa.setStreet(street);
+            fail();
+        }
         //Assert
-        assertEquals(null, actual);
+        catch (IllegalArgumentException zipcode) {
+            assertEquals("The street format in your Address is not valid or it's missing. Please try again", zipcode.getMessage());
+        }
+    }
 
+    @Test
+    @DisplayName("validate input for street - numeric")
+    void setStreet_numeric() {
+        //Arrange
+        Address casa= new Address("Rua 1","Porto","4450-362");
+        String street = "162723";
+        try {
+            //Act
+            casa.setStreet(street);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException zipcode) {
+            assertEquals("The street format in your Address is not valid or it's missing. Please try again", zipcode.getMessage());
+        }
     }
 
     @Test
