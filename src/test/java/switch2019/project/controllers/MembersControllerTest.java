@@ -2,6 +2,7 @@ package switch2019.project.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.Address;
 import switch2019.project.model.Group;
 import switch2019.project.model.Person;
 
@@ -21,27 +22,27 @@ class MembersControllerTest {
     void addMember() {
         // Arrange
         // Members to be included in the groups
-        Person p1 = new Person ("Marie", 2000, 10, 3);
-        Person p4 = new Person("Susan",1993,3,9);
-        Person p7 = new Person("Jack", 1990,1,3);
+        Person marieMember = new Person ("Marie", 1993, 3, 9, new Address("Viana do Castelo"));
+        Person susanMember = new Person("Susan",1993,3,9, new Address("Braga"));
+        Person jackMember = new Person("Jack", 1990,1,3, new Address("Setúbal"));
 
         // Groups created by the system manager
-        Group g1 = new Group("Just4Fun", 2019, 11, 10);
-        Group g2 = new Group("SWitCH", 2019, 10, 7);
-        Group g3 = new Group("Movies", 2015, 5, 18);
+        Group just4FunGroup = new Group("Just4Fun");
+        Group switchGroup = new Group("SWitCH");
+        Group moviesGroup = new Group("Movies");
 
         //Act:
         // Group g1 - add just one member to the group
-        g1.addMember(p7);
+        just4FunGroup.addMember(jackMember);
         //Group g2 - add just one member to the group
-        g2.addMember(p1);
+        switchGroup.addMember(marieMember);
         //Group g3 - add just one member to the group
-        g3.addMember(p4);
+        moviesGroup.addMember(susanMember);
 
         //Assert
-        assertTrue(g1.getMembers().contains(p7));
-        assertTrue(g2.getMembers().contains(p1));
-        assertTrue(g3.getMembers().contains(p4));
+        assertTrue(just4FunGroup.getMembers().contains(jackMember));
+        assertTrue(switchGroup.getMembers().contains(marieMember));
+        assertTrue(moviesGroup.getMembers().contains(susanMember));
     }
 
 
@@ -50,16 +51,16 @@ class MembersControllerTest {
     void addMemberNull() {
         // Arrange
         // Members to be included in the groups
-        Person p8 = null;
+        Person aNullPerson = null;
 
         // Groups created by the system manager
-        Group g1 = new Group("Just4Fun", 2019, 11, 10);
+        Group just4FunGroup = new Group("Just4Fun");
 
         //Act
-        g1.addMember(p8);
+        just4FunGroup.addMember(aNullPerson);
 
         //Assert
-        assertFalse(g1.getMembers().contains(p8));
+        assertFalse(just4FunGroup.getMembers().contains(aNullPerson));
     }
 
 
@@ -72,35 +73,35 @@ class MembersControllerTest {
     void addMultipleMembers() {
         // Arrange
         // Members to be included in the groups
-        Person p2 = new Person("John",1996,12,9);
-        Person p3 = new Person("Anna",1993,2,23);
-        Person p4 = new Person("Susan",1993,3,9);
-        Person p5 = new Person("Frank",1996,12,5);
-        Person p6 = new Person("Jessica",2002,12,3);
-        Person p7 = new Person("Jack", 1990,1,3);
+        Person johnPerson = new Person("John",1996,12,9, new Address ("Leiria"));
+        Person annaPerson = new Person("Anna",1993,2,23, new Address("Guimarães"));
+        Person susanPerson = new Person("Susan",1993,3,9, new Address("Porto"));
+        Person frankPerson = new Person("Frank",1996,12,5, new Address("Guarda"));
+        Person jessicaPerson = new Person("Jessica",2002,12,3, new Address("Santarém"));
+        Person jackPerson = new Person("Jack", 1990,1,3, new Address("Coimbra"));
 
         // Groups created by the system manager
-        Group g1 = new Group("Just4Fun", 2019, 11, 10);
-        Group g2 = new Group("SWitCH", 2019, 10, 7);
-        Group g3 = new Group("Movies", 2015, 5, 18);
+        Group just4FunGroup = new Group("Just4Fun");
+        Group switchGroup = new Group("SWitCH");
+        Group moviesGroup = new Group("Movies");
 
         //Act
         //Group g1 - add several members to the group
-        HashSet<Person> finalGroup1= new HashSet<>(Arrays.asList(p2,p4,p5));
-        g1.addMultipleMembers(finalGroup1);
+        HashSet<Person> groupTestJust4Fun= new HashSet<>(Arrays.asList(johnPerson,susanPerson,frankPerson));
+        just4FunGroup.addMultipleMembers(groupTestJust4Fun);
 
         //Group g2 - add several members to the group
-        HashSet<Person> finalGroup2= new HashSet<>(Arrays.asList(p3,p6));
-        g2.addMultipleMembers(finalGroup2);
+        HashSet<Person> groupTestSwitch= new HashSet<>(Arrays.asList(annaPerson,jessicaPerson));
+        switchGroup.addMultipleMembers(groupTestSwitch);
 
         //Group g3 - add several members to the group
-        HashSet<Person> finalGroup3= new HashSet<>(Arrays.asList(p7,p3,p5));
-        g3.addMultipleMembers(finalGroup3);
+        HashSet<Person> groupTestMovies= new HashSet<>(Arrays.asList(jackPerson,annaPerson,frankPerson));
+        moviesGroup.addMultipleMembers(groupTestMovies);
 
         //Assert
-        assertTrue(g1.getMembers().containsAll(finalGroup1));
-        assertTrue(g2.getMembers().containsAll(finalGroup2));
-        assertTrue(g3.getMembers().containsAll(finalGroup3));
+        assertTrue(just4FunGroup.getMembers().containsAll(groupTestJust4Fun));
+        assertTrue(switchGroup.getMembers().containsAll(groupTestSwitch));
+        assertTrue(moviesGroup.getMembers().containsAll(groupTestMovies));
 
     }
 
@@ -109,20 +110,20 @@ class MembersControllerTest {
     void addMultipleMembersNotAddedTwice() {
         // Arrange
         // Members to be included in the groups
-        Person p2 = new Person("John",1996,12,9);
-        Person p4 = new Person("Susan",1993,3,9);
-        Person p5 = new Person("Frank",1996,12,5);
+        Person johnPerson = new Person("John",1996,12,9, new Address("Paranhos"));
+        Person susanPerson = new Person("Susan",1993,3,9,new Address("Guimarães") );
+        Person frankPerson = new Person("Frank",1996,12,5,new Address("Lisboa") );
 
         // Groups created by the system manager
-        Group g1 = new Group("Just4Fun", 2019, 11, 10);
+        Group just4FunGroup = new Group("Just4Fun");
 
         //Act
-        HashSet<Person> finalGroup1 = new HashSet<>(Arrays.asList(p2,p4,p5));
-        g1.addMultipleMembers(finalGroup1);
+        HashSet<Person> groupTestJust4Fun = new HashSet<>(Arrays.asList(johnPerson,susanPerson,frankPerson));
+        just4FunGroup.addMultipleMembers(groupTestJust4Fun);
 
         //Assert
-        assertFalse(g1.getMembers().size() ==2);
-        assertTrue(g1.getMembers().size() ==3);
+        assertFalse(just4FunGroup.getMembers().size() ==2);
+        assertTrue(just4FunGroup.getMembers().size() ==3);
     }
 
     @Test
@@ -130,19 +131,19 @@ class MembersControllerTest {
     void addMultipleMembersOneNull() {
         // Arrange
         // Members to be included in the groups
-        Person p3 = new Person("Anna",1993,2,23);
-        Person p6 = new Person("Jessica",2002,12,3);
-        Person p8 = null;
+        Person annaPerson = new Person("Anna",1993,2,23, new Address("Porto"));
+        Person jessicaPerson = new Person("Jessica",2002,12,3, new Address("Caminha"));
+        Person nullPerson = null;
 
         // Groups created by the system manager
-        Group g2 = new Group("SWitCH", 2019, 10, 7);
+        Group switchGroup = new Group("SWitCH");
 
         //Act
-        HashSet<Person> finalGroup2 = new HashSet<>(Arrays.asList(p3,p6,p8));
-        g2.addMultipleMembers(finalGroup2);
+        HashSet<Person> groupTestSwitch = new HashSet<>(Arrays.asList(annaPerson,jessicaPerson,nullPerson));
+        switchGroup.addMultipleMembers(groupTestSwitch);
 
         //Assert
-        assertFalse(g2.getMembers().contains(p8));
+        assertFalse(switchGroup.getMembers().contains(nullPerson));
     }
 
 }
