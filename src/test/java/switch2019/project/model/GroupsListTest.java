@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsListTest {
 
+    /**
+     * Test if groups are inside a Groups List
+     */
     public static GroupsList groupsListSetUp() {
 
         // Global Groups List
@@ -97,7 +100,6 @@ class GroupsListTest {
     /**
      * Test if a Group was added to the list
      */
-
     @Test
     @DisplayName("Test if the group added is in the list")
     void testGroupIsInList() {
@@ -114,7 +116,7 @@ class GroupsListTest {
     }
 
     @Test
-    @DisplayName("Test if the group added is in the list")
+    @DisplayName("Test if the group added is not in the list")
     public void testGroupIsInList_Not() {
         //Arrange
         Group A = new Group("Switchieees", 2019, 12, 19);
@@ -130,7 +132,7 @@ class GroupsListTest {
     }
 
     @Test
-    @DisplayName("Test if the group added is in the list")
+    @DisplayName("Test if more than one group was added is in the list")
     public void testGroupIsInList_MoreThanOne() {
         //Arrange
         Group A = new Group("Switchieees", 2019, 12, 19);
@@ -147,8 +149,4 @@ class GroupsListTest {
         //Assert
         assertEquals(expected, groupList.getGroups());
     }
-
-
-
-
 }

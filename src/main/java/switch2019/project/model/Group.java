@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class Group {
+
     private String description;
     private LocalDate startingDate;
     private HashSet<Person> members;
@@ -12,32 +13,14 @@ public class Group {
     /**
      * Default Group constructor
      * @param description
-     * @param startingDateYear
-     * @param startingDateMonth
-     * @param startingDateDay
      */
 
-    public Group(String description, int startingDateYear, int startingDateMonth, int startingDateDay){
+    public Group(String description){
         setDescription(description);
-        startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
-        setStartingDate(startingDateYear,startingDateMonth, startingDateDay);
-
+        startingDate = LocalDate.now();
         members = new HashSet<>();
     }
 
-    /**
-     * Input Validation for Starting Date of Group
-     * @param startingDateYear
-     * @param startingDateMonth
-     * @param startingDateDay
-     */
-
-    public void setStartingDate(int startingDateYear, int startingDateMonth, int startingDateDay) {
-        if(startingDate.of(startingDateYear, startingDateMonth, startingDateDay).isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Start Date Not Supported.");
-        }
-        startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
-    }
     /**
      * setter Description
      * @param description
@@ -95,8 +78,7 @@ public class Group {
      */
 
     public HashSet<Person> getMembers () {
-        HashSet <Person> membersClone = new HashSet<>(this.members);
-        return membersClone;
+        return new HashSet<>(this.members);
     }
 
     /**

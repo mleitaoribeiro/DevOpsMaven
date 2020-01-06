@@ -48,7 +48,7 @@ public class Address {
 
     public void setCity(String city) {
         if (isNumeric(city) || city == null) {
-            this.city = null;
+            throw new IllegalArgumentException("The city in your Address is not valid or is missing. Please try again.");
         } else {
             this.city = city.toUpperCase();
         }
@@ -91,9 +91,9 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-        if(zip==null) this.zipCode = null;
+        if(zip==null)
+            throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
-
             if (zip.length() == 7) {
                 zip = addHyphenToZipCode(zip);
             }
