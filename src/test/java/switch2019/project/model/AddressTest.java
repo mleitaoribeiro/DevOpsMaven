@@ -213,6 +213,24 @@ class AddressTest {
         //Assert
         assertEquals(8, result);
     }
+
+    @Test
+    @DisplayName("Zip code not valid - test exception - Null")
+    public void setZIP_Nullexception() {
+        //Arrange
+        Address casaDoAlberto = new Address("Rua da Vinha da Bouça","Porto", "4430-444");
+        String zip = null;
+        try {
+            //Act
+            casaDoAlberto.setZipCode(zip);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException zipcode) {
+            assertEquals("Zip-Code can´t be null! (Correct Format: xxxx-xxx)", zipcode.getMessage());
+        }
+    }
+
     @Test
     @DisplayName("Zip code not valide - test exception")
     public void setZIP_exception() {
