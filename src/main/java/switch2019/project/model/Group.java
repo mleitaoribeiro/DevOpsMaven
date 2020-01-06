@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class Group {
+
     private String description;
     private LocalDate startingDate;
     private HashSet<Person> members;
@@ -38,6 +39,7 @@ public class Group {
         }
         startingDate = startingDate.of(startingDateYear, startingDateMonth,startingDateDay);
     }
+
     /**
      * setter Description
      * @param description
