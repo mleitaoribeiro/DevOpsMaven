@@ -13,34 +13,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class MembersControllerTest {
 
     /**
-     * User Story - Test if a member was added to a group
-     * SetUp for testing
-     */
-
-    // Arrange
-    // Members to be included in the groups
-    Person p1 = new Person ("Marie", 2000, 10, 3);
-    Person p2 = new Person("John",1996,12,9);
-    Person p3 = new Person("Anna",1993,2,23);
-    Person p4 = new Person("Susan",1993,3,9);
-    Person p5 = new Person("Frank",1996,12,5);
-    Person p6 = new Person("Jessica",2002,12,3);
-    Person p7 = new Person("Jack", 1990,1,3);
-    Person p8 = null;
-
-    // Groups created by the system manager
-    Group g1 = new Group("Just4Fun", 2019, 11, 10);
-    Group g2 = new Group("SWitCH", 2019, 10, 7);
-    Group g3 = new Group("Movies", 2015, 5, 18);
-
-
-    /**
      * Test if a member was added to a group
      */
 
     @Test
     @DisplayName("Validate if one person was added to the right group - happy path")
     void addMember() {
+        // Arrange
+        // Members to be included in the groups
+        Person p1 = new Person ("Marie", 2000, 10, 3);
+        Person p4 = new Person("Susan",1993,3,9);
+        Person p7 = new Person("Jack", 1990,1,3);
+
+        // Groups created by the system manager
+        Group g1 = new Group("Just4Fun", 2019, 11, 10);
+        Group g2 = new Group("SWitCH", 2019, 10, 7);
+        Group g3 = new Group("Movies", 2015, 5, 18);
 
         //Act:
         // Group g1 - add just one member to the group
@@ -60,6 +48,12 @@ class MembersControllerTest {
     @Test
     @DisplayName("Validate if a member was added to a group - Person null")
     void addMemberNull() {
+        // Arrange
+        // Members to be included in the groups
+        Person p8 = null;
+
+        // Groups created by the system manager
+        Group g1 = new Group("Just4Fun", 2019, 11, 10);
 
         //Act
         g1.addMember(p8);
@@ -76,6 +70,19 @@ class MembersControllerTest {
     @Test
     @DisplayName("Validate if the rigth people were added to the right group - happy path")
     void addMultipleMembers() {
+        // Arrange
+        // Members to be included in the groups
+        Person p2 = new Person("John",1996,12,9);
+        Person p3 = new Person("Anna",1993,2,23);
+        Person p4 = new Person("Susan",1993,3,9);
+        Person p5 = new Person("Frank",1996,12,5);
+        Person p6 = new Person("Jessica",2002,12,3);
+        Person p7 = new Person("Jack", 1990,1,3);
+
+        // Groups created by the system manager
+        Group g1 = new Group("Just4Fun", 2019, 11, 10);
+        Group g2 = new Group("SWitCH", 2019, 10, 7);
+        Group g3 = new Group("Movies", 2015, 5, 18);
 
         //Act
         //Group g1 - add several members to the group
@@ -100,6 +107,14 @@ class MembersControllerTest {
     @Test
     @DisplayName("Validate if the same person is not added twice")
     void addMultipleMembersNotAddedTwice() {
+        // Arrange
+        // Members to be included in the groups
+        Person p2 = new Person("John",1996,12,9);
+        Person p4 = new Person("Susan",1993,3,9);
+        Person p5 = new Person("Frank",1996,12,5);
+
+        // Groups created by the system manager
+        Group g1 = new Group("Just4Fun", 2019, 11, 10);
 
         //Act
         HashSet<Person> finalGroup1 = new HashSet<>(Arrays.asList(p2,p4,p5));
@@ -113,6 +128,14 @@ class MembersControllerTest {
     @Test
     @DisplayName("Validate if a null case is added to group")
     void addMultipleMembersOneNull() {
+        // Arrange
+        // Members to be included in the groups
+        Person p3 = new Person("Anna",1993,2,23);
+        Person p6 = new Person("Jessica",2002,12,3);
+        Person p8 = null;
+
+        // Groups created by the system manager
+        Group g2 = new Group("SWitCH", 2019, 10, 7);
 
         //Act
         HashSet<Person> finalGroup2 = new HashSet<>(Arrays.asList(p3,p6,p8));
