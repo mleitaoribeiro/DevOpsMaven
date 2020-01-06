@@ -334,14 +334,14 @@ class PersonTest {
     @DisplayName("Test for validating add a new sibling")
     public void validateAddSibling() {
         //Arrange
-        Person A = new Person("Marta", );
-        Person B = new Person("Elsa", 1996, 1, 16);
+        Person personMarta = new Person("Marta",1996,05,12,new Address("Porto"));
+        Person personElsa = new Person("Elsa",1987,01,16, new Address("Lyon"));
 
         //Act
-        A.addSibling(B);
+        personMarta.addSibling(personElsa);
 
         //Assert
-        assertTrue(A.getSiblingList().contains(B) && B.getSiblingList().contains(A));
+        assertTrue(personMarta.getSiblingList().contains(personElsa) && personElsa.getSiblingList().contains(personMarta));
     }
 
     /**
