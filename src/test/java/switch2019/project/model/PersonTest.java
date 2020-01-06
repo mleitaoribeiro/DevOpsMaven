@@ -405,10 +405,10 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - 1 remaining")
     void validateMultipleSiblingRemoval (){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
-        Person p3=new Person("Susan",1993,3,9);
-        Person p4=new Person("Frank",1996,12,5);
+        Person p1=new Person("John",1996,12,9, new Address("gaia"));
+        Person p2=new Person("Anna",1993,2,23, new Address("Gaia"));
+        Person p3=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person p4=new Person("Frank",1996,12,5, new Address("Gaia"));
         HashSet<Person>threeSiblings=new HashSet<>(Arrays.asList(p2,p3,p4));
         HashSet<Person>twoSiblings= new HashSet<>(Arrays.asList(p3,p4));
 
@@ -424,12 +424,12 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - multiple remaining")
     void validateMultipleSiblingRemoval2 (){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
-        Person p3=new Person("Susan",1993,3,9);
-        Person p4=new Person("Frank",1996,12,5);
-        Person p5=new Person("Jessica",2002,12,3);
-        Person p6= new Person("Jack", 1990,1,3);
+        Person p1=new Person("John",1996,12,9, new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
+        Person p3=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person p4=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person p5=new Person("Jessica",2002,12,3,new Address("Gaia"));
+        Person p6= new Person("Jack", 1990,1,3,new Address("Gaia"));
         HashSet<Person>totalSib=new HashSet<>(Arrays.asList(p2,p3,p4,p5,p6));
         HashSet<Person>removeSib= new HashSet<>(Arrays.asList(p3,p4));
 
@@ -445,11 +445,11 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - not contains exact ones")
     void validateMultipleSiblingRemoval_not_contains_exact_ones (){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
-        Person p3=new Person("Susan",1993,3,9);
-        Person p4=new Person("Frank",1996,12,5);
-        Person p5=new Person("Jessica",2002,12,3);
+        Person p1=new Person("John",1996,12,9,new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
+        Person p3=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person p4=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person p5=new Person("Jessica",2002,12,3,new Address("Gaia"));
         HashSet<Person>totalSib=new HashSet<>(Arrays.asList(p2,p3,p4,p5));
         HashSet<Person>removeSib= new HashSet<>(Arrays.asList(p3,p4));
         HashSet<Person>expectedSib=new HashSet<>(Arrays.asList(p2,p5));
@@ -470,10 +470,10 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - False")
     void checkSameMother_false(){
-        Person motherP1 = new Person("Maria",1988,3,23);
-        Person motherP2 = new Person("Josefa",1987,4,23);
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person motherP1 = new Person("Maria",1988,3,23,new Address("Gaia"));
+        Person motherP2 = new Person("Josefa",1987,4,23,new Address("Gaia"));
+        Person p1 = new Person("Ricardo",2005,4,20, new Address("Gaia");
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         p2.setMother(motherP2);
         //Act
@@ -485,9 +485,9 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - True")
     void checkSameMother_true(){
-        Person motherP1 = new Person("Maria",1988,3,23);
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person motherP1 = new Person("Maria",1988,3,23,new Address("Gaia"));
+        Person p1 = new Person("Ricardo",2005,4,20,new Address("Gaia");
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         p2.setMother(motherP1);
         //Act
@@ -499,9 +499,9 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - no mother")
     void checkSameMother_no_mother(){
-        Person motherP1 = new Person("Teresa",1980,1,23);
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person motherP1 = new Person("Teresa",1980,1,23,new Address("Gaia"));
+        Person p1 = new Person("Ricardo",2005,4,20,new Address("Gaia"));
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         //Act
         boolean result = p1.checkSameMother(p2);
@@ -512,10 +512,10 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - Null mother")
     void checkSameMother_null_mother(){
-        Person motherP1 = new Person("Teresa",1980,1,23);
+        Person motherP1 = new Person("Teresa",1980,1,23,new Address("Gaia"));
         Person motherP2 = null;
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person p1 = new Person("Ricardo",2005,4,20,new Address("Gaia"));
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         p2.setMother(motherP2);
         //Act
@@ -531,13 +531,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings")
     void compareSameSiblings(){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
+        Person p1=new Person("John",1996,12,9,new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
         //siblings:
-        Person s1=new Person("Susan",1993,3,9);
-        Person s2=new Person("Frank",1996,12,5);
-        Person s3=new Person("Jessica",2002,12,3);
-        Person s4= new Person("Jack", 1990,1,3);
+        Person s1=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person s2=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person s3=new Person("Jessica",2002,12,3,new Address("Gaia"));
+        Person s4= new Person("Jack", 1990,1,3,new Address("Gaia"));
         //siblingList arrangement
         HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(p2,s1,s2,s3,s4));
         HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(p1,s1,s2,s3,s4));
@@ -554,13 +554,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings - False")
     void compareSameSiblings2(){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
+        Person p1=new Person("John",1996,12,9,new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
         //siblings:
-        Person s1=new Person("Susan",1993,3,9);
-        Person s2=new Person("Frank",1996,12,5);
-        Person s3=new Person("Jessica",2002,12,3);
-        Person s4= new Person("Jack", 1990,1,3);
+        Person s1=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person s2=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person s3=new Person("Jessica",2002,12,3,new Address("Gaia"));
+        Person s4= new Person("Jack", 1990,1,3,new Address("Gaia"));
         //siblingList arrangement
         HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(s1,s2));
         HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(s3,s4));
@@ -802,9 +802,9 @@ class PersonTest {
     @DisplayName("Two Equals father_true")
     void checkSameFather_True() {
     //Arrange
-    Person p1=new Person("Elsa",2000,02,24);
-    Person p2=new Person("Filipa",1990,01,05);
-    Person father1=new Person("Antonio",1970,02,15);
+    Person p1=new Person("Elsa",2000,02,24,new Address("Gaia"));
+    Person p2=new Person("Filipa",1990,01,05,new Address("Gaia"));
+    Person father1=new Person("Antonio",1970,02,15,new Address("Gaia"));
 
     //Act
     p1.setFather(father1);
@@ -819,10 +819,10 @@ class PersonTest {
     @DisplayName("Two Equals father_null")
     void checkSameFather() {
         //Arrange
-        Person p1=new Person("Elsa",2000,02,24);
-        Person p2=new Person("Filipa",1990,01,05);
-        Person father1=new Person(null,1990,1,12);
-        Person father2=new Person("Afonso",1950,8,07);
+        Person p1=new Person("Elsa",2000,02,24,new Address("Gaia");
+        Person p2=new Person("Filipa",1990,01,05,new Address("Gaia"));
+        Person father1=new Person(null,1990,1,12,new Address("Gaia"));
+        Person father2=new Person("Afonso",1950,8,07,new Address("Gaia"));
 
         //Act
         p1.setFather(father1);
