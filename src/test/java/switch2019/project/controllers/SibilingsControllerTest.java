@@ -21,12 +21,12 @@ class SibilingsControllerTest {
         //Arrange
         Person mae =new Person("Maria",1965,3,4);
         Person antonio=new Person("António",1987,12,9);
-        Person p1=new Person("Manuel",1986,9,12);
+        Person manuel=new Person("Manuel",1986,9,12);
 
         //Act
         antonio.setMother(mae);
-        p1.setMother(mae);
-        boolean resultado=antonio.isSibling(p1);
+        manuel.setMother(mae);
+        boolean resultado=antonio.isSibling(manuel);
 
         //Assert
         assertEquals(true,resultado);
@@ -40,14 +40,14 @@ class SibilingsControllerTest {
         Person senhor=new Person("Ricardo",1964,6,9);
         Person pai=new Person("José",1963,3,9);
         Person antonio=new Person("António",1987,12,9);
-        Person p1=new Person("Manuel",1986,9,12);
+        Person manuel=new Person("Manuel",1986,9,12);
 
         //Act
         antonio.setMother(mae);
         antonio.setFather(senhor);
-        p1.setMother(mama);
-        p1.setFather(pai);
-        boolean resultado=antonio.isSibling(p1);
+        manuel.setMother(mama);
+        manuel.setFather(pai);
+        boolean resultado=antonio.isSibling(manuel);
 
         //Assert
         assertFalse(resultado);
@@ -60,12 +60,12 @@ class SibilingsControllerTest {
         //Arrange
         Person pai=new Person("José",1963,3,9);
         Person antonio=new Person("António",1987,12,9);
-        Person p1=new Person("Manuel",1986,9,12);
+        Person manuel=new Person("Manuel",1986,9,12);
 
         //Act
         antonio.setFather(pai);
-        p1.setFather(pai);
-        boolean resultado=antonio.isSibling(p1);
+        manuel.setFather(pai);
+        boolean resultado=antonio.isSibling(manuel);
 
         //Assert
         assertEquals(true,resultado);
@@ -76,18 +76,18 @@ class SibilingsControllerTest {
     void isSiblingsInTheSiblingsList() {
         //Arrange
         Person antonio=new Person("António",1987,12,9);
-        Person p1=new Person("Manuel",1986,9,12);
-        Person p2=new Person("Roberto",1992,8,10);
+        Person manuel=new Person("Manuel",1986,9,12);
+        Person ricardo=new Person("Roberto",1992,8,10);
 
 
-        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(p1,p2));
-        HashSet<Person>siblings2=new HashSet<Person>(Arrays.asList(antonio,p2));
+        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(manuel,ricardo));
+        HashSet<Person>siblings2=new HashSet<Person>(Arrays.asList(antonio,ricardo));
 
         //Act
         antonio.addMultipleSiblings(siblings);
-        p2.addMultipleSiblings(siblings2);
+        ricardo.addMultipleSiblings(siblings2);
 
-        boolean resultado=antonio.isSibling(p1);
+        boolean resultado=antonio.isSibling(manuel);
 
         //Assert
         assertEquals(true,resultado);
