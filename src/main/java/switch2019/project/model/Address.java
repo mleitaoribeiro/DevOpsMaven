@@ -12,6 +12,15 @@ public class Address {
 
     /**
      * Address constructor
+     * @param birthplace
+     */
+
+    public Address (String birthplace) {
+        setCity(birthplace);
+    }
+
+    /**
+     * Address constructor
      * @param street
      * @param city
      * @param zipCode
@@ -22,6 +31,7 @@ public class Address {
         setCity(city);
         setZipCode(zipCode);
     }
+
     /**
      * Public get for City
      * @return city

@@ -283,7 +283,6 @@ public class Person {
         return this.siblingList.contains(otherPerson);
     }
 
-    
     /**
      *
      * Develop method to check if two individuals are siblings (USER STORIES)
