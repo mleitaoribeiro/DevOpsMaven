@@ -73,9 +73,9 @@ class FamilyControllerTest {
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines, joao));
-        Group family_with_no_mom = new Group("Family with no Mom");
-        family_with_no_mom.addMultipleMembers(noMomMembersToAdd);
-        globalGroupsList.addGroupToGroupList(family_with_no_mom);
+        Group familyWithNoMom = new Group("Family with no Mom");
+        familyWithNoMom.addMultipleMembers(noMomMembersToAdd);
+        globalGroupsList.addGroupToGroupList(familyWithNoMom);
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
@@ -85,9 +85,9 @@ class FamilyControllerTest {
 
         // Group
         HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaR, martaC, martaP));
-        Group marta_group = new Group("Marta's group");
-        marta_group.addMultipleMembers(martasGroupMembersToAdd);
-        globalGroupsList.addGroupToGroupList(marta_group);
+        Group martaGroup = new Group("Marta's group");
+        martaGroup.addMultipleMembers(martasGroupMembersToAdd);
+        globalGroupsList.addGroupToGroupList(martaGroup);
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
@@ -98,9 +98,9 @@ class FamilyControllerTest {
 
         // Group
         HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(bojack, carolyn, todd, diane));
-        Group bojack_gang = new Group("Bojack's Gang");
-        bojack_gang.addMultipleMembers(bojackGangMembersToAdd);
-        globalGroupsList.addGroupToGroupList(bojack_gang);
+        Group bojackGang = new Group("Bojack's Gang");
+        bojackGang.addMultipleMembers(bojackGangMembersToAdd);
+        globalGroupsList.addGroupToGroupList(bojackGang);
 
         //Act
         HashSet<Group> realResult = globalGroupsList.returnOnlyFamilies();
