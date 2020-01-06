@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -18,15 +19,14 @@ public class Person {
      * Default Person constructor
      *
      * @param name
-     * @param birthDay
-     * @param birthMonth
-     * @param birthYear
+     * @param birthdayDay
+     * @param birthdayMonth
+     * @param birthdayYear
      */
 
-    public Person(String name, int birthYear, int birthMonth, int birthDay) {
+    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay) {
         this.name = name;
-        birthDate = birthDate.of(birthYear, birthMonth, birthDay);
-        setBirthDate(birthYear, birthMonth, birthDay);
+        setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
         siblingList = new HashSet<>();
     }
 
@@ -44,12 +44,11 @@ public class Person {
 
     public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Person mother, Person father) {
         this.name = name;
-        birthDate = birthDate.of(birthdayYear, birthdayMonth, birthdayDay);
         setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
-        siblingList = new HashSet<>();
-        this.address = birthPlace;
+        this.birthPlace = birthPlace;
         this.mother = mother;
         this.father = father;
+        siblingList = new HashSet<>();
     }
 
     /**
@@ -61,10 +60,11 @@ public class Person {
      */
 
     public void setBirthDate(int newYear, int newMonth, int newDay) {
-        if (birthDate.of(newYear, newMonth, newDay).isAfter(LocalDate.now())) {
+        LocalDate birthDateTemp = LocalDate.of(newYear, newMonth, newDay);
+        birthDateTemp.format(DateTimeFormatter.ofPattern("dd/LL/yyyy"));
+        if (birthDateTemp.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Birth Date Not Supported.");
-        }
-        birthDate = birthDate.of(newYear, newMonth, newDay);
+        } else birthDate = birthDateTemp;
     }
 
     /**
@@ -147,8 +147,7 @@ public class Person {
      * @return siblingList
      */
     public HashSet<Person> getSiblingList() {
-        HashSet<Person> siblingsClone = new HashSet<>(this.siblingList);
-        return siblingsClone;
+        return new HashSet<>(this.siblingList);
     }
 
     /**
@@ -284,7 +283,6 @@ public class Person {
         return this.siblingList.contains(otherPerson);
     }
 
-    
     /**
      *
      * Develop method to check if two individuals are siblings (USER STORIES)
