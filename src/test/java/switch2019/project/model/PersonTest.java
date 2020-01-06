@@ -23,7 +23,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is null before")
     public void validateNameNullBefore() {
         //Arrange
-        Person Alex = new Person("Alex", 1996, 3, 4);
+        Person Alex = new Person("Alex", 1996,04,02,new Address("Lisboa"));
 
         //Act
         Alex.setName("Mario");
@@ -37,7 +37,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
-        Person Joao = new Person("João", 1996, 3, 4);
+        Person Joao = new Person("João",1996,04,05,new Address(("Porto"));
 
         //Act
         Joao.setName("Alex");
@@ -51,7 +51,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is empty")
     public void validateNameEmpty() {
         //Arrange
-        Person Joao = new Person("João", 1996, 3, 4);
+        Person Joao = new Person("João",1996,04,03, new Address("Feira"));
 
         //Act
         Joao.setName("");
@@ -70,7 +70,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => success case")
     public void validateBirthDate() {
         //Arrange
-        Person Mary = new Person("Mary", 1996, 3, 4);
+        Person Mary = new Person("Mary", 1996,03,07,new Address("Maia") );
 
         //Act
         Mary.setBirthDate(1995,4, 4);
@@ -84,7 +84,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDate_invalidMonth() {
         //Arrange
-        Person Pedro = new Person("Pedro", 1995, 04, 15);
+        Person Pedro = new Person("Pedro", 1995,04,15, new Address("SaoJoao"));
 
         //Act
         try {
@@ -100,7 +100,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDate_birthDateAfterCurrentDate() {
         //Arrange
-        Person Rui = new Person("Rui", 1995, 04, 15);
+        Person Rui = new Person("Rui", 1995,08,15, new Address("Lousada"));
 
         //Act
         try {
@@ -116,7 +116,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case")
     public void validateBirthDate_invalidDay() {
         //Arrange
-        Person Rui = new Person("Rui", 1995, 04, 15);
+        Person Rui = new Person("Rui", 1995,08,16, new Address("lamas"));
 
         //Act
         try {
@@ -145,15 +145,17 @@ class PersonTest {
         int month = 3;
         int day = 4;
         //One Person BirthPlace
-        String onePersonStreet = "Rua 1";
-        String onePersonCity = "Porto";
-        String onePersonZipCode = "4560-345";
+        Address onePersonBirthdayPlace = new Address( "Porto");
         //One Person Mother
         String onepersonMotherName = "Maria";
         //Mother BirthDate
         int onePersonMotherYear  = 1960;
         int onePersonMotherMonth = 3;
         int onePersonMotherDay = 4;
+
+        //One Person Mother BirthPlace
+        Address onePersonMotherBirthdayPlace = new Address( "Porto");
+
         // One Person Father
         String onepersonFatherName = "Artur";
         //Father BirthDate
@@ -161,14 +163,15 @@ class PersonTest {
         int onePersonFatherMonth = 3;
         int onePersonFatherDay = 4;
 
+       //One Person FatherBirthPlace
+        Address onePersonFatherBirthdayPlace = new Address( "Porto");
 
-        Address onePersonAddress = new Address(onePersonStreet, onePersonCity,onePersonZipCode);
 
-        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay);
-        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay);
+        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay,onePersonMotherBirthdayPlace);
+        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay,onePersonFatherBirthdayPlace);
 
-        Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
-        Person samePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
+        Person onePerson = new Person(name, year, month, day, onePersonBirthdayPlace, onePersonMother, onePersonFather);
+        Person samePerson = new Person(name, year, month, day, onePersonBirthdayPlace, onePersonMother, onePersonFather);
 
         //Act & Assert
         assertEquals(onePerson, samePerson);
@@ -186,21 +189,26 @@ class PersonTest {
         int month = 3;
         int day = 4;
         //One Person BirthPlace
-        String onePersonStreet = "Rua 1";
-        String onePersonCity = "Porto";
-        String onePersonZipCode = "4560-345";
+        String onePersonBirthPlace = "Lisboa";
+        Address onePersonAddress = new Address(onePersonBirthPlace);
+
         //One Person Mother
         String onepersonMotherName = "Maria";
         //Mother BirthDate
         int onePersonMotherYear  = 1960;
         int onePersonMotherMonth = 3;
         int onePersonMotherDay = 4;
+        //One Person Mother BirthPlace
+        Address onePersonMotherBirthdayPlace = new Address( "Porto");
+
         // One Person Father
         String onepersonFatherName = "Artur";
         //Father BirthDate
         int onePersonFatherYear  = 1960;
         int onePersonFatherMonth = 3;
         int onePersonFatherDay = 4;
+        //One Person Father BirthPlace
+        Address onePersonFatherBirthdayPlace = new Address( "Porto");
 
         //Other Person
         String otherPersonName = "João Cardoso";
@@ -209,29 +217,32 @@ class PersonTest {
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
         //Other Person BirthPlace
-        String otherPersonStreet = "Rua 1";
-        String otherPersonCity = "Porto";
-        String otherPersonZipCode = "4560-345";
+        String otherPersonBirthPlace = "Porto";
+        Address otherPersonAddress = new Address(otherPersonBirthPlace);
+
         //One Person Mother
         String otherPersonMotherName = "Maria";
         //Mother BirthDate
         int otherPersonMotherYear  = 1960;
         int otherPersonMotherMonth = 3;
         int otherPersonMotherDay = 4;
-        // One Person Father
+        //Other Person Mother BirthPlace
+        Address otherPersonMotherBirthdayPlace = new Address( "Porto");
+
+        // Other Person Father
         String otherpersonFatherName = "Artur";
         //Father BirthDate
         int otherPersonFatherYear  = 1960;
         int otherPersonFatherMonth = 3;
         int otherPersonFatherDay = 4;
+        //Other Person Father BirthPlace
+        Address otherPersonFatherBirthdayPlace = new Address( "Porto");
 
-        Address onePersonAddress = new Address(onePersonStreet, onePersonCity,onePersonZipCode);
-        Address otherPersonAddress = new Address(otherPersonStreet, otherPersonCity,otherPersonZipCode);
 
-        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay);
-        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay);
-        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay);
-        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay);
+        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay,onePersonMotherBirthdayPlace);
+        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay,onePersonFatherBirthdayPlace);
+        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay,otherPersonMotherBirthdayPlace);
+        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay,otherPersonFatherBirthdayPlace);
 
         Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, otherPersonAddress, otherPersonMother, otherPersonFather);
@@ -252,21 +263,27 @@ class PersonTest {
         int month = 3;
         int day = 4;
         //One Person BirthPlace
-        String onePersonStreet = "Rua 1";
-        String onePersonCity = "Porto";
-        String onePersonZipCode = "4560-345";
+        String onePersonBirthPlace = "Porto";
+        Address onePersonAddress = new Address(onePersonBirthPlace);
+
         //One Person Mother
         String onepersonMotherName = "Maria";
         //Mother BirthDate
         int onePersonMotherYear  = 1960;
         int onePersonMotherMonth = 3;
         int onePersonMotherDay = 4;
+        //Mother BirthPlace
+        String motherPersonBirthPlace = "Porto";
+        Address motherPersonAddress = new Address(motherPersonBirthPlace);
+
         // One Person Father
         String onepersonFatherName = "Artur";
         //Father BirthDate
         int onePersonFatherYear  = 1960;
         int onePersonFatherMonth = 3;
         int onePersonFatherDay = 4;
+        //Father BirthPlace
+        Address fatherPersonAddress = new Address("Porto");
 
         //Other Person
         String otherPersonName = "João Cardoso";
@@ -275,29 +292,31 @@ class PersonTest {
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
         //Other Person BirthPlace
-        String otherPersonStreet = "Rua 1";
-        String otherPersonCity = "Lisboa";
-        String otherPersonZipCode = "4500-012";
+        String otherPersonBirthPlace = "Lisboa";
+        Address otherPersonAddress = new Address(otherPersonBirthPlace);
+
         //One Person Mother
         String otherPersonMotherName = "Maria";
         //Mother BirthDate
         int otherPersonMotherYear  = 1960;
         int otherPersonMotherMonth = 3;
         int otherPersonMotherDay = 4;
-        // One Person Father
+        //Other Person Mother BirthPlace
+        Address otherPersonMotherAddress = new Address("Lisboa");
+        // OtherPerson Father
         String otherpersonFatherName = "Raul";
         //Father BirthDate
         int otherPersonFatherYear  = 1960;
         int otherPersonFatherMonth = 3;
         int otherPersonFatherDay = 4;
+        //Other Person Father BirthPlace
+        Address otherPersonFatherBirthdayPlace = new Address( "Porto");
 
-        Address onePersonAddress = new Address(onePersonStreet, onePersonCity,onePersonZipCode);
-        Address otherPersonAddress = new Address(otherPersonStreet, otherPersonCity,otherPersonZipCode);
 
-        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay);
-        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay);
-        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay);
-        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay);
+        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay,motherPersonAddress);
+        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay,fatherPersonAddress);
+        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay,otherPersonMotherAddress);
+        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay,otherPersonFatherBirthdayPlace);
 
         Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, otherPersonAddress, otherPersonMother, otherPersonFather);
@@ -315,7 +334,7 @@ class PersonTest {
     @DisplayName("Test for validating add a new sibling")
     public void validateAddSibling() {
         //Arrange
-        Person A = new Person("Marta", 1996, 4, 27);
+        Person A = new Person("Marta", );
         Person B = new Person("Elsa", 1996, 1, 16);
 
         //Act
