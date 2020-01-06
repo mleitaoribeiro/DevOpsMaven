@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class Group {
+
     private String description;
     private LocalDate startingDate;
     private HashSet<Person> members;
