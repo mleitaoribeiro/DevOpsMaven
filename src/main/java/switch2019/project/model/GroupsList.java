@@ -9,7 +9,6 @@ public class GroupsList {
     /**
      * Default Constructor for Group List
      */
-
     public GroupsList(){
         groupsList = new HashSet<Group>();
     }
@@ -27,10 +26,15 @@ public class GroupsList {
             groupsList.add(group1);
         }
     }
-    
+
+    /**
+     * method to get Groups inside a GroupList
+     * @return groupsList
+     */
     public HashSet<Group> getGroups(){
         return new HashSet<>(this.groupsList);
     }
+
     /**
     * Method to return Only Families
     */
