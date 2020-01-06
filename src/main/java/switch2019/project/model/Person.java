@@ -252,7 +252,7 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, birthDate);
+        return Objects.hash(name, birthDate, birthPlace);
     }
 
     /**
