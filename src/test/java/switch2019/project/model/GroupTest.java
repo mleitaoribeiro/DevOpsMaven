@@ -22,13 +22,13 @@ class GroupTest {
 
         //Arrange
         Person marta = new Person("Marta", 2000, 10, 10);
-        Group A = new Group("OsMaisFixes", 2019, 10, 10);
+        Group grupoMaisFixe = new Group("OsMaisFixes", 2019, 10, 10);
 
         //Act
-        A.addMember(marta);
+        grupoMaisFixe.addMember(marta);
 
         //Assert
-        assertTrue(A.getMembers().contains(marta));
+        assertTrue(grupoMaisFixe.getMembers().contains(marta));
     }
 
 
@@ -38,13 +38,13 @@ class GroupTest {
 
         //Arrange
         Person marta = null;
-        Group A = new Group("OsMaisFixes", 2019, 10, 10);
+        Group osMaisFixes = new Group("OsMaisFixes", 2019, 10, 10);
 
         //Act
-        A.addMember(marta);
+        osMaisFixes.addMember(marta);
 
         //Assert
-        assertFalse(A.getMembers().contains(marta));
+        assertFalse(osMaisFixes.getMembers().contains(marta));
     }
 
     /**
@@ -55,56 +55,55 @@ class GroupTest {
     @DisplayName("Test if all members were added to Group => Sucess Case")
     void addMultipleMembers_Success() {
         //Arrange
-        Group newGroup = new Group("M'Nation", 2019,12, 18 );
+        Group Mnation = new Group("MNation", 2019,12, 18 );
 
-        Person person1 = new Person("Maria", 1994, 05, 01);
-        Person person2 = new Person("Mariana",1986,12,01);
-        Person person3 = new Person("Marisa",2000,8,27);
+        Person Maria = new Person("Maria", 1994, 05, 01);
+        Person Mariana = new Person("Mariana",1986,12,01);
+        Person Marisa = new Person("Marisa",2000,8,27);
 
-        HashSet<Person> finalGroup = new HashSet<>(Arrays.asList(person1,person3,person2));
+        HashSet<Person> grupoParaComparar = new HashSet<>(Arrays.asList(Maria,Mariana,Marisa));
 
         //Act
-        newGroup.addMultipleMembers(finalGroup);
+        Mnation.addMultipleMembers(grupoParaComparar);
 
         //Assert
-        assertTrue(newGroup.getMembers().containsAll(finalGroup));
+        assertTrue(Mnation.getMembers().containsAll(grupoParaComparar));
     }
 
     @Test
     @DisplayName("Test if the same person is not added twice")
     void addMultipleMembers__ErrorCase() {
         //Arrange
-        Group newGroup = new Group("Maria's Group", 2019,12, 18 );
+        Group grupoDaMaria = new Group("Maria's Group", 2019,12, 18 );
 
-        Person person1 = new Person("Maria", 1994, 05, 01);
-        Person person2 = new Person("Maria", 1994, 05, 01);
+        Person Maria = new Person("Maria", 1994, 05, 01);
+        Person Maria1 = new Person("Maria", 1994, 05, 01);
 
-        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person2));
+        HashSet<Person> grupoParaAdicionar= new HashSet<>(Arrays.asList(Maria,Maria1));
 
         //Act
-        newGroup.addMultipleMembers(finalGroup);
+        grupoDaMaria.addMultipleMembers(grupoParaAdicionar);
 
         //Assert
-        assertFalse(newGroup.getMembers().size() ==2);
-        assertTrue(newGroup.getMembers().size() ==1);
+        assertTrue(grupoDaMaria.getMembers().size() ==1);
     }
 
     @Test
     @DisplayName("Test if a null case is added to group")
     void addMultipleMembers__ErrorCase2() {
         //Arrange
-        Group newGroup = new Group("Grupo das M'Nation", 2019,12, 18 );
+        Group mNation = new Group("Grupo das M'Nation", 2019,12, 18 );
 
-        Person person1 = new Person("Maria", 1994, 05, 01);
-        Person person2 = null;
+        Person Maria = new Person("Maria", 1994, 05, 01);
+        Person Mariana = null;
 
-        HashSet<Person> finalGroup= new HashSet<>(Arrays.asList(person1,person2));
+        HashSet<Person> grupoTeste= new HashSet<>(Arrays.asList(Maria,Mariana));
 
         //Act
-        newGroup.addMultipleMembers(finalGroup);
+        mNation.addMultipleMembers(grupoTeste);
 
         //Assert
-        assertFalse(newGroup.getMembers().contains(person2));
+        assertFalse(mNation.getMembers().contains(Mariana));
     }
 
     /**
@@ -117,7 +116,7 @@ class GroupTest {
         //Arrange
 
         //New Group
-        String description = "123";
+        String description = "Grupo a ser submetido aos testes";
         //Starting date
         int year = 2005;
         int month = 4;
@@ -137,20 +136,20 @@ class GroupTest {
         int otherMemberMonth = 10;
         int otherMemberDay = 9;
 
-        Group oneGroup = new Group(description, year, month, day);
+        Group grupoDoJoaoEdaElsa = new Group(description, year, month, day);
 
-        Person oneMember = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay);
-        Person otherMember = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay);
+        Person Joao = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay);
+        Person Elsa = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay);
 
-        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(oneMember, otherMember));
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(Joao, Elsa));
 
         //Act
-        oneGroup.addMultipleMembers(putMembers);
+        grupoDoJoaoEdaElsa.addMultipleMembers(putMembers);
 
-        oneGroup.removeMember(oneMember);
+        grupoDoJoaoEdaElsa.removeMember(Joao);
 
         //Assert
-        assertFalse(oneGroup.getMembers().contains(oneMember));
+        assertFalse(grupoDoJoaoEdaElsa.getMembers().contains(Joao));
     }
 
     @Test
