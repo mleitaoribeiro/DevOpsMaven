@@ -10,6 +10,21 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsListTest {
+    @Test
+    @DisplayName("Test if the number of groups on the list was increased")
+    public void howManyGroupsTest(){
+        //Arrange
+        Group group1 = new Group ("Amigos");
+        Group group2 = new Group ("Pokemons")
+        GroupsList groupList = new GroupsList();
+
+        //Act
+        groupList.addGroupToGroupList(group1);
+        int result = groupList.howManyGroups();
+
+        //Assert
+        assertEquals(2,result);
+    }
 
 
     @Test
