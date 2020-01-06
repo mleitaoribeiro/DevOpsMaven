@@ -15,7 +15,7 @@ class GroupsListTest {
     public void howManyGroupsTest(){
         //Arrange
         Group group1 = new Group ("Amigos");
-        Group group2 = new Group ("Pokemons")
+        Group group2 = new Group ("Pokemons");
         GroupsList groupList = new GroupsList();
 
         //Act
