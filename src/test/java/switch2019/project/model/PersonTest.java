@@ -334,14 +334,14 @@ class PersonTest {
     @DisplayName("Test for validating add a new sibling")
     public void validateAddSibling() {
         //Arrange
-        Person A = new Person("Marta", );
-        Person B = new Person("Elsa", 1996, 1, 16);
+        Person personMarta = new Person("Marta",1996,05,12,new Address("Porto"));
+        Person personElsa = new Person("Elsa",1987,01,16, new Address("Lyon"));
 
         //Act
-        A.addSibling(B);
+        personMarta.addSibling(personElsa);
 
         //Assert
-        assertTrue(A.getSiblingList().contains(B) && B.getSiblingList().contains(A));
+        assertTrue(personMarta.getSiblingList().contains(personElsa) && personElsa.getSiblingList().contains(personMarta));
     }
 
     /**
@@ -351,10 +351,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person p1 = new Person("Teresa", 1987, 01, 16);
-        Person p2 = new Person("Paulo", 1994, 04, 27);
-        Person p3 = new Person("Paulo",1985,05,27);
-        Person p4 = new Person("Luis",2000,8,15);
+        Person p1 = new Person("Teresa",1987,04,05,new Address("Lisboa"));
+        Person p2 = new Person("Paulo", 1994,05,18,new Address("Porto"));
+        Person p3 = new Person("Paulo",1985,05,17, new Address("Coimbra"));
+        Person p4 = new Person("Luis",2000,15,04,new Address("Mozelos"));
         HashSet<Person>newSiblings= new HashSet<>(Arrays.asList(p2,p4,p3));
         //Act
         p1.addMultipleSiblings(newSiblings);
@@ -370,8 +370,8 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list")
     void validateRemoveSibling (){
         //Arrange
-        Person p1=new Person("Maria",1996,12,9);
-        Person p2=new Person("António",1993,2,23);
+        Person p1=new Person("Maria",1956,05,17, new Address("FozCoa"));
+        Person p2=new Person("António",1985,10,12, new Address("Gaia"));
 
         //Act
         p1.addSibling(p2);
@@ -385,9 +385,9 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list - more than one sibling")
     void validateRemoveSiblingMoreThanOne (){
         //Arrange
-        Person p1=new Person("Maria",1996,12,9);
-        Person p2=new Person("António",1993,2,23);
-        Person p3=new Person("Manuel",1993,3,9);
+        Person p1=new Person("Maria",1954,10,14,new Address("Porto"));
+        Person p2=new Person("António",1985,10,02, new Address("Porto"));
+        Person p3=new Person("Manuel",1993,10,04, new Address("Gaia");
         HashSet<Person>threeSiblings=new HashSet<>(Arrays.asList(p2,p3));
 
         //Act
