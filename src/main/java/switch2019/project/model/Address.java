@@ -91,9 +91,9 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-        if(zip==null) this.zipCode = null;
+        if(zip==null)
+            throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
-
             if (zip.length() == 7) {
                 zip = addHyphenToZipCode(zip);
             }
