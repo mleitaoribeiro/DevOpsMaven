@@ -12,6 +12,15 @@ public class Address {
 
     /**
      * Address constructor
+     * @param birthplace
+     */
+
+    public Address (String birthplace) {
+        setCity(birthplace);
+    }
+
+    /**
+     * Address constructor
      * @param street
      * @param city
      * @param zipCode
@@ -22,6 +31,7 @@ public class Address {
         setCity(city);
         setZipCode(zipCode);
     }
+
     /**
      * Public get for City
      * @return city
@@ -81,9 +91,9 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-        if(zip==null) this.zipCode = null;
+        if(zip==null)
+            throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
-
             if (zip.length() == 7) {
                 zip = addHyphenToZipCode(zip);
             }

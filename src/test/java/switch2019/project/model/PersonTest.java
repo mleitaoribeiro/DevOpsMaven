@@ -23,42 +23,42 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is null before")
     public void validateNameNullBefore() {
         //Arrange
-        Person A = new Person(null, 1996, 3, 4);
+        Person Alex = new Person("Alex", 1996, 3, 4);
 
         //Act
-        A.setName("Alex");
-        String expected = "Alex";
+        Alex.setName("Mario");
+        String expected = "Mario";
 
         //Assert
-        assertEquals(expected, A.getName());
+        assertEquals(expected, Alex.getName());
     }
 
     @Test
     @DisplayName("Test for validating imput's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
-        Person A = new Person("João", 1996, 3, 4);
+        Person Joao = new Person("João", 1996, 3, 4);
 
         //Act
-        A.setName("Alex");
+        Joao.setName("Alex");
         String expected = "Alex";
 
         //Assert
-        assertEquals(expected, A.getName());
+        assertEquals(expected, Joao.getName());
     }
 
     @Test
     @DisplayName("Test for validating imput's name, name is empty")
     public void validateNameEmpty() {
         //Arrange
-        Person A = new Person("João", 1996, 3, 4);
+        Person Joao = new Person("João", 1996, 3, 4);
 
         //Act
-        A.setName("");
+        Joao.setName("");
         String expected = "";
 
         //Assert
-        assertEquals(expected, A.getName());
+        assertEquals(expected, Joao.getName());
     }
     
 
@@ -70,25 +70,25 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => success case")
     public void validateBirthDate() {
         //Arrange
-        Person A = new Person(null, 1996, 3, 4);
+        Person Mary = new Person("Mary", 1996, 3, 4);
 
         //Act
-        A.setBirthDate(1995,4, 4);
+        Mary.setBirthDate(1995,4, 4);
 
         LocalDate expected = LocalDate.parse("1995-04-04");
 
         //Assert
-        assertEquals(expected, A.getBirthDate());
+        assertEquals(expected, Mary.getBirthDate());
     }
     @Test
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDate_invalidMonth() {
         //Arrange
-        Person A = new Person(null, 1995, 04, 15);
+        Person Pedro = new Person("Pedro", 1995, 04, 15);
 
         //Act
         try {
-            A.setBirthDate(1995, 13, 15);
+            Pedro.setBirthDate(1995, 13, 15);
             fail();
         }
         //Assert
@@ -100,11 +100,11 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDate_birthDateAfterCurrentDate() {
         //Arrange
-        Person A = new Person(null, 1995, 04, 15);
+        Person Rui = new Person("Rui", 1995, 04, 15);
 
         //Act
         try {
-            A.setBirthDate(2021, 12, 15);
+            Rui.setBirthDate(2021, 12, 15);
             fail();
         }
         //Assert
@@ -116,11 +116,11 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case")
     public void validateBirthDate_invalidDay() {
         //Arrange
-        Person A = new Person(null, 1995, 04, 15);
+        Person Rui = new Person("Rui", 1995, 04, 15);
 
         //Act
         try {
-            A.setBirthDate(2000, 12, 50);
+            Rui.setBirthDate(2000, 12, 50);
             fail();
         }
         //Assert
