@@ -36,6 +36,13 @@ public class GroupsList {
     }
 
     /**
+     * Method to check the number of Groups inside the list.
+     */
+    public int howManyGroups(){
+        return this.groupsList.size();
+    }
+
+    /**
     * Method to return Only Families
     */
     public HashSet<Group> returnOnlyFamilies() {
