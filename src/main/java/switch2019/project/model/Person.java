@@ -24,9 +24,10 @@ public class Person {
      * @param birthdayYear
      */
 
-    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay) {
+    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace) {
         this.name = name;
         setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
+        this.birthPlace = birthPlace;
         siblingList = new HashSet<>();
     }
 
