@@ -802,15 +802,15 @@ class PersonTest {
     @DisplayName("Two Equals father_true")
     void checkSameFather_True() {
     //Arrange
-    Person p1=new Person("Elsa",2000,02,24);
-    Person p2=new Person("Filipa",1990,01,05);
-    Person father1=new Person("Antonio",1970,02,15);
+    Person person1=new Person("Elsa",2000,02,24, new Address("Porto"));
+    Person person2=new Person("Filipa",1990,01,05, new Address("Miragaia"));
+    Person father1=new Person("Antonio",1970,02,15, new Address("Matosinhos"));
 
     //Act
-    p1.setFather(father1);
-    p2.setFather(father1);
+    person1.setFather(father1);
+    person2.setFather(father1);
 
-    boolean result= p1.checkSameFather(p2);
+    boolean result= person1.checkSameFather(person2);
 
     //Assert
     assertTrue(result);
@@ -819,10 +819,10 @@ class PersonTest {
     @DisplayName("Two Equals father_null")
     void checkSameFather() {
         //Arrange
-        Person p1=new Person("Elsa",2000,02,24);
-        Person p2=new Person("Filipa",1990,01,05);
-        Person father1=new Person(null,1990,1,12);
-        Person father2=new Person("Afonso",1950,8,07);
+        Person p1=new Person("Elsa",2000,02,24,new Address("Miragaia"));
+        Person p2=new Person("Filipa",1990,01,05, new Address("Porto"));
+        Person father1=new Person(null,1990,1,12, new Address("Matosinhos"));
+        Person father2=new Person("Afonso",1950,8,07, new Address("Barcelos"));
 
         //Act
         p1.setFather(father1);
@@ -878,13 +878,13 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - same father")
     void isSiblingsSameFather() {
         //Arrange
-        Person pai=new Person("José",1963,3,9, new Address("Miragaia"));
+        Person father=new Person("José",1963,3,9, new Address("Miragaia"));
         Person antonio=new Person("António",1987,12,9, new Address("Matosinhos"));
         Person manuel=new Person("Manuel",1986,9,12, new Address("Porto"));
 
         //Act
-        antonio.setFather(pai);
-        manuel.setFather(pai);
+        antonio.setFather(father);
+        manuel.setFather(father);
         boolean resultado=antonio.isSibling(manuel);
 
         //Assert
@@ -895,19 +895,19 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - in each other list")
     void isSiblingsInTheSiblingsList() {
         //Arrange
-        Person antonio=new Person("António",1987,12,9, new Address("Miragaia"));
-        Person manuel=new Person("Manuel",1986,9,12, new Address("Porto"));
+        Person person1=new Person("António",1987,12,9, new Address("Miragaia"));
+        Person person2=new Person("Manuel",1986,9,12, new Address("Porto"));
         Person roberto=new Person("Roberto",1992,8,10, new Address("Matosinhos"));
 
 
-        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(manuel,roberto));
-        HashSet<Person>siblings2=new HashSet<Person>(Arrays.asList(antonio,roberto));
+        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(person2,roberto));
+        HashSet<Person> siblings2=new HashSet<Person>(Arrays.asList(person1,roberto));
 
         //Act
-        antonio.addMultipleSiblings(siblings);
+        person1.addMultipleSiblings(siblings);
         roberto.addMultipleSiblings(siblings2);
 
-        boolean resultado=antonio.isSibling(manuel);
+        boolean resultado=person1.isSibling(person2);
 
         //Assert
         assertEquals(true,resultado);
