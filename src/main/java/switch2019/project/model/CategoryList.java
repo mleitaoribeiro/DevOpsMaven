@@ -35,4 +35,19 @@ public class CategoryList {
      */
 
     public boolean categoryListContains(Category aCategory) {return true;}
+    /**
+     *Develop @override of equals for Category List and @override of hashcode
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CategoryList categoriesList = (CategoryList) o;
+        return Objects.equals(categories, categoriesList.categories);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(categories);
+    }
 }
