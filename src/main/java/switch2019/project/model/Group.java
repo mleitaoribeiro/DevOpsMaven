@@ -9,6 +9,7 @@ public class Group {
     private String description;
     private LocalDate startingDate;
     private HashSet<Person> members;
+    private HashSet<Person> admins;
     private AccountsList accountsList;
 
     /**
@@ -135,6 +136,7 @@ public class Group {
      */
 
     public void setAdmins () {
+        
 
     }
 }
