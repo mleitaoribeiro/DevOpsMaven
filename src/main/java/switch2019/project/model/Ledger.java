@@ -6,5 +6,13 @@ public class Ledger {
     //Private Ledger variables
     private HashSet<Transaction> ledgerList;
 
-   
+    /**
+     * Overload Ledger Construtor
+     *
+     *
+     */
+
+    public Ledger (){
+        ledgerList=new HashSet<Transaction>();
+    }
 }
