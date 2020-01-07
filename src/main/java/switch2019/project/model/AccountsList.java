@@ -46,8 +46,10 @@ public class AccountsList {
     /**
      * method to add several accounts to a list
      */
-    public void addSeveralAccountsToAList (HashSet<Account> many){
-
+    public void addSeveralAccountsToAList (HashSet<Account> many) {
+        for (Account account : many) {
+            addAccountToAccountsList(account);
+        }
     }
 
 }
