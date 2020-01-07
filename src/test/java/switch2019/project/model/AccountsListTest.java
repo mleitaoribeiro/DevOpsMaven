@@ -70,8 +70,29 @@ class AccountsListTest {
     }
 
     @Test
+    @DisplayName("Test if more than one account was added to the list")
+    public void testIfAccountsAreInList_OneAccountIsNull() {
+        //Arrange
+        Account oneAccount = null;
+        Account otherAccount = new Account ("xyz", "general");
+        Account anotherAccount = new Account ("Millennium", "Millennium Account");
+        HashSet<Account> expected = new HashSet<>(Arrays.asList(otherAccount, anotherAccount));
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+        accountsList.addAccountToAccountsList(oneAccount);
+        accountsList.addAccountToAccountsList(otherAccount);
+        accountsList.addAccountToAccountsList(anotherAccount);
+
+        HashSet <Account> real = accountsList.getAccountsList();
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
     @DisplayName("Test if one account is contained in the accounts list | True")
-    public void testIfAccountsListCountainAccount_true() {
+    public void testIfAccountsListContainAccount_true() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
         AccountsList accountsList = new AccountsList();
@@ -87,7 +108,7 @@ class AccountsListTest {
 
     @Test
     @DisplayName("Test if one account is contained in the accounts list | False")
-    public void testIfAccountsListCountainAccount_false() {
+    public void testIfAccountsListContainAccount_false() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
         AccountsList accountsList = new AccountsList();
@@ -117,7 +138,7 @@ class AccountsListTest {
         september.addSeveralAccountsToAList(expected);
 
         //Arrange
-        assertEquals(expected,september);
+        assertEquals(expected,september.getAccountsList());
 
     }
 
@@ -128,7 +149,7 @@ class AccountsListTest {
         //Act
         Account butcher=new Account("Butcher", "Talho do Amadeu");
         Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=new Account(null,null);
+        Account post=null;
 
         HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
         HashSet<Account> added =new HashSet<>(Arrays.asList(butcher,market,post));
@@ -140,7 +161,7 @@ class AccountsListTest {
         september.addSeveralAccountsToAList(added);
 
         //Arrange
-        assertEquals(expected,september);
+        assertEquals(expected,september.getAccountsList());
 
     }
 

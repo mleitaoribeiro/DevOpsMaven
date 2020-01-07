@@ -9,8 +9,8 @@ public class Account {
     private double balance;
 
     public Account (String accountDenomination, String accountDescription) {
-        this.denomination = accountDenomination;
-        this.description = accountDescription;
+        setDenomination(accountDenomination);
+        setDescription(accountDescription);
     }
 
     @Override
@@ -26,4 +26,23 @@ public class Account {
     public int hashCode() {
         return Objects.hash(denomination, description, balance);
     }
+
+    /**
+     * Public set for denomination: Can not be Null or numeric.
+     * @param denomination
+     */
+
+    public void setDenomination (String denomination) {
+
+    }
+
+    /**
+     * Public set for description: Can not be Null or numeric.
+     * @param denomination
+     */
+
+    public void setDescription (String denomination) {
+
+    }
+
 }
