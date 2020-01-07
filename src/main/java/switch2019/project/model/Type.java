@@ -6,5 +6,8 @@ public class Type {
     public Type(boolean description) {
         this.description = description;
     }
-    
+
+    public boolean isDescription() {
+        return description;
+    }
 }
