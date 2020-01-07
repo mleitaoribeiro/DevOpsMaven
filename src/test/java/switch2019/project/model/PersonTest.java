@@ -37,7 +37,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
-        Person Joao = new Person("João",1996,04,05,new Address(("Porto"));
+        Person Joao = new Person("João",1996,04,05,new Address(("Porto")));
 
         //Act
         Joao.setName("Alex");
@@ -100,7 +100,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDate_birthDateAfterCurrentDate() {
         //Arrange
-        Person Rui = new Person("Rui", 1995,08,15, new Address("Lousada"));
+        Person Rui = new Person("Rui", 1995,8,15, new Address("Lousada"));
 
         //Act
         try {
@@ -116,7 +116,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case")
     public void validateBirthDate_invalidDay() {
         //Arrange
-        Person Rui = new Person("Rui", 1995,08,16, new Address("lamas"));
+        Person Rui = new Person("Rui", 1995,8,16, new Address("lamas"));
 
         //Act
         try {
@@ -351,10 +351,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person p1 = new Person("Teresa", 1987, 01, 16);
-        Person p2 = new Person("Paulo", 1994, 04, 27);
-        Person p3 = new Person("Paulo",1985,05,27);
-        Person p4 = new Person("Luis",2000,8,15);
+        Person p1 = new Person("Teresa",1987,4,5,new Address("Lisboa"));
+        Person p2 = new Person("Paulo", 1994,5,18,new Address("Porto"));
+        Person p3 = new Person("Paulo",1985,5,17, new Address("Coimbra"));
+        Person p4 = new Person("Luis",2000,10,4,new Address("Mozelos"));
         HashSet<Person>newSiblings= new HashSet<>(Arrays.asList(p2,p4,p3));
         //Act
         p1.addMultipleSiblings(newSiblings);
@@ -370,8 +370,8 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list")
     void validateRemoveSibling (){
         //Arrange
-        Person p1=new Person("Maria",1996,12,9);
-        Person p2=new Person("António",1993,2,23);
+        Person p1=new Person("Maria",1956,05,17, new Address("FozCoa"));
+        Person p2=new Person("António",1985,10,12, new Address("Gaia"));
 
         //Act
         p1.addSibling(p2);
@@ -385,9 +385,9 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list - more than one sibling")
     void validateRemoveSiblingMoreThanOne (){
         //Arrange
-        Person p1=new Person("Maria",1996,12,9);
-        Person p2=new Person("António",1993,2,23);
-        Person p3=new Person("Manuel",1993,3,9);
+        Person p1=new Person("Maria",1954,10,14,new Address("Porto"));
+        Person p2=new Person("António",1985,10,2, new Address("Porto"));
+        Person p3=new Person("Manuel",1993,10,4, new Address("Gaia"));
         HashSet<Person>threeSiblings=new HashSet<>(Arrays.asList(p2,p3));
 
         //Act
@@ -405,10 +405,10 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - 1 remaining")
     void validateMultipleSiblingRemoval (){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
-        Person p3=new Person("Susan",1993,3,9);
-        Person p4=new Person("Frank",1996,12,5);
+        Person p1=new Person("John",1996,12,9, new Address("gaia"));
+        Person p2=new Person("Anna",1993,2,23, new Address("Gaia"));
+        Person p3=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person p4=new Person("Frank",1996,12,5, new Address("Gaia"));
         HashSet<Person>threeSiblings=new HashSet<>(Arrays.asList(p2,p3,p4));
         HashSet<Person>twoSiblings= new HashSet<>(Arrays.asList(p3,p4));
 
@@ -424,12 +424,12 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - multiple remaining")
     void validateMultipleSiblingRemoval2 (){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
-        Person p3=new Person("Susan",1993,3,9);
-        Person p4=new Person("Frank",1996,12,5);
-        Person p5=new Person("Jessica",2002,12,3);
-        Person p6= new Person("Jack", 1990,1,3);
+        Person p1=new Person("John",1996,12,9, new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
+        Person p3=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person p4=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person p5=new Person("Jessica",2002,12,3,new Address("Gaia"));
+        Person p6= new Person("Jack", 1990,1,3,new Address("Gaia"));
         HashSet<Person>totalSib=new HashSet<>(Arrays.asList(p2,p3,p4,p5,p6));
         HashSet<Person>removeSib= new HashSet<>(Arrays.asList(p3,p4));
 
@@ -445,11 +445,11 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - not contains exact ones")
     void validateMultipleSiblingRemoval_not_contains_exact_ones (){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
-        Person p3=new Person("Susan",1993,3,9);
-        Person p4=new Person("Frank",1996,12,5);
-        Person p5=new Person("Jessica",2002,12,3);
+        Person p1=new Person("John",1996,12,9,new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
+        Person p3=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person p4=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person p5=new Person("Jessica",2002,12,3,new Address("Gaia"));
         HashSet<Person>totalSib=new HashSet<>(Arrays.asList(p2,p3,p4,p5));
         HashSet<Person>removeSib= new HashSet<>(Arrays.asList(p3,p4));
         HashSet<Person>expectedSib=new HashSet<>(Arrays.asList(p2,p5));
@@ -462,18 +462,16 @@ class PersonTest {
         assertTrue(p1.getSiblingList().containsAll(expectedSib));
     }
 
-
-
     /**
      *  Test if two people have the same mother
      */
     @Test
     @DisplayName("Validate if two people have the same mother - False")
     void checkSameMother_false(){
-        Person motherP1 = new Person("Maria",1988,3,23);
-        Person motherP2 = new Person("Josefa",1987,4,23);
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person motherP1 = new Person("Maria",1988,3,23,new Address("Gaia"));
+        Person motherP2 = new Person("Josefa",1987,4,23,new Address("Gaia"));
+        Person p1 = new Person("Ricardo",2005,4,20, new Address("Gaia"));
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         p2.setMother(motherP2);
         //Act
@@ -485,9 +483,9 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - True")
     void checkSameMother_true(){
-        Person motherP1 = new Person("Maria",1988,3,23);
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person motherP1 = new Person("Maria",1988,3,23,new Address("Gaia"));
+        Person p1 = new Person("Ricardo",2005,4,20,new Address("Gaia"));
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         p2.setMother(motherP1);
         //Act
@@ -499,9 +497,9 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - no mother")
     void checkSameMother_no_mother(){
-        Person motherP1 = new Person("Teresa",1980,1,23);
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person motherP1 = new Person("Teresa",1980,1,23,new Address("Gaia"));
+        Person p1 = new Person("Ricardo",2005,4,20,new Address("Gaia"));
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         //Act
         boolean result = p1.checkSameMother(p2);
@@ -512,10 +510,10 @@ class PersonTest {
     @Test
     @DisplayName("Validate if two people have the same mother - Null mother")
     void checkSameMother_null_mother(){
-        Person motherP1 = new Person("Teresa",1980,1,23);
+        Person motherP1 = new Person("Teresa",1980,1,23,new Address("Gaia"));
         Person motherP2 = null;
-        Person p1 = new Person("Ricardo",2005,4,20);
-        Person p2 = new Person("Pedro",2006,4,21);
+        Person p1 = new Person("Ricardo",2005,4,20,new Address("Gaia"));
+        Person p2 = new Person("Pedro",2006,4,21,new Address("Gaia"));
         p1.setMother(motherP1);
         p2.setMother(motherP2);
         //Act
@@ -531,13 +529,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings")
     void compareSameSiblings(){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
+        Person p1=new Person("John",1996,12,9,new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
         //siblings:
-        Person s1=new Person("Susan",1993,3,9);
-        Person s2=new Person("Frank",1996,12,5);
-        Person s3=new Person("Jessica",2002,12,3);
-        Person s4= new Person("Jack", 1990,1,3);
+        Person s1=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person s2=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person s3=new Person("Jessica",2002,12,3,new Address("Gaia"));
+        Person s4= new Person("Jack", 1990,1,3,new Address("Gaia"));
         //siblingList arrangement
         HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(p2,s1,s2,s3,s4));
         HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(p1,s1,s2,s3,s4));
@@ -554,13 +552,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings - False")
     void compareSameSiblings2(){
         //Arrange
-        Person p1=new Person("John",1996,12,9);
-        Person p2=new Person("Anna",1993,2,23);
+        Person p1=new Person("John",1996,12,9,new Address("Gaia"));
+        Person p2=new Person("Anna",1993,2,23,new Address("Gaia"));
         //siblings:
-        Person s1=new Person("Susan",1993,3,9);
-        Person s2=new Person("Frank",1996,12,5);
-        Person s3=new Person("Jessica",2002,12,3);
-        Person s4= new Person("Jack", 1990,1,3);
+        Person s1=new Person("Susan",1993,3,9,new Address("Gaia"));
+        Person s2=new Person("Frank",1996,12,5,new Address("Gaia"));
+        Person s3=new Person("Jessica",2002,12,3,new Address("Gaia"));
+        Person s4= new Person("Jack", 1990,1,3,new Address("Gaia"));
         //siblingList arrangement
         HashSet<Person> p1siblings = new HashSet<>(Arrays.asList(s1,s2));
         HashSet<Person> p2siblings = new HashSet<>(Arrays.asList(s3,s4));
@@ -578,43 +576,14 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Test if person exists on the other siblings lis | True")
+    @DisplayName("Test if person exists on the other siblings list | True")
     public void personExistsOtherSiblingsList_1() {
         //Arrange
+        Person onePerson = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
+        Person otherPerson = new Person("Marta", 1996, 3, 4, new Address("Porto"));
 
-        //One Person
-        String name = "João Cardoso";
-        //One Person BirthDate
-        int year  = 1993;
-        int month = 9;
-        int day = 1;
-
-        //Other Person
-        String otherPersonName = "Marta";
-        //Other Person BirthDate
-        int otherPersonYear  = 1996;
-        int otherPersonMonth = 3;
-        int otherPersonDay = 4;
-
-        //One Brother
-        String brotherName = "Paulo";
-        //One brother BirthDate
-        int brotherYear  = 1993;
-        int brotherMonth = 9;
-        int brotherDay = 1;
-
-        //one Sister
-        String sisterName = "Diana";
-        //One Sister BirthDate
-        int sisterYear  = 2000;
-        int sisterMonth = 9;
-        int sisterDay = 1;
-
-        Person onePerson = new Person(name, year, month, day);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-
-        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
-        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+        Person brother = new Person ("Paulo",1993,9,1,new Address("Porto"));
+        Person sister = new Person("Diana",2000,9,1,new Address("Porto"));
 
         //Act
         onePerson.addSibling(brother);
@@ -635,42 +604,14 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Test if person exists on the other siblings lis | True")
+    @DisplayName("Test if person exists on the other siblings list | True")
     public void personExistsOnOtherSiblingsList_2() {
         //Arrange
+        Person onePerson = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
+        Person otherPerson = new Person("Marta", 1996, 3, 4, new Address("Porto"));
 
-        //One Person
-        String name = "João Cardoso";
-        //One Person BirthDate
-        int year  = 1993;
-        int month = 9;
-        int day = 1;
-
-        //Other Person
-        String otherPersonName = "Marta";
-        //Other Person BirthDate
-        int otherPersonYear  = 1996;
-        int otherPersonMonth = 3;
-        int otherPersonDay = 4;
-
-        //One Brother
-        String brotherName = "Paulo";
-        //One brother BirthDate
-        int brotherYear  = 1993;
-        int brotherMonth = 9;
-        int brotherDay = 1;
-
-        //one Sister
-        String sisterName = "Diana";
-        //One Sister BirthDate
-        int sisterYear  = 2000;
-        int sisterMonth = 9;
-        int sisterDay = 1;
-
-        Person onePerson = new Person(name, year, month, day);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
-        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+        Person brother = new Person ("Paulo",1993,9,1,new Address("Porto"));
+        Person sister = new Person("Diana",2000,9,1,new Address("Porto"));
 
         HashSet<Person> onePersonSiblings = new HashSet<>(Arrays.asList(brother,sister,otherPerson));
         HashSet<Person> otherPersonSiblings = new HashSet<>(Arrays.asList(onePerson,sister));
@@ -698,39 +639,11 @@ class PersonTest {
     @DisplayName("Test if person exists on the other Person siblings list | True")
     public void personExistsOnTheOtherPersonSiblingsList_01() {
         //Arrange
+        Person onePerson = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
+        Person otherPerson = new Person("Marta", 1996, 3, 4, new Address("Porto"));
 
-        //One Person
-        String name = "João Cardoso";
-        //One Person BirthDate
-        int year  = 1993;
-        int month = 9;
-        int day = 1;
-
-        //Other Person
-        String otherPersonName = "Marta";
-        //Other Person BirthDate
-        int otherPersonYear  = 1996;
-        int otherPersonMonth = 3;
-        int otherPersonDay = 4;
-
-        //One Brother
-        String brotherName = "Paulo";
-        //One brother BirthDate
-        int brotherYear  = 1993;
-        int brotherMonth = 9;
-        int brotherDay = 1;
-
-        //one Sister
-        String sisterName = "Diana";
-        //One Sister BirthDate
-        int sisterYear  = 2000;
-        int sisterMonth = 9;
-        int sisterDay = 1;
-
-        Person onePerson = new Person(name, year, month, day);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
-        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+        Person brother = new Person ("Paulo",1993,9,1,new Address("Porto"));
+        Person sister = new Person("Diana",2000,9,1,new Address("Porto"));
 
         //Act
         onePerson.addSibling(otherPerson);
@@ -747,39 +660,11 @@ class PersonTest {
     @DisplayName("Test if person exists on the other Person siblings list | False")
     public void personDoNotExistsOnTheOtherPersonSiblingsList_01() {
         //Arrange
+        Person onePerson = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
+        Person otherPerson = new Person("Marta", 1996, 3, 4, new Address("Porto"));
 
-        //One Person
-        String name = "João Cardoso";
-        //One Person BirthDate
-        int year  = 1993;
-        int month = 9;
-        int day = 1;
-
-        //Other Person
-        String otherPersonName = "Marta";
-        //Other Person BirthDate
-        int otherPersonYear  = 1996;
-        int otherPersonMonth = 3;
-        int otherPersonDay = 4;
-
-        //One Brother
-        String brotherName = "Paulo";
-        //One brother BirthDate
-        int brotherYear  = 1993;
-        int brotherMonth = 9;
-        int brotherDay = 1;
-
-        //one Sister
-        String sisterName = "Diana";
-        //One Sister BirthDate
-        int sisterYear  = 2000;
-        int sisterMonth = 9;
-        int sisterDay = 1;
-
-        Person onePerson = new Person(name, year, month, day);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay);
-        Person brother = new Person (brotherName,brotherYear,brotherMonth,brotherDay);
-        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay);
+        Person brother = new Person ("Paulo",1993,9,1,new Address("Porto"));
+        Person sister = new Person("Diana",2000,9,1,new Address("Porto"));
 
         //Act
         onePerson.addSibling(brother);
@@ -802,15 +687,15 @@ class PersonTest {
     @DisplayName("Two Equals father_true")
     void checkSameFather_True() {
     //Arrange
-    Person person1=new Person("Elsa",2000,02,24, new Address("Porto"));
-    Person person2=new Person("Filipa",1990,01,05, new Address("Miragaia"));
-    Person father1=new Person("Antonio",1970,02,15, new Address("Matosinhos"));
+    Person p1=new Person("Elsa",2000,02,24,new Address("Gaia"));
+    Person p2=new Person("Filipa",1990,01,05,new Address("Gaia"));
+    Person father1=new Person("Antonio",1970,02,15,new Address("Gaia"));
 
     //Act
-    person1.setFather(father1);
-    person2.setFather(father1);
+    p1.setFather(father1);
+    p2.setFather(father1);
 
-    boolean result= person1.checkSameFather(person2);
+    boolean result= p1.checkSameFather(p2);
 
     //Assert
     assertTrue(result);
@@ -819,10 +704,10 @@ class PersonTest {
     @DisplayName("Two Equals father_null")
     void checkSameFather() {
         //Arrange
-        Person p1=new Person("Elsa",2000,02,24,new Address("Miragaia"));
-        Person p2=new Person("Filipa",1990,01,05, new Address("Porto"));
-        Person father1=new Person(null,1990,1,12, new Address("Matosinhos"));
-        Person father2=new Person("Afonso",1950,8,07, new Address("Barcelos"));
+        Person p1=new Person("Elsa",2000,02,24,new Address("Gaia"));
+        Person p2=new Person("Filipa",1990,01,05,new Address("Gaia"));
+        Person father1=new Person(null,1990,1,12,new Address("Gaia"));
+        Person father2=new Person("Afonso",1950,8,07,new Address("Gaia"));
 
         //Act
         p1.setFather(father1);
@@ -878,13 +763,13 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - same father")
     void isSiblingsSameFather() {
         //Arrange
-        Person father=new Person("José",1963,3,9, new Address("Miragaia"));
+        Person pai=new Person("José",1963,3,9, new Address("Miragaia"));
         Person antonio=new Person("António",1987,12,9, new Address("Matosinhos"));
         Person manuel=new Person("Manuel",1986,9,12, new Address("Porto"));
 
         //Act
-        antonio.setFather(father);
-        manuel.setFather(father);
+        antonio.setFather(pai);
+        manuel.setFather(pai);
         boolean resultado=antonio.isSibling(manuel);
 
         //Assert
@@ -895,19 +780,19 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - in each other list")
     void isSiblingsInTheSiblingsList() {
         //Arrange
-        Person person1=new Person("António",1987,12,9, new Address("Miragaia"));
-        Person person2=new Person("Manuel",1986,9,12, new Address("Porto"));
+        Person antonio=new Person("António",1987,12,9, new Address("Miragaia"));
+        Person manuel=new Person("Manuel",1986,9,12, new Address("Porto"));
         Person roberto=new Person("Roberto",1992,8,10, new Address("Matosinhos"));
 
 
-        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(person2,roberto));
-        HashSet<Person> siblings2=new HashSet<Person>(Arrays.asList(person1,roberto));
+        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(manuel,roberto));
+        HashSet<Person>siblings2=new HashSet<Person>(Arrays.asList(antonio,roberto));
 
         //Act
-        person1.addMultipleSiblings(siblings);
+        antonio.addMultipleSiblings(siblings);
         roberto.addMultipleSiblings(siblings2);
 
-        boolean resultado=person1.isSibling(person2);
+        boolean resultado=antonio.isSibling(manuel);
 
         //Assert
         assertEquals(true,resultado);

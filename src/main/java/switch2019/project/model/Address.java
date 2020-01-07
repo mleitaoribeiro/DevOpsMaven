@@ -9,14 +9,15 @@ public class Address {
     private String street;
     private String city;
     private String zipCode;
+    private String birthPlace;
 
     /**
      * Address constructor
-     * @param birthplace
+     * @param birthPlace
      */
 
-    public Address (String birthplace) {
-        setCity(birthplace);
+    public Address (String birthPlace) {
+        this.birthPlace = birthPlace;
     }
 
     /**
@@ -48,7 +49,7 @@ public class Address {
 
     public void setCity(String city) {
         if (isNumeric(city) || city == null) {
-            throw new IllegalArgumentException("The city in your Address is not valid or is missing. Please try again.");
+            throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
             this.city = city.toUpperCase();
         }
@@ -81,7 +82,7 @@ public class Address {
 
     public void setStreet(String street) {
         if (isNumeric(street) || street == null) {
-            this.city = null;
+            throw new IllegalArgumentException("The street format in your Address is not valid or it's missing. Please try again");
         } else this.street = street.toUpperCase();
     }
 
@@ -91,7 +92,7 @@ public class Address {
      */
 
     public void setZipCode(String zip){
-        if(zip==null)
+        if (zip==null)
             throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
             if (zip.length() == 7) {
