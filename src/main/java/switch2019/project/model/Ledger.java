@@ -15,4 +15,12 @@ public class Ledger {
     public Ledger (){
         ledgerList=new HashSet<Transaction>();
     }
+
+    /**
+     * Add Transaction to Ledger
+     */
+    public void addTransactionToLedger(Transaction transaction){
+        ledgerList.add(transaction);
+
+    }
 }
