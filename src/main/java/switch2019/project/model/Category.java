@@ -27,11 +27,11 @@ public class Category {
     /**
      * Get Category
      *
-     * @return category clone
+     * @return category Clone
      */
 
-    public Category geCategory() {
-        return this;
+    public String getCategory() {
+        return this.category;
     }
 
     /**
