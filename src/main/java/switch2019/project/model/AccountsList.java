@@ -31,6 +31,13 @@ public class AccountsList {
      * method to add one account to the list
      */
     public void addAccountToAccountsList (Account oneAccount) {
+        if (oneAccount!=null){
+            accounts.add(oneAccount);
+        }
     }
+
+    /**
+     * method to add several accounts to a list
+     */
 
 }
