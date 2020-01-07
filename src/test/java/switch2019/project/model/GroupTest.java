@@ -404,14 +404,92 @@ class GroupTest {
 
 
     /**
-     * Check if user was promoted to Admin
+     * Check if member was promoted to Admin
      */
+    @Test
+    @DisplayName("Promote one member to Admin")
+    void promoteMemberTest1Person() {
+        //Arrange
+        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Group group1 = new Group("Francis Group");
 
+        //Act
+        group1.addMember(person1);
+        group1.promoteMemberToAdmin(person1);
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1);
+
+        //Assert
+        assertTrue(wasPromoted);
+    }
+
+    @Test
+    @DisplayName("Promote one member to Admin while there are more than one")
+    void promoteMemberTest2Person() {
+        //Arrange
+        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Person person2 = new Person ("Jaques", 2000,12,1,new Address ("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        group1.promoteMemberToAdmin(person1);
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1) && memberList.contains(person2);
+
+        //Assert
+        assertTrue(wasPromoted);
+    }
 
 
     /**
      * Check if member was demoted from Admin
      */
+    @Test
+    @DisplayName("Demote one admin to member")
+    void demoteMemberTest() {
+        //Arrange
+        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        group1.promoteMemberToAdmin(person1);
+        HashSet<Person> adminListWithAdmin = group1.getAdmins();
+        group1.demoteMemberFromAdmin(person1);
+        HashSet<Person> adminListWithoutAdmin = group1.getAdmins();
+        boolean wasDemoted = adminListWithAdmin.contains(person1) && adminListWithoutAdmin.isEmpty();
+
+        //Assert
+        assertTrue(wasDemoted);
+    }
+
+    @Test
+    @DisplayName("Demote one admin to member while there are more than one")
+    void demoteMemberTest2() {
+        //Arrange
+        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Person person2 = new Person ("Jaques", 2000,12,1,new Address ("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        group1.promoteMemberToAdmin(person1);
+        group1.promoteMemberToAdmin(person2);
+        HashSet<Person> adminListWithAdmin = group1.getAdmins();
+        boolean before = adminListWithAdmin.contains(person1) && adminListWithAdmin.contains(person2);
+        group1.demoteMemberFromAdmin(person1);
+        HashSet<Person> adminListWithoutAdmin = group1.getAdmins();
+        boolean after = adminListWithoutAdmin.contains(person2) && !adminListWithoutAdmin.contains(person1);
+
+        //Assert
+        assertTrue(before && after);
+    }
+
 
 
 
@@ -419,10 +497,5 @@ class GroupTest {
      * Check if a person was directly promoted to group administrator
      */
 
-
-
-    /**
-     * Check if member was promoted to Admin
-     */
 }
 
