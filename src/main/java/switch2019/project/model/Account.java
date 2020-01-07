@@ -59,7 +59,14 @@ public class Account {
         } else {
             this.description = description.toUpperCase();
         }
+    }
 
+    /**
+     * Public get for description
+     */
+
+    public String getDescription (){
+        return this.description;
     }
 
 
