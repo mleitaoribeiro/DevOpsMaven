@@ -27,7 +27,6 @@ public class Group {
      * setter Description
      * @param description
      */
-
     public void setDescription(String description){
         if (description != null) {
             this.description = description.toUpperCase();
@@ -38,7 +37,6 @@ public class Group {
      * Override of equals for Group
      * @param o
      */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,7 +56,6 @@ public class Group {
      * Add a new member to a group
      * @param member
      */
-
     public void addMember(Person member){
         if (member != null)
         members.add(member);
@@ -68,7 +65,6 @@ public class Group {
      * Remove one member from a group
      * @param memberToRemove
      */
-
     public void removeMember(Person memberToRemove){
         if (memberToRemove != null)
         members.remove(memberToRemove);
@@ -78,10 +74,16 @@ public class Group {
      * Getter function for the group members
      * @return membersClone;
      */
-
     public HashSet<Person> getMembers () {
         return new HashSet<>(this.members);
     }
+
+    /**
+     * Getter function for the group admins
+     *
+     */
+    public HashSet<Person> getAdmins() { return new HashSet<>(this.admins);}
+
 
 
     /**
@@ -136,9 +138,22 @@ public class Group {
      */
 
     public void setAdmins () {
-        
-
     }
+
+    /**
+     * Promote group member to group admin.
+     * @param member
+     */
+    public void promoteMemberToAdmin(Person member) {
+    }
+
+    /**
+     * Demote group admin to group member only.
+     * @param member
+     */
+    public void demoteMemberFromAdmin(Person member) {
+    }
+
 }
 
 
