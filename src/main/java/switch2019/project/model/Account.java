@@ -41,6 +41,14 @@ public class Account {
     }
 
     /**
+     * Public get for denomination
+     */
+
+    public String getDenomination (){
+        return this.denomination;
+    }
+
+    /**
      * Public set for description: Can not be Null.
      * @param description
      */

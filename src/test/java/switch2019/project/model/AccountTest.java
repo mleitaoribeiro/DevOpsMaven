@@ -40,6 +40,34 @@ class AccountTest {
         assertEquals(false,result);
     }
 
+    @Test
+    @DisplayName("Test set function for denomination")
+    void setDenomination() {
+        //Arrange
+        Account bills = new Account ("Bills","pay every 8th");
+        String expected = "Water bill";
+        //Act
+        bills.setDenomination("Water bill");
+        //Assert
+        assertEquals(expected, bills.getDenomination());
+    }
+
+    @Test
+    @DisplayName("Test set function for denomination - null")
+    void setDenomintationNull() {
+        //Arrange
+        Account bills = new Account ("Bills","pay every 8th");
+        String expected = "Water bill";
+        try {
+            //Act
+            bills.setDenomination("Water bill");
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination in your Account is not valid or it's missing. Please try again.", denomination.getMessage());
+        }
+    }
 
 
 
