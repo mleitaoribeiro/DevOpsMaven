@@ -3,6 +3,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -46,4 +47,26 @@ class AccountsListTest {
         //Assert
         assertNotEquals(expected, real);
     }
+
+    @Test
+    @DisplayName("Test if more than one account was added to the list")
+    public void testIfAccountsAreInList_MoreThanOne() {
+        //Arrange
+        Account oneAccount = new Account("xpto", "cat acccount");
+        Account otherAccount = new Account ("xyz", "general");
+        Account anotherAccount = new Account ("Millennium", "Millennium Account");
+        HashSet<Account> expected = new HashSet<>(Arrays.asList( oneAccount, otherAccount, anotherAccount));
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+        accountsList.addAccountToAccountsList(oneAccount);
+        accountsList.addAccountToAccountsList(otherAccount);
+        accountsList.addAccountToAccountsList(anotherAccount);
+
+        HashSet <Account> real = accountsList.getAccountsList();
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
 }
