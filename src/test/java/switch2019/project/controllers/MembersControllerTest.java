@@ -146,4 +146,41 @@ class MembersControllerTest {
         assertFalse(switchGroup.getMembers().contains(nullPerson));
     }
 
+    /**
+     * Test if a member added to the group is automatically promoted to admin if the group is empty
+     */
+    @Test
+    @DisplayName("True - member added to an empty group")
+    void promoteAddedMemberIfEmptyTrue() {
+        //Arrange
+        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
+        Group emptyGroup = new Group("Group with no members");
+
+        //Act
+        emptyGroup.addMember(person1);
+        HashSet<Person> emptyGroupAdmins = emptyGroup.getAdmins();
+        HashSet<Person> emptyGroupMembers = emptyGroup.getMembers();
+
+        //Assert
+        assertTrue(emptyGroupMembers.contains(person1) && emptyGroupAdmins.contains(person1));
+    }
+
+    @Test
+    @DisplayName("False - member added to a non empty group")
+    void promoteAddedMemberIfEmptyTestFalse() {
+        //Arrange
+        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
+        Person person2 = new Person("Pablo", 1978,5,16,new Address("Madrid"));
+        Group emptyGroup = new Group("Group with no members");
+
+        //Act
+        emptyGroup.addMember(person1);
+        emptyGroup.addMember(person2);
+        HashSet<Person> emptyGroupAdmins = emptyGroup.getAdmins();
+        HashSet<Person> emptyGroupMembers = emptyGroup.getMembers();
+
+        //Assert
+        assertTrue(emptyGroupMembers.contains(person2) && !emptyGroupAdmins.contains(person2));
+    }
+
 }
