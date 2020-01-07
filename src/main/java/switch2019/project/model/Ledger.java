@@ -8,19 +8,27 @@ public class Ledger {
 
     /**
      * Overload Ledger Construtor
-     *
-     *
      */
 
-    public Ledger (){
-        ledgerList=new HashSet<Transaction>();
+    public Ledger() {
+        ledgerList = new HashSet<Transaction>();
     }
 
     /**
      * Add Transaction to Ledger
      */
-    public void addTransactionToLedger(Transaction transaction){
+    public void addTransactionToLedger(Transaction transaction) {
         ledgerList.add(transaction);
 
+    }
+
+    /**
+     * Get function for the ledger List
+     *
+     * @return ledgerlist
+     */
+
+    public HashSet<Transaction> getLedgerList() {
+        return new HashSet<>(ledgerList);
     }
 }
