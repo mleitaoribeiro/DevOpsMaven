@@ -2,20 +2,21 @@ package switch2019.project.controllers;
 
 import java.util.HashSet;
 import switch2019.project.model.Category;
+import switch2019.project.model.Person;
 import switch2019.project.model.CategoryList;
 
 public class User {
 
-    private String username;
+    private Person person;
 
     /**
      * Default Person constructor
      *
-     * @param username
+     * @param person
      */
 
-    public User (String username){
-        this.username = username.toUpperCase();
+    public User (Person person){
+        this.person = person;
     }
 
 
@@ -25,6 +26,7 @@ public class User {
      * @param category
      */
     public void addCategoryToList(Category category){
+
 
     }
 
@@ -42,10 +44,10 @@ public class User {
     /**
      * Add multiple categories to CategoryList
      *
-     * @param categoryList
+     * @param HashSet<Category> categories
      */
 
-    public void addMultipleCategoriesToList(CategoryList categoryList){
+    public void addMultipleCategoriesToList(HashSet<Category> categories){
 
     }
 
@@ -53,9 +55,9 @@ public class User {
     /**
      * Remove multiple categories from CategoryList
      *
-     * @param categoryList
+     * @param HashSet<Category> categories
      */
-    public void removeMultipleCategoriesToList(CategoryList categoryList){
+    public void removeMultipleCategoriesToList(HashSet<Category> categories){
 
     }
 
