@@ -22,4 +22,8 @@ public class Account {
                 && Objects.equals(this.description, oneAccount.description);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(denomination, description, balance);
+    }
 }
