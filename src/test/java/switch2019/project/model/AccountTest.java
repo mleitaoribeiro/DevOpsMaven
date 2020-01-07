@@ -60,14 +60,42 @@ class AccountTest {
         String expected = null;
         try {
             //Act
-            bills.setDenomination("Water bill");
+            bills.setDenomination(expected);
             fail();
         }
         //Assert
         catch (IllegalArgumentException denomination) {
-            assertEquals("The description can´t be null. Please try again.", denomination.getMessage());
+            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
         }
     }
 
+    @Test
+    @DisplayName("Test set function for description")
+    void setDescription() {
+        //Arrange
+        Account oneAccount = new Account ("xpto","account 1");
+        String expected = "MILU";
+        //Act
+        oneAccount.setDescription(expected);
+        //Assert
+        assertEquals(expected, oneAccount.getDescription());
+    }
+
+    @Test
+    @DisplayName("Test set function for description - null")
+    void setDescriptionNull() {
+        //Arrange
+        Account oneAccount = new Account ("xpto","xpto account");
+        String expected = null;
+        try {
+            //Act
+            oneAccount.setDescription(expected);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null. Please try again.", description.getMessage());
+        }
+    }
 
 }
