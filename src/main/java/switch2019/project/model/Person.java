@@ -14,6 +14,9 @@ public class Person {
     private Person father;
     private Address address;
     private Address birthPlace;
+    private CategoryList categoryList;
+    private AccountsList accountsList;
+    private Ledger ledger;
 
     /**
      * Default Person constructor
@@ -29,6 +32,9 @@ public class Person {
         setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
         this.birthPlace = birthPlace;
         siblingList = new HashSet<>();
+        categoryList = new CategoryList();
+        accountsList = new AccountsList();
+        ledger = new Ledger();
     }
 
     /**
