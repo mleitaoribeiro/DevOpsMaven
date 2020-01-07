@@ -1,17 +1,18 @@
 package switch2019.project.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 public class CategoryList {
     // Private instance variables
-    private HashSet<Category> categoryList;
+    private HashSet<Category> categories;
 
     /**
      * Constructor for Category List
      */
 
     public CategoryList() {
-        categoryList = new HashSet<Category>();
+        categories = new HashSet<Category>();
     }
 
     /**
@@ -23,7 +24,7 @@ public class CategoryList {
      * @return categoriesList Clone
      */
 
-    public CategoryList getCategoryList() {return this;}
+    public CategoryList getCategories() {return this;}
 
     /**
      * Method to check the number of Categories inside the list.
