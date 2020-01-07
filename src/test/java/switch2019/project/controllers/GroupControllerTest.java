@@ -52,6 +52,22 @@ class GroupControllerTest {
         // Assert
         assertTrue(groupList.groupListContains(group1));
     }
+    /**
+     * Method to check if a Group was created (with HashSet.contains function) - FALSE
+     */
+    @Test
+    public void isGroupInList_false() {
+        // Arrange Groups
+        Group newGroup = new Group("Amigos");
+        Group otherNewGroup = new Group("Inimigos");
+        GroupsList groupList = new GroupsList();
+
+        // Act
+        groupList.addGroupToGroupList(newGroup);
+
+        // Assert
+        assertFalse(groupList.groupListContains(otherNewGroup));
+    }
 
     /**
      * Method to check if a Group was created inside a GroupList (Compare with Group HashSet)
