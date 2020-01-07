@@ -17,7 +17,6 @@ public class GroupsList {
      *Develop @override of equals for Group and @override of hashcode
      */
 
-
     /**
      * method to add group to the list
      */
@@ -47,9 +46,9 @@ public class GroupsList {
     */
     public HashSet<Group> returnOnlyFamilies() {
         HashSet<Group> groupsFamily = new HashSet<>();
-        for (Group a : groupsList) {
-            if (a.isFamily()) {
-                groupsFamily.add(a);
+        for (Group g : groupsList) {
+            if (g.isFamily()) {
+                groupsFamily.add(g);
             }
         }
         return groupsFamily;
@@ -58,8 +57,8 @@ public class GroupsList {
     /**
      * Method to check if a Group is inside a GroupList:
      */
-    public boolean groupListContains (Group g1) {
-        if (!this.groupsList.contains(g1)) {
+    public boolean groupListContains (Group oneGroup) {
+        if (!this.groupsList.contains(oneGroup)) {
             return false;
         }
         return true;

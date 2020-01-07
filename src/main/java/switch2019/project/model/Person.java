@@ -267,8 +267,8 @@ public class Person {
         }
         // Cycle each Person inside the sibling list, to assert
         // if the current object is contained within each of sibling lists:
-        for (Person A : this.siblingList) {
-            if (!A.siblingList.contains(this)) {
+        for (Person p : this.siblingList) {
+            if (!p.siblingList.contains(this)) {
                 return false;
             }
         }
