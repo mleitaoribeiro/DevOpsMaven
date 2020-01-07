@@ -45,9 +45,9 @@ class AccountTest {
     void setDenomination() {
         //Arrange
         Account bills = new Account("Bills", "pay every 8th");
-        String expected = "Water bill";
+        String expected = "WATER BILL";
         //Act
-        bills.setDenomination("WATER BILL");
+        bills.setDenomination("Water bill");
         //Assert
         assertEquals(expected, bills.getDenomination());
     }
@@ -57,7 +57,7 @@ class AccountTest {
     void setDenomintationNull() {
         //Arrange
         Account bills = new Account("Bills", "pay every 8th");
-        String expected = "Water bill";
+        String expected = null;
         try {
             //Act
             bills.setDenomination("Water bill");
