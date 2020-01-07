@@ -17,39 +17,176 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @Test
-    void addCategoryToList() {
+    void addCategoryToListMainScenario() {
         //Arrange
+
+        //Initialize user
         Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
         User user1 = new User(person1);
 
+        //Category to be included in Category List
         Category category1 = new Category("School expenses");
 
         //Act
         user1.addCategoryToList(category1);
 
         //Assert
+        //assertEquals(user1.getCategoriesList(), new Category("School Expenses"));
+
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Test
-    void removeCategoryFromList() {
+    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
+    void addCategoryToListWithANullCase() {
         //Arrange
+
+        //Initialize user
         Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
         User user1 = new User(person1);
+
+        //Category to be included in Category List
+        Category category1 = null;
+
+        //Act
+        user1.addCategoryToList(category1);
+
+        //Assert
+        //assertTrue(user1.getCategoriesList.equals());
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
+    void addTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        User user1 = new User(person1);
+
+        //Categories to be included in Category List
         Category category1 = new Category("School expenses");
-        Category category2 = new Category("Health expenses");
+        Category category2 = new Category("School expenses");
 
         //Act
         user1.addCategoryToList(category1);
         user1.addCategoryToList(category2);
+
+        //Assert
+        //assertTrue(user1.getCategoriesList.equals(category1));
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
+            "Ignore letter capitalization and special characters ")
+    void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive(){
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        User user1 = new User(person1);
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("SCHOOL expenses");
+
+        //Act
+        user1.addCategoryToList(category1);
+        user1.addCategoryToList(category2);
+
+        //Assert
+        //assertTrue(user1.getCategoriesList.equals(category1));
+
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    void removeCategoryFromListMainScenario() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        User user1 = new User(person1);
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("Health expenses");
+        user1.addCategoryToList(category1);
+        user1.addCategoryToList(category2);
+
+        //Act
         user1.removeCategoryFromList(category1);
 
         //Assert
+        //assertTrue(user1.getCategorias.equals(new Category("School expenses")));
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
+            "or null")
+    void removeCategoriesToListWithANullCase() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        User user1 = new User(person1);
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        user1.addCategoryToList(category1);
+
+        //Act
+        category1 = null;
+        user1.removeCategoryFromList(category1);
+
+        //Assert
+        //assertTrue(user1.getCategoriesList.equals(new Category("School expenses")));
+
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
+    void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        User user1 = new User(person1);
+
+        // Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("ScHOÓL eXpenSÉs");
+        user1.addCategoryToList(category1);
+
+        //Act
+        user1.removeCategoryFromList(category2);
+
+        //Assert
+        //assertTrue(user1.categories.size(), 0);
+
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
-    void addMultipleCategoriesToList_mainScenario() {
+    void addMultipleCategoriesToListMainScenario() {
         // Arrange
 
         //Initialize user
@@ -73,9 +210,11 @@ class UserTest {
         // assertTrue(user123.getCategories().containsAll(setOfCategories));
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
-    void addMultipleCategoriesToList_WithANullCase() {
+    void addMultipleCategoriesToListWithANullCase() {
         // Arrange
 
         //Initialize user
@@ -99,9 +238,11 @@ class UserTest {
         //assertFalse(user123.getCategories().contains(categoryNull));
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
-    void addMultipleCategoriesToList_WithTwoCategoriesThatAreTheSame() {
+    void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
         // Arrange
 
         //Initialize user
@@ -125,10 +266,13 @@ class UserTest {
         // assertEquals(2,expectedNumberOfCategoriesOfList);
 
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
             "Ignore letter capitalization and special characters ")
-    void addMultipleCategoriesToList_WithTwoCategoriesCaseInsensitive() {
+    void addMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
         // Arrange
 
         //Initialize user
@@ -151,6 +295,8 @@ class UserTest {
 
         // assertEquals(2,expectedNumberOfCategoriesOfList);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
@@ -180,6 +326,8 @@ class UserTest {
 
         // assertEquals(1,expectedNumberOfCategoriesOfFinalList);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
@@ -215,6 +363,7 @@ class UserTest {
         // assertEquals(3,expectedNumberOfCategoriesOfFinalList);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
