@@ -149,7 +149,7 @@ class AccountsListTest {
         //Act
         Account butcher=new Account("Butcher", "Talho do Amadeu");
         Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=new Account(null,null);
+        Account post=null;
 
         HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
         HashSet<Account> added =new HashSet<>(Arrays.asList(butcher,market,post));
