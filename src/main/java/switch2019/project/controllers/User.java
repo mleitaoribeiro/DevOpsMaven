@@ -23,10 +23,9 @@ public class User {
     /**
      * Add a new category to CategoryList
      *
-     * @param category
+     * @param category category
      */
     public void addCategoryToList(Category category){
-
 
     }
 
@@ -34,7 +33,7 @@ public class User {
     /**
      * Remove a category from CategoryList
      *
-     * @param category
+     * @param category category
      */
     public void removeCategoryFromList(Category category){
 
@@ -44,7 +43,7 @@ public class User {
     /**
      * Add multiple categories to CategoryList
      *
-     * @param HashSet<Category> categories
+     * @param categories<Category> categories
      */
 
     public void addMultipleCategoriesToList(HashSet<Category> categories){
@@ -55,7 +54,7 @@ public class User {
     /**
      * Remove multiple categories from CategoryList
      *
-     * @param HashSet<Category> categories
+     * @param categories<Category> categories
      */
     public void removeMultipleCategoriesToList(HashSet<Category> categories){
 

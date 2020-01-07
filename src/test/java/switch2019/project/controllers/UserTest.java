@@ -76,6 +76,6 @@ class UserTest {
         user1.removeMultipleCategoriesToList(categories2);
 
         //Assert
-        
+
     }
 }
