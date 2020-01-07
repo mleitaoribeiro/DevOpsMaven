@@ -16,7 +16,7 @@ public class Group {
      * @param description
      */
 
-    public Group(String description){
+    public Group (String description){
         setDescription(description);
         startingDate = LocalDate.now();
         members = new HashSet<>();
@@ -82,6 +82,7 @@ public class Group {
         return new HashSet<>(this.members);
     }
 
+
     /**
      * @param: newMembers;
      * Add multiple members to Group
@@ -127,6 +128,14 @@ public class Group {
             if (!person.equals(dadPerson) && !person.equals(momPerson))
                 if(!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
         } return true;
+    }
+
+    /**
+     * Setter function to promote a person directly to group administrator
+     */
+
+    public void setAdmins () {
+
     }
 }
 
