@@ -165,5 +165,58 @@ class AccountsListTest {
 
     }
 
+    @Test
+    @DisplayName("Test if two account lists are the same - true")
+
+    public void testIfTwoAccountListsAreTheSame(){
+        //Act
+        Account butcher=new Account("Butcher", "Talho do Amadeu");
+        Account market=new Account ("Market","Mercado do Amadeu");
+
+
+        HashSet<Account> firstList =new HashSet<>(Arrays.asList(butcher,market));
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        september.addSeveralAccountsToAList(firstList);
+        aMonth.addSeveralAccountsToAList(firstList);
+
+        boolean result=september.equals(aMonth);
+
+        //Arrange
+        assertEquals(true,result);
+
+    }
+
+    @Test
+    @DisplayName("Test if two account lists are the same - false")
+
+    public void testIfTwoAccountListsAreTheSameNo(){
+        //Act
+        Account butcher=new Account("Butcher", "Talho do Amadeu");
+        Account market=new Account ("Market","Mercado do Amadeu");
+
+
+        HashSet<Account> firstList =new HashSet<>(Arrays.asList(butcher,market));
+        HashSet<Account> secondList =new HashSet<>(Arrays.asList(butcher));
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        september.addSeveralAccountsToAList(firstList);
+        aMonth.addSeveralAccountsToAList(secondList);
+
+        boolean result=september.equals(aMonth);
+
+        //Arrange
+        assertEquals(false,result);
+
+    }
+
 
 }

@@ -57,7 +57,7 @@ public class Account {
         if (description == null) {
             throw new IllegalArgumentException("The description can´t be null. Please try again.");
         } else {
-            this.description = description.toUpperCase();
+            this.description = description;
         }
     }
 

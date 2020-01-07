@@ -44,23 +44,23 @@ class AccountTest {
     @DisplayName("Test set function for denomination")
     void setDenomination() {
         //Arrange
-        Account bills = new Account("Bills", "pay every 8th");
-        String expected = "WATER BILL";
+        Account toPay = new Account("Bills", "pay every 8th");
+        String expected = "Water bill";
         //Act
-        bills.setDenomination("Water bill");
+        toPay.setDenomination("Water bill");
         //Assert
-        assertEquals(expected, bills.getDenomination());
+        assertEquals(expected, toPay.getDenomination());
     }
 
     @Test
     @DisplayName("Test set function for denomination - null")
     void setDenomintationNull() {
         //Arrange
-        Account bills = new Account("Bills", "pay every 8th");
+        Account toPay = new Account("Bills", "pay every 8th");
         String expected = null;
         try {
             //Act
-            bills.setDenomination(expected);
+            toPay.setDenomination(expected);
             fail();
         }
         //Assert
