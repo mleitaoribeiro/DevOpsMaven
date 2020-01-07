@@ -595,7 +595,7 @@ class PersonTest {
         //Arrange
         Person person1=new Person("Elsa",2000,02,24,new Address("Gaia"));
         Person person2=new Person("Filipa",1990,01,05,new Address("Gaia"));
-        Person father1=new Person(null,1990,1,12,new Address("Gaia"));
+        Person father1=new Person("josé",1990,1,12,new Address("Gaia"));
         Person father2=new Person("Afonso",1950,8,07,new Address("Gaia"));
 
         //Act
