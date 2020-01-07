@@ -100,4 +100,49 @@ class AccountsListTest {
         assertFalse(notContained);
     }
 
+    @Test
+    @DisplayName("Test if several accounts were added to an accounts list - Positive ")
+
+    public void testIfSeveralAccountsWereAddedPositive (){
+        //Act
+        Account butcher=new Account("Butcher", "Talho do Amadeu");
+        Account market=new Account ("Market","Mercado do Amadeu");
+        Account post=new Account("Post","Correios do Amadeu");
+
+        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market,post));
+
+        AccountsList september = new AccountsList();
+
+        //Act
+        september.addSeveralAccountsToAList(expected);
+
+        //Arrange
+        assertEquals(expected,september);
+
+    }
+
+    @Test
+    @DisplayName("Test if several accounts were added to an accounts list - with a null ")
+
+    public void testIfSeveralAccountsWereAddedNull (){
+        //Act
+        Account butcher=new Account("Butcher", "Talho do Amadeu");
+        Account market=new Account ("Market","Mercado do Amadeu");
+        Account post=new Account(null,null);
+
+        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
+        HashSet<Account> added =new HashSet<>(Arrays.asList(butcher,market,post));
+
+
+        AccountsList september = new AccountsList();
+
+        //Act
+        september.addSeveralAccountsToAList(added);
+
+        //Arrange
+        assertEquals(expected,september);
+
+    }
+
+
 }
