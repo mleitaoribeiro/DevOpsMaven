@@ -14,58 +14,58 @@ class AccountTest {
 
     @Test
     @DisplayName("Test if two accounts are the same - true")
-    public void testIfTwoAccountsAreTheSame(){
+    public void testIfTwoAccountsAreTheSame() {
         //Arrange
-        Account supermarket =new Account("Supermarket","Weekly spends");
-        Account supermercado =new Account("Supermarket","Weekly spends");
+        Account supermarket = new Account("Supermarket", "Weekly spends");
+        Account supermercado = new Account("Supermarket", "Weekly spends");
 
         //Act
-        boolean result= supermarket.equals(supermercado);
+        boolean result = supermarket.equals(supermercado);
 
         //Assert
-        assertEquals(true,result);
+        assertEquals(true, result);
     }
 
     @Test
     @DisplayName("Test if two accounts are the same - false")
-    public void testIfTwoAccountsAreTheSameNoBeing(){
+    public void testIfTwoAccountsAreTheSameNoBeing() {
         //Arrange
-        Account supermarket =new Account("Supermarket","Weekly spends");
-        Account supermercado =new Account("Supermarket","Monthly spends");
+        Account supermarket = new Account("Supermarket", "Weekly spends");
+        Account supermercado = new Account("Supermarket", "Monthly spends");
 
         //Act
-        boolean result= supermarket.equals(supermercado);
+        boolean result = supermarket.equals(supermercado);
 
         //Assert
-        assertEquals(false,result);
+        assertEquals(false, result);
     }
 
     @Test
     @DisplayName("Test set function for denomination")
     void setDenomination() {
         //Arrange
-        Account bills = new Account ("Bills","pay every 8th");
+        Account toPay = new Account("Bills", "pay every 8th");
         String expected = "Water bill";
         //Act
-        bills.setDenomination("Water bill");
+        toPay.setDenomination("Water bill");
         //Assert
-        assertEquals(expected, bills.getDenomination());
+        assertEquals(expected, toPay.getDenomination());
     }
 
     @Test
     @DisplayName("Test set function for denomination - null")
     void setDenomintationNull() {
         //Arrange
-        Account bills = new Account ("Bills","pay every 8th");
-        String expected = "Water bill";
+        Account toPay = new Account("Bills", "pay every 8th");
+        String expected = null;
         try {
             //Act
-            bills.setDenomination("Water bill");
+            toPay.setDenomination(expected);
             fail();
         }
         //Assert
         catch (IllegalArgumentException denomination) {
-            assertEquals("The denomination in your Account is not valid or it's missing. Please try again.", denomination.getMessage());
+            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
         }
     }
 
@@ -97,6 +97,5 @@ class AccountTest {
             assertEquals("The description can´t be null. Please try again.", description.getMessage());
         }
     }
-
 
 }
