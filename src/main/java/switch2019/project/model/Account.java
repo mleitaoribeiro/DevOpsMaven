@@ -36,7 +36,7 @@ public class Account {
         if (denomination == null) {
             throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
         } else {
-            this.denomination = denomination.toUpperCase();
+            this.denomination = denomination;
         }
     }
 
