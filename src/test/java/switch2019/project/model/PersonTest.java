@@ -630,6 +630,19 @@ class PersonTest {
         assertTrue(personExistsOtherSiblingsList);
     }
 
+    @Test
+    @DisplayName("Test if person exists on the other siblings list | FALSE")
+    public void personExistsOnOtherSiblingsList_emptyList () {
+        //Arrange
+        Person onePerson = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
+
+        //Act
+        boolean personExistsOtherSiblingsList = onePerson.personExistsOtherSiblingsList();
+
+        //Assert
+        assertFalse(personExistsOtherSiblingsList);
+    }
+
     /**
      *  Test if Person exists on the other Person siblings list (USER STORIES)
      * @return boolean

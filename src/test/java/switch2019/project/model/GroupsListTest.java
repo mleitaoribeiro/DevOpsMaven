@@ -15,11 +15,12 @@ class GroupsListTest {
     public void howManyGroupsTest(){
         //Arrange
         Group group1 = new Group ("Amigos");
-        Group group2 = new Group ("Pokemons");
+        Group group2 = new Group ("Pokémons");
         GroupsList groupList = new GroupsList();
 
         //Act
         groupList.addGroupToGroupList(group1);
+        groupList.addGroupToGroupList(group2);
         int result = groupList.howManyGroups();
 
         //Assert
