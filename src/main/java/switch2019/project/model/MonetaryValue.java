@@ -4,7 +4,7 @@ import java.util.Currency;
 
 public class MonetaryValue {
     private double amount;
-    private Currency currency; //true - crédito, false - débito
+    private Currency currency; 
 
     /**
      * Monetary value constructor
@@ -20,7 +20,7 @@ public class MonetaryValue {
     /**
      * Get Amount
      *
-     * @return amount 
+     * @return amount
      */
     public double getAmount() {
         return amount;
