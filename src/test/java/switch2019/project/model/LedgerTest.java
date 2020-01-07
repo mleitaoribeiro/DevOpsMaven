@@ -9,6 +9,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class LedgerTest {
     /**
      *Validate if a transaction was added to ledger list
