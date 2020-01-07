@@ -18,8 +18,8 @@ public class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account oneAccount = (Account) o;
-        return Objects.equals(this.denomination, oneAccount.denomination)
-                && Objects.equals(this.description, oneAccount.description);
+        return Objects.equals(this.denomination.toUpperCase(), oneAccount.denomination.toUpperCase())
+                && Objects.equals(this.description.toUpperCase(), oneAccount.description.toUpperCase());
     }
 
     @Override
