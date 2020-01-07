@@ -44,38 +44,5 @@ class UserTest {
         //Assert
     }
 
-    @Test
-    void addMultipleCategoriesToList() {
-        //Arrange
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
-        User user1 = new User(person1);
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("Health expenses");
-        HashSet<Category> categories1 = new HashSet<>(Arrays.asList(category1, category2));
 
-        //Act
-        user1.addMultipleCategoriesToList(categories1);
-
-        //Assert
-
-    }
-
-    @Test
-    void removeMultipleCategoriesToList() {
-        //Arrange
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
-        User user1 = new User(person1);
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("Health expenses");
-        Category category3 = new Category("Pet expenses");
-        HashSet<Category> categories1 = new HashSet<>(Arrays.asList(category1, category2, category3));
-        HashSet<Category> categories2 = new HashSet<>(Arrays.asList(category1, category3));
-
-        //Act
-        user1.addMultipleCategoriesToList(categories1);
-        user1.removeMultipleCategoriesToList(categories2);
-
-        //Assert
-
-    }
 }
