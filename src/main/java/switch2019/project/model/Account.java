@@ -28,21 +28,27 @@ public class Account {
     }
 
     /**
-     * Public set for denomination: Can not be Null or numeric.
+     * Public set for denomination: Can not be Null.
      * @param denomination
      */
 
     public void setDenomination (String denomination) {
-
+        if (denomination == null) {
+            throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
+        } else {
+            this.denomination = denomination.toUpperCase();
+        }
     }
 
     /**
-     * Public set for description: Can not be Null or numeric.
-     * @param denomination
+     * Public set for description: Can not be Null.
+     * @param description
      */
 
-    public void setDescription (String denomination) {
+    public void setDescription (String description) {
 
     }
+
+
 
 }
