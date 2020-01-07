@@ -12,11 +12,11 @@ public class Category {
      * @param category
      */
     public Category(String category) {
-
+        setCategory(category);
     }
 
     /**
-     * setter for Category Name
+     * setter for Category Name -> with input validation
      *
      * @param newCategory
      */

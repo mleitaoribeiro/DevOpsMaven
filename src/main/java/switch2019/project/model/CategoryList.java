@@ -10,7 +10,9 @@ public class CategoryList {
      * Constructor for Category List
      */
 
-    public CategoryList() {}
+    public CategoryList() {
+        categoryList = new HashSet<Category>();
+    }
 
     /**
      *Develop @override of equals for Category List and @override of hashcode
