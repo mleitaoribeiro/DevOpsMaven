@@ -28,6 +28,13 @@ public class AccountsList {
     }
 
     /**
+     * Method to check if an Account is inside the Accounts List:
+     */
+    public boolean accountsListContains (Account oneAccount) {
+        return this.accounts.contains(oneAccount);
+    }
+
+    /**
      * method to add one account to the list
      */
     public void addAccountToAccountsList (Account oneAccount) {
