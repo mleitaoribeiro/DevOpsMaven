@@ -138,7 +138,7 @@ class AccountsListTest {
         september.addSeveralAccountsToAList(expected);
 
         //Arrange
-        assertEquals(expected,september);
+        assertEquals(expected,september.getAccountsList());
 
     }
 
@@ -161,7 +161,7 @@ class AccountsListTest {
         september.addSeveralAccountsToAList(added);
 
         //Arrange
-        assertEquals(expected,september);
+        assertEquals(expected,september.getAccountsList());
 
     }
 
