@@ -15,16 +15,17 @@ public class CategoryList {
         categories = new HashSet<Category>();
     }
 
-    /**
-     *Develop @override of equals for Category List and @override of hashcode
-     */
 
     /**
-     * method to get Categories inside a CategoryList
-     * @return categoriesList Clone
+     * Method get the category List.
+     * @return categoryList Clone
      */
 
-    public CategoryList getCategories() {return this;}
+    public HashSet<Category> getCategoriesList(){
+        return new HashSet<>(categories);
+
+    }
+
 
     /**
      * Method to check the number of Categories inside the list.
@@ -51,4 +52,6 @@ public class CategoryList {
     public int hashCode() {
         return Objects.hash(categories);
     }
+
+
 }
