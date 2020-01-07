@@ -85,4 +85,19 @@ class AccountsListTest {
         assertTrue(expected);
     }
 
+    @Test
+    @DisplayName("Test if one account is contained in the accounts list | False")
+    public void testIfAccountsListCountainAccount_false() {
+        //Arrange
+        Account oneAccount = new Account("xpto", "cat acccount");
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+
+        boolean notContained = accountsList.accountsListContains(oneAccount);
+
+        //Assert
+        assertFalse(notContained);
+    }
+
 }
