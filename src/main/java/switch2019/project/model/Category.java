@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import java.util.Objects;
+import java.text.Normalizer;
 
 public class Category {
     //Private instance variables
@@ -22,6 +23,18 @@ public class Category {
      */
 
     public void setCategory(String newCategory) {
+        if (newCategory != null) {
+            newCategory = removerAcentos(newCategory);
+            category = newCategory.toUpperCase();
+        }
+
+    }
+
+    private String removerAcentos(String texto) {
+        texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
+        return texto;
     }
 
     /**
