@@ -137,41 +137,11 @@ class PersonTest {
     @DisplayName("Test if two people are the same | True")
     public void individualsAreTheSame() {
         //Arrange
+        Person onePersonMother = new Person ("Maria",1960,3,4, new Address("Porto"));
+        Person onePersonFather = new Person ("Artur",1960,3,4,new Address( "Porto"));
 
-        //One Person
-        String name = "João";
-        //One Person BirthDate
-        int year  = 1996;
-        int month = 3;
-        int day = 4;
-        //One Person BirthPlace
-        Address onePersonBirthdayPlace = new Address( "Porto");
-        //One Person Mother
-        String onepersonMotherName = "Maria";
-        //Mother BirthDate
-        int onePersonMotherYear  = 1960;
-        int onePersonMotherMonth = 3;
-        int onePersonMotherDay = 4;
-
-        //One Person Mother BirthPlace
-        Address onePersonMotherBirthdayPlace = new Address( "Porto");
-
-        // One Person Father
-        String onepersonFatherName = "Artur";
-        //Father BirthDate
-        int onePersonFatherYear  = 1960;
-        int onePersonFatherMonth = 3;
-        int onePersonFatherDay = 4;
-
-       //One Person FatherBirthPlace
-        Address onePersonFatherBirthdayPlace = new Address( "Porto");
-
-
-        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay,onePersonMotherBirthdayPlace);
-        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay,onePersonFatherBirthdayPlace);
-
-        Person onePerson = new Person(name, year, month, day, onePersonBirthdayPlace, onePersonMother, onePersonFather);
-        Person samePerson = new Person(name, year, month, day, onePersonBirthdayPlace, onePersonMother, onePersonFather);
+        Person onePerson = new Person("João", 1996, 3, 4, new Address( "Porto"), onePersonMother, onePersonFather);
+        Person samePerson = new Person("João", 1996, 3, 4, new Address( "Porto"), onePersonMother, onePersonFather);
 
         //Act & Assert
         assertEquals(onePerson, samePerson);
@@ -192,24 +162,6 @@ class PersonTest {
         String onePersonBirthPlace = "Lisboa";
         Address onePersonAddress = new Address(onePersonBirthPlace);
 
-        //One Person Mother
-        String onepersonMotherName = "Maria";
-        //Mother BirthDate
-        int onePersonMotherYear  = 1960;
-        int onePersonMotherMonth = 3;
-        int onePersonMotherDay = 4;
-        //One Person Mother BirthPlace
-        Address onePersonMotherBirthdayPlace = new Address( "Porto");
-
-        // One Person Father
-        String onepersonFatherName = "Artur";
-        //Father BirthDate
-        int onePersonFatherYear  = 1960;
-        int onePersonFatherMonth = 3;
-        int onePersonFatherDay = 4;
-        //One Person Father BirthPlace
-        Address onePersonFatherBirthdayPlace = new Address( "Porto");
-
         //Other Person
         String otherPersonName = "João Cardoso";
         //Other Person BirthDate
@@ -220,32 +172,13 @@ class PersonTest {
         String otherPersonBirthPlace = "Porto";
         Address otherPersonAddress = new Address(otherPersonBirthPlace);
 
-        //One Person Mother
-        String otherPersonMotherName = "Maria";
-        //Mother BirthDate
-        int otherPersonMotherYear  = 1960;
-        int otherPersonMotherMonth = 3;
-        int otherPersonMotherDay = 4;
-        //Other Person Mother BirthPlace
-        Address otherPersonMotherBirthdayPlace = new Address( "Porto");
+        Person onePersonMother = new Person ("Maria",1960,3,4, new Address("Porto"));
+        Person onePersonFather = new Person ("Artur",1960,3,4,new Address( "Porto"));
+        Person otherPersonMother = new Person ("Maria",1960,3,4, new Address("Porto"));
+        Person otherPersonFather =  new Person ("Artur",1960,3,4,new Address( "Porto"));
 
-        // Other Person Father
-        String otherpersonFatherName = "Artur";
-        //Father BirthDate
-        int otherPersonFatherYear  = 1960;
-        int otherPersonFatherMonth = 3;
-        int otherPersonFatherDay = 4;
-        //Other Person Father BirthPlace
-        Address otherPersonFatherBirthdayPlace = new Address( "Porto");
-
-
-        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay,onePersonMotherBirthdayPlace);
-        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay,onePersonFatherBirthdayPlace);
-        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay,otherPersonMotherBirthdayPlace);
-        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay,otherPersonFatherBirthdayPlace);
-
-        Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, otherPersonAddress, otherPersonMother, otherPersonFather);
+        Person onePerson = new Person("João Cardoso", 1996, 3, 4, new Address("Lisboa"), onePersonMother, onePersonFather);
+        Person otherPerson =new Person("João Cardoso", 1996, 3, 4, new Address("Porto"), otherPersonMother, otherPersonFather);
 
         //Act & Assert
         assertEquals(onePerson, otherPerson);
@@ -256,70 +189,13 @@ class PersonTest {
     public void notTheSamePerson() {
         //Arrange
 
-        //One Person
-        String name = "João Cardoso";
-        //One Person BirthDate
-        int year  = 1996;
-        int month = 3;
-        int day = 4;
-        //One Person BirthPlace
-        String onePersonBirthPlace = "Porto";
-        Address onePersonAddress = new Address(onePersonBirthPlace);
+        Person onePersonMother = new Person ("Maria",1960,3,4,new Address("Portugal"));
+        Person onePersonFather = new Person ("Artur",1960,3,4,new Address( "Portugal"));
+        Person otherPersonMother = new Person ("Maria",1960,3,4,new Address("Portugal"));
+        Person otherPersonFather =  new Person ("Raul",1960,3,4,new Address( "Portugal"));
 
-        //One Person Mother
-        String onepersonMotherName = "Maria";
-        //Mother BirthDate
-        int onePersonMotherYear  = 1960;
-        int onePersonMotherMonth = 3;
-        int onePersonMotherDay = 4;
-        //Mother BirthPlace
-        String motherPersonBirthPlace = "Porto";
-        Address motherPersonAddress = new Address(motherPersonBirthPlace);
-
-        // One Person Father
-        String onepersonFatherName = "Artur";
-        //Father BirthDate
-        int onePersonFatherYear  = 1960;
-        int onePersonFatherMonth = 3;
-        int onePersonFatherDay = 4;
-        //Father BirthPlace
-        Address fatherPersonAddress = new Address("Porto");
-
-        //Other Person
-        String otherPersonName = "João Cardoso";
-        //Other Person BirthDate
-        int otherPersonYear  = 1996;
-        int otherPersonMonth = 3;
-        int otherPersonDay = 4;
-        //Other Person BirthPlace
-        String otherPersonBirthPlace = "Lisboa";
-        Address otherPersonAddress = new Address(otherPersonBirthPlace);
-
-        //One Person Mother
-        String otherPersonMotherName = "Maria";
-        //Mother BirthDate
-        int otherPersonMotherYear  = 1960;
-        int otherPersonMotherMonth = 3;
-        int otherPersonMotherDay = 4;
-        //Other Person Mother BirthPlace
-        Address otherPersonMotherAddress = new Address("Lisboa");
-        // OtherPerson Father
-        String otherpersonFatherName = "Raul";
-        //Father BirthDate
-        int otherPersonFatherYear  = 1960;
-        int otherPersonFatherMonth = 3;
-        int otherPersonFatherDay = 4;
-        //Other Person Father BirthPlace
-        Address otherPersonFatherBirthdayPlace = new Address( "Porto");
-
-
-        Person onePersonMother = new Person (onepersonMotherName,onePersonMotherYear,onePersonMotherMonth,onePersonMotherDay,motherPersonAddress);
-        Person onePersonFather = new Person (onepersonFatherName,onePersonFatherYear,onePersonFatherMonth,onePersonFatherDay,fatherPersonAddress);
-        Person otherPersonMother = new Person (otherPersonMotherName,otherPersonMotherYear,otherPersonMotherMonth,otherPersonMotherDay,otherPersonMotherAddress);
-        Person otherPersonFather = new Person (otherpersonFatherName,otherPersonFatherYear,otherPersonFatherMonth,otherPersonFatherDay,otherPersonFatherBirthdayPlace);
-
-        Person onePerson = new Person(name, year, month, day, onePersonAddress, onePersonMother, onePersonFather);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, otherPersonAddress, otherPersonMother, otherPersonFather);
+        Person onePerson = new Person("João Cardoso", 1996, 3, 4, new Address("Portugal"), onePersonMother, onePersonFather);
+        Person otherPerson = new Person ("João Cardoso", 1996, 3, 4, new Address("Porto"), otherPersonMother, otherPersonFather);
 
 
         //Act & Assert
