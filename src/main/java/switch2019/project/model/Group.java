@@ -9,6 +9,7 @@ public class Group {
     private String description;
     private LocalDate startingDate;
     private HashSet<Person> members;
+    private AccountsList accountsList;
 
     /**
      * Default Group constructor
