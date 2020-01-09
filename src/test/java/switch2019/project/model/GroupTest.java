@@ -38,14 +38,14 @@ class GroupTest {
     void addMemberNull() {
 
         //Arrange
-        Person nullPerson = null;
+        Person person1 = null;
         Group group1 = new Group("OsMaisFixes");
 
         //Act
-        group1.addMember(nullPerson);
+        group1.addMember(person1);
 
         //Assert
-        assertFalse(group1.getMembers().contains(nullPerson));
+        assertFalse(group1.getMembers().contains(person1));
     }
 
     /**
@@ -144,14 +144,14 @@ class GroupTest {
         //Act
         group1.addMultipleMembers(putMembers);
 
-        group1.removeMember(person1);
+        group1.removeMember(person2);
 
         //Assert
-        assertFalse(group1.getMembers().contains(person1));
+        assertFalse(group1.getMembers().contains(person2));
     }
 
     @Test
-    @DisplayName("Test if a member was removed from a Group - Remove all members")
+    @DisplayName("Test if a member was removed from a Group - try to remove all members")
     void removeMemberFromGroupAllMembers() {
         //Arrange
 
@@ -186,7 +186,7 @@ class GroupTest {
         group1.removeMember(person2);
 
         //Assert
-        assertEquals(0, group1.getMembers().size());
+        assertEquals(1, group1.getMembers().size());
     }
 
     /**
