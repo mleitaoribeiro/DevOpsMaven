@@ -7,6 +7,7 @@ import switch2019.project.model.*;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +19,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Category to be included in Category List
@@ -41,7 +42,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Category to be included in Category List
@@ -63,7 +64,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -84,11 +85,11 @@ class UserTest {
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
             "Ignore letter capitalization and special characters ")
-    void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive(){
+    void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -112,7 +113,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -137,7 +138,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -162,7 +163,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         // Categories to be included in Category List
@@ -187,7 +188,7 @@ class UserTest {
         // Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         // Categories to be included in Category List
@@ -341,7 +342,7 @@ class UserTest {
         Category categoryGym = new Category("Gym");
         Category categoryBeauty = new Category("Beauty");
 
-        Category categoryCar= new Category("Beauty");
+        Category categoryCar = new Category("Beauty");
         Category categoryNull = new Category(null);
         Category categoryUniversity = new Category("University");
 
@@ -375,7 +376,7 @@ class UserTest {
         Category categoryGym = new Category("Gym");
         Category categoryBeauty = new Category("Beauty");
 
-        Category categoryHealthLowerCase= new Category("Beauty");
+        Category categoryHealthLowerCase = new Category("Beauty");
         Category categoryGymSpecialCharacter = new Category("Gým");
         Category categoryBeautyUpperCase = new Category("BEAUTY");
 
@@ -394,4 +395,27 @@ class UserTest {
         // assertEquals(0,expectedNumberOfCategoriesOfFinalList);
     }
 
+    /**
+     * Test if a transaction was created
+     */
+
+    @Test
+    @DisplayName("Test if a transaction was created - sucess case")
+    void createTransaction_sucessCase() {
+        //Arrange
+        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("Transports");
+        Account from = new Account("Wallet","General expenses");
+        Account to = new Account("TransportAccount","Transport expenses");
+        Type type = new Type(false); //debit
+
+        //Act
+        person1.createTransaction(amount,description,category,from,to,type);
+
+        //Assert
+        //assertEquals(1, person1.getLedger().size());
+
+    }
 }
