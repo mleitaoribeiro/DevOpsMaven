@@ -24,7 +24,7 @@ public class User {
      * @param category category
      */
     public void addCategoryToList(Category category){
-
+        person.addCategoryToCategoryList(category);
     }
 
 
@@ -34,7 +34,6 @@ public class User {
      * @param category category
      */
     public void removeCategoryFromList(Category category){
-
     }
 
 
@@ -45,6 +44,9 @@ public class User {
      */
 
     public void addMultipleCategoriesToList(HashSet<Category> categories){
+       for (Category category : categories) {
+           this.addCategoryToList(category);
+       }
 
     }
 
@@ -72,6 +74,20 @@ public class User {
     public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
         person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
+
+    /**
+     * Develop method to create a new Account (USER STORY)
+     *
+     * @param accountDenomination
+     * @param accountDescription
+     */
+
+    public void createAccount (String accountDenomination, String accountDescription) {
+        person.createAccount(accountDenomination, accountDescription);
+
+    }
+
+
 
     public Person getPerson() {
         return person.getPerson();
