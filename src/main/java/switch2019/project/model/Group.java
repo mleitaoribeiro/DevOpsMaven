@@ -137,7 +137,7 @@ public class Group {
      * Setter function to promote a person directly to group administrator
      */
 
-    public void setAdmins () {
+    public void setAdmin (Person person) {
     }
 
     /**

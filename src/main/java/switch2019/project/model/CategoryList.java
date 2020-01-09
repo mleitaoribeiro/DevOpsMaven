@@ -29,7 +29,10 @@ public class CategoryList {
     /**
      * Method to check the number of Categories inside the list.
      */
-    public int howManyCategories() {return 0;}
+
+    public int howManyCategories() {
+       return this.categories.size();
+    }
 
     /**
      * Method to check if a Category already exists in List;
@@ -74,5 +77,24 @@ public class CategoryList {
     public void removeCategoryFromList(Category categoryToRemove){
         if( categoryToRemove != null && categoryListContains(categoryToRemove))
             categories.remove(categoryToRemove);
+    }
+    /**
+     * Add multiple categories to CategoryList
+     *
+     * @param categories<Category> categories
+     */
+
+    public void addMultipleCategoriesToList(HashSet<Category> categories){
+
+    }
+
+
+    /**
+     * Remove multiple categories from CategoryList
+     *
+     * @param categories<Category> categories
+     */
+    public void removeMultipleCategoriesToList(HashSet<Category> categories){
+
     }
 }
