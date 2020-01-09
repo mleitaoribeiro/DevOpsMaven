@@ -72,8 +72,12 @@ public class Group {
      * @param memberToRemove
      */
     public void removeMember(Person memberToRemove){
-        if (memberToRemove != null)
-        members.remove(memberToRemove);
+        if (memberToRemove != null) {
+            members.remove(memberToRemove);
+            if (admins.contains(memberToRemove)) {
+                admins.remove(memberToRemove);
+            }
+        }
     }
 
     /**
@@ -153,6 +157,10 @@ public class Group {
      *@param person
      */
     public void setAdmin (Person person) {
+        if (!members.contains(person) && (!admins.contains(person) && person != null)){
+            members.add(person);
+            admins.add(person);
+        }
     }
 
     /**
@@ -170,6 +178,9 @@ public class Group {
      * @param multipleMembers
      */
     public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
+        for (Person member:multipleMembers){
+            promoteMemberToAdmin(member);
+        }
     }
 
     /**

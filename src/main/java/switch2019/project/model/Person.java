@@ -1,7 +1,6 @@
 package switch2019.project.model;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -355,6 +354,16 @@ public class Person {
 
     public HashSet<Account> getAccountsList() {
         return accountsList.getAccountsList();
+    }
+
+    /**
+     * Get function to get copy of person
+     *
+     * @return Person
+     */
+
+    public Person getPerson() {
+        return new Person(name, birthDate.getYear(), birthDate.getMonthValue(), birthDate.getDayOfMonth(), birthPlace, mother, father);
     }
 }
 
