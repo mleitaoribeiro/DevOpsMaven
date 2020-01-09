@@ -480,7 +480,32 @@ class UserTest {
         assertEquals(1, user1.getPerson().getLedger().size());
     }
 
+    @Test
+    @DisplayName("Test if a transaction was created - monetary value is negative")
+    void createTransactionAccountNegativeMonetaryValue() {
+        //Arrange
+        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        User user1 = new User(person1);
+        MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
+        MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
+        String description = "payment";
+        Type type = new Type(false); //debit
 
+        Category category = new Category("General");
+        user1.addCategoryToList(category);
+
+        Account accountWallet = new Account("Wallet", "General expenses");
+        Account accountTransport = new Account("Transport", "Transport expenses");
+        user1.createAccount("Wallet", "General expenses");
+        user1.createAccount("Transport", "Transport expenses");
+
+        //Act
+        user1.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
+        user1.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
+
+        //Assert
+        assertEquals(1, user1.getPerson().getLedger().size());
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
