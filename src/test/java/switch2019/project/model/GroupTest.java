@@ -240,7 +240,7 @@ class GroupTest {
 
         //Assert
         assertTrue(group1.getMembers().size() == 2);
-        assertFalse(group1.getAdmins().contains(person1) && group1.getAdmins().contains(person2));
+        assertTrue(group1.getAdmins().size() == 1);
     }
 
     @Test
@@ -252,15 +252,17 @@ class GroupTest {
         Person person2 = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
         Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
         Person person4 = new Person("Oscar", 1990, 10, 10, new Address("Porto"));
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
+
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
         HashSet<Person> setOfPeopleToRemoveFromGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
+        group1.addMember(person1);
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
         group1.removeMultipleMembers(setOfPeopleToRemoveFromGroup);
 
         //Assert
-        assertTrue(group1.getMembers().size() == 1);
+        assertTrue(group1.getMembers().size() == 2);
     }
 
     /**

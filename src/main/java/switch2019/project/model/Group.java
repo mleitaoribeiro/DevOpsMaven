@@ -73,9 +73,12 @@ public class Group {
      */
     public void removeMember(Person memberToRemove){
         if (memberToRemove != null) {
-            members.remove(memberToRemove);
             if (admins.contains(memberToRemove) && admins.size() > 1) {
                 admins.remove(memberToRemove);
+                members.remove(memberToRemove);
+            }
+            else if (!admins.contains(memberToRemove)) {
+                members.remove(memberToRemove);
             }
         }
     }
