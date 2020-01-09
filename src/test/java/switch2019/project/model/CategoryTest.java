@@ -14,9 +14,9 @@ class CategoryTest {
         Category categoryDescription = new Category("Health");
         String expected = "FOOD EXPENSES";
         //Act
-        categoryDescription.setCategory("Food Expenses");
+        categoryDescription.setNameOfCategory("Food Expenses");
         //Assert
-        assertEquals(expected, categoryDescription.getCategory());
+        assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
     @Test
@@ -26,9 +26,9 @@ class CategoryTest {
         Category categoryDescription = new Category("Not Defined");
         String expected = "EDUCATION";
         //Act
-        categoryDescription.setCategory("Education");
+        categoryDescription.setNameOfCategory("Education");
         //Assert
-        assertEquals(expected, categoryDescription.getCategory());
+        assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
     @Test
@@ -38,9 +38,9 @@ class CategoryTest {
         Category categoryDescription = new Category("Not Defined");
         String expected = "123";
         //Act
-        categoryDescription.setCategory("123");
+        categoryDescription.setNameOfCategory("123");
         //Assert
-        assertEquals(expected, categoryDescription.getCategory());
+        assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
     @Test
@@ -50,9 +50,9 @@ class CategoryTest {
         Category categoryDescription = new Category("Not Defined");
         String expected = "SAUDE";
         //Act
-        categoryDescription.setCategory("Saúde");
+        categoryDescription.setNameOfCategory("Saúde");
         //Assert
-        assertEquals(expected, categoryDescription.getCategory());
+        assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
     @Test
@@ -62,7 +62,7 @@ class CategoryTest {
         Category categoryDescription = new Category("Not Defined");
         try {
             //Act
-            categoryDescription.setCategory(null);
+            categoryDescription.setNameOfCategory(null);
             fail();
         }
         //Assert

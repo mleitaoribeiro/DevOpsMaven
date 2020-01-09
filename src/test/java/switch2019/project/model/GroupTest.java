@@ -493,29 +493,9 @@ class GroupTest {
 
 
 
-
     /**
      * Check if a person was directly promoted to group administrator
      */
 
-
-    /**
-     * Check if Account was added to the groups account list
-     * Testing getGroupAccountList() to see if account was added to the group´s list
-     */
-    @DisplayName("validate if account is in group's account list")
-    @Test
-    void addAccountToGroupListTest(){
-        //Arrange:
-        Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test","group account");
-
-        //Act:
-        group1.getGroupAccountsList().addAccountToAccountsList(groupAccount);
-        boolean result = group1.getGroupAccountsList().accountsListContains(groupAccount);
-
-        //Assert
-        assertTrue(result);
-    }
 }
 

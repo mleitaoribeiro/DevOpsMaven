@@ -45,7 +45,7 @@ class AccountTest {
     void setDenomination() {
         //Arrange
         Account toPay = new Account("Bills", "pay every 8th");
-        String expected = "Water bill";
+        String expected = "WATER BILL";
         //Act
         toPay.setDenomination("Water bill");
         //Assert
@@ -68,6 +68,30 @@ class AccountTest {
             assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
         }
     }
+    @Test
+    @DisplayName("Test set function for denomination - remove word accents")
+    void setDenominationToRemoveAccents() {
+        //Arrange
+        Account escolaDosMiudos = new Account("Escola dos Miudos", "pay every 8th");
+        String expected = "ESCOLA DOS MIUDOS";
+        //Act
+        escolaDosMiudos.setDenomination("Escola dos Miúdos");
+        //Assert
+        assertEquals(expected, escolaDosMiudos.getDenomination());
+    }
+
+    @Test
+    @DisplayName("Test set function for denomination - remove special Characters")
+    void setDenominationToRemoveSpecialCharacters() {
+        //Arrange
+        Account football = new Account("Os Mancos", "pay every 8th");
+        String expected = "OS MANCOS";
+        //Act
+        football.setDenomination("Os-Mancos");
+        //Assert
+        assertEquals(expected, football.getDenomination());
+    }
+
 
     @Test
     @DisplayName("Test set function for description")
@@ -97,5 +121,6 @@ class AccountTest {
             assertEquals("The description can´t be null. Please try again.", description.getMessage());
         }
     }
+
 
 }
