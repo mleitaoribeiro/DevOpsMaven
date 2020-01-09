@@ -407,7 +407,9 @@ class UserTest {
         User user1 = new User (person1);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("Transports");
+        Type type = new Type(false); //debit
+
+        Category category = new Category("General");
         user1.addCategoryToList (category);
 
         Account from = new Account("Wallet","General expenses");
@@ -415,8 +417,6 @@ class UserTest {
 
         user1.createAccount("Wallet","General expenses");
         user1.createAccount("TransportAccount","Transport expenses");
-
-        Type type = new Type(false); //debit
 
         //Act
         user1.createTransaction(amount,description,category,from,to,type);
@@ -433,16 +433,24 @@ class UserTest {
         User user1 = new User (person1);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = null;
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
         Type type = new Type(false); //debit
 
+        Category categoryFood = new Category("food");
+        Category categoryBaby = new Category("baby");
+        Category categoryHome = new Category("home");
+        user1.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
+
+        Account from = new Account("Wallet","General expenses");
+        Account to = new Account("TransportAccount","Transport expenses");
+        user1.createAccount("Wallet", "General expenses");
+        user1.createAccount("TransportAccount","Transport expenses");
+
         //Act
-        user1.createTransaction(amount,description,category,from,to,type);
+        user1.createTransaction(amount,description,categoryFood,from,to,type);
+        user1.createTransaction(amount,description,categoryHome,from,to,type);
 
         //Assert
-        assertEquals(0, user1.getPerson().getLedger().size());
+        assertEquals(1, user1.getPerson().getLedger().size());
     }
 
     @Test
@@ -453,16 +461,23 @@ class UserTest {
         User user1 = new User (person1);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("Transports");
-        Account from = null;
-        Account to = new Account("TransportAccount","Transport expenses");
         Type type = new Type(false); //debit
 
+        Category category = new Category("General");
+        user1.addCategoryToList(category);
+
+        Account accountWallet = new Account("Wallet", "General expenses");
+        Account accountTransport = new Account("Transport","Transport expenses");
+        Account accountBaby = new Account("Baby","Baby expenses");
+        user1.createAccount("Wallet", "General expenses");
+        user1.createAccount("Transport","Transport expenses");
+
         //Act
-        user1.createTransaction(amount,description,category,from,to,type);
+        user1.createTransaction(amount,description,category,accountWallet,accountTransport,type);
+        user1.createTransaction(amount,description,category,accountWallet,accountBaby,type);
 
         //Assert
-        assertEquals(0, user1.getPerson().getLedger().size());
+        assertEquals(1, user1.getPerson().getLedger().size());
     }
 
 
