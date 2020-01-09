@@ -10,9 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupTest {
 
-    //ver estes testes para primeira pessoa do grupo ser admin
     /**
-     * Test if member was added to Group
+     * Test if a user was added as first member and group admin to a Group and the second as member
      */
     @Test
     @DisplayName("Validate if a member was added to a group")
@@ -20,13 +19,18 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Marta", 2000, 10, 10, new Address("Porto"));
+        Person person2 = new Person("Mariana", 1986, 12, 01, new Address("Lisboa"));
+
+        HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person1, person2));
+
         Group group1 = new Group("OsMaisFixes");
 
         //Act
         group1.addMember(person1);
+        group1.addMember(person2);
 
         //Assert
-        assertTrue(group1.getMembers().contains(person1));
+        assertTrue(group1.getMembers().containsAll(setOfMembers) && group1.getAdmins().contains(person1));
     }
 
     @Test
@@ -183,23 +187,57 @@ class GroupTest {
     }
 
     /**
-     * Test if multiple members were removed from a Group
+     * Test if multiple members were removed from a Group and there is at least one group admin in the group
      */
     @Test
-    @DisplayName("Test if multiple members were removed from a Group - remove all ")
-    void removeMultipleMembersFromAGroup() {
+    @DisplayName("Test if multiple members were removed from a Group - not removed 1 group admin and 1 member ")
+    void removeMultipleMembersFromAGroupNotRemovingOneGroupAdmin() {
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
         Person person2 = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
+        Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
+        Person person4 = new Person("Oscar", 1990, 10, 10, new Address("Porto"));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.removeMultipleMembers(setOfPeopleToAddToGroup);
+        group1.addMember(person1);
+        group1.setAdmin(person2);
+
+        HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person3, person4));
+        HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person4));
+
+        group1.addMultipleMembers(setOfMembers);
+        group1.removeMultipleMembers(setOfMembersToRemove);
 
         //Assert
-        assertTrue(group1.getMembers().size() == 0);
+        assertTrue(group1.getMembers().size() == 2);
+        assertFalse(group1.getAdmins().contains(person1));
+    }
+
+    // Perguntar ao professor depois o que deve remover, todos menos 1 ou não deve remover nenhum
+    @Test
+    @DisplayName("Test if multiple members were removed from a Group - tried to remove all the group admins")
+    void removeMultipleMembersFromAGroupAllAdmins() {
+        //Arrange
+        Group group1 = new Group("grupo dos amiguinhos");
+        Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
+        Person person2 = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
+        Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
+        Person person4 = new Person("Oscar", 1990, 10, 10, new Address("Porto"));
+
+        //Act
+        group1.addMember(person1);
+        group1.setAdmin(person2);
+
+        HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person3, person4));
+        HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person2, person4));
+
+        group1.addMultipleMembers(setOfMembers);
+        group1.removeMultipleMembers(setOfMembersToRemove);
+
+        //Assert
+        assertTrue(group1.getMembers().size() == 2);
+        assertFalse(group1.getAdmins().contains(person1) && group1.getAdmins().contains(person2));
     }
 
     @Test
@@ -210,6 +248,7 @@ class GroupTest {
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
         Person person2 = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
         Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
+        Person person4 = new Person("Oscar", 1990, 10, 10, new Address("Porto"));
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
         HashSet<Person> setOfPeopleToRemoveFromGroup = new HashSet<>(Arrays.asList(person2, person3));
 
