@@ -324,7 +324,8 @@ public class Person {
      */
 
     public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
-        if(categoryList.getCategoriesList().contains(category) && accountsList.getAccountsList().contains(accountFrom) && accountsList.getAccountsList().contains(accountTo))
+        if(amount.getAmount() > 0 && categoryList.getCategoriesList().contains(category) &&
+                accountsList.getAccountsList().contains(accountFrom) && accountsList.getAccountsList().contains(accountTo))
             ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
     }
     /**
@@ -344,6 +345,34 @@ public class Person {
 
     public void addCategoryToCategoryList(Category nameOfCategory) {
         categoryList.addCategoryToCategoryList(nameOfCategory);
+    }
+
+    /**
+     * Remove a category from CategoryList
+     *
+     * @param nameOfcategory
+     */
+    public void removeCategoryFromList(Category nameOfcategory){
+        categoryList.removeCategoryFromList(nameOfcategory);
+    }
+
+    /**
+     * Add multiple categories to CategoryList
+     *
+     * @param categories<Category> categories
+     */
+
+    public void addMultipleCategoriesToList(HashSet<Category> categories){
+        categoryList.addMultipleCategoriesToList(categories);
+    }
+
+    /**
+     * Remove multiple categories from CategoryList
+     *
+     * @param categories<Category> categories
+     */
+    public void removeMultipleCategoriesToList(HashSet<Category> categories){
+        categoryList.removeMultipleCategoriesToList(categories);
     }
 
     /**
