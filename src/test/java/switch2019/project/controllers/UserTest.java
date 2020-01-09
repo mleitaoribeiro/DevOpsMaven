@@ -499,4 +499,37 @@ class UserTest {
         //assertEquals(0, user1.getLedger().size());
     }
 
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Test if a Account was created
+     */
+
+    @Test
+    @DisplayName("Test if a Account was created - sucess case")
+    void createAccountSucessCase() {
+        // Arrange
+
+        //Initialize user
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+        User oneUser = new User(onePerson);
+
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
+
+        int expectAccountsListSize = 1;
+
+        //Act
+        oneUser.createAccount(accountDenomination,accountDescription);
+
+
+        int realAccountsListSize = onePerson.getAccountsList().size();
+
+        // assert
+        assertEquals(expectAccountsListSize, realAccountsListSize);
+    }
+
 }
