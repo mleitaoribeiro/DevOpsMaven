@@ -37,7 +37,7 @@ class UserTest {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
+    @DisplayName("Check if null category is not added")
     void addCategoryToListWithANullCase() {
         //Arrange
 
@@ -50,16 +50,17 @@ class UserTest {
 
         //Act
         user1.addCategoryToList(category1);
+        boolean realResult = user1.getPerson().getCategoriesList().contains(category1);
 
         //Assert
-        //assertTrue(user1.getCategoriesList.equals());
+        assertFalse(realResult);
 
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
+    @DisplayName("Check if the same Category is not added simultaneously")
     void addTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
         //Arrange
 
@@ -75,16 +76,17 @@ class UserTest {
         user1.addCategoryToList(category1);
         user1.addCategoryToList(category2);
 
+        int sizeOfCategoryList = user1.getPerson().getCategoriesList().size();
+
         //Assert
-        //assertTrue(user1.getCategoriesList.equals(category1));
+        assertEquals(1, sizeOfCategoryList);
 
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
-            "Ignore letter capitalization and special characters ")
+    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
         //Arrange
 
@@ -94,21 +96,23 @@ class UserTest {
 
         //Categories to be included in Category List
         Category category1 = new Category("School expenses");
-        Category category2 = new Category("SCHOOL expenses");
+        Category category2 = new Category("SCHOóL expenses");
 
         //Act
         user1.addCategoryToList(category1);
         user1.addCategoryToList(category2);
 
-        //Assert
-        //assertTrue(user1.getCategoriesList.equals(category1));
+        int sizeOfCategoryList = user1.getPerson().getCategoriesList().size();
 
+        //Assert
+        assertEquals(1, sizeOfCategoryList);
 
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
+    @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
         //Arrange
 
@@ -119,21 +123,24 @@ class UserTest {
         //Categories to be included in Category List
         Category category1 = new Category("School expenses");
         Category category2 = new Category("Health expenses");
+
         user1.addCategoryToList(category1);
         user1.addCategoryToList(category2);
 
         //Act
         user1.removeCategoryFromList(category1);
 
+        boolean realResult = user1.getPerson().getCategoriesList().contains(category1)
+                && user1.getPerson().getCategoriesList().contains(category2);
+
         //Assert
-        //assertTrue(user1.getCategorias.equals(new Category("School expenses")));
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
-    @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
-            "or null")
+    @DisplayName("To Try to remove a set of Categories that does not exist or null")
     void removeCategoriesToListWithANullCase() {
         //Arrange
 
@@ -143,15 +150,17 @@ class UserTest {
 
         //Categories to be included in Category List
         Category category1 = new Category("School expenses");
+        Category category2 = null;
+
         user1.addCategoryToList(category1);
+        user1.addCategoryToList(category2);
 
         //Act
-        category1 = null;
         user1.removeCategoryFromList(category1);
+        int realResult = user1.getPerson().getCategoriesList().size();
 
         //Assert
-        //assertTrue(user1.getCategoriesList.equals(new Category("School expenses")));
-
+        assertEquals(0, realResult);
 
     }
 
@@ -161,7 +170,6 @@ class UserTest {
     @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
     void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
         //Arrange
-
         //Initialize user
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
@@ -173,9 +181,10 @@ class UserTest {
 
         //Act
         user1.removeCategoryFromList(category2);
+        int realSizeOfCategoryList = user1.getPerson().getCategoriesList().size();
 
         //Assert
-        //assertTrue(user1.categories.size(), 0);
+        assertEquals(0, realSizeOfCategoryList);
 
 
     }
@@ -203,9 +212,10 @@ class UserTest {
         //Category - add several categories to the user Category List with method
         user1.addMultipleCategoriesToList(setOfCategories);
 
+        boolean realResult = user1.getPerson().getCategoriesList().containsAll(setOfCategories);
 
         //Assert
-        // assertTrue(user123.getCategories().containsAll(setOfCategories));
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,7 +231,7 @@ class UserTest {
 
         // Categories to be included in Category List
         Category categoryBets = new Category("Bets and Games");
-        Category categoryNull = new Category(null);
+        Category categoryNull = null;
         Category categoryBeauty = new Category("Beauty");
 
         //Act
@@ -231,9 +241,11 @@ class UserTest {
         //Category - add several categories to the user Category List with method
         user1.addMultipleCategoriesToList(setOfCategories);
 
+        boolean realResult = user1.getPerson().getCategoriesList().containsAll(setOfCategories)
+                && !user1.getPerson().getCategoriesList().contains(categoryNull);
+
         //Assert
-        // assertTrue(user123.getCategories().containsAll(setOfCategories));
-        //assertFalse(user123.getCategories().contains(categoryNull));
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -242,7 +254,6 @@ class UserTest {
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
     void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
         // Arrange
-
         //Initialize user
         Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
         User user1 = new User(person1);
@@ -253,15 +264,15 @@ class UserTest {
         Category categoryBeauty = new Category("Beauty");
 
         //Act
-
         // set of Categories to be added to categories list
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
         //The user adds several categories to his Category List with method
         user1.addMultipleCategoriesToList(setOfCategories);
 
-        // int expectedNumberOfCategoriesOfList = user1.howManyCategories();
+        int realNumberOfCategoriesOfList = user1.getPerson().getCategoriesList().size();
 
-        // assertEquals(2,expectedNumberOfCategoriesOfList);
+        //Assert
+        assertEquals(2,realNumberOfCategoriesOfList);
 
     }
 
@@ -289,9 +300,11 @@ class UserTest {
         //The user adds several categories to his Category List with method
         user1.addMultipleCategoriesToList(setOfCategories);
 
-        // int expectedNumberOfCategoriesOfList = user1.howManyCategories();
+        int realNumberOfCategoriesOfList = user1.getPerson().getCategoriesList().size();
 
-        // assertEquals(2,expectedNumberOfCategoriesOfList);
+        //Assert
+
+        assertEquals(2,realNumberOfCategoriesOfList);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -320,9 +333,11 @@ class UserTest {
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
         user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        // int expectedNumberOfCategoriesOfFinalList = user1.howManyCategories();
+        int realNumberOfCategoriesOfFinalList = user1.getPerson().getCategoriesList().size();
 
-        // assertEquals(1,expectedNumberOfCategoriesOfFinalList);
+        //Assert
+
+        assertEquals(1,realNumberOfCategoriesOfFinalList);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,9 +371,10 @@ class UserTest {
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
         user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        // int expectedNumberOfCategoriesOfFinalList = user1.howManyCategories();
+        int realNumberOfCategoriesOfFinalList = user1.getPerson().getCategoriesList().size();
 
-        // assertEquals(3,expectedNumberOfCategoriesOfFinalList);
+        //Assert
+        assertEquals(3,realNumberOfCategoriesOfFinalList);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -390,9 +406,10 @@ class UserTest {
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
         user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        // int expectedNumberOfCategoriesOfFinalList = user1.howManyCategories();
+        int realNumberOfCategoriesOfFinalList = user1.getPerson().getCategoriesList().size();
 
-        // assertEquals(0,expectedNumberOfCategoriesOfFinalList);
+        //Assert
+        assertEquals(0,realNumberOfCategoriesOfFinalList);
     }
 
     /**
