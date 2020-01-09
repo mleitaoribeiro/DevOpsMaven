@@ -10,7 +10,7 @@ public class Group {
     private LocalDate startingDate;
     private HashSet<Person> members;
     private HashSet<Person> admins;
-    private AccountsList accountsList;
+    private AccountsList groupAccountsList;
 
     /**
      * Default Group constructor
@@ -21,6 +21,7 @@ public class Group {
         setDescription(description);
         startingDate = LocalDate.now();
         members = new HashSet<>();
+        groupAccountsList = new AccountsList();
     }
 
     /**
@@ -83,6 +84,15 @@ public class Group {
      *
      */
     public HashSet<Person> getAdmins() { return new HashSet<>(this.admins);}
+
+    /**
+     * Group Account List Getter
+     */
+    //Returns AccountList
+    public AccountsList getGroupAccountsList(){
+        AccountsList groupAccounts = this.groupAccountsList;
+        return groupAccounts;
+    }
 
 
 
@@ -153,7 +163,6 @@ public class Group {
      */
     public void demoteMemberFromAdmin(Person member) {
     }
-
 }
 
 
