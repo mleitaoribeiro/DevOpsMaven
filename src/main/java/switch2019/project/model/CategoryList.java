@@ -35,7 +35,9 @@ public class CategoryList {
      * Method to check if a Category already exists in List;
      */
 
-    public boolean categoryListContains(Category aCategory) {return true;}
+    public boolean categoryListContains(Category aCategory) {
+        return this.categories.contains(aCategory);
+    }
     /**
      *Develop @override of equals for Category List and @override of hashcode
      */
@@ -66,9 +68,11 @@ public class CategoryList {
     /**
      * Remove a category from CategoryList
      *
-     * @param toRemoveCategory
+     * @param categoryToRemove
      */
-    public void removeCategoryFromList(Category toRemoveCategory){
 
+    public void removeCategoryFromList(Category categoryToRemove){
+        if( categoryToRemove != null && categoryListContains(categoryToRemove))
+            categories.remove(categoryToRemove);
     }
 }
