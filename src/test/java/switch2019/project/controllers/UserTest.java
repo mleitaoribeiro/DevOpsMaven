@@ -413,8 +413,8 @@ class UserTest {
         Account from = new Account("Wallet","General expenses");
         Account to = new Account("TransportAccount","Transport expenses");
 
-        user1.getPerson().createAccount("Wallet","General expenses");
-        user1.getPerson().createAccount("TransportAccount","Transport expenses");
+        user1.createAccount("Wallet","General expenses");
+        user1.createAccount("TransportAccount","Transport expenses");
 
         Type type = new Type(false); //debit
 
