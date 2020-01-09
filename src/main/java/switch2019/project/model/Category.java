@@ -23,7 +23,9 @@ public class Category {
      */
 
     public void setCategory(String newCategory) {
-        if (newCategory != null) {
+        if (newCategory == null) {
+            throw new IllegalArgumentException ("The category description is not valid or it's missing. Please try again.");
+        } else {
             newCategory = removerAcentos(newCategory);
             category = newCategory.toUpperCase();
         }
@@ -47,16 +49,12 @@ public class Category {
         return this.category;
     }
 
-    /**
-     * override of equals for Category Instance and @override hashcode
-     *
-     * @param o
-     * @return boolean
-     */
-
     @Override
     public boolean equals(Object o) {
-      return true;
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category1 = (Category) o;
+        return category.equals(category1.category);
     }
 
     @Override
