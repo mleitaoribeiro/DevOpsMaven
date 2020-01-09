@@ -66,9 +66,11 @@ public class CategoryList {
     /**
      * Remove a category from CategoryList
      *
-     * @param toRemoveCategory
+     * @param categoryToRemove
      */
-    public void removeCategoryFromList(Category toRemoveCategory){
 
+    public void removeCategoryFromList(Category categoryToRemove){
+        if( categoryToRemove != null && categoryListContains(categoryToRemove))
+            categories.remove(categoryToRemove);
     }
 }
