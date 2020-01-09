@@ -188,10 +188,11 @@ public class Group {
      * @param member
      */
     public void demoteMemberFromAdmin(Person member) {
+        if (!this.members.contains(member)){
+            this.members.remove(member);
+        }
+
     }
-
-
-
 }
 
 
