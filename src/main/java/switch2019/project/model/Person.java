@@ -314,5 +314,9 @@ public class Person {
     public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
         ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
     }
+
+    public void createAccount (String accountDenomination, String accountDescription) {
+        accountsList.addAccountToAccountsList(new Account(accountDenomination,accountDescription));
+    }
 }
 
