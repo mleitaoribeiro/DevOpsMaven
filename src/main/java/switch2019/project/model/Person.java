@@ -324,7 +324,8 @@ public class Person {
      */
 
     public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
-        if(categoryList.getCategoriesList().contains(category) && accountsList.getAccountsList().contains(accountFrom) && accountsList.getAccountsList().contains(accountTo))
+        if(amount.getAmount() > 0 && categoryList.getCategoriesList().contains(category) &&
+                accountsList.getAccountsList().contains(accountFrom) && accountsList.getAccountsList().contains(accountTo))
             ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
     }
     /**
