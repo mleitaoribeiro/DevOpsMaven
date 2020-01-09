@@ -16,11 +16,11 @@ public class Group {
      * Default Group constructor
      * @param description
      */
+
     public Group (String description){
         setDescription(description);
         startingDate = LocalDate.now();
         members = new HashSet<>();
-        admins = new HashSet<>();
         groupAccountsList = new AccountsList();
     }
 
@@ -85,7 +85,13 @@ public class Group {
      */
     public HashSet<Person> getAdmins() { return new HashSet<>(this.admins);}
 
-
+    /**
+     * Group Account List Getter
+     */
+    public AccountsList getGroupAccountsList() {
+        AccountsList groupAccounts = this.groupAccountsList;
+        return groupAccounts;
+    }
 
     /**
      * @param: newMembers;
