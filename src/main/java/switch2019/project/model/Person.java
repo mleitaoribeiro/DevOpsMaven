@@ -56,6 +56,9 @@ public class Person {
         this.mother = mother;
         this.father = father;
         siblingList = new HashSet<>();
+        categoryList = new CategoryList();
+        accountsList = new AccountsList();
+        ledger = new Ledger();
     }
 
     /**
@@ -300,5 +303,16 @@ public class Person {
         return (this.personExistsOnSiblingsList(otherPerson) ||
                 this.checkSameFather(otherPerson) ||this.checkSameMother(otherPerson));
     }
+
+    /**
+     * Get function to get ledger
+     *
+     * @return ledger
+     */
+
+    public HashSet<Transaction> getledger() {
+        return ledger.getLedger();
+    }
 }
+
 

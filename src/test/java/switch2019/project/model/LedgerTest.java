@@ -3,9 +3,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Currency;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +28,7 @@ class LedgerTest {
         ledger1.addTransactionToLedger(transaction);
 
         //Assert
-        assertEquals(1, ledger1.getLedgerList().size());
+        assertEquals(1, ledger1.getLedger().size());
     }
     @Test
     @DisplayName("Test for validating for several new transactions")
@@ -52,6 +50,6 @@ class LedgerTest {
 
 
         //Assert
-        assertEquals(2, ledger1.getLedgerList().size());
+        assertEquals(2, ledger1.getLedger().size());
     }
 }

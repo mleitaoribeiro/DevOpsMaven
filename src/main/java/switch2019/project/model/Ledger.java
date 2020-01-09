@@ -4,31 +4,31 @@ import java.util.HashSet;
 
 public class Ledger {
     //Private Ledger variables
-    private HashSet<Transaction> ledgerList;
+    private HashSet<Transaction> ledger;
 
     /**
      * Overload Ledger Construtor
      */
 
     public Ledger() {
-        ledgerList = new HashSet<Transaction>();
+        ledger = new HashSet<Transaction>();
     }
 
     /**
      * Add Transaction to Ledger
      */
     public void addTransactionToLedger(Transaction transaction) {
-        ledgerList.add(transaction);
+        ledger.add(transaction);
 
     }
 
     /**
-     * Get function for the ledger List
+     * Get function for the ledger
      *
-     * @return ledgerlist
+     * @return ledger
      */
 
-    public HashSet<Transaction> getLedgerList() {
-        return new HashSet<>(ledgerList);
+    public HashSet<Transaction> getLedger() {
+        return new HashSet<>(ledger);
     }
 }
