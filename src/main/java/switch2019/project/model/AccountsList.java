@@ -70,6 +70,13 @@ public class AccountsList {
     }
 
     /**
+     * method to remove one account from a list
+     */
+    public void removeOneAccountFromAList (Account accountToBeRemoved){
+
+    }
+
+    /**
      * method to remove several accounts from a list
      */
     public void removeSeveralAccountsFromAList (HashSet<Account> AccountsToBeRemoved) {
