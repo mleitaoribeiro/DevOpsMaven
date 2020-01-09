@@ -33,8 +33,7 @@ public class AccountsList {
      * @return AccountsList
      */
 
-    public HashSet<Account> getAccountsList()
-    {
+    public HashSet<Account> getAccountsList() {
         return new HashSet<>(this.accounts);
     }
 
@@ -69,5 +68,13 @@ public class AccountsList {
             addAccountToAccountsList(account);
         }
     }
+
+    /**
+     * method to remove several accounts from a list
+     */
+    public void removeSeveralAccountsFromAList (HashSet<Account> AccountsToBeRemoved) {
+
+    }
+
 
 }
