@@ -34,6 +34,7 @@ public class User {
      * @param category category
      */
     public void removeCategoryFromList(Category category){
+        person.removeCategoryFromList(category);
     }
 
 
@@ -44,12 +45,8 @@ public class User {
      */
 
     public void addMultipleCategoriesToList(HashSet<Category> categories){
-       for (Category category : categories) {
-           this.addCategoryToList(category);
-       }
-
+        person.addMultipleCategoriesToList(categories);
     }
-
 
     /**
      * Remove multiple categories from CategoryList
@@ -57,6 +54,7 @@ public class User {
      * @param categories<Category> categories
      */
     public void removeMultipleCategoriesToList(HashSet<Category> categories){
+        person.removeMultipleCategoriesToList(categories);
 
     }
 
