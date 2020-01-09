@@ -54,10 +54,10 @@ public class AccountsList {
     /**
      * method to add one account to the list
      */
-    public void addAccountToAccountsList (Account oneAccount) {
-        if (oneAccount!=null){
-            accounts.add(oneAccount);
-        }
+    public boolean addAccountToAccountsList (Account oneAccount) {
+        if (oneAccount!=null)
+            return accounts.add(oneAccount);
+        return false;
     }
 
     /**
@@ -83,7 +83,6 @@ public class AccountsList {
     public void removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
         for (Account account : accountsToBeRemoved)
             removeOneAccountFromAList(account);
-
     }
 
 

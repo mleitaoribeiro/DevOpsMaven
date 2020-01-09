@@ -163,19 +163,20 @@ public class Group {
     }
 
     /**
+     * Promote multiple members to group admins
+     * @param multipleMembers
+     */
+    public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
+    }
+
+    /**
      * Demote group admin to group member only.
      * @param member
      */
     public void demoteMemberFromAdmin(Person member) {
     }
 
-    /**
-     * Promote multiple members to group admins
-     * @param multipleMembers
-     */
 
-    public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
-    }
 
 }
 

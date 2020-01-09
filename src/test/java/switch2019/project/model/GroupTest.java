@@ -53,10 +53,10 @@ class GroupTest {
         Group group1 = new Group("MNation");
 
         Person person1 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
-        Person person2 = new Person("Mariana",1986,12,01, new Address("Lisboa"));
-        Person person3 = new Person("Marisa",2000,8,27, new Address("Leiria"));
+        Person person2 = new Person("Mariana", 1986, 12, 01, new Address("Lisboa"));
+        Person person3 = new Person("Marisa", 2000, 8, 27, new Address("Leiria"));
 
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1,person2,person3));
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
 
         //Act
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
@@ -74,13 +74,13 @@ class GroupTest {
         Person person2 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
         Person person3 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
 
-        HashSet<Person> setOfPeopleToAddToGroup= new HashSet<>(Arrays.asList(person2,person3));
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
 
         //Assert
-        assertTrue(group1.getMembers().size() ==1);
+        assertTrue(group1.getMembers().size() == 1);
     }
 
     @Test
@@ -92,7 +92,7 @@ class GroupTest {
         Person person1 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
         Person person2 = null;
 
-        HashSet<Person> setOfPeopleToAddToGroup= new HashSet<>(Arrays.asList(person1,person2));
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
@@ -186,19 +186,19 @@ class GroupTest {
      */
     @Test
     @DisplayName("Test if multiple members were removed from a Group - remove all ")
-    void removeMultipleMembersFromAGroup(){
+    void removeMultipleMembersFromAGroup() {
         //Arrange
-        Group group1=new Group("grupo dos amiguinhos");
-        Person person1 =new Person("Pedro",1999,12,9, new Address("Porto"));
-        Person person2=new Person("Gabriel",1996,3,6, new Address("Porto"));
-        HashSet<Person>setOfPeopleToAddToGroup=new HashSet<>(Arrays.asList(person1, person2));
+        Group group1 = new Group("grupo dos amiguinhos");
+        Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
+        Person person2 = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
         group1.removeMultipleMembers(setOfPeopleToAddToGroup);
 
         //Assert
-        assertTrue(group1.getMembers().size()==0);
+        assertTrue(group1.getMembers().size() == 0);
     }
 
     @Test
@@ -258,7 +258,7 @@ class GroupTest {
         //Arrange
         Person person1 = new Person("Oscar", 1990, 10, 10, new Address("Porto"));
         Person person2 = new Person("Marta", 1990, 10, 10, new Address("Porto"));
-        Person person3 = new Person("Joao", 1990, 10, 10,   new Address("Porto"));
+        Person person3 = new Person("Joao", 1990, 10, 10, new Address("Porto"));
         Person person4 = new Person("Manuela", 1990, 10, 10, new Address("Porto"));
         Person person5 = new Person("Carlos", 1990, 10, 10, new Address("Porto"));
         Person person6 = new Person("Diana", 1990, 10, 10, new Address("Porto"));
@@ -330,7 +330,7 @@ class GroupTest {
      * Test Equals method for the Group class
      */
     @Test
-    @DisplayName( "Two group are the same")
+    @DisplayName("Two group are the same")
     void equalsGroupClassJustGroupTrue() {
 
         Group group1 = new Group("Familia");
@@ -348,16 +348,16 @@ class GroupTest {
     @DisplayName("Two Equals group add person")
     void equalsGroupClassAddPersonTrue() {
         //Arrange
-        Person person1 = new Person("Elsa",2000,02,24, new Address("Porto"));
-        Person person2 = new Person("Filipa",1990,01,05, new Address("Porto"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
         Group group1 = new Group("Familia");
         Group group2 = new Group("Familia");
-        HashSet<Person> members = new HashSet<>(Arrays.asList(person1,person2));
+        HashSet<Person> members = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
         group1.addMultipleMembers(members);
-        group2 .addMultipleMembers(members);
-        boolean result= group1.equals(group2 );
+        group2.addMultipleMembers(members);
+        boolean result = group1.equals(group2);
 
         //Assert
         assertTrue(result);
@@ -367,11 +367,11 @@ class GroupTest {
     @DisplayName("Two Equals group add person")
     void equalsGroupClassGroupFalse() {
         //Arrange
-        Person person1 = new Person("Elsa",2000,02,24, new Address("Porto"));
-        Person person2 = new Person("Filipa",1990,01,05, new Address("Porto"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
         Group group1 = new Group("Familia");
         Group group2 = new Group("Familia");
-        HashSet<Person> members = new HashSet<>(Arrays.asList(person1,person2));
+        HashSet<Person> members = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
         group1.addMultipleMembers(members);
@@ -386,13 +386,13 @@ class GroupTest {
     @DisplayName("Two Equals group add person")
     void equalsGroupClassAddPersonFalse() {
         //Arrange
-        Person person1 = new Person("Elsa",2000,02,24, new Address("Porto"));
-        Person person2 = new Person("Filipa",1990,01,05, new Address("Porto"));
-        Person person3 = new Person("Pedro",1990,01,05, new Address("Porto"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
+        Person person3 = new Person("Pedro", 1990, 01, 05, new Address("Porto"));
         Group group1 = new Group("Familia fixe");
         Group group2 = new Group("Familia mais fixe");
-        HashSet<Person> membersFamily = new HashSet<>(Arrays.asList(person2,person1));
-        HashSet<Person> membersOtherFamily = new HashSet<>(Arrays.asList(person2,person3));
+        HashSet<Person> membersFamily = new HashSet<>(Arrays.asList(person2, person1));
+        HashSet<Person> membersOtherFamily = new HashSet<>(Arrays.asList(person2, person3));
         //Act
         group1.addMultipleMembers(membersFamily);
         group2.addMultipleMembers(membersOtherFamily);
@@ -404,13 +404,13 @@ class GroupTest {
 
 
     /**
-     * Check if member was promoted to Admin
+     * Check if member was promoted to group admin
      */
     @Test
-    @DisplayName("Promote one member to Admin")
+    @DisplayName("Promote one member to group admin")
     void promoteMemberTest1Person() {
         //Arrange
-        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -425,11 +425,11 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Promote one member to Admin while there are more than one")
+    @DisplayName("Promote one member to group admin while there are more than one")
     void promoteMemberTest2Person() {
         //Arrange
-        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
-        Person person2 = new Person ("Jaques", 2000,12,1,new Address ("Paris"));
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -444,15 +444,14 @@ class GroupTest {
         assertTrue(wasPromoted);
     }
 
-
     /**
-     * Check if member was demoted from Admin
+     * Check if member was demoted from group admin
      */
     @Test
-    @DisplayName("Demote one admin to member")
+    @DisplayName("Demote one group admin to member")
     void demoteMemberTest() {
         //Arrange
-        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -468,11 +467,11 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Demote one admin to member while there are more than one")
+    @DisplayName("Promote one member to Admin while there are more than one member")
     void demoteMemberTest2() {
         //Arrange
-        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
-        Person person2 = new Person ("Jaques", 2000,12,1,new Address ("Paris"));
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -490,12 +489,104 @@ class GroupTest {
         assertTrue(before && after);
     }
 
+    /**
+     * Check if multiple members were promoted to Admin
+     */
+    @Test
+    @DisplayName("Promote multiple members to Admin")
+    void promoteMultipleMembersToAdmin() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Pedro", 1990, 01, 05, new Address("Porto"));
 
+        Group group1 = new Group("Francis Group");
 
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
+
+        //Act
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
+
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean membersWerePromoted = adminList.contains(setOfPeopleToAddToGroup) && memberList.contains(setOfPeopleToAddToGroup);
+
+        //Assert
+        assertTrue(membersWerePromoted);
+    }
+
+    @Test
+    @DisplayName("Promote multiple members to admin while there are more than members that are not admins")
+    void promoteMultipleMembersToAdminWhileThereAreOtherGroupMembers() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Pedro", 1990, 01, 05, new Address("Porto"));
+        Person person4 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
+
+        Group group1 = new Group("Francis Group");
+
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
+        HashSet<Person> setOfPeopleToBeAdmin = new HashSet<>(Arrays.asList(person1, person2));
+
+        //Act
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
+
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean werePromoted = adminList.contains(setOfPeopleToBeAdmin) && memberList.contains(setOfPeopleToAddToGroup);
+
+        //Assert
+        assertTrue(werePromoted);
+    }
 
     /**
-     * Check if a person was directly promoted to group administrator
+     * Check if a person was promoted to member and group administrator simultaneously
      */
+    @Test
+    @DisplayName("Promote person to member and group admin simultaneously")
+    void memberAndGroupAdminSimultaneously() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.setAdmin(person1);
+
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1);
+
+        //Assert
+        assertTrue(wasPromoted);
+    }
+
+    @Test
+    @DisplayName("Promote person to member and group admin simultaneously while there are more than members that are not admins")
+    void memberAndGroupAdminSimultaneouslyWhileThereAreOtherGroupMembers() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Pedro", 1990, 01, 05, new Address("Porto"));
+        Person person4 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
+
+        Group group1 = new Group("Francis Group");
+
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
+
+        //Act
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.setAdmin(person1);
+
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean wasPromoted = adminList.contains(person1) && memberList.contains(setOfPeopleToAddToGroup);
+
+        //Assert
+        assertTrue(wasPromoted);
+    }
 
     /**
      * Check if Account was added to the groups account list
@@ -503,7 +594,7 @@ class GroupTest {
      */
     @DisplayName("validate if account is in group's account list")
     @Test
-    void addAccountToGroupListTest(){
+    void addAccountToGroupListTest() {
         //Arrange:
         Group group1 = new Group("Test Group");
         Account groupAccount = new Account("Group Account Test", "group account");

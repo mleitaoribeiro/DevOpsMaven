@@ -1,9 +1,8 @@
 package switch2019.project.controllers;
 
 import java.util.HashSet;
-import switch2019.project.model.Category;
-import switch2019.project.model.Person;
-import switch2019.project.model.CategoryList;
+
+import switch2019.project.model.*;
 
 public class User {
 
@@ -57,6 +56,21 @@ public class User {
      */
     public void removeMultipleCategoriesToList(HashSet<Category> categories){
 
+    }
+
+    /**
+     * Develop method to create a new transaction (USER STORY)
+     *
+     * @param amount
+     * @param description
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+
+    public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
+        person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 
 }

@@ -35,6 +35,12 @@ public class Transaction {
     }
 
 
+    /**
+     * Verify is a given transaction is valid or not
+     *
+     * @return boolean
+     */
+
     public boolean isAValidTransaction() {
         return amount != null && description != null && category != null && accountFrom != null && accountTo != null && type != null;
     }
