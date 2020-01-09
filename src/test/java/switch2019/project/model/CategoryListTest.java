@@ -12,6 +12,52 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryListTest {
 
     @Test
+    @DisplayName("Test if two Category List are the same - Main Scenario")
+    public void compareTwoCategoryList() {
+        //Arrange
+        Category categoryHealth = new Category("Health");
+        Category categoryEducation = new Category("Education");
+        Category categoryGas = new Category("Gas");
+
+        CategoryList oneCategoryList = new CategoryList();
+        CategoryList otherCategoryList = new CategoryList();
+
+        //Act
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryEducation, categoryGas));
+
+        oneCategoryList.addMultipleCategoriesToList(setOfCategories);
+        otherCategoryList.addMultipleCategoriesToList(setOfCategories);
+
+        //Assert
+        assertEquals(oneCategoryList.getCategoriesList(), otherCategoryList.getCategoriesList());
+    }
+
+    @Test
+    @DisplayName("Test if two Category List aren't the same - Main Scenario")
+    public void compareTwoCategoryListNotTheSame() {
+        //Arrange
+        Category categoryHealth = new Category("Health");
+        Category categoryEducation = new Category("Education");
+        Category categoryGas = new Category("Gas");
+
+        CategoryList oneCategoryList = new CategoryList();
+        CategoryList otherCategoryList = new CategoryList();
+
+        //Act
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryEducation, categoryGas));
+        HashSet<Category> anotherSetOfCategories = new HashSet<>(Arrays.asList(categoryEducation, categoryGas));
+
+        oneCategoryList.addMultipleCategoriesToList(setOfCategories);
+        otherCategoryList.addMultipleCategoriesToList(anotherSetOfCategories);
+
+        boolean realResult = oneCategoryList.getCategoriesList().equals(otherCategoryList.getCategoriesList());
+        //Assert
+
+        assertFalse(realResult);
+    }
+
+
+    @Test
     @DisplayName("Test if one category was added to the Category List - Main Scenario ")
     void addCategoryToListMainScenario() {
         //Arrange
