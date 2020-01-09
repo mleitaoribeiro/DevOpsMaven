@@ -218,5 +218,86 @@ class AccountsListTest {
 
     }
 
+    @Test
+    @DisplayName("Test if several accounts were removed from an accounts list - Positive ")
+
+    public void testIfSeveralAccountsWereRemovedPositive (){
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto Account");
+        Account otherAccount = new Account ("xyz","xyz Account");
+        Account anotherAccount = new Account("abc","abc Account");
+
+        HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount, anotherAccount));
+        HashSet<Account> accountsToBeRemoved = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
+        HashSet<Account> expected = new HashSet<>(Collections.singletonList(anotherAccount));
+
+        AccountsList oneAccountsList = new AccountsList();
+
+        //Act
+
+        oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
+        oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
+
+        HashSet <Account> real = oneAccountsList.getAccountsList();
+
+        //Arrange
+        assertEquals(expected,real);
+
+    }
+
+    @Test
+    @DisplayName("Test if several accounts were removed from an accounts list | OneAccount removed ")
+
+    public void testIfSeveralAccountsWereRemoved_RemoveOneAccount (){
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto Account");
+        Account otherAccount = new Account ("xyz","xyz Account");
+        Account anotherAccount = new Account("abc","abc Account");
+
+        HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount, anotherAccount));
+        HashSet<Account> accountsToBeRemoved = new HashSet<>(Collections.singletonList(oneAccount));
+        HashSet<Account> expected = new HashSet<>(Arrays.asList(otherAccount, anotherAccount));
+
+        AccountsList oneAccountsList = new AccountsList();
+
+        //Act
+
+        oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
+        oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
+
+        HashSet <Account> real = oneAccountsList.getAccountsList();
+
+        //Arrange
+        assertEquals(expected,real);
+    }
+
+    @Test
+    @DisplayName("Test if several accounts were removed from an accounts list - Account dont Exists On The List ")
+
+    public void testIfSeveralAccountsWereRemoved_AccountDoesntExistsOnTheList (){
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto Account");
+        Account otherAccount = new Account ("xyz","xyz Account");
+        Account anotherAccount = new Account("abc","abc Account");
+
+        HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
+        HashSet<Account> accountsToBeRemoved = new HashSet<>(Collections.singletonList(anotherAccount));
+        HashSet<Account> expected = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
+
+        AccountsList oneAccountsList = new AccountsList();
+
+        //Act
+
+        oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
+        oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
+
+        HashSet <Account> real = oneAccountsList.getAccountsList();
+
+        //Arrange
+        assertEquals(expected,real);
+
+    }
+
+
 
 }
