@@ -363,7 +363,13 @@ public class Person {
      */
 
     public Person getPerson() {
-        return new Person(name, birthDate.getYear(), birthDate.getMonthValue(), birthDate.getDayOfMonth(), birthPlace, mother, father);
+        Person copy = new Person(name, birthDate.getYear(), birthDate.getMonthValue(), birthDate.getDayOfMonth(), birthPlace, mother, father);
+        copy.siblingList = getSiblingList();
+        copy.categoryList.addMultipleCategoriesToList(categoryList.getCategoriesList());
+        copy.accountsList.addSeveralAccountsToAList(accountsList.getAccountsList());
+        for(Transaction transaction : ledger.getLedger()) {
+            copy.ledger.addTransactionToLedger(transaction);
+        } return copy;
     }
 }
 
