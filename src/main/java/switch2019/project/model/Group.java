@@ -55,12 +55,16 @@ public class Group {
     }
 
     /**
-     * Add a new member to a group
-     * @param member
+     * Add a new person to a group
+     * @param person
      */
-    public void addMember(Person member){
-        if (member != null)
-        members.add(member);
+    public void addMember(Person person){
+        if ( this.members.size() != 0 && person != null) {
+            members.add(person);
+        }
+        else if (person != null) {
+            setAdmin(person);
+        }
     }
 
     /**
@@ -91,7 +95,6 @@ public class Group {
      */
     public HashSet<Account> getGroupAccountsList() {
         return groupAccountsList.getAccountsList();
-
     }
 
     /**

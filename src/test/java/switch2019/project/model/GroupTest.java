@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupTest {
 
+    //ver estes testes para primeira pessoa do grupo ser admin
     /**
      * Test if member was added to Group
      */
@@ -542,6 +543,7 @@ class GroupTest {
         assertTrue(werePromoted);
     }
 
+    //Fazer teste para pessoas nulas
     /**
      * Check if a person was promoted to member and group administrator simultaneously
      */
