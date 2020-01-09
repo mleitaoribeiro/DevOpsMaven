@@ -73,4 +73,7 @@ public class User {
         person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 
+    public Person getPerson() {
+        return person.getPerson();
+    }
 }
