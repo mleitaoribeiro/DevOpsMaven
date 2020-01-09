@@ -37,19 +37,6 @@ public class AccountsList {
         return new HashSet<>(this.accounts);
     }
 
-    /**
-     * Method to check the number of Accounts inside the list.
-     */
-    public int howManyAccounts(){
-        return this.accounts.size();
-    }
-
-    /**
-     * Method to check if an Account is inside the Accounts List:
-     */
-    public boolean accountsListContains (Account oneAccount) {
-        return this.accounts.contains(oneAccount);
-    }
 
     /**
      * method to add one account to the list
