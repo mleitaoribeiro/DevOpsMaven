@@ -78,4 +78,23 @@ public class CategoryList {
         if( categoryToRemove != null && categoryListContains(categoryToRemove))
             categories.remove(categoryToRemove);
     }
+    /**
+     * Add multiple categories to CategoryList
+     *
+     * @param categories<Category> categories
+     */
+
+    public void addMultipleCategoriesToList(HashSet<Category> categories){
+
+    }
+
+
+    /**
+     * Remove multiple categories from CategoryList
+     *
+     * @param categories<Category> categories
+     */
+    public void removeMultipleCategoriesToList(HashSet<Category> categories){
+
+    }
 }

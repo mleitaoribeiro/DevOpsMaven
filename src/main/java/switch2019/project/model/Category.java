@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import java.text.Normalizer;
+import java.util.Objects;
 
 public class Category {
     //Private instance variables
@@ -28,7 +29,6 @@ public class Category {
             newCategory = removerAcentos(newCategory);
             nameOfCategory = newCategory.toUpperCase();
         }
-
     }
 
     private String removerAcentos(String texto) {
@@ -57,7 +57,5 @@ public class Category {
     }
 
     @Override
-    public int hashCode() {
-        return 0;
-    }
+    public int hashCode() { return Objects.hash(nameOfCategory); }
 }
