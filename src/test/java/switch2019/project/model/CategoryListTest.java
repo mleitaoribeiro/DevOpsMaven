@@ -12,18 +12,164 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryListTest {
 
     @Test
-    void categoryListContains() {
+    @DisplayName("Test if one category was added to the Category List - Main Scenario ")
+    void addCategoryToListMainScenario() {
+        //Arrange
+        //Category to be included in Category List
+        Category oneCategory = new Category("School expenses");
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory);
+
+        //Assert
+        assertEquals(true, realResult);
     }
 
     @Test
-    void addCategoryToCategoryList() {
+    @DisplayName("Test if two categories were added to the Category List - Main Scenario ")
+    void addCategoryToCategoryListTwoDifferentCategories() {
+        //Arrange
+        //Category to be included in Category List
+        Category oneCategory = new Category("School expenses");
+        Category otherCategory = new Category("Health");
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+        newCategoryList.addCategoryToCategoryList(otherCategory);
+        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
+                && newCategoryList.getCategoriesList().contains(otherCategory);
+
+        //Assert
+        assertEquals(true, realResult);
     }
 
     @Test
+    @DisplayName("Test if a null was added to the Category List - validate trough size of CategoryList ")
+    void addCategoryToCategoryListNullCase() {
+        //Arrange
+        //Category to be included in Category List
+        Category otherCategory = null;
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(otherCategory);
+
+        int realSizeOfTheCategoryList = newCategoryList.getCategoriesList().size();
+
+        //Assert
+        assertEquals(0,realSizeOfTheCategoryList);
+    }
+
+    @Test
+    @DisplayName("Test if a duplicate Category was added to the Category List - ignore word case or spelling accents")
+    void addCategoryToCategoryListDuplicateCategory() {
+        //Arrange
+        //Category to be included in Category List
+        Category originalCategory = new Category("Saude");
+        Category duplicateCategory = new Category("saúde");
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(originalCategory);
+        newCategoryList.addCategoryToCategoryList(duplicateCategory);
+
+        int realSizeOfTheCategoryList = newCategoryList.getCategoriesList().size();
+
+        //Assert
+        assertEquals(1,realSizeOfTheCategoryList);
+    }
+
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - Main Scenario")
+    void removeCategoryFromListMainScenario() {
+        //Arrange
+        Category oneCategory = new Category("Saude");
+        Category otherCategory = new Category("Health");
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+        newCategoryList.addCategoryToCategoryList(otherCategory);
+        //Remove one Category
+        newCategoryList.removeCategoryFromList(otherCategory);
+
+        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
+                && !newCategoryList.getCategoriesList().contains(otherCategory);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
     void removeCategoryFromList() {
+        //Arrange
+        Category oneCategory = new Category("Saude");
+        Category otherCategory = new Category("saúde");
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+        newCategoryList.addCategoryToCategoryList(otherCategory);
+        //Remove one Category
+        newCategoryList.removeCategoryFromList(otherCategory);
+
+        int sizeOfTheCategory = newCategoryList.getCategoriesList().size();
+
+        //Assert
+        assertEquals(0, sizeOfTheCategory);
     }
 
-    // Test adding or removing multiple categories
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - null case")
+    void removeCategoryFromListNullCase() {
+        //Arrange
+        Category oneCategory = new Category("Saude");
+        Category otherCategory = null;
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+        newCategoryList.addCategoryToCategoryList(otherCategory);
+        //Remove one Category
+        newCategoryList.removeCategoryFromList(otherCategory);
+
+        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
+                && !newCategoryList.getCategoriesList().contains(otherCategory);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
+    void removeCategoryFromListDoesntExist() {
+        //Arrange
+        Category oneCategory = new Category("Saude");
+        Category otherCategory = new Category("Educação");
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+
+        //Remove the otherCategory (the list doesn't contain this)
+        newCategoryList.removeCategoryFromList(otherCategory);
+
+        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
+                && !newCategoryList.getCategoriesList().contains(otherCategory);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
     @Test
     @DisplayName("Add a Set of Categories to Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
