@@ -21,6 +21,7 @@ public class Group {
         setDescription(description);
         startingDate = LocalDate.now();
         members = new HashSet<>();
+        admins = new HashSet<>();
         groupAccountsList = new AccountsList();
     }
 
@@ -81,7 +82,7 @@ public class Group {
 
     /**
      * Getter function for the group admins
-     *
+     * @return adminsClone
      */
     public HashSet<Person> getAdmins() { return new HashSet<>(this.admins);}
 
@@ -94,10 +95,9 @@ public class Group {
     }
 
     /**
-     * @param: newMembers;
      * Add multiple members to Group
+     * @param: newMembers;
      */
-
     public void addMultipleMembers(HashSet<Person>newMembers) {
         for (Person member : newMembers){
             addMember(member);
@@ -108,7 +108,6 @@ public class Group {
      * Remove multiple Members
      * @param toRemove HashSet of members that are going to be removed.
      */
-
     public void removeMultipleMembers(HashSet<Person> toRemove) {
         for (Person member : toRemove) {
             removeMember(member);
@@ -119,7 +118,6 @@ public class Group {
      * Validate if a group is a family
      * @return boolean
      */
-
     public boolean isFamily() {
         Person dadPerson = null;
         Person momPerson = null;
@@ -142,16 +140,19 @@ public class Group {
 
     /**
      * Setter function to promote a person directly to group administrator
+     *@param person
      */
-
-    public void setAdmins () {
+    public void setAdmin (Person person) {
     }
 
     /**
-     * Promote group member to group admin.
+     * Promote member to group admin.
      * @param member
      */
     public void promoteMemberToAdmin(Person member) {
+        if (members.contains(member) && member != null) {
+            admins.add(member);
+        }
     }
 
     /**
@@ -159,6 +160,14 @@ public class Group {
      * @param member
      */
     public void demoteMemberFromAdmin(Person member) {
+    }
+
+    /**
+     * Promote multiple members to group admins
+     * @param multipleMembers
+     */
+
+    public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
     }
 
 }
