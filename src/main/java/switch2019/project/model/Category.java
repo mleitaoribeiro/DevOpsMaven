@@ -1,11 +1,11 @@
 package switch2019.project.model;
 
-import java.util.Objects;
 import java.text.Normalizer;
+import java.util.Objects;
 
 public class Category {
     //Private instance variables
-    private String category;
+    private String nameOfCategory;
 
     /**
      * Category constructor
@@ -13,7 +13,7 @@ public class Category {
      * @param category
      */
     public Category(String category) {
-        setCategory(category);
+        setNameOfCategory(category);
     }
 
     /**
@@ -22,15 +22,16 @@ public class Category {
      * @param newCategory
      */
 
-    public void setCategory(String newCategory) {
-        if (newCategory != null) {
-            newCategory = removerAcentos(newCategory);
-            category = newCategory.toUpperCase();
+    public void setNameOfCategory(String newCategory) {
+        if (newCategory == null) {
+            throw new IllegalArgumentException ("The category description is not valid or it's missing. Please try again.");
+        } else {
+            newCategory = removeAccents(newCategory);
+            nameOfCategory = newCategory.toUpperCase();
         }
-
     }
 
-    private String removerAcentos(String texto) {
+    private String removeAccents(String texto) {
         texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 
@@ -43,24 +44,18 @@ public class Category {
      * @return category Clone
      */
 
-    public String getCategory() {
-        return this.category;
+    public String getNameOfCategory() {
+        return this.nameOfCategory;
     }
-
-    /**
-     * override of equals for Category Instance and @override hashcode
-     *
-     * @param o
-     * @return boolean
-     */
 
     @Override
     public boolean equals(Object o) {
-      return true;
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category1 = (Category) o;
+        return nameOfCategory.equals(category1.nameOfCategory);
     }
 
     @Override
-    public int hashCode() {
-        return 0;
-    }
+    public int hashCode() { return Objects.hash(nameOfCategory); }
 }

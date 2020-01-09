@@ -71,7 +71,6 @@ public class Person {
 
     public void setBirthDate(int newYear, int newMonth, int newDay) {
         LocalDate birthDateTemp = LocalDate.of(newYear, newMonth, newDay);
-        birthDateTemp.format(DateTimeFormatter.ofPattern("dd/LL/yyyy"));
         if (birthDateTemp.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Birth Date Not Supported.");
         } else birthDate = birthDateTemp;
@@ -312,6 +311,21 @@ public class Person {
 
     public HashSet<Transaction> getledger() {
         return ledger.getLedger();
+    }
+
+    /**
+     *
+     * Develop method to create a new transaction (USER STORY)
+     * @param amount
+     * @param description
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+
+    public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
+        ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
     }
 }
 
