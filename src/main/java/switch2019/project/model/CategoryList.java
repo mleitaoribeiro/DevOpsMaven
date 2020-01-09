@@ -29,13 +29,17 @@ public class CategoryList {
     /**
      * Method to check the number of Categories inside the list.
      */
-    public int howManyCategories() {return 0;}
+
+    public int howManyCategories() {
+       return this.categories.size();
+    }
 
     /**
      * Method to check if a Category already exists in List;
      */
 
     public boolean categoryListContains(Category aCategory) {return true;}
+
     /**
      *Develop @override of equals for Category List and @override of hashcode
      */
