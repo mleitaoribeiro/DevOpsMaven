@@ -150,6 +150,10 @@ public class Group {
      *@param person
      */
     public void setAdmin (Person person) {
+        if (!members.contains(person) && (!admins.contains(person))){
+            members.add(person);
+            admins.add(person);
+        }
     }
 
     /**
