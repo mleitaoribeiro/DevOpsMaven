@@ -30,7 +30,7 @@ public class GroupsList {
      * method to get Groups inside a GroupList
      * @return groupsList
      */
-    public HashSet<Group> getGroups(){
+    public HashSet<Group> getGroupsList(){
         return new HashSet<>(this.groupsList);
     }
 

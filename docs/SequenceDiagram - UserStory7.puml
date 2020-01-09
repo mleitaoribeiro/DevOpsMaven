@@ -1,0 +1,47 @@
+@startuml
+
+actor userGroupAdmin
+
+userGroupAdmin -> "person1:Person" : request account creation
+activate "person1:Person" #FFBBBB
+
+"person1:Person" -> "group1:Group" : getAdmins
+activate "group1:Group"  #FFBBBB
+
+"group1:Group" -> "groupList1:GroupList" : getGroupsList
+activate "groupList1:GroupList"  #FFBBBB
+
+"groupList1:GroupList" -> "group1:Group" : returnGroupsList
+deactivate "groupList1:GroupList"
+
+"group1:Group"-> "group1:Group" : selectGroup
+
+"person1:Person" <- "group1:Group" : returnAdmins
+deactivate "group1:Group"  #FFBBBB
+
+"person1:Person" -> "person1:Person" : validateUserGroupAdmin
+
+alt userGroupAdmin is on group.admins
+
+    "person1:Person" -> "account1:Account" : createAccount (denomination, description, balance)
+    activate "account1:Account" #FFBBBB
+
+    "account1:Account" -> "accountList1:AccountsList" : addAccountToAccountsList
+    activate "accountList1:AccountsList" #FFBBBB
+
+    "account1:Account" <- "accountList1:AccountsList" : accountAddedToAccountsList
+    deactivate "accountList1:AccountsList" #FFBBBB
+
+    "account1:Account" -> "person1:Person" : accountCreated
+    deactivate "account1:Account"
+
+    "person1:Person" -> userGroupAdmin : accountCreated
+    deactivate "person1:Person"
+
+else userGroupAdmin is not on group.admins
+
+	"group1:Group" -> userGroupAdmin : failed account creation
+
+end
+
+@enduml

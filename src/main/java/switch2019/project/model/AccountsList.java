@@ -8,7 +8,6 @@ public class AccountsList {
 
     public AccountsList() {
         accounts = new HashSet<Account>();
-
     }
 
     /**

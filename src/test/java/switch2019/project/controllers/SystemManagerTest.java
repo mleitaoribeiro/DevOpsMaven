@@ -86,7 +86,7 @@ class SystemManagerTest {
         HashSet<Group> expected = new HashSet<>(Collections.singleton(group1));
 
         //Assert
-        assertEquals(groupList1.getGroups(), expected);
+        assertEquals(groupList1.getGroupsList(), expected);
     }
 
     /**
@@ -107,7 +107,7 @@ class SystemManagerTest {
         HashSet<Group> expected = new HashSet<>(Arrays.asList(group1,group2));
 
         // Assert
-        assertEquals(groupList1.getGroups(), expected);
+        assertEquals(groupList1.getGroupsList(), expected);
     }
 
 

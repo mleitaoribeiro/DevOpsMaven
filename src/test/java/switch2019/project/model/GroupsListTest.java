@@ -41,7 +41,7 @@ class GroupsListTest {
         groupList.addGroupToGroupList(switchieees);
 
         //Assert
-        assertNotEquals(expected, groupList.getGroups());
+        assertNotEquals(expected, groupList.getGroupsList());
     }
 
     @Test
@@ -60,6 +60,6 @@ class GroupsListTest {
         groupList.addGroupToGroupList(livros);
 
         //Assert
-        assertEquals(expected, groupList.getGroups());
+        assertEquals(expected, groupList.getGroupsList());
     }
 }

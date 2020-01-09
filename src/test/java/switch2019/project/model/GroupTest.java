@@ -516,7 +516,7 @@ class GroupTest {
     /**
      * Check if member was demoted from group admin
      */
-    @Test
+    /*@Test
     @DisplayName("Demote one group admin to member")
     void demoteMemberTest() {
         //Arrange
@@ -556,7 +556,7 @@ class GroupTest {
 
         //Assert
         assertTrue(before && after);
-    }
+    }*/
 
     /**
      * Check if multiple members were promoted to Admin
