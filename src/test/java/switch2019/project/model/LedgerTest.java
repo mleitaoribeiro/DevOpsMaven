@@ -30,7 +30,7 @@ class LedgerTest {
         ledger.addTransactionToLedger(transaction);
 
         //Assert
-        assertEquals(1, ledger.getLedgerList().size());
+        assertEquals(1, ledger.getLedger().size());
     }
 
     @Test
@@ -53,7 +53,7 @@ class LedgerTest {
 
 
         //Assert
-        assertEquals(2, ledger.getLedgerList().size());
+        assertEquals(2, ledger.getLedger().size());
     }
 
     @Test
@@ -75,7 +75,7 @@ class LedgerTest {
 
 
         //Assert
-        assertEquals(1, ledger.getLedgerList().size());
+        assertEquals(1, ledger.getLedger().size());
     }
 
     @Test
@@ -97,6 +97,6 @@ class LedgerTest {
 
 
         //Assert
-        assertEquals(1, ledger.getLedgerList().size());
+        assertEquals(1, ledger.getLedger().size());
     }
 }
