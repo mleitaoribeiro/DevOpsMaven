@@ -17,7 +17,6 @@ class UserTest {
     @Test
     void addCategoryToListMainScenario() {
         //Arrange
-
         //Initialize user
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
@@ -27,9 +26,10 @@ class UserTest {
 
         //Act
         user1.addCategoryToList(category1);
+        boolean realResult = user1.getPerson().getCategoriesList().contains(category1);
 
         //Assert
-        //assertEquals(user1.getCategoriesList(), new Category("School Expenses"));
+        assertTrue(realResult);
 
 
     }
