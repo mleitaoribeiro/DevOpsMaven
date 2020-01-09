@@ -425,7 +425,7 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Promote one member to Admin while there are more than one")
+    @DisplayName("Promote one member to Admin while there are more than one member")
     void promoteMemberTest2Person() {
         //Arrange
         Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
@@ -490,7 +490,59 @@ class GroupTest {
         assertTrue(before && after);
     }
 
+    /**
+     * Check if multiple members were promoted to Admin
+     */
 
+    @Test
+    @DisplayName("Promote multiple members to Admin")
+    void promoteMultipleMembersToAdmin() {
+        //Arrange
+        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Person person2 = new Person ("Jaques", 2000,12,1,new Address ("Paris"));
+        Person person3 = new Person("Pedro",1990,01,05, new Address("Porto"));
+
+        Group group1 = new Group("Francis Group");
+
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1,person2,person3));
+
+        //Act
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
+
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean membersWerePromoted = adminList.contains(setOfPeopleToAddToGroup) && memberList.contains(setOfPeopleToAddToGroup);
+
+        //Assert
+        assertTrue(membersWerePromoted);
+    }
+
+    @Test
+    @DisplayName("Promote multiple members to admin while there are more than members that are not admins")
+    void promoteMultipleMembersToAdminWhileThereAreOtherGroupMembers() {
+        //Arrange
+        Person person1 = new Person ("Francis",1994,05,23,new Address("London"));
+        Person person2 = new Person ("Jaques", 2000,12,1,new Address ("Paris"));
+        Person person3 = new Person("Pedro",1990,01,05, new Address("Porto"));
+        Person person4 = new Person("Elsa",2000,02,24, new Address("Porto"));
+
+        Group group1 = new Group("Francis Group");
+
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1,person2, person3, person4));
+        HashSet<Person> setOfPeopleToBeAdmin = new HashSet<>(Arrays.asList(person1,person2));
+
+        //Act
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
+
+        HashSet<Person> adminList = group1.getAdmins();
+        HashSet<Person> memberList = group1.getMembers();
+        boolean werePromoted = adminList.contains(setOfPeopleToBeAdmin) && memberList.contains(setOfPeopleToAddToGroup);
+
+        //Assert
+        assertTrue(werePromoted);
+    }
 
 
     /**

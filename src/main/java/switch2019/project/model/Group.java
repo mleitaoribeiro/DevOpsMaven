@@ -147,6 +147,10 @@ public class Group {
     public void promoteMemberToAdmin(Person member) {
     }
 
+    public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
+
+    }
+
     /**
      * Demote group admin to group member only.
      * @param member
