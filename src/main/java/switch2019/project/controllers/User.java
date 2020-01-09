@@ -24,7 +24,7 @@ public class User {
      * @param category category
      */
     public void addCategoryToList(Category category){
-
+        person.addCategoryToCategoryList(category);
     }
 
 
@@ -34,7 +34,6 @@ public class User {
      * @param category category
      */
     public void removeCategoryFromList(Category category){
-
     }
 
 
@@ -45,6 +44,9 @@ public class User {
      */
 
     public void addMultipleCategoriesToList(HashSet<Category> categories){
+       for (Category category : categories) {
+           this.addCategoryToList(category);
+       }
 
     }
 
