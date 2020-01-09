@@ -75,4 +75,18 @@ public class User {
         person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 
+    /**
+     * Develop method to create a new Account (USER STORY)
+     *
+     * @param accountDenomination
+     * @param accountDescription
+     */
+
+    public void createAccount (String accountDenomination, String accountDescription) {
+        person.createAccount(accountDenomination, accountDescription);
+
+    }
+
+
+
 }

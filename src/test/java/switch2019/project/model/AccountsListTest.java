@@ -22,7 +22,7 @@ class AccountsListTest {
         //Act
         accountsList.addAccountToAccountsList(oneAccount);
         accountsList.addAccountToAccountsList(otherAccount);
-        int result = accountsList.howManyAccounts();
+        int result = accountsList.getAccountsList().size();
 
         //Assert
         assertEquals(2,result);
@@ -100,7 +100,7 @@ class AccountsListTest {
         //Act
         accountsList.addAccountToAccountsList(oneAccount);
 
-        boolean expected = accountsList.accountsListContains(oneAccount);
+        boolean expected = accountsList.getAccountsList().contains(oneAccount);
 
         //Assert
         assertTrue(expected);
@@ -115,7 +115,7 @@ class AccountsListTest {
 
         //Act
 
-        boolean notContained = accountsList.accountsListContains(oneAccount);
+        boolean notContained = accountsList.getAccountsList().contains(oneAccount);
 
         //Assert
         assertFalse(notContained);
