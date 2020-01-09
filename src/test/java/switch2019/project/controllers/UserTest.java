@@ -396,15 +396,14 @@ class UserTest {
     }
 
     /**
-     * Tests to verify if a transaction was created
+     * Test if a transaction was created
      */
 
     @Test
-    @DisplayName("Test if a transaction was created - success case")
-    void createTransactionSuccessCase() {
+    @DisplayName("Test if a transaction was created - sucess case")
+    void createTransaction_sucessCase() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("Transports");
@@ -413,93 +412,41 @@ class UserTest {
         Type type = new Type(false); //debit
 
         //Act
-        user1.createTransaction(amount,description,category,from,to,type);
+        person1.createTransaction(amount,description,category,from,to,type);
 
         //Assert
-        //assertEquals(1, user1.getLedger().size());
+        //assertEquals(1, person1.getLedger().size());
+
     }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Test if a Account was created
+     */
 
     @Test
-    @DisplayName("Test if a transaction was created - no category")
-    void createTransactionNoCategory() {
-        //Arrange
-        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-        Category category = null;
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
-        Type type = new Type(false); //debit
+    @DisplayName("Test if a Account was created - sucess case")
+    void createAccountSucessCase() {
+        // Arrange
+
+        //Initialize user
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+        User oneUser = new User(onePerson);
+
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
+
+        int expectAccountsListSize = 1;
 
         //Act
-        user1.createTransaction(amount,description,category,from,to,type);
+        oneUser.createAccount(accountDenomination,accountDescription);
 
-        //Assert
-        //assertEquals(0, user1.getLedger().size());
+
+        int realAccountsListSize = onePerson.getAccountsList().size();
+
+        // assert
+        assertEquals(expectAccountsListSize, realAccountsListSize);
     }
-
-    @Test
-    @DisplayName("Test if a transaction was created - no from account")
-    void createTransactionNoFromAccount() {
-        //Arrange
-        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-        Category category = new Category("Transports");
-        Account from = null;
-        Account to = new Account("TransportAccount","Transport expenses");
-        Type type = new Type(false); //debit
-
-        //Act
-        user1.createTransaction(amount,description,category,from,to,type);
-
-        //Assert
-        //assertEquals(0, user1.getLedger().size());
-    }
-
-    @Test
-    @DisplayName("Test if a transaction was created - no destination account")
-    void createTransactionNoDestinationAccount() {
-        //Arrange
-        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User(person1);
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-        Category category = new Category("Transports");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = null;
-        Type type = new Type(false); //debit
-
-        //Act
-        user1.createTransaction(amount, description, category, from, to, type);
-
-        //Assert
-        //assertEquals(0, user1.getLedger().size());
-    }
-
-        @Test
-        @DisplayName("Test if a transaction was created - no transaction type")
-        void createTransactionNoTransactionType() {
-            //Arrange
-            Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-            User user1 = new User (person1);
-            MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-            String description = "payment";
-            Category category = new Category("Transports");
-            Account from = new Account("Wallet","General expenses");
-            Account to = new Account("TransportAccount","Transport expenses");
-            Type type = null;
-
-            //Act
-            user1.createTransaction(amount,description,category,from,to,type);
-
-            //Assert
-            //assertEquals(0, user1.getLedger().size());
-    }
-
-
-
 
 }
