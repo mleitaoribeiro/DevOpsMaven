@@ -309,7 +309,7 @@ public class Person {
      * @return ledger
      */
 
-    public HashSet<Transaction> getledger() {
+    public HashSet<Transaction> getLedger() {
         return ledger.getLedger();
     }
 
@@ -348,12 +348,13 @@ public class Person {
     }
 
     /**
+     * Get function to get accountsList
      *
-     * Get of for Category list Of Person
+     * @return accountsList
      */
 
-    public HashSet<Category> getCategoriesList(){
-       return categoryList.getCategoriesList();
+    public HashSet<Account> getAccountsList() {
+        return accountsList.getAccountsList();
     }
 }
 

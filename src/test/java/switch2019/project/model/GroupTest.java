@@ -510,7 +510,7 @@ class GroupTest {
 
         HashSet<Person> adminList = group1.getAdmins();
         HashSet<Person> memberList = group1.getMembers();
-        boolean membersWerePromoted = adminList.contains(setOfPeopleToAddToGroup) && memberList.contains(setOfPeopleToAddToGroup);
+        boolean membersWerePromoted = adminList.containsAll(setOfPeopleToAddToGroup) && memberList.containsAll(setOfPeopleToAddToGroup);
 
         //Assert
         assertTrue(membersWerePromoted);
@@ -536,7 +536,7 @@ class GroupTest {
 
         HashSet<Person> adminList = group1.getAdmins();
         HashSet<Person> memberList = group1.getMembers();
-        boolean werePromoted = adminList.contains(setOfPeopleToBeAdmin) && memberList.contains(setOfPeopleToAddToGroup);
+        boolean werePromoted = adminList.containsAll(setOfPeopleToBeAdmin) && memberList.containsAll(setOfPeopleToAddToGroup);
 
         //Assert
         assertTrue(werePromoted);
@@ -582,7 +582,7 @@ class GroupTest {
 
         HashSet<Person> adminList = group1.getAdmins();
         HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(setOfPeopleToAddToGroup);
+        boolean wasPromoted = adminList.contains(person1) && memberList.containsAll(setOfPeopleToAddToGroup);
 
         //Assert
         assertTrue(wasPromoted);
