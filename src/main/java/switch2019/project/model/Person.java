@@ -347,6 +347,14 @@ public class Person {
     }
 
     /**
+     * Get function to get CategoryList
+     *
+     * @return categoryList
+     */
+
+    public HashSet<Category> getCategoriesList() { return categoryList.getCategoriesList()};
+
+    /**
      * Get function to get accountsList
      *
      * @return accountsList
