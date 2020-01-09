@@ -97,7 +97,7 @@ class CategoryListTest {
         // Arrange
         // Categories to be included in Category List
         Category categoryBets = new Category("Bets and Games");
-        Category categoryNull = new Category(null);
+        Category categoryNull = null;
         Category categoryBeauty = new Category("Beauty");
 
         CategoryList newCategoryList = new CategoryList();
@@ -198,8 +198,8 @@ class CategoryListTest {
         Category categoryHealth = new Category("Health");
         Category categoryGym = new Category("Gym");
         Category categoryBeauty = new Category("Beauty");
-        Category categoryCar = new Category("Beauty");
-        Category categoryNull = new Category(null);
+        Category categoryCar = new Category("Car");
+        Category categoryNull = null;
         Category categoryUniversity = new Category("University");
 
         CategoryList newCategoryList = new CategoryList();
@@ -227,7 +227,7 @@ class CategoryListTest {
         Category categoryHealth = new Category("Health");
         Category categoryGym = new Category("Gym");
         Category categoryBeauty = new Category("Beauty");
-        Category categoryHealthLowerCase = new Category("Beauty");
+        Category categoryHealthLowerCase = new Category("health");
         Category categoryGymSpecialCharacter = new Category("Gým");
         Category categoryBeautyUpperCase = new Category("BEAUTY");
 
