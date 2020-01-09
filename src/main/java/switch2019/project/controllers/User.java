@@ -87,7 +87,11 @@ public class User {
 
     }
 
-
+    /**
+     * Develop method to create a new Account (USER STORY)
+     *
+     * @return Person
+     */
 
     public Person getPerson() {
         return person.getPerson();
