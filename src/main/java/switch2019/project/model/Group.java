@@ -16,6 +16,7 @@ public class Group {
      * Default Group constructor
      * @param description
      */
+
     public Group (String description){
         setDescription(description);
         startingDate = LocalDate.now();
@@ -84,6 +85,14 @@ public class Group {
      * @return adminsClone
      */
     public HashSet<Person> getAdmins() { return new HashSet<>(this.admins);}
+
+    /**
+     * Group Account List Getter
+     */
+    public AccountsList getGroupAccountsList() {
+        AccountsList groupAccounts = this.groupAccountsList;
+        return groupAccounts;
+    }
 
     /**
      * Add multiple members to Group
