@@ -57,13 +57,16 @@ class GroupTest {
         Person person2 = new Person("Mariana", 1986, 12, 01, new Address("Lisboa"));
         Person person3 = new Person("Marisa", 2000, 8, 27, new Address("Leiria"));
 
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.addMember(person1);
+        group1.addMember(person2);
+        group1.addMember(person3);
+
 
         //Assert
-        assertTrue(group1.getMembers().containsAll(setOfPeopleToAddToGroup));
+        assertTrue(group1.getMembers().containsAll(setOfPeopleToAddToGroup) && group1.getAdmins().size() == 1);
     }
 
     @Test
@@ -220,6 +223,30 @@ class GroupTest {
         //Assert
         assertTrue(group1.getMembers().size() == 1);
     }
+
+    /**
+     * Test if a removed member is also removed from admin
+     */
+    @Test
+    @DisplayName("multiple members")
+    void isRemovedMemberAlsoRemovedFromAdmin(){
+        //Arrange:
+        Group group1 = new Group("Grupo ainda mais fixe que o outro");
+        Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
+        Person person2 = new Person("Gabriel", 1996, 3, 6, new Address("Porto"));
+        Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
+
+        //Act:
+        group1.addMember(person1);
+        group1.addMember(person2);
+        group1.promoteMemberToAdmin(person2);
+        group1.addMember(person3);
+        group1.removeMember(person1);
+
+        //Assert:
+        assertTrue(!group1.getAdmins().contains(person1) && group1.getAdmins().size() == 1);
+    }
+
 
     /**
      * Test if a Group is a family

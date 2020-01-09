@@ -74,7 +74,7 @@ public class Group {
     public void removeMember(Person memberToRemove){
         if (memberToRemove != null) {
             members.remove(memberToRemove);
-            if (admins.contains(memberToRemove)) {
+            if (admins.contains(memberToRemove) && admins.size() > 1) {
                 admins.remove(memberToRemove);
             }
         }
