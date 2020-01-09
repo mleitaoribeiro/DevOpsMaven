@@ -130,7 +130,7 @@ class UserTest {
         //Act
         user1.removeCategoryFromList(category1);
 
-        boolean realResult = user1.getPerson().getCategoriesList().contains(category1)
+        boolean realResult = !user1.getPerson().getCategoriesList().contains(category1)
                 && user1.getPerson().getCategoriesList().contains(category2);
 
         //Assert
@@ -241,8 +241,7 @@ class UserTest {
         //Category - add several categories to the user Category List with method
         user1.addMultipleCategoriesToList(setOfCategories);
 
-        boolean realResult = user1.getPerson().getCategoriesList().containsAll(setOfCategories)
-                && !user1.getPerson().getCategoriesList().contains(categoryNull);
+        boolean realResult = !user1.getPerson().getCategoriesList().contains(categoryNull);
 
         //Assert
         assertTrue(realResult);
@@ -357,8 +356,8 @@ class UserTest {
         Category categoryGym = new Category("Gym");
         Category categoryBeauty = new Category("Beauty");
 
-        Category categoryCar = new Category("Beauty");
-        Category categoryNull = new Category(null);
+        Category categoryCar = new Category("Car");
+        Category categoryNull = null;
         Category categoryUniversity = new Category("University");
 
         //Act
@@ -392,7 +391,7 @@ class UserTest {
         Category categoryGym = new Category("Gym");
         Category categoryBeauty = new Category("Beauty");
 
-        Category categoryHealthLowerCase = new Category("Beauty");
+        Category categoryHealthLowerCase = new Category("health");
         Category categoryGymSpecialCharacter = new Category("Gým");
         Category categoryBeautyUpperCase = new Category("BEAUTY");
 
