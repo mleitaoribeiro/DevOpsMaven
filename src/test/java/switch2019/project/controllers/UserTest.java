@@ -416,12 +416,12 @@ class UserTest {
         user1.createTransaction(amount,description,category,from,to,type);
 
         //Assert
-        //assertEquals(1, user1.getLedger().size());
+        assertEquals(1, user1.getPerson().getLedger().size());
     }
 
     @Test
-    @DisplayName("Test if a transaction was created - no category")
-    void createTransactionNoCategory() {
+    @DisplayName("Test if a transaction was created - category is not in the list")
+    void createTransactionCategoryisNotinTheList() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
         User user1 = new User (person1);
@@ -436,12 +436,12 @@ class UserTest {
         user1.createTransaction(amount,description,category,from,to,type);
 
         //Assert
-        //assertEquals(0, user1.getLedger().size());
+        assertEquals(0, user1.getPerson().getLedger().size());
     }
 
     @Test
-    @DisplayName("Test if a transaction was created - no from account")
-    void createTransactionNoFromAccount() {
+    @DisplayName("Test if a transaction was created - account is not in the list")
+    void createTransactionAccountIsNotInTheList() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
         User user1 = new User (person1);
@@ -456,49 +456,8 @@ class UserTest {
         user1.createTransaction(amount,description,category,from,to,type);
 
         //Assert
-        //assertEquals(0, user1.getLedger().size());
+        assertEquals(0, user1.getPerson().getLedger().size());
     }
-
-    @Test
-    @DisplayName("Test if a transaction was created - no destination account")
-    void createTransactionNoDestinationAccount() {
-        //Arrange
-        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User(person1);
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-        Category category = new Category("Transports");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = null;
-        Type type = new Type(false); //debit
-
-        //Act
-        user1.createTransaction(amount, description, category, from, to, type);
-
-        //Assert
-        //assertEquals(0, user1.getLedger().size());
-    }
-    
-    @Test
-    @DisplayName("Test if a transaction was created - no transaction type")
-            void createTransactionNoTransactionType() {
-        //Arrange
-        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-        Category category = new Category("Transports");
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
-        Type type = null;
-
-        //Act
-        user1.createTransaction(amount,description,category,from,to,type);
-
-        //Assert
-        //assertEquals(0, user1.getLedger().size());
-    }
-
 
 
 
