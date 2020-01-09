@@ -592,20 +592,38 @@ class GroupTest {
      * Check if Account was added to the groups account list
      * Testing getGroupAccountList() to see if account was added to the group´s list
      */
-    @DisplayName("validate if account is in group's account list")
+    @DisplayName("Using .contains() method from the HashSet class")
     @Test
-    void addAccountToGroupListTest() {
+    void addAccountToGroupListTestContains() {
         //Arrange:
         Group group1 = new Group("Test Group");
         Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        group1.getGroupAccountsList().addAccountToAccountsList(groupAccount);
-        boolean result = group1.getGroupAccountsList().accountsListContains(groupAccount);
+        group1.addAccountToGroupAccountList(groupAccount);
+        boolean result = group1.getGroupAccountsList().contains(groupAccount);
 
         //Assert
         assertTrue(result);
     }
+
+    @DisplayName("Using .size() method from the HashSet class")
+    @Test
+    void addAccountToGroupListTestSize() {
+        //Arrange
+        Group group1 = new Group("Test Group");
+        Account groupAccount = new Account("Group Account Test","group account");
+        Account groupAccount2 = new Account("Group Account Test 2", "group account");
+
+        //Act
+        group1.addAccountToGroupAccountList(groupAccount);
+        group1.addAccountToGroupAccountList(groupAccount2);
+        int result = group1.getGroupAccountsList().size();
+
+        //Assert
+        assertEquals(2,result);
+    }
+
 
 
 }
