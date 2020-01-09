@@ -18,7 +18,6 @@ public class User {
         this.person = person;
     }
 
-
     /**
      * Add a new category to CategoryList
      *

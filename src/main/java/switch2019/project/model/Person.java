@@ -56,6 +56,9 @@ public class Person {
         this.mother = mother;
         this.father = father;
         siblingList = new HashSet<>();
+        categoryList = new CategoryList();
+        accountsList = new AccountsList();
+        ledger = new Ledger();
     }
 
     /**
@@ -301,6 +304,16 @@ public class Person {
     }
 
     /**
+     * Get function to get ledger
+     *
+     * @return ledger
+     */
+
+    public HashSet<Transaction> getledger() {
+        return ledger.getLedger();
+    }
+
+    /**
      *
      * Develop method to create a new transaction (USER STORY)
      * @param amount
@@ -314,5 +327,10 @@ public class Person {
     public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
         ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
     }
+
+    public void createAccount (String accountDenomination, String accountDescription) {
+        accountsList.addAccountToAccountsList(new Account(accountDenomination,accountDescription));
+    }
 }
+
 

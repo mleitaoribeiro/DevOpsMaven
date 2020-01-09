@@ -10,17 +10,18 @@ public class Group {
     private LocalDate startingDate;
     private HashSet<Person> members;
     private HashSet<Person> admins;
-    private AccountsList accountsList;
+    private AccountsList groupAccountsList;
 
     /**
      * Default Group constructor
      * @param description
      */
-
     public Group (String description){
         setDescription(description);
         startingDate = LocalDate.now();
         members = new HashSet<>();
+        admins = new HashSet<>();
+        groupAccountsList = new AccountsList();
     }
 
     /**
