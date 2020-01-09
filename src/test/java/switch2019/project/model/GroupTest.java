@@ -613,13 +613,15 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Test Group");
         Account groupAccount = new Account("Group Account Test","group account");
+        Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
         group1.addAccountToGroupAccountList(groupAccount);
+        group1.addAccountToGroupAccountList(groupAccount2);
         int result = group1.getGroupAccountsList().size();
 
         //Assert
-        assertEquals(1,result);
+        assertEquals(2,result);
     }
 
 
