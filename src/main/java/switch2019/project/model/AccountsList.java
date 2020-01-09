@@ -73,7 +73,8 @@ public class AccountsList {
      * method to remove one account from a list
      */
     public void removeOneAccountFromAList (Account accountToBeRemoved){
-
+        if (accountToBeRemoved != null)
+        accounts.remove(accountToBeRemoved);
     }
 
     /**
