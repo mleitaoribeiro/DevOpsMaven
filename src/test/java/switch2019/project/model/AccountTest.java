@@ -45,7 +45,7 @@ class AccountTest {
     void setDenomination() {
         //Arrange
         Account toPay = new Account("Bills", "pay every 8th");
-        String expected = "Water bill";
+        String expected = "WATER BILL";
         //Act
         toPay.setDenomination("Water bill");
         //Assert

@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import java.text.Normalizer;
 import java.util.Objects;
 
 public class Account {
@@ -29,15 +30,42 @@ public class Account {
 
     /**
      * Public set for denomination: Can not be Null.
-     * @param denomination
+     * @param newDenomination
      */
 
-    public void setDenomination (String denomination) {
-        if (denomination == null) {
+    public void setDenomination (String newDenomination) {
+        if (newDenomination == null) {
             throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
         } else {
-            this.denomination = denomination;
+            newDenomination = removeWordAccents(newDenomination);
+            newDenomination = removeSpecialCharacters(newDenomination);
+            this.denomination = newDenomination.toUpperCase();
         }
+    }
+
+    //Auxiliary method to remove word accents
+    private static String removeWordAccents(String sentence) {
+        sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
+        sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
+        return sentence;
+    }
+
+    //Auxiliary method to remove special Characters
+    private static String removeSpecialCharacters(String sentence) {
+
+        if (sentence == null || sentence.length () == 0)
+            return sentence;
+
+        String [] str = sentence.split ("[, &´#!%()`>?+.<@;-]+");
+        StringBuilder buildNewStringArray = new StringBuilder();
+
+        for (String element : str) {
+            String word = element;
+            buildNewStringArray.append(" ").append(word);
+        }
+        String newSentence = buildNewStringArray.toString().replaceFirst(" ", "");
+        return newSentence;
     }
 
     /**
