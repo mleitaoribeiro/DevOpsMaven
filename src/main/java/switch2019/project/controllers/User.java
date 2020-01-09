@@ -59,7 +59,7 @@ public class User {
     }
 
     /**
-     * Remove multiple categories from CategoryList
+     * Develop method to create a new transaction (USER STORY)
      *
      * @param amount
      * @param description
