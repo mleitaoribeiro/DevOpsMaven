@@ -348,6 +348,34 @@ public class Person {
     }
 
     /**
+     * Remove a category from CategoryList
+     *
+     * @param nameOfcategory
+     */
+    public void removeCategoryFromList(Category nameOfcategory){
+        categoryList.removeCategoryFromList(nameOfcategory);
+    }
+
+    /**
+     * Add multiple categories to CategoryList
+     *
+     * @param categories<Category> categories
+     */
+
+    public void addMultipleCategoriesToList(HashSet<Category> categories){
+        categoryList.addMultipleCategoriesToList(categories);
+    }
+
+    /**
+     * Remove multiple categories from CategoryList
+     *
+     * @param categories<Category> categories
+     */
+    public void removeMultipleCategoriesToList(HashSet<Category> categories){
+        categoryList.removeMultipleCategoriesToList(categories);
+    }
+
+    /**
      * Get function to get CategoryList
      *
      * @return categoryList
