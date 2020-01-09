@@ -15,7 +15,6 @@ public class CategoryList {
         categories = new HashSet<Category>();
     }
 
-
     /**
      * Method get the category List.
      * @return categoryList Clone
@@ -26,21 +25,6 @@ public class CategoryList {
 
     }
 
-    /**
-     * Method to check the number of Categories inside the list.
-     */
-
-    public int howManyCategories() {
-       return this.categories.size();
-    }
-
-    /**
-     * Method to check if a Category already exists in List;
-     */
-
-    public boolean categoryListContains(Category aCategory) {
-        return this.categories.contains(aCategory);
-    }
     /**
      *Develop @override of equals for Category List and @override of hashcode
      */
@@ -75,7 +59,7 @@ public class CategoryList {
      */
 
     public void removeCategoryFromList(Category categoryToRemove){
-        if( categoryToRemove != null && categoryListContains(categoryToRemove))
+        if( categoryToRemove != null)
             categories.remove(categoryToRemove);
     }
     /**
@@ -91,12 +75,12 @@ public class CategoryList {
 
     }
 
-
     /**
      * Remove multiple categories from CategoryList
      *
      * @param categories<Category> categories
      */
+
     public void removeMultipleCategoriesToList(HashSet<Category> categories){
         for (Category category : categories) {
             this.removeCategoryFromList(category);
