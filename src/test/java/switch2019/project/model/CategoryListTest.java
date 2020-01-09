@@ -28,8 +28,9 @@ class CategoryListTest {
         oneCategoryList.addMultipleCategoriesToList(setOfCategories);
         otherCategoryList.addMultipleCategoriesToList(setOfCategories);
 
+        boolean realResult = oneCategoryList.getCategoriesList().equals(oneCategoryList.getCategoriesList());
         //Assert
-        assertEquals(oneCategoryList.getCategoriesList(), otherCategoryList.getCategoriesList());
+        assertTrue(realResult);
     }
 
     @Test
