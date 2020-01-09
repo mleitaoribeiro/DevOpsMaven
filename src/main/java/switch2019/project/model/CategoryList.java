@@ -36,7 +36,9 @@ public class CategoryList {
      * Method to check if a Category already exists in List;
      */
 
-    public boolean categoryListContains(Category aCategory) {return true;}
+    public boolean categoryListContains(Category aCategory) {
+        return this.categories.contains(aCategory);
+    }
     /**
      *Develop @override of equals for Category List and @override of hashcode
      */
