@@ -19,7 +19,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Category to be included in Category List
@@ -42,7 +42,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Category to be included in Category List
@@ -64,7 +64,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -89,7 +89,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -113,7 +113,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -138,7 +138,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         //Categories to be included in Category List
@@ -163,7 +163,7 @@ class UserTest {
         //Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         // Categories to be included in Category List
@@ -188,7 +188,7 @@ class UserTest {
         // Arrange
 
         //Initialize user
-        Person person1 = new Person("Alexandre", 4, 3, 1996, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         User user1 = new User(person1);
 
         // Categories to be included in Category List

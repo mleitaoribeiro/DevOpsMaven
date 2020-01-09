@@ -510,7 +510,7 @@ class GroupTest {
 
         HashSet<Person> adminList = group1.getAdmins();
         HashSet<Person> memberList = group1.getMembers();
-        boolean membersWerePromoted = adminList.contains(setOfPeopleToAddToGroup) && memberList.contains(setOfPeopleToAddToGroup);
+        boolean membersWerePromoted = adminList.containsAll(setOfPeopleToAddToGroup) && memberList.containsAll(setOfPeopleToAddToGroup);
 
         //Assert
         assertTrue(membersWerePromoted);
@@ -536,7 +536,7 @@ class GroupTest {
 
         HashSet<Person> adminList = group1.getAdmins();
         HashSet<Person> memberList = group1.getMembers();
-        boolean werePromoted = adminList.contains(setOfPeopleToBeAdmin) && memberList.contains(setOfPeopleToAddToGroup);
+        boolean werePromoted = adminList.containsAll(setOfPeopleToBeAdmin) && memberList.containsAll(setOfPeopleToAddToGroup);
 
         //Assert
         assertTrue(werePromoted);
@@ -582,7 +582,7 @@ class GroupTest {
 
         HashSet<Person> adminList = group1.getAdmins();
         HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(setOfPeopleToAddToGroup);
+        boolean wasPromoted = adminList.contains(person1) && memberList.containsAll(setOfPeopleToAddToGroup);
 
         //Assert
         assertTrue(wasPromoted);
@@ -592,20 +592,38 @@ class GroupTest {
      * Check if Account was added to the groups account list
      * Testing getGroupAccountList() to see if account was added to the group´s list
      */
-    @DisplayName("validate if account is in group's account list")
+    @DisplayName("Using .contains() method from the HashSet class")
     @Test
-    void addAccountToGroupListTest() {
+    void addAccountToGroupListTestContains() {
         //Arrange:
         Group group1 = new Group("Test Group");
         Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        group1.getGroupAccountsList().addAccountToAccountsList(groupAccount);
-        boolean result = group1.getGroupAccountsList().accountsListContains(groupAccount);
+        group1.addAccountToGroupAccountList(groupAccount);
+        boolean result = group1.getGroupAccountsList().contains(groupAccount);
 
         //Assert
         assertTrue(result);
     }
+
+    @DisplayName("Using .size() method from the HashSet class")
+    @Test
+    void addAccountToGroupListTestSize() {
+        //Arrange
+        Group group1 = new Group("Test Group");
+        Account groupAccount = new Account("Group Account Test","group account");
+        Account groupAccount2 = new Account("Group Account Test 2", "group account");
+
+        //Act
+        group1.addAccountToGroupAccountList(groupAccount);
+        group1.addAccountToGroupAccountList(groupAccount2);
+        int result = group1.getGroupAccountsList().size();
+
+        //Assert
+        assertEquals(2,result);
+    }
+
 
 
 }
