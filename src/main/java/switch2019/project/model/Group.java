@@ -89,9 +89,16 @@ public class Group {
     /**
      * Group Account List Getter
      */
-    public AccountsList getGroupAccountsList() {
-        AccountsList groupAccounts = this.groupAccountsList;
-        return groupAccounts;
+    public HashSet<Account> getGroupAccountsList() {
+        return groupAccountsList.getAccountsList();
+
+    }
+
+    /**
+     * Add member to Group´s Account List
+     */
+    public void addAccountToGroupAccountList(Account account1){
+        this.groupAccountsList.addAccountToAccountsList(account1);
     }
 
     /**
