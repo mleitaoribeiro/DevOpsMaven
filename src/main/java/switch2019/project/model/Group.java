@@ -167,6 +167,9 @@ public class Group {
      * @param multipleMembers
      */
     public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
+        for (Person member:multipleMembers){
+            promoteMemberToAdmin(member);
+        }
     }
 
     /**

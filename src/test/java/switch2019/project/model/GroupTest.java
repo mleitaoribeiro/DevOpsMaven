@@ -623,8 +623,5 @@ class GroupTest {
         //Assert
         assertEquals(2,result);
     }
-
-
-
 }
 
