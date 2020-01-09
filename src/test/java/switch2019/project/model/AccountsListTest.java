@@ -225,13 +225,13 @@ class AccountsListTest {
         Account market=new Account ("Market","Mercado do Amadeu");
         Account post=new Account("Post","Correios do Amadeu");
 
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market,post));
-
+        HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
+        HashSet<Account> expected =new HashSet<>(Arrays.asList(market,post));
 
         AccountsList september = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(expected);
+        september.addSeveralAccountsToAList(created);
         september.removeOneAccountFromAList(butcher);
 
         //Assert
@@ -267,13 +267,14 @@ class AccountsListTest {
         Account market=new Account ("Market","Mercado do Amadeu");
         Account post=null;
 
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market,post));
+        HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
+        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
 
 
         AccountsList september = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(expected);
+        september.addSeveralAccountsToAList(created);
         september.removeOneAccountFromAList(post);
 
         //Assert

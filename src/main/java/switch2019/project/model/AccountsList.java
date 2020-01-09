@@ -80,7 +80,9 @@ public class AccountsList {
     /**
      * method to remove several accounts from a list
      */
-    public void removeSeveralAccountsFromAList (HashSet<Account> AccountsToBeRemoved) {
+    public void removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
+        for (Account account : accountsToBeRemoved)
+            removeOneAccountFromAList(account);
 
     }
 
