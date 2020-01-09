@@ -408,8 +408,14 @@ class UserTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("Transports");
+        user1.addCategoryToList (category);
+
         Account from = new Account("Wallet","General expenses");
         Account to = new Account("TransportAccount","Transport expenses");
+
+        user1.getPerson().createAccount("Wallet","General expenses");
+        user1.getPerson().createAccount("TransportAccount","Transport expenses");
+
         Type type = new Type(false); //debit
 
         //Act
