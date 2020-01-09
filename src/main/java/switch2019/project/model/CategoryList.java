@@ -22,7 +22,6 @@ public class CategoryList {
 
     public HashSet<Category> getCategoriesList(){
         return new HashSet<>(categories);
-
     }
 
     /**
