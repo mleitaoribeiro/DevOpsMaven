@@ -26,7 +26,6 @@ public class CategoryList {
 
     }
 
-
     /**
      * Method to check the number of Categories inside the list.
      */
@@ -55,5 +54,25 @@ public class CategoryList {
         return Objects.hash(categories);
     }
 
+    /**
+     * Add a new category to CategoryList
+     *
+     * @param newCategory
+     */
 
+    public void addCategoryToCategoryList(Category newCategory) {
+        if(newCategory != null)
+            categories.add(newCategory);
+    }
+
+    /**
+     * Remove a category from CategoryList
+     *
+     * @param categoryToRemove
+     */
+
+    public void removeCategoryFromList(Category categoryToRemove){
+        if( categoryToRemove != null && categoryListContains(categoryToRemove))
+            categories.remove(categoryToRemove);
+    }
 }
