@@ -12,49 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryListTest {
 
     @Test
-    @DisplayName("Check the size of the categories List - Main Scenario")
-    void howManyCategories_differentCategories() {
-        //Arrange
-        Category categoryHealth = new Category("Health");
-        Category categoryEducation = new Category("Education");
-        Category categoryGym = new Category("Gym");
-
-        CategoryList newCategoryList = new CategoryList();
-        int expectedNumberOfCategories = 3;
-
-        //Act
-        newCategoryList.addCategoryToCategoryList(categoryHealth);
-        newCategoryList.addCategoryToCategoryList(categoryEducation);
-        newCategoryList.addCategoryToCategoryList(categoryGym);
-
-        int realNumberOfCategories = newCategoryList.howManyCategories();
-
-        //Assert
-        assertEquals(expectedNumberOfCategories, realNumberOfCategories);
-    }
-
-    @Test
-    @DisplayName("Check the size of the categories List - trying to add an already existing category - Main Scenario")
-    void howManyCategories_sameCategories() {
-        //Arrange
-        Category categoryHealth = new Category("Health");
-        Category categoryEducation = new Category("Education");
-
-        CategoryList newCategoryList = new CategoryList();
-        int expectedNumberOfCategories = 2;
-
-        //Act
-        newCategoryList.addCategoryToCategoryList(categoryHealth);
-        newCategoryList.addCategoryToCategoryList(categoryEducation);
-        newCategoryList.addCategoryToCategoryList(categoryEducation);
-
-        int realNumberOfCategories = newCategoryList.howManyCategories();
-
-        //Assert
-        assertEquals(expectedNumberOfCategories, realNumberOfCategories);
-    }
-
-    @Test
     void categoryListContains() {
     }
 
