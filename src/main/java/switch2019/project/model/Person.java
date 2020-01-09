@@ -343,7 +343,7 @@ public class Person {
      * @param nameOfCategory
      */
 
-    public void addCategoryToList (Category nameOfCategory) {
+    public void addCategoryToCategoryList(Category nameOfCategory) {
         categoryList.addCategoryToCategoryList(nameOfCategory);
     }
 
