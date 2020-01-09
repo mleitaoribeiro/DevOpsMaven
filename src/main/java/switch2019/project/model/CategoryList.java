@@ -85,6 +85,9 @@ public class CategoryList {
      */
 
     public void addMultipleCategoriesToList(HashSet<Category> categories){
+        for (Category category : categories) {
+                this.addCategoryToCategoryList(category);
+            }
 
     }
 
@@ -95,6 +98,9 @@ public class CategoryList {
      * @param categories<Category> categories
      */
     public void removeMultipleCategoriesToList(HashSet<Category> categories){
+        for (Category category : categories) {
+            this.removeCategoryFromList(category);
+        }
 
     }
 }

@@ -26,12 +26,12 @@ public class Category {
         if (newCategory == null) {
             throw new IllegalArgumentException ("The category description is not valid or it's missing. Please try again.");
         } else {
-            newCategory = removerAcentos(newCategory);
+            newCategory = removeAccents(newCategory);
             nameOfCategory = newCategory.toUpperCase();
         }
     }
 
-    private String removerAcentos(String texto) {
+    private String removeAccents(String texto) {
         texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 
