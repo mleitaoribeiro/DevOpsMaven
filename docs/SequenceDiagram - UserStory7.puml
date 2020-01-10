@@ -1,55 +1,37 @@
 @startuml
 
-actor userGroupAdmin
+create ":Test"
 
-userGroupAdmin -> "person1:Person" : request account creation
-activate "person1:Person" #FFBBBB
+== Arrange ==
 
-"person1:Person" -> "group1:Group" : getAdmins
-activate "group1:Group"  #FFBBBB
+create "group1:Group"
+":Test" -> "group1:Group" : new Group
+activate "group1:Group" #FFBBBB
 
-"group1:Group" -> "groupList1:GroupList" : getGroupsList
-activate "groupList1:GroupList"  #FFBBBB
+create "account1:Account"
+create "accountList1:AccountsList"
+"group1:Group" -> "accountList1:AccountsList" : new AccountsList
 
-"groupList1:GroupList" -> "group1:Group" : returnGroupsList
-deactivate "groupList1:GroupList"
+== Act ==
 
-"group1:Group"-> "group1:Group" : selectGroup
+create "account1:Account"
+"group1:Group" -> "account1:Account" : createGroupAccount(denomination, description)
+activate "account1:Account" #FFBBBB
 
-"person1:Person" <- "group1:Group" : returnAdmins
-deactivate "group1:Group"  #FFBBBB
+"account1:Account" -> "accountList1:AccountsList" : addAccountToGroupAccountsList
+activate "accountList1:AccountsList" #FFBBBB
 
-"person1:Person" -> "person1:Person" : validateUserGroupAdmin
+"accountList1:AccountsList" -> "account1:Account" : accountCreated
+deactivate "accountList1:AccountsList" #FFBBBB
 
-alt userGroupAdmin is on group.admins
+"account1:Account" -> "group1:Group" : accountCreated
+deactivate "account1:Account" #FFBBBB
 
-    "person1:Person" -> "group1:Group" : createGroupAccount
-    activate "group1:Group" #FFBBBB
+"group1:Group" -> ":Test" : accountCreated
+deactivate "group1:Group" #FFBBBB
 
-    "group1:Group" -> "account1:Account" : new Account (denomination, description)
-    activate "account1:Account" #FFBBBB
+== Assert ==
 
-    "account1:Account" -> "accountList1:AccountsList" : addAccountToGroupAccountsList
-    activate "accountList1:AccountsList" #FFBBBB
-
-    "accountList1:AccountsList" -> "account1:Account" : accountCreated
-    deactivate "accountList1:AccountsList" #FFBBBB
-
-    "account1:Account" -> "group1:Group" : accountCreated
-    deactivate "account1:Account" #FFBBBB
-
-    "group1:Group" -> "person1:Person" : accountCreated
-    deactivate "group1:Group"
-
-    "person1:Person" -> userGroupAdmin : accountCreated
-    deactivate "person1:Person"
-
-else userGroupAdmin is not on group.admins
-
-    activate "group1:Group" #FFBBBB
-	"group1:Group" -> userGroupAdmin : failed account creation
-	deactivate "group1:Group" #FFBBBB
-
-end
+":Test" -> ":Test" : assertTrue(accountCreated)
 
 @enduml
