@@ -101,7 +101,7 @@ public class User {
      * @param group1
      */
     public void createGroupAccount (String accountDenomination, String accountDescription, Group group1) {
-        person.createGroupAccount(accountDenomination, accountDescription, group1);
+        group1.createGroupAccount(accountDenomination, accountDescription);
     }
 
     /**

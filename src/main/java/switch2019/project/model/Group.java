@@ -196,6 +196,16 @@ public class Group {
         }
 
     }
+
+
+    /**
+     * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
+     * @param accountDenomination
+     * @param accountDescription
+     */
+    public void createGroupAccount (String accountDenomination, String accountDescription) {
+        this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
+    }
 }
 
 

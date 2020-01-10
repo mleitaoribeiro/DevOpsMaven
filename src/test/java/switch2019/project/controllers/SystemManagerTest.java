@@ -244,37 +244,4 @@ class SystemManagerTest {
         assertFalse(group1.getMembers().contains(person3));
     }
 
-    /**
-     * Test if a member added to the group is automatically promoted to admin if the group is empty
-     */
-    @Test
-    @DisplayName("True - member added to an empty group")
-    void promoteAddedMemberIfEmptyTrue() {
-        //Arrange
-        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
-        Group group1 = new Group("Group with no members");
-
-        //Act
-        group1.addMember(person1);
-
-        //Assert
-        assertTrue(group1.getMembers().contains(person1) && group1.getAdmins().contains(person1));
-    }
-
-    @Test
-    @DisplayName("False - member added to a non empty group")
-    void promoteAddedMemberIfEmptyTestFalse() {
-        //Arrange
-        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
-        Person person2 = new Person("Pablo", 1978,5,16,new Address("Madrid"));
-        Group group1 = new Group("Group with no members");
-
-        //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
-
-        //Assert
-        assertTrue(group1.getMembers().contains(person2) && !group1.getAdmins().contains(person2));
-    }
-
 }

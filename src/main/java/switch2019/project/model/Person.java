@@ -339,22 +339,10 @@ public class Person {
     }
 
     /**
-     * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
-     * @param accountDenomination
-     * @param accountDescription
-     */
-    public void createGroupAccount (String accountDenomination, String accountDescription, Group group1) {
-        if (group1.getAdmins().contains(this)) {
-            group1.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
-        }
-    }
-
-    /**
      *
      * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.
      * @param nameOfCategory
      */
-
     public void addCategoryToCategoryList(Category nameOfCategory) {
         categoryList.addCategoryToCategoryList(nameOfCategory);
     }
@@ -373,7 +361,6 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-
     public void addMultipleCategoriesToList(HashSet<Category> categories){
         categoryList.addMultipleCategoriesToList(categories);
     }
@@ -392,7 +379,6 @@ public class Person {
      *
      * @return categoryList
      */
-
     public HashSet<Category> getCategoriesList() {
         return categoryList.getCategoriesList();
     }
@@ -402,7 +388,6 @@ public class Person {
      *
      * @return accountsList
      */
-
     public HashSet<Account> getAccountsList() {
         return accountsList.getAccountsList();
     }
@@ -412,7 +397,6 @@ public class Person {
      *
      * @return Person
      */
-
     public Person getPerson() {
         Person copy = new Person(name, birthDate.getYear(), birthDate.getMonthValue(), birthDate.getDayOfMonth(), birthPlace, mother, father);
         copy.siblingList = getSiblingList();

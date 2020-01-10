@@ -280,7 +280,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Validate if multiple siblings were removed from a siblings list - multiple remaining")
-    void validateMultipleSiblingRemoval2() {
+    void validateMultipleSiblingRemovalMultipleRemaining() {
         //Arrange
         Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"));
         Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
@@ -301,7 +301,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Validate if multiple siblings were removed from a siblings list - not contains exact ones")
-    void validateMultipleSiblingRemoval_not_contains_exact_ones() {
+    void validateMultipleSiblingRemovalNotContainsExactOnes() {
         //Arrange
         Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"));
         Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
