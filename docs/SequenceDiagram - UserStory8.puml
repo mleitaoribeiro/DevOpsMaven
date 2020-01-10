@@ -4,4 +4,22 @@ actor user
 user -> "person1:Person" : request transaction creation
 activate "person1:Person" #FFBBBB
 
+"person1:Person" -> "cat1:CategoryList" : request list of categories
+activate "cat1:CategoryList"  #FFBBBB
+
+"cat1:CategoryList" <- "person1:Person" : return list of categories
+deactivate "cat1:CategoryList"  #FFBBBB
+
+"person1:Person" -> "person1:Person" : cat = selected category from the list
+
+"person1:Person" -> "acc1:AccountsList" : request list of accounts
+activate "acc1:AccountsList"  #FFBBBB
+
+"acc1:AccountsList" <- "person1:Person" : return list of accounts
+deactivate "acc1:AccountsList"  #FFBBBB
+
+"person1:Person" -> "person1:Person" : debitAcc = selected debit account from the list
+
+"person1:Person" -> "person1:Person" : creditAcc = selected credit account from the list
+
 @enduml
