@@ -40,10 +40,9 @@ public class AccountsList {
     /**
      * method to add one account to the list
      */
-    public boolean addAccountToAccountsList (Account oneAccount) {
+    public void addAccountToAccountsList (Account oneAccount) {
         if (oneAccount!=null)
-            return accounts.add(oneAccount);
-        return false;
+           accounts.add(oneAccount);
     }
 
     /**
