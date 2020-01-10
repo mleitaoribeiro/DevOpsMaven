@@ -1,7 +1,7 @@
 @startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor user
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+user -> "person1:Person" : request transaction creation
+activate "person1:Person" #FFBBBB
+
 @enduml
