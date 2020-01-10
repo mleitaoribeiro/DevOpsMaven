@@ -86,6 +86,16 @@ public class User {
     }
 
     /**
+     * Develop method to create a new Account to the group (USER STORY 7)
+     * @param accountDenomination
+     * @param accountDescription
+     * @param group1
+     */
+    public void createGroupAccount (String accountDenomination, String accountDescription, Group group1) {
+        person.createGroupAccount(accountDenomination, accountDescription, group1);
+    }
+
+    /**
      * Develop method to create a new Account (USER STORY)
      *
      * @return Person
