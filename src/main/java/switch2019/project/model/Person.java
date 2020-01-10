@@ -331,6 +331,7 @@ public class Person {
     /**
      *
      * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
+     * @param accountDenomination
      * @param accountDescription
      */
     public void createAccount (String accountDenomination, String accountDescription) {
