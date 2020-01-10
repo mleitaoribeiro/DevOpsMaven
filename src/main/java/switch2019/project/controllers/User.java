@@ -74,7 +74,11 @@ public class User {
     }
 
     /**
-     * Develop method to create a new Account (USER STORY)
+     * Develop method to create a new Account | USER STORY - 06:
+     *
+     * As a user, I want to create an account for myself by
+     * giving it a name and description so that
+     * it can later be used in my movements.
      *
      * @param accountDenomination
      * @param accountDescription
