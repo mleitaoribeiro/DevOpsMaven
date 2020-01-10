@@ -59,7 +59,12 @@ public class User {
     }
 
     /**
-     * Develop method to create a new transaction (USER STORY)
+     * Develop method to create a new transaction | USER STORY - 08:
+     * 
+     * As a user I want to create a transaction
+     * giving it a monetary value, a date (current, by default),
+     * a description, a category,
+     * a credit account and a debit account.
      *
      * @param amount
      * @param description
@@ -100,7 +105,7 @@ public class User {
     }
 
     /**
-     * Develop method to create a new Account (USER STORY)
+     * Develop method to get a copy of the person
      *
      * @return Person
      */

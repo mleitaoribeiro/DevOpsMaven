@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
 
@@ -31,7 +32,7 @@ public class Transaction {
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.type = type;
-        date = LocalDateTime.now();
+        setDate();
     }
 
 
@@ -43,5 +44,18 @@ public class Transaction {
 
     public boolean isAValidTransaction() {
         return amount != null && description != null && category != null && accountFrom != null && accountTo != null && type != null;
+    }
+
+    /**
+     * Set and format date
+     */
+
+    public void setDate() {
+        LocalDateTime dateNow = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        date = LocalDateTime.parse(dateNow.format(formatter), formatter);
+
+        // for the future to return a date without the 'T' in the middle
+        // System.out.println("STRING: " + date.format(formatter));
     }
 }
