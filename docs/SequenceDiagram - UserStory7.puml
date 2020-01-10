@@ -23,24 +23,33 @@ deactivate "group1:Group"  #FFBBBB
 
 alt userGroupAdmin is on group.admins
 
-    "person1:Person" -> "account1:Account" : createAccount (denomination, description, balance)
+    "person1:Person" -> "group1:Group" : createGroupAccount
+    activate "group1:Group" #FFBBBB
+
+    "group1:Group" -> "account1:Account" : new Account (denomination, description)
     activate "account1:Account" #FFBBBB
 
-    "account1:Account" -> "accountList1:AccountsList" : addAccountToAccountsList
+    "account1:Account" -> "accountList1:AccountsList" : addAccountToGroupAccountsList
     activate "accountList1:AccountsList" #FFBBBB
 
-    "account1:Account" <- "accountList1:AccountsList" : accountAddedToAccountsList
+    "accountList1:AccountsList" -> "account1:Account" : accountCreated
     deactivate "accountList1:AccountsList" #FFBBBB
 
-    "account1:Account" -> "person1:Person" : accountCreated
-    deactivate "account1:Account"
+    "account1:Account" -> "group1:Group" : accountCreated
+    deactivate "account1:Account" #FFBBBB
+
+    "group1:Group" -> "person1:Person" : accountCreated
+    deactivate "group1:Group"
+    deactivate "person1:Person"
 
     "person1:Person" -> userGroupAdmin : accountCreated
     deactivate "person1:Person"
 
 else userGroupAdmin is not on group.admins
 
+    activate "group1:Group" #FFBBBB
 	"group1:Group" -> userGroupAdmin : failed account creation
+	deactivate "group1:Group" #FFBBBB
 
 end
 

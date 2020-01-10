@@ -105,7 +105,7 @@ public class Group {
     }
 
     /**
-     * Add member to Group´s Account List
+     * Add account to Group´s Account List
      */
     public void addAccountToGroupAccountList(Account account1){
         this.groupAccountsList.addAccountToAccountsList(account1);
