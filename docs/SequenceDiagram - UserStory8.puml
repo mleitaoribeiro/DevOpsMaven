@@ -1,0 +1,70 @@
+@startuml
+actor user
+
+'-----interaction User-Person:-------'
+user -> "person1:Person" : request transaction creation (date,description)
+activate "person1:Person" #FFBBBB
+
+'-----interaction Person-CategoryList:-------'
+"person1:Person" -> "cat1:CategoryList" : request list of categories
+activate "cat1:CategoryList"  #FFBBBB
+
+"cat1:CategoryList" <- "person1:Person" : return list of categories
+deactivate "cat1:CategoryList"  #FFBBBB
+
+"person1:Person" -> "person1:Person" : cat = selected category from the list
+
+'-----interaction Person-AccountsList:-------'
+
+"person1:Person" -> "acc1:AccountsList" : request list of accounts
+activate "acc1:AccountsList"  #FFBBBB
+
+"acc1:AccountsList" <- "person1:Person" : return list of accounts
+deactivate "acc1:AccountsList"  #FFBBBB
+
+"person1:Person" -> "person1:Person" : accountFrom = selected account to receive credit
+
+"person1:Person" -> "person1:Person" : accountTo = selected account to receive debit
+
+'-----interaction Person-MonetaryValue:-------'
+
+"person1:Person" -> "amount1:MonetaryValue" : request amount value
+activate "amount1:MonetaryValue"  #FFBBBB
+
+"amount1:MonetaryValue" <- "person1:Person" : return monetary value
+deactivate "amount1:MonetaryValue"  #FFBBBB
+
+"person1:Person" -> "person1:Person" : amount = returned monetary value
+
+'-----interaction Person-Type (credit or debit account)-------'
+
+"person1:Person" -> "type1:Type" : select type of account
+activate "type1:Type"  #FFBBBB
+
+"type1:Type" <- "person1:Person" : return type1 = type of account (debit or credit)
+deactivate "type1:Type"  #FFBBBB
+
+'-----interaction Person-Transaction-------'
+
+"person1:Person" -> "mov1:Transaction" : transaction creation (amount, description, category, accountFrom, accountTo, type)
+activate "mov1:Transaction"  #FFBBBB
+
+'-----interaction Transaction-Ledger-------'
+
+"mov1:Transaction" -> "ledg1:Legder" : register transaction (amount, description, category, accountFrom, accountTo, type)
+activate "ledg1:Legder"  #FFBBBB
+
+"ledg1:Legder" <- "mov1:Transaction" : return registered transaction
+deactivate "ledg1:Legder"  #FFBBBB
+
+'-----interaction Transaction-Person-------'
+
+"mov1:Transaction" <- "person1:Person" : return created transaction
+deactivate "mov1:Transaction"  #FFBBBB
+
+'-----interaction Person-User-------'
+
+"person1:Person" <- user : return created transaction
+deactivate "mov1:Transaction"  #FFBBBB
+
+@enduml
