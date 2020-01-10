@@ -40,7 +40,6 @@ alt userGroupAdmin is on group.admins
 
     "group1:Group" -> "person1:Person" : accountCreated
     deactivate "group1:Group"
-    deactivate "person1:Person"
 
     "person1:Person" -> userGroupAdmin : accountCreated
     deactivate "person1:Person"
