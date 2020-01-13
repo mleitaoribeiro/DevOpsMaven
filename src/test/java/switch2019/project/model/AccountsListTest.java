@@ -30,22 +30,21 @@ class AccountsListTest {
 
 
     @Test
-    @DisplayName("Test if the account was added to the list - the account added is not in the list")
+    @DisplayName("Test if the account was added to the list - only one account added")
     public void testAccountIsInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
         Account otherAccount = new Account ("xyz", "general");
 
-        HashSet <Account> expected = new HashSet<>(Collections.singleton(oneAccount));
-
         AccountsList accountsList = new AccountsList();
 
         //Act
         accountsList.addAccountToAccountsList(otherAccount);
-        int real = accountsList.numberOfAccountsInTheAccountsList();
+        boolean real = !accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
+                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
         //Assert
-        assertNotEquals(0, real);
+        assertTrue(real);
     }
 
     @Test
@@ -369,10 +368,10 @@ class AccountsListTest {
         oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
         oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
 
-        boolean real = oneAccountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
+        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
 
         //Arrange
-        assertFalse(real);
+        assertEquals(2,real);
 
     }
 
