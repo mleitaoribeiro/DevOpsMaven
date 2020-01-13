@@ -18,11 +18,11 @@ public class MonetaryValue {
     }
 
     /**
-     * Validate PositiveAmount
+     * Validate if amount is positive
      *
-     * @return true
+     * @return true if amount is positive or false if it's not
      */
     public boolean validateIfAmountIsPositive() {
-        return true;
+        return this.amount>0;
     }
 }
