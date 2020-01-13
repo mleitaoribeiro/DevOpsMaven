@@ -26,11 +26,12 @@ class GroupTest {
         Group group1 = new Group("OsMaisFixes");
 
         //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
+        boolean areMembersAddedToGroup = (
+            group1.addMember(person1) &&
+            group1.addMember(person2));
 
         //Assert
-        assertTrue(group1.getMembers().containsAll(setOfMembers) && group1.getAdmins().contains(person1));
+        assertTrue(areMembersAddedToGroup);
     }
 
     @Test
@@ -42,10 +43,10 @@ class GroupTest {
         Group group1 = new Group("OsMaisFixes");
 
         //Act
-        group1.addMember(person1);
+        boolean isMemberAddedToGroup = group1.addMember(person1);
 
         //Assert
-        assertFalse(group1.getMembers().contains(person1));
+        assertFalse(isMemberAddedToGroup);
     }
 
     /**
@@ -59,10 +60,10 @@ class GroupTest {
         Group group1 = new Group("Group with no members");
 
         //Act
-        group1.addMember(person1);
+        boolean isMemberAddedToEmpyGroup = group1.addMember(person1);
 
         //Assert
-        assertTrue(group1.getMembers().contains(person1) && group1.getAdmins().contains(person1));
+        assertTrue(isMemberAddedToEmpyGroup);
     }
 
     @Test
@@ -74,11 +75,12 @@ class GroupTest {
         Group group1 = new Group("Group with no members");
 
         //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
+        boolean areMembersAddedToANonEmptyGroup = (
+            group1.addMember(person1) &&
+            group1.addMember(person2));
 
         //Assert
-        assertTrue(group1.getMembers().contains(person2) && !group1.getAdmins().contains(person2));
+        assertTrue(areMembersAddedToANonEmptyGroup);
     }
 
     /**
@@ -97,13 +99,14 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
-        group1.addMember(person3);
+        boolean areThreePeopleAdded = (
+            group1.addMember(person1) &&
+            group1.addMember(person2) &&
+            group1.addMember(person3));
 
 
         //Assert
-        assertTrue(group1.getMembers().containsAll(setOfPeopleToAddToGroup) && group1.getAdmins().size() == 1);
+        assertTrue(areThreePeopleAdded);
     }
 
     @Test
@@ -118,10 +121,10 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean isDupplicateMemberAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
 
         //Assert
-        assertTrue(group1.getMembers().size() == 1);
+        assertFalse(isDupplicateMemberAdded);
     }
 
     @Test
@@ -136,10 +139,10 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean isPerson2NotAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
 
         //Assert
-        assertFalse(group1.getMembers().contains(person2));
+        assertFalse(isPerson2NotAdded);
     }
 
     /**
@@ -177,10 +180,10 @@ class GroupTest {
         //Act
         group1.addMultipleMembers(putMembers);
 
-        group1.removeMember(person2);
+        boolean removeSingleMember = group1.removeMember(person2);
 
         //Assert
-        assertFalse(group1.getMembers().contains(person2));
+        assertTrue(removeSingleMember);
     }
 
     @Test
@@ -214,12 +217,10 @@ class GroupTest {
 
         //Act
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
-
-        group1.removeMember(person1);
-        group1.removeMember(person2);
+        boolean areBothMembersRemoved = (group1.removeMember(person1) && group1.removeMember(person2));
 
         //Assert
-        assertEquals(1, group1.getMembers().size());
+        assertTrue (areBothMembersRemoved);
     }
 
     /**
@@ -242,12 +243,12 @@ class GroupTest {
         HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person3, person4));
         HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person4));
 
-        group1.addMultipleMembers(setOfMembers);
-        group1.removeMultipleMembers(setOfMembersToRemove);
+        boolean removeOnlyNonAdminMembers = (
+            group1.addMultipleMembers(setOfMembers) &&
+            group1.removeMultipleMembers(setOfMembersToRemove));
 
         //Assert
-        assertTrue(group1.getMembers().size() == 2);
-        assertFalse(group1.getAdmins().contains(person1));
+        assertTrue(removeOnlyNonAdminMembers);
     }
 
     // Perguntar ao professor depois o que deve remover, todos menos 1 ou não deve remover nenhum
@@ -268,12 +269,12 @@ class GroupTest {
         HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person3, person4));
         HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person2, person4));
 
-        group1.addMultipleMembers(setOfMembers);
-        group1.removeMultipleMembers(setOfMembersToRemove);
+        boolean removeMultipleMembersAndAdmins = (
+            group1.addMultipleMembers(setOfMembers) &&
+            group1.removeMultipleMembers(setOfMembersToRemove));
 
         //Assert
-        assertTrue(group1.getMembers().size() == 2);
-        assertTrue(group1.getAdmins().size() == 1);
+        assertTrue(removeMultipleMembersAndAdmins);
     }
 
     @Test
@@ -290,12 +291,12 @@ class GroupTest {
         HashSet<Person> setOfPeopleToRemoveFromGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
-        group1.addMember(person1);
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.removeMultipleMembers(setOfPeopleToRemoveFromGroup);
+        boolean areMultipleMembersRemoved = (
+            group1.addMember(person1) && group1.addMultipleMembers(setOfPeopleToAddToGroup) &&
+        group1.removeMultipleMembers(setOfPeopleToRemoveFromGroup));
 
         //Assert
-        assertTrue(group1.getMembers().size() == 2);
+        assertTrue(areMultipleMembersRemoved);
     }
 
     /**
@@ -311,14 +312,16 @@ class GroupTest {
         Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
 
         //Act:
-        group1.addMember(person1);
-        group1.addMember(person2);
-        group1.promoteMemberToAdmin(person2);
-        group1.addMember(person3);
-        group1.removeMember(person1);
+        boolean areMembersBeingAddedAndRemoved = (
+            group1.addMember(person1) &&
+            group1.addMember(person2) &&
+            group1.promoteMemberToAdmin(person2) &&
+            group1.addMember(person3) &&
+            group1.removeMember(person1)
+        );
 
         //Assert:
-        assertTrue(!group1.getAdmins().contains(person1) && group1.getAdmins().size() == 1);
+        assertTrue(areMembersBeingAddedAndRemoved);
     }
 
 
