@@ -14,7 +14,7 @@ class AccountsListTest {
 
     @Test
     @DisplayName("Test if more than one account was added to the list - True")
-    public void testIfAccountsAreInList_True() {
+    public void testIfAccountsWereAddedToTheList_True() {
         //Arrange
         Account oneAccount = new Account ("xpto", "one account");
         Account otherAccount = new Account ("xyz", "general");
@@ -33,7 +33,7 @@ class AccountsListTest {
 
     @Test
     @DisplayName("Test if more than one account was added to the list")
-    public void testIfAccountsAreInList_False_oneAccountIsNull() {
+    public void testIfAccountsWereAddedToTheList_False_oneAccountIsNull() {
         //Arrange
         Account oneAccount = null;
         Account otherAccount = new Account ("xyz", "general");
@@ -69,8 +69,8 @@ class AccountsListTest {
 
 
     @Test
-    @DisplayName("Test if the account was added to the list - only one account added - oneAccount not contained")
-    public void testAccountIsInList_Not() {
+    @DisplayName("Test if the account was added to the list - only one account added - oneAccount is not contained")
+    public void testAccountsAreInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
         Account otherAccount = new Account ("xyz", "general");
@@ -111,7 +111,7 @@ class AccountsListTest {
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list - one account not contained - Null")
+    @DisplayName("Test if more than one account was added to the list - one account is not contained - Null")
     public void testIfAccountsAreInList_OneAccountIsNull() {
         //Arrange
         Account oneAccount = null;
@@ -168,7 +168,7 @@ class AccountsListTest {
     @Test
     @DisplayName("Test if several accounts were added to an accounts list - Positive ")
 
-    public void testIfSeveralAccountsWereAddedPositive_test1 (){
+    public void testIfSeveralAccountsWereAdded_Positive (){
         //Arrange
         Account butcherAccount =new Account("Butcher", "Talho do Amadeu");
         Account marketAccount =new Account ("Market","Mercado do Amadeu");
@@ -188,7 +188,7 @@ class AccountsListTest {
     @Test
     @DisplayName("Test if several accounts were added to an accounts list - False ")
 
-    public void testIfSeveralAccountsWereAddedPositive_test2_oneAccountIsNull (){
+    public void testIfSeveralAccountsWereAdded_False_oneAccountIsNull (){
         //Arrange
         Account butcherAccount = null;
         Account marketAccount =new Account ("Market","Mercado do Amadeu");
