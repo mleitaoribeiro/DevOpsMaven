@@ -24,6 +24,7 @@ public class Group {
         members = new HashSet<>();
         admins = new HashSet<>();
         groupAccountsList = new AccountsList();
+        categoryList = new CategoryList();
     }
 
     /**
@@ -240,7 +241,7 @@ public class Group {
     public boolean removeCategoryFromList(Category nameOfcategory){
 
         return categoryList.removeCategoryFromList(nameOfcategory);
-    
+
     }
 
     /**
