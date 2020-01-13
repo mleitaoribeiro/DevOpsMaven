@@ -398,4 +398,45 @@ class CategoryListTest {
         //Assert
         assertEquals(0, realNumberOfCategoriesOfFinalList);
     }
+
+    /**
+     * Tests to validate if a category is in the list
+     */
+
+    @Test
+    @DisplayName("Test if a category is in the category list - true case")
+    void testValidateIfCategoryIsInTheCategoryListTrueCase() {
+        //Arrange
+        Category house = new Category("House");
+        Category cats = new Category("Cats");
+        Category transport = new Category("Transport");
+        CategoryList newCategories = new CategoryList();
+
+        //Act
+        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
+        newCategories.addMultipleCategoriesToList(myCategories);
+        boolean result = newCategories.validateIfCategoryIsInTheCategoryList(cats);
+
+        //Assert
+        assertEquals(true, result);
+    }
+
+    @Test
+    @DisplayName("Test if a category is in the category list - false case")
+    void testValidateIfCategoryIsInTheCategoryListFalseCase() {
+        //Arrange
+        Category house = new Category("House");
+        Category cats = new Category("Cats");
+        Category transport = new Category("Transport");
+        Category health = new Category("Health");
+        CategoryList newCategories = new CategoryList();
+
+        //Act
+        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
+        newCategories.addMultipleCategoriesToList(myCategories);
+        boolean result = newCategories.validateIfCategoryIsInTheCategoryList(health);
+
+        //Assert
+        assertEquals(false, result);
+    }
 }
