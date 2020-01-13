@@ -87,15 +87,6 @@ public class AccountsList {
      * @param accountToValidate
      */
     public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
-
-        //WRITE CODE HERE
-
-        return false;
+        return this.accounts.contains(accountToValidate);
     }
-
-
-
-
-
-
 }
