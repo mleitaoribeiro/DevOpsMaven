@@ -6,6 +6,9 @@ import java.util.Objects;
 public class AccountsList {
     private HashSet<Account> accounts;
 
+    /**
+     * Construtor for Accounts List
+     */
     public AccountsList() {
         accounts = new HashSet<Account>();
     }

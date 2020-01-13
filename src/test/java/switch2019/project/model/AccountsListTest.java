@@ -368,14 +368,43 @@ class AccountsListTest {
         oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
         oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
 
-        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
+        boolean real = oneAccountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
 
         //Arrange
-        assertEquals(2,real);
+        assertFalse(real);
 
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @Test
+    @DisplayName("Test if account is in the List-True")
+    void validateIfAccountIsInTheAccountsList() {
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto Account");
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+        accountsList.addAccountToAccountsList(oneAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
+
+        //Arrange
+        assertTrue(validateIfAccountIsInTheAccountsList);
+    }
+    @Test
+    @DisplayName("Test if account is in the List-False")
+    void validateIfAccountIsInTheAccountsList_False() {
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto Account");
+        Account otherAccount = new Account ("xyz","xyz Account");
+        AccountsList accountsList= new AccountsList();
+
+        //Act
+        accountsList.addAccountToAccountsList(oneAccount);
+        boolean validateIfAccountIsInTheAccountsList= accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
+
+        //Arrange
+        assertFalse(validateIfAccountIsInTheAccountsList);
+    }
 
 }
