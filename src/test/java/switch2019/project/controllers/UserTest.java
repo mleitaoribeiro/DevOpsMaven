@@ -524,7 +524,7 @@ class UserTest {
 
     /**
      * Test if a Account was created
-
+     */
 
     @Test
     @DisplayName("Test if a Account was created - sucess case")
@@ -538,16 +538,11 @@ class UserTest {
         String accountDenomination = "Wallet";
         String accountDescription = "General expenses";
 
-        int expectAccountsListSize = 1;
-
         //Act
-        oneUser.createAccount(accountDenomination,accountDescription);
-
-
-        int realAccountsListSize = onePerson.getAccountsList().size();
+        boolean real = oneUser.createAccount(accountDenomination,accountDescription);
 
         // assert
-        assertEquals(expectAccountsListSize, realAccountsListSize);
+        assertTrue(real);
     }
-     */
+
 }

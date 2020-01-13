@@ -96,8 +96,8 @@ public class User {
      * @param accountDescription
      */
 
-    public void createAccount (String accountDenomination, String accountDescription) {
-        person.createAccount(accountDenomination, accountDescription);
+    public boolean createAccount (String accountDenomination, String accountDescription) {
+        return person.createAccount(accountDenomination, accountDescription);
     }
 
     /**
