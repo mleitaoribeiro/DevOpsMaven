@@ -78,8 +78,8 @@ public class CategoryList {
 
     public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
         for (Category category : categories)
-            return this.removeCategoryFromList(category);
-        return  false;
+            this.removeCategoryFromList(category);
+        return !this.categories.containsAll(categories);
     }
 
     /**
