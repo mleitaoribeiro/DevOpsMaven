@@ -324,8 +324,8 @@ public class Person {
      * @param accountDenomination
      * @param accountDescription
      */
-    public void createAccount (String accountDenomination, String accountDescription) {
-        accountsList.addAccountToAccountsList(new Account(accountDenomination,accountDescription));
+    public boolean createAccount (String accountDenomination, String accountDescription) {
+        return accountsList.addAccountToAccountsList(new Account(accountDenomination,accountDescription));
     }
 
     /**

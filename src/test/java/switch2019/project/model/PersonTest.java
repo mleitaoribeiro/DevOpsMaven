@@ -795,4 +795,24 @@ class PersonTest {
         //Assert
         assertTrue(accountInTheList && !accountNotInTheList);
     }
+
+
+    @Test
+    @DisplayName("Test if an Account was created - sucess case")
+    void createAccountSucessCase() {
+        // Arrange
+
+        //Initialize user
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
+
+        //Act
+        boolean real = onePerson.createAccount(accountDenomination,accountDescription);
+
+        // assert
+        assertTrue(real);
+    }
+
 }
