@@ -89,7 +89,16 @@ public class CategoryList {
 
     public boolean validateIfCategoryIsInTheCategoryList (Category category){
         return categories.contains(category);
+    }
 
+    /**
+     * Validate if a set of categories is in the CategoryList
+     *
+     * @param setOfCategories
+     */
+
+    public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<Category> setOfCategories){
+        return this.categories.contains(setOfCategories);
     }
 
     /**Method to get the numbers of Categories in the Category List
