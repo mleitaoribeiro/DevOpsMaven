@@ -291,7 +291,7 @@ class UserTest {
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
-    void removeMultipleCategoriesToList_MainScenario() {
+    void removeMultipleCategoriesToListMainScenario() {
         // Arrange
 
         //Initialize user
@@ -322,7 +322,7 @@ class UserTest {
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
             "or null")
-    void removeMultipleCategoriesToList_exceptionCase() {
+    void removeMultipleCategoriesToListExceptionCase() {
         // Arrange
 
         //Initialize user
@@ -357,7 +357,7 @@ class UserTest {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
-    void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
+    void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
         // Arrange
 
         //Initialize user
