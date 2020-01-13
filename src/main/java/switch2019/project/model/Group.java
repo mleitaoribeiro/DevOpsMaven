@@ -238,7 +238,9 @@ public class Group {
      * @param nameOfcategory
      */
     public boolean removeCategoryFromList(Category nameOfcategory){
+
         return categoryList.removeCategoryFromList(nameOfcategory);
+    
     }
 
     /**
