@@ -74,8 +74,8 @@ public class User {
      * @param type
      */
 
-    public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
-        person.createTransaction(amount, description, category, accountFrom, accountTo, type);
+    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
+        return person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 
     /**
@@ -101,15 +101,5 @@ public class User {
      */
     public void createGroupAccount (String accountDenomination, String accountDescription, Group group1) {
         group1.createGroupAccount(accountDenomination, accountDescription);
-    }
-
-    /**
-     * Develop method to get a copy of the person
-     *
-     * @return Person
-     */
-
-    public Person getPerson() {
-        return person.getPerson();
     }
 }
