@@ -86,4 +86,17 @@ public class CategoryList {
         }
 
     }
+
+    /**
+     * Validate if a category is in the CategoryList
+     *
+     * @param category<Category> category to test
+     */
+
+    public boolean validateIfCategoryIsInTheCategoryList (Category category){
+
+        //WRITE CODE HERE
+
+        return true;
+    }
 }
