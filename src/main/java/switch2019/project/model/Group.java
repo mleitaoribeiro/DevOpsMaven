@@ -177,21 +177,23 @@ public class Group {
      * @param multipleMembers
      * @return true if person was promoted, false if it wasn't
      */
-    public void promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
+    public boolean promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
         for (Person member:multipleMembers){
-            promoteMemberToAdmin(member);
+            return promoteMemberToAdmin(member);
         }
+        return false;
     }
 
     /**
      * Demote group admin to group member only.
      * @param member
+     * @return true if group admin was demoted, false if it wasn't
      */
-    public void demoteMemberFromAdmin(Person member) {
+    public boolean demoteMemberFromAdmin(Person member) {
         if (!this.members.contains(member)){
-            this.members.remove(member);
+            return this.members.remove(member);
         }
-
+        return false;
     }
 
 
@@ -199,9 +201,10 @@ public class Group {
      * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
      * @param accountDenomination
      * @param accountDescription
+     * @return true if group account was created, false if it wasn't
      */
-    public void createGroupAccount (String accountDenomination, String accountDescription) {
-        this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
+    public boolean createGroupAccount (String accountDenomination, String accountDescription) {
+        return this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
     }
 }
 
