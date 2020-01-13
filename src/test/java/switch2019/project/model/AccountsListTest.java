@@ -360,8 +360,6 @@ class AccountsListTest {
         Account post=null;
 
         HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
-
 
         AccountsList september = new AccountsList();
 
