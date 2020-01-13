@@ -72,4 +72,20 @@ public class AccountsList {
     }
 
 
+    /**
+     * method to validate if the account is in the accounts list
+     * @param accountToValidate
+     */
+    public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
+
+        //WRITE CODE HERE
+
+        return false;
+    }
+
+
+
+
+
+
 }

@@ -516,11 +516,10 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        group1.addMember(person1);
-        group1.promoteMemberToAdmin(person1);
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1);
+        boolean isMemberAdded = group1.addMember(person1);
+        boolean isMemberPromoted = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isMemberAdded && isMemberPromoted;
 
         //Assert
         assertTrue(wasPromoted);
@@ -535,12 +534,11 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
-        group1.promoteMemberToAdmin(person1);
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1) && memberList.contains(person2);
+        boolean isFirstMemberAdded = group1.addMember(person1);
+        boolean isSecondMemberAdded = group1.addMember(person2);
+        boolean isFirstMemberPromoted = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isFirstMemberAdded && isSecondMemberAdded && isFirstMemberPromoted;
 
         //Assert
         assertTrue(wasPromoted);
@@ -607,15 +605,11 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
-
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean membersWerePromoted = adminList.containsAll(setOfPeopleToAddToGroup) && memberList.containsAll(setOfPeopleToAddToGroup);
+        boolean addedMultipleMembers = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean membersWerePromoted = group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
 
         //Assert
-        assertTrue(membersWerePromoted);
+        assertTrue(addedMultipleMembers && membersWerePromoted);
     }
 
     @Test
@@ -633,12 +627,10 @@ class GroupTest {
         HashSet<Person> setOfPeopleToBeAdmin = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
+        boolean areMultipleMembersAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean areMultipleMembersPromoted = group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
 
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean werePromoted = adminList.containsAll(setOfPeopleToBeAdmin) && memberList.containsAll(setOfPeopleToAddToGroup);
+        boolean werePromoted = areMultipleMembersPromoted && areMultipleMembersAdded;
 
         //Assert
         assertTrue(werePromoted);
@@ -657,14 +649,10 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        group1.setAdmin(person1);
-
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1);
+        boolean isMemberAddedAsAdmin = group1.setAdmin(person1);
 
         //Assert
-        assertTrue(wasPromoted);
+        assertTrue(isMemberAddedAsAdmin);
     }
 
     @Test
@@ -681,12 +669,10 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.setAdmin(person1);
+        boolean areMultipleMembersAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean isAdminPromoted = group1.setAdmin(person1);
 
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.containsAll(setOfPeopleToAddToGroup);
+        boolean wasPromoted = areMultipleMembersAdded && isAdminPromoted;
 
         //Assert
         assertTrue(wasPromoted);
@@ -696,7 +682,7 @@ class GroupTest {
      * Check if Account was added to the groups account list
      * Testing getGroupAccountList() to see if account was added to the group´s list
      */
-    @DisplayName("Using .contains() method from the HashSet class")
+    @DisplayName("Added 1 Account")
     @Test
     void addAccountToGroupListTestContains() {
         //Arrange:
@@ -710,7 +696,7 @@ class GroupTest {
         assertTrue(result);
     }
 
-    @DisplayName("Using .size() method from the HashSet class")
+    @DisplayName("Added 2 Accounts")
     @Test
     void addAccountToGroupListTestSize() {
         //Arrange
@@ -719,12 +705,11 @@ class GroupTest {
         Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
-        group1.addAccountToGroupAccountList(groupAccount);
-        group1.addAccountToGroupAccountList(groupAccount2);
-        int result = group1.getGroupAccountsList().size();
+        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountList(groupAccount);
+        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountList(groupAccount2);
 
         //Assert
-        assertEquals(2, result);
+        assertTrue(addAccountToGroupList1 && addAccountToGroupList2);
     }
 
     /**
