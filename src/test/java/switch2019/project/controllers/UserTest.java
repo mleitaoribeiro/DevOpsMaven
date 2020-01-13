@@ -527,7 +527,7 @@ class UserTest {
 
     /**
      * Test if a Account was created
-     */
+
 
     @Test
     @DisplayName("Test if a Account was created - sucess case")
@@ -552,5 +552,5 @@ class UserTest {
         // assert
         assertEquals(expectAccountsListSize, realAccountsListSize);
     }
-
+     */
 }

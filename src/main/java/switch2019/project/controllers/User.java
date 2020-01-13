@@ -91,7 +91,6 @@ public class User {
 
     public void createAccount (String accountDenomination, String accountDescription) {
         person.createAccount(accountDenomination, accountDescription);
-
     }
 
     /**
