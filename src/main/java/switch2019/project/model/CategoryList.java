@@ -92,10 +92,10 @@ public class CategoryList {
 
     }
 
-    /**Method to get the numbers of Accounts in the Accounts List
+    /**Method to get the numbers of Categories in the Category List
      *
      */
-    public int numberOfAccountsInTheAccountsList () {
+    public int numberOfCategoryInTheCategoryList() {
         return this.categories.size();
     }
 }
