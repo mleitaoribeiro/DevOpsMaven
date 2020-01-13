@@ -46,9 +46,11 @@ public class CategoryList {
      * @param newCategory
      */
 
-    public void addCategoryToCategoryList(Category newCategory) {
-        if(newCategory != null)
-            categories.add(newCategory);
+    public boolean addCategoryToCategoryList(Category newCategory) {
+        if(newCategory != null) {
+            return categories.add(newCategory);
+        }
+        else return  false;
     }
 
     /**
@@ -67,11 +69,11 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public void addMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
         for (Category category : categories) {
-                this.addCategoryToCategoryList(category);
-            }
-
+            this.addCategoryToCategoryList(category);
+        }
+        return this.categories.containsAll(categories);
     }
 
     /**
