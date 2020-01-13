@@ -111,7 +111,7 @@ public class Group {
         for (Person member : toRemove) {
             removeMember(member);
         }
-        return this.members.containsAll(toRemove);
+        return !this.members.containsAll(toRemove);
     }
 
     /**

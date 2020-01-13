@@ -28,7 +28,7 @@ class CategoryListTest {
         oneCategoryList.addMultipleCategoriesToList(setOfCategories);
         otherCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        boolean realResult = oneCategoryList.getCategoriesList().equals(oneCategoryList.getCategoriesList());
+        boolean realResult = oneCategoryList.equals(oneCategoryList);
         //Assert
         assertTrue(realResult);
     }
@@ -51,7 +51,7 @@ class CategoryListTest {
         oneCategoryList.addMultipleCategoriesToList(setOfCategories);
         otherCategoryList.addMultipleCategoriesToList(anotherSetOfCategories);
 
-        boolean realResult = oneCategoryList.getCategoriesList().equals(otherCategoryList.getCategoriesList());
+        boolean realResult = oneCategoryList.equals(otherCategoryList);
         //Assert
 
         assertFalse(realResult);
@@ -65,10 +65,9 @@ class CategoryListTest {
         //Category to be included in Category List
         Category oneCategory = new Category("School expenses");
         CategoryList newCategoryList = new CategoryList();
-
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
-        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory);
+        boolean realResult = newCategoryList.validateIfCategoryIsInTheCategoryList(oneCategory);
 
         //Assert
         assertEquals(true, realResult);
@@ -86,8 +85,8 @@ class CategoryListTest {
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
         newCategoryList.addCategoryToCategoryList(otherCategory);
-        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
-                && newCategoryList.getCategoriesList().contains(otherCategory);
+        boolean realResult = newCategoryList.validateIfCategoryIsInTheCategoryList(oneCategory)
+                && newCategoryList.validateIfCategoryIsInTheCategoryList(otherCategory);
 
         //Assert
         assertEquals(true, realResult);
@@ -104,7 +103,7 @@ class CategoryListTest {
         //Act
         newCategoryList.addCategoryToCategoryList(otherCategory);
 
-        int realSizeOfTheCategoryList = newCategoryList.getCategoriesList().size();
+        int realSizeOfTheCategoryList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         //Assert
         assertEquals(0,realSizeOfTheCategoryList);
@@ -124,7 +123,7 @@ class CategoryListTest {
         newCategoryList.addCategoryToCategoryList(originalCategory);
         newCategoryList.addCategoryToCategoryList(duplicateCategory);
 
-        int realSizeOfTheCategoryList = newCategoryList.getCategoriesList().size();
+        int realSizeOfTheCategoryList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         //Assert
         assertEquals(1,realSizeOfTheCategoryList);
@@ -145,8 +144,8 @@ class CategoryListTest {
         //Remove one Category
         newCategoryList.removeCategoryFromList(otherCategory);
 
-        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
-                && !newCategoryList.getCategoriesList().contains(otherCategory);
+        boolean realResult = newCategoryList.validateIfCategoryIsInTheCategoryList(oneCategory)
+                && !newCategoryList.validateIfCategoryIsInTheCategoryList(otherCategory);
 
         //Assert
         assertTrue(realResult);
@@ -167,7 +166,7 @@ class CategoryListTest {
         //Remove one Category
         newCategoryList.removeCategoryFromList(otherCategory);
 
-        int sizeOfTheCategory = newCategoryList.getCategoriesList().size();
+        int sizeOfTheCategory = newCategoryList.numberOfCategoryInTheCategoryList();
 
         //Assert
         assertEquals(0, sizeOfTheCategory);
@@ -188,8 +187,8 @@ class CategoryListTest {
         //Remove one Category
         newCategoryList.removeCategoryFromList(otherCategory);
 
-        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
-                && !newCategoryList.getCategoriesList().contains(otherCategory);
+        boolean realResult = newCategoryList.validateIfCategoryIsInTheCategoryList(oneCategory)
+                && !newCategoryList.validateIfCategoryIsInTheCategoryList(otherCategory);
 
         //Assert
         assertTrue(realResult);
@@ -210,8 +209,8 @@ class CategoryListTest {
         //Remove the otherCategory (the list doesn't contain this)
         newCategoryList.removeCategoryFromList(otherCategory);
 
-        boolean realResult = newCategoryList.getCategoriesList().contains(oneCategory)
-                && !newCategoryList.getCategoriesList().contains(otherCategory);
+        boolean realResult = newCategoryList.validateIfCategoryIsInTheCategoryList(oneCategory)
+                && !newCategoryList.validateIfCategoryIsInTheCategoryList(otherCategory);
 
         //Assert
         assertTrue(realResult);
@@ -233,9 +232,9 @@ class CategoryListTest {
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
 
         //Add several categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.getCategoriesList().containsAll(setOfCategories);
+
+        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
@@ -259,7 +258,7 @@ class CategoryListTest {
         //Add several categories simultaneously to Category List with method under test
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesAdded = newCategoryList.getCategoriesList().size();
+        int realNumberOfCategoriesAdded = newCategoryList.numberOfCategoryInTheCategoryList();
         //Assert
         assertEquals(2, realNumberOfCategoriesAdded);
     }
@@ -282,7 +281,7 @@ class CategoryListTest {
         //Add several categories simultaneously to Category List with method under test
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesOfTheList = newCategoryList.getCategoriesList().size();
+        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         //Assert
         assertEquals(2, realNumberOfCategoriesOfTheList);
@@ -307,7 +306,7 @@ class CategoryListTest {
         //Add everal categories simultaneously to Category List with method under test
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesOfTheList = newCategoryList.getCategoriesList().size();
+        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         assertEquals(2, realNumberOfCategoriesOfTheList);
     }
@@ -334,7 +333,7 @@ class CategoryListTest {
         //Remove the set of categories with the method under test
         newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = newCategoryList.getCategoriesList().size();
+        int realNumberOfCategoriesOfFinalList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         assertEquals(1, realNumberOfCategoriesOfFinalList);
     }
@@ -364,7 +363,7 @@ class CategoryListTest {
         // Remove several categories simultaneously with method under test
         newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = newCategoryList.getCategoriesList().size();
+        int realNumberOfCategoriesOfFinalList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         assertEquals(3, realNumberOfCategoriesOfFinalList);
     }
@@ -393,7 +392,7 @@ class CategoryListTest {
         // Remove the previous categories with the method under test
         newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = newCategoryList.getCategoriesList().size();
+        int realNumberOfCategoriesOfFinalList = newCategoryList.numberOfCategoryInTheCategoryList();
 
         //Assert
         assertEquals(0, realNumberOfCategoriesOfFinalList);

@@ -1,11 +1,11 @@
 @startuml
-create ": Test"
+create ":Test"
 
 ==Arrange==
 
-create "account1:Account"
-":Test" -> "account1:Account" : new Account
-activate "account1:Account" #FFBBBB
+create "person1:Person"
+":Test" -> "person1:Person" : new Person
+activate "person1:Person" #FFBBBB
 
 create "account1:Account"
 create "accountList1:AccountsList"

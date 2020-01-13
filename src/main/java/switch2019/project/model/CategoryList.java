@@ -42,7 +42,7 @@ public class CategoryList {
         if(newCategory != null) {
             return categories.add(newCategory);
         }
-        else return  false;
+        else return false;
     }
 
     /**
@@ -51,9 +51,11 @@ public class CategoryList {
      * @param categoryToRemove
      */
 
-    public void removeCategoryFromList(Category categoryToRemove){
+    public boolean removeCategoryFromList(Category categoryToRemove){
         if( categoryToRemove != null)
-            categories.remove(categoryToRemove);
+            return categories.remove(categoryToRemove);
+        else
+            return false;
     }
     /**
      * Add multiple categories to CategoryList
@@ -74,11 +76,10 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public void removeMultipleCategoriesToList(HashSet<Category> categories){
-        for (Category category : categories) {
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+        for (Category category : categories)
             this.removeCategoryFromList(category);
-        }
-
+        return !this.categories.containsAll(categories);
     }
 
     /**
@@ -104,6 +105,7 @@ public class CategoryList {
     /**Method to get the numbers of Categories in the Category List
      *
      */
+
     public int numberOfCategoryInTheCategoryList() {
         return this.categories.size();
     }
