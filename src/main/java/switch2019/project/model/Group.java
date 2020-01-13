@@ -98,13 +98,6 @@ public class Group {
     public HashSet<Person> getAdmins() { return new HashSet<>(this.admins);}
 
     /**
-     * Group Account List Getter
-     */
-    public HashSet<Account> getGroupAccountsList() {
-        return groupAccountsList.getAccountsList();
-    }
-
-    /**
      * Add account to Group´s Account List
      */
     public void addAccountToGroupAccountList(Account account1){

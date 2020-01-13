@@ -28,46 +28,47 @@ public class AccountsList {
 
 
     /**
-     * method to get Accounts inside an AccountsList
-     * @return AccountsList
-     */
-
-    public HashSet<Account> getAccountsList() {
-        return new HashSet<>(this.accounts);
-    }
-
-
-    /**
      * method to add one account to the list
+     * @param oneAccount
      */
-    public void addAccountToAccountsList (Account oneAccount) {
+    public boolean addAccountToAccountsList (Account oneAccount) {
         if (oneAccount!=null)
-           accounts.add(oneAccount);
+            return accounts.add(oneAccount);
+        else
+            return false;
     }
 
     /**
      * method to add several accounts to a list
+     * @param many
      */
-    public void addSeveralAccountsToAList (HashSet<Account> many) {
+    public boolean addSeveralAccountsToAList (HashSet<Account> many) {
         for (Account account : many) {
-            addAccountToAccountsList(account);
+            return addAccountToAccountsList(account);
         }
+        return false;
     }
 
     /**
      * method to remove one account from a list
+     * @param accountToBeRemoved
      */
-    public void removeOneAccountFromAList (Account accountToBeRemoved){
+    public boolean removeOneAccountFromAList (Account accountToBeRemoved){
         if (accountToBeRemoved != null)
-        accounts.remove(accountToBeRemoved);
+            return accounts.remove(accountToBeRemoved);
+        else
+            return false;
     }
 
     /**
      * method to remove several accounts from a list
+     * @param accountsToBeRemoved
      */
-    public void removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
-        for (Account account : accountsToBeRemoved)
-            removeOneAccountFromAList(account);
+    public boolean removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
+        for (Account account : accountsToBeRemoved) {
+            return removeOneAccountFromAList(account);
+        }
+        return false;
     }
 
 
