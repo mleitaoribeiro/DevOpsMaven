@@ -15,14 +15,6 @@ public class CategoryList {
         categories = new HashSet<Category>();
     }
 
-    /**
-     * Method get the category List.
-     * @return categoryList Clone
-     */
-
-    public HashSet<Category> getCategoriesList(){
-        return new HashSet<>(categories);
-    }
 
     /**
      *Develop @override of equals for Category List and @override of hashcode
@@ -96,9 +88,7 @@ public class CategoryList {
      */
 
     public boolean validateIfCategoryIsInTheCategoryList (Category category){
+        return categories.contains(category);
 
-        //WRITE CODE HERE
-
-        return true;
     }
 }

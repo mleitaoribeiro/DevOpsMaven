@@ -203,7 +203,10 @@ public class Group {
      * @return true if group account was created, false if it wasn't
      */
     public boolean createGroupAccount (String accountDenomination, String accountDescription) {
-        return this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
+        if (accountDenomination != null) {
+            return this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
+        }
+        return false;
     }
 }
 
