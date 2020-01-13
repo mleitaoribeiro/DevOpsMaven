@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @Test
+    @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
         //Arrange
         //Initialize user
@@ -71,13 +72,10 @@ class UserTest {
         Category category2 = new Category("School expenses");
 
         //Act
-        user1.addCategoryToList(category1);
-        user1.addCategoryToList(category2);
-
-        int sizeOfCategoryList = user1.numberOfCategoryInTheCategoryList();
+        boolean realResult =  user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
 
         //Assert
-        assertEquals(1, sizeOfCategoryList);
+        assertTrue(realResult);
 
     }
 
@@ -97,13 +95,10 @@ class UserTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-        user1.addCategoryToList(category1);
-        user1.addCategoryToList(category2);
-
-        int sizeOfCategoryList = user1.numberOfCategoryInTheCategoryList();
+       boolean realResult = user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
 
         //Assert
-        assertEquals(1, sizeOfCategoryList);
+      assertTrue(realResult);
 
     }
 
@@ -126,13 +121,10 @@ class UserTest {
         user1.addCategoryToList(category2);
 
         //Act
-        user1.removeCategoryFromList(category1);
-
-       // boolean realResult = !user1.removeCategoryFromList(category1)
-        // && user1.removeCategoryFromList(category2);
+       boolean realResult = user1.removeCategoryFromList(category1);
 
         //Assert
-        // assertTrue(realResult);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,11 +146,10 @@ class UserTest {
         user1.addCategoryToList(category2);
 
         //Act
-        user1.removeCategoryFromList(category1);
-        int realResult = user1.numberOfCategoryInTheCategoryList();
+        boolean realResult = user1.removeCategoryFromList(category1);
 
         //Assert
-        assertEquals(0, realResult);
+        assertTrue(realResult);
 
     }
 
@@ -178,13 +169,10 @@ class UserTest {
         user1.addCategoryToList(category1);
 
         //Act
-        user1.removeCategoryFromList(category2);
-        int realSizeOfCategoryList = user1.numberOfCategoryInTheCategoryList();
+       boolean realResult = user1.removeCategoryFromList(category2);
 
         //Assert
-        assertEquals(0, realSizeOfCategoryList);
-
-
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -263,12 +251,10 @@ class UserTest {
         // set of Categories to be added to categories list
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
         //The user adds several categories to his Category List with method
-        user1.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesOfList = user1.numberOfCategoryInTheCategoryList();
-
+        boolean realResult = user1.addMultipleCategoriesToList(setOfCategories);
         //Assert
-        assertEquals(2,realNumberOfCategoriesOfList);
+        assertTrue(realResult);
 
     }
 
@@ -293,14 +279,12 @@ class UserTest {
 
         // set of Categories to be added to categories list
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
-        //The user adds several categories to his Category List with method
-        user1.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesOfList = user1.numberOfCategoryInTheCategoryList();
+        //The user adds several categories to his Category List with method
+        boolean realResult =  user1.addMultipleCategoriesToList(setOfCategories);
 
         //Assert
-
-        assertEquals(2,realNumberOfCategoriesOfList);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -327,13 +311,10 @@ class UserTest {
 
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
-        user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
-
-        int realNumberOfCategoriesOfFinalList = user1.numberOfCategoryInTheCategoryList();
+        boolean realResult = user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         //Assert
-
-        assertEquals(1,realNumberOfCategoriesOfFinalList);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -365,12 +346,12 @@ class UserTest {
 
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
-        user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = user1.numberOfCategoryInTheCategoryList();
+
+        boolean realResult = user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         //Assert
-        assertEquals(3,realNumberOfCategoriesOfFinalList);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -400,12 +381,11 @@ class UserTest {
 
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
-        user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = user1.numberOfCategoryInTheCategoryList();
 
+        boolean realResult = user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
         //Assert
-        assertEquals(0,realNumberOfCategoriesOfFinalList);
+        assertTrue(realResult);
     }
 
     /**
