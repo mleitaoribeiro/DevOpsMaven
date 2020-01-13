@@ -231,6 +231,25 @@ public class Group {
     public boolean addMultipleCategoriesToList(HashSet<Category> categories){
         return categoryList.addMultipleCategoriesToList(categories);
     }
+
+    /**
+     * Remove a category from CategoryList
+     *
+     * @param nameOfcategory
+     */
+    public boolean removeCategoryFromList(Category nameOfcategory){
+        return categoryList.removeCategoryFromList(nameOfcategory);
+    }
+
+    /**
+     * Remove multiple categories from CategoryList
+     *
+     * @param categories<Category> categories
+     */
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+        return categoryList.removeMultipleCategoriesToList(categories);
+
+    }
 }
 
 
