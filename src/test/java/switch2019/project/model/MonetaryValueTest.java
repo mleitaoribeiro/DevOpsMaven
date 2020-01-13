@@ -21,6 +21,7 @@ class MonetaryValueTest {
         assertTrue(validateIfAmountIsPostive);
     }
 
+
     @Test
     @DisplayName("Test for validating monetarValue Negative-false")
     void validateIfAmountIsNegative() {
