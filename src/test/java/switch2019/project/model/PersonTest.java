@@ -9,6 +9,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -681,5 +682,117 @@ class PersonTest {
 
         //Assert
         assertEquals(true, resultado);
+    }
+    
+    /**
+     * Test if a transaction was created
+     */
+
+    @Test
+    @DisplayName("Test if a transaction was created - success case")
+    void createTransactionSuccessCase() {
+        //Arrange
+        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        Account from = new Account("Wallet","General expenses");
+        Account to = new Account("TransportAccount","Transport expenses");
+        Type type = new Type(false); //debit
+
+        //Act
+        person.addCategoryToCategoryList (category);
+        person.createAccount("Wallet","General expenses");
+        person.createAccount("TransportAccount","Transport expenses");
+        boolean result = person.createTransaction(amount,description,category,from,to,type);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if a transaction was created - category is not in the list")
+    void createTransactionCategoryisNotinTheList() {
+        //Arrange
+        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
+        String description = "payment";
+        Type type = new Type(false); //debit
+
+        Category categoryFood = new Category("food");
+        Category categoryBaby = new Category("baby");
+        Category categoryHome = new Category("home");
+
+        Account from = new Account("Wallet","General expenses");
+        Account to = new Account("TransportAccount","Transport expenses");
+
+        //Act
+        person.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
+
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount","Transport expenses");
+        
+        boolean categoryInTheList = person.createTransaction(amount,description,categoryFood,from,to,type);
+        boolean categoryNotInTheList = person.createTransaction(amount,description,categoryHome,from,to,type);
+
+        //Assert
+        assertTrue(categoryInTheList && !categoryNotInTheList);
+    }
+
+    @Test
+    @DisplayName("Test if a transaction was created - account is not in the list")
+    void createTransactionAccountIsNotInTheList() {
+        //Arrange
+        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
+        String description = "payment";
+        Type type = new Type(false); //debit
+
+        Category category = new Category("General");
+
+        Account accountWallet = new Account("Wallet", "General expenses");
+        Account accountTransport = new Account("Transport","Transport expenses");
+        Account accountBaby = new Account("Baby","Baby expenses");
+
+        //Act
+        person.addCategoryToCategoryList(category);
+
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("Transport","Transport expenses");
+        
+        boolean accountInTheList = person.createTransaction(amount,description,category,accountWallet,accountTransport,type);
+        boolean accountNotInTheList = person.createTransaction(amount,description,category,accountWallet,accountBaby,type);
+
+        //Assert
+        assertTrue(accountInTheList && !accountNotInTheList);
+    }
+
+    @Test
+    @DisplayName("Test if a transaction was created - monetary value is negative")
+    void createTransactionAccountNegativeMonetaryValue() {
+        //Arrange
+        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
+        MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
+        String description = "payment";
+        Type type = new Type(false); //debit
+
+        Category category = new Category("General");
+
+        Account accountWallet = new Account("Wallet", "General expenses");
+        Account accountTransport = new Account("Transport", "Transport expenses");
+
+        //Act
+        person.addCategoryToCategoryList(category);
+
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("Transport", "Transport expenses");
+
+        boolean accountInTheList = person.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
+        boolean accountNotInTheList = person.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
+
+        //Assert
+        assertTrue(accountInTheList && !accountNotInTheList);
     }
 }
