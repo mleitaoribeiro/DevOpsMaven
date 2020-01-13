@@ -217,7 +217,9 @@ public class Group {
      */
 
     public boolean addCategoryToCategoryList(Category nameOfCategory) {
-        return categoryList.addCategoryToCategoryList(nameOfCategory);
+        if (nameOfCategory != null) {
+        return categoryList.addCategoryToCategoryList(nameOfCategory);}
+     else return false;
     }
 
     /**
