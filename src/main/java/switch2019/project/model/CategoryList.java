@@ -91,4 +91,11 @@ public class CategoryList {
         return categories.contains(category);
 
     }
+
+    /**Method to get the numbers of Accounts in the Accounts List
+     *
+     */
+    public int numberOfAccountsInTheAccountsList () {
+        return this.categories.size();
+    }
 }
