@@ -171,7 +171,7 @@ class AccountsListTest {
         int real = september.numberOfAccountsInTheAccountsList();
 
         //Assert
-        assertEquals(expected,real;
+        assertEquals(expected,real);
 
     }
 
