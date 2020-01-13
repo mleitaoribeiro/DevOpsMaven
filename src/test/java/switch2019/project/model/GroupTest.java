@@ -55,7 +55,7 @@ class GroupTest {
     @DisplayName("True - member added to an empty group")
     void promoteAddedMemberIfEmptyTrue() {
         //Arrange
-        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
+        Person person1 = new Person("Juan", 1970, 1, 2, new Address("Toledo"));
         Group group1 = new Group("Group with no members");
 
         //Act
@@ -69,8 +69,8 @@ class GroupTest {
     @DisplayName("False - member added to a non empty group")
     void promoteAddedMemberIfEmptyTestFalse() {
         //Arrange
-        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
-        Person person2 = new Person("Pablo", 1978,5,16,new Address("Madrid"));
+        Person person1 = new Person("Juan", 1970, 1, 2, new Address("Toledo"));
+        Person person2 = new Person("Pablo", 1978, 5, 16, new Address("Madrid"));
         Group group1 = new Group("Group with no members");
 
         //Act
@@ -303,7 +303,7 @@ class GroupTest {
      */
     @Test
     @DisplayName("multiple members")
-    void isRemovedMemberAlsoRemovedFromAdmin(){
+    void isRemovedMemberAlsoRemovedFromAdmin() {
         //Arrange:
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -645,6 +645,7 @@ class GroupTest {
     }
 
     //Fazer teste para pessoas nulas
+
     /**
      * Check if a person was promoted to member and group administrator simultaneously
      */
@@ -703,8 +704,7 @@ class GroupTest {
         Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        group1.addAccountToGroupAccountList(groupAccount);
-        boolean result = group1.getGroupAccountsList().contains(groupAccount);
+        boolean result =group1.addAccountToGroupAccountList(groupAccount);
 
         //Assert
         assertTrue(result);
@@ -715,7 +715,7 @@ class GroupTest {
     void addAccountToGroupListTestSize() {
         //Arrange
         Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test","group account");
+        Account groupAccount = new Account("Group Account Test", "group account");
         Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
@@ -724,7 +724,41 @@ class GroupTest {
         int result = group1.getGroupAccountsList().size();
 
         //Assert
-        assertEquals(2,result);
+        assertEquals(2, result);
+    }
+
+    /**
+     * Test if a person can create a group account (must be a group admin).
+     * User Stories Method : createGroupAccount
+     */
+
+    @Test
+    @DisplayName("Test if a group admin can create a group account - TRUE")
+    void createGroupAccountTest(){
+        //Arrange
+        Group group1 = new Group ("test group");
+
+        //Act
+        boolean result = group1.createGroupAccount("Conta de Grupo", "Test");
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if a group can create multiple group accounts - TRUE")
+    void createGroupAccountsTest(){
+        //Arrange
+        Group group1 = new Group("test group");
+
+        //Act
+        boolean addGroupAccount1 = group1.createGroupAccount("Conta de Grupo 1","Test");
+        boolean addGroupAccount2 = group1.createGroupAccount("Conta de Grupo 2", "Test");
+
+        //Assert
+        assertTrue(addGroupAccount1 && addGroupAccount2);
     }
 }
+
+
 
