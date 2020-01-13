@@ -364,6 +364,13 @@ public class Person {
         categoryList.removeMultipleCategoriesToList(categories);
     }
 
+    /**Method to get the numbers of Categories in the Category List
+     *
+     */
+    public int numberOfCategoryInTheCategoryList() {
+        return this.categoryList.numberOfCategoryInTheCategoryList();
+    }
+
 }
 
 

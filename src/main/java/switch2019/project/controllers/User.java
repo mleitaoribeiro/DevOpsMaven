@@ -58,6 +58,13 @@ public class User {
 
     }
 
+    /**Method to get the numbers of Categories in the Category List
+     *
+     */
+    public int numberOfCategoryInTheCategoryList() {
+        return person.numberOfCategoryInTheCategoryList();
+    }
+
     /**
      * Develop method to create a new transaction | USER STORY - 08:
      * 
