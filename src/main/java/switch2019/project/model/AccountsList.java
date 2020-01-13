@@ -27,6 +27,13 @@ public class AccountsList {
     }
 
 
+    /**Method to get the numbers of Accounts in the Accounts List
+     *
+     */
+    public int numberOfAccountsInTheAccountsList () {
+        return this.accounts.size();
+    }
+
     /**
      * method to add one account to the list
      * @param oneAccount

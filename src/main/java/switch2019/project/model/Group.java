@@ -91,24 +91,15 @@ public class Group {
     }
 
     /**
-     * Add account to Group´s Account List
-     * @param account1
-     * @return true if account was added to GroupAccountsList, false if it wasn't
-     */
-    public boolean addAccountToGroupAccountList(Account account1){
-        return this.groupAccountsList.addAccountToAccountsList(account1);
-    }
-
-    /**
      * Add multiple members to Group
      * @param newMembers
      * @return true if multiple members were added, false if they weren't
      */
     public boolean addMultipleMembers(HashSet<Person>newMembers) {
         for (Person member : newMembers){
-            return addMember(member);
+            addMember(member);
         }
-        return false;
+        return this.members.containsAll(newMembers);
     }
 
     /**
@@ -118,9 +109,9 @@ public class Group {
      */
     public boolean removeMultipleMembers(HashSet<Person> toRemove) {
         for (Person member : toRemove) {
-            return removeMember(member);
+            removeMember(member);
         }
-        return false;
+        return this.members.containsAll(toRemove);
     }
 
     /**
@@ -179,9 +170,9 @@ public class Group {
      */
     public boolean promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
         for (Person member:multipleMembers){
-            return promoteMemberToAdmin(member);
+            promoteMemberToAdmin(member);
         }
-        return false;
+        return admins.containsAll(multipleMembers);
     }
 
     /**
@@ -196,6 +187,14 @@ public class Group {
         return false;
     }
 
+    /**
+     * Add account to Group´s Account List
+     * @param account1
+     * @return true if account was added to GroupAccountsList, false if it wasn't
+     */
+    public boolean addAccountToGroupAccountList(Account account1){
+        return this.groupAccountsList.addAccountToAccountsList(account1);
+    }
 
     /**
      * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
