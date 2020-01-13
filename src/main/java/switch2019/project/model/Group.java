@@ -11,6 +11,7 @@ public class Group {
     private HashSet<Person> members;
     private HashSet<Person> admins;
     private AccountsList groupAccountsList;
+    private CategoryList categoryList;
 
     /**
      * Default Group constructor
@@ -207,6 +208,26 @@ public class Group {
             return this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
         }
         return false;
+    }
+
+    /**
+     * Develop method add one category to group's Category List
+     * @param nameOfCategory
+     * @return true if category was added to group's Category List, false if it wasn't
+     */
+
+    public boolean addCategoryToCategoryList(Category nameOfCategory) {
+        return categoryList.addCategoryToCategoryList(nameOfCategory);
+    }
+
+    /**
+     * Develop method add multiple categories to group's Category List
+     * @param categories
+     * @return true if category was added to group's Category List, false if it wasn't
+     */
+
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+        return categoryList.addMultipleCategoriesToList(categories);
     }
 }
 
