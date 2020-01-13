@@ -343,8 +343,8 @@ public class Person {
      * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.
      * @param nameOfCategory
      */
-    public void addCategoryToCategoryList(Category nameOfCategory) {
-        categoryList.addCategoryToCategoryList(nameOfCategory);
+    public boolean addCategoryToCategoryList(Category nameOfCategory) {
+       return categoryList.addCategoryToCategoryList(nameOfCategory);
     }
 
     /**
@@ -361,8 +361,8 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public void addMultipleCategoriesToList(HashSet<Category> categories){
-        categoryList.addMultipleCategoriesToList(categories);
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+        return categoryList.addMultipleCategoriesToList(categories);
     }
 
     /**

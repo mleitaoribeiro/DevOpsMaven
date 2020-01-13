@@ -4,12 +4,12 @@ import java.util.Currency;
 
 public class MonetaryValue {
     private double amount;
-    private Currency currency; 
+    private Currency currency;
 
     /**
      * Monetary value constructor
      *
-     * @param amount valor
+     * @param amount   valor
      * @param currency tipo de moeda
      */
     public MonetaryValue(double amount, Currency currency) {
@@ -18,11 +18,11 @@ public class MonetaryValue {
     }
 
     /**
-     * Get Amount
+     * Validate if amount is positive
      *
-     * @return amount
+     * @return true if amount is positive or false if it's not
      */
-    public double getAmount() {
-        return amount;
+    public boolean validateIfAmountIsPositive() {
+        return this.amount>0;
     }
 }

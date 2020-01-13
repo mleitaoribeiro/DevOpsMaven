@@ -22,7 +22,7 @@ class AccountsListTest {
         //Act
         accountsList.addAccountToAccountsList(oneAccount);
         accountsList.addAccountToAccountsList(otherAccount);
-        int result = accountsList.getAccountsList().size();
+        int result = accountsList.numberOfAccountsInTheAccountsList();
 
         //Assert
         assertEquals(2,result);
@@ -30,22 +30,21 @@ class AccountsListTest {
 
 
     @Test
-    @DisplayName("Test if the account was added to the list - the account added is not in the list")
+    @DisplayName("Test if the account was added to the list - only one account added")
     public void testAccountIsInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
         Account otherAccount = new Account ("xyz", "general");
 
-        HashSet <Account> expected = new HashSet<>(Collections.singleton(oneAccount));
-
         AccountsList accountsList = new AccountsList();
 
         //Act
         accountsList.addAccountToAccountsList(otherAccount);
-        HashSet <Account> real = accountsList.getAccountsList();
+        boolean real = !accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
+                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
         //Assert
-        assertNotEquals(expected, real);
+        assertTrue(real);
     }
 
     @Test
@@ -55,7 +54,7 @@ class AccountsListTest {
         Account oneAccount = new Account("xpto", "cat acccount");
         Account otherAccount = new Account ("xyz", "general");
         Account anotherAccount = new Account ("Millennium", "Millennium Account");
-        HashSet<Account> expected = new HashSet<>(Arrays.asList( oneAccount, otherAccount, anotherAccount));
+
         AccountsList accountsList = new AccountsList();
 
         //Act
@@ -63,10 +62,12 @@ class AccountsListTest {
         accountsList.addAccountToAccountsList(otherAccount);
         accountsList.addAccountToAccountsList(anotherAccount);
 
-        HashSet <Account> real = accountsList.getAccountsList();
+        boolean real = accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
+                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount)
+                && accountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
 
         //Assert
-        assertEquals(expected, real);
+        assertTrue(real);
     }
 
     @Test
@@ -76,7 +77,7 @@ class AccountsListTest {
         Account oneAccount = null;
         Account otherAccount = new Account ("xyz", "general");
         Account anotherAccount = new Account ("Millennium", "Millennium Account");
-        HashSet<Account> expected = new HashSet<>(Arrays.asList(otherAccount, anotherAccount));
+
         AccountsList accountsList = new AccountsList();
 
         //Act
@@ -84,10 +85,11 @@ class AccountsListTest {
         accountsList.addAccountToAccountsList(otherAccount);
         accountsList.addAccountToAccountsList(anotherAccount);
 
-        HashSet <Account> real = accountsList.getAccountsList();
-
+        boolean real = accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
+                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount)
+                && accountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
         //Assert
-        assertEquals(expected, real);
+        assertFalse(real);
     }
 
     @Test
@@ -100,7 +102,7 @@ class AccountsListTest {
         //Act
         accountsList.addAccountToAccountsList(oneAccount);
 
-        boolean expected = accountsList.getAccountsList().contains(oneAccount);
+        boolean expected = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
 
         //Assert
         assertTrue(expected);
@@ -115,7 +117,7 @@ class AccountsListTest {
 
         //Act
 
-        boolean notContained = accountsList.getAccountsList().contains(oneAccount);
+        boolean notContained = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
 
         //Assert
         assertFalse(notContained);
@@ -132,15 +134,19 @@ class AccountsListTest {
         Account market=new Account ("Market","Mercado do Amadeu");
         Account post=new Account("Post","Correios do Amadeu");
 
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market,post));
-
+        HashSet<Account> accounts =new HashSet<>(Arrays.asList(butcher,market,post));
+        int expected = 3;
         AccountsList september = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(expected);
+        september.addSeveralAccountsToAList(accounts);
+
+
+        int real = september.numberOfAccountsInTheAccountsList();
+
 
         //Assert
-        assertEquals(expected,september.getAccountsList());
+        assertEquals(expected,real);
 
     }
 
@@ -153,17 +159,18 @@ class AccountsListTest {
         Account market=new Account ("Market","Mercado do Amadeu");
         Account post=null;
 
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
-        HashSet<Account> added =new HashSet<>(Arrays.asList(butcher,market,post));
 
+        HashSet<Account> added =new HashSet<>(Arrays.asList(butcher,market,post));
+        int expected = 2;
 
         AccountsList september = new AccountsList();
 
         //Act
         september.addSeveralAccountsToAList(added);
+        int real = september.numberOfAccountsInTheAccountsList();
 
         //Assert
-        assertEquals(expected,september.getAccountsList());
+        assertEquals(expected,real);
 
     }
 
@@ -232,7 +239,6 @@ class AccountsListTest {
         Account post=new Account("Post","Correios do Amadeu");
 
         HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(market,post));
 
         AccountsList september = new AccountsList();
 
@@ -241,7 +247,7 @@ class AccountsListTest {
         september.removeOneAccountFromAList(butcher);
 
         //Assert
-        assertEquals(expected,september.getAccountsList());
+        assertEquals(2,september.numberOfAccountsInTheAccountsList());
 
     }
 
@@ -262,7 +268,7 @@ class AccountsListTest {
         september.removeOneAccountFromAList(post);
 
         //Assert
-        assertEquals(expected,september.getAccountsList());
+        assertEquals(2,september.numberOfAccountsInTheAccountsList());
 
     }
 
@@ -284,7 +290,7 @@ class AccountsListTest {
         september.removeOneAccountFromAList(post);
 
         //Assert
-        assertEquals(expected,september.getAccountsList());
+        assertEquals(2,september.numberOfAccountsInTheAccountsList());
 
     }
 
@@ -301,7 +307,7 @@ class AccountsListTest {
 
         HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount, anotherAccount));
         HashSet<Account> accountsToBeRemoved = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
-        HashSet<Account> expected = new HashSet<>(Collections.singletonList(anotherAccount));
+        int expected = 1;
 
         AccountsList oneAccountsList = new AccountsList();
 
@@ -310,10 +316,10 @@ class AccountsListTest {
         oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
         oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
 
-        HashSet <Account> real = oneAccountsList.getAccountsList();
+        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
 
         //Arrange
-        assertEquals(expected,real);
+        assertEquals(expected, real);
 
     }
 
@@ -328,7 +334,7 @@ class AccountsListTest {
 
         HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount, anotherAccount));
         HashSet<Account> accountsToBeRemoved = new HashSet<>(Collections.singletonList(oneAccount));
-        HashSet<Account> expected = new HashSet<>(Arrays.asList(otherAccount, anotherAccount));
+        int expected = 2;
 
         AccountsList oneAccountsList = new AccountsList();
 
@@ -337,7 +343,7 @@ class AccountsListTest {
         oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
         oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
 
-        HashSet <Account> real = oneAccountsList.getAccountsList();
+        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
 
         //Arrange
         assertEquals(expected,real);
@@ -354,7 +360,6 @@ class AccountsListTest {
 
         HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
         HashSet<Account> accountsToBeRemoved = new HashSet<>(Collections.singletonList(anotherAccount));
-        HashSet<Account> expected = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
 
         AccountsList oneAccountsList = new AccountsList();
 
@@ -363,10 +368,10 @@ class AccountsListTest {
         oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
         oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
 
-        HashSet <Account> real = oneAccountsList.getAccountsList();
+        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
 
         //Arrange
-        assertEquals(expected,real);
+        assertEquals(2,real);
 
     }
 
