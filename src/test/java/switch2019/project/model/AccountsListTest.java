@@ -11,6 +11,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountsListTest {
 
+
+    @Test
+    @DisplayName("Test if more than one account was added to the list - True")
+    public void testIfAccountsAreInList_True() {
+        //Arrange
+        Account oneAccount = new Account ("xpto", "one account");
+        Account otherAccount = new Account ("xyz", "general");
+        Account anotherAccount = new Account ("Millennium", "Millennium Account");
+
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+        boolean real = accountsList.addAccountToAccountsList(oneAccount)
+                && accountsList.addAccountToAccountsList(otherAccount)
+                && accountsList.addAccountToAccountsList(anotherAccount);
+
+        //Assert
+        assertTrue(real);
+    }
+
+    @Test
+    @DisplayName("Test if more than one account was added to the list")
+    public void testIfAccountsAreInList_False_oneAccountIsNull() {
+        //Arrange
+        Account oneAccount = null;
+        Account otherAccount = new Account ("xyz", "general");
+        Account anotherAccount = new Account ("Millennium", "Millennium Account");
+
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+        boolean real = accountsList.addAccountToAccountsList(oneAccount)
+                && accountsList.addAccountToAccountsList(otherAccount)
+                && accountsList.addAccountToAccountsList(anotherAccount);
+
+        //Assert
+        assertFalse(real);
+    }
+
     @Test
     @DisplayName("Test if the account was added to the list - the number of accounts on the list was increased")
     public void testIfAccountsListIncreased() {
@@ -30,7 +69,7 @@ class AccountsListTest {
 
 
     @Test
-    @DisplayName("Test if the account was added to the list - only one account added")
+    @DisplayName("Test if the account was added to the list - only one account added - oneAccount not contained")
     public void testAccountIsInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
@@ -40,6 +79,7 @@ class AccountsListTest {
 
         //Act
         accountsList.addAccountToAccountsList(otherAccount);
+
         boolean real = !accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
                 && accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
@@ -48,7 +88,7 @@ class AccountsListTest {
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list")
+    @DisplayName("Test if more than one account was added to the list - all accounts are in the list")
     public void testIfAccountsAreInList_MoreThanOne() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
@@ -71,7 +111,7 @@ class AccountsListTest {
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list")
+    @DisplayName("Test if more than one account was added to the list - one account not contained - Null")
     public void testIfAccountsAreInList_OneAccountIsNull() {
         //Arrange
         Account oneAccount = null;
@@ -124,6 +164,46 @@ class AccountsListTest {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Test if several accounts were added to an accounts list - Positive ")
+
+    public void testIfSeveralAccountsWereAddedPositive_test1 (){
+        //Arrange
+        Account butcherAccount =new Account("Butcher", "Talho do Amadeu");
+        Account marketAccount =new Account ("Market","Mercado do Amadeu");
+        Account postAccount =new Account("Post","Correios do Amadeu");
+
+        HashSet<Account> accounts =new HashSet<>(Arrays.asList(butcherAccount,marketAccount,postAccount));
+        AccountsList septemberAccount = new AccountsList();
+
+        //Act
+        boolean real = septemberAccount.addSeveralAccountsToAList(accounts);
+
+        //Assert
+        assertTrue(real);
+    }
+
+
+    @Test
+    @DisplayName("Test if several accounts were added to an accounts list - False ")
+
+    public void testIfSeveralAccountsWereAddedPositive_test2_oneAccountIsNull (){
+        //Arrange
+        Account butcherAccount = null;
+        Account marketAccount =new Account ("Market","Mercado do Amadeu");
+        Account postAccount =new Account("Post","Correios do Amadeu");
+
+        HashSet<Account> accounts =new HashSet<>(Arrays.asList(butcherAccount,marketAccount,postAccount));
+        AccountsList septemberAccount = new AccountsList();
+
+        //Act
+        boolean real = septemberAccount.addSeveralAccountsToAList(accounts);
+
+        //Assert
+        assertFalse(real);
+    }
+
 
     @Test
     @DisplayName("Test if several accounts were added to an accounts list - Positive ")

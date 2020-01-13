@@ -42,7 +42,7 @@ public class CategoryList {
         if(newCategory != null) {
             return categories.add(newCategory);
         }
-        else return  false;
+        else return false;
     }
 
     /**
