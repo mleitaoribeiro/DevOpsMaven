@@ -232,9 +232,9 @@ class CategoryListTest {
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
 
         //Add several categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.validateIfSetOfCategoriesIsInTheCategoryList(setOfCategories);
+
+        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
