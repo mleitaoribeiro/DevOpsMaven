@@ -342,8 +342,8 @@ public class Person {
      *
      * @param nameOfcategory
      */
-    public void removeCategoryFromList(Category nameOfcategory){
-        categoryList.removeCategoryFromList(nameOfcategory);
+    public boolean removeCategoryFromList(Category nameOfcategory){
+        return categoryList.removeCategoryFromList(nameOfcategory);
     }
 
     /**
@@ -360,8 +360,8 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public void removeMultipleCategoriesToList(HashSet<Category> categories){
-        categoryList.removeMultipleCategoriesToList(categories);
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+       return categoryList.removeMultipleCategoriesToList(categories);
     }
 
     /**Method to get the numbers of Categories in the Category List
