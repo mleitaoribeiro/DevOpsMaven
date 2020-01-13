@@ -115,16 +115,15 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Maria's Group");
 
+        Person person1 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
         Person person2 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
-        Person person3 = new Person("Maria", 1994, 05, 01, new Address("Porto"));
-
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
-        boolean isDupplicateMemberAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.addMember(person1);
+        boolean memberNotAdded = group1.addMember(person2);
 
         //Assert
-        assertFalse(isDupplicateMemberAdded);
+        assertFalse(memberNotAdded);
     }
 
     @Test
@@ -152,28 +151,10 @@ class GroupTest {
     @DisplayName("Test if a member was removed from a Group")
     void removeMemberFromGroup() {
         //Arrange
+        Group group1 = new Group("Grupo a ser submetido aos testes");
 
-        //New Group
-        String description = "Grupo a ser submetido aos testes";
-
-        //One Member
-        String oneMemberName = "João";
-        //One Member BirthDate
-        int oneMemberYear = 1993;
-        int oneMemberMonth = 9;
-        int oneMemberDay = 1;
-
-        //Other Member
-        String otherMemberName = "Elsa";
-        //Other Member BirthDate
-        int otherMemberYear = 1992;
-        int otherMemberMonth = 10;
-        int otherMemberDay = 9;
-
-        Group group1 = new Group(description);
-
-        Person person1 = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay, new Address("Paranhos"));
-        Person person2 = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay, new Address("Porto"));
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
 
@@ -190,34 +171,18 @@ class GroupTest {
     @DisplayName("Test if a member was removed from a Group - try to remove all members")
     void removeMemberFromGroupAllMembers() {
         //Arrange
+        Group group1 = new Group("123 são os primeiros três números inteiros");
 
-        //New Group
-        String description = "123 são os primeiros três números inteiros";
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Lisboa"));
+        Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
+        Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
 
-        //One Member
-        String oneMemberName = "João";
-        //One Member BirthDate
-        int oneMemberYear = 1993;
-        int oneMemberMonth = 9;
-        int oneMemberDay = 1;
-
-        //Other Member
-        String otherMemberName = "Elsa";
-        //Other Member BirthDate
-        int otherMemberYear = 1992;
-        int otherMemberMonth = 10;
-        int otherMemberDay = 9;
-
-        Group group1 = new Group(description);
-
-        Person person1 = new Person(oneMemberName, oneMemberYear, oneMemberMonth, oneMemberDay, new Address("Lisboa"));
-        Person person2 = new Person(otherMemberName, otherMemberYear, otherMemberMonth, otherMemberDay, new Address("Porto"));
-
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
+        group1.addMember(person1);
+        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person3, person2));
 
         //Act
         group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        boolean areBothMembersRemoved = (group1.removeMember(person1) && group1.removeMember(person2));
+        boolean areBothMembersRemoved = (group1.removeMember(person3) && group1.removeMember(person2));
 
         //Assert
         assertTrue (areBothMembersRemoved);
@@ -287,13 +252,14 @@ class GroupTest {
         Person person3 = new Person("Laurinda", 1998, 3, 14, new Address("Porto"));
         Person person4 = new Person("Oscar", 1990, 10, 10, new Address("Porto"));
 
+        group1.addMember(person1);
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
         HashSet<Person> setOfPeopleToRemoveFromGroup = new HashSet<>(Arrays.asList(person2, person3));
 
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
+
         //Act
-        boolean areMultipleMembersRemoved = (
-            group1.addMember(person1) && group1.addMultipleMembers(setOfPeopleToAddToGroup) &&
-        group1.removeMultipleMembers(setOfPeopleToRemoveFromGroup));
+        boolean areMultipleMembersRemoved = (group1.removeMultipleMembers(setOfPeopleToRemoveFromGroup));
 
         //Assert
         assertTrue(areMultipleMembersRemoved);
@@ -507,30 +473,12 @@ class GroupTest {
         assertFalse(result);
     }
 
-
     /**
      * Check if member was promoted to group admin
      */
     @Test
     @DisplayName("Promote one member to group admin")
-    void promoteMemberTest1Person() {
-        //Arrange
-        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
-        Group group1 = new Group("Francis Group");
-
-        //Act
-        boolean isMemberAdded = group1.addMember(person1);
-        boolean isMemberPromoted = group1.promoteMemberToAdmin(person1);
-
-        boolean wasPromoted = isMemberAdded && isMemberPromoted;
-
-        //Assert
-        assertTrue(wasPromoted);
-    }
-
-    @Test
-    @DisplayName("Promote one member to group admin while there are more than one")
-    void promoteMemberTest2Person() {
+    void promoteMember() {
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -539,9 +487,9 @@ class GroupTest {
         //Act
         boolean isFirstMemberAdded = group1.addMember(person1);
         boolean isSecondMemberAdded = group1.addMember(person2);
-        boolean isFirstMemberPromoted = group1.promoteMemberToAdmin(person1);
+        boolean isSecondMemberPromoted = group1.promoteMemberToAdmin(person2);
 
-        boolean wasPromoted = isFirstMemberAdded && isSecondMemberAdded && isFirstMemberPromoted;
+        boolean wasPromoted = isFirstMemberAdded && isSecondMemberAdded && isSecondMemberPromoted;
 
         //Assert
         assertTrue(wasPromoted);
