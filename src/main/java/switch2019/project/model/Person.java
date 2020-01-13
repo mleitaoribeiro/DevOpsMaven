@@ -303,16 +303,6 @@ public class Person {
     }
 
     /**
-     * Get function to get ledger
-     *
-     * @return ledger
-     */
-
-    public HashSet<Transaction> getLedger() {
-        return ledger.getLedger();
-    }
-
-    /**
      *
      * Develop method to create a new transaction (USER STORY)
      * @param amount
@@ -323,12 +313,12 @@ public class Person {
      * @param type
      */
 
-    /*public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
-        if(amount.getAmount() > 0 && categoryList.getCategoriesList().contains(category) &&
-                accountsList.getAccountsList().contains(accountFrom) && accountsList.getAccountsList().contains(accountTo))
-            ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
+    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
+        if(amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
+                accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
+            return ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
+        else return false;
     }
-*/
     /**
      * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
      * @param accountDenomination
@@ -374,40 +364,6 @@ public class Person {
         categoryList.removeMultipleCategoriesToList(categories);
     }
 
-    /**
-     * Get function to get CategoryList
-     *
-     * @return categoryList
-     */
-    public HashSet<Category> getCategoriesList() {
-        return categoryList.getCategoriesList();
-    }
-
-    /**
-     * Get function to get accountsList
-     *
-     * @return accountsList
-     */
-    /*public HashSet<Account> getAccountsList() {
-        return accountsList.getAccountsList();
-    }
-*/
-    /**
-     * Get function to get copy of person
-     *
-     * @return Person
-     */
-    /*
-    public Person getPerson() {
-        Person copy = new Person(name, birthDate.getYear(), birthDate.getMonthValue(), birthDate.getDayOfMonth(), birthPlace, mother, father);
-        copy.siblingList = getSiblingList();
-        copy.categoryList.addMultipleCategoriesToList(categoryList.getCategoriesList());
-        copy.accountsList.addSeveralAccountsToAList(accountsList.getAccountsList());
-        for(Transaction transaction : ledger.getLedger()) {
-            copy.ledger.addTransactionToLedger(transaction);
-        } return copy;
-    }
-    */
 }
 
 
