@@ -23,8 +23,8 @@ public class User {
      *
      * @param category category
      */
-    public void addCategoryToList(Category category){
-        person.addCategoryToCategoryList(category);
+    public boolean addCategoryToList(Category category){
+        return person.addCategoryToCategoryList(category);
     }
 
 
@@ -44,8 +44,8 @@ public class User {
      * @param categories<Category> categories
      */
 
-    public void addMultipleCategoriesToList(HashSet<Category> categories){
-        person.addMultipleCategoriesToList(categories);
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+        return person.addMultipleCategoriesToList(categories);
     }
 
     /**
