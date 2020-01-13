@@ -3,9 +3,7 @@ create ": Test"
 
 ==Arrange==
 
-create "account1:Account"
-":Test" -> "account1:Account" : new Account
-activate "account1:Account" #FFBBBB
+
 
 create "account1:Account"
 create "accountList1:AccountsList"
