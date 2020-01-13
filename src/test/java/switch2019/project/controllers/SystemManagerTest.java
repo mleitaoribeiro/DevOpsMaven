@@ -1,4 +1,4 @@
-package switch2019.project.controllers;
+/*package switch2019.project.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,7 @@ class SystemManagerTest {
      * USER STORY 2 - check if user was added
      * Methods to check if the number of groups in the GroupList is increased
      */
+/*
     @Test
     @DisplayName("Check if One group was added")
     public void wasGroupAddedToList(){
@@ -41,6 +42,7 @@ class SystemManagerTest {
     /**
      * Method to check if a Group was created (with HashSet.contains function) - TRUE
      */
+/*
     @Test
     public void isGroupInList() {
         // Arrange Groups
@@ -56,6 +58,7 @@ class SystemManagerTest {
     /**
      * Method to check if a Group was created (with HashSet.contains function) - FALSE
      */
+/*
     @Test
     public void isGroupInListFalse() {
         // Arrange Groups
@@ -73,6 +76,7 @@ class SystemManagerTest {
     /**
      * Method to check if a Group was created inside a GroupList (Compare with Group HashSet)
      */
+/*
     @Test
     public void isGroupInListCompare(){
         // Arrange Groups
@@ -92,6 +96,7 @@ class SystemManagerTest {
     /**
      * Method to check if Groups were created inside a GroupList (Compare with Group HashSet)
      */
+/*
     @Test
     public void areGroupsInListCompare(){
         // Arrange Groups
@@ -115,7 +120,7 @@ class SystemManagerTest {
      * USER STORY 3 - add people to a group
      * Test if a member was added to a group
      */
-
+/*
     @Test
     @DisplayName("Validate if one person was added to the right group - happy path")
     void addMember() {
@@ -166,7 +171,7 @@ class SystemManagerTest {
     /**
      * Test if multiple members were added to Group
      */
-
+/*
     @Test
     @DisplayName("Validate if the rigth people were added to the right group - happy path")
     void addMultipleMembers() {
@@ -244,4 +249,4 @@ class SystemManagerTest {
         assertFalse(group1.getMembers().contains(person3));
     }
 
-}
+}*/

@@ -54,9 +54,9 @@ public class AccountsList {
      */
     public boolean addSeveralAccountsToAList (HashSet<Account> many) {
         for (Account account : many) {
-            return addAccountToAccountsList(account);
+            this.addAccountToAccountsList(account);
         }
-        return false;
+        return this.accounts.containsAll(many);
     }
 
     /**
@@ -76,9 +76,9 @@ public class AccountsList {
      */
     public boolean removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
         for (Account account : accountsToBeRemoved) {
-            return removeOneAccountFromAList(account);
+             this.removeOneAccountFromAList(account);
         }
-        return false;
+        return !this.accounts.containsAll(accountsToBeRemoved);
     }
 
 
@@ -87,15 +87,6 @@ public class AccountsList {
      * @param accountToValidate
      */
     public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
-
-        //WRITE CODE HERE
-
-        return false;
+        return this.accounts.contains(accountToValidate);
     }
-
-
-
-
-
-
 }

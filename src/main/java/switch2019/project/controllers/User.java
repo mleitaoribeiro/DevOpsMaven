@@ -33,8 +33,8 @@ public class User {
      *
      * @param category category
      */
-    public void removeCategoryFromList(Category category){
-        person.removeCategoryFromList(category);
+    public boolean removeCategoryFromList(Category category){
+        return person.removeCategoryFromList(category);
     }
 
 
@@ -53,9 +53,16 @@ public class User {
      *
      * @param categories<Category> categories
      */
-    public void removeMultipleCategoriesToList(HashSet<Category> categories){
-        person.removeMultipleCategoriesToList(categories);
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+        return person.removeMultipleCategoriesToList(categories);
 
+    }
+
+    /**Method to get the numbers of Categories in the Category List
+     *
+     */
+    public int numberOfCategoryInTheCategoryList() {
+        return person.numberOfCategoryInTheCategoryList();
     }
 
     /**
@@ -74,8 +81,8 @@ public class User {
      * @param type
      */
 
-    public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
-        person.createTransaction(amount, description, category, accountFrom, accountTo, type);
+    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
+        return person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 
     /**
@@ -89,8 +96,8 @@ public class User {
      * @param accountDescription
      */
 
-    public void createAccount (String accountDenomination, String accountDescription) {
-        person.createAccount(accountDenomination, accountDescription);
+    public boolean createAccount (String accountDenomination, String accountDescription) {
+        return person.createAccount(accountDenomination, accountDescription);
     }
 
     /**
@@ -101,15 +108,5 @@ public class User {
      */
     public void createGroupAccount (String accountDenomination, String accountDescription, Group group1) {
         group1.createGroupAccount(accountDenomination, accountDescription);
-    }
-
-    /**
-     * Develop method to get a copy of the person
-     *
-     * @return Person
-     */
-
-    public Person getPerson() {
-        return person.getPerson();
     }
 }

@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @Test
+    @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
         //Arrange
         //Initialize user
@@ -25,8 +26,7 @@ class UserTest {
         Category category1 = new Category("School expenses");
 
         //Act
-        user1.addCategoryToList(category1);
-        boolean realResult = user1.getPerson().getCategoriesList().contains(category1);
+        boolean realResult = user1.addCategoryToList(category1);
 
         //Assert
         assertTrue(realResult);
@@ -49,8 +49,7 @@ class UserTest {
         Category category1 = null;
 
         //Act
-        user1.addCategoryToList(category1);
-        boolean realResult = user1.getPerson().getCategoriesList().contains(category1);
+        boolean realResult = user1.addCategoryToList(category1);
 
         //Assert
         assertFalse(realResult);
@@ -73,13 +72,10 @@ class UserTest {
         Category category2 = new Category("School expenses");
 
         //Act
-        user1.addCategoryToList(category1);
-        user1.addCategoryToList(category2);
-
-        int sizeOfCategoryList = user1.getPerson().getCategoriesList().size();
+        boolean realResult =  user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
 
         //Assert
-        assertEquals(1, sizeOfCategoryList);
+        assertTrue(realResult);
 
     }
 
@@ -99,13 +95,10 @@ class UserTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-        user1.addCategoryToList(category1);
-        user1.addCategoryToList(category2);
-
-        int sizeOfCategoryList = user1.getPerson().getCategoriesList().size();
+       boolean realResult = user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
 
         //Assert
-        assertEquals(1, sizeOfCategoryList);
+      assertTrue(realResult);
 
     }
 
@@ -128,10 +121,7 @@ class UserTest {
         user1.addCategoryToList(category2);
 
         //Act
-        user1.removeCategoryFromList(category1);
-
-        boolean realResult = !user1.getPerson().getCategoriesList().contains(category1)
-                && user1.getPerson().getCategoriesList().contains(category2);
+       boolean realResult = user1.removeCategoryFromList(category1);
 
         //Assert
         assertTrue(realResult);
@@ -156,11 +146,10 @@ class UserTest {
         user1.addCategoryToList(category2);
 
         //Act
-        user1.removeCategoryFromList(category1);
-        int realResult = user1.getPerson().getCategoriesList().size();
+        boolean realResult = user1.removeCategoryFromList(category1);
 
         //Assert
-        assertEquals(0, realResult);
+        assertTrue(realResult);
 
     }
 
@@ -180,13 +169,10 @@ class UserTest {
         user1.addCategoryToList(category1);
 
         //Act
-        user1.removeCategoryFromList(category2);
-        int realSizeOfCategoryList = user1.getPerson().getCategoriesList().size();
+       boolean realResult = user1.removeCategoryFromList(category2);
 
         //Assert
-        assertEquals(0, realSizeOfCategoryList);
-
-
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,9 +196,8 @@ class UserTest {
         // set of Categories to be added to categories list
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
         //Category - add several categories to the user Category List with method
-        user1.addMultipleCategoriesToList(setOfCategories);
+        boolean realResult = user1.addMultipleCategoriesToList(setOfCategories);
 
-        boolean realResult = user1.getPerson().getCategoriesList().containsAll(setOfCategories);
 
         //Assert
         assertTrue(realResult);
@@ -241,7 +226,7 @@ class UserTest {
         //Category - add several categories to the user Category List with method
         user1.addMultipleCategoriesToList(setOfCategories);
 
-        boolean realResult = !user1.getPerson().getCategoriesList().contains(categoryNull);
+        boolean realResult = !user1.addCategoryToList(categoryNull);
 
         //Assert
         assertTrue(realResult);
@@ -266,12 +251,10 @@ class UserTest {
         // set of Categories to be added to categories list
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
         //The user adds several categories to his Category List with method
-        user1.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesOfList = user1.getPerson().getCategoriesList().size();
-
+        boolean realResult = user1.addMultipleCategoriesToList(setOfCategories);
         //Assert
-        assertEquals(2,realNumberOfCategoriesOfList);
+        assertTrue(realResult);
 
     }
 
@@ -296,14 +279,12 @@ class UserTest {
 
         // set of Categories to be added to categories list
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
-        //The user adds several categories to his Category List with method
-        user1.addMultipleCategoriesToList(setOfCategories);
 
-        int realNumberOfCategoriesOfList = user1.getPerson().getCategoriesList().size();
+        //The user adds several categories to his Category List with method
+        boolean realResult =  user1.addMultipleCategoriesToList(setOfCategories);
 
         //Assert
-
-        assertEquals(2,realNumberOfCategoriesOfList);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -330,13 +311,10 @@ class UserTest {
 
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
-        user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
-
-        int realNumberOfCategoriesOfFinalList = user1.getPerson().getCategoriesList().size();
+        boolean realResult = user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         //Assert
-
-        assertEquals(1,realNumberOfCategoriesOfFinalList);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -368,12 +346,12 @@ class UserTest {
 
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
-        user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = user1.getPerson().getCategoriesList().size();
+
+        boolean realResult = user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         //Assert
-        assertEquals(3,realNumberOfCategoriesOfFinalList);
+        assertTrue(realResult);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -403,12 +381,11 @@ class UserTest {
 
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
-        user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        int realNumberOfCategoriesOfFinalList = user1.getPerson().getCategoriesList().size();
 
+        boolean realResult = user1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
         //Assert
-        assertEquals(0,realNumberOfCategoriesOfFinalList);
+        assertTrue(realResult);
     }
 
     /**
@@ -435,10 +412,10 @@ class UserTest {
         user1.createAccount("TransportAccount","Transport expenses");
 
         //Act
-        user1.createTransaction(amount,description,category,from,to,type);
+        boolean result = user1.createTransaction(amount,description,category,from,to,type);
 
         //Assert
-        assertEquals(1, user1.getPerson().getLedger().size());
+        assertTrue(result);
     }
 
     @Test
@@ -462,11 +439,11 @@ class UserTest {
         user1.createAccount("TransportAccount","Transport expenses");
 
         //Act
-        user1.createTransaction(amount,description,categoryFood,from,to,type);
-        user1.createTransaction(amount,description,categoryHome,from,to,type);
+        boolean categoryInTheList = user1.createTransaction(amount,description,categoryFood,from,to,type);
+        boolean categoryNotInTheList = user1.createTransaction(amount,description,categoryHome,from,to,type);
 
         //Assert
-        assertEquals(1, user1.getPerson().getLedger().size());
+        assertTrue(categoryInTheList && !categoryNotInTheList);
     }
 
     @Test
@@ -489,11 +466,11 @@ class UserTest {
         user1.createAccount("Transport","Transport expenses");
 
         //Act
-        user1.createTransaction(amount,description,category,accountWallet,accountTransport,type);
-        user1.createTransaction(amount,description,category,accountWallet,accountBaby,type);
+        boolean accountInTheList = user1.createTransaction(amount,description,category,accountWallet,accountTransport,type);
+        boolean accountNotInTheList = user1.createTransaction(amount,description,category,accountWallet,accountBaby,type);
 
         //Assert
-        assertEquals(1, user1.getPerson().getLedger().size());
+        assertTrue(accountInTheList && !accountNotInTheList);
     }
 
     @Test
@@ -516,18 +493,18 @@ class UserTest {
         user1.createAccount("Transport", "Transport expenses");
 
         //Act
-        user1.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
-        user1.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
+        boolean monetaryValuePositive = user1.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
+        boolean monetaryValueNegative = user1.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
 
         //Assert
-        assertEquals(1, user1.getPerson().getLedger().size());
+        assertTrue(monetaryValuePositive && !monetaryValueNegative);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Test if a Account was created
-
+     */
 
     @Test
     @DisplayName("Test if a Account was created - sucess case")
@@ -541,16 +518,11 @@ class UserTest {
         String accountDenomination = "Wallet";
         String accountDescription = "General expenses";
 
-        int expectAccountsListSize = 1;
-
         //Act
-        oneUser.createAccount(accountDenomination,accountDescription);
-
-
-        int realAccountsListSize = onePerson.getAccountsList().size();
+        boolean real = oneUser.createAccount(accountDenomination,accountDescription);
 
         // assert
-        assertEquals(expectAccountsListSize, realAccountsListSize);
+        assertTrue(real);
     }
-     */
+
 }
