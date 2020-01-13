@@ -27,6 +27,13 @@ public class AccountsList {
     }
 
 
+    /**Method to get the numbers of Accounts in the Accounts List
+     *
+     */
+    public int numberOfAccountsInTheAccountsList () {
+        return this.accounts.size();
+    }
+
     /**
      * method to add one account to the list
      * @param oneAccount
@@ -70,6 +77,22 @@ public class AccountsList {
         }
         return false;
     }
+
+
+    /**
+     * method to validate if the account is in the accounts list
+     * @param accountToValidate
+     */
+    public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
+
+        //WRITE CODE HERE
+
+        return false;
+    }
+
+
+
+
 
 
 }

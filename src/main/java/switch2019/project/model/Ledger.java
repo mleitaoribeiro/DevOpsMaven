@@ -17,8 +17,9 @@ public class Ledger {
     /**
      * Add Transaction to Ledger
      */
-    public void addTransactionToLedger(Transaction transaction) {
-        if(transaction.isAValidTransaction()) ledger.add(transaction);
+    public boolean addTransactionToLedger(Transaction transaction) {
+        if(transaction.isAValidTransaction()) return ledger.add(transaction);
+        else return false;
     }
 
     /**

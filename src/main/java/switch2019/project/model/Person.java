@@ -323,12 +323,12 @@ public class Person {
      * @param type
      */
 
-    public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
+    /*public void createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
         if(amount.getAmount() > 0 && categoryList.getCategoriesList().contains(category) &&
                 accountsList.getAccountsList().contains(accountFrom) && accountsList.getAccountsList().contains(accountTo))
             ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
     }
-
+*/
     /**
      * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
      * @param accountDenomination
@@ -343,8 +343,8 @@ public class Person {
      * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.
      * @param nameOfCategory
      */
-    public void addCategoryToCategoryList(Category nameOfCategory) {
-        categoryList.addCategoryToCategoryList(nameOfCategory);
+    public boolean addCategoryToCategoryList(Category nameOfCategory) {
+       return categoryList.addCategoryToCategoryList(nameOfCategory);
     }
 
     /**
@@ -361,8 +361,8 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public void addMultipleCategoriesToList(HashSet<Category> categories){
-        categoryList.addMultipleCategoriesToList(categories);
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+        return categoryList.addMultipleCategoriesToList(categories);
     }
 
     /**
@@ -388,15 +388,16 @@ public class Person {
      *
      * @return accountsList
      */
-    public HashSet<Account> getAccountsList() {
+    /*public HashSet<Account> getAccountsList() {
         return accountsList.getAccountsList();
     }
-
+*/
     /**
      * Get function to get copy of person
      *
      * @return Person
      */
+    /*
     public Person getPerson() {
         Person copy = new Person(name, birthDate.getYear(), birthDate.getMonthValue(), birthDate.getDayOfMonth(), birthPlace, mother, father);
         copy.siblingList = getSiblingList();
@@ -406,6 +407,7 @@ public class Person {
             copy.ledger.addTransactionToLedger(transaction);
         } return copy;
     }
+    */
 }
 
 

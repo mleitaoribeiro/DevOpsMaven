@@ -55,7 +55,7 @@ class GroupTest {
     @DisplayName("True - member added to an empty group")
     void promoteAddedMemberIfEmptyTrue() {
         //Arrange
-        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
+        Person person1 = new Person("Juan", 1970, 1, 2, new Address("Toledo"));
         Group group1 = new Group("Group with no members");
 
         //Act
@@ -69,8 +69,8 @@ class GroupTest {
     @DisplayName("False - member added to a non empty group")
     void promoteAddedMemberIfEmptyTestFalse() {
         //Arrange
-        Person person1 = new Person("Juan", 1970,1,2,new Address("Toledo"));
-        Person person2 = new Person("Pablo", 1978,5,16,new Address("Madrid"));
+        Person person1 = new Person("Juan", 1970, 1, 2, new Address("Toledo"));
+        Person person2 = new Person("Pablo", 1978, 5, 16, new Address("Madrid"));
         Group group1 = new Group("Group with no members");
 
         //Act
@@ -303,7 +303,7 @@ class GroupTest {
      */
     @Test
     @DisplayName("multiple members")
-    void isRemovedMemberAlsoRemovedFromAdmin(){
+    void isRemovedMemberAlsoRemovedFromAdmin() {
         //Arrange:
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -516,11 +516,10 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        group1.addMember(person1);
-        group1.promoteMemberToAdmin(person1);
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1);
+        boolean isMemberAdded = group1.addMember(person1);
+        boolean isMemberPromoted = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isMemberAdded && isMemberPromoted;
 
         //Assert
         assertTrue(wasPromoted);
@@ -535,12 +534,11 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
-        group1.promoteMemberToAdmin(person1);
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1) && memberList.contains(person2);
+        boolean isFirstMemberAdded = group1.addMember(person1);
+        boolean isSecondMemberAdded = group1.addMember(person2);
+        boolean isFirstMemberPromoted = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isFirstMemberAdded && isSecondMemberAdded && isFirstMemberPromoted;
 
         //Assert
         assertTrue(wasPromoted);
@@ -607,15 +605,11 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
-
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean membersWerePromoted = adminList.containsAll(setOfPeopleToAddToGroup) && memberList.containsAll(setOfPeopleToAddToGroup);
+        boolean addedMultipleMembers = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean membersWerePromoted = group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
 
         //Assert
-        assertTrue(membersWerePromoted);
+        assertTrue(addedMultipleMembers && membersWerePromoted);
     }
 
     @Test
@@ -633,18 +627,17 @@ class GroupTest {
         HashSet<Person> setOfPeopleToBeAdmin = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
+        boolean areMultipleMembersAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean areMultipleMembersPromoted = group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
 
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean werePromoted = adminList.containsAll(setOfPeopleToBeAdmin) && memberList.containsAll(setOfPeopleToAddToGroup);
+        boolean werePromoted = areMultipleMembersPromoted && areMultipleMembersAdded;
 
         //Assert
         assertTrue(werePromoted);
     }
 
     //Fazer teste para pessoas nulas
+
     /**
      * Check if a person was promoted to member and group administrator simultaneously
      */
@@ -656,14 +649,10 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        group1.setAdmin(person1);
-
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.contains(person1);
+        boolean isMemberAddedAsAdmin = group1.setAdmin(person1);
 
         //Assert
-        assertTrue(wasPromoted);
+        assertTrue(isMemberAddedAsAdmin);
     }
 
     @Test
@@ -680,12 +669,10 @@ class GroupTest {
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
 
         //Act
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-        group1.setAdmin(person1);
+        boolean areMultipleMembersAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        boolean isAdminPromoted = group1.setAdmin(person1);
 
-        HashSet<Person> adminList = group1.getAdmins();
-        HashSet<Person> memberList = group1.getMembers();
-        boolean wasPromoted = adminList.contains(person1) && memberList.containsAll(setOfPeopleToAddToGroup);
+        boolean wasPromoted = areMultipleMembersAdded && isAdminPromoted;
 
         //Assert
         assertTrue(wasPromoted);
@@ -695,7 +682,7 @@ class GroupTest {
      * Check if Account was added to the groups account list
      * Testing getGroupAccountList() to see if account was added to the group´s list
      */
-    @DisplayName("Using .contains() method from the HashSet class")
+    @DisplayName("Added 1 Account")
     @Test
     void addAccountToGroupListTestContains() {
         //Arrange:
@@ -703,28 +690,60 @@ class GroupTest {
         Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        group1.addAccountToGroupAccountList(groupAccount);
-        boolean result = group1.getGroupAccountsList().contains(groupAccount);
+        boolean result =group1.addAccountToGroupAccountList(groupAccount);
 
         //Assert
         assertTrue(result);
     }
 
-    @DisplayName("Using .size() method from the HashSet class")
+    @DisplayName("Added 2 Accounts")
     @Test
     void addAccountToGroupListTestSize() {
         //Arrange
         Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test","group account");
+        Account groupAccount = new Account("Group Account Test", "group account");
         Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
-        group1.addAccountToGroupAccountList(groupAccount);
-        group1.addAccountToGroupAccountList(groupAccount2);
-        int result = group1.getGroupAccountsList().size();
+        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountList(groupAccount);
+        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountList(groupAccount2);
 
         //Assert
-        assertEquals(2,result);
+        assertTrue(addAccountToGroupList1 && addAccountToGroupList2);
+    }
+
+    /**
+     * Test if a person can create a group account (must be a group admin).
+     * User Stories Method : createGroupAccount
+     */
+
+    @Test
+    @DisplayName("Test if a group admin can create a group account - TRUE")
+    void createGroupAccountTest(){
+        //Arrange
+        Group group1 = new Group ("test group");
+
+        //Act
+        boolean result = group1.createGroupAccount("Conta de Grupo", "Test");
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if a group can create multiple group accounts - TRUE")
+    void createGroupAccountsTest(){
+        //Arrange
+        Group group1 = new Group("test group");
+
+        //Act
+        boolean addGroupAccount1 = group1.createGroupAccount("Conta de Grupo 1","Test");
+        boolean addGroupAccount2 = group1.createGroupAccount("Conta de Grupo 2", "Test");
+
+        //Assert
+        assertTrue(addGroupAccount1 && addGroupAccount2);
     }
 }
+
+
 
