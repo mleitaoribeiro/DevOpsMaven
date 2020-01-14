@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionTest {
 
+    /**
+     * Tests to validate if a transaction was created
+     */
+
     @Test
     @DisplayName("Test for validating transaction - sucess case")
     void isAValidTransactionTrue() {
