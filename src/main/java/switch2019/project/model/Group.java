@@ -194,7 +194,7 @@ public class Group {
      * @param account1
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
-    public boolean addAccountToGroupAccountList(Account account1){
+    public boolean addAccountToGroupAccountsList(Account account1){
         return this.groupAccountsList.addAccountToAccountsList(account1);
     }
 
@@ -206,7 +206,7 @@ public class Group {
      */
     public boolean createGroupAccount (String accountDenomination, String accountDescription) {
         if (accountDenomination != null) {
-            return this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
+            return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
         }
         return false;
     }

@@ -642,7 +642,7 @@ class GroupTest {
         Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        boolean result =group1.addAccountToGroupAccountList(groupAccount);
+        boolean result =group1.addAccountToGroupAccountsList(groupAccount);
 
         //Assert
         assertTrue(result);
@@ -657,8 +657,8 @@ class GroupTest {
         Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
-        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountList(groupAccount);
-        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountList(groupAccount2);
+        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList(groupAccount);
+        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList(groupAccount2);
 
         //Assert
         assertTrue(addAccountToGroupList1 && addAccountToGroupList2);
@@ -666,7 +666,7 @@ class GroupTest {
 
     /**
      * Test if a person can create a group account (must be a group admin).
-     * User Stories Method : createGroupAccount
+     * User Stories 7: createGroupAccount
      */
 
     @Test
