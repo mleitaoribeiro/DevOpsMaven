@@ -411,7 +411,6 @@ class CategoryListTest {
         Category house = new Category("House");
         Category cats = new Category("Cats");
         Category transport = new Category("Transport");
-        Category health = new Category("Health");
         CategoryList newCategories = new CategoryList();
 
         //Act
