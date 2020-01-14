@@ -73,7 +73,7 @@ class UserTest {
         Category category2 = new Category("School expenses");
 
         //Act
-        boolean realResult =  user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
+        boolean realResult = user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
 
         //Assert
         assertTrue(realResult);
@@ -95,10 +95,10 @@ class UserTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-       boolean realResult = user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
+        boolean realResult = user1.addCategoryToList(category1) && !user1.addCategoryToList(category2);
 
         //Assert
-      assertTrue(realResult);
+        assertTrue(realResult);
 
     }
 
@@ -123,7 +123,7 @@ class UserTest {
         user1.addCategoryToList(category2);
 
         //Act
-       boolean realResult = user1.removeCategoryFromList(category1);
+        boolean realResult = user1.removeCategoryFromList(category1);
 
         //Assert
         assertTrue(realResult);
@@ -168,7 +168,7 @@ class UserTest {
         user1.addCategoryToList(category1);
 
         //Act
-       boolean realResult = user1.removeCategoryFromList(category2);
+        boolean realResult = user1.removeCategoryFromList(category2);
 
         //Assert
         assertTrue(realResult);
@@ -279,7 +279,7 @@ class UserTest {
         HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
 
         //The user adds several categories to his Category List with method
-        boolean realResult =  user1.addMultipleCategoriesToList(setOfCategories);
+        boolean realResult = user1.addMultipleCategoriesToList(setOfCategories);
 
         //Assert
         assertTrue(realResult);
@@ -395,22 +395,22 @@ class UserTest {
     void createTransactionSuccessCase() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
+        User user1 = new User(person1);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Type type = new Type(false); //debit
 
         Category category = new Category("General");
-        user1.addCategoryToList (category);
+        user1.addCategoryToList(category);
 
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
 
-        user1.createAccount("Wallet","General expenses");
-        user1.createAccount("TransportAccount","Transport expenses");
+        user1.createAccount("Wallet", "General expenses");
+        user1.createAccount("TransportAccount", "Transport expenses");
 
         //Act
-        boolean result = user1.createTransaction(amount,description,category,from,to,type);
+        boolean result = user1.createTransaction(amount, description, category, from, to, type);
 
         //Assert
         assertTrue(result);
@@ -421,7 +421,7 @@ class UserTest {
     void createTransactionCategoryIsNotInTheList() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
+        User user1 = new User(person1);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
         Type type = new Type(false); //debit
@@ -431,14 +431,14 @@ class UserTest {
         Category categoryHome = new Category("home");
         user1.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
 
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         user1.createAccount("Wallet", "General expenses");
-        user1.createAccount("TransportAccount","Transport expenses");
+        user1.createAccount("TransportAccount", "Transport expenses");
 
         //Act
-        boolean categoryInTheList = user1.createTransaction(amount,description,categoryFood,from,to,type);
-        boolean categoryNotInTheList = user1.createTransaction(amount,description,categoryHome,from,to,type);
+        boolean categoryInTheList = user1.createTransaction(amount, description, categoryFood, from, to, type);
+        boolean categoryNotInTheList = user1.createTransaction(amount, description, categoryHome, from, to, type);
 
         //Assert
         assertTrue(categoryInTheList && !categoryNotInTheList);
@@ -449,7 +449,7 @@ class UserTest {
     void createTransactionAccountIsNotInTheList() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User (person1);
+        User user1 = new User(person1);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
         Type type = new Type(false); //debit
@@ -458,14 +458,14 @@ class UserTest {
         user1.addCategoryToList(category);
 
         Account accountWallet = new Account("Wallet", "General expenses");
-        Account accountTransport = new Account("Transport","Transport expenses");
-        Account accountBaby = new Account("Baby","Baby expenses");
+        Account accountTransport = new Account("Transport", "Transport expenses");
+        Account accountBaby = new Account("Baby", "Baby expenses");
         user1.createAccount("Wallet", "General expenses");
-        user1.createAccount("Transport","Transport expenses");
+        user1.createAccount("Transport", "Transport expenses");
 
         //Act
-        boolean accountInTheList = user1.createTransaction(amount,description,category,accountWallet,accountTransport,type);
-        boolean accountNotInTheList = user1.createTransaction(amount,description,category,accountWallet,accountBaby,type);
+        boolean accountInTheList = user1.createTransaction(amount, description, category, accountWallet, accountTransport, type);
+        boolean accountNotInTheList = user1.createTransaction(amount, description, category, accountWallet, accountBaby, type);
 
         //Assert
         assertTrue(accountInTheList && !accountNotInTheList);
@@ -516,9 +516,48 @@ class UserTest {
         String accountDescription = "General expenses";
 
         //Act
-        boolean real = oneUser.createAccount(accountDenomination,accountDescription);
+        boolean real = oneUser.createAccount(accountDenomination, accountDescription);
 
         // assert
         assertTrue(real);
+    }
+
+    /**
+     * Test if a GroupAccount was created
+     */
+    @Test
+    @DisplayName("Test if a Group Account was created-sucess case")
+    void createGroupAccount() {
+        //Arrange
+
+        Group groupOne = new Group("Doidos");
+        Person personOne = new Person("João", 1993, 9, 1, new Address("Porto"));
+        User userOne = new User(personOne);
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
+
+        //Act
+        boolean result = userOne.createGroupAccount(accountDenomination, accountDescription, groupOne);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if a Group Account was created-false case")
+    void createGroupAccountFalse() {
+        //Arrange
+
+        Group groupOne = new Group(null);
+        Person personOne = new Person("João", 1993, 9, 1, new Address("Porto"));
+        User userOne = new User(personOne);
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
+
+        //Act
+        boolean result = userOne.createGroupAccount(accountDenomination, accountDescription, groupOne);
+
+        //Assert
+        assertFalse(result);
     }
 }
