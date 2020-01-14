@@ -673,30 +673,146 @@ class GroupTest {
     @Test
     @DisplayName("Test if a group admin can create a group account - TRUE")
     void createGroupAccountTest(){
-        //Arrange
+
+        //Arrange :
         Group group1 = new Group ("test group");
+        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        group1.addMember(person1);
 
-        //Act
-        boolean result = group1.createGroupAccount("Conta de Grupo", "Test");
+        //Act :
+        group1.addMember(person1);
+        boolean result = group1.createGroupAccount("Conta de Grupo", "Test", person1);
 
-        //Assert
+        //Assert :
         assertTrue(result);
     }
 
     @Test
     @DisplayName("Test if a group can create multiple group accounts - TRUE")
     void createGroupAccountsTest(){
+
         //Arrange
         Group group1 = new Group("test group");
+        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
 
         //Act
-        boolean addGroupAccount1 = group1.createGroupAccount("Conta de Grupo 1","Test");
-        boolean addGroupAccount2 = group1.createGroupAccount("Conta de Grupo 2", "Test");
+        group1.addMember(person1);
+        boolean addGroupAccount1 = group1.createGroupAccount("Conta de Grupo 1","Test", person1);
+        boolean addGroupAccount2 = group1.createGroupAccount("Conta de Grupo 2", "Test", person1);
+        boolean addGroupAccount3 = group1.createGroupAccount("Conta de Grupo 3","Test",person1);
 
         //Assert
-        assertTrue(addGroupAccount1 && addGroupAccount2);
+        assertTrue(addGroupAccount1 && addGroupAccount2 && addGroupAccount3);
     }
 
+    @Test
+    @DisplayName("Test if a group can create multiple group accounts - TRUE")
+    void createGroupAccountFalse(){
+
+        //Arrange :
+        Group group1 = new Group("test group");
+        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        Person person2 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
+
+        //Act :
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean addGroupAccount = group1.createGroupAccount("Conta de Grupo","Test",person2);
+
+        //Assert:
+        assertFalse(addGroupAccount);
+    }
+
+    @Test
+    @DisplayName("Test if an Account with the same Account Denomination is added to the list")
+    void createGroupAccountSameDescriptionFalse() {
+
+        //Arrange :
+        Group group1 = new Group("test group");
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+
+        //Act:
+        group1.addMember(person1);
+        group1.createGroupAccount("Conta de Grupo","Test",person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("Conta de Grupo","Test",person1);
+
+        //Assert
+        assertFalse(addGroupAccountRepeated);
+    }
+
+    @Test
+    @DisplayName("Test if Method cant create two accounts with the same Account Denomination, but different letter casing.")
+    void createGroupAccountSameDescriptionIgnoreCasing() {
+        //Arrange:
+        Group group1 = new Group("test group");
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+
+        //Act:
+        group1.addMember(person1);
+        group1.createGroupAccount("Conta de Grupo", "Test",person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("CoNta De GrUPo", "Test",person1);
+
+        //Assert:
+        assertFalse(addGroupAccountRepeated);
+    }
+
+    @Test
+    @DisplayName("Test if a regular member can add a Group Account")
+    void createGroupAccountRegularMemberFalse(){
+
+        //Arrange:
+        Group group1 = new Group("test group");
+        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        Person person2 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Conta de Grupo","Test",person2);
+
+
+        //Assert
+        assertFalse (canARegularMemberAddGroupAccount);
+    }
+
+    @Test
+    @DisplayName("Test if method works while the group description is null")
+    void createGroupAccountOnNullGroup(){
+
+        //Arrange:
+        Group group1 = new Group(null);
+        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+
+        //Act:
+        boolean canAnAccountBeAddedToNullGroup = group1.addMember(person1)
+                && group1.createGroupAccount("Conta de Grupo","Test",person1);
+
+        //Assert:
+        assertFalse(canAnAccountBeAddedToNullGroup);
+    }
+
+    @Test
+    @DisplayName("Test if an admin of many groups can add an account to all of them")
+    void createGroupAccountsOnMultipleGroups(){
+
+        //Arrange:
+        Group group1 = new Group("Test Group");
+        Group group2 = new Group("Test Group 2");
+        Group group3 = new Group("Test Group 3");
+        Person person1 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
+
+        //Act:
+        group1.addMember(person1);
+        group2.addMember(person1);
+        group3.addMember(person1);
+        boolean isGroup1AccountCreated = group1.createGroupAccount("Test Account","User Story 7", person1);
+        boolean isGroup2AccountCreated = group2.createGroupAccount("Test Account 2","User Story 7", person1);
+        boolean isGroup3AccountCreated = group3.createGroupAccount("Test Account 3", "User Story 7", person1);
+
+        //Assert
+        assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
+    }
+    
     /**
      * Check if Category was added to the groups Category list
      * main scenario
