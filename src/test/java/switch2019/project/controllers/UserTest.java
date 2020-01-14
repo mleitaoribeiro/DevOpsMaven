@@ -524,5 +524,4 @@ class UserTest {
         // assert
         assertTrue(real);
     }
-
 }
