@@ -7,7 +7,7 @@ public class Ledger {
     private HashSet<Transaction> ledger;
 
     /**
-     * Overload Ledger Construtor
+     * Ledger Construtor
      */
 
     public Ledger() {
