@@ -7,6 +7,7 @@ create "person:Person"
 ":Test" -> "person:Person" : newPerson
 activate "person:Person" #FFBBBB
 
+
 create "amount:MonetaryValue"
 "person:Person" -> "amount:MonetaryValue" : new
 activate "amount:MonetaryValue"  #FFBBBB
@@ -32,7 +33,7 @@ activate "type:Type"  #FFBBBB
 
 create "categoryList:CategoryList"
 "person:Person" -> "categoryList:CategoryList" : addCategoryToCategoryList (category)
-activate "acc1:AccountsList"  #FFBBBB
+activate "categoryList:CategoryList"  #FFBBBB
 
 create "from:AccountsList"
 "person:Person" -> "from:AccountsList" : createAccount(from)
@@ -45,10 +46,6 @@ activate "to:AccountsList"  #FFBBBB
 create "result:Transaction"
 "person:Person" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
 activate "result:Transaction"  #FFBBBB
-
-create "ledger:Legder"
-"transaction:Transaction" -> "ledger:Legder" : registo, category, accountFrom, accountTo, type)
-activate "ledger:Legder"  #FFBBBB
 
 
 == Assert ==
