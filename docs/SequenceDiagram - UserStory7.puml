@@ -11,27 +11,27 @@ activate "group1:Group" #FFBBBB
 create "account1:Account"
 create "accountList1:AccountsList"
 "group1:Group" -> "accountList1:AccountsList" : new AccountsList
+deactivate "group1:Group" #FFBBBB
 
 == Act ==
 
-create "account1:Account"
-"group1:Group" -> "account1:Account" : createGroupAccount(denomination, description)
-activate "account1:Account" #FFBBBB
+":Test" -> "group1:Group" : createGroupAccount(denomination, description)
+activate "group1:Group" #FFBBBB
 
-"account1:Account" -> "accountList1:AccountsList" : addAccountToGroupAccountsList
+create "account1:Account"
+"group1:Group" -> "account1:Account" : new Account
+
+"group1:Group" -> "accountList1:AccountsList" : addAccountToGroupAccountsList(account1)
 activate "accountList1:AccountsList" #FFBBBB
 
-"accountList1:AccountsList" -> "account1:Account" : accountCreated
+"accountList1:AccountsList" --> "group1:Group" : accountCreatedAndAdded
 deactivate "accountList1:AccountsList" #FFBBBB
 
-"account1:Account" -> "group1:Group" : accountCreated
-deactivate "account1:Account" #FFBBBB
-
-"group1:Group" -> ":Test" : accountCreated
+"group1:Group" --> ":Test" : accountCreatedAndAdded
 deactivate "group1:Group" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(accountCreated)
+":Test" -> ":Test" : assertTrue(accountCreatedAndAdded)
 
 @enduml
