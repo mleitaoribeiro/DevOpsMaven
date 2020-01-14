@@ -7,17 +7,18 @@ public class Ledger {
     private HashSet<Transaction> ledger;
 
     /**
-     * Overload Ledger Construtor
+     * Ledger Construtor
      */
 
     public Ledger() {
-        ledger = new HashSet<Transaction>();
+        ledger = new HashSet<>();
     }
 
     /**
      * Add Transaction to Ledger
      */
-    public boolean addTransactionToLedger(Transaction transaction) {
+    public boolean addTransactionToLedger(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
+        Transaction transaction = new Transaction(amount, description, category, accountFrom, accountTo, type);
         if (transaction.isAValidTransaction()) return ledger.add(transaction);
         else return false;
     }
