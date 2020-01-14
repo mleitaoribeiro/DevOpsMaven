@@ -11,11 +11,5 @@ public class Type {
     public Type(boolean description) {
         this.description = description;
     }
-
-    /**
-     * Set Description
-     */
-    public boolean isDescription() {
-        return description;
-    }
+    
 }

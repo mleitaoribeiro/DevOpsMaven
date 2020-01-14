@@ -3,66 +3,71 @@ create ":Test"
 
 ==Arrange==
 
-create "person1:Person"
-":Test" -> "person1:Person" : request transaction creation (date,description)
-activate "person1:Person" #FFBBBB
-
-create "cat1:CategoryList"
-"person1:Person" -> "cat1:CategoryList" : request list of categories
-activate "cat1:CategoryList"  #FFBBBB
-
-"cat1:CategoryList" <- "person1:Person" : return list of categories
-deactivate "cat1:CategoryList"  #FFBBBB
-
-"person1:Person" -> "person1:Person" : cat = selected category from the list
+create "person:Person"
+":Test" -> "person:Person" : new
+activate "person:Person" #FFBBBB
+":Test" //-- "person:Person"  : person created
+deactivate "person:Person" #FFBBBB
 
 
-create "acc1:AccountsList"
-"person1:Person" -> "acc1:AccountsList" : request list of accounts
-activate "acc1:AccountsList"  #FFBBBB
-
-"acc1:AccountsList" <- "person1:Person" : return list of accounts
-deactivate "acc1:AccountsList"  #FFBBBB
-
-"person1:Person" -> "person1:Person" : accountFrom = selected account to receive credit
-
-"person1:Person" -> "person1:Person" : accountTo = selected account to receive debit
+create "amount:MonetaryValue"
+":Test" -> "amount:MonetaryValue" : new
+activate "amount:MonetaryValue"  #FFBBBB
+":Test" //-- "amount:MonetaryValue" : amount created
+deactivate "amount:MonetaryValue" #FFBBBB
 
 
-create "amount1:MonetaryValue"
-"person1:Person" -> "amount1:MonetaryValue" : request amount value
-activate "amount1:MonetaryValue"  #FFBBBB
+create "category:Category"
+":Test" -> "category:Category" : new
+activate "category:Category"  #FFBBBB
+":Test" //-- "category:Category" : category created
+deactivate "category:Category" #FFBBBB
 
-"amount1:MonetaryValue" <- "person1:Person" : return monetary value
-deactivate "amount1:MonetaryValue"  #FFBBBB
+create "from:Account"
+":Test" -> "from:Account" : new
+activate "from:Account"  #FFBBBB
+":Test" //-- "from:Account" : account from created
+deactivate "from:Account" #FFBBBB
 
-"person1:Person" -> "person1:Person" : amount = returned monetary value
+create "to:Account"
+":Test" -> "to:Account" : new
+activate "to:Account"  #FFBBBB
+":Test" //-- "to:Account" : account to created
+deactivate "to:Account" #FFBBBB
 
+create "type:Type"
+":Test" -> "type:Type" : new
+activate "type:Type"  #FFBBBB
+":Test" //-- "type:Type" : type created
+deactivate "type:Type" #FFBBBB
 
-create "type1:Type"
-"person1:Person" -> "type1:Type" : select type of account
-activate "type1:Type"  #FFBBBB
-
-"type1:Type" <- "person1:Person" : return type1 = type of account (debit or credit)
-deactivate "type1:Type"  #FFBBBB
 
 == Act ==
 
-create "mov1:Transaction"
-"person1:Person" -> "mov1:Transaction" : transaction creation (amount, description, category, accountFrom, accountTo, type)
-activate "mov1:Transaction"  #FFBBBB
+create "categoryList:CategoryList"
+"person:Person" -> "categoryList:CategoryList" : addCategoryToCategoryList (category)
+activate "categoryList:CategoryList"  #FFBBBB
+"person:Person" //-- "categoryList:CategoryList" : category added to the list
+deactivate "categoryList:CategoryList" #FFBBBB
 
+create "from:AccountsList"
+"person:Person" -> "from:AccountsList" : createAccount(account denomination, account description)
+activate "from:AccountsList"  #FFBBBB
+"person:Person" //-- "from:AccountsList" : count from added to the list
+deactivate "from:AccountsList" #FFBBBB
 
-create "ledg1:Legder"
-"mov1:Transaction" -> "ledg1:Legder" : register transaction (amount, description, category, accountFrom, accountTo, type)
-activate "ledg1:Legder"  #FFBBBB
+create "to:AccountsList"
+"person:Person" -> "to:AccountsList" : createAccount(account denomination, account description)
+activate "to:AccountsList"  #FFBBBB
+"person:Person" //-- "from:AccountsList" : count to added to the list
+deactivate "from:AccountsList" #FFBBBB
 
-"ledg1:Legder" <- "mov1:Transaction" : return registered transaction
-deactivate "ledg1:Legder"  #FFBBBB
+create "result:Transaction"
+"person:Person" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
+activate "result:Transaction"  #FFBBBB
+"person:Person" //-- "result:Transaction"  : transaction created
+deactivate "result:Transaction" #FFBBBB
 
-
-"mov1:Transaction" <- "person1:Person" : return created transaction
-deactivate "mov1:Transaction"  #FFBBBB
 
 == Assert ==
 

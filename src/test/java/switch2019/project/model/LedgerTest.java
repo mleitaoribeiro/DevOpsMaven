@@ -29,6 +29,10 @@ class LedgerTest {
         assertTrue(result);
     }
 
+    /**
+     * Validate if two transactions were added to ledger list
+     */
+
     @Test
     @DisplayName("Test for validating for several new transactions")
     void addTransactionToLedgerTwoTransaction() {
@@ -51,9 +55,14 @@ class LedgerTest {
         assertTrue(addedTransaction1 && addedTransaction2);
     }
 
+    /**
+     * Validate if a transaction was added to ledger list
+     * null monetary value
+     */
+
     @Test
     @DisplayName("Test for validating ledger not adding invalid transactions - null monetaryValue")
-    void addTransactionToLedgerNullTransactionNullMonetaryValue() {
+    void addTransactionToLedgerTransactionNullMonetaryValue() {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
@@ -69,9 +78,14 @@ class LedgerTest {
         assertFalse(addedTransaction);
     }
 
+    /**
+     * Validate if a transaction was added to ledger list
+     * null description
+     */
+
     @Test
     @DisplayName("Test for validating ledger not adding invalid transactions - null description")
-    void addTransactionToLedgerNullTransactionNullDescription() {
+    void addTransactionToLedgerTransactionNullDescription() {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
@@ -88,9 +102,14 @@ class LedgerTest {
         assertFalse(addedTransaction);
     }
 
+    /**
+     * Validate if a transaction was added to ledger list
+     * null category
+     */
+
     @Test
     @DisplayName("Test for validating ledger not adding invalid transactions - null category")
-    void addTransactionToLedgerNullTransactionNullCategory() {
+    void addTransactionToLedgerTransactionNullCategory() {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
@@ -106,9 +125,14 @@ class LedgerTest {
         assertFalse(addedTransaction);
     }
 
+    /**
+     * Validate if a transaction was added to ledger list
+     * null account
+     */
+
     @Test
     @DisplayName("Test for validating ledger not adding invalid transactions - null account")
-    void addTransactionToLedgerNullTransactionNullAccount() {
+    void addTransactionToLedgerTransactionNullAccount() {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Category category = new Category("grocery");
@@ -123,6 +147,11 @@ class LedgerTest {
         //Assert
         assertFalse(addedTransaction);
     }
+
+    /**
+     * Validate if a transaction was added to ledger list
+     * null type
+     */
 
     @Test
     @DisplayName("Test for validating ledger not adding invalid transactions - null type")
