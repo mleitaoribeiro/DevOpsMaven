@@ -935,6 +935,7 @@ class GroupTest {
     /**
      * Check if a Category was added to the groups Category list
      */
+    /*
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
@@ -1015,6 +1016,8 @@ class GroupTest {
     /**
      * Check if a Category was removed from the groups Category list
      */
+
+    /*
     @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
@@ -1082,6 +1085,8 @@ class GroupTest {
     /**
      * Check if multiple Categories were added to the groups Category list
      */
+
+    /*
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
@@ -1184,7 +1189,7 @@ class GroupTest {
     /**
      * Check if multiple Categories were removed from the groups Category list
      */
-
+/*
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToListMainScenario() {
@@ -1278,7 +1283,7 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-
+*/
 }
 
 
