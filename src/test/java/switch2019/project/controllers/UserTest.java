@@ -14,6 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
 
+    /**
+     * Tests to validate if a category was added to Category List
+     */
+
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
@@ -33,8 +37,6 @@ class UserTest {
 
 
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Check if null category is not added")
@@ -56,7 +58,6 @@ class UserTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Check if the same Category is not added simultaneously")
@@ -79,7 +80,6 @@ class UserTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
@@ -102,7 +102,9 @@ class UserTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Tests to validate if a category was removed from User Category List
+     */
 
     @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
@@ -127,7 +129,6 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("To Try to remove a set of Categories that does not exist or null")
@@ -153,8 +154,6 @@ class UserTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Test
     @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
     void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
@@ -175,7 +174,6 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
@@ -203,7 +201,9 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Tests to validate if multiple categories were added to Category List
+     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
@@ -232,7 +232,6 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
@@ -258,7 +257,6 @@ class UserTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
@@ -287,7 +285,9 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Tests to validate if multiple categories were removed from Category List
+     */
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
@@ -317,7 +317,6 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
@@ -354,7 +353,6 @@ class UserTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
@@ -389,7 +387,7 @@ class UserTest {
     }
 
     /**
-     * Test if a transaction was created
+     * Tests to validate  if a transaction was created
      */
 
     @Test
@@ -420,7 +418,7 @@ class UserTest {
 
     @Test
     @DisplayName("Test if a transaction was created - category is not in the list")
-    void createTransactionCategoryisNotinTheList() {
+    void createTransactionCategoryIsNotInTheList() {
         //Arrange
         Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
         User user1 = new User (person1);
@@ -500,10 +498,9 @@ class UserTest {
         assertTrue(monetaryValuePositive && !monetaryValueNegative);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Test if a Account was created
+     * Test to validate if a account was created
      */
 
     @Test
