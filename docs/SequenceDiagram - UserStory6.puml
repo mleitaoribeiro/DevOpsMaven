@@ -9,9 +9,12 @@ activate "person1:Person" #FFBBBB
 
 create "account1:Account"
 create "accountList1:AccountsList"
+
 "person1:Person" -> "accountList1:AccountsList" : new AccountsList
+deactivate "person1:Person" #FFBBBB
 
 ==Act==
+":Test" -> "person1:Person" : createAccount(denomination, description)
 create "account1:Account"
 "person1:Person" -> "account1:Account" : createAccount(denomination, description)
 activate "account1:Account" #FFBBBB
