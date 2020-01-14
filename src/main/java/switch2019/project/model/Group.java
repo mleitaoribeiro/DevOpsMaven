@@ -213,10 +213,10 @@ public class Group {
      * @param accountDescription
      * @return true if group account was created, false if it wasn't
      */
-    public boolean createGroupAccount(String accountDenomination, String accountDescription) {
-        if (accountDenomination != null) {
-            return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
-        }
+    public boolean createGroupAccount(String accountDenomination, String accountDescription, Person person1) {
+        if (this.admins.contains(person1) && this.members.contains(person1) && accountDenomination != null && this.description != null) {
+                return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
+            }
         return false;
     }
 

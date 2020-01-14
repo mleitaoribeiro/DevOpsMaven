@@ -7,27 +7,30 @@ create ":Test"
 create "person1:Person"
 ":Test" -> "person1:Person" : new Person
 activate "person1:Person" #FFBBBB
+
 create "category1:Category"
 create "categoryList1:CategoryList"
 
-"person1:Person" -> "categoryList1:CategoryList" : new CategoryList
-deactivate "categoryList1:CategoryList"
-
-
+"person1:Person" -> "categoryList1:CategoryList" : new categoryListL
+deactivate "person1:Person" #FFBBBB
 
 == Act ==
-create "category1:Category"
-"person1:Person" -> "category1:Category" : new Category(name)
-activate "category1:Category" #FFBBBB
-"category1:Category" -> "person1:Person" : category created
-deactivate "category1:Category"
 
-"person1:Person" -> "categoryList1:CategoryList" : addCategoryToCategoryList
+":Test" -> "person1:Person" : createCategory(description)
+activate "person1:Person" #FFBBBB
+
+create "category1:Category"
+"person1:Person" -> "category1:Category" : new Category
+
+"person1:Person" -> "categoryList1:CategoryList" : addCategoryToCategoryList(category1)
 activate "categoryList1:CategoryList" #FFBBBB
-"categoryList1:CategoryList" -> "person1:Person" : category added to Category List
-deactivate "categoryList1:CategoryList"
-"person1:Person" -> ":Test" : category added to Category List
-deactivate "person1:Person"
+
+"categoryList1:CategoryList" --> "person1:Person" : categoryCreatedAndAdded
+deactivate "categoryList1:CategoryList" #FFBBBB
+
+"person1:Person" --> ":Test" : categoryCreatedAndAdded
+deactivate "person1:Person" #FFBBBB
+
 == Assert ==
 
 ":Test" -> ":Test" : assertTrue(categoryAddedToCategoryList)
