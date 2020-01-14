@@ -648,6 +648,7 @@ class GroupTest {
         assertTrue(result);
     }
 
+
     @DisplayName("Added 2 Accounts")
     @Test
     void addAccountToGroupListTestSize() {
@@ -695,6 +696,13 @@ class GroupTest {
         //Assert
         assertTrue(addGroupAccount1 && addGroupAccount2);
     }
+
+    /**
+     * Check if Category was added to the groups Category list
+     * main scenario
+     */
+
+
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
@@ -714,6 +722,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if Category was added to the groups Category list
+     * null case
+     */
 
     @Test
     @DisplayName("Check if null category is not added")
@@ -735,6 +748,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if two Categories were added to the groups Category list
+     * same categories
+     */
 
     @Test
     @DisplayName("Check if the same Category is not added simultaneously")
@@ -758,6 +776,11 @@ class GroupTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Check if two Categories were added to the groups Category list
+     * case Insensitive
+     */
+
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
@@ -779,6 +802,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if a Category was removed from the groups Category list
+     * Main scenario
+     */
 
     @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
@@ -803,6 +831,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if a Category was removed from the groups Category list
+     * null scenario
+     */
 
     @Test
     @DisplayName("To Try to remove a set of Categories that does not exist or null")
@@ -829,6 +862,11 @@ class GroupTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Check if a Category was removed from the groups Category list
+     * ignore special cases
+     */
+
     @Test
     @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
     void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
@@ -849,6 +887,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if multiple Categories were added to the groups Category list
+     * Main scenario
+     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
@@ -876,6 +919,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if multiple Categories were added to the groups Category list
+     * null case
+     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
@@ -905,6 +953,11 @@ class GroupTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Check if multiple Categories were added to the groups Category list
+     * same category
+     */
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
     void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
@@ -928,6 +981,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if multiple Categories were added to the groups Category list
+     * case insensitive
+     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
@@ -957,6 +1015,11 @@ class GroupTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Check if multiple Categories were removed from the groups Category list
+     * Main scenario
+     */
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToListMainScenario() {
@@ -985,6 +1048,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Check if multiple Categories were removed from the groups Category list
+     * exception case
+     */
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
@@ -1021,6 +1089,11 @@ class GroupTest {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Check if multiple Categories were removed from the groups Category list
+     * special case
+     */
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
