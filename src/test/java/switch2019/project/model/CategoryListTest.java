@@ -462,4 +462,42 @@ class CategoryListTest {
         //Assert
         assertFalse(result);
     }
+
+    /**
+     * Test to validate number of categories in the category list
+     */
+
+    @Test
+    @DisplayName("Test to validate number of categories in the category list - Success Case")
+    void numberOfCategoryInTheCategoryListSuccessCase() {
+
+        //Arrange
+        Category category1 = new Category("Transports");
+        Category category2 = new Category("House");
+        CategoryList categoryList = new CategoryList();
+
+        //Act
+        categoryList.addCategoryToCategoryList(category1);
+        categoryList.addCategoryToCategoryList(category2);
+
+        int actual = categoryList.numberOfCategoryInTheCategoryList();
+        //Assert
+        assertEquals(2,actual);
+    }
+
+
+    @Test
+    @DisplayName("Test to validate number of categories in the category list - Empty CategoryList")
+    void numberOfCategoryInTheCategoryListSuccessCaseEmptyCategoryList() {
+
+        //Arrange
+        CategoryList categoryList = new CategoryList(); //empty Category List
+
+        //Act
+        int actual = categoryList.numberOfCategoryInTheCategoryList();
+
+        //Assert
+        assertEquals(0,actual);
+    }
+
 }
