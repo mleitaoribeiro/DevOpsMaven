@@ -12,6 +12,70 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
+     * USER STORY 2 - check if user was added
+     * Methods to check if the number of groups in the GroupList is increased
+     */
+
+    @Test
+    @DisplayName("Check if One group was added")
+    public void wasGroupAddedToList() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+        GroupsList groupList1 = new GroupsList();
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean addedGroup = groupList1.addGroupToGroupList(group1);
+
+
+        //Assert
+        assertTrue(addedGroup);
+    }
+
+    /**
+     * Method to check if a Group was created inside a GroupList
+     */
+    @Test
+    public void isGroupInListCompare() {
+        // Arrange Groups
+        Group group1 = new Group("Amigos");
+
+        // Arrange Group List
+        GroupsList groupList1 = new GroupsList();
+
+        // Act
+        boolean groupAdded = groupList1.addGroupToGroupList(group1);
+
+        //Assert
+        assertTrue(groupAdded);
+    }
+
+    /**
+     * Method to check if Muliple Groups were created inside a GroupList
+     */
+
+    @Test
+    public void areGroupsInListCompare() {
+        // Arrange Groups
+        Group group1 = new Group("Programadores");
+        Group group2 = new Group("Amigos");
+
+        // Arrange Group List
+        GroupsList groupList1 = new GroupsList();
+
+        // Act
+        boolean group1Added = groupList1.addGroupToGroupList(group1);
+        boolean group2Added = groupList1.addGroupToGroupList(group2);
+
+        // Assert
+        assertTrue(group1Added && group2Added);
+    }
+
+    /**
+     * User Story 3 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
     @Test

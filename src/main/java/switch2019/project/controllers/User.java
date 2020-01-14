@@ -21,10 +21,10 @@ public class User {
     /**
      * Add a new category to CategoryList
      *
-     * @param category category
+     * @param category
      */
-    public boolean addCategoryToList(Category category){
-        return person.addCategoryToCategoryList(category);
+    public boolean addCategoryToList(String category){
+        return person.createCategoryAndAddToCategoryList(category);
     }
 
 

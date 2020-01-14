@@ -349,8 +349,8 @@ public class Person {
      * @param nameOfCategory
      */
 
-    public boolean addCategoryToCategoryList(Category nameOfCategory) {
-       return categoryList.addCategoryToCategoryList(nameOfCategory);
+    public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
+       return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
     }
 
     /**
