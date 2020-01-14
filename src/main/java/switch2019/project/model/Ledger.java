@@ -18,17 +18,7 @@ public class Ledger {
      * Add Transaction to Ledger
      */
     public boolean addTransactionToLedger(Transaction transaction) {
-        if(transaction.isAValidTransaction()) return ledger.add(transaction);
+        if (transaction.isAValidTransaction()) return ledger.add(transaction);
         else return false;
-    }
-
-    /**
-     * Get function for the ledger
-     *
-     * @return ledger
-     */
-
-    public HashSet<Transaction> getLedger() {
-        return new HashSet<>(ledger);
     }
 }
