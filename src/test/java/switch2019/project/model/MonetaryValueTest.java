@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MonetaryValueTest {
 
+    /**
+     * Validate if an amount is positive
+      */
     @Test
     @DisplayName("Test for validating monetarValue Positive-true")
     void validateIfAmountIsPositive() {
