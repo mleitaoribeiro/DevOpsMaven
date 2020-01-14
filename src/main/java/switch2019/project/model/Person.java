@@ -293,12 +293,12 @@ public class Person {
 
     /**
      * Person creates a group
+     *
      * @param groupDescription
-     * @param groupList
-     * Awaiting more requirements
+     * @param groupList        Awaiting more requirements
      */
-    public boolean createGroup (String groupDescription, GroupsList groupList) {
-        if (groupDescription != null){
+    public boolean createGroup(String groupDescription, GroupsList groupList) {
+        if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.addMember(this) && groupList.addGroupToGroupList(group1));
         }
@@ -306,19 +306,19 @@ public class Person {
     }
 
     /**
-     *
      * Develop method to check if two individuals are siblings (USER STORIES)
+     *
      * @return boolean
      */
 
-    public boolean isSibling(Person otherPerson){
+    public boolean isSibling(Person otherPerson) {
         return (this.personExistsOnSiblingsList(otherPerson) ||
-                this.checkSameFather(otherPerson) ||this.checkSameMother(otherPerson));
+                this.checkSameFather(otherPerson) || this.checkSameMother(otherPerson));
     }
 
     /**
-     *
      * Develop method to create a new transaction (USER STORY)
+     *
      * @param amount
      * @param description
      * @param category
@@ -328,28 +328,31 @@ public class Person {
      */
 
     public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
-        if(amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
-                accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
-            return ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
-        else return false;
-    }
-    /**
-     * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
-     * @param accountDenomination
-     * @param accountDescription
-     */
-    public boolean createAccount (String accountDenomination, String accountDescription) {
-        return accountsList.addAccountToAccountsList(new Account(accountDenomination,accountDescription));
+        if (amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
+                accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo)) {
+            Transaction transaction = new Transaction(amount, description, category, accountFrom, accountTo, type)
+            return ledger.addTransactionToLedger(transaction);
+        } else return false;
     }
 
     /**
+     * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
      *
+     * @param accountDenomination
+     * @param accountDescription
+     */
+    public boolean createAccount(String accountDenomination, String accountDescription) {
+        return accountsList.addAccountToAccountsList(new Account(accountDenomination, accountDescription));
+    }
+
+    /**
      * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.
+     *
      * @param nameOfCategory
      */
 
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
-       return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
+        return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
     }
 
     /**
@@ -357,7 +360,7 @@ public class Person {
      *
      * @param nameOfcategory
      */
-    public boolean removeCategoryFromList(Category nameOfcategory){
+    public boolean removeCategoryFromList(Category nameOfcategory) {
         return categoryList.removeCategoryFromList(nameOfcategory);
     }
 
@@ -366,7 +369,7 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories) {
         return categoryList.addMultipleCategoriesToList(categories);
     }
 
@@ -375,12 +378,12 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
-       return categoryList.removeMultipleCategoriesToList(categories);
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
+        return categoryList.removeMultipleCategoriesToList(categories);
     }
 
-    /**Method to get the numbers of Categories in the Category List
-     *
+    /**
+     * Method to get the numbers of Categories in the Category List
      */
     public int numberOfCategoryInTheCategoryList() {
         return this.categoryList.numberOfCategoryInTheCategoryList();
