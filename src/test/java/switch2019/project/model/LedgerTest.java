@@ -68,11 +68,10 @@ class LedgerTest {
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
         Type type = new Type(true);
-        Transaction transaction = new Transaction(null, "payment", category, account1, account2, type);
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(transaction);
+        boolean addedTransaction = ledger.addTransactionToLedger(null, "payment", category, account1, account2, type);
 
         //Assert
         assertFalse(addedTransaction);
@@ -92,11 +91,10 @@ class LedgerTest {
         Category category = new Category("grocery");
         Type type = new Type(true);
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Transaction transaction = new Transaction(monetaryValue, null, category, account1, account2, type);
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(transaction);
+        boolean addedTransaction = ledger.addTransactionToLedger(monetaryValue, null, category, account1, account2, type);
 
         //Assert
         assertFalse(addedTransaction);
@@ -115,11 +113,10 @@ class LedgerTest {
         Account account2 = new Account("transporte", "transporte Metro");
         Type type = new Type(true);
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Transaction transaction = new Transaction(monetaryValue, "payment", null, account1, account2, type);
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(transaction);
+        boolean addedTransaction = ledger.addTransactionToLedger(monetaryValue, "payment", null, account1, account2, type);
 
         //Assert
         assertFalse(addedTransaction);
