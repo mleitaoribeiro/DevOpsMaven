@@ -12,9 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupsListTest {
 
     /**
-     * Test if an Account was added to the Groups List
+     * Check the number of Groups inside the groupList
      */
-
     @Test
     @DisplayName("Test if the number of groups on the list was increased")
     public void howManyGroupsTest(){
@@ -32,39 +31,40 @@ class GroupsListTest {
         assertEquals(2,result);
     }
 
-
+    /**
+     * Test if a group was to the groupList
+     */
     @Test
     @DisplayName("Test if the group added is not in the list")
-    public void testGroupIsInList_Not() {
+    public void testGroupIsInList() {
         //Arrange
-        Group switchieees = new Group("Switchieees");
-        Group costura = new Group("Clube da Costura");
-        HashSet<Group> expected = new HashSet<>(Collections.singleton(costura));
+        Group group1 = new Group("Switchieees");
+        Group group2 = new Group("Clube da Costura");
         GroupsList groupList = new GroupsList();
 
         //Act
-        groupList.addGroupToGroupList(switchieees);
+        boolean groupAdded = groupList.addGroupToGroupList(group1);
 
         //Assert
-        assertNotEquals(expected, groupList.getGroupsList());
+        assertTrue(groupAdded);
     }
 
     @Test
     @DisplayName("Test if more than one group was added is in the list")
     public void testGroupIsInList_MoreThanOne() {
         //Arrange
-        Group switchieees = new Group("Switchieees");
-        Group costura = new Group("Clube da Costura");
-        Group livros = new Group("Clube dos Livros");
-        HashSet<Group> expected = new HashSet<>(Arrays.asList( switchieees, costura, livros));
+        Group group1 = new Group("Switchieees");
+        Group group2 = new Group("Clube da Costura");
+        Group group3 = new Group("Clube dos Livros");
+
         GroupsList groupList = new GroupsList();
 
         //Act
-        groupList.addGroupToGroupList(switchieees);
-        groupList.addGroupToGroupList(costura);
-        groupList.addGroupToGroupList(livros);
+        boolean group1added = groupList.addGroupToGroupList(group1);
+        boolean group2added = groupList.addGroupToGroupList(group2);
+        boolean group3added = groupList.addGroupToGroupList(group3);
 
         //Assert
-        assertEquals(expected, groupList.getGroupsList());
+        assertTrue(group1added && group2added && group3added);
     }
 }

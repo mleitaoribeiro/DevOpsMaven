@@ -330,7 +330,7 @@ public class Person {
     public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
         if(amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
                 accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
-            return ledger.addTransactionToLedger(new Transaction(amount, description, category, accountFrom, accountTo, type));
+            return ledger.addTransactionToLedger(amount, description, category, accountFrom, accountTo, type);
         else return false;
     }
     /**
@@ -348,8 +348,8 @@ public class Person {
      * @param nameOfCategory
      */
 
-    public boolean addCategoryToCategoryList(Category nameOfCategory) {
-       return categoryList.addCategoryToCategoryList(nameOfCategory);
+    public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
+       return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
     }
 
     /**

@@ -12,6 +12,70 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
+     * USER STORY 2 - check if user was added
+     * Methods to check if the number of groups in the GroupList is increased
+     */
+
+    @Test
+    @DisplayName("Check if One group was added")
+    public void wasGroupAddedToList() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+        GroupsList groupList1 = new GroupsList();
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean addedGroup = groupList1.addGroupToGroupList(group1);
+
+
+        //Assert
+        assertTrue(addedGroup);
+    }
+
+    /**
+     * Method to check if a Group was created inside a GroupList
+     */
+    @Test
+    public void isGroupInListCompare() {
+        // Arrange Groups
+        Group group1 = new Group("Amigos");
+
+        // Arrange Group List
+        GroupsList groupList1 = new GroupsList();
+
+        // Act
+        boolean groupAdded = groupList1.addGroupToGroupList(group1);
+
+        //Assert
+        assertTrue(groupAdded);
+    }
+
+    /**
+     * Method to check if Muliple Groups were created inside a GroupList
+     */
+
+    @Test
+    public void areGroupsInListCompare() {
+        // Arrange Groups
+        Group group1 = new Group("Programadores");
+        Group group2 = new Group("Amigos");
+
+        // Arrange Group List
+        GroupsList groupList1 = new GroupsList();
+
+        // Act
+        boolean group1Added = groupList1.addGroupToGroupList(group1);
+        boolean group2Added = groupList1.addGroupToGroupList(group2);
+
+        // Assert
+        assertTrue(group1Added && group2Added);
+    }
+
+    /**
+     * User Story 3 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
     @Test
@@ -438,6 +502,7 @@ class GroupTest {
     @Test
     @DisplayName("Two Equals group add person")
     void equalsGroupClassGroupFalse() {
+
         //Arrange
         Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
         Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
@@ -457,6 +522,7 @@ class GroupTest {
     @Test
     @DisplayName("Two Equals group add person")
     void equalsGroupClassAddPersonFalse() {
+
         //Arrange
         Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
         Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
@@ -496,50 +562,24 @@ class GroupTest {
         assertTrue(wasPromoted);
     }
 
-    /**
-     * Check if member was demoted from group admin
-     */
-    /*@Test
-    @DisplayName("Demote one group admin to member")
-    void demoteMemberTest() {
-        //Arrange
-        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
-        Group group1 = new Group("Francis Group");
-
-        //Act
-        group1.addMember(person1);
-        group1.promoteMemberToAdmin(person1);
-        HashSet<Person> adminListWithAdmin = group1.getAdmins();
-        group1.demoteMemberFromAdmin(person1);
-        HashSet<Person> adminListWithoutAdmin = group1.getAdmins();
-        boolean wasDemoted = adminListWithAdmin.contains(person1) && adminListWithoutAdmin.isEmpty();
-
-        //Assert
-        assertTrue(wasDemoted);
-    }
-
     @Test
     @DisplayName("Promote one member to Admin while there are more than one member")
     void demoteMemberTest2() {
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Albert",1987,10,10,new Address("Bristol"));
         Group group1 = new Group("Francis Group");
 
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        group1.promoteMemberToAdmin(person1);
-        group1.promoteMemberToAdmin(person2);
-        HashSet<Person> adminListWithAdmin = group1.getAdmins();
-        boolean before = adminListWithAdmin.contains(person1) && adminListWithAdmin.contains(person2);
-        group1.demoteMemberFromAdmin(person1);
-        HashSet<Person> adminListWithoutAdmin = group1.getAdmins();
-        boolean after = adminListWithoutAdmin.contains(person2) && !adminListWithoutAdmin.contains(person1);
+        group1.addMember(person3);
+        boolean wereMembersPromoted = group1.promoteMemberToAdmin(person2) && group1.promoteMemberToAdmin(person3);
 
         //Assert
-        assertTrue(before && after);
-    }*/
+        assertTrue(wereMembersPromoted);
+    }
 
     /**
      * Check if multiple members were promoted to Admin
@@ -586,6 +626,70 @@ class GroupTest {
 
         //Assert
         assertTrue(werePromoted);
+    }
+
+    /**
+     * Check if member was demoted from group admin
+     */
+    @Test
+    @DisplayName("Demote one group admin to member")
+    void demoteMemberTest() {
+
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        group1.promoteMemberToAdmin(person2);
+        boolean wasDemoted = group1.demoteMemberFromAdmin(person2);
+
+        //Assert
+        assertTrue(wasDemoted);
+    }
+
+    @Test
+    @DisplayName("Demote multiple group admins to members")
+    void demoteMultipleMembersTest() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Vladimir",1970,4,12, new Address("Moscow"));
+        Group group1 = new Group("Francis Group");
+
+        //Act:
+        group1.addMember(person1); // Torna-se admin automáticamente
+        group1.addMember(person2);
+        group1.addMember(person3);
+        group1.promoteMemberToAdmin(person2);
+        group1.promoteMemberToAdmin(person3);
+        boolean isFirstAdminRemoved = group1.demoteMemberFromAdmin(person2);
+        boolean isSecondAdminRemoved = group1.demoteMemberFromAdmin(person3);
+
+        //Assert:
+        assertTrue (isFirstAdminRemoved && isSecondAdminRemoved);
+    }
+
+    @Test
+    @DisplayName("Check if the last admin can be demoted - FALSE expected because group must contain at least 1 admin")
+    void canLastAdminBeDemoted() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group ("Test Group");
+
+        //Act:
+        group1.addMember(person1); //Automatically promoted to admin
+        group1.addMember(person2);
+        boolean isRemovedFromAdminPerson2 = group1.demoteMemberFromAdmin(person2);
+        boolean isRemovedFromAdminPerson1 = group1.demoteMemberFromAdmin(person1);
+
+        //Assert:
+        assertFalse (isRemovedFromAdminPerson2 && isRemovedFromAdminPerson1);
     }
 
     //Fazer teste para pessoas nulas

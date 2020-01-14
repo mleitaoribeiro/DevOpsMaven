@@ -69,8 +69,7 @@ public class Group {
         if (this.members.size() != 0 && person != null) {
             return members.add(person);
         } else if (person != null) {
-            setAdmin(person);
-            return true;
+            return setAdmin(person);
         } else
             return false;
     }
@@ -190,7 +189,7 @@ public class Group {
      * @return true if group admin was demoted, false if it wasn't
      */
     public boolean demoteMemberFromAdmin(Person member) {
-        if (!this.members.contains(member)) {
+        if (!this.members.contains(member) && this.admins.size() > 1) {
             return this.members.remove(member);
         }
         return false;
@@ -215,30 +214,32 @@ public class Group {
      */
     public boolean createGroupAccount(String accountDenomination, String accountDescription, Person person1) {
         if (this.admins.contains(person1) && this.members.contains(person1) && accountDenomination != null && this.description != null) {
-                return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
-            }
+            return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
+        }
         return false;
     }
 
     /**
      * Develop method add one category to group's Category List
+     *
      * @param nameOfCategory
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
     public boolean addCategoryToCategoryList(Category nameOfCategory) {
         if (nameOfCategory != null) {
-        return categoryList.addCategoryToCategoryList(nameOfCategory);}
-     else return false;
+            return categoryList.addCategoryToCategoryList(nameOfCategory);
+        } else return false;
     }
 
     /**
      * Develop method add multiple categories to group's Category List
+     *
      * @param categories
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
-    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories) {
         return categoryList.addMultipleCategoriesToList(categories);
     }
 
@@ -247,10 +248,8 @@ public class Group {
      *
      * @param nameOfcategory
      */
-    public boolean removeCategoryFromList(Category nameOfcategory){
-
+    public boolean removeCategoryFromList(Category nameOfcategory) {
         return categoryList.removeCategoryFromList(nameOfcategory);
-
     }
 
     /**
@@ -258,9 +257,8 @@ public class Group {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
         return categoryList.removeMultipleCategoriesToList(categories);
-
     }
 }
 
