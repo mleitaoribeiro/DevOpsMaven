@@ -4,24 +4,24 @@ create ":Test"
 ==Arrange==
 
 create "person:Person"
-":Test" -> "person:Person" : new
+":Test" -> "person:Person" : create (name, birthDate, birthPlace)
 
 create "amount:MonetaryValue"
-":Test" -> "amount:MonetaryValue" : new
+":Test" -> "amount:MonetaryValue" : create (amount, currency)
 
 create "category:Category"
-":Test" -> "category:Category" : new
+":Test" -> "category:Category" : create (category)
 
 create "from:Account"
-":Test" -> "from:Account" : new
+":Test" -> "from:Account" : create (denomination, description)
 
 
 create "to:Account"
-":Test" -> "to:Account" : new
+":Test" -> "to:Account" : create (denomination, description)
 
 
 create "type:Type"
-":Test" -> "type:Type" : new
+":Test" -> "type:Type" : create (description)
 
 
 == Act ==
