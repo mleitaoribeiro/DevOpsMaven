@@ -14,10 +14,11 @@ public class Group {
 
     /**
      * Default Group constructor
+     *
      * @param description
      */
 
-    public Group (String description){
+    public Group(String description) {
         setDescription(description);
         startingDate = LocalDate.now();
         members = new HashSet<>();
@@ -27,9 +28,10 @@ public class Group {
 
     /**
      * setter Description
+     *
      * @param description
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         if (description != null) {
             this.description = description.toUpperCase();
         }
@@ -37,6 +39,7 @@ public class Group {
 
     /**
      * Override of equals for Group
+     *
      * @param o
      */
     @Override
@@ -56,47 +59,45 @@ public class Group {
 
     /**
      * Add a new person to a group
+     *
      * @param person
      * @return true if member was added, false if it wasn't
      */
-    public boolean addMember(Person person){
-        if ( this.members.size() != 0 && person != null) {
+    public boolean addMember(Person person) {
+        if (this.members.size() != 0 && person != null) {
             return members.add(person);
-        }
-        else if (person != null) {
+        } else if (person != null) {
             setAdmin(person);
             return true;
-        }
-        else
+        } else
             return false;
     }
 
     /**
      * Remove one member from a group
+     *
      * @param memberToRemove
      * @return true if member was removed, false if it wasn't
      */
-    public boolean removeMember(Person memberToRemove){
+    public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
             if (admins.contains(memberToRemove) && admins.size() > 1) {
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
-            }
-            else if (!admins.contains(memberToRemove)) {
-               return members.remove(memberToRemove);
-            }
-            else
+            } else if (!admins.contains(memberToRemove)) {
+                return members.remove(memberToRemove);
+            } else
                 return false;
-        }
-        else return false;
+        } else return false;
     }
 
     /**
      * Add multiple members to Group
+     *
      * @param newMembers
      * @return true if multiple members were added, false if they weren't
      */
-    public boolean addMultipleMembers(HashSet<Person>newMembers) {
-        for (Person member : newMembers){
+    public boolean addMultipleMembers(HashSet<Person> newMembers) {
+        for (Person member : newMembers) {
             addMember(member);
         }
         return this.members.containsAll(newMembers);
@@ -104,6 +105,7 @@ public class Group {
 
     /**
      * Remove multiple Members
+     *
      * @param toRemove HashSet of members that are going to be removed
      * @return true if multiple members were removed, false if they weren't
      */
@@ -116,6 +118,7 @@ public class Group {
 
     /**
      * Validate if a group is a family
+     *
      * @return boolean
      */
     public boolean isFamily() {
@@ -130,46 +133,49 @@ public class Group {
                         momPerson = person2;
                 }
             }
-        } if (dadPerson == null || momPerson == null) return false;
+        }
+        if (dadPerson == null || momPerson == null) return false;
 
         for (Person person : members) {
             if (!person.equals(dadPerson) && !person.equals(momPerson))
-                if(!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
-        } return true;
+                if (!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
+        }
+        return true;
     }
 
     /**
      * Setter function to promote a person directly to group administrator
+     *
      * @param person
      * @return true if person was promoted, false if it wasn't
      */
-    public boolean setAdmin (Person person) {
-        if (!members.contains(person) && (!admins.contains(person) && person != null)){
+    public boolean setAdmin(Person person) {
+        if (!members.contains(person) && (!admins.contains(person) && person != null)) {
             return members.add(person) && admins.add(person);
-        }
-        else
+        } else
             return false;
     }
 
     /**
      * Promote member to group admin.
+     *
      * @param member
      * @return true if person was promoted, false if it wasn't
      */
     public boolean promoteMemberToAdmin(Person member) {
         if (members.contains(member) && member != null) {
             return admins.add(member);
-        }
-        else return false;
+        } else return false;
     }
 
     /**
      * Promote multiple members to group admins
+     *
      * @param multipleMembers
      * @return true if person was promoted, false if it wasn't
      */
-    public boolean promoteMultipleMemberToAdmin (HashSet<Person> multipleMembers) {
-        for (Person member:multipleMembers){
+    public boolean promoteMultipleMemberToAdmin(HashSet<Person> multipleMembers) {
+        for (Person member : multipleMembers) {
             promoteMemberToAdmin(member);
         }
         return admins.containsAll(multipleMembers);
@@ -177,11 +183,12 @@ public class Group {
 
     /**
      * Demote group admin to group member only.
+     *
      * @param member
      * @return true if group admin was demoted, false if it wasn't
      */
     public boolean demoteMemberFromAdmin(Person member) {
-        if (!this.members.contains(member)){
+        if (!this.members.contains(member)) {
             return this.members.remove(member);
         }
         return false;
@@ -189,20 +196,22 @@ public class Group {
 
     /**
      * Add account to Group´s Account List
+     *
      * @param account1
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
-    public boolean addAccountToGroupAccountList(Account account1){
+    public boolean addAccountToGroupAccountList(Account account1) {
         return this.groupAccountsList.addAccountToAccountsList(account1);
     }
 
     /**
      * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
+     *
      * @param accountDenomination
      * @param accountDescription
      * @return true if group account was created, false if it wasn't
      */
-    public boolean createGroupAccount (String accountDenomination, String accountDescription) {
+    public boolean createGroupAccount(String accountDenomination, String accountDescription) {
         if (accountDenomination != null) {
             return this.addAccountToGroupAccountList(new Account(accountDenomination, accountDescription));
         }
