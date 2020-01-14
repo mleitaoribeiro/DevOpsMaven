@@ -4,29 +4,40 @@ create ":Test"
 ==Arrange==
 
 create "person:Person"
-":Test" -> "person:Person" : newPerson
+":Test" -> "person:Person" : new
 activate "person:Person" #FFBBBB
 
 
 create "amount:MonetaryValue"
 "person:Person" -> "amount:MonetaryValue" : new
 activate "amount:MonetaryValue"  #FFBBBB
+"person:Person" //-- "amount:MonetaryValue" : amount created
+deactivate "amount:MonetaryValue" #FFBBBB
+
 
 create "category:Category"
 "person:Person" -> "category:Category" : new
 activate "category:Category"  #FFBBBB
+"person:Person" //-- "category:Category" : category created
+deactivate "category:Category" #FFBBBB
 
 create "from:Account"
 "person:Person" -> "from:Account" : new
 activate "from:Account"  #FFBBBB
+"person:Person" //-- "from:Account" : account from created
+deactivate "from:Account" #FFBBBB
 
 create "to:Account"
 "person:Person" -> "to:Account" : new
 activate "to:Account"  #FFBBBB
+"person:Person" //-- "to:Account" : account to created
+deactivate "to:Account" #FFBBBB
 
 create "type:Type"
 "person:Person" -> "type:Type" : new
 activate "type:Type"  #FFBBBB
+"person:Person" //-- "type:Type" : type created
+deactivate "type:Type" #FFBBBB
 
 
 == Act ==
@@ -34,18 +45,26 @@ activate "type:Type"  #FFBBBB
 create "categoryList:CategoryList"
 "person:Person" -> "categoryList:CategoryList" : addCategoryToCategoryList (category)
 activate "categoryList:CategoryList"  #FFBBBB
+"person:Person" //-- "categoryList:CategoryList" : category added to the list
+deactivate "categoryList:CategoryList" #FFBBBB
 
 create "from:AccountsList"
-"person:Person" -> "from:AccountsList" : createAccount(from)
+"person:Person" -> "from:AccountsList" : createAccount(account denomination, account description)
 activate "from:AccountsList"  #FFBBBB
+"person:Person" //-- "from:AccountsList" : count from added to the list
+deactivate "from:AccountsList" #FFBBBB
 
 create "to:AccountsList"
-"person:Person" -> "to:AccountsList" : createAccount(to)
+"person:Person" -> "to:AccountsList" : createAccount(account denomination, account description)
 activate "to:AccountsList"  #FFBBBB
+"person:Person" //-- "from:AccountsList" : count to added to the list
+deactivate "from:AccountsList" #FFBBBB
 
 create "result:Transaction"
 "person:Person" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
 activate "result:Transaction"  #FFBBBB
+"person:Person" //-- "result:Transaction"  : transaction created
+deactivate "result:Transaction" #FFBBBB
 
 
 == Assert ==
