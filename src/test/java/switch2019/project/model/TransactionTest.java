@@ -38,10 +38,14 @@ class TransactionTest {
         Transaction transaction = new Transaction(null, "payment", category, account1, account2, type);
 
         //Act
-        boolean isTransactionValid = transaction.isAValidTransaction();
+        try {
+            transaction.isAValidTransaction();
+        }
 
         //Assert
-        assertFalse(isTransactionValid);
+        catch (IllegalArgumentException description) {
+            assertEquals("The monetary value can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     @Test
@@ -56,10 +60,14 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, "payment", null, account1, account2, type);
 
         //Act
-        boolean isTransactionValid = transaction.isAValidTransaction();
+        try {
+            transaction.isAValidTransaction();
+        }
 
         //Assert
-        assertFalse(isTransactionValid);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     @Test
@@ -74,10 +82,14 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, "payment", category, account1, null, type);
 
         //Act
-        boolean isTransactionValid = transaction.isAValidTransaction();
+        try {
+            transaction.isAValidTransaction();
+        }
 
         //Assert
-        assertFalse(isTransactionValid);
+        catch (IllegalArgumentException description) {
+            assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     @Test
@@ -92,9 +104,13 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, "payment", category, account1, account2, null);
 
         //Act
-        boolean isTransactionValid = transaction.isAValidTransaction();
+        try {
+            transaction.isAValidTransaction();
+        }
 
         //Assert
-        assertFalse(isTransactionValid);
+        catch (IllegalArgumentException description) {
+            assertEquals("The type can´t be null. Please try again.", description.getMessage());
+        }
     }
 }
