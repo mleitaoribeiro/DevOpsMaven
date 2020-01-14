@@ -491,8 +491,6 @@ class CategoryListTest {
     void numberOfCategoryInTheCategoryListSuccessCaseEmptyCategoryList() {
 
         //Arrange
-        Category category1 = new Category("Transports");
-        Category category2 = new Category("House");
         CategoryList categoryList = new CategoryList(); //empty Category List
 
         //Act
