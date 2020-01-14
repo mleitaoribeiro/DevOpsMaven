@@ -796,6 +796,9 @@ class PersonTest {
         assertTrue(accountInTheList && !accountNotInTheList);
     }
 
+    /**
+     * Test if an Account was created
+     */
 
     @Test
     @DisplayName("Test if an Account was created - sucess case")
