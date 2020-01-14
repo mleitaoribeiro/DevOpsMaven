@@ -6,10 +6,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryTest {
+    /**
+     * Check if category's description was updated
+     * Main scenario
+     */
 
     @Test
     @DisplayName("Update of Category description - Main Scenario")
-    void setCategory_updateDescription() {
+    void setCategoryUpdateDescription() {
         //Arrange
         Category categoryDescription = new Category("Health");
         String expected = "FOOD EXPENSES";
@@ -19,9 +23,14 @@ class CategoryTest {
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
+    /**
+     * Check if category's description was updated
+     * Main scenario
+     */
+
     @Test
     @DisplayName("Validate user's input of Category description - Main Scenario")
-    void setCategory_validateInputSuccessfullScenario() {
+    void setCategoryValidateInputSuccessfullScenario() {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         String expected = "EDUCATION";
@@ -31,9 +40,14 @@ class CategoryTest {
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
+    /**
+     * Check if category's description was updated
+     * numeric imput
+     */
+
     @Test
     @DisplayName("Validate user's input of Category description- Numeric Descriptions Acceptable")
-    void setCategory_validateNumericInput() {
+    void setCategoryValidateNumericInput() {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         String expected = "123";
@@ -43,9 +57,14 @@ class CategoryTest {
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
+    /**
+     * Check if category's description was updated
+     * special character
+     */
+
     @Test
     @DisplayName("Validate user's input of Category description - Remove Special Characters")
-    void setCategory_validateSpecialCharacterInput() {
+    void setCategoryValidateSpecialCharacterInput() {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         String expected = "SAUDE";
@@ -55,9 +74,14 @@ class CategoryTest {
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
+    /**
+     * Check if category's description was updated
+     * null case
+     */
+
     @Test
     @DisplayName("Validate user's input of Category description - null case")
-    void setCategory_nullCase() {
+    void setCategoryNullCase() {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         try {
@@ -71,9 +95,14 @@ class CategoryTest {
         }
     }
 
+    /**
+     * Check if two categories are the same
+     * ignore case
+     */
+
     @Test
     @DisplayName("Verfiy if two categories are the same - ignore case - Main Scenario")
-    void twoCategoriesAreEquals_ignoreCase() {
+    void twoCategoriesAreEqualsIgnoreCase() {
         //Arrange
         Category categoryDescription = new Category("Health");
         Category otherCategoryDescription = new Category("HEALTH");
@@ -85,9 +114,14 @@ class CategoryTest {
         assertEquals(true, realResult);
     }
 
+    /**
+     * Check if two categories are the same
+     * special character
+     */
+
     @Test
     @DisplayName("Verfiy if two categories are the same - ignore special Character - Main Scenario")
-    void twoCategoriesAreEquals_ignoreSpecialCharacter() {
+    void twoCategoriesAreEqualsIgnoreSpecialCharacter() {
         //Arrange
         Category categoryDescription = new Category("saúde");
         Category otherCategoryDescription = new Category("saude");
@@ -99,9 +133,14 @@ class CategoryTest {
         assertEquals(true, realResult);
     }
 
+    /**
+     * Check if two categories are the same
+     * numeric
+     */
+
     @Test
     @DisplayName("Verfiy if two categories are the same - numeric characters - Main Scenario")
-    void twoCategoriesAreEquals_numericCategories() {
+    void twoCategoriesAreEqualsNumericCategories() {
         //Arrange
         Category categoryDescription = new Category("123");
         Category otherCategoryDescription = new Category("123");
@@ -112,6 +151,11 @@ class CategoryTest {
         //Assert
         assertEquals(true, realResult);
     }
+
+    /**
+     * Check if two categories are the same
+     * false test
+     */
 
     @Test
     @DisplayName("Verfiy if two categories are the same - Not the same")

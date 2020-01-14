@@ -12,9 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountsListTest {
 
 
+    /**
+     * Test if account was added to the list
+     */
     @Test
     @DisplayName("Test if more than one account was added to the list - True")
-    public void testIfAccountsAreInList_True() {
+    public void testIfAccountsWereAddedToTheList_True() {
         //Arrange
         Account oneAccount = new Account ("xpto", "one account");
         Account otherAccount = new Account ("xyz", "general");
@@ -33,7 +36,7 @@ class AccountsListTest {
 
     @Test
     @DisplayName("Test if more than one account was added to the list")
-    public void testIfAccountsAreInList_False_oneAccountIsNull() {
+    public void testIfAccountsWereAddedToTheList_False_oneAccountIsNull() {
         //Arrange
         Account oneAccount = null;
         Account otherAccount = new Account ("xyz", "general");
@@ -69,8 +72,8 @@ class AccountsListTest {
 
 
     @Test
-    @DisplayName("Test if the account was added to the list - only one account added - oneAccount not contained")
-    public void testAccountIsInList_Not() {
+    @DisplayName("Test if the account was added to the list - only one account added - oneAccount is not contained")
+    public void testAccountsAreInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
         Account otherAccount = new Account ("xyz", "general");
@@ -111,7 +114,7 @@ class AccountsListTest {
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list - one account not contained - Null")
+    @DisplayName("Test if more than one account was added to the list - one account is not contained - Null")
     public void testIfAccountsAreInList_OneAccountIsNull() {
         //Arrange
         Account oneAccount = null;
@@ -132,6 +135,9 @@ class AccountsListTest {
         assertFalse(real);
     }
 
+    /**
+     * Test if Account is cointained in the Accounts List
+     */
     @Test
     @DisplayName("Test if one account is contained in the accounts list | True")
     public void testIfAccountsListContainAccount_true() {
@@ -165,10 +171,13 @@ class AccountsListTest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if several accounts were added to list
+     */
     @Test
     @DisplayName("Test if several accounts were added to an accounts list - Positive ")
 
-    public void testIfSeveralAccountsWereAddedPositive_test1 (){
+    public void testIfSeveralAccountsWereAdded_Positive (){
         //Arrange
         Account butcherAccount =new Account("Butcher", "Talho do Amadeu");
         Account marketAccount =new Account ("Market","Mercado do Amadeu");
@@ -188,7 +197,7 @@ class AccountsListTest {
     @Test
     @DisplayName("Test if several accounts were added to an accounts list - False ")
 
-    public void testIfSeveralAccountsWereAddedPositive_test2_oneAccountIsNull (){
+    public void testIfSeveralAccountsWereAdded_False_oneAccountIsNull (){
         //Arrange
         Account butcherAccount = null;
         Account marketAccount =new Account ("Market","Mercado do Amadeu");
@@ -256,6 +265,9 @@ class AccountsListTest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if two account lists are the same
+     */
     @Test
     @DisplayName("Test if two account lists are the same - true")
 
@@ -311,6 +323,9 @@ class AccountsListTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if Account was removed from list
+     */
     @Test
     @DisplayName("Test if an account was removed from an accounts list")
     public void testIfOneAccountWasRemoved (){
@@ -360,8 +375,6 @@ class AccountsListTest {
         Account post=null;
 
         HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
-
 
         AccountsList september = new AccountsList();
 
@@ -403,6 +416,9 @@ class AccountsListTest {
 
     }
 
+    /**
+     * Test if several accounts were removed from list
+     */
     @Test
     @DisplayName("Test if several accounts were removed from an accounts list | OneAccount removed ")
 
@@ -457,6 +473,9 @@ class AccountsListTest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if account is in the List
+     */
     @Test
     @DisplayName("Test if account is in the List-True")
     void validateIfAccountIsInTheAccountsList() {

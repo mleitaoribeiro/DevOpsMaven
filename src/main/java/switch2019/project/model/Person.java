@@ -347,6 +347,7 @@ public class Person {
      * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.
      * @param nameOfCategory
      */
+
     public boolean addCategoryToCategoryList(Category nameOfCategory) {
        return categoryList.addCategoryToCategoryList(nameOfCategory);
     }
