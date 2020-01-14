@@ -2,6 +2,7 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.controllers.User;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -694,6 +695,365 @@ class GroupTest {
         //Assert
         assertTrue(addGroupAccount1 && addGroupAccount2);
     }
+    @Test
+    @DisplayName("Check if a category was added to Category List - Main Scenario")
+    void addCategoryToListMainScenario() {
+        //Arrange
+        //Initialize Group
+
+        Group group1 = new Group("Groupo dos amigos");
+
+        //Category to be included in Category List
+        Category category1 = new Category("School expenses");
+
+        //Act
+        boolean realResult = group1.addCategoryToCategoryList(category1);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Check if null category is not added")
+    void addCategoryToListWithANullCase() {
+        //Arrange
+
+        //Initialize Group
+        Group group1 = new Group("Groupo dos amigos");
+
+        //Category to be included in Category List
+        Category category1 = null;
+
+        //Act
+        boolean realResult = group1.addCategoryToCategoryList(category1);
+
+        //Assert
+        assertFalse(realResult);
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Check if the same Category is not added simultaneously")
+    void addTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        //Arrange
+
+        //Initialize Group
+        Group group1 = new Group("Groupo dos amigos");
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("School expenses");
+
+        //Act
+        boolean realResult =  group1.addCategoryToCategoryList(category1) && !group1.addCategoryToCategoryList(category2);
+
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
+    void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
+        //Arrange
+
+        //Initialize Group
+        Group group1 = new Group("Groupo dos amigos");
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("SCHOóL expenses");
+
+        //Act
+        boolean realResult = group1.addCategoryToCategoryList(category1) && !group1.addCategoryToCategoryList(category2);
+
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Remove categories from User Category List - Main Scenario")
+    void removeCategoryFromListMainScenario() {
+        //Arrange
+
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("Health expenses");
+
+        group1.addCategoryToCategoryList(category1);
+        group1.addCategoryToCategoryList(category2);
+
+        //Act
+        boolean realResult = group1.removeCategoryFromList(category1);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("To Try to remove a set of Categories that does not exist or null")
+    void removeCategoriesToListWithANullCase() {
+        //Arrange
+
+        //Initialize Group
+        Group group1 = new Group("Groupo dos amigos");
+
+        //Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = null;
+
+        group1.addCategoryToCategoryList(category1);
+        group1.addCategoryToCategoryList(category2);
+
+        //Act
+        boolean realResult = group1.removeCategoryFromList(category1);
+
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
+    void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
+        //Arrange
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category category1 = new Category("School expenses");
+        Category category2 = new Category("ScHOÓL eXpenSÉs");
+        group1.addCategoryToCategoryList(category1);
+
+        //Act
+        boolean realResult = group1.removeCategoryFromList(category2);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
+    void addMultipleCategoriesToListMainScenario() {
+        // Arrange
+
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category categoryHealth = new Category("Health");
+        Category categoryGym = new Category("Gym");
+        Category categoryUniversity = new Category("University");
+
+        //Act
+
+        // set of Categories to be added to categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
+        //Category - add several categories to the user Category List with method
+        boolean realResult = group1.addMultipleCategoriesToList(setOfCategories);
+
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
+    void addMultipleCategoriesToListWithANullCase() {
+        // Arrange
+
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category categoryBets = new Category("Bets and Games");
+        Category categoryNull = null;
+        Category categoryBeauty = new Category("Beauty");
+
+        //Act
+
+        // set of Categories to be added to categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
+        //Category - add several categories to the user Category List with method
+        group1.addMultipleCategoriesToList(setOfCategories);
+
+        boolean realResult = !group1.addCategoryToCategoryList(categoryNull);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
+    void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        // Arrange
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+        // Categories to be included in Category List
+        Category categoryHealth = new Category("Health");
+        Category categoryHealthDuplicated = new Category("Health");
+        Category categoryBeauty = new Category("Beauty");
+
+        //Act
+        // set of Categories to be added to categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+        //The user adds several categories to his Category List with method
+
+        boolean realResult = group1.addMultipleCategoriesToList(setOfCategories);
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
+            "Ignore letter capitalization and special characters ")
+    void addMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
+        // Arrange
+
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category categoryHealth = new Category("Health");
+        Category categoryHealthDuplicated = new Category("heálth");
+        Category categoryBeauty = new Category("Beauty");
+
+        //Act
+
+        // set of Categories to be added to categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+
+        //The user adds several categories to his Category List with method
+        boolean realResult =  group1.addMultipleCategoriesToList(setOfCategories);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
+    void removeMultipleCategoriesToListMainScenario() {
+        // Arrange
+
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category categoryHealth = new Category("Health");
+        Category categoryGym = new Category("Gym");
+        Category categoryBeauty = new Category("Beauty");
+
+        //Act
+
+        // set of Categories to be added to Categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        group1.addMultipleCategoriesToList(setOfCategories);
+
+        //set of Categories to be removed from Categories List
+        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
+        boolean realResult = group1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
+            "or null")
+    void removeMultipleCategoriesToListExceptionCase() {
+        // Arrange
+
+        ///Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category categoryHealth = new Category("Health");
+        Category categoryGym = new Category("Gym");
+        Category categoryBeauty = new Category("Beauty");
+
+        Category categoryCar = new Category("Car");
+        Category categoryNull = null;
+        Category categoryUniversity = new Category("University");
+
+        //Act
+
+        // set of Categories to be added to Categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        group1.addMultipleCategoriesToList(setOfCategories);
+
+        //set of Categories to be removed from Categories List
+        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
+
+
+        boolean realResult = group1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
+    void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
+        // Arrange
+
+        //Initialize group
+        Group group1 = new Group("Groupo dos amigos");
+
+        // Categories to be included in Category List
+        Category categoryHealth = new Category("Health");
+        Category categoryGym = new Category("Gym");
+        Category categoryBeauty = new Category("Beauty");
+
+        Category categoryHealthLowerCase = new Category("health");
+        Category categoryGymSpecialCharacter = new Category("Gým");
+        Category categoryBeautyUpperCase = new Category("BEAUTY");
+
+        //Act
+
+        // set of Categories to be added to Categories list
+        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        group1.addMultipleCategoriesToList(setOfCategories);
+
+        //set of Categories to be removed from Categories List
+        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
+
+
+        boolean realResult = group1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+        //Assert
+        assertTrue(realResult);
+    }
+
+
 }
 
 

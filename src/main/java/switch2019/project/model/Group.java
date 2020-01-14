@@ -11,6 +11,7 @@ public class Group {
     private HashSet<Person> members;
     private HashSet<Person> admins;
     private AccountsList groupAccountsList;
+    private CategoryList categoryList;
 
     /**
      * Default Group constructor
@@ -23,6 +24,7 @@ public class Group {
         members = new HashSet<>();
         admins = new HashSet<>();
         groupAccountsList = new AccountsList();
+        categoryList = new CategoryList();
     }
 
     /**
@@ -207,6 +209,49 @@ public class Group {
             return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
         }
         return false;
+    }
+
+    /**
+     * Develop method add one category to group's Category List
+     * @param nameOfCategory
+     * @return true if category was added to group's Category List, false if it wasn't
+     */
+
+    public boolean addCategoryToCategoryList(Category nameOfCategory) {
+        if (nameOfCategory != null) {
+        return categoryList.addCategoryToCategoryList(nameOfCategory);}
+     else return false;
+    }
+
+    /**
+     * Develop method add multiple categories to group's Category List
+     * @param categories
+     * @return true if category was added to group's Category List, false if it wasn't
+     */
+
+    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+        return categoryList.addMultipleCategoriesToList(categories);
+    }
+
+    /**
+     * Remove a category from CategoryList
+     *
+     * @param nameOfcategory
+     */
+    public boolean removeCategoryFromList(Category nameOfcategory){
+
+        return categoryList.removeCategoryFromList(nameOfcategory);
+
+    }
+
+    /**
+     * Remove multiple categories from CategoryList
+     *
+     * @param categories<Category> categories
+     */
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+        return categoryList.removeMultipleCategoriesToList(categories);
+
     }
 }
 
