@@ -20,10 +20,11 @@ public class GroupsList {
     /**
      * method to add group to the list
      */
-    public void addGroupToGroupList (Group group1) {
+    public boolean addGroupToGroupList (Group group1) {
         if ( group1 != null) {
-            groupsList.add(group1);
+            return groupsList.add(group1);
         }
+        return false;
     }
 
     /**

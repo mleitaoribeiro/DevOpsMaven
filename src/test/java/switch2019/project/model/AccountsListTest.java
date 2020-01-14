@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountsListTest {
 
 
+    /**
+     * Test if account was added to the list
+     */
     @Test
     @DisplayName("Test if more than one account was added to the list - True")
     public void testIfAccountsWereAddedToTheList_True() {
@@ -132,6 +135,9 @@ class AccountsListTest {
         assertFalse(real);
     }
 
+    /**
+     * Test if Account is cointained in the Accounts List
+     */
     @Test
     @DisplayName("Test if one account is contained in the accounts list | True")
     public void testIfAccountsListContainAccount_true() {
@@ -165,6 +171,9 @@ class AccountsListTest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if several accounts were added to list
+     */
     @Test
     @DisplayName("Test if several accounts were added to an accounts list - Positive ")
 
@@ -256,6 +265,9 @@ class AccountsListTest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if two account lists are the same
+     */
     @Test
     @DisplayName("Test if two account lists are the same - true")
 
@@ -311,6 +323,9 @@ class AccountsListTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if Account was removed from list
+     */
     @Test
     @DisplayName("Test if an account was removed from an accounts list")
     public void testIfOneAccountWasRemoved (){
@@ -401,6 +416,9 @@ class AccountsListTest {
 
     }
 
+    /**
+     * Test if several accounts were removed from list
+     */
     @Test
     @DisplayName("Test if several accounts were removed from an accounts list | OneAccount removed ")
 
@@ -455,6 +473,9 @@ class AccountsListTest {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Test if account is in the List
+     */
     @Test
     @DisplayName("Test if account is in the List-True")
     void validateIfAccountIsInTheAccountsList() {
