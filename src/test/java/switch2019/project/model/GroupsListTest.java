@@ -10,6 +10,11 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsListTest {
+
+    /**
+     * Test if an Account was added to the Groups List
+     */
+
     @Test
     @DisplayName("Test if the number of groups on the list was increased")
     public void howManyGroupsTest(){
