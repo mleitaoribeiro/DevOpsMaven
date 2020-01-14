@@ -226,9 +226,9 @@ public class Group {
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
-    public boolean addCategoryToCategoryList(Category nameOfCategory) {
+    public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
-            return categoryList.addCategoryToCategoryList(nameOfCategory);
+            return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
         } else return false;
     }
 
@@ -239,7 +239,7 @@ public class Group {
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
-    public boolean addMultipleCategoriesToList(HashSet<Category> categories) {
+    public boolean addMultipleCategoriesToList(HashSet<String> categories) {
         return categoryList.addMultipleCategoriesToList(categories);
     }
 
