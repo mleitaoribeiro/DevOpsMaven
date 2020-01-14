@@ -66,7 +66,7 @@ class CategoryListTest {
         CategoryList newCategoryList = new CategoryList();
         //Act
 
-        boolean realResult= newCategoryList.addCategoryToCategoryList(oneCategory);
+        boolean realResult = newCategoryList.addCategoryToCategoryList(oneCategory);
 
         //Assert
         assertEquals(true, realResult);
@@ -83,7 +83,7 @@ class CategoryListTest {
 
         //Act
 
-        boolean realResult =  newCategoryList.addCategoryToCategoryList(oneCategory)
+        boolean realResult = newCategoryList.addCategoryToCategoryList(oneCategory)
                 && newCategoryList.addCategoryToCategoryList(otherCategory);
 
         //Assert
@@ -99,10 +99,10 @@ class CategoryListTest {
         CategoryList newCategoryList = new CategoryList();
 
         //Act
-       boolean realResult = newCategoryList.addCategoryToCategoryList(otherCategory);
+        boolean realResult = newCategoryList.addCategoryToCategoryList(otherCategory);
 
         //Assert
-       assertFalse(realResult);
+        assertFalse(realResult);
     }
 
     @Test
@@ -117,7 +117,7 @@ class CategoryListTest {
 
         //Act
         boolean realResult = newCategoryList.addCategoryToCategoryList(originalCategory)
-        && newCategoryList.addCategoryToCategoryList(duplicateCategory);
+                && newCategoryList.addCategoryToCategoryList(duplicateCategory);
 
         //Assert
 
@@ -349,9 +349,9 @@ class CategoryListTest {
         //set of Categories to be removed from Categories List
         HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
         // Remove several categories simultaneously with method under test
-       boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+        boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-       assertTrue(realResult);
+        assertTrue(realResult);
     }
 
     @Test
@@ -416,9 +416,50 @@ class CategoryListTest {
         //Act
         HashSet<Category> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
 
-        boolean realResult =  newCategories.addMultipleCategoriesToList(myCategories);
+        boolean realResult = newCategories.addMultipleCategoriesToList(myCategories);
 
         //Assert
         assertTrue(realResult);
+    }
+
+    /**
+     * Test to validate if set of categories in the the list
+     */
+
+    @Test
+    @DisplayName("Test to validate if set of categories is the the category list-true case for all")
+    void validateIfSetOfCategoriesIsInTheCategoryList() {
+        //Arrange
+        Category category1 = new Category("category1");
+        Category category2 = new Category("category2");
+        Category category3 = new Category("category3");
+        CategoryList categoryList1 = new CategoryList();
+        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(category1, category2, category3));
+
+        //Act
+        categoryList1.addMultipleCategoriesToList(myCategories);
+
+        boolean result = categoryList1.validateIfSetOfCategoriesIsInTheCategoryList(myCategories);
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
+    void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {
+        //Arrange
+        Category category1 = new Category("category1");
+        Category category2 = new Category("category2");
+        Category category3 = new Category("category3");
+        CategoryList categoryList1 = new CategoryList();
+        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(category1, category2, category3));
+
+        //Act
+        categoryList1.addCategoryToCategoryList(category1);
+        categoryList1.addCategoryToCategoryList(category2);
+
+        boolean result = categoryList1.validateIfSetOfCategoriesIsInTheCategoryList(myCategories);
+        //Assert
+        assertFalse(result);
     }
 }

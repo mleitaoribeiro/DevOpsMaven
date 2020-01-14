@@ -13,9 +13,9 @@ public class GroupsList {
         groupsList = new HashSet<Group>();
     }
 
-    /**
-     *Develop @override of equals for Group and @override of hashcode
-     */
+/**
+ *Develop @override of equals for Group and @override of hashcode
+ */
 
     /**
      * method to add group to the list
@@ -24,15 +24,7 @@ public class GroupsList {
         if ( group1 != null) {
             return groupsList.add(group1);
         }
-        return false;
-    }
-
-    /**
-     * method to get Groups inside a GroupList
-     * @return groupsList
-     */
-    public HashSet<Group> getGroupsList(){
-        return new HashSet<>(this.groupsList);
+        else return false;
     }
 
     /**
@@ -43,8 +35,8 @@ public class GroupsList {
     }
 
     /**
-    * Method to return Only Families
-    */
+     * Method to return Only Families
+     */
     public HashSet<Group> returnOnlyFamilies() {
         HashSet<Group> groupsFamily = new HashSet<>();
         for (Group g : groupsList) {
@@ -53,15 +45,5 @@ public class GroupsList {
             }
         }
         return groupsFamily;
-    }
-
-    /**
-     * Method to check if a Group is inside a GroupList:
-     */
-    public boolean groupListContains (Group oneGroup) {
-        if (!this.groupsList.contains(oneGroup)) {
-            return false;
-        }
-        return true;
     }
 }

@@ -34,8 +34,10 @@ public class Account {
      */
 
     public void setDenomination (String newDenomination) {
-        if (newDenomination == null) {
+
+        if (newDenomination == null || newDenomination.length() == 0) {
             throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
+
         } else {
             newDenomination = removeWordAccents(newDenomination);
             newDenomination = removeSpecialCharacters(newDenomination);
@@ -45,6 +47,7 @@ public class Account {
 
     //Auxiliary method to remove word accents
     private static String removeWordAccents(String sentence) {
+
         sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
         sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 
@@ -54,18 +57,14 @@ public class Account {
     //Auxiliary method to remove special Characters
     private static String removeSpecialCharacters(String sentence) {
 
-        if (sentence == null || sentence.length () == 0)
-            return sentence;
-
         String [] str = sentence.split ("[, &´#!%()`>?+.<@;-]+");
         StringBuilder buildNewStringArray = new StringBuilder();
 
         for (String element : str) {
-            String word = element;
-            buildNewStringArray.append(" ").append(word);
+            buildNewStringArray.append(" ").append(element);
         }
-        String newSentence = buildNewStringArray.toString().replaceFirst(" ", "");
-        return newSentence;
+
+        return buildNewStringArray.toString().replaceFirst(" ", "");
     }
 
     /**

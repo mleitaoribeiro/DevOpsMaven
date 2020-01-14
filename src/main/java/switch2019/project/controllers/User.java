@@ -21,10 +21,10 @@ public class User {
     /**
      * Add a new category to CategoryList
      *
-     * @param category category
+     * @param category
      */
-    public boolean addCategoryToList(Category category){
-        return person.addCategoryToCategoryList(category);
+    public boolean addCategoryToList(String category){
+        return person.createCategoryAndAddToCategoryList(category);
     }
 
 
@@ -100,13 +100,4 @@ public class User {
         return person.createAccount(accountDenomination, accountDescription);
     }
 
-    /**
-     * Develop method to create a new Account to the group (USER STORY 7)
-     * @param accountDenomination
-     * @param accountDescription
-     * @param group1
-     */
-    public void createGroupAccount (String accountDenomination, String accountDescription, Group group1) {
-        group1.createGroupAccount(accountDenomination, accountDescription);
-    }
 }

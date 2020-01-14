@@ -99,7 +99,7 @@ public class CategoryList {
      */
 
     public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<Category> setOfCategories){
-        return this.categories.contains(setOfCategories);
+        return this.categories.containsAll(setOfCategories);
     }
 
     /**Method to get the numbers of Categories in the Category List
