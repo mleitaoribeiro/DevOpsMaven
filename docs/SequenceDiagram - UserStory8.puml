@@ -44,29 +44,51 @@ deactivate "type:Type" #FFBBBB
 
 == Act ==
 
+":Test" -> "person:Person" : addCategoryToCategoryList (category)
+activate "person:Person"  #FFBBBB
+
 create "categoryList:CategoryList"
 "person:Person" -> "categoryList:CategoryList" : addCategoryToCategoryList (category)
 activate "categoryList:CategoryList"  #FFBBBB
 "person:Person" //-- "categoryList:CategoryList" : category added to the list
 deactivate "categoryList:CategoryList" #FFBBBB
+":Test" //-- "categoryList:CategoryList" : category added to the list
+deactivate "person:Person" #FFBBBB
 
+
+":Test" -> "person:Person" : createAccount(account denomination, account description)
+activate "person:Person"  #FFBBBB
 create "from:AccountsList"
 "person:Person" -> "from:AccountsList" : createAccount(account denomination, account description)
 activate "from:AccountsList"  #FFBBBB
 "person:Person" //-- "from:AccountsList" : count from added to the list
 deactivate "from:AccountsList" #FFBBBB
+":Test" //-- "from:AccountsList" : count from added to the list
+deactivate "from:AccountsList" #FFBBBB
+deactivate "person:Person" #FFBBBB
 
+
+":Test" -> "person:Person" : createAccount(account denomination, account description)
+activate "person:Person"  #FFBBBB
 create "to:AccountsList"
 "person:Person" -> "to:AccountsList" : createAccount(account denomination, account description)
 activate "to:AccountsList"  #FFBBBB
-"person:Person" //-- "from:AccountsList" : count to added to the list
-deactivate "from:AccountsList" #FFBBBB
+"person:Person" //-- "to:AccountsList" : count to added to the list
+deactivate "to:AccountsList" #FFBBBB
+":Test" //-- "to:AccountsList" : count to added to the list
+deactivate "to:AccountsList" #FFBBBB
+deactivate "person:Person" #FFBBBB
 
+
+":Test" -> "person:Person" : createTransaction(amount,description,category,from,to,type)
+activate "person:Person"  #FFBBBB
 create "result:Transaction"
 "person:Person" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
 activate "result:Transaction"  #FFBBBB
 "person:Person" //-- "result:Transaction"  : transaction created
+":Test" //-- "result:Transaction" : transaction created
 deactivate "result:Transaction" #FFBBBB
+deactivate "person:Person" #FFBBBB
 
 
 == Assert ==
