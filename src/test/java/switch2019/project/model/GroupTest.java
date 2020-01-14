@@ -812,7 +812,23 @@ class GroupTest {
         //Assert
         assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
     }
-    
+
+    @Test
+    @DisplayName("Create Account with null Denomination")
+    void canAccountWithNullDescriptionBeCreated() {
+
+        //Arrange:
+        Group group1 = new Group("Test Group");
+        Person person1 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
+
+        //Act:
+        group1.addMember(person1);
+        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7",person1);
+
+        //Assert:
+        assertFalse(canNullAccountBeAdded);
+    }
+
     /**
      * Check if Category was added to the groups Category list
      * main scenario
