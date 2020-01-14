@@ -63,9 +63,9 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
-        for (Category category : categories) {
-            this.addCategoryToCategoryList(category);
+    public boolean addMultipleCategoriesToList(HashSet<String> categories){
+        for (String category : categories) {
+            this.addCategoryToCategoryList(new Category(category));
         }
         return this.categories.containsAll(categories);
     }
