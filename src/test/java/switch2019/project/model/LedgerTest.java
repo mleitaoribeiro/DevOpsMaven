@@ -68,10 +68,14 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(null, "payment", category, account1, account2, type);
+        try {
+            ledger.addTransactionToLedger(null, "payment", category, account1, account2, type);
+        }
 
         //Assert
-        assertFalse(addedTransaction);
+        catch (IllegalArgumentException description) {
+            assertEquals("The monetary value can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     /**
@@ -91,10 +95,14 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(monetaryValue, null, category, account1, account2, type);
+        try {
+            ledger.addTransactionToLedger(monetaryValue, null, category, account1, account2, type);
+        }
 
         //Assert
-        assertFalse(addedTransaction);
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     /**
@@ -113,10 +121,14 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(monetaryValue, "payment", null, account1, account2, type);
+        try {
+            ledger.addTransactionToLedger(monetaryValue, "payment", null, account1, account2, type);
+        }
 
         //Assert
-        assertFalse(addedTransaction);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     /**
@@ -135,10 +147,14 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, null, type);
+        try {
+            ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, null, type);
+        }
 
         //Assert
-        assertFalse(addedTransaction);
+        catch (IllegalArgumentException description) {
+            assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     /**
@@ -155,11 +171,15 @@ class LedgerTest {
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
-
+        
         //Act
-        boolean addedTransaction = ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, account2, null);
+        try {
+            ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, account2, null);
+        }
 
         //Assert
-        assertFalse(addedTransaction);
+        catch (IllegalArgumentException description) {
+            assertEquals("The type can´t be null. Please try again.", description.getMessage());
+        }
     }
 }
