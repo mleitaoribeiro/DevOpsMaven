@@ -241,14 +241,14 @@ public class Group {
      * @param nameOfCategory
      * @return true if category was added to group's Category List, false if it wasn't
      */
-/*
+    /*
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
 
- */
+    */
 
     /**
      * Develop method add multiple categories to group's Category List
