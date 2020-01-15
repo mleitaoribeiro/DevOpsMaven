@@ -9,7 +9,7 @@ create "acTo:Account"
 create "acList:AccountsList"
 
 create "ledger:Ledger"
-":Test" -> "ledger:Ledger" : create ()
+"person:Person" -> "ledger:Ledger" : create ()
 
 create "amount:MonetaryValue"
 ":Test" -> "amount:MonetaryValue" : create (amount, currency)
@@ -19,19 +19,20 @@ create "type:Type"
 
 == Act ==
 
-":Test" -> "person:Person" : createTransaction (amount, description, \ncategory, accountFrom, accountTo, type)
+":Test" -> "person:Person" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
 activate "person:Person"  #FFBBBB
 
 "person:Person" -> "amount:MonetaryValue" : validateIfAmountIsPositive()
 
-"person:Person" -> "categoryList:CategoryList" : validateIfCategoryIsInTheCategoryList(category)
+"person:Person" -> "catList: CategoryList" : validateIfCategoryIsInTheCategoryList(category)
 
 "person:Person" -> "acList:AccountsList" : validateIfAccountIsInTheAccountsList(accountTo)
 
-"person:Person" -> "ledger:Ledger" : addTransactionToLedger(amount, description, category, accountFrom, accountTo, type)
+"person:Person" -> "ledger:Ledger" : addTransactionToLedger(amount, description, cat, acFrom, acTo, type)
 activate "ledger:Ledger"  #FFBBBB
 
-"ledger:Ledger" -> "transaction:Transaction" : create (amount, description, category, accountFrom, accountTo, type)
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : create (amount, description, cat, acFrom, acTo, type)
 
 "ledger:Ledger" -> "ledger:Ledger": add
 deactivate "ledger:Ledger"  #FFBBBB
