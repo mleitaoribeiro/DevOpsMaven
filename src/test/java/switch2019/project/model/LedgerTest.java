@@ -171,7 +171,7 @@ class LedgerTest {
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
-        
+
         //Act
         try {
             ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, account2, null);
