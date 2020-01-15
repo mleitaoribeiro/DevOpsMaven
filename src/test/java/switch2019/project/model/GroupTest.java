@@ -674,6 +674,35 @@ class GroupTest {
     }
 
     @Test
+    @DisplayName("Check if the same admin can be demoted from multiple groups")
+    void demoteMemberFromMultipleGroups() {
+
+        //Arrange:
+        Person person1 = new Person ("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Test Group 1");
+        Group group2 = new Group("Test Group 2");
+        Group group3 = new Group ("Test Group 3");
+
+        //Act:
+        group1.addMember(person1); // admin automatically
+        group1.addMember(person2);
+        group2.addMember(person1); // admin automatically
+        group2.addMember(person2);
+        group3.addMember(person1); // admin automatically
+        group3.addMember(person2);
+        group1.promoteMemberToAdmin(person2);
+        group2.promoteMemberToAdmin(person2);
+        group3.promoteMemberToAdmin(person2);
+        boolean isRemovedFromGroup1 = group1.demoteMemberFromAdmin(person1);
+        boolean isRemovedFromGroup2 = group2.demoteMemberFromAdmin(person1);
+        boolean isRemovedFromGroup3 = group3.demoteMemberFromAdmin(person1);
+
+        // Assert
+        assertTrue(isRemovedFromGroup1 && isRemovedFromGroup2 && isRemovedFromGroup3);
+    }
+
+    @Test
     @DisplayName("Check if the last admin can be demoted - FALSE expected because group must contain at least 1 admin")
     void canLastAdminBeDemoted() {
 
@@ -743,10 +772,9 @@ class GroupTest {
     void addAccountToGroupListTestContains() {
         //Arrange:
         Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        boolean result =group1.addAccountToGroupAccountsList(groupAccount);
+        boolean result =group1.addAccountToGroupAccountsList("Group Account Test", "group account");
 
         //Assert
         assertTrue(result);
@@ -758,12 +786,10 @@ class GroupTest {
     void addAccountToGroupListTestSize() {
         //Arrange
         Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test", "group account");
-        Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
-        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList(groupAccount);
-        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList(groupAccount2);
+        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList("Group Account Test", "group account");
+        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList("Group Account Test 2", "group account");
 
         //Assert
         assertTrue(addAccountToGroupList1 && addAccountToGroupList2);

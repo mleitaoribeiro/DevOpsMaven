@@ -1,39 +1,23 @@
 @startuml
-
 create ":Test"
-
 == Arrange ==
-
 create "person1:Person"
-":Test" -> "person1:Person" : new Person
+":Test" -> "person1:Person" : create(name, birthDate, birthPlace)
 activate "person1:Person" #FFBBBB
-
-create "category1:Category"
 create "categoryList1:CategoryList"
-
-"person1:Person" -> "categoryList1:CategoryList" : new categoryListL
+"person1:Person" -> "categoryList1:CategoryList" :  create()
 deactivate "person1:Person" #FFBBBB
-
 == Act ==
-
-":Test" -> "person1:Person" : createCategory(description)
+":Test" -> "person1:Person" : createCategoryAndAddToCategoryList(categoryDescription)
 activate "person1:Person" #FFBBBB
-
-create "category1:Category"
-"person1:Person" -> "category1:Category" : new Category
-
-"person1:Person" -> "categoryList1:CategoryList" : addCategoryToCategoryList(category1)
+"person1:Person" -> "categoryList1:CategoryList" : addCategoryToCategoryList(categoryDescription)
 activate "categoryList1:CategoryList" #FFBBBB
-
+create "category1:Category"
+"categoryList1:CategoryList" -> "category1:Category" : create(description)
 "categoryList1:CategoryList" --> "person1:Person" : categoryCreatedAndAdded
 deactivate "categoryList1:CategoryList" #FFBBBB
-
 "person1:Person" --> ":Test" : categoryCreatedAndAdded
 deactivate "person1:Person" #FFBBBB
-
 == Assert ==
-
 ":Test" -> ":Test" : assertTrue(categoryAddedToCategoryList)
-
 @enduml
-
