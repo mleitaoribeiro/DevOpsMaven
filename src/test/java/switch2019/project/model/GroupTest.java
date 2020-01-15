@@ -583,7 +583,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Promote one member to group admin - false because member is already group admin")
-    void promoteMemberFalse() {
+    void promoteMemberFalseAlreadyAdmin() {
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -595,6 +595,23 @@ class GroupTest {
         boolean isFirstMemberPromotedAgain = group1.promoteMemberToAdmin(person1);
 
         boolean wasPromoted = isFirstMemberPromotedAgain;
+
+        //Assert
+        assertFalse(wasPromoted);
+    }
+
+    @Test
+    @DisplayName("Promote one member to group admin - false because member is already group admin")
+    void promoteMemberFalseNotMember() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        boolean isFirstMemberPromoted = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isFirstMemberPromoted;
 
         //Assert
         assertFalse(wasPromoted);
