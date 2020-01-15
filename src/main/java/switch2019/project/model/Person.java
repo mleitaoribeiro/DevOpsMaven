@@ -350,7 +350,7 @@ public class Person {
      */
 
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
-       return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
+       return categoryList.addCategoryToCategoryList(nameOfCategory);
     }
 
     /**
