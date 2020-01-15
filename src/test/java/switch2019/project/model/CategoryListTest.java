@@ -135,14 +135,14 @@ class CategoryListTest {
      * Test if a category that already exists in the list was added
      * Ignore the case and spelling accents
      */
-/*
+
     @Test
     @DisplayName("Test if a duplicate Category was added to the Category List - ignore word case or spelling accents")
     void addCategoryToCategoryListDuplicateCategory() {
         //Arrange
         //Category to be included in Category List
-        Category originalCategory = new Category("Saude");
-        Category duplicateCategory = new Category("saúde");
+        String originalCategory = "Saude";
+        String duplicateCategory = "saúde";
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -160,13 +160,14 @@ class CategoryListTest {
      * Test if a category was removed from the Category List
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
         //Arrange
-        Category oneCategory = new Category("Saude");
-        Category otherCategory = new Category("Health");
+        String oneCategory = "Saude";
+        String otherCategory = "Health";
+        Category otherCategoryObject = new Category("Health");
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -175,8 +176,7 @@ class CategoryListTest {
         newCategoryList.addCategoryToCategoryList(otherCategory);
         //Remove one Category
 
-
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategory);
+        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
 
         //Assert
         assertTrue(realResult);
@@ -185,13 +185,14 @@ class CategoryListTest {
     /** Test if a category was removed from the Category List
      * Ignore case and spelling accents
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
     void removeCategoryFromList() {
         //Arrange
-        Category oneCategory = new Category("Saude");
-        Category otherCategory = new Category("saúde");
+        String oneCategory = "Saude";
+        String otherCategory="saúde";
+        Category otherCategoryObject = new Category("saúde");
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -199,8 +200,7 @@ class CategoryListTest {
         newCategoryList.addCategoryToCategoryList(oneCategory);
         newCategoryList.addCategoryToCategoryList(otherCategory);
         //Remove one Category
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategory);
-
+        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
 
         //Assert
         assertTrue(realResult);
@@ -210,13 +210,14 @@ class CategoryListTest {
      * Test if a category was removed from category list
      * Null Case
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - null case")
     void removeCategoryFromListNullCase() {
         //Arrange
-        Category oneCategory = new Category("Saude");
-        Category otherCategory = null;
+        String oneCategory ="Saude";
+        String otherCategory= "null";
+        Category otherCategoryObject = null;
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -225,7 +226,7 @@ class CategoryListTest {
         newCategoryList.addCategoryToCategoryList(otherCategory);
         //Remove one Category
 
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategory);
+        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
 
         //Assert
         assertFalse(realResult);
@@ -235,13 +236,14 @@ class CategoryListTest {
      * Test if a category was removed from the category list
      * category doesn't exist
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
     void removeCategoryFromListDoesntExist() {
         //Arrange
-        Category oneCategory = new Category("Saude");
-        Category otherCategory = new Category("Educação");
+        String oneCategory ="Saude";
+        String otherCategory= "Educação";
+        Category otherCategoryObject = new Category("Educação");
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -250,7 +252,7 @@ class CategoryListTest {
 
         //Remove the otherCategory (the list doesn't contain this)
 
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategory);
+        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
 
         //Assert
         assertFalse(realResult);
@@ -260,24 +262,21 @@ class CategoryListTest {
      * Test to add a set of categories to a category list
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Add a Set of Categories to Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryUniversity = new Category("University");
+        String categoryHealth ="Health";
+        String categoryGym = "Gym";
+        String categoryUniversity = "University";
 
+        //A collection of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
         CategoryList newCategoryList = new CategoryList();
 
         //Act
-        //A collection of categories to be added
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-
-        //Add several categories simultaneously to Category List with method under test
-
 
         boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
@@ -289,7 +288,7 @@ class CategoryListTest {
      * Test to add a set of categories to user category list
      * see if a null was added
      */
-/*
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
     void addMultipleCategoriesToListWithANullCase() {
