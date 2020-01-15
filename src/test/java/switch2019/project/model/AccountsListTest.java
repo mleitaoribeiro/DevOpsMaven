@@ -31,18 +31,21 @@ class AccountsListTest {
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list")
-    public void testIfAccountsWereAddedToTheList_False_oneAccountIsNull() {
+    @DisplayName("Test if more than one account was added to the list - one Account Denomination Is Null")
+    public void testIfAccountsWereAddedToTheList_False_oneAccountDenominationIsNull() {
         //Arrange
         AccountsList accountsList = new AccountsList();
 
         //Act
-        boolean real = accountsList.addAccountToAccountsList(null, null)
-                && accountsList.addAccountToAccountsList("xyz", "general")
-                && accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
-
+        try {
+            boolean real = accountsList.addAccountToAccountsList(null, "XOPT")
+                    && accountsList.addAccountToAccountsList("xyz", "general")
+                    && accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+        }
         //Assert
-        assertFalse(real);
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
+        }
     }
 
     @Test
