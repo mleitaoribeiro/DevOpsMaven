@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -96,8 +98,9 @@ public class CategoryList {
      * @param setOfCategories
      */
 
-    public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<Category> setOfCategories){
-        return this.categories.containsAll(setOfCategories);
+    public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<String> setOfCategories){
+        HashSet<String> list = new HashSet<>(setOfCategories);
+        return this.categories.containsAll(list);
     }
 
     /**Method to get the numbers of Categories in the Category List
