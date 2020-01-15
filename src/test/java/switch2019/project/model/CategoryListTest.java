@@ -12,23 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryListTest {
 
     /**
-    *Test to see if two Category Lists are the same
+     * Test to see if two Category Lists are the same
      * Main Scenario
      **/
-/*
+
     @Test
     @DisplayName("Test if two Category List are the same - Main Scenario")
     public void compareTwoCategoryList() {
         //Arrange
-        Category categoryHealth = new Category("Health");
-        Category categoryEducation = new Category("Education");
-        Category categoryGas = new Category("Gas");
 
         CategoryList oneCategoryList = new CategoryList();
         CategoryList otherCategoryList = new CategoryList();
 
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
+
         //Act
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryEducation, categoryGas));
 
         oneCategoryList.addMultipleCategoriesToList(setOfCategories);
         otherCategoryList.addMultipleCategoriesToList(setOfCategories);
@@ -42,26 +40,23 @@ class CategoryListTest {
      * Test to see if two Caterogy Lists aren't the same
      * Main Scenario
      **/
-/*
+
     @Test
     @DisplayName("Test if two Category List aren't the same - Main Scenario")
     public void compareTwoCategoryListNotTheSame() {
         //Arrange
-        Category categoryHealth = new Category("Health");
-        Category categoryEducation = new Category("Education");
-        Category categoryGas = new Category("Gas");
 
         CategoryList oneCategoryList = new CategoryList();
         CategoryList otherCategoryList = new CategoryList();
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
+        HashSet<String> anotherSetOfCategories = new HashSet<>(Arrays.asList("Education", "Gas"));
 
         //Act
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryEducation, categoryGas));
-        HashSet<Category> anotherSetOfCategories = new HashSet<>(Arrays.asList(categoryEducation, categoryGas));
-
         oneCategoryList.addMultipleCategoriesToList(setOfCategories);
         otherCategoryList.addMultipleCategoriesToList(anotherSetOfCategories);
 
         boolean realResult = oneCategoryList.equals(otherCategoryList);
+
         //Assert
 
         assertFalse(realResult);
@@ -71,14 +66,15 @@ class CategoryListTest {
      * Test if one category was added to the Ctegory List
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Test if one category was added to the Category List - Main Scenario ")
     void addCategoryToListMainScenario() {
         //Arrange
         //Category to be included in Category List
-        Category oneCategory = new Category("School expenses");
+        String oneCategory ="School expenses";
         CategoryList newCategoryList = new CategoryList();
+
         //Act
 
         boolean realResult = newCategoryList.addCategoryToCategoryList(oneCategory);
@@ -91,14 +87,14 @@ class CategoryListTest {
      * Test if two different categories were added to the Category List
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Test if two categories were added to the Category List - Main Scenario ")
     void addCategoryToCategoryListTwoDifferentCategories() {
         //Arrange
         //Category to be included in Category List
-        Category oneCategory = new Category("School expenses");
-        Category otherCategory = new Category("Health");
+        String oneCategory = "School expenses";
+        String otherCategory ="Health";
         CategoryList newCategoryList = new CategoryList();
 
         //Act
@@ -114,20 +110,25 @@ class CategoryListTest {
      * Test if a null was added to the Category List
      * Validation trough the size of the List
      */
-/*
+
     @Test
     @DisplayName("Test if a null was added to the Category List - validate trough size of CategoryList ")
     void addCategoryToCategoryListNullCase() {
         //Arrange
         //Category to be included in Category List
-        Category otherCategory = null;
+        String otherCategory = null;
         CategoryList newCategoryList = new CategoryList();
 
         //Act
-        boolean realResult = newCategoryList.addCategoryToCategoryList(otherCategory);
+
+        try {
+            newCategoryList.addCategoryToCategoryList(otherCategory);
+        }
 
         //Assert
-        assertFalse(realResult);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
     }
 
     /**
@@ -538,7 +539,6 @@ class CategoryListTest {
      * Test to validate if set of categories in the the list
      * False case
      */
-
     @Test
     @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
     void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {
@@ -572,7 +572,7 @@ class CategoryListTest {
 
         int actual = categoryList.numberOfCategoryInTheCategoryList();
         //Assert
-        assertEquals(2,actual);
+        assertEquals(2, actual);
     }
 
 
@@ -587,7 +587,6 @@ class CategoryListTest {
         int actual = categoryList.numberOfCategoryInTheCategoryList();
 
         //Assert
-        assertEquals(0,actual);
+        assertEquals(0, actual);
     }
-
 }
