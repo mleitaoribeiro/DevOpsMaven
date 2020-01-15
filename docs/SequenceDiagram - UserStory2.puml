@@ -1,7 +1,5 @@
 @startuml
 
-@startuml
-
 create ":Test"
 
 == Arrange ==
@@ -25,6 +23,13 @@ activate "GroupList1:GroupsList" #FFBBBB
 
 create "group1:Group"
 "GroupList1:GroupsList" -> "group1:Group" : new Group(description)
+activate "group1:Group" #FFBBBB
+
+"group1:Group" -> "group1:Group" : addMember(person1)
+
+
+"group1:Group" --> "GroupList1:GroupsList" : groupCreatedAndAdded
+deactivate "group1:Group" #FFBBBB
 
 "GroupList1:GroupsList" --> "person1:Person" : groupCreatedAndAdded
 deactivate "GroupList1:GroupsList" #FFBBBB
