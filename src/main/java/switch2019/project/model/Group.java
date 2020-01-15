@@ -198,16 +198,17 @@ public class Group {
     /**
      * Demote multiple group admins to member only
      *
-     * @param multipleAdmins
+     * @param multipleMembers
      * @return true if all
      */
-    public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleAdmins) {
-        for (Person admin : multipleAdmins) {
-            demoteMemberFromAdmin(admin);
+    /*
+    public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleMembers) {
+        for (Person member : multipleMembers) {
+            demoteMemberFromAdmin(member);
         }
-        return !admins.containsAll(admins) && members.containsAll(members);
+        return !admins.containsAll(multipleMembers);
     }
-
+    */
 
     /**
      * Add account to Group´s Account List

@@ -721,6 +721,34 @@ class GroupTest {
         assertFalse (isRemovedFromAdminPerson2 && isRemovedFromAdminPerson1);
     }
 
+    /**
+     * Test used to check if an HashSet of group admins can be demoted to member
+     */
+    /*
+    @Test
+    @DisplayName("Check if multiple admins are demoted")
+    void multipleAdminDemotionTest() {
+        // Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("John",1990,06,22,new Address("Bristol"));
+        Person person4 = new Person("Susan",1997,12,11,new Address("Edinburgh"));
+        Group group1 = new Group("Test Group");
+
+        // Act:
+        group1.addMember(person1); //automatically promoted to admin
+        group1.addMember(person2);
+        group1.addMember(person3);
+        group1.addMember(person4);
+        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3));
+        group1.promoteMultipleMemberToAdmin(membersToPromote);
+        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person2, person3));
+        boolean areAllDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
+
+        // Assert:
+        assertTrue(areAllDemoted);
+    }
+    */
     //Fazer teste para pessoas nulas
 
     /**

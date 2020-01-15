@@ -120,10 +120,15 @@ class CategoryListTest {
         CategoryList newCategoryList = new CategoryList();
 
         //Act
-        boolean realResult = newCategoryList.addCategoryToCategoryList(otherCategory);
+
+        try {
+            newCategoryList.addCategoryToCategoryList(otherCategory);
+        }
 
         //Assert
-        assertFalse(realResult);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
     }
 
     /**
