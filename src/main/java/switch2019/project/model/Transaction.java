@@ -25,6 +25,7 @@ public class Transaction {
      * @param type
      */
 
+
     public Transaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
         this.amount = amount;
         this.description = description;
@@ -33,6 +34,28 @@ public class Transaction {
         this.accountTo = accountTo;
         this.type = type;
         setDate();
+    }
+
+    /**
+     * Transaction constructor with date inserted by user
+     *
+     * @param amount
+     * @param description
+     * @param date
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+
+    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.category = category;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.type = type;
     }
 
 

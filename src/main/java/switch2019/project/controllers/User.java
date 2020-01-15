@@ -44,8 +44,8 @@ public class User {
      * @param categories<Category> categories
      */
 
-    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
-        return person.addMultipleCategoriesToList(categories);
+    public boolean addMultipleCategoriesToList(HashSet<String> categories){
+        return person.createAndAddMultipleCategoriesToList(categories);
     }
 
     /**

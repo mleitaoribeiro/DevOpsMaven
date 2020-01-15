@@ -6,6 +6,9 @@ create ":Test"
 create "person:Person"
 ":Test" -> "person:Person" : create (name, birthDate, birthPlace)
 
+create "ledger:Ledger"
+":Test" -> "ledger:Ledger" : create ()
+
 create "amount:MonetaryValue"
 ":Test" -> "amount:MonetaryValue" : create (amount, currency)
 
@@ -62,15 +65,15 @@ deactivate "to:AccountsList" #FFBBBB
 deactivate "person:Person" #FFBBBB
 
 
-":Test" -> "person:Person" : createTransaction(amount,description,category,from,to,type)
-activate "person:Person"  #FFBBBB
+":Test" -> "ledger:Ledger" : createTransaction(amount,description,category,from,to,type)
+activate "ledger:Ledger"  #FFBBBB
 create "result:Transaction"
-"person:Person" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
+
+"ledger:Ledger" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
 activate "result:Transaction"  #FFBBBB
-"person:Person" //-- "result:Transaction"  : transaction created
-":Test" //-- "result:Transaction" : transaction created
-deactivate "result:Transaction" #FFBBBB
-deactivate "person:Person" #FFBBBB
+"ledger:Ledger" //-- "result:Transaction"  : transaction created
+":Test" //-- "ledger:Ledger" : transaction created
+deactivate "ledger:Ledger" #FFBBBB
 
 
 == Assert ==

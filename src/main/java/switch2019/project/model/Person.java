@@ -366,7 +366,7 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public boolean addMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean createAndAddMultipleCategoriesToList(HashSet<String> categories){
         return categoryList.addMultipleCategoriesToList(categories);
     }
 
