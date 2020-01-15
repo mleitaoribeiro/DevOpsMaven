@@ -38,13 +38,31 @@ class AccountsListTest {
 
         //Act
         try {
-            boolean real = accountsList.addAccountToAccountsList(null, "XOPT")
-                    && accountsList.addAccountToAccountsList("xyz", "general")
-                    && accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+            accountsList.addAccountToAccountsList(null, "XOPT");
+            accountsList.addAccountToAccountsList("xyz", "general");
+            accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
         }
         //Assert
         catch (IllegalArgumentException denomination) {
             assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if more than one account was added to the list - one Account Denomination Is Null")
+    public void testIfAccountsWereAddedToTheList_False_oneAccountDescriptionIsNull() {
+        //Arrange
+        AccountsList accountsList = new AccountsList();
+
+        //Act
+        try {
+            accountsList.addAccountToAccountsList("xpto", null);
+            accountsList.addAccountToAccountsList("xyz", "general");
+            accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null. Please try again.", description.getMessage());
         }
     }
 
@@ -106,28 +124,8 @@ class AccountsListTest {
         assertTrue(real);
     }
 
-    @Test
-    @DisplayName("Test if more than one account was added to the list - one account is not contained - Null")
-    public void testIfAccountsAreInList_OneAccountDenominationIsNull() {
-        //Arrange
-
-        AccountsList accountsList = new AccountsList();
-
-        //Act
-        try {
-            accountsList.addAccountToAccountsList(null, "xpto");
-            accountsList.addAccountToAccountsList("xyz", "general");
-            accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
-        }
-        //Assert
-        catch (IllegalArgumentException denomination) {
-            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
-        }
-
-    }
-
     /**
-     * Test if Account is cointained in the Accounts List
+     * Test if Account is contained in the Accounts List
      */
     @Test
     @DisplayName("Test if one account is contained in the accounts list | True")
