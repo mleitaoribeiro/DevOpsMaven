@@ -108,24 +108,22 @@ class AccountsListTest {
 
     @Test
     @DisplayName("Test if more than one account was added to the list - one account is not contained - Null")
-    public void testIfAccountsAreInList_OneAccountIsNull() {
+    public void testIfAccountsAreInList_OneAccountDenominationIsNull() {
         //Arrange
-        Account oneAccount = null;
-        Account otherAccount = new Account ("xyz", "general");
-        Account anotherAccount = new Account ("Millennium", "Millennium Account");
 
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList(null, null);
-        accountsList.addAccountToAccountsList("xyz", "general");
-        accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
-
-        boolean real = accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
-                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount)
-                && accountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
+        try {
+            accountsList.addAccountToAccountsList(null, "xpto");
+            accountsList.addAccountToAccountsList("xyz", "general");
+            accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+        }
         //Assert
-        assertFalse(real);
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
+        }
+
     }
 
     /**
