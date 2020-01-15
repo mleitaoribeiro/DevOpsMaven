@@ -189,12 +189,12 @@ public class Group {
      * @return true if group admin was demoted, false if it wasn't
      */
     public boolean demoteMemberFromAdmin(Person member) {
-        if (!this.members.contains(member) && this.admins.size() > 1) {
+        if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() > 1) {
             return this.members.remove(member);
         }
         return false;
     }
-
+    
     /**
      * Add account to Group´s Account List
      *
