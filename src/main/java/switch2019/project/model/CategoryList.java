@@ -19,7 +19,7 @@ public class CategoryList {
 
 
     /**
-     *Develop @override of equals for Category List and @override of hashcode
+     * Develop @override of equals for Category List and @override of hashcode
      */
     @Override
     public boolean equals(Object o) {
@@ -51,23 +51,27 @@ public class CategoryList {
      * @param categoryToRemove
      */
 
-    public boolean removeCategoryFromList(Category categoryToRemove){
-        if( categoryToRemove != null)
+    public boolean removeCategoryFromList(Category categoryToRemove) {
+        if (categoryToRemove != null)
             return categories.remove(categoryToRemove);
         else
             return false;
     }
+
     /**
      * Add multiple categories to CategoryList
      *
      * @param categories<Category> categories
      */
 
-    public boolean addMultipleCategoriesToList(HashSet<String> categories){
+    public boolean addMultipleCategoriesToList(HashSet<String> categories) {
+        int sizeBefore = this.categories.size();
         for (String category : categories) {
-            this.addCategoryToCategoryList(category);
+            if (category == null) {
+                sizeBefore--;
+            } else this.addCategoryToCategoryList(category);
         }
-        return this.categories.containsAll(categories);
+        return this.categories.size() == categories.size() + sizeBefore;
     }
 
     /**
@@ -76,7 +80,7 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
         for (Category category : categories)
             this.removeCategoryFromList(category);
         return !this.categories.containsAll(categories);
@@ -88,7 +92,7 @@ public class CategoryList {
      * @param category<Category> category to test
      */
 
-    public boolean validateIfCategoryIsInTheCategoryList (Category category){
+    public boolean validateIfCategoryIsInTheCategoryList(Category category) {
         return categories.contains(category);
     }
 
@@ -98,13 +102,13 @@ public class CategoryList {
      * @param setOfCategories
      */
 
-    public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<String> setOfCategories){
+    public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<String> setOfCategories) {
         HashSet<String> list = new HashSet<>(setOfCategories);
         return this.categories.containsAll(list);
     }
 
-    /**Method to get the numbers of Categories in the Category List
-     *
+    /**
+     * Method to get the numbers of Categories in the Category List
      */
 
     public int numberOfCategoryInTheCategoryList() {

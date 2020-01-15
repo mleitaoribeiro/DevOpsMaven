@@ -6,61 +6,51 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryTest {
+
     /**
      * Check if category's description was updated
-     * Main scenario
      */
-
     @Test
     @DisplayName("Update of Category description - Main Scenario")
     void setCategoryUpdateDescription() {
         //Arrange
         Category categoryDescription = new Category("Health");
         String expected = "FOOD EXPENSES";
+
         //Act
         categoryDescription.setNameOfCategory("Food Expenses");
+
         //Assert
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
-    /**
-     * Check if category's description was updated
-     * Main scenario
-     */
-
     @Test
-    @DisplayName("Validate user's input of Category description - Main Scenario")
+    @DisplayName("Validate user's input of Category description")
     void setCategoryValidateInputSuccessfullScenario() {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         String expected = "EDUCATION";
+
         //Act
         categoryDescription.setNameOfCategory("Education");
+
         //Assert
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
 
-    /**
-     * Check if category's description was updated
-     * numeric imput
-     */
-
     @Test
-    @DisplayName("Validate user's input of Category description- Numeric Descriptions Acceptable")
+    @DisplayName("Validate user's input of Category description - Numeric Descriptions Acceptable")
     void setCategoryValidateNumericInput() {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         String expected = "123";
+
         //Act
         categoryDescription.setNameOfCategory("123");
+
         //Assert
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
-
-    /**
-     * Check if category's description was updated
-     * special character
-     */
 
     @Test
     @DisplayName("Validate user's input of Category description - Remove Special Characters")
@@ -68,16 +58,13 @@ class CategoryTest {
         //Arrange
         Category categoryDescription = new Category("Not Defined");
         String expected = "SAUDE";
+
         //Act
         categoryDescription.setNameOfCategory("Saúde");
+
         //Assert
         assertEquals(expected, categoryDescription.getNameOfCategory());
     }
-
-    /**
-     * Check if category's description was updated
-     * null case
-     */
 
     @Test
     @DisplayName("Validate user's input of Category description - null case")
@@ -97,9 +84,7 @@ class CategoryTest {
 
     /**
      * Check if two categories are the same
-     * ignore case
      */
-
     @Test
     @DisplayName("Verfiy if two categories are the same - ignore case - Main Scenario")
     void twoCategoriesAreEqualsIgnoreCase() {
@@ -113,11 +98,6 @@ class CategoryTest {
         //Assert
         assertEquals(true, realResult);
     }
-
-    /**
-     * Check if two categories are the same
-     * special character
-     */
 
     @Test
     @DisplayName("Verfiy if two categories are the same - ignore special Character - Main Scenario")
@@ -133,11 +113,6 @@ class CategoryTest {
         assertEquals(true, realResult);
     }
 
-    /**
-     * Check if two categories are the same
-     * numeric
-     */
-
     @Test
     @DisplayName("Verfiy if two categories are the same - numeric characters - Main Scenario")
     void twoCategoriesAreEqualsNumericCategories() {
@@ -151,11 +126,6 @@ class CategoryTest {
         //Assert
         assertEquals(true, realResult);
     }
-
-    /**
-     * Check if two categories are the same
-     * false test
-     */
 
     @Test
     @DisplayName("Verfiy if two categories are the same - Not the same")
