@@ -11,6 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryListTest {
 
+    /**
+    *Test to see if two Category Lists are the same
+     * Main Scenario
+     **/
+
     @Test
     @DisplayName("Test if two Category List are the same - Main Scenario")
     public void compareTwoCategoryList() {
@@ -32,6 +37,11 @@ class CategoryListTest {
         //Assert
         assertTrue(realResult);
     }
+
+    /**
+     * Test to see if two Caterogy Lists aren't the same
+     * Main Scenario
+     **/
 
     @Test
     @DisplayName("Test if two Category List aren't the same - Main Scenario")
@@ -57,6 +67,11 @@ class CategoryListTest {
         assertFalse(realResult);
     }
 
+    /**
+     * Test if one category was added to the Ctegory List
+     * Main Scenario
+     */
+
     @Test
     @DisplayName("Test if one category was added to the Category List - Main Scenario ")
     void addCategoryToListMainScenario() {
@@ -71,6 +86,11 @@ class CategoryListTest {
         //Assert
         assertEquals(true, realResult);
     }
+
+    /**
+     * Test if two different categories were added to the Category List
+     * Main Scenario
+     */
 
     @Test
     @DisplayName("Test if two categories were added to the Category List - Main Scenario ")
@@ -90,6 +110,11 @@ class CategoryListTest {
         assertEquals(true, realResult);
     }
 
+    /**
+     * Test if a null was added to the Category List
+     * Validation trough the size of the List
+     */
+
     @Test
     @DisplayName("Test if a null was added to the Category List - validate trough size of CategoryList ")
     void addCategoryToCategoryListNullCase() {
@@ -104,6 +129,11 @@ class CategoryListTest {
         //Assert
         assertFalse(realResult);
     }
+
+    /**
+     * Test if a category that already exists in the list was added
+     * Ignore the case and spelling accents
+     */
 
     @Test
     @DisplayName("Test if a duplicate Category was added to the Category List - ignore word case or spelling accents")
@@ -124,6 +154,11 @@ class CategoryListTest {
         assertFalse(realResult);
 
     }
+
+    /**
+     * Test if a category was removed from the Category List
+     * Main Scenario
+     */
 
     @Test
     @DisplayName("Test if a category was removed from the Category List - Main Scenario")
@@ -146,6 +181,10 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
+    /** Test if a category was removed from the Category List
+     * Ignore case and spelling accents
+     */
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
     void removeCategoryFromList() {
@@ -165,6 +204,11 @@ class CategoryListTest {
         //Assert
         assertTrue(realResult);
     }
+
+    /**
+     * Test if a category was removed from category list
+     * Null Case
+     */
 
     @Test
     @DisplayName("Test if a category was removed from the Category List - null case")
@@ -186,6 +230,10 @@ class CategoryListTest {
         assertFalse(realResult);
     }
 
+    /**
+     * Test if a category was removed from the category list
+     * category doesn't exist
+     */
     @Test
     @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
     void removeCategoryFromListDoesntExist() {
@@ -206,6 +254,10 @@ class CategoryListTest {
         assertFalse(realResult);
     }
 
+    /**
+     * Test to add a set of categories to a category list
+     * Main Scenario
+     */
     @Test
     @DisplayName("Add a Set of Categories to Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
@@ -230,6 +282,10 @@ class CategoryListTest {
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
     }
 
+    /**
+     * Test to add a set of categories to user category list
+     * see if a null was added
+     */
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
     void addMultipleCategoriesToListWithANullCase() {
@@ -254,6 +310,10 @@ class CategoryListTest {
     }
 
 
+    /**
+     * Test to add a set of categories to user category list
+     * See if the same category was not added simultaneously
+     */
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
     void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
@@ -278,6 +338,11 @@ class CategoryListTest {
 
     }
 
+    /**
+     * Test to add a set of categories to user category list
+     * See if the same category was not added simultaneously
+     * Ignore letter capitalization and special characters
+     */
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
             "Ignore letter capitalization and special characters. ")
@@ -302,6 +367,10 @@ class CategoryListTest {
     }
 
 
+    /**
+     * Test to remove a set of categories from user category list
+     * Main Scenario
+     */
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToList_MainScenario() {
@@ -326,6 +395,11 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
+    /**
+     * Test to remove a set categories from user category list
+     * See if can remove a category that doesn't exist
+     * Test for null
+     */
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that doesnt exist " +
             "or null")
@@ -354,6 +428,10 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
+    /**
+     * Test to remove a set of categories from a user category list
+     * Ignore letter capitalization and special characters
+     */
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
@@ -383,7 +461,8 @@ class CategoryListTest {
     }
 
     /**
-     * Tests to validate if a category is in the list
+     * Test to validate if a category is in the list
+     * True case
      */
 
     @Test
@@ -404,6 +483,10 @@ class CategoryListTest {
         assertEquals(true, result);
     }
 
+    /**
+     * Test to validate if a category is in the list
+     * False case
+     */
     @Test
     @DisplayName("Test if a category is in the category list - false case")
     void testValidateIfCategoryIsInTheCategoryListFalseCase() {
@@ -424,6 +507,7 @@ class CategoryListTest {
 
     /**
      * Test to validate if set of categories in the the list
+     * True case for all
      */
 
     @Test
@@ -444,6 +528,10 @@ class CategoryListTest {
         assertTrue(result);
     }
 
+    /**
+     * Test to validate if set of categories in the the list
+     * False case
+     */
     @Test
     @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
     void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {
