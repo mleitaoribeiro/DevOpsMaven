@@ -1,11 +1,11 @@
-@startuml
+---------+@startuml
 
 create ":Test"
 
 == Arrange ==
 
 create "group1:Group"
-":Test" -> "group1:Group" : new Group
+":Test" -> "group1:Group" : new Group (description)
 activate "group1:Group" #FFBBBB
 
 create "account1:Account"
@@ -19,7 +19,7 @@ deactivate "group1:Group" #FFBBBB
 activate "group1:Group" #FFBBBB
 
 create "account1:Account"
-"group1:Group" -> "account1:Account" : new Account
+"group1:Group" -> "account1:Account" : new Account(denomination,description)
 
 "group1:Group" -> "accountList1:AccountsList" : addAccountToGroupAccountsList(account1)
 activate "accountList1:AccountsList" #FFBBBB

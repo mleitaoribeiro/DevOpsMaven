@@ -4,69 +4,76 @@ create ":Test"
 ==Arrange==
 
 create "person:Person"
-":Test" -> "person:Person" : new
-activate "person:Person" #FFBBBB
-":Test" //-- "person:Person"  : person created
-deactivate "person:Person" #FFBBBB
+":Test" -> "person:Person" : create (name, birthDate, birthPlace)
 
+create "ledger:Ledger"
+":Test" -> "ledger:Ledger" : create ()
 
 create "amount:MonetaryValue"
-":Test" -> "amount:MonetaryValue" : new
-activate "amount:MonetaryValue"  #FFBBBB
-":Test" //-- "amount:MonetaryValue" : amount created
-deactivate "amount:MonetaryValue" #FFBBBB
-
+":Test" -> "amount:MonetaryValue" : create (amount, currency)
 
 create "category:Category"
-":Test" -> "category:Category" : new
-activate "category:Category"  #FFBBBB
-":Test" //-- "category:Category" : category created
-deactivate "category:Category" #FFBBBB
+":Test" -> "category:Category" : create (category)
 
 create "from:Account"
-":Test" -> "from:Account" : new
-activate "from:Account"  #FFBBBB
-":Test" //-- "from:Account" : account from created
-deactivate "from:Account" #FFBBBB
+":Test" -> "from:Account" : create (denomination, description)
+
 
 create "to:Account"
-":Test" -> "to:Account" : new
-activate "to:Account"  #FFBBBB
-":Test" //-- "to:Account" : account to created
-deactivate "to:Account" #FFBBBB
+":Test" -> "to:Account" : create (denomination, description)
+
 
 create "type:Type"
-":Test" -> "type:Type" : new
-activate "type:Type"  #FFBBBB
-":Test" //-- "type:Type" : type created
-deactivate "type:Type" #FFBBBB
+":Test" -> "type:Type" : create (description)
 
 
 == Act ==
+
+":Test" -> "person:Person" : addCategoryToCategoryList (category)
+activate "person:Person"  #FFBBBB
 
 create "categoryList:CategoryList"
 "person:Person" -> "categoryList:CategoryList" : addCategoryToCategoryList (category)
 activate "categoryList:CategoryList"  #FFBBBB
 "person:Person" //-- "categoryList:CategoryList" : category added to the list
 deactivate "categoryList:CategoryList" #FFBBBB
+":Test" //-- "categoryList:CategoryList" : category added to the list
+deactivate "person:Person" #FFBBBB
 
+
+":Test" -> "person:Person" : createAccount(account denomination, account description)
+activate "person:Person"  #FFBBBB
 create "from:AccountsList"
 "person:Person" -> "from:AccountsList" : createAccount(account denomination, account description)
 activate "from:AccountsList"  #FFBBBB
 "person:Person" //-- "from:AccountsList" : count from added to the list
 deactivate "from:AccountsList" #FFBBBB
+":Test" //-- "from:AccountsList" : count from added to the list
+deactivate "from:AccountsList" #FFBBBB
+deactivate "person:Person" #FFBBBB
 
+
+":Test" -> "person:Person" : createAccount(account denomination, account description)
+activate "person:Person"  #FFBBBB
 create "to:AccountsList"
 "person:Person" -> "to:AccountsList" : createAccount(account denomination, account description)
 activate "to:AccountsList"  #FFBBBB
-"person:Person" //-- "from:AccountsList" : count to added to the list
-deactivate "from:AccountsList" #FFBBBB
+"person:Person" //-- "to:AccountsList" : count to added to the list
+deactivate "to:AccountsList" #FFBBBB
+":Test" //-- "to:AccountsList" : count to added to the list
+deactivate "to:AccountsList" #FFBBBB
+deactivate "person:Person" #FFBBBB
 
+
+":Test" -> "ledger:Ledger" : createTransaction(amount,description,category,from,to,type)
+activate "ledger:Ledger"  #FFBBBB
 create "result:Transaction"
-"person:Person" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
+
+"ledger:Ledger" -> "result:Transaction" : createTransaction(amount,description,category,from,to,type)
 activate "result:Transaction"  #FFBBBB
-"person:Person" //-- "result:Transaction"  : transaction created
-deactivate "result:Transaction" #FFBBBB
+"ledger:Ledger" //-- "result:Transaction"  : transaction created
+":Test" //-- "ledger:Ledger" : transaction created
+deactivate "ledger:Ledger" #FFBBBB
 
 
 == Assert ==

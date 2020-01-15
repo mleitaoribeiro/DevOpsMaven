@@ -702,7 +702,7 @@ class PersonTest {
         Type type = new Type(false); //debit
 
         //Act
-        person.addCategoryToCategoryList (category);
+        //person.addCategoryToCategoryList (category);
         person.createAccount("Wallet","General expenses");
         person.createAccount("TransportAccount","Transport expenses");
         boolean result = person.createTransaction(amount,description,category,from,to,type);
@@ -728,7 +728,7 @@ class PersonTest {
         Account to = new Account("TransportAccount","Transport expenses");
 
         //Act
-        person.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
+        //person.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
 
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount","Transport expenses");
@@ -756,7 +756,7 @@ class PersonTest {
         Account accountBaby = new Account("Baby","Baby expenses");
 
         //Act
-        person.addCategoryToCategoryList(category);
+        //person.addToCategoryList(category);
 
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport","Transport expenses");
@@ -784,7 +784,7 @@ class PersonTest {
         Account accountTransport = new Account("Transport", "Transport expenses");
 
         //Act
-        person.addCategoryToCategoryList(category);
+        //person.addCategoryToCategoryList(category);
 
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");

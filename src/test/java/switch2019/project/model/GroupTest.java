@@ -12,6 +12,70 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
+     * USER STORY 2 - check if user was added
+     * Methods to check if the number of groups in the GroupList is increased
+     */
+
+    @Test
+    @DisplayName("Check if One group was added")
+    public void wasGroupAddedToList() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+        GroupsList groupList1 = new GroupsList();
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean addedGroup = groupList1.addGroupToGroupList(group1);
+
+
+        //Assert
+        assertTrue(addedGroup);
+    }
+
+    /**
+     * Method to check if a Group was created inside a GroupList
+     */
+    @Test
+    public void isGroupInListCompare() {
+        // Arrange Groups
+        Group group1 = new Group("Amigos");
+
+        // Arrange Group List
+        GroupsList groupList1 = new GroupsList();
+
+        // Act
+        boolean groupAdded = groupList1.addGroupToGroupList(group1);
+
+        //Assert
+        assertTrue(groupAdded);
+    }
+
+    /**
+     * Method to check if Muliple Groups were created inside a GroupList
+     */
+
+    @Test
+    public void areGroupsInListCompare() {
+        // Arrange Groups
+        Group group1 = new Group("Programadores");
+        Group group2 = new Group("Amigos");
+
+        // Arrange Group List
+        GroupsList groupList1 = new GroupsList();
+
+        // Act
+        boolean group1Added = groupList1.addGroupToGroupList(group1);
+        boolean group2Added = groupList1.addGroupToGroupList(group2);
+
+        // Assert
+        assertTrue(group1Added && group2Added);
+    }
+
+    /**
+     * User Story 3 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
     @Test
@@ -438,6 +502,7 @@ class GroupTest {
     @Test
     @DisplayName("Two Equals group add person")
     void equalsGroupClassGroupFalse() {
+
         //Arrange
         Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
         Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
@@ -457,6 +522,7 @@ class GroupTest {
     @Test
     @DisplayName("Two Equals group add person")
     void equalsGroupClassAddPersonFalse() {
+
         //Arrange
         Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
         Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
@@ -496,50 +562,24 @@ class GroupTest {
         assertTrue(wasPromoted);
     }
 
-    /**
-     * Check if member was demoted from group admin
-     */
-    /*@Test
-    @DisplayName("Demote one group admin to member")
-    void demoteMemberTest() {
-        //Arrange
-        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
-        Group group1 = new Group("Francis Group");
-
-        //Act
-        group1.addMember(person1);
-        group1.promoteMemberToAdmin(person1);
-        HashSet<Person> adminListWithAdmin = group1.getAdmins();
-        group1.demoteMemberFromAdmin(person1);
-        HashSet<Person> adminListWithoutAdmin = group1.getAdmins();
-        boolean wasDemoted = adminListWithAdmin.contains(person1) && adminListWithoutAdmin.isEmpty();
-
-        //Assert
-        assertTrue(wasDemoted);
-    }
-
     @Test
     @DisplayName("Promote one member to Admin while there are more than one member")
     void demoteMemberTest2() {
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Albert",1987,10,10,new Address("Bristol"));
         Group group1 = new Group("Francis Group");
 
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        group1.promoteMemberToAdmin(person1);
-        group1.promoteMemberToAdmin(person2);
-        HashSet<Person> adminListWithAdmin = group1.getAdmins();
-        boolean before = adminListWithAdmin.contains(person1) && adminListWithAdmin.contains(person2);
-        group1.demoteMemberFromAdmin(person1);
-        HashSet<Person> adminListWithoutAdmin = group1.getAdmins();
-        boolean after = adminListWithoutAdmin.contains(person2) && !adminListWithoutAdmin.contains(person1);
+        group1.addMember(person3);
+        boolean wereMembersPromoted = group1.promoteMemberToAdmin(person2) && group1.promoteMemberToAdmin(person3);
 
         //Assert
-        assertTrue(before && after);
-    }*/
+        assertTrue(wereMembersPromoted);
+    }
 
     /**
      * Check if multiple members were promoted to Admin
@@ -586,6 +626,70 @@ class GroupTest {
 
         //Assert
         assertTrue(werePromoted);
+    }
+
+    /**
+     * Check if member was demoted from group admin
+     */
+    @Test
+    @DisplayName("Demote one group admin to member")
+    void demoteMemberTest() {
+
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        group1.promoteMemberToAdmin(person2);
+        boolean wasDemoted = group1.demoteMemberFromAdmin(person2);
+
+        //Assert
+        assertTrue(wasDemoted);
+    }
+
+    @Test
+    @DisplayName("Demote multiple group admins to members")
+    void demoteMultipleMembersTest() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("Vladimir",1970,4,12, new Address("Moscow"));
+        Group group1 = new Group("Francis Group");
+
+        //Act:
+        group1.addMember(person1); // Torna-se admin automáticamente
+        group1.addMember(person2);
+        group1.addMember(person3);
+        group1.promoteMemberToAdmin(person2);
+        group1.promoteMemberToAdmin(person3);
+        boolean isFirstAdminRemoved = group1.demoteMemberFromAdmin(person2);
+        boolean isSecondAdminRemoved = group1.demoteMemberFromAdmin(person3);
+
+        //Assert:
+        assertTrue (isFirstAdminRemoved && isSecondAdminRemoved);
+    }
+
+    @Test
+    @DisplayName("Check if the last admin can be demoted - FALSE expected because group must contain at least 1 admin")
+    void canLastAdminBeDemoted() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group ("Test Group");
+
+        //Act:
+        group1.addMember(person1); //Automatically promoted to admin
+        group1.addMember(person2);
+        boolean isRemovedFromAdminPerson2 = group1.demoteMemberFromAdmin(person2);
+        boolean isRemovedFromAdminPerson1 = group1.demoteMemberFromAdmin(person1);
+
+        //Assert:
+        assertFalse (isRemovedFromAdminPerson2 && isRemovedFromAdminPerson1);
     }
 
     //Fazer teste para pessoas nulas
@@ -675,13 +779,12 @@ class GroupTest {
     void createGroupAccountTest(){
 
         //Arrange :
-        Group group1 = new Group ("test group");
         Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
-        group1.addMember(person1);
+        Group group1 = new Group ("Test group");
 
         //Act :
         group1.addMember(person1);
-        boolean result = group1.createGroupAccount("Conta de Grupo", "Test", person1);
+        boolean result = group1.createGroupAccount("Account1", "Test", person1);
 
         //Assert :
         assertTrue(result);
@@ -692,32 +795,32 @@ class GroupTest {
     void createGroupAccountsTest(){
 
         //Arrange
-        Group group1 = new Group("test group");
         Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        Group group1 = new Group("Test group");
 
         //Act
         group1.addMember(person1);
-        boolean addGroupAccount1 = group1.createGroupAccount("Conta de Grupo 1","Test", person1);
-        boolean addGroupAccount2 = group1.createGroupAccount("Conta de Grupo 2", "Test", person1);
-        boolean addGroupAccount3 = group1.createGroupAccount("Conta de Grupo 3","Test",person1);
+        boolean addGroupAccount1 = group1.createGroupAccount("Account1","Test", person1);
+        boolean addGroupAccount2 = group1.createGroupAccount("Account2", "Test", person1);
+        boolean addGroupAccount3 = group1.createGroupAccount("Account3","Test",person1);
 
         //Assert
         assertTrue(addGroupAccount1 && addGroupAccount2 && addGroupAccount3);
     }
 
     @Test
-    @DisplayName("Test if a group can create multiple group accounts - TRUE")
+    @DisplayName("Test if a person that is not a group admin can create a group account - False")
     void createGroupAccountFalse(){
 
         //Arrange :
-        Group group1 = new Group("test group");
         Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
-        Person person2 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
+        Person person2 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Group group1 = new Group("Test group");
 
         //Act :
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean addGroupAccount = group1.createGroupAccount("Conta de Grupo","Test",person2);
+        boolean addGroupAccount = group1.createGroupAccount("Account1","Test", person2);
 
         //Assert:
         assertFalse(addGroupAccount);
@@ -728,13 +831,13 @@ class GroupTest {
     void createGroupAccountSameDescriptionFalse() {
 
         //Arrange :
-        Group group1 = new Group("test group");
         Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Group group1 = new Group("test group");
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Conta de Grupo","Test",person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("Conta de Grupo","Test",person1);
+        group1.createGroupAccount("Account1","Test", person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1","Test", person1);
 
         //Assert
         assertFalse(addGroupAccountRepeated);
@@ -744,13 +847,13 @@ class GroupTest {
     @DisplayName("Test if Method cant create two accounts with the same Account Denomination, but different letter casing.")
     void createGroupAccountSameDescriptionIgnoreCasing() {
         //Arrange:
-        Group group1 = new Group("test group");
         Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Group group1 = new Group("Test group");
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Conta de Grupo", "Test",person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("CoNta De GrUPo", "Test",person1);
+        group1.createGroupAccount("Account1", "Test", person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test", person1);
 
         //Assert:
         assertFalse(addGroupAccountRepeated);
@@ -761,14 +864,14 @@ class GroupTest {
     void createGroupAccountRegularMemberFalse(){
 
         //Arrange:
-        Group group1 = new Group("test group");
         Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
-        Person person2 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
+        Person person2 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Group group1 = new Group("Test group");
 
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Conta de Grupo","Test",person2);
+        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1","Test", person2);
 
 
         //Assert
@@ -780,12 +883,12 @@ class GroupTest {
     void createGroupAccountOnNullGroup(){
 
         //Arrange:
-        Group group1 = new Group(null);
         Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        Group group1 = new Group(null);
 
         //Act:
         boolean canAnAccountBeAddedToNullGroup = group1.addMember(person1)
-                && group1.createGroupAccount("Conta de Grupo","Test",person1);
+                && group1.createGroupAccount("Account1","Test",person1);
 
         //Assert:
         assertFalse(canAnAccountBeAddedToNullGroup);
@@ -796,36 +899,50 @@ class GroupTest {
     void createGroupAccountsOnMultipleGroups(){
 
         //Arrange:
+        Person person1 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
         Group group1 = new Group("Test Group");
         Group group2 = new Group("Test Group 2");
         Group group3 = new Group("Test Group 3");
-        Person person1 = new Person ("Francsca", 12,3,15,new Address("Lisboa"));
 
         //Act:
         group1.addMember(person1);
         group2.addMember(person1);
         group3.addMember(person1);
-        boolean isGroup1AccountCreated = group1.createGroupAccount("Test Account","User Story 7", person1);
-        boolean isGroup2AccountCreated = group2.createGroupAccount("Test Account 2","User Story 7", person1);
-        boolean isGroup3AccountCreated = group3.createGroupAccount("Test Account 3", "User Story 7", person1);
+        boolean isGroup1AccountCreated = group1.createGroupAccount("Account1","User Story 7", person1);
+        boolean isGroup2AccountCreated = group2.createGroupAccount("Account2","User Story 7", person1);
+        boolean isGroup3AccountCreated = group3.createGroupAccount("Account3", "User Story 7", person1);
 
         //Assert
         assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
     }
-    
+
+    @Test
+    @DisplayName("Create Account with null Denomination")
+    void canAccountWithNullDescriptionBeCreated() {
+
+        //Arrange:
+        Person person1 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Group group1 = new Group("Test Group");
+
+        //Act:
+        group1.addMember(person1);
+        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7",person1);
+
+        //Assert:
+        assertFalse(canNullAccountBeAdded);
+    }
+
     /**
-     * Check if Category was added to the groups Category list
-     * main scenario
+     * Check if a Category was added to the groups Category list
      */
-
-
+    /*
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
         //Arrange
         //Initialize Group
 
-        Group group1 = new Group("Groupo dos amigos");
+        Group group1 = new Group("Grupo dos amigos");
 
         //Category to be included in Category List
         Category category1 = new Category("School expenses");
@@ -837,20 +954,13 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if Category was added to the groups Category list
-     * null case
-     */
-
     @Test
     @DisplayName("Check if null category is not added")
     void addCategoryToListWithANullCase() {
         //Arrange
 
         //Initialize Group
-        Group group1 = new Group("Groupo dos amigos");
+        Group group1 = new Group("Grupo dos amigos");
 
         //Category to be included in Category List
         Category category1 = null;
@@ -862,13 +972,6 @@ class GroupTest {
         assertFalse(realResult);
 
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if two Categories were added to the groups Category list
-     * same categories
-     */
 
     @Test
     @DisplayName("Check if the same Category is not added simultaneously")
@@ -890,13 +993,6 @@ class GroupTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if two Categories were added to the groups Category list
-     * case Insensitive
-     */
-
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
@@ -917,13 +1013,11 @@ class GroupTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Check if a Category was removed from the groups Category list
-     * Main scenario
      */
 
+    /*
     @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
@@ -945,13 +1039,6 @@ class GroupTest {
         //Assert
         assertTrue(realResult);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if a Category was removed from the groups Category list
-     * null scenario
-     */
 
     @Test
     @DisplayName("To Try to remove a set of Categories that does not exist or null")
@@ -976,13 +1063,6 @@ class GroupTest {
 
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if a Category was removed from the groups Category list
-     * ignore special cases
-     */
-
     @Test
     @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
     void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
@@ -1002,13 +1082,11 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Check if multiple Categories were added to the groups Category list
-     * Main scenario
      */
 
+    /*
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
@@ -1033,13 +1111,6 @@ class GroupTest {
         //Assert
         assertTrue(realResult);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if multiple Categories were added to the groups Category list
-     * null case
-     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
@@ -1067,13 +1138,6 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if multiple Categories were added to the groups Category list
-     * same category
-     */
-
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
     void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
@@ -1095,13 +1159,6 @@ class GroupTest {
         assertTrue(realResult);
 
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if multiple Categories were added to the groups Category list
-     * case insensitive
-     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
@@ -1129,13 +1186,10 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Check if multiple Categories were removed from the groups Category list
-     * Main scenario
      */
-
+/*
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToListMainScenario() {
@@ -1162,13 +1216,6 @@ class GroupTest {
         //Assert
         assertTrue(realResult);
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Check if multiple Categories were removed from the groups Category list
-     * exception case
-     */
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
@@ -1204,12 +1251,6 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Check if multiple Categories were removed from the groups Category list
-     * special case
-     */
-
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
@@ -1242,7 +1283,7 @@ class GroupTest {
         assertTrue(realResult);
     }
 
-
+*/
 }
 
 
