@@ -523,11 +523,8 @@ class CategoryListTest {
     @DisplayName("Test to validate if set of categories is the the category list-true case for all")
     void validateIfSetOfCategoriesIsInTheCategoryList() {
         //Arrange
-        Category category1 = new Category("category1");
-        Category category2 = new Category("category2");
-        Category category3 = new Category("category3");
         CategoryList categoryList1 = new CategoryList();
-        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(category1, category2, category3));
+        HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
         categoryList1.addMultipleCategoriesToList(myCategories);
@@ -541,20 +538,17 @@ class CategoryListTest {
      * Test to validate if set of categories in the the list
      * False case
      */
-/*
+
     @Test
     @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
     void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {
         //Arrange
-        Category category1 = new Category("category1");
-        Category category2 = new Category("category2");
-        Category category3 = new Category("category3");
         CategoryList categoryList1 = new CategoryList();
-        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(category1, category2, category3));
+        HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
-        categoryList1.addCategoryToCategoryList(category1);
-        categoryList1.addCategoryToCategoryList(category2);
+        categoryList1.addCategoryToCategoryList("category1");
+        categoryList1.addCategoryToCategoryList("category2");
 
         boolean result = categoryList1.validateIfSetOfCategoriesIsInTheCategoryList(myCategories);
         //Assert
@@ -564,19 +558,17 @@ class CategoryListTest {
     /**
      * Test to validate number of categories in the category list
      */
-/*
+
     @Test
     @DisplayName("Test to validate number of categories in the category list - Success Case")
     void numberOfCategoryInTheCategoryListSuccessCase() {
 
         //Arrange
-        Category category1 = new Category("Transports");
-        Category category2 = new Category("House");
         CategoryList categoryList = new CategoryList();
 
         //Act
-        categoryList.addCategoryToCategoryList(category1);
-        categoryList.addCategoryToCategoryList(category2);
+        categoryList.addCategoryToCategoryList("Transports");
+        categoryList.addCategoryToCategoryList("House");
 
         int actual = categoryList.numberOfCategoryInTheCategoryList();
         //Assert
@@ -597,5 +589,5 @@ class CategoryListTest {
         //Assert
         assertEquals(0,actual);
     }
-*/
+
 }

@@ -37,7 +37,7 @@ class AccountTest {
         boolean result = supermarket.equals(supermercado);
 
         //Assert
-        assertEquals(false, result);
+        assertEquals(true, result);
     }
 
     @Test

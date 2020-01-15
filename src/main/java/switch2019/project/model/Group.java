@@ -189,11 +189,25 @@ public class Group {
      * @return true if group admin was demoted, false if it wasn't
      */
     public boolean demoteMemberFromAdmin(Person member) {
-        if (!this.members.contains(member) && this.admins.size() > 1) {
+        if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() > 1) {
             return this.members.remove(member);
         }
         return false;
     }
+
+    /**
+     * Demote multiple group admins to member only
+     *
+     * @param multipleAdmins
+     * @return true if all
+     */
+    public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleAdmins) {
+        for (Person admin : multipleAdmins) {
+            demoteMemberFromAdmin(admin);
+        }
+        return !admins.containsAll(admins) && members.containsAll(members);
+    }
+
 
     /**
      * Add account to Group´s Account List
@@ -229,7 +243,7 @@ public class Group {
 
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
-            return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
+            return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
 
