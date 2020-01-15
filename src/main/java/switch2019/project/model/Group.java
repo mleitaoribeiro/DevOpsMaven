@@ -198,11 +198,12 @@ public class Group {
     /**
      * Add account to Group´s Account List
      *
-     * @param account1
+     * @param accountDenomination
+     * @param accountDescription
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
-    public boolean addAccountToGroupAccountsList(Account account1) {
-        return this.groupAccountsList.addAccountToAccountsList(account1);
+    public boolean addAccountToGroupAccountsList(String accountDenomination, String accountDescription) {
+        return this.groupAccountsList.addAccountToAccountsList(accountDenomination, accountDescription);
     }
 
     /**
@@ -214,7 +215,7 @@ public class Group {
      */
     public boolean createGroupAccount(String accountDenomination, String accountDescription, Person person1) {
         if (this.admins.contains(person1) && this.members.contains(person1) && accountDenomination != null && this.description != null) {
-            return this.addAccountToGroupAccountsList(new Account(accountDenomination, accountDescription));
+            return this.addAccountToGroupAccountsList(accountDenomination, accountDescription);
         }
         return false;
     }

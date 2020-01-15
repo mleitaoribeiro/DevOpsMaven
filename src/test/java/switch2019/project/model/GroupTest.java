@@ -743,10 +743,9 @@ class GroupTest {
     void addAccountToGroupListTestContains() {
         //Arrange:
         Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test", "group account");
 
         //Act
-        boolean result =group1.addAccountToGroupAccountsList(groupAccount);
+        boolean result =group1.addAccountToGroupAccountsList("Group Account Test", "group account");
 
         //Assert
         assertTrue(result);
@@ -758,12 +757,10 @@ class GroupTest {
     void addAccountToGroupListTestSize() {
         //Arrange
         Group group1 = new Group("Test Group");
-        Account groupAccount = new Account("Group Account Test", "group account");
-        Account groupAccount2 = new Account("Group Account Test 2", "group account");
 
         //Act
-        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList(groupAccount);
-        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList(groupAccount2);
+        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList("Group Account Test", "group account");
+        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList("Group Account Test 2", "group account");
 
         //Assert
         assertTrue(addAccountToGroupList1 && addAccountToGroupList2);
