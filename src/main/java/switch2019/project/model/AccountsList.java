@@ -44,10 +44,7 @@ public class AccountsList {
      */
     public boolean addAccountToAccountsList (String accountDenomination, String accountDescription) {
         Account oneAccount = new Account(accountDenomination,accountDescription);
-        if (oneAccount!=null)
-            return accounts.add(oneAccount);
-        else
-            return false;
+        return accounts.add(oneAccount);
     }
 
     /**
