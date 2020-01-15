@@ -4,8 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.*;
 
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Currency;
 import java.util.HashSet;
@@ -51,11 +49,14 @@ class UserTest {
         String category1 = null;
 
         //Act
-        boolean realResult = user1.addCategoryToList(category1);
+        try {
+            user1.addCategoryToList(category1);
+        }
 
         //Assert
-        assertFalse(realResult);
-
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
     }
 
 
@@ -219,17 +220,18 @@ class UserTest {
         String categoryNull = null;
         String categoryBeauty = "Beauty";
 
-        //Act
-
         // set of Categories to be added to categories list
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
-        //Category - add several categories to the user Category List with method
-        user1.addMultipleCategoriesToList(setOfCategories);
 
-        boolean realResult = !user1.addCategoryToList(categoryNull);
+        //Act
+        try {
+            user1.addMultipleCategoriesToList(setOfCategories);
+        }
 
         //Assert
-        assertTrue(realResult);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
     }
 
 
@@ -273,16 +275,18 @@ class UserTest {
         String categoryHealthDuplicated = "heálth";
         String categoryBeauty = "Beauty";
 
-        //Act
-
         // set of Categories to be added to categories list
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
 
-        //The user adds several categories to his Category List with method
-        boolean realResult = user1.addMultipleCategoriesToList(setOfCategories);
+        //Act
+        try {
+            user1.addMultipleCategoriesToList(setOfCategories);
+        }
 
         //Assert
-        assertTrue(realResult);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
     }
 
     /**
@@ -394,51 +398,50 @@ class UserTest {
     @DisplayName("Test if a transaction was created - success case")
     void createTransactionSuccessCase() {
         //Arrange
-        Person person1 = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        User user1 = new User(person1);
+        Person person = new Person("Jose", 1996, 4, 2, new Address("Lisboa"));
+        User user = new User(person);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Type type = new Type(false); //debit
 
-        String category = "General";
-        user1.addCategoryToList(category);
+        Category category = new Category("General");
+        user.addCategoryToList("General");
 
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
 
-        user1.createAccount("Wallet", "General expenses");
-        user1.createAccount("TransportAccount", "Transport expenses");
+        user.createAccount("Wallet", "General expenses");
+        user.createAccount("TransportAccount", "Transport expenses");
 
         //Act
-        //boolean result = user1.createTransaction(amount, description, category, from, to, type);
+        boolean result = user.createTransaction(amount, description, category, from, to, type);
 
         //Assert
-       // assertTrue(result);
+        assertTrue(result);
     }
 
     @Test
     @DisplayName("Test if a transaction was created - category is not in the list")
     void createTransactionCategoryIsNotInTheList() {
         //Arrange
-        Person person1 = new Person("Jose", 1996, 4, 2, new Address("Lisboa"));
-        User user1 = new User(person1);
+        Person person = new Person("Jose", 1996, 4, 2, new Address("Lisboa"));
+        User user = new User(person);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
         Type type = new Type(false); //debit
 
-        Category categoryFood = new Category("food");
         Category categoryBaby = new Category("baby");
         Category categoryHome = new Category("home");
-        //user1.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
+        user.addMultipleCategoriesToList(new HashSet<>(Arrays.asList("baby", "food")));
 
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
-        user1.createAccount("Wallet", "General expenses");
-        user1.createAccount("TransportAccount", "Transport expenses");
+        user.createAccount("Wallet", "General expenses");
+        user.createAccount("TransportAccount", "Transport expenses");
 
         //Act
-        boolean categoryInTheList = user1.createTransaction(amount, description, categoryFood, from, to, type);
-        boolean categoryNotInTheList = user1.createTransaction(amount, description, categoryHome, from, to, type);
+        boolean categoryInTheList = user.createTransaction(amount, description, categoryBaby, from, to, type);
+        boolean categoryNotInTheList = user.createTransaction(amount, description, categoryHome, from, to, type);
 
         //Assert
         assertTrue(categoryInTheList && !categoryNotInTheList);
@@ -455,7 +458,7 @@ class UserTest {
         Type type = new Type(false); //debit
 
         Category category = new Category("General");
-        //user1.addCategoryToList(category);
+        user1.addCategoryToList("General");
 
         Account accountWallet = new Account("Wallet", "General expenses");
         Account accountTransport = new Account("Transport", "Transport expenses");
@@ -483,7 +486,7 @@ class UserTest {
         Type type = new Type(false); //debit
 
         Category category = new Category("General");
-        //user1.addCategoryToList(category);
+        user1.addCategoryToList("General");
 
         Account accountWallet = new Account("Wallet", "General expenses");
         Account accountTransport = new Account("Transport", "Transport expenses");
