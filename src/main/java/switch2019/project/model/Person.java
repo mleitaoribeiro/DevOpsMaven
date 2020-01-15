@@ -333,13 +333,14 @@ public class Person {
             return ledger.addTransactionToLedger(amount, description, category, accountFrom, accountTo, type);
         else return false;
     }
+
     /**
      * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
      * @param accountDenomination
      * @param accountDescription
      */
     public boolean createAccount (String accountDenomination, String accountDescription) {
-        return accountsList.addAccountToAccountsList(new Account(accountDenomination,accountDescription));
+        return accountsList.addAccountToAccountsList(accountDenomination,accountDescription);
     }
 
     /**

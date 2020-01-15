@@ -39,9 +39,11 @@ public class AccountsList {
 
     /**
      * method to add one account to the list
-     * @param oneAccount
+     * @param accountDenomination
+     * @param accountDescription
      */
-    public boolean addAccountToAccountsList (Account oneAccount) {
+    public boolean addAccountToAccountsList (String accountDenomination, String accountDescription) {
+        Account oneAccount = new Account(accountDenomination,accountDescription);
         if (oneAccount!=null)
             return accounts.add(oneAccount);
         else
@@ -52,12 +54,12 @@ public class AccountsList {
      * method to add several accounts to a list
      * @param many
      */
-    public boolean addSeveralAccountsToAList (HashSet<Account> many) {
+    /*public boolean addSeveralAccountsToAList (HashSet<Account> many) {
         for (Account account : many) {
             this.addAccountToAccountsList(account);
         }
         return this.accounts.containsAll(many);
-    }
+    }*/
 
     /**
      * method to remove one account from a list
