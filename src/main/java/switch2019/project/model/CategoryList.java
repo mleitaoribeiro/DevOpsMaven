@@ -35,14 +35,12 @@ public class CategoryList {
     /**
      * Add a new category to CategoryList
      *
-     * @param newCategory
+     * @param nameOfCategory
      */
 
-    public boolean addCategoryToCategoryList(Category newCategory) {
-        if(newCategory != null) {
-            return categories.add(newCategory);
-        }
-        else return false;
+    public boolean addCategoryToCategoryList(String nameOfCategory) {
+        Category newCategory = new Category(nameOfCategory);
+        return categories.add(newCategory);
     }
 
     /**
@@ -65,7 +63,7 @@ public class CategoryList {
 
     public boolean addMultipleCategoriesToList(HashSet<String> categories){
         for (String category : categories) {
-            this.addCategoryToCategoryList(new Category(category));
+            this.addCategoryToCategoryList(category);
         }
         return this.categories.containsAll(categories);
     }
