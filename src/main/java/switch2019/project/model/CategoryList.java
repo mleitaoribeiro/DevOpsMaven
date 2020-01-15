@@ -103,7 +103,10 @@ public class CategoryList {
      */
 
     public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<String> setOfCategories) {
-        HashSet<String> list = new HashSet<>(setOfCategories);
+        HashSet<Category> list = new HashSet<>();
+        for (String category : setOfCategories) {
+            list.add(new Category(category));
+        }
         return this.categories.containsAll(list);
     }
 
