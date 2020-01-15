@@ -241,12 +241,14 @@ public class Group {
      * @param nameOfCategory
      * @return true if category was added to group's Category List, false if it wasn't
      */
-
+/*
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
+
+ */
 
     /**
      * Develop method add multiple categories to group's Category List
@@ -255,27 +257,36 @@ public class Group {
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
+    /*
     public boolean addMultipleCategoriesToList(HashSet<String> categories) {
         return categoryList.addMultipleCategoriesToList(categories);
     }
+
+     */
 
     /**
      * Remove a category from CategoryList
      *
      * @param nameOfcategory
      */
+    /*
     public boolean removeCategoryFromList(Category nameOfcategory) {
         return categoryList.removeCategoryFromList(nameOfcategory);
     }
+     */
 
     /**
      * Remove multiple categories from CategoryList
      *
      * @param categories<Category> categories
      */
+
+    /*
     public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
         return categoryList.removeMultipleCategoriesToList(categories);
     }
+
+     */
 }
 
 
