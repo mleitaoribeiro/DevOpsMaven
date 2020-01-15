@@ -229,7 +229,7 @@ public class Group {
 
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
-            return categoryList.addCategoryToCategoryList(new Category(nameOfCategory));
+            return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
 
