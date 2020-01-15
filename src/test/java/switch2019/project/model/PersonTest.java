@@ -683,7 +683,7 @@ class PersonTest {
         //Assert
         assertEquals(true, resultado);
     }
-    
+
     /**
      * Test if a transaction was created
      */
@@ -697,15 +697,15 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         Type type = new Type(false); //debit
 
         //Act
         //person.addCategoryToCategoryList (category);
-        person.createAccount("Wallet","General expenses");
-        person.createAccount("TransportAccount","Transport expenses");
-        boolean result = person.createTransaction(amount,description,category,from,to,type);
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean result = person.createTransaction(amount, description, category, from, to, type);
 
         //Assert
         assertTrue(result);
@@ -724,17 +724,17 @@ class PersonTest {
         Category categoryBaby = new Category("baby");
         Category categoryHome = new Category("home");
 
-        Account from = new Account("Wallet","General expenses");
-        Account to = new Account("TransportAccount","Transport expenses");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
 
         //Act
         //person.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
 
         person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount","Transport expenses");
-        
-        boolean categoryInTheList = person.createTransaction(amount,description,categoryFood,from,to,type);
-        boolean categoryNotInTheList = person.createTransaction(amount,description,categoryHome,from,to,type);
+        person.createAccount("TransportAccount", "Transport expenses");
+
+        boolean categoryInTheList = person.createTransaction(amount, description, categoryFood, from, to, type);
+        boolean categoryNotInTheList = person.createTransaction(amount, description, categoryHome, from, to, type);
 
         //Assert
         assertTrue(categoryInTheList && !categoryNotInTheList);
@@ -752,17 +752,17 @@ class PersonTest {
         Category category = new Category("General");
 
         Account accountWallet = new Account("Wallet", "General expenses");
-        Account accountTransport = new Account("Transport","Transport expenses");
-        Account accountBaby = new Account("Baby","Baby expenses");
+        Account accountTransport = new Account("Transport", "Transport expenses");
+        Account accountBaby = new Account("Baby", "Baby expenses");
 
         //Act
         //person.addToCategoryList(category);
 
         person.createAccount("Wallet", "General expenses");
-        person.createAccount("Transport","Transport expenses");
-        
-        boolean accountInTheList = person.createTransaction(amount,description,category,accountWallet,accountTransport,type);
-        boolean accountNotInTheList = person.createTransaction(amount,description,category,accountWallet,accountBaby,type);
+        person.createAccount("Transport", "Transport expenses");
+
+        boolean accountInTheList = person.createTransaction(amount, description, category, accountWallet, accountTransport, type);
+        boolean accountNotInTheList = person.createTransaction(amount, description, category, accountWallet, accountBaby, type);
 
         //Assert
         assertTrue(accountInTheList && !accountNotInTheList);
@@ -812,7 +812,7 @@ class PersonTest {
         String accountDescription = "General expenses";
 
         //Act
-        boolean real = onePerson.createAccount(accountDenomination,accountDescription);
+        boolean real = onePerson.createAccount(accountDenomination, accountDescription);
 
         // assert
         assertTrue(real);
