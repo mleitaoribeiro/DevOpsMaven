@@ -294,16 +294,15 @@ class CategoryListTest {
     void addMultipleCategoriesToListWithANullCase() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryBets = new Category("Bets and Games");
-        Category categoryNull = null;
-        Category categoryBeauty = new Category("Beauty");
+        String categoryBets ="Bets and Games";
+        String categoryNull = null;
+        String categoryBeauty = "Beauty";
 
         CategoryList newCategoryList = new CategoryList();
+        //A collection of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
 
         //Act
-        //A collection of categories to be added
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
-
         //Add several categories simultaneously to Category List with method under test
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
@@ -317,21 +316,22 @@ class CategoryListTest {
      * Test to add a set of categories to user category list
      * See if the same category was not added simultaneously
      */
-/*
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
     void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryHealthDuplicated = new Category("Health");
-        Category categoryBeauty = new Category("Beauty");
+        String categoryHealth = "Health";
+        String categoryHealthDuplicated ="Health";
+        String categoryBeauty = "Beauty";
 
         CategoryList newCategoryList = new CategoryList();
 
-        //Act
         //A collection of categories to be added
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+
+        //Act
         //Add several categories simultaneously to Category List with method under test
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
@@ -347,22 +347,22 @@ class CategoryListTest {
      * See if the same category was not added simultaneously
      * Ignore letter capitalization and special characters
      */
-/*
+
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
             "Ignore letter capitalization and special characters. ")
     void addMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryHealthDuplicated = new Category("heálth");
-        Category categoryBeauty = new Category("Beauty");
+        String categoryHealth ="Health";
+        String categoryHealthDuplicated = "heálth";
+        String categoryBeauty = "Beauty";
 
         CategoryList newCategoryList = new CategoryList();
 
-        //Act
         //A collection of categories to be added
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+        //Act
         //Add everal categories simultaneously to Category List with method under test
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
@@ -376,25 +376,26 @@ class CategoryListTest {
      * Test to remove a set of categories from user category list
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToList_MainScenario() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryBeauty = new Category("Beauty");
+        String categoryHealth = "Health";
+        String categoryGym ="Gym";
+        String categoryBeauty = "Beauty";
 
         CategoryList newCategoryList = new CategoryList();
 
-        //Act
         //set of categories to be added
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
+        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category (categoryBeauty),new Category( categoryGym)));
+
+        //Act
         //Remove the set of categories with the method under test
         boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
@@ -406,30 +407,31 @@ class CategoryListTest {
      * See if can remove a category that doesn't exist
      * Test for null
      */
-/*
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that doesnt exist " +
             "or null")
     void removeMultipleCategoriesToList_exceptionCase() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryBeauty = new Category("Beauty");
-        Category categoryCar = new Category("Car");
-        Category categoryNull = null;
-        Category categoryUniversity = new Category("University");
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryBeauty = "Beauty";
+        String categoryCar = "Car";
+        String categoryNull = null;
+        String categoryUniversity ="University";
 
         CategoryList newCategoryList = new CategoryList();
 
-        //Act
         // Set of Categories to be added to Categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
+        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category(categoryCar), new Category(categoryNull),new Category( categoryUniversity)));
         // Remove several categories simultaneously with method under test
+        //Act
+
         boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         assertTrue(realResult);
@@ -439,29 +441,30 @@ class CategoryListTest {
      * Test to remove a set of categories from a user category list
      * Ignore letter capitalization and special characters
      */
-/*
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
         // Arrange
         // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryBeauty = new Category("Beauty");
-        Category categoryHealthLowerCase = new Category("health");
-        Category categoryGymSpecialCharacter = new Category("Gým");
-        Category categoryBeautyUpperCase = new Category("BEAUTY");
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryBeauty = "Beauty";
+        String categoryHealthLowerCase ="health";
+        String categoryGymSpecialCharacter ="Gým";
+        String categoryBeautyUpperCase ="BEAUTY";
 
         CategoryList newCategoryList = new CategoryList();
 
-        //Act
-        // set of Categories to be added to Categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        // set of String to be added to Categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
+        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category(categoryHealthLowerCase), new Category(categoryGymSpecialCharacter), new Category(categoryBeautyUpperCase)));
         // Remove the previous categories with the method under test
+
+        //Act
         boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         //Assert
@@ -472,20 +475,23 @@ class CategoryListTest {
      * Test to validate if a category is in the list
      * True case
      */
-/*
+
     @Test
     @DisplayName("Test if a category is in the category list - true case")
     void testValidateIfCategoryIsInTheCategoryListTrueCase() {
         //Arrange
-        Category house = new Category("House");
-        Category cats = new Category("Cats");
-        Category transport = new Category("Transport");
+        String house ="House";
+        String cats = "Cats";
+        String transport = "Transport";
+        Category catsObject=new Category ("Cats");
         CategoryList newCategories = new CategoryList();
 
+        HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
+
         //Act
-        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
+
         newCategories.addMultipleCategoriesToList(myCategories);
-        boolean result = newCategories.validateIfCategoryIsInTheCategoryList(cats);
+        boolean result = newCategories.validateIfCategoryIsInTheCategoryList(catsObject);
 
         //Assert
         assertEquals(true, result);
@@ -495,18 +501,19 @@ class CategoryListTest {
      * Test to validate if a category is in the list
      * False case
      */
-/*
+
     @Test
     @DisplayName("Test if a category is in the category list - false case")
     void testValidateIfCategoryIsInTheCategoryListFalseCase() {
         //Arrange
-        Category house = new Category("House");
-        Category cats = new Category("Cats");
-        Category transport = new Category("Transport");
+        String house = "House";
+        String cats ="Cats";
+        String  transport ="Transport";
         CategoryList newCategories = new CategoryList();
 
-        //Act
-        HashSet<Category> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
+        HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
+
+    //Act
 
         boolean realResult = newCategories.addMultipleCategoriesToList(myCategories);
 
@@ -518,7 +525,7 @@ class CategoryListTest {
      * Test to validate if set of categories in the the list
      * True case for all
      */
-/*
+
     @Test
     @DisplayName("Test to validate if set of categories is the the category list-true case for all")
     void validateIfSetOfCategoriesIsInTheCategoryList() {
