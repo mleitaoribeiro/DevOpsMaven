@@ -12,6 +12,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupsListTest {
 
     /**
+     * Check if group can be created
+     */
+    @Test
+    @DisplayName("Test if Group was Created")
+    public void testIfGroupWasCreated() {
+        //Arrange
+        GroupsList groupsList = new GroupsList();
+        Person person1 = new Person("John",12,5,10,new Address("London"));
+
+        //Act
+        boolean wasGroupCreated = groupsList.createGroup("Test Person",person1);
+
+        //Assert
+        assertTrue(wasGroupCreated);
+
+    }
+
+    /**
      * Check the number of Groups inside the groupList
      */
     @Test

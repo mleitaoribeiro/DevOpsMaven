@@ -291,20 +291,7 @@ public class Person {
         return this.siblingList.contains(otherPerson);
     }
 
-    /**
-     * Person creates a group
-     * @param groupDescription
-     * @param groupList
-     * Awaiting more requirements
-     */
-    public boolean createGroup (String groupDescription, GroupsList groupList) {
-        if (groupDescription != null){
-            Group group1 = new Group(groupDescription);
-            return (group1.addMember(this) && groupList.addGroupToGroupList(group1));
-        }
-        return false;
-    }
-
+    
     /**
      *
      * Develop method to check if two individuals are siblings (USER STORIES)

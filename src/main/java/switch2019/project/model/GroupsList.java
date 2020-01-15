@@ -9,28 +9,42 @@ public class GroupsList {
     /**
      * Default Constructor for Group List
      */
-    public GroupsList(){
+    public GroupsList() {
         groupsList = new HashSet<Group>();
     }
 
-/**
- *Develop @override of equals for Group and @override of hashcode
- */
+    /**
+    *Develop @override of equals for Group and @override of hashcode
+    */
+
+
+    /**
+     * Method used to create a Group
+     * @param groupDescription
+     * @param groupCreator
+     */
+    public boolean createGroup (String groupDescription, Person groupCreator) {
+        if (groupDescription != null){
+            Group group1 = new Group(groupDescription);
+            return (group1.setAdmin(groupCreator) && this.groupsList.add(group1));
+
+        }
+        return false;
+    }
 
     /**
      * method to add group to the list
      */
-    public boolean addGroupToGroupList (Group group1) {
-        if ( group1 != null) {
+    public boolean addGroupToGroupList(Group group1) {
+        if (group1 != null) {
             return groupsList.add(group1);
-        }
-        else return false;
+        } else return false;
     }
 
     /**
      * Method to check the number of Groups inside the list.
      */
-    public int howManyGroups(){
+    public int howManyGroups() {
         return this.groupsList.size();
     }
 
