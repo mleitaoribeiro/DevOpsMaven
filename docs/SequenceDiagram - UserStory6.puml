@@ -4,31 +4,28 @@ create ":Test"
 ==Arrange==
 
 create "person1:Person"
-":Test" -> "person1:Person" : new Person
+":Test" -> "person1:Person" : new Person (description)
 activate "person1:Person" #FFBBBB
 
-create "account1:Account"
 create "accountList1:AccountsList"
-
-"person1:Person" -> "accountList1:AccountsList" : new AccountsList
+"person1:Person" -> "accountList1:AccountsList" : new AccountList
 deactivate "person1:Person" #FFBBBB
+
 
 ==Act==
 ":Test" -> "person1:Person" : createAccount(denomination, description)
-create "account1:Account"
-"person1:Person" -> "account1:Account" : createAccount(denomination, description)
-activate "account1:Account" #FFBBBB
+activate "person1:Person" #FFBBBB
 
-"account1:Account" -> "accountList1:AccountsList" : addAccountToAccountsList
+"person1:Person" -> "accountList1:AccountsList" : addAccountToAccountsList(denomination, description)
 activate "accountList1:AccountsList" #FFBBBB
 
-"accountList1:AccountsList" -> "account1:Account" : accountCreated
+create "account1:Account"
+"accountList1:AccountsList" -> "account1:Account" : new Account(denomination,description)
+
+"accountList1:AccountsList" --> "person1:Person" : accountCreated
 deactivate "accountList1:AccountsList" #FFBBBB
 
-"account1:Account" -> "person1:Person" : accountCreated
-deactivate "account1:Account" #FFBBBB
-
-"person1:Person" -> ":Test" : accountCreated
+"person1:Person" --> ":Test" : accountCreated
 deactivate "person1:Person" #FFBBBB
 
 == Assert ==
