@@ -9,7 +9,7 @@ create "group1:Group"
 activate "group1:Group" #FFBBBB
 
 create "accountList1:AccountsList"
-"group1:Group" -> "accountList1:AccountsList" : new AccountsList
+"group1:Group" -> "accountList1:AccountsList" : new AccountList
 deactivate "group1:Group" #FFBBBB
 
 == Act ==

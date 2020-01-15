@@ -1,0 +1,39 @@
+@startuml
+
+@startuml
+
+create ":Test"
+
+== Arrange ==
+
+create "person1:Person"
+":Test" -> "person1:Person" : new Person (name, birthDay, birthPlace)
+activate "person1:Person" #FFBBBB
+
+create "GroupList1:GroupsList"
+"person1:Person" -> "GroupList1:GroupsList" : new GroupList
+deactivate "person1:Person" #FFBBBB
+
+== Act ==
+
+
+":Test" -> "person1:Person" : createGroup(description)
+activate "person1:Person" #FFBBBB
+
+"person1:Person" -> "GroupList1:GroupsList" : addGroupToGroupsList(description)
+activate "GroupList1:GroupsList" #FFBBBB
+
+create "group1:Group"
+"GroupList1:GroupsList" -> "group1:Group" : new Group(description)
+
+"GroupList1:GroupsList" --> "person1:Person" : groupCreatedAndAdded
+deactivate "GroupList1:GroupsList" #FFBBBB
+
+"person1:Person" --> ":Test" : groupCreatedAndAdded
+deactivate  "person1:Person" #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(groupCreatedAndAdded)
+
+@enduml
