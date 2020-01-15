@@ -1,4 +1,4 @@
----------+@startuml
+@startuml
 
 create ":Test"
 
@@ -8,7 +8,6 @@ create "group1:Group"
 ":Test" -> "group1:Group" : new Group (description)
 activate "group1:Group" #FFBBBB
 
-create "account1:Account"
 create "accountList1:AccountsList"
 "group1:Group" -> "accountList1:AccountsList" : new AccountsList
 deactivate "group1:Group" #FFBBBB
@@ -18,11 +17,11 @@ deactivate "group1:Group" #FFBBBB
 ":Test" -> "group1:Group" : createGroupAccount(denomination, description)
 activate "group1:Group" #FFBBBB
 
-create "account1:Account"
-"group1:Group" -> "account1:Account" : new Account(denomination,description)
-
-"group1:Group" -> "accountList1:AccountsList" : addAccountToGroupAccountsList(account1)
+"group1:Group" -> "accountList1:AccountsList" : addAccountToGroupAccountsList(denomination, description)
 activate "accountList1:AccountsList" #FFBBBB
+
+create "account1:Account"
+"accountList1:AccountsList" -> "account1:Account" : new Account(denomination,description)
 
 "accountList1:AccountsList" --> "group1:Group" : accountCreatedAndAdded
 deactivate "accountList1:AccountsList" #FFBBBB
