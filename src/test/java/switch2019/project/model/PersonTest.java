@@ -3,7 +3,6 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.controllers.User;
 
 
 import java.time.DateTimeException;
@@ -817,86 +816,6 @@ class PersonTest {
 
         // assert
         assertTrue(real);
-    }
-/**
- * Tests to validate if a category was added to Category List
- */
-
-@Test
-@DisplayName("Check if a category was added to Category List - Main Scenario")
-void addCategoryToListMainScenario() {
-    //Arrange
-    //Initialize user
-    Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-
-    //Category to be included in Category List
-    String category1 = "School expenses";
-
-    //Act
-    boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
-
-    //Assert
-    assertTrue(realResult);
-
-}
-
-    @Test
-    @DisplayName("Check if null category is not added")
-    void addCategoryToListWithANullCase() {
-        //Arrange
-
-        //Initialize user
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-
-        //Category to be included in Category List
-        String category1 = null;
-
-        //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
-
-        //Assert
-        assertFalse(realResult);
-
-    }
-
-    @Test
-    @DisplayName("Check if the same Category is not added simultaneously")
-    void addTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
-        //Arrange
-
-        //Initialize user
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-
-        //Categories to be included in Category List
-        String category1 = "School expenses";
-        String category2 = "School expenses";
-
-        //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
-
-        //Assert
-        assertTrue(realResult);
-
-    }
-
-    @Test
-    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
-    void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
-        //Arrange
-
-        //Initialize user
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-
-        //Categories to be included in Category List
-        String category1 = "School expenses";
-        String category2 = "SCHOóL expenses";
-
-        //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
-
-        //Assert
-        assertTrue(realResult);
-
     }
 
 }

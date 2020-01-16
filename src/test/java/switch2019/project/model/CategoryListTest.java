@@ -427,14 +427,18 @@ class CategoryListTest {
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
-        //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category(categoryCar), new Category(categoryNull),new Category( categoryUniversity)));
-        // Remove several categories simultaneously with method under test
         //Act
+        //set of Categories to be removed from Categories List
+        try {
+            HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category(categoryCar), new Category(categoryNull), new Category(categoryUniversity)));
+        }
+        //Assert
+        catch (IllegalArgumentException setterEx) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", setterEx.getMessage());
+        }
+        
 
-        boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
-        assertTrue(realResult);
     }
 
     /**

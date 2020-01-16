@@ -212,7 +212,7 @@ class GroupTest {
     /**
      * Test if member was removed from Group
      */
-    @Test
+    /*@Test
     @DisplayName("Test if a member was removed from a Group")
     void removeMemberFromGroup() {
         //Arrange
@@ -230,9 +230,9 @@ class GroupTest {
 
         //Assert
         assertTrue(removeSingleMember);
-    }
+    }*/
 
-    @Test
+    /*@Test
     @DisplayName("Test if a member was removed from a Group - try to remove all members")
     void removeMemberFromGroupAllMembers() {
         //Arrange
@@ -251,12 +251,12 @@ class GroupTest {
 
         //Assert
         assertTrue (areBothMembersRemoved);
-    }
+    }*/
 
     /**
      * Test if multiple members were removed from a Group and there is at least one group admin in the group
      */
-    @Test
+    /*@Test
     @DisplayName("Test if multiple members were removed from a Group - not removed 1 group admin and 1 member ")
     void removeMultipleMembersFromAGroupNotRemovingOneGroupAdmin() {
         //Arrange
@@ -279,12 +279,12 @@ class GroupTest {
 
         //Assert
         assertTrue(removeOnlyNonAdminMembers);
-    }
+    }*/
 
-    // Perguntar ao professor depois o que deve remover, todos menos 1 ou não deve remover nenhum
-    @Test
+
+    /*@Test
     @DisplayName("Test if multiple members were removed from a Group - tried to remove all the group admins")
-    void removeMultipleMembersFromAGroupAllAdmins() {
+    void removeMultipleMembersFromAGroupAllAdmins() { // Perguntar ao professor depois o que deve remover, todos menos 1 ou não deve remover nenhum
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -328,12 +328,12 @@ class GroupTest {
 
         //Assert
         assertTrue(areMultipleMembersRemoved);
-    }
+    }*/
 
     /**
      * Test if a removed member is also removed from admin
      */
-    @Test
+   /* @Test
     @DisplayName("multiple members")
     void isRemovedMemberAlsoRemovedFromAdmin() {
         //Arrange:
@@ -353,7 +353,7 @@ class GroupTest {
 
         //Assert:
         assertTrue(areMembersBeingAddedAndRemoved);
-    }
+    }*/
 
 
     /**
@@ -564,7 +564,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Promote one member to Admin while there are more than one member")
-    void demoteMemberTest2() {
+    void promoteMemberTest2() {
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -579,6 +579,42 @@ class GroupTest {
 
         //Assert
         assertTrue(wereMembersPromoted);
+    }
+
+    @Test
+    @DisplayName("Promote one member to group admin - false because member is already group admin")
+    void promoteMemberFalseAlreadyAdmin() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean isFirstMemberPromotedAgain = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isFirstMemberPromotedAgain;
+
+        //Assert
+        assertFalse(wasPromoted);
+    }
+
+    @Test
+    @DisplayName("Promote one member to group admin - false because member is already group admin")
+    void promoteMemberFalseNotMember() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        boolean isFirstMemberPromoted = group1.promoteMemberToAdmin(person1);
+
+        boolean wasPromoted = isFirstMemberPromoted;
+
+        //Assert
+        assertFalse(wasPromoted);
     }
 
     /**
@@ -631,7 +667,7 @@ class GroupTest {
     /**
      * Check if member was demoted from group admin
      */
-    @Test
+    /*@Test
     @DisplayName("Demote one group admin to member")
     void demoteMemberTest() {
 
@@ -747,9 +783,9 @@ class GroupTest {
 
         // Assert:
         assertTrue(areAllDemoted);
-    }
+    }//Fazer teste para pessoas nulas
     */
-    //Fazer teste para pessoas nulas
+
 
     /**
      * Check if a person was promoted to member and group administrator simultaneously
@@ -766,6 +802,21 @@ class GroupTest {
 
         //Assert
         assertTrue(isMemberAddedAsAdmin);
+    }
+
+    @Test
+    @DisplayName("Promote person to member and group admin simultaneously - false because member is already group admin")
+    void memberAndGroupAdminSimultaneouslyFalse() {
+        //Arrange
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Group group1 = new Group("Francis Group");
+
+        //Act
+        group1.addMember(person1);
+        boolean isMemberAddedAsAdmin = group1.setAdmin(person1);
+
+        //Assert
+        assertFalse(isMemberAddedAsAdmin);
     }
 
     @Test

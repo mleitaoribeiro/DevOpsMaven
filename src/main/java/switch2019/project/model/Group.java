@@ -80,7 +80,7 @@ public class Group {
      * @param memberToRemove
      * @return true if member was removed, false if it wasn't
      */
-    public boolean removeMember(Person memberToRemove) {
+    /*public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
             if (admins.contains(memberToRemove) && admins.size() > 1) {
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
@@ -89,7 +89,7 @@ public class Group {
             } else
                 return false;
         } else return false;
-    }
+    }*/
 
     /**
      * Add multiple members to Group
@@ -110,12 +110,12 @@ public class Group {
      * @param toRemove HashSet of members that are going to be removed
      * @return true if multiple members were removed, false if they weren't
      */
-    public boolean removeMultipleMembers(HashSet<Person> toRemove) {
+    /*public boolean removeMultipleMembers(HashSet<Person> toRemove) {
         for (Person member : toRemove) {
             removeMember(member);
         }
         return !this.members.containsAll(toRemove);
-    }
+    }*/
 
     /**
      * Validate if a group is a family
@@ -188,12 +188,12 @@ public class Group {
      * @param member
      * @return true if group admin was demoted, false if it wasn't
      */
-    public boolean demoteMemberFromAdmin(Person member) {
+    /*public boolean demoteMemberFromAdmin(Person member) {
         if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() > 1) {
             return this.members.remove(member);
         }
         return false;
-    }
+    }*/
 
     /**
      * Demote multiple group admins to member only
@@ -241,12 +241,14 @@ public class Group {
      * @param nameOfCategory
      * @return true if category was added to group's Category List, false if it wasn't
      */
-
+    /*
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
+
+    */
 
     /**
      * Develop method add multiple categories to group's Category List
@@ -255,27 +257,35 @@ public class Group {
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
+    /*
     public boolean addMultipleCategoriesToList(HashSet<String> categories) {
         return categoryList.addMultipleCategoriesToList(categories);
     }
+
+     */
 
     /**
      * Remove a category from CategoryList
      *
      * @param nameOfcategory
      */
+    /*
     public boolean removeCategoryFromList(Category nameOfcategory) {
         return categoryList.removeCategoryFromList(nameOfcategory);
     }
+     */
 
     /**
      * Remove multiple categories from CategoryList
      *
      * @param categories<Category> categories
      */
+
+    /*
     public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
         return categoryList.removeMultipleCategoriesToList(categories);
     }
+     */
 }
 
 
