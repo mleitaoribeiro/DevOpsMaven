@@ -27,7 +27,10 @@ public class GroupsList {
     public boolean createGroup(String groupDescription, Person groupCreator) {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
-            return (group1.setAdmin(groupCreator) && this.groupsList.add(group1));
+            if (this.groupsList.contains(group1)){
+                return false;
+            }
+            else return (group1.setAdmin(groupCreator) && this.groupsList.add(group1));
 
         }
         return false;
