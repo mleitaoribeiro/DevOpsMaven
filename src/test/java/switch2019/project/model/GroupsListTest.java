@@ -3,10 +3,6 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupsListTest {
@@ -19,7 +15,7 @@ class GroupsListTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("John",12,5,10,new Address("London"));
+        Person person1 = new Person("John",2015,5,10,new Address("London"));
 
         //Act
         boolean wasGroupCreated = groupsList.createGroup("Test Person",person1);
@@ -27,6 +23,35 @@ class GroupsListTest {
         //Assert
         assertTrue(wasGroupCreated);
 
+    }
+
+    @Test
+    @DisplayName("Test if Group is not created when its description is null")
+    public void testIfGroupWasNotCreated() {
+        //Arrange
+        GroupsList groupsList = new GroupsList();
+        Person person1 = new Person("Francis",2012,4,23,new Address("Dublin"));
+
+        //Act
+        boolean wasGroupCreated = groupsList.createGroup(null,person1);
+
+        //Assert
+        assertFalse(wasGroupCreated);
+    }
+
+    @Test
+    @DisplayName("Test if group was not created when it is already contained within a groupsList")
+    public void testIfGroupWasAlreadyInList() {
+        //Arrange
+        GroupsList groupsList = new GroupsList();
+        Person person1 = new Person("Amy", 2002,5,20,new Address("Boston"));
+
+        //Act
+        groupsList.createGroup("Grupo de Teste",person1);
+        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste",person1);
+
+        //Assert
+        assertFalse(wasGroupCreated);
     }
 
     /**
