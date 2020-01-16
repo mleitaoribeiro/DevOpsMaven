@@ -14,7 +14,7 @@ public class AccountsList {
     }
 
     /**
-     *Develop @override of equals for Accounts List and @override of hashcode
+     * Develop @override of equals for Accounts List and @override of hashcode
      */
     @Override
     public boolean equals(Object o) {
@@ -30,20 +30,21 @@ public class AccountsList {
     }
 
 
-    /**Method to get the numbers of Accounts in the Accounts List
-     *
+    /**
+     * Method to get the numbers of Accounts in the Accounts List
      */
-    public int numberOfAccountsInTheAccountsList () {
+    public int numberOfAccountsInTheAccountsList() {
         return this.accounts.size();
     }
 
     /**
      * method to add one account to the list
+     *
      * @param accountDenomination
      * @param accountDescription
      */
-    public boolean addAccountToAccountsList (String accountDenomination, String accountDescription) {
-        Account oneAccount = new Account(accountDenomination,accountDescription);
+    public boolean addAccountToAccountsList(String accountDenomination, String accountDescription) {
+        Account oneAccount = new Account(accountDenomination, accountDescription);
         return accounts.add(oneAccount);
     }
 
@@ -83,6 +84,7 @@ public class AccountsList {
 
     /**
      * method to validate if the account is in the accounts list
+     *
      * @param accountToValidate
      */
     public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
