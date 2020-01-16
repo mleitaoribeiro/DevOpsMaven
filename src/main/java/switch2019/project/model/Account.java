@@ -90,7 +90,7 @@ public class Account {
      */
 
     public void setDescription(String description) {
-        if (description == null) {
+        if (description == null || description.length() == 0) {
             throw new IllegalArgumentException("The description can´t be null. Please try again.");
         } else {
             this.description = description;
