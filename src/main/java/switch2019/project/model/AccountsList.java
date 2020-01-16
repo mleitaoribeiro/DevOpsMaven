@@ -62,23 +62,23 @@ public class AccountsList {
      * method to remove one account from a list
      * @param accountToBeRemoved
      */
-    public boolean removeOneAccountFromAList (Account accountToBeRemoved){
+    /*public boolean removeOneAccountFromAList (Account accountToBeRemoved){
         if (accountToBeRemoved != null)
             return accounts.remove(accountToBeRemoved);
         else
             return false;
-    }
+    }*/
 
     /**
      * method to remove several accounts from a list
      * @param accountsToBeRemoved
      */
-    public boolean removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
+    /*public boolean removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
         for (Account account : accountsToBeRemoved) {
              this.removeOneAccountFromAList(account);
         }
         return !this.accounts.containsAll(accountsToBeRemoved);
-    }
+    }*/
 
 
     /**
