@@ -898,13 +898,122 @@ class PersonTest {
         String category2 = "SCHOóL expenses";
 
         //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList((category1) && !person1.createCategoryAndAddToCategoryList((category2);
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
 
         //Assert
         assertTrue(realResult);
 
     }
     /**
-     *
+     *Tests to validate if a set of categories was added to category list
      */
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
+    void createAndAddMultipleCategoriesToListMainScenario() {
+        // Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryUniversity = "University";
+
+        //Act
+
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
+        //Category - add several categories to the user Category List with method
+        boolean realResult = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    /**
+     * Tests to validate if multiple categories were added to Category List
+     */
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
+    void createAndAddMultipleCategoriesToListWithANullCase() {
+        // Arrange
+
+        //Initialize user
+        Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryBets = "Bets and Games";
+        String categoryNull = null;
+        String categoryBeauty = "Beauty";
+
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
+
+        //Act
+        try {
+            person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
+    }
+
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
+    void createAndaddMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        // Arrange
+        //Initialize user
+        Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryHealthDuplicated = "Health";
+        String categoryBeauty = "Beauty";
+
+        //Act
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+        //The user adds several categories to his Category List with method
+
+        boolean realResult = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
+            "Ignore letter capitalization and special characters ")
+    void createAndAddMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
+        // Arrange
+
+        //Initialize user
+        Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryHealthDuplicated = "heálth";
+        String categoryBeauty = "Beauty";
+
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+
+        //Act
+        try {
+            person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
+    }
+
 }
