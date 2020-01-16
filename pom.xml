@@ -112,8 +112,8 @@
                         <param>switch2019.project.controllers.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>switch2019.project.model</param>
-                        <param>switch2019.project.controllers</param>
+                        <param>switch2019.project.model.*</param>
+                        <param>switch2019.project.controllers.*</param>
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
