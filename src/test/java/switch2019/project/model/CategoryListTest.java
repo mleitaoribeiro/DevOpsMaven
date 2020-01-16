@@ -63,7 +63,33 @@ class CategoryListTest {
     }
 
     /**
-     * Test if one category was added to the Ctegory List
+     * Test if two Categories list are consider the same and Have the same Hashcode
+     *
+     */
+
+    @Test
+    @DisplayName("test if two lists are the same & have the same HasHCode")
+    public void testIfTwoAccountListsAreTheSameHashcode() {
+        //Arrange
+
+        String oneCategoryName = "xpto";
+        String otherCategoryName = "xpto";
+
+        CategoryList oneCategoryList = new CategoryList();
+        CategoryList otherCategoryList = new CategoryList();
+
+        //Act
+       oneCategoryList.addCategoryToCategoryList(oneCategoryName);
+       otherCategoryList.addCategoryToCategoryList(otherCategoryName);
+
+
+        //Assert
+        assertEquals(oneCategoryList.hashCode(), otherCategoryList.hashCode());
+    }
+
+
+    /**
+     * Test if one category was added to the Category List
      * Main Scenario
      */
 
