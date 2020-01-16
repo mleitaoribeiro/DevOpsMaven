@@ -35,14 +35,6 @@ public class Address {
         setZipCode(zipCode);
     }
 
-    //auxiliary method to Add '-' in case user forget to add it.
-    public static String addHyphenToZipCode(String zip) {
-        if (zip.length() == 7) {
-            return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
-        }
-        return zip;
-    }
-
     /**
      * Public get for City
      *
@@ -134,6 +126,14 @@ public class Address {
                 throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
             }
         }
+    }
+
+    //auxiliary method to Add '-' in case user forget to add it.
+    private static String addHyphenToZipCode(String zip) {
+        if (zip.length() == 7) {
+            return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
+        }
+        return zip;
     }
 
     /**

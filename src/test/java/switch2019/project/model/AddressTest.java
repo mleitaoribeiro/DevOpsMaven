@@ -248,21 +248,6 @@ class AddressTest {
         }
     }
 
-    @Test
-    @DisplayName("Add hyphen to zip code - 8 numbers")
-    public void addHyphenToZipCode() {
-        //Arrange
-        Address casaDoAlberto = new Address("Rua da Vinha da Bouça","Porto", "4430-444");
-        String zip = "44300942";
-
-        //Act
-        casaDoAlberto.addHyphenToZipCode(zip);
-        String result = "44300942";
-
-        //Assert
-        assertEquals(zip, result);
-    }
-
     /**
      * Test Equals method for the Adress class
      */

@@ -1,6 +1,6 @@
 package switch2019.project.model;
 
-import org.junit.Assert;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
