@@ -23,6 +23,6 @@ public class MonetaryValue {
      * @return true if amount is positive or false if it's not
      */
     public boolean validateIfAmountIsPositive() {
-        return this.amount>0;
+        return this.amount > 0;
     }
 }
