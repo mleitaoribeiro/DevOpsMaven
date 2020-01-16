@@ -932,39 +932,6 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Test if an Account with the same Account Denomination is added to the list")
-    void createGroupAccountSameDescriptionFalse() {
-
-        //Arrange :
-        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
-        Group group1 = new Group("test group");
-
-        //Act:
-        group1.addMember(person1);
-        group1.createGroupAccount("Account1","Test", person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1","Test", person1);
-
-        //Assert
-        assertFalse(addGroupAccountRepeated);
-    }
-
-    @Test
-    @DisplayName("Test if Method cant create two accounts with the same Account Denomination, but different letter casing.")
-    void createGroupAccountSameDescriptionIgnoreCasing() {
-        //Arrange:
-        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
-        Group group1 = new Group("Test group");
-
-        //Act:
-        group1.addMember(person1);
-        group1.createGroupAccount("Account1", "Test", person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test", person1);
-
-        //Assert:
-        assertFalse(addGroupAccountRepeated);
-    }
-
-    @Test
     @DisplayName("Test if a regular member can add a Group Account")
     void createGroupAccountRegularMemberFalse(){
 
@@ -1000,6 +967,56 @@ class GroupTest {
     }
 
     @Test
+    @DisplayName("Create Account with null Denomination")
+    void canAccountWithNullDescriptionBeCreated() {
+
+        //Arrange:
+        Person person1 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Group group1 = new Group("Test Group");
+
+        //Act:
+        group1.addMember(person1);
+        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7",person1);
+
+        //Assert:
+        assertFalse(canNullAccountBeAdded);
+    }
+
+
+    @Test
+    @DisplayName("Test if an Account with the same Account Denomination is added to the list")
+    void createGroupAccountSameDescriptionFalse() {
+
+        //Arrange :
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Group group1 = new Group("test group");
+
+        //Act:
+        group1.addMember(person1);
+        group1.createGroupAccount("Account1","Test", person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1","Test", person1);
+
+        //Assert
+        assertFalse(addGroupAccountRepeated);
+    }
+
+    @Test
+    @DisplayName("Test if Method cant create two accounts with the same Account Denomination, but different letter casing.")
+    void createGroupAccountSameDescriptionIgnoreCasing() {
+        //Arrange:
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Group group1 = new Group("Test group");
+
+        //Act:
+        group1.addMember(person1);
+        group1.createGroupAccount("Account1", "Test", person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test", person1);
+
+        //Assert:
+        assertFalse(addGroupAccountRepeated);
+    }
+
+    @Test
     @DisplayName("Test if an admin of many groups can add an account to all of them")
     void createGroupAccountsOnMultipleGroups(){
 
@@ -1019,22 +1036,6 @@ class GroupTest {
 
         //Assert
         assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
-    }
-
-    @Test
-    @DisplayName("Create Account with null Denomination")
-    void canAccountWithNullDescriptionBeCreated() {
-
-        //Arrange:
-        Person person1 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
-        Group group1 = new Group("Test Group");
-
-        //Act:
-        group1.addMember(person1);
-        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7",person1);
-
-        //Assert:
-        assertFalse(canNullAccountBeAdded);
     }
 
     /**
