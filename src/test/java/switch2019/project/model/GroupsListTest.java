@@ -75,7 +75,7 @@ class GroupsListTest {
     }
 
     /**
-     * Test if a group was to the groupList
+     * Test if a group was added to the groupList
      */
     @Test
     @DisplayName("Test if the group added is not in the list")
@@ -83,6 +83,20 @@ class GroupsListTest {
         //Arrange
         Group group1 = new Group("Switchieees");
         Group group2 = new Group("Clube da Costura");
+        GroupsList groupList = new GroupsList();
+
+        //Act
+        boolean groupAdded = groupList.addGroupToGroupList(group1);
+
+        //Assert
+        assertTrue(groupAdded);
+    }
+
+    @Test
+    @DisplayName("Test if a null group is not added to the list")
+    public void testGroupIsNotInList() {
+        //Arrange
+        Group group1 = new Group(null);
         GroupsList groupList = new GroupsList();
 
         //Act
