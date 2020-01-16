@@ -16,7 +16,7 @@ class TransactionTest {
     void isAValidTransactionTrue() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Category category = new Category("grocery");
+        Category category =new Category("grocery");
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Type type = new Type(true);

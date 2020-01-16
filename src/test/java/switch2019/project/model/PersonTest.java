@@ -2,6 +2,7 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -801,7 +802,6 @@ class PersonTest {
     void createAccountSucessCase() {
         // Arrange
 
-        //Initialize user
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
         String accountDenomination = "Wallet";
@@ -814,4 +814,78 @@ class PersonTest {
         assertTrue(real);
     }
 
-}
+    /**
+     * +* Tests to validate if a category was added to Category List
+     * +
+     */
+    @Test
+    @DisplayName("Check if a category was added to Category List - Main Scenario")
+    void createCategoryAndAddToCategoryListMainScenario() {
+        //Arrange
+
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        //Category to be included in Category List
+        String category1 = "School expenses";
+
+        //Act
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("Check if null category is not added")
+    void createCategoryAndAddToCategoryListWithANullCase() {
+        //Arrange
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Category to be included in Category List
+        String category1 = null;
+        //Act
+        try {
+            person1.createCategoryAndAddToCategoryList(category1);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
+    }
+
+
+    @Test
+    @DisplayName("Check if the same Category is not added simultaneously")
+    void createAndAddTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        //Arrange
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Categories to be included in Category List
+        String category1 = "School expenses";
+        String category2 = "School expenses";
+
+        //Act
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
+
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+    @Test
+    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
+    void createAndAddTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
+        //Arrange
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Categories to be included in Category List
+        String category1 = "School expenses";
+        String category2 = "SCHOóL expenses";
+
+        //Act
+        boolean realResult = person1.createCategoryAndAddToCategoryList((category1) && !person1.createCategoryAndAddToCategoryList((category2);
+
+        //Assert
+        assertTrue(realResult);
+    }
+    
