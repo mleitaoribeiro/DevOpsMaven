@@ -253,24 +253,24 @@ class AccountsListTest {
     /**
      * Test if two account lists are the same
      */
-    /*@Test
+    @Test
     @DisplayName("Test if two account lists are the same - true")
 
     public void testIfTwoAccountListsAreTheSame(){
         //Arrange
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
+
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
 
 
-        HashSet<Account> firstList =new HashSet<>(Arrays.asList(butcher,market));
 
 
         AccountsList september = new AccountsList();
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(firstList);
-        aMonth.addSeveralAccountsToAList(firstList);
+        september.addAccountToAccountsList(butcherDenomination,butcherDescription);
+        aMonth.addAccountToAccountsList(butcherDenomination,butcherDescription);
 
         boolean result=september.equals(aMonth);
 
@@ -284,27 +284,26 @@ class AccountsListTest {
 
     public void testIfTwoAccountListsAreTheSameNo(){
         //Arrange
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
 
-
-        HashSet<Account> firstList =new HashSet<>(Arrays.asList(butcher,market));
-        HashSet<Account> secondList =new HashSet<>(Arrays.asList(butcher));
+        String marketDenomination = "Market";
+        String marketDescription = "Mercado do Amadeu";
 
 
         AccountsList september = new AccountsList();
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(firstList);
-        aMonth.addSeveralAccountsToAList(secondList);
+        september.addAccountToAccountsList(butcherDenomination,butcherDescription);
+        aMonth.addAccountToAccountsList(marketDenomination,marketDescription);
 
         boolean result=september.equals(aMonth);
 
         //Assert
         assertEquals(false,result);
 
-    }*/
+    }
 
 
     /**
