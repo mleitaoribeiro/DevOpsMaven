@@ -78,7 +78,7 @@ class AccountsListTest {
         int result = accountsList.numberOfAccountsInTheAccountsList();
 
         //Assert
-        assertEquals(2,result);
+        assertEquals(2, result);
     }
 
 
@@ -87,7 +87,7 @@ class AccountsListTest {
     public void testAccountsAreInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
-        Account otherAccount = new Account ("xyz", "general");
+        Account otherAccount = new Account("xyz", "general");
 
         AccountsList accountsList = new AccountsList();
 
@@ -106,8 +106,8 @@ class AccountsListTest {
     public void testIfAccountsAreInList_MoreThanOne() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
-        Account otherAccount = new Account ("xyz", "general");
-        Account anotherAccount = new Account ("Millennium", "Millennium Account");
+        Account otherAccount = new Account("xyz", "general");
+        Account anotherAccount = new Account("Millennium", "Millennium Account");
 
         AccountsList accountsList = new AccountsList();
 
@@ -256,33 +256,31 @@ class AccountsListTest {
     @Test
     @DisplayName("Test if two account lists are the same - true")
 
-    public void testIfTwoAccountListsAreTheSame(){
+    public void testIfTwoAccountListsAreTheSame() {
         //Arrange
 
         String butcherDenomination = "Butcher";
         String butcherDescription = "Talho do Amadeu";
 
 
-
-
         AccountsList september = new AccountsList();
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addAccountToAccountsList(butcherDenomination,butcherDescription);
-        aMonth.addAccountToAccountsList(butcherDenomination,butcherDescription);
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(butcherDenomination, butcherDescription);
 
-        boolean result=september.equals(aMonth);
+        boolean result = september.equals(aMonth);
 
         //Assert
-        assertEquals(true,result);
+        assertEquals(true, result);
 
     }
 
     @Test
     @DisplayName("Test if two account lists are the same - false")
 
-    public void testIfTwoAccountListsAreTheSameNo(){
+    public void testIfTwoAccountListsAreTheSameNo() {
         //Arrange
         String butcherDenomination = "Butcher";
         String butcherDescription = "Talho do Amadeu";
@@ -295,13 +293,13 @@ class AccountsListTest {
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addAccountToAccountsList(butcherDenomination,butcherDescription);
-        aMonth.addAccountToAccountsList(marketDenomination,marketDescription);
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(marketDenomination, marketDescription);
 
-        boolean result=september.equals(aMonth);
+        boolean result = september.equals(aMonth);
 
         //Assert
-        assertEquals(false,result);
+        assertEquals(false, result);
 
     }
 
@@ -475,12 +473,12 @@ class AccountsListTest {
     void validateIfAccountIsInTheAccountsList_False() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto Account");
-        Account otherAccount = new Account ("xyz","xyz Account");
-        AccountsList accountsList= new AccountsList();
+        Account otherAccount = new Account("xyz", "xyz Account");
+        AccountsList accountsList = new AccountsList();
 
         //Act
         accountsList.addAccountToAccountsList("xpto", "xpto Account");
-        boolean validateIfAccountIsInTheAccountsList= accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
         //Arrange
         assertFalse(validateIfAccountIsInTheAccountsList);
