@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -301,6 +302,31 @@ class AccountsListTest {
         //Assert
         assertEquals(false, result);
 
+    }
+
+    /**
+     * Test if two lists are the same
+     * With Hashcode
+     */
+    @Test
+    @DisplayName("test if two lists are the same")
+    public void testIfTwoAccountListsAreTheSameHashcode() {
+        //Arrange
+
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(butcherDenomination, butcherDescription);
+
+
+        //Assert
+        assertEquals(september.hashCode(), aMonth.hashCode());
     }
 
 
