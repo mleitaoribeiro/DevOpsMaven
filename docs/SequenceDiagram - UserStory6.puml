@@ -22,13 +22,13 @@ activate "accountList1:AccountsList" #FFBBBB
 create "account1:Account"
 "accountList1:AccountsList" -> "account1:Account" : new Account(denomination,description)
 
-"accountList1:AccountsList" --> "person1:Person" : accountCreated
+"accountList1:AccountsList" --> "person1:Person" : accountCreatedAndAdded
 deactivate "accountList1:AccountsList" #FFBBBB
 
-"person1:Person" --> ":Test" : accountCreated
+"person1:Person" --> ":Test" : accountCreatedAndAdded
 deactivate "person1:Person" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(accountCreated)
+":Test" -> ":Test" : assertTrue(accountCreatedAndAdded)
 @enduml

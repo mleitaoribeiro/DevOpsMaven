@@ -66,13 +66,13 @@ public class Transaction {
      */
 
     public boolean isAValidTransaction() {
-        if(amount == null)
+        if (amount == null)
             throw new IllegalArgumentException("The monetary value can´t be null. Please try again.");
-        else if(description == null)
+        else if (description == null)
             throw new IllegalArgumentException("The description can´t be null. Please try again.");
-        else if(category == null)
+        else if (category == null)
             throw new IllegalArgumentException("The category can´t be null. Please try again.");
-        else if(accountFrom == null || accountTo == null)
+        else if (accountFrom == null || accountTo == null)
             throw new IllegalArgumentException("The accounts can´t be null. Please try again.");
         else return true;
     }

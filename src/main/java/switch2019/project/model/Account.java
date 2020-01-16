@@ -9,7 +9,7 @@ public class Account {
     private String description;
     private double balance;
 
-    public Account (String accountDenomination, String accountDescription) {
+    public Account(String accountDenomination, String accountDescription) {
         setDenomination(accountDenomination);
         setDescription(accountDescription);
     }
@@ -27,21 +27,17 @@ public class Account {
         return Objects.hash(denomination, description, balance);
     }
 
-    /**
-     * Public set for denomination: Can not be Null.
-     * @param newDenomination
-     */
+    //Auxiliary method to remove special Characters
+    private static String removeSpecialCharacters(String sentence) {
 
-    public void setDenomination (String newDenomination) {
+        String[] str = sentence.split("[, &´#!%()`>?+.<@;-]+");
+        StringBuilder buildNewStringArray = new StringBuilder();
 
-        if (newDenomination == null || newDenomination.length() == 0) {
-            throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
-
-        } else {
-            newDenomination = removeWordAccents(newDenomination);
-            newDenomination = removeSpecialCharacters(newDenomination);
-            this.denomination = newDenomination.toUpperCase();
+        for (String element : str) {
+            buildNewStringArray.append(" ").append(element);
         }
+
+        return buildNewStringArray.toString().replaceFirst(" ", "");
     }
 
     //Auxiliary method to remove word accents
@@ -53,37 +49,29 @@ public class Account {
         return sentence;
     }
 
-    //Auxiliary method to remove special Characters
-    private static String removeSpecialCharacters(String sentence) {
-
-        String [] str = sentence.split ("[, &´#!%()`>?+.<@;-]+");
-        StringBuilder buildNewStringArray = new StringBuilder();
-
-        for (String element : str) {
-            buildNewStringArray.append(" ").append(element);
-        }
-
-        return buildNewStringArray.toString().replaceFirst(" ", "");
-    }
-
     /**
      * Public get for denomination
      */
 
-    public String getDenomination (){
+    public String getDenomination() {
         return this.denomination;
     }
 
     /**
-     * Public set for description: Can not be Null.
-     * @param description
+     * Public set for denomination: Can not be Null.
+     *
+     * @param newDenomination
      */
 
-    public void setDescription (String description) {
-        if (description == null) {
-            throw new IllegalArgumentException("The description can´t be null. Please try again.");
+    public void setDenomination(String newDenomination) {
+
+        if (newDenomination == null || newDenomination.length() == 0) {
+            throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
+
         } else {
-            this.description = description;
+            newDenomination = removeWordAccents(newDenomination);
+            newDenomination = removeSpecialCharacters(newDenomination);
+            this.denomination = newDenomination.toUpperCase();
         }
     }
 
@@ -91,8 +79,22 @@ public class Account {
      * Public get for description
      */
 
-    public String getDescription (){
+    public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Public set for description: Can not be Null.
+     *
+     * @param description
+     */
+
+    public void setDescription(String description) {
+        if (description == null || description.length() == 0) {
+            throw new IllegalArgumentException("The description can´t be null. Please try again.");
+        } else {
+            this.description = description;
+        }
     }
 
 }

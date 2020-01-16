@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -78,7 +79,7 @@ class AccountsListTest {
         int result = accountsList.numberOfAccountsInTheAccountsList();
 
         //Assert
-        assertEquals(2,result);
+        assertEquals(2, result);
     }
 
 
@@ -87,7 +88,7 @@ class AccountsListTest {
     public void testAccountsAreInList_Not() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
-        Account otherAccount = new Account ("xyz", "general");
+        Account otherAccount = new Account("xyz", "general");
 
         AccountsList accountsList = new AccountsList();
 
@@ -106,8 +107,8 @@ class AccountsListTest {
     public void testIfAccountsAreInList_MoreThanOne() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
-        Account otherAccount = new Account ("xyz", "general");
-        Account anotherAccount = new Account ("Millennium", "Millennium Account");
+        Account otherAccount = new Account("xyz", "general");
+        Account anotherAccount = new Account("Millennium", "Millennium Account");
 
         AccountsList accountsList = new AccountsList();
 
@@ -253,58 +254,80 @@ class AccountsListTest {
     /**
      * Test if two account lists are the same
      */
-    /*@Test
+    @Test
     @DisplayName("Test if two account lists are the same - true")
 
-    public void testIfTwoAccountListsAreTheSame(){
+    public void testIfTwoAccountListsAreTheSame() {
         //Arrange
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
 
-
-        HashSet<Account> firstList =new HashSet<>(Arrays.asList(butcher,market));
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
 
 
         AccountsList september = new AccountsList();
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(firstList);
-        aMonth.addSeveralAccountsToAList(firstList);
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(butcherDenomination, butcherDescription);
 
-        boolean result=september.equals(aMonth);
+        boolean result = september.equals(aMonth);
 
         //Assert
-        assertEquals(true,result);
+        assertEquals(true, result);
 
     }
 
     @Test
     @DisplayName("Test if two account lists are the same - false")
 
-    public void testIfTwoAccountListsAreTheSameNo(){
+    public void testIfTwoAccountListsAreTheSameNo() {
         //Arrange
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
 
-
-        HashSet<Account> firstList =new HashSet<>(Arrays.asList(butcher,market));
-        HashSet<Account> secondList =new HashSet<>(Arrays.asList(butcher));
+        String marketDenomination = "Market";
+        String marketDescription = "Mercado do Amadeu";
 
 
         AccountsList september = new AccountsList();
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(firstList);
-        aMonth.addSeveralAccountsToAList(secondList);
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(marketDenomination, marketDescription);
 
-        boolean result=september.equals(aMonth);
+        boolean result = september.equals(aMonth);
 
         //Assert
-        assertEquals(false,result);
+        assertEquals(false, result);
 
-    }*/
+    }
+
+    /**
+     * Test if two lists are the same
+     * With Hashcode
+     */
+    @Test
+    @DisplayName("test if two lists are the same")
+    public void testIfTwoAccountListsAreTheSameHashcode() {
+        //Arrange
+
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(butcherDenomination, butcherDescription);
+
+
+        //Assert
+        assertEquals(september.hashCode(), aMonth.hashCode());
+    }
 
 
     /**
@@ -476,12 +499,12 @@ class AccountsListTest {
     void validateIfAccountIsInTheAccountsList_False() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto Account");
-        Account otherAccount = new Account ("xyz","xyz Account");
-        AccountsList accountsList= new AccountsList();
+        Account otherAccount = new Account("xyz", "xyz Account");
+        AccountsList accountsList = new AccountsList();
 
         //Act
         accountsList.addAccountToAccountsList("xpto", "xpto Account");
-        boolean validateIfAccountIsInTheAccountsList= accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
         //Arrange
         assertFalse(validateIfAccountIsInTheAccountsList);

@@ -1,7 +1,11 @@
 package switch2019.project.model;
 
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.controllers.User;
+
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -667,6 +671,7 @@ class PersonTest {
         Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Porto"));
         Person person3 = new Person("Roberto", 1992, 8, 10, new Address("Matosinhos"));
 
+
         HashSet<Person> siblings1 = new HashSet<>(Arrays.asList(person2, person3));
         HashSet<Person> siblings2 = new HashSet<>(Arrays.asList(person1, person3));
 
@@ -692,18 +697,15 @@ class PersonTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
-
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
         Type type = new Type(false); //debit
 
         //Act
+        //person.addCategoryToCategoryList (category);
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
         boolean result = person.createTransaction(amount, description, category, from, to, type);
 
         //Assert
@@ -715,24 +717,25 @@ class PersonTest {
     void createTransactionCategoryisNotinTheList() {
         //Arrange
         Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
+        Type type = new Type(false); //debit
 
         Category categoryFood = new Category("food");
         Category categoryBaby = new Category("baby");
-        person.createAndAddMultipleCategoriesToList(new HashSet<>(Arrays.asList("food", "home")));
+        Category categoryHome = new Category("home");
 
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
+
+        //Act
+        //person.addMultipleCategoriesToList(new HashSet<>(Arrays.asList(categoryFood, categoryBaby)));
+
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
-        Type type = new Type(false); //debit
-
-        //Act
         boolean categoryInTheList = person.createTransaction(amount, description, categoryFood, from, to, type);
-        boolean categoryNotInTheList = person.createTransaction(amount, description, categoryBaby, from, to, type);
+        boolean categoryNotInTheList = person.createTransaction(amount, description, categoryHome, from, to, type);
 
         //Assert
         assertTrue(categoryInTheList && !categoryNotInTheList);
@@ -745,19 +748,20 @@ class PersonTest {
         Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
+        Type type = new Type(false); //debit
 
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
 
         Account accountWallet = new Account("Wallet", "General expenses");
         Account accountTransport = new Account("Transport", "Transport expenses");
         Account accountBaby = new Account("Baby", "Baby expenses");
+
+        //Act
+        //person.addToCategoryList(category);
+
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");
 
-        Type type = new Type(false); //debit
-
-        //Act
         boolean accountInTheList = person.createTransaction(amount, description, category, accountWallet, accountTransport, type);
         boolean accountNotInTheList = person.createTransaction(amount, description, category, accountWallet, accountBaby, type);
 
@@ -773,18 +777,19 @@ class PersonTest {
         MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description = "payment";
+        Type type = new Type(false); //debit
 
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
 
         Account accountWallet = new Account("Wallet", "General expenses");
         Account accountTransport = new Account("Transport", "Transport expenses");
+
+        //Act
+        //person.addCategoryToCategoryList(category);
+
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");
 
-        Type type = new Type(false); //debit
-
-        //Act
         boolean accountInTheList = person.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
         boolean accountNotInTheList = person.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
 
@@ -812,6 +817,203 @@ class PersonTest {
 
         // assert
         assertTrue(real);
+    }
+    /**
+* Tests to validate if a category was added to Category List
+     */
+
+    @Test
+    @DisplayName("Check if a category was added to Category List - Main Scenario")
+    void createCategoryAndAddToCategoryListMainScenario() {
+        //Arrange
+        //Initialize user
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Category to be included in Category List
+        String category1 = "School expenses";
+
+        //Act
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
+
+        //Assert
+        assertTrue(realResult);
+
+
+    }
+
+    @Test
+    @DisplayName("Check if null category is not added")
+    void createCategoryAndAddToCategoryListWithANullCase() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Category to be included in Category List
+        String category1 = null;
+
+        //Act
+        try {
+            person1.createCategoryAndAddToCategoryList(category1);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
+    }
+
+
+    @Test
+    @DisplayName("Check if the same Category is not added simultaneously")
+    void createAndAddTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Categories to be included in Category List
+        String category1 = "School expenses";
+        String category2 = "School expenses";
+
+        //Act
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
+
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+
+    @Test
+    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
+    void createAndAddTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
+        //Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Categories to be included in Category List
+        String category1 = "School expenses";
+        String category2 = "SCHOóL expenses";
+
+        //Act
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
+
+        //Assert
+        assertTrue(realResult);
+
+    }
+    /**
+     *Tests to validate if a set of categories was added to category list
+     */
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
+    void createAndAddMultipleCategoriesToListMainScenario() {
+        // Arrange
+
+        //Initialize user
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryUniversity = "University";
+
+        //Act
+
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
+        //Category - add several categories to the user Category List with method
+        boolean realResult = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    /**
+     * Tests to validate if multiple categories were added to Category List
+     */
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
+    void createAndAddMultipleCategoriesToListWithANullCase() {
+        // Arrange
+
+        //Initialize user
+        Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryBets = "Bets and Games";
+        String categoryNull = null;
+        String categoryBeauty = "Beauty";
+
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
+
+        //Act
+        try {
+            person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
+    }
+
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
+    void createAndaddMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
+        // Arrange
+        //Initialize user
+        Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryHealthDuplicated = "Health";
+        String categoryBeauty = "Beauty";
+
+        //Act
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+        //The user adds several categories to his Category List with method
+
+        boolean realResult = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        //Assert
+        assertTrue(realResult);
+
+    }
+
+
+    @Test
+    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
+            "Ignore letter capitalization and special characters ")
+    void createAndAddMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
+        // Arrange
+
+        //Initialize user
+        Person person1 = new Person("Marta", 1995, 4, 12, new Address("Porto"));
+
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryHealthDuplicated = "heálth";
+        String categoryBeauty = "Beauty";
+
+        // set of Categories to be added to categories list
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
+
+        //Act
+        try {
+            person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
     }
 
 }

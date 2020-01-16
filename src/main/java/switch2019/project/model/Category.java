@@ -24,7 +24,7 @@ public class Category {
 
     public void setNameOfCategory(String newCategory) {
         if (newCategory == null) {
-            throw new IllegalArgumentException ("The category description is not valid or it's missing. Please try again.");
+            throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
         } else {
             newCategory = removeAccents(newCategory);
             nameOfCategory = newCategory.toUpperCase();
@@ -57,5 +57,7 @@ public class Category {
     }
 
     @Override
-    public int hashCode() { return Objects.hash(nameOfCategory); }
+    public int hashCode() {
+        return Objects.hash(nameOfCategory);
+    }
 }

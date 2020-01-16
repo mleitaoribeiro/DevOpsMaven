@@ -14,17 +14,18 @@ public class GroupsList {
     }
 
     /**
-    *Develop @override of equals for Group and @override of hashcode
-    */
+     *Develop @override of equals for Group and @override of hashcode
+     */
 
 
     /**
      * Method used to create a Group
+     *
      * @param groupDescription
      * @param groupCreator
      */
-    public boolean createGroup (String groupDescription, Person groupCreator) {
-        if (groupDescription != null){
+    public boolean createGroup(String groupDescription, Person groupCreator) {
+        if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.setAdmin(groupCreator) && this.groupsList.add(group1));
 
