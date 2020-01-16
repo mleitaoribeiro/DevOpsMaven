@@ -329,6 +329,30 @@ class AccountsListTest {
         assertEquals(september.hashCode(), aMonth.hashCode());
     }
 
+    @Test
+    @DisplayName("test if two lists are the same - not the same")
+    public void testIfTwoAccountListsAreNotTheSameHashcode() {
+        //Arrange
+
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+        String marketDenomination = "Market";
+        String marketDescription = "Mercado do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.addAccountToAccountsList(marketDenomination,marketDescription);
+
+
+        //Assert
+        assertNotEquals(september.hashCode(), aMonth.hashCode());
+    }
+
 
     /**
      * Test if Account was removed from list
