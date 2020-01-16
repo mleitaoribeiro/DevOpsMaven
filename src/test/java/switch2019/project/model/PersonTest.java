@@ -883,9 +883,10 @@ class PersonTest {
         String category2 = "SCHOóL expenses";
 
         //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList((category1) && !person1.createCategoryAndAddToCategoryList((category2);
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
 
         //Assert
         assertTrue(realResult);
     }
+
 }
