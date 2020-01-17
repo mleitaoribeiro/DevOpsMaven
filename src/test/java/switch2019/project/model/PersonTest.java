@@ -822,8 +822,8 @@ class PersonTest {
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void createCategoryAndAddToCategoryListMainScenario() {
         //Arrange
-
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
         //Category to be included in Category List
         String category1 = "School expenses";
 
