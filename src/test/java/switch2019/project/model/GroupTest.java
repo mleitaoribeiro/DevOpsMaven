@@ -338,6 +338,7 @@ class GroupTest {
     @Test
     @DisplayName("multiple members")
     void isRemovedMemberAlsoRemovedFromAdmin() {
+        
         //Arrange:
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));

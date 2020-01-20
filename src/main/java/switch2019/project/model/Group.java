@@ -188,12 +188,12 @@ public class Group {
      * @param member
      * @return true if group admin was demoted, false if it wasn't
      */
-    /*public boolean demoteMemberFromAdmin(Person member) {
+    public boolean demoteMemberFromAdmin(Person member) {
         if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() > 1) {
             return this.members.remove(member);
         }
         return false;
-    }*/
+    }
 
     /**
      * Demote multiple group admins to member only
