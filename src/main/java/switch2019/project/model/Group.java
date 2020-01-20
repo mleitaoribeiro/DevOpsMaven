@@ -80,7 +80,7 @@ public class Group {
      * @param memberToRemove
      * @return true if member was removed, false if it wasn't
      */
-    /*public boolean removeMember(Person memberToRemove) {
+    public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
             if (admins.contains(memberToRemove) && admins.size() > 1) {
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
@@ -89,7 +89,7 @@ public class Group {
             } else
                 return false;
         } else return false;
-    }*/
+    }
 
     /**
      * Add multiple members to Group
@@ -110,12 +110,12 @@ public class Group {
      * @param toRemove HashSet of members that are going to be removed
      * @return true if multiple members were removed, false if they weren't
      */
-    /*public boolean removeMultipleMembers(HashSet<Person> toRemove) {
+    public boolean removeMultipleMembers(HashSet<Person> toRemove) {
         for (Person member : toRemove) {
             removeMember(member);
         }
         return !this.members.containsAll(toRemove);
-    }*/
+    }
 
     /**
      * Validate if a group is a family
