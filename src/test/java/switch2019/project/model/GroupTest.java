@@ -19,6 +19,7 @@ class GroupTest {
     @Test
     @DisplayName("Check if One group was added")
     public void wasGroupAddedToList() {
+
         //Arrange
         Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
         Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
@@ -40,6 +41,7 @@ class GroupTest {
      */
     @Test
     public void isGroupInListCompare() {
+
         // Arrange Groups
         Group group1 = new Group("Amigos");
 
@@ -59,6 +61,7 @@ class GroupTest {
 
     @Test
     public void areGroupsInListCompare() {
+
         // Arrange Groups
         Group group1 = new Group("Programadores");
         Group group2 = new Group("Amigos");
@@ -120,6 +123,7 @@ class GroupTest {
     @Test
     @DisplayName("True - member added to an empty group")
     void promoteAddedMemberIfEmptyTrue() {
+
         //Arrange
         Person person1 = new Person("Juan", 1970, 1, 2, new Address("Toledo"));
         Group group1 = new Group("Group with no members");
@@ -134,6 +138,7 @@ class GroupTest {
     @Test
     @DisplayName("False - member added to a non empty group")
     void promoteAddedMemberIfEmptyTestFalse() {
+
         //Arrange
         Person person1 = new Person("Juan", 1970, 1, 2, new Address("Toledo"));
         Person person2 = new Person("Pablo", 1978, 5, 16, new Address("Madrid"));
@@ -154,6 +159,7 @@ class GroupTest {
     @Test
     @DisplayName("Test if all members were added to Group => Success Case")
     void addMultipleMembersSuccess() {
+
         //Arrange
         Group group1 = new Group("MNation");
 
@@ -177,6 +183,7 @@ class GroupTest {
     @Test
     @DisplayName("Test if the same person is not added twice")
     void addMultipleMembersSamePersonNotTwice() {
+
         //Arrange
         Group group1 = new Group("Maria's Group");
 
@@ -194,6 +201,7 @@ class GroupTest {
     @Test
     @DisplayName("Test if a null case is added to group")
     void addMultipleMembersNullCase() {
+
         //Arrange
         Group group1 = new Group("Grupo das M'Nation");
 
@@ -286,7 +294,8 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if multiple members were removed from a Group - tried to remove all the group admins")
-    void removeMultipleMembersFromAGroupAllAdmins() { // Perguntar ao professor depois o que deve remover, todos menos 1 ou não deve remover nenhum
+    void removeMultipleMembersFromAGroupAllAdmins() {
+
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -312,6 +321,7 @@ class GroupTest {
     @Test
     @DisplayName("Test if multiple members were removed from a Group - only the members I choose ")
     void removeMultipleMembers() {
+
         //Arrange
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -338,7 +348,7 @@ class GroupTest {
     @Test
     @DisplayName("multiple members")
     void isRemovedMemberAlsoRemovedFromAdmin() {
-        
+
         //Arrange:
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -486,6 +496,7 @@ class GroupTest {
     @Test
     @DisplayName("Two Equals group add person")
     void equalsGroupClassAddPersonTrue() {
+
         //Arrange
         Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Porto"));
         Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
@@ -549,6 +560,7 @@ class GroupTest {
     @Test
     @DisplayName("Promote one member to group admin")
     void promoteMember() {
+
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -568,6 +580,7 @@ class GroupTest {
     @Test
     @DisplayName("Promote one member to Admin while there are more than one member")
     void promoteMemberTest2() {
+
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -587,6 +600,7 @@ class GroupTest {
     @Test
     @DisplayName("Promote one member to group admin - false because member is already group admin")
     void promoteMemberFalseAlreadyAdmin() {
+
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -606,6 +620,7 @@ class GroupTest {
     @Test
     @DisplayName("Promote one member to group admin - false because member is already group admin")
     void promoteMemberFalseNotMember() {
+
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -626,6 +641,7 @@ class GroupTest {
     @Test
     @DisplayName("Promote multiple members to Admin")
     void promoteMultipleMembersToAdmin() {
+
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -646,6 +662,7 @@ class GroupTest {
     @Test
     @DisplayName("Promote multiple members to admin while there are more than members that are not admins")
     void promoteMultipleMembersToAdminWhileThereAreOtherGroupMembers() {
+
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -670,7 +687,7 @@ class GroupTest {
     /**
      * Check if member was demoted from group admin
      */
-    /*@Test
+    @Test
     @DisplayName("Demote one group admin to member")
     void demoteMemberTest() {
 
@@ -687,6 +704,24 @@ class GroupTest {
 
         //Assert
         assertTrue(wasDemoted);
+    }
+
+    @Test
+    @DisplayName("Demote a member who is not an admin - FALSE")
+    void demoteMemberTestFalse(){
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Group group1 = new Group("Francis Group");
+
+        //Act:
+        group1.addMember(person1);
+        group1.addMember(person2);
+        boolean wasDemoted = group1.addMember(person2);
+
+        //Assert:
+        assertFalse(wasDemoted);
     }
 
     @Test
