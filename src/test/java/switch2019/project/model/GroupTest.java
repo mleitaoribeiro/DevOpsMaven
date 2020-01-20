@@ -212,9 +212,10 @@ class GroupTest {
     /**
      * Test if member was removed from Group
      */
-    /*@Test
+    @Test
     @DisplayName("Test if a member was removed from a Group")
     void removeMemberFromGroup() {
+
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
 
@@ -230,11 +231,12 @@ class GroupTest {
 
         //Assert
         assertTrue(removeSingleMember);
-    }*/
+    }
 
-    /*@Test
+    @Test
     @DisplayName("Test if a member was removed from a Group - try to remove all members")
     void removeMemberFromGroupAllMembers() {
+
         //Arrange
         Group group1 = new Group("123 são os primeiros três números inteiros");
 
@@ -251,14 +253,15 @@ class GroupTest {
 
         //Assert
         assertTrue (areBothMembersRemoved);
-    }*/
+    }
 
     /**
      * Test if multiple members were removed from a Group and there is at least one group admin in the group
      */
-    /*@Test
+    @Test
     @DisplayName("Test if multiple members were removed from a Group - not removed 1 group admin and 1 member ")
     void removeMultipleMembersFromAGroupNotRemovingOneGroupAdmin() {
+
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
         Person person1 = new Person("Pedro", 1999, 12, 9, new Address("Porto"));
@@ -279,10 +282,9 @@ class GroupTest {
 
         //Assert
         assertTrue(removeOnlyNonAdminMembers);
-    }*/
+    }
 
-
-    /*@Test
+    @Test
     @DisplayName("Test if multiple members were removed from a Group - tried to remove all the group admins")
     void removeMultipleMembersFromAGroupAllAdmins() { // Perguntar ao professor depois o que deve remover, todos menos 1 ou não deve remover nenhum
         //Arrange
@@ -328,12 +330,12 @@ class GroupTest {
 
         //Assert
         assertTrue(areMultipleMembersRemoved);
-    }*/
+    }
 
     /**
      * Test if a removed member is also removed from admin
      */
-   /* @Test
+    @Test
     @DisplayName("multiple members")
     void isRemovedMemberAlsoRemovedFromAdmin() {
         //Arrange:
@@ -353,7 +355,7 @@ class GroupTest {
 
         //Assert:
         assertTrue(areMembersBeingAddedAndRemoved);
-    }*/
+    }
 
 
     /**
@@ -981,7 +983,6 @@ class GroupTest {
         //Assert:
         assertFalse(canNullAccountBeAdded);
     }
-
 
     @Test
     @DisplayName("Test if an Account with the same Account Denomination is added to the list")
