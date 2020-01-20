@@ -798,7 +798,7 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Test if an Account was created - sucess case")
+    @DisplayName("Test if an Account was created - Sucess case")
     void createAccountSucessCase() {
         // Arrange
 
@@ -812,6 +812,86 @@ class PersonTest {
 
         // assert
         assertTrue(real);
+    }
+
+    @Test
+    @DisplayName("Test if an Account was created - Denomination Null")
+    void createAccount_DenominationNull() {
+        // Arrange
+
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+
+        String accountDenomination = null;
+        String accountDescription = "General expenses";
+
+        //Act
+        try {
+            onePerson.createAccount(accountDenomination,accountDescription);
+        }
+        //Assert
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if an Account was created - Denomination Empty")
+    void createAccount_DenominationEmpty() {
+        // Arrange
+
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+
+        String accountDenomination = "";
+        String accountDescription = "General expenses";
+
+        //Act
+        try {
+            onePerson.createAccount(accountDenomination,accountDescription);
+        }
+        //Assert
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if an Account was created - Description Null")
+    void createAccount_DescriptionNull() {
+        // Arrange
+
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+
+        String accountDenomination = "Wallet";
+        String accountDescription = null;
+
+        //Act
+        try {
+            onePerson.createAccount(accountDenomination,accountDescription);
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null. Please try again.", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if an Account was created - Description Empty")
+    void createAccount_DescriptionEmpty() {
+        // Arrange
+
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+
+        String accountDenomination = "Wallet";
+        String accountDescription = "";
+
+        //Act
+        try {
+            onePerson.createAccount(accountDenomination,accountDescription);
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null. Please try again.", description.getMessage());
+        }
     }
 
     /**
