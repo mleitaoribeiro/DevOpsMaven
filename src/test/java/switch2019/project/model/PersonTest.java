@@ -815,10 +815,28 @@ class PersonTest {
     }
 
     @Test
+    @DisplayName("Test if an Account was created - Account already exists")
+    void createAccount_AccountAlreadyExists () {
+
+        // Arrange
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
+
+        //Act
+        onePerson.createAccount(accountDenomination, accountDescription);
+        boolean real = onePerson.createAccount(accountDenomination, accountDescription);
+
+        // assert
+        assertFalse(real);
+    }
+
+    @Test
     @DisplayName("Test if an Account was created - Denomination Null")
     void createAccount_DenominationNull() {
-        // Arrange
 
+        // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
         String accountDenomination = null;
@@ -837,8 +855,8 @@ class PersonTest {
     @Test
     @DisplayName("Test if an Account was created - Denomination Empty")
     void createAccount_DenominationEmpty() {
-        // Arrange
 
+        // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
         String accountDenomination = "";
@@ -857,8 +875,8 @@ class PersonTest {
     @Test
     @DisplayName("Test if an Account was created - Description Null")
     void createAccount_DescriptionNull() {
-        // Arrange
 
+        // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
         String accountDenomination = "Wallet";
@@ -877,8 +895,8 @@ class PersonTest {
     @Test
     @DisplayName("Test if an Account was created - Description Empty")
     void createAccount_DescriptionEmpty() {
-        // Arrange
 
+        // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
         String accountDenomination = "Wallet";
