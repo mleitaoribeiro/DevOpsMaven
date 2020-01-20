@@ -346,7 +346,7 @@ public class Person {
      *
      * @param nameOfcategory
      */
-    public boolean removeCategoryFromList(Category nameOfcategory) {
+    public boolean removeCategoryFromList(String nameOfcategory) {
         return categoryList.removeCategoryFromList(nameOfcategory);
     }
 
@@ -364,7 +364,7 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
+    public boolean removeMultipleCategoriesToList(HashSet<String> categories) {
         return categoryList.removeMultipleCategoriesToList(categories);
     }
 

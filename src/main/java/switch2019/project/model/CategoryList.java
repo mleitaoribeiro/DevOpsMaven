@@ -51,9 +51,10 @@ public class CategoryList {
      * @param categoryToRemove
      */
 
-    public boolean removeCategoryFromList(Category categoryToRemove) {
-        if (categoryToRemove != null)
-            return categories.remove(categoryToRemove);
+    public boolean removeCategoryFromList(String categoryToRemove) {
+        Category category = new Category(categoryToRemove);
+        if (categoryToRemove != null){
+            return categories.remove(category);}
         else
             return false;
     }
@@ -80,8 +81,8 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
-        for (Category category : categories)
+    public boolean removeMultipleCategoriesToList(HashSet<String> categories) {
+        for (String category : categories)
             this.removeCategoryFromList(category);
         return !this.categories.containsAll(categories);
     }
