@@ -106,7 +106,7 @@ class UserTest {
     /**
      * Tests to validate if a category was removed from User Category List
      */
-/*
+
     @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
@@ -117,8 +117,8 @@ class UserTest {
         User user1 = new User(person1);
 
         //Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("Health expenses");
+        String category1 = "School expenses";
+        String category2 = "Health expenses";
 
         user1.addCategoryToList(category1);
         user1.addCategoryToList(category2);
@@ -130,7 +130,7 @@ class UserTest {
         assertTrue(realResult);
     }
 
-
+/*
     @Test
     @DisplayName("To Try to remove a set of Categories that does not exist or null")
     void removeCategoriesToListWithANullCase() {
@@ -154,7 +154,7 @@ class UserTest {
         assertTrue(realResult);
 
     }
-
+/*
     @Test
     @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
     void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
@@ -404,6 +404,7 @@ class UserTest {
         String description = "payment";
         Type type = new Type(false); //debit
 
+        //Category category = new Category("General");
         Category category = new Category("General");
         user.addCategoryToList("General");
 

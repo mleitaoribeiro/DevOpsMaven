@@ -33,7 +33,7 @@ public class User {
      *
      * @param category category
      */
-    public boolean removeCategoryFromList(Category category){
+    public boolean removeCategoryFromList(String category){
         return person.removeCategoryFromList(category);
     }
 
@@ -53,7 +53,7 @@ public class User {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
+    public boolean removeMultipleCategoriesToList(HashSet<String> categories){
         return person.removeMultipleCategoriesToList(categories);
 
     }

@@ -186,7 +186,7 @@ class CategoryListTest {
      * Test if a category was removed from the Category List
      * Main Scenario
      */
-
+/*
     @Test
     @DisplayName("Test if a category was removed from the Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
@@ -211,7 +211,7 @@ class CategoryListTest {
     /** Test if a category was removed from the Category List
      * Ignore case and spelling accents
      */
-
+/*
     @Test
     @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
     void removeCategoryFromList() {
@@ -236,7 +236,7 @@ class CategoryListTest {
      * Test if a category was removed from category list
      * Null Case
      */
-
+/*
     @Test
     @DisplayName("Test if a category was removed from the Category List - null case")
     void removeCategoryFromListNullCase() {
@@ -262,7 +262,7 @@ class CategoryListTest {
      * Test if a category was removed from the category list
      * category doesn't exist
      */
-
+/*
     @Test
     @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
     void removeCategoryFromListDoesntExist() {
@@ -288,7 +288,7 @@ class CategoryListTest {
      * Test to add a set of categories to a category list
      * Main Scenario
      */
-
+/*
     @Test
     @DisplayName("Add a Set of Categories to Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
@@ -402,7 +402,7 @@ class CategoryListTest {
      * Test to remove a set of categories from user category list
      * Main Scenario
      */
-
+/*
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToList_MainScenario() {
@@ -433,7 +433,7 @@ class CategoryListTest {
      * See if can remove a category that doesn't exist
      * Test for null
      */
-
+/*
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that doesnt exist " +
             "or null")
@@ -471,7 +471,7 @@ class CategoryListTest {
      * Test to remove a set of categories from a user category list
      * Ignore letter capitalization and special characters
      */
-
+/*
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
