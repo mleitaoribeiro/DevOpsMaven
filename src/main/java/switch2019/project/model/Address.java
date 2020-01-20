@@ -130,10 +130,7 @@ public class Address {
 
     //auxiliary method to Add '-' in case user forget to add it.
     private static String addHyphenToZipCode(String zip) {
-        if (zip.length() == 7) {
             return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
-        }
-        return zip;
     }
 
     /**
