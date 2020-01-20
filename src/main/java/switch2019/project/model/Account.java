@@ -66,7 +66,7 @@ public class Account {
     public void setDenomination(String newDenomination) {
 
         if (newDenomination == null || newDenomination.length() == 0) {
-            throw new IllegalArgumentException("The denomination can´t be null. Please try again.");
+            throw new IllegalArgumentException("The denomination can´t be null or empty!");
 
         } else {
             newDenomination = removeWordAccents(newDenomination);
@@ -91,7 +91,7 @@ public class Account {
 
     public void setDescription(String description) {
         if (description == null || description.length() == 0) {
-            throw new IllegalArgumentException("The description can´t be null. Please try again.");
+            throw new IllegalArgumentException("The description can´t be null or empty!");
         } else {
             this.description = description;
         }

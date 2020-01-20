@@ -65,7 +65,7 @@ class AccountTest {
         }
         //Assert
         catch (IllegalArgumentException denomination) {
-            assertEquals("The denomination can´t be null. Please try again.", denomination.getMessage());
+            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
         }
     }
     @Test
@@ -118,7 +118,24 @@ class AccountTest {
         }
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The description can´t be null. Please try again.", description.getMessage());
+            assertEquals("The description can´t be null or empty!", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test set function for description - Empty")
+    void setDescriptionEmpty() {
+        //Arrange
+        Account oneAccount = new Account ("xpto","xpto account");
+        String newDescription = "";
+        try {
+            //Act
+            oneAccount.setDescription(newDescription);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null or empty!", description.getMessage());
         }
     }
 
