@@ -129,7 +129,7 @@ class CategoryListTest {
                 && newCategoryList.addCategoryToCategoryList(otherCategory);
 
         //Assert
-        assertEquals(true, realResult);
+        assertTrue(realResult);
     }
 
     /**
@@ -186,14 +186,14 @@ class CategoryListTest {
      * Test if a category was removed from the Category List
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
         //Arrange
         String oneCategory = "Saude";
         String otherCategory = "Health";
-        Category otherCategoryObject = new Category("Health");
+        String otherCategoryObject = "Health";
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -211,14 +211,14 @@ class CategoryListTest {
     /** Test if a category was removed from the Category List
      * Ignore case and spelling accents
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
     void removeCategoryFromList() {
         //Arrange
         String oneCategory = "Saude";
         String otherCategory="saúde";
-        Category otherCategoryObject = new Category("saúde");
+        String otherCategoryObject = "saúde";
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -236,14 +236,14 @@ class CategoryListTest {
      * Test if a category was removed from category list
      * Null Case
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - null case")
     void removeCategoryFromListNullCase() {
         //Arrange
         String oneCategory ="Saude";
         String otherCategory= "null";
-        Category otherCategoryObject = null;
+        String otherCategoryObject = null;
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -251,25 +251,28 @@ class CategoryListTest {
         newCategoryList.addCategoryToCategoryList(oneCategory);
         newCategoryList.addCategoryToCategoryList(otherCategory);
         //Remove one Category
-
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
-
+        try {
+            boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
+        }
         //Assert
-        assertFalse(realResult);
+        catch (IllegalArgumentException description) {
+            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+        }
+
     }
 
     /**
      * Test if a category was removed from the category list
      * category doesn't exist
      */
-/*
+
     @Test
     @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
     void removeCategoryFromListDoesntExist() {
         //Arrange
         String oneCategory ="Saude";
         String otherCategory= "Educação";
-        Category otherCategoryObject = new Category("Educação");
+        String otherCategoryObject = "Educação";
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -288,7 +291,7 @@ class CategoryListTest {
      * Test to add a set of categories to a category list
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Add a Set of Categories to Category List - Main Scenario")
     void addMultipleCategoriesToListMainScenario() {
@@ -402,7 +405,7 @@ class CategoryListTest {
      * Test to remove a set of categories from user category list
      * Main Scenario
      */
-/*
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
     void removeMultipleCategoriesToList_MainScenario() {
@@ -419,7 +422,7 @@ class CategoryListTest {
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category (categoryBeauty),new Category( categoryGym)));
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
 
         //Act
         //Remove the set of categories with the method under test
@@ -433,7 +436,7 @@ class CategoryListTest {
      * See if can remove a category that doesn't exist
      * Test for null
      */
-/*
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that doesnt exist " +
             "or null")
@@ -453,10 +456,12 @@ class CategoryListTest {
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
         //Act
         //set of Categories to be removed from Categories List
         try {
-            HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category(categoryCar), new Category(categoryNull), new Category(categoryUniversity)));
+
+            newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove);
         }
         //Assert
         catch (IllegalArgumentException setterEx) {
@@ -471,7 +476,7 @@ class CategoryListTest {
      * Test to remove a set of categories from a user category list
      * Ignore letter capitalization and special characters
      */
-/*
+
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
     void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
@@ -491,7 +496,7 @@ class CategoryListTest {
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(new Category(categoryHealthLowerCase), new Category(categoryGymSpecialCharacter), new Category(categoryBeautyUpperCase)));
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase,categoryGymSpecialCharacter, categoryBeautyUpperCase));
         // Remove the previous categories with the method under test
 
         //Act
