@@ -639,7 +639,7 @@ class PersonTest {
         boolean resultado = person1.isSibling(person2);
 
         //Assert
-        assertEquals(true, resultado);
+        assertTrue(resultado);
     }
 
 
@@ -657,7 +657,7 @@ class PersonTest {
         boolean resultado = person1.isSibling(person2);
 
         //Assert
-        assertEquals(true, resultado);
+        assertTrue(resultado);
     }
 
     @Test
@@ -678,7 +678,7 @@ class PersonTest {
         boolean resultado = person1.isSibling(person2);
 
         //Assert
-        assertEquals(true, resultado);
+        assertTrue(resultado);
     }
 
     /**
@@ -804,11 +804,9 @@ class PersonTest {
 
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
-        String accountDenomination = "Wallet";
-        String accountDescription = "General expenses";
 
         //Act
-        boolean real = onePerson.createAccount(accountDenomination, accountDescription);
+        boolean real = onePerson.createAccount("Wallet", "General expenses");
 
         // assert
         assertTrue(real);
@@ -821,12 +819,10 @@ class PersonTest {
         // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
-        String accountDenomination = "Wallet";
-        String accountDescription = "General expenses";
 
         //Act
-        onePerson.createAccount(accountDenomination, accountDescription);
-        boolean real = onePerson.createAccount(accountDenomination, accountDescription);
+        onePerson.createAccount("Wallet", "General expenses");
+        boolean real = onePerson.createAccount("Wallet", "General expenses");
 
         // assert
         assertFalse(real);
@@ -839,12 +835,9 @@ class PersonTest {
         // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
-        String accountDenomination = null;
-        String accountDescription = "General expenses";
-
         //Act
         try {
-            onePerson.createAccount(accountDenomination,accountDescription);
+            onePerson.createAccount(null,"General expenses");
         }
         //Assert
         catch (IllegalArgumentException denomination) {
@@ -859,12 +852,10 @@ class PersonTest {
         // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
-        String accountDenomination = "";
-        String accountDescription = "General expenses";
 
         //Act
         try {
-            onePerson.createAccount(accountDenomination,accountDescription);
+            onePerson.createAccount("","General expenses");
         }
         //Assert
         catch (IllegalArgumentException denomination) {
@@ -879,12 +870,10 @@ class PersonTest {
         // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
-        String accountDenomination = "Wallet";
-        String accountDescription = null;
 
         //Act
         try {
-            onePerson.createAccount(accountDenomination,accountDescription);
+            onePerson.createAccount("Wallet",null);
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -899,12 +888,10 @@ class PersonTest {
         // Arrange
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
-        String accountDenomination = "Wallet";
-        String accountDescription = "";
 
         //Act
         try {
-            onePerson.createAccount(accountDenomination,accountDescription);
+            onePerson.createAccount("Wallet","");
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -922,11 +909,9 @@ class PersonTest {
         //Arrange
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
 
-        //Category to be included in Category List
-        String category1 = "School expenses";
 
         //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
+        boolean realResult = person1.createCategoryAndAddToCategoryList("School expenses");
 
         //Assert
         assertTrue(realResult);
