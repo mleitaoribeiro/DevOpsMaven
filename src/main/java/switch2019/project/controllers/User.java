@@ -81,7 +81,7 @@ public class User {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
+    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type){
         return person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 

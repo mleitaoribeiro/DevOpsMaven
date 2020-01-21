@@ -702,7 +702,7 @@ class PersonTest {
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         //Act
         boolean result = person.createTransaction(amount, description, category, from, to, type);
@@ -729,7 +729,7 @@ class PersonTest {
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         //Act
         boolean categoryInTheList = person.createTransaction(amount, description, categoryFood, from, to, type);
@@ -756,7 +756,7 @@ class PersonTest {
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");
 
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         //Act
         boolean accountInTheList = person.createTransaction(amount, description, category, accountWallet, accountTransport, type);
@@ -783,7 +783,7 @@ class PersonTest {
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");
 
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         //Act
         boolean accountInTheList = person.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);

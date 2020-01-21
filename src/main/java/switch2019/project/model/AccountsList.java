@@ -43,44 +43,21 @@ public class AccountsList {
      * @param accountDenomination
      * @param accountDescription
      */
-    public boolean addAccountToAccountsList(String accountDenomination, String accountDescription) {
+    public boolean createAndAddAccountToAccountsList(String accountDenomination, String accountDescription) {
         Account oneAccount = new Account(accountDenomination, accountDescription);
         return accounts.add(oneAccount);
     }
 
     /**
-     * method to add several accounts to a list
-     * @param many
-     */
-    /*public boolean addSeveralAccountsToAList (HashSet<Account> many) {
-        for (Account account : many) {
-            this.addAccountToAccountsList(account);
-        }
-        return this.accounts.containsAll(many);
-    }*/
-
-    /**
      * method to remove one account from a list
      * @param accountToBeRemoved
      */
-    /*public boolean removeOneAccountFromAList (Account accountToBeRemoved){
+    public boolean removeOneAccountFromAList (Account accountToBeRemoved){
         if (accountToBeRemoved != null)
             return accounts.remove(accountToBeRemoved);
         else
             return false;
-    }*/
-
-    /**
-     * method to remove several accounts from a list
-     * @param accountsToBeRemoved
-     */
-    /*public boolean removeSeveralAccountsFromAList (HashSet<Account> accountsToBeRemoved) {
-        for (Account account : accountsToBeRemoved) {
-             this.removeOneAccountFromAList(account);
-        }
-        return !this.accounts.containsAll(accountsToBeRemoved);
-    }*/
-
+    }
 
     /**
      * method to validate if the account is in the accounts list

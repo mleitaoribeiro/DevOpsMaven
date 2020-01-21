@@ -17,7 +17,7 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        Type type = new Type(true);
+        boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
@@ -40,7 +40,7 @@ class LedgerTest {
         Account account2 = new Account("transporte", "transporte Metro");
         Category category1 = new Category("grossery");
         Category category2 = new Category("transport");
-        Type type = new Type(true);
+        boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
@@ -64,7 +64,7 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        Type type = new Type(true);
+        boolean type = true;
         Ledger ledger = new Ledger();
 
         //Act
@@ -90,7 +90,7 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        Type type = new Type(true);
+        boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
@@ -116,7 +116,7 @@ class LedgerTest {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
-        Type type = new Type(true);
+        boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
@@ -142,7 +142,7 @@ class LedgerTest {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Category category = new Category("grocery");
-        Type type = new Type(true);
+        boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
@@ -154,32 +154,6 @@ class LedgerTest {
         //Assert
         catch (IllegalArgumentException description) {
             assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
-        }
-    }
-
-    /**
-     * Validate if a transaction was added to ledger list
-     * null type
-     */
-
-    @Test
-    @DisplayName("Test for validating ledger not adding invalid transactions - null type")
-    void addTransactionToLedgerNullTransactionNullType() {
-        //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Category category = new Category("grocery");
-        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Ledger ledger = new Ledger();
-
-        //Act
-        try {
-            ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, account2, null);
-        }
-
-        //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("The type can´t be null. Please try again.", description.getMessage());
         }
     }
 }
