@@ -12,11 +12,10 @@ public class Transaction {
     private Category category;
     private Account accountFrom;
     private Account accountTo;
-    private Type type;
+    private boolean type;
 
     /**
      * Default Transaction constructor
-     *
      * @param amount
      * @param description
      * @param category
@@ -26,7 +25,7 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
+    public Transaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
         this.amount = amount;
         this.description = description;
         this.category = category;
@@ -48,7 +47,7 @@ public class Transaction {
      * @param type
      */
 
-    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
+    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, boolean type) {
         this.amount = amount;
         this.description = description;
         this.date = date;

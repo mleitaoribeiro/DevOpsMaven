@@ -190,7 +190,7 @@ public class Group {
      */
     public boolean demoteMemberFromAdmin(Person member) {
         if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() > 1) {
-            return this.members.remove(member);
+            return this.admins.remove(member);
         }
         return false;
     }
@@ -201,14 +201,13 @@ public class Group {
      * @param multipleMembers
      * @return true if all
      */
-    /*
+
     public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleMembers) {
         for (Person member : multipleMembers) {
             demoteMemberFromAdmin(member);
         }
-        return !admins.containsAll(multipleMembers);
+        return members.containsAll(multipleMembers);
     }
-    */
 
     /**
      * Add account to Group´s Account List
@@ -218,7 +217,7 @@ public class Group {
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
     public boolean addAccountToGroupAccountsList(String accountDenomination, String accountDescription) {
-        return this.groupAccountsList.addAccountToAccountsList(accountDenomination, accountDescription);
+        return this.groupAccountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
     }
 
     /**

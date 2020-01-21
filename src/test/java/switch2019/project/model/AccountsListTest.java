@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,9 +22,9 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        boolean real = accountsList.addAccountToAccountsList("xpto", "one account")
-                && accountsList.addAccountToAccountsList("xyz", "general")
-                && accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+        boolean real = accountsList.createAndAddAccountToAccountsList("xpto", "one account")
+                && accountsList.createAndAddAccountToAccountsList("xyz", "general")
+                && accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
 
         //Assert
         assertTrue(real);
@@ -39,9 +38,9 @@ class AccountsListTest {
 
         //Act
         try {
-            accountsList.addAccountToAccountsList(null, "XOPT");
-            accountsList.addAccountToAccountsList("xyz", "general");
-            accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+            accountsList.createAndAddAccountToAccountsList(null, "XOPT");
+            accountsList.createAndAddAccountToAccountsList("xyz", "general");
+            accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
         }
         //Assert
         catch (IllegalArgumentException denomination) {
@@ -57,9 +56,9 @@ class AccountsListTest {
 
         //Act
         try {
-            accountsList.addAccountToAccountsList("xpto", null);
-            accountsList.addAccountToAccountsList("xyz", "general");
-            accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+            accountsList.createAndAddAccountToAccountsList("xpto", null);
+            accountsList.createAndAddAccountToAccountsList("xyz", "general");
+            accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -74,8 +73,8 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList("xpto", "one account");
-        accountsList.addAccountToAccountsList("xyz", "other Account");
+        accountsList.createAndAddAccountToAccountsList("xpto", "one account");
+        accountsList.createAndAddAccountToAccountsList("xyz", "other Account");
         int result = accountsList.numberOfAccountsInTheAccountsList();
 
         //Assert
@@ -93,7 +92,7 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList("xyz", "general");
+        accountsList.createAndAddAccountToAccountsList("xyz", "general");
 
         boolean real = !accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
                 && accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
@@ -113,9 +112,9 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList("xpto", "cat acccount");
-        accountsList.addAccountToAccountsList("xyz", "general");
-        accountsList.addAccountToAccountsList("Millennium", "Millennium Account");
+        accountsList.createAndAddAccountToAccountsList("xpto", "cat acccount");
+        accountsList.createAndAddAccountToAccountsList("xyz", "general");
+        accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
 
         boolean real = accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
                 && accountsList.validateIfAccountIsInTheAccountsList(otherAccount)
@@ -136,7 +135,7 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList("xpto", "cat acccount");
+        accountsList.createAndAddAccountToAccountsList("xpto", "cat acccount");
 
         boolean expected = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
 
@@ -160,98 +159,6 @@ class AccountsListTest {
     }
 
     /**
-     * Test if several accounts were added to list
-     */
-    /*@Test
-    @DisplayName("Test if several accounts were added to an accounts list - Positive ")
-
-    public void testIfSeveralAccountsWereAdded_Positive (){
-        //Arrange
-        Account butcherAccount =new Account("Butcher", "Talho do Amadeu");
-        Account marketAccount =new Account ("Market","Mercado do Amadeu");
-        Account postAccount =new Account("Post","Correios do Amadeu");
-
-        HashSet<Account> accounts =new HashSet<>(Arrays.asList(butcherAccount,marketAccount,postAccount));
-        AccountsList septemberAccount = new AccountsList();
-
-        //Act
-        boolean real = septemberAccount.addSeveralAccountsToAList(accounts);
-
-        //Assert
-        assertTrue(real);
-    }
-
-
-    @Test
-    @DisplayName("Test if several accounts were added to an accounts list - False ")
-
-    public void testIfSeveralAccountsWereAdded_False_oneAccountIsNull (){
-        //Arrange
-        Account butcherAccount = null;
-        Account marketAccount =new Account ("Market","Mercado do Amadeu");
-        Account postAccount =new Account("Post","Correios do Amadeu");
-
-        HashSet<Account> accounts =new HashSet<>(Arrays.asList(butcherAccount,marketAccount,postAccount));
-        AccountsList septemberAccount = new AccountsList();
-
-        //Act
-        boolean real = septemberAccount.addSeveralAccountsToAList(accounts);
-
-        //Assert
-        assertFalse(real);
-    }
-
-
-    @Test
-    @DisplayName("Test if several accounts were added to an accounts list - Positive ")
-
-    public void testIfSeveralAccountsWereAddedPositive (){
-        //Arrange
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=new Account("Post","Correios do Amadeu");
-
-        HashSet<Account> accounts =new HashSet<>(Arrays.asList(butcher,market,post));
-        int expected = 3;
-        AccountsList september = new AccountsList();
-
-        //Act
-        september.addSeveralAccountsToAList(accounts);
-
-
-        int real = september.numberOfAccountsInTheAccountsList();
-
-
-        //Assert
-        assertEquals(expected,real);
-
-    }
-
-    @Test
-    @DisplayName("Test if several accounts were added to an accounts list - with a null ")
-
-    public void testIfSeveralAccountsWereAddedNull (){
-        //Arrange
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=null;
-
-
-        HashSet<Account> added =new HashSet<>(Arrays.asList(butcher,market,post));
-        int expected = 2;
-
-        AccountsList september = new AccountsList();
-
-        //Act
-        september.addSeveralAccountsToAList(added);
-        int real = september.numberOfAccountsInTheAccountsList();
-
-        //Assert
-        assertEquals(expected,real);
-
-    }*/
-
-    /**
      * Test if two account lists are the same
      */
     @Test
@@ -268,8 +175,8 @@ class AccountsListTest {
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
 
         boolean result = september.equals(aMonth);
 
@@ -294,8 +201,8 @@ class AccountsListTest {
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.addAccountToAccountsList(marketDenomination, marketDescription);
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.createAndAddAccountToAccountsList(marketDenomination, marketDescription);
 
         boolean result = september.equals(aMonth);
 
@@ -321,8 +228,8 @@ class AccountsListTest {
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.addAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
 
 
         //Assert
@@ -345,8 +252,8 @@ class AccountsListTest {
         AccountsList aMonth = new AccountsList();
 
         //Act
-        september.addAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.addAccountToAccountsList(marketDenomination,marketDescription);
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        aMonth.createAndAddAccountToAccountsList(marketDenomination,marketDescription);
 
 
         //Assert
@@ -357,19 +264,16 @@ class AccountsListTest {
     /**
      * Test if Account was removed from list
      */
-    /*@Test
+    @Test
     @DisplayName("Test if an account was removed from an accounts list")
     public void testIfOneAccountWasRemoved (){
         Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=new Account("Post","Correios do Amadeu");
-
-        HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
-
         AccountsList september = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(created);
+        september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
+        september.createAndAddAccountToAccountsList("Market","Mercado do Amadeu");
+        september.createAndAddAccountToAccountsList("Post","Correios do Amadeu");
         september.removeOneAccountFromAList(butcher);
 
         //Assert
@@ -380,125 +284,19 @@ class AccountsListTest {
     @Test
     @DisplayName("Test if an account was removed from an accounts list - not in the list")
     public void testIfOneAccountWasRemovedNotInTheList (){
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=new Account("Post","Correios do Amadeu");
-
-        HashSet<Account> expected =new HashSet<>(Arrays.asList(butcher,market));
-
+        Account post = new Account("Post","Correios do Amadeu");
 
         AccountsList september = new AccountsList();
 
         //Act
-        september.addSeveralAccountsToAList(expected);
+        september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
+        september.createAndAddAccountToAccountsList("Market","Mercado do Amadeu");
         september.removeOneAccountFromAList(post);
 
         //Assert
         assertEquals(2,september.numberOfAccountsInTheAccountsList());
 
     }
-
-    @Test
-    @DisplayName("Test if an account was removed from an accounts list - null")
-    public void testIfOneAccountWasRemovedNull (){
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
-        Account market=new Account ("Market","Mercado do Amadeu");
-        Account post=null;
-
-        HashSet<Account> created =new HashSet<>(Arrays.asList(butcher,market,post));
-
-        AccountsList september = new AccountsList();
-
-        //Act
-        september.addSeveralAccountsToAList(created);
-        september.removeOneAccountFromAList(post);
-
-        //Assert
-        assertEquals(2,september.numberOfAccountsInTheAccountsList());
-
-    }
-
-    @Test
-    @DisplayName("Test if several accounts were removed from an accounts list - Positive ")
-
-    public void testIfSeveralAccountsWereRemovedPositive (){
-        //Arrange
-        Account oneAccount = new Account("xpto", "xpto Account");
-        Account otherAccount = new Account ("xyz","xyz Account");
-        Account anotherAccount = new Account("abc","abc Account");
-
-        HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount, anotherAccount));
-        HashSet<Account> accountsToBeRemoved = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
-        int expected = 1;
-
-        AccountsList oneAccountsList = new AccountsList();
-
-        //Act
-
-        oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
-        oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
-
-        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
-
-        //Arrange
-        assertEquals(expected, real);
-
-    }*/
-
-    /**
-     * Test if several accounts were removed from list
-     */
-    /*@Test
-    @DisplayName("Test if several accounts were removed from an accounts list | OneAccount removed ")
-
-    public void testIfSeveralAccountsWereRemoved_RemoveOneAccount (){
-        //Arrange
-        Account oneAccount = new Account("xpto", "xpto Account");
-        Account otherAccount = new Account ("xyz","xyz Account");
-        Account anotherAccount = new Account("abc","abc Account");
-
-        HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount, anotherAccount));
-        HashSet<Account> accountsToBeRemoved = new HashSet<>(Collections.singletonList(oneAccount));
-        int expected = 2;
-
-        AccountsList oneAccountsList = new AccountsList();
-
-        //Act
-
-        oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
-        oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
-
-        int real = oneAccountsList.numberOfAccountsInTheAccountsList();
-
-        //Arrange
-        assertEquals(expected,real);
-    }
-
-    @Test
-    @DisplayName("Test if several accounts were removed from an accounts list - Account dont Exists On The List ")
-
-    public void testIfSeveralAccountsWereRemoved_AccountDoesntExistsOnTheList (){
-        //Arrange
-        Account oneAccount = new Account("xpto", "xpto Account");
-        Account otherAccount = new Account ("xyz","xyz Account");
-        Account anotherAccount = new Account("abc","abc Account");
-
-        HashSet<Account> accountsToBeAdded = new HashSet<>(Arrays.asList(oneAccount,otherAccount));
-        HashSet<Account> accountsToBeRemoved = new HashSet<>(Collections.singletonList(anotherAccount));
-
-        AccountsList oneAccountsList = new AccountsList();
-
-        //Act
-
-        oneAccountsList.addSeveralAccountsToAList(accountsToBeAdded);
-        oneAccountsList.removeSeveralAccountsFromAList(accountsToBeRemoved);
-
-        boolean real = oneAccountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
-
-        //Arrange
-        assertFalse(real);
-
-    }*/
 
     /**
      * Test if account is in the List
@@ -511,7 +309,7 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList("xpto", "xpto Account");
+        accountsList.createAndAddAccountToAccountsList("xpto", "xpto Account");
         boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
 
         //Arrange
@@ -527,7 +325,7 @@ class AccountsListTest {
         AccountsList accountsList = new AccountsList();
 
         //Act
-        accountsList.addAccountToAccountsList("xpto", "xpto Account");
+        accountsList.createAndAddAccountToAccountsList("xpto", "xpto Account");
         boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
         //Arrange

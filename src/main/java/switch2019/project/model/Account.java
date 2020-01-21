@@ -12,6 +12,7 @@ public class Account {
     public Account(String accountDenomination, String accountDescription) {
         setDenomination(accountDenomination);
         setDescription(accountDescription);
+        balance = 0;
     }
 
     @Override
@@ -25,28 +26,6 @@ public class Account {
     @Override
     public int hashCode() {
         return Objects.hash(denomination, description, balance);
-    }
-
-    //Auxiliary method to remove special Characters
-    private static String removeSpecialCharacters(String sentence) {
-
-        String[] str = sentence.split("[, &´#!%()`>?+.<@;-]+");
-        StringBuilder buildNewStringArray = new StringBuilder();
-
-        for (String element : str) {
-            buildNewStringArray.append(" ").append(element);
-        }
-
-        return buildNewStringArray.toString().replaceFirst(" ", "");
-    }
-
-    //Auxiliary method to remove word accents
-    private static String removeWordAccents(String sentence) {
-
-        sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
-        sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-
-        return sentence;
     }
 
     /**
@@ -73,6 +52,28 @@ public class Account {
             newDenomination = removeSpecialCharacters(newDenomination);
             this.denomination = newDenomination.toUpperCase();
         }
+    }
+
+    //Auxiliary method to remove special Characters
+    private static String removeSpecialCharacters(String sentence) {
+
+        String[] str = sentence.split("[, &´#!%()`>?+.<@;-]+");
+        StringBuilder buildNewStringArray = new StringBuilder();
+
+        for (String element : str) {
+            buildNewStringArray.append(" ").append(element);
+        }
+
+        return buildNewStringArray.toString().replaceFirst(" ", "");
+    }
+
+    //Auxiliary method to remove word accents
+    private static String removeWordAccents(String sentence) {
+
+        sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
+        sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
+        return sentence;
     }
 
     /**

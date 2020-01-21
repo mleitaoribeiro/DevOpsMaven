@@ -12,6 +12,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
+     * Compare the same Group - Should be the Same
+     */
+
+    @Test
+    @DisplayName("Compare the same Group - Should be the Same")
+    public void compareTheSameObject() {
+
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+
+        //Assert
+        assertEquals(group1, group1);
+    }
+
+    /**
      * USER STORY 2 - check if user was added
      * Methods to check if the number of groups in the GroupList is increased
      */
@@ -798,10 +819,11 @@ class GroupTest {
     /**
      * Test used to check if an HashSet of group admins can be demoted to member
      */
-    /*
+
     @Test
-    @DisplayName("Check if multiple admins are demoted")
+    @DisplayName("Check if multiple admins are demoted - True")
     void multipleAdminDemotionTest() {
+
         // Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
@@ -814,16 +836,65 @@ class GroupTest {
         group1.addMember(person2);
         group1.addMember(person3);
         group1.addMember(person4);
-        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3));
+        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
         group1.promoteMultipleMemberToAdmin(membersToPromote);
-        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person2, person3));
+        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person2, person3, person4));
         boolean areAllDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
 
         // Assert:
         assertTrue(areAllDemoted);
-    }//Fazer teste para pessoas nulas
-    */
+    }
 
+    @Test
+    @DisplayName("Check if multiple admins can´t be demoted - FALSE - tring to remove last admin")
+    void multipleAdminsDemotionTestFalse() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("John",1990,06,22,new Address("Bristol"));
+        Person person4 = new Person("Susan",1997,12,11,new Address("Edinburgh"));
+        Group group1 = new Group("Test Group");
+
+        //Act:
+        group1.addMember(person1); // automatically promoted to admin
+        group1.addMember(person2);
+        group1.addMember(person3);
+        group1.addMember(person4);
+        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
+        group1.promoteMultipleMemberToAdmin(membersToPromote);
+        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
+            // Last person will not be removed since if it is, there will be no admins left on the group;
+        boolean isLastAdminDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
+
+        //Assert:
+        assertFalse(isLastAdminDemoted);
+    }
+
+    @Test
+    @DisplayName("Check if multiple admins can´t be demoted - FALSE - tring to remove member that is not part of the group")
+    void multipleAdminsDemotionTestFalseNotInGroup() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
+        Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
+        Person person3 = new Person("John",1990,06,22,new Address("Bristol"));
+        Person person4 = new Person("Susan",1997,12,11,new Address("Edinburgh"));
+        Group group1 = new Group("Test Group");
+
+        //Act:
+        group1.addMember(person1); // automatically promoted to admin
+        group1.addMember(person2);
+        group1.addMember(person3);
+        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3));
+        group1.promoteMultipleMemberToAdmin(membersToPromote);
+        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
+            // person4 is not part of the group
+        boolean isNonMemberDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
+
+        //Assert:
+        assertFalse(isNonMemberDemoted);
+    }
 
     /**
      * Check if a person was promoted to member and group administrator simultaneously
