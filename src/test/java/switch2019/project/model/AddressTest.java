@@ -355,12 +355,12 @@ class AddressTest {
     }
 
     /**
-     * Test to equals method
+     * Test is to address are the same -  Equals method
      */
 
     @Test
-    @DisplayName("Test to validate if the address is the same")
-    void testEqualsSameAddress() {
+    @DisplayName("Test to validate if the address is the same - Same object")
+    void testEqualsSameAddressSameObject() {
         //Arrange
         Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
 
@@ -372,7 +372,21 @@ class AddressTest {
     }
 
     @Test
-    @DisplayName("Test to validate if the address is the same - Null Address")
+    @DisplayName("Test to validate if the address is the same - Other object")
+    void testEqualsSameAddressOtherObject() {
+        //Arrange
+        Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
+        Address address2 = new Address("Rua da Belgica", "Gaia", "4050-262");
+
+        //Act
+        boolean realResult = address1.equals(address2);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("Test to validate if the address is the same - comparison with a Null Address")
     void testEqualsNullAddress() {
         //Arrange
         Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
@@ -384,5 +398,36 @@ class AddressTest {
         //Assert
         assertFalse(realResult);
     }
+
+
+    /**
+     * Test if two addresses have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test if two addresses have the same Hashcode - True")
+    public void testIfTwoAddressesHaveTheSameHashCode() {
+
+        //Arrange & Act
+        Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
+        Address address2 = new Address("Rua da Belgica", "Gaia", "4050-262");
+
+
+        //Assert
+        assertEquals(address1.hashCode(), address2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test if two addresses have the same Hashcode - Not The Same")
+    public void testIfTwoAddressesDontHaveTheSameHashCode() {
+
+        //Arrange & Act
+        Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
+        Address address2 = new Address("Avenida da Republica", "Gaia", "4050-262");
+
+        //Assert
+        assertNotEquals(address1.hashCode(), address2.hashCode());
+    }
+
 
 }

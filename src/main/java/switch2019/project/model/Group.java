@@ -66,7 +66,7 @@ public class Group {
      * @return true if member was added, false if it wasn't
      */
     public boolean addMember(Person person) {
-        if (this.members.size() != 0 && person != null) {
+        if (this.members.size() > 0 && person != null) {
             return members.add(person);
         } else if (person != null) {
             return setAdmin(person);
