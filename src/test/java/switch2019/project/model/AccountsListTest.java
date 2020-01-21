@@ -304,6 +304,25 @@ class AccountsListTest {
         assertTrue(result);
     }
 
+    @Test
+    @DisplayName("Test if two account lists are the same - Different objects")
+    public void testIfTwoAccountListsAreTheSameDifferentObjects() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        Person onePerson = new Person("Maria", 1968, 4, 25, new Address("Santo Adrião"));
+
+        //Act
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        boolean result = september.equals(onePerson);
+
+        //Assert
+        assertFalse(result);
+    }
+
 
     /**
      * Test if two lists are the same
