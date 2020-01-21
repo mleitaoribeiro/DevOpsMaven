@@ -15,6 +15,7 @@ class AccountTest {
     @Test
     @DisplayName("Test if two accounts are the same - true")
     public void testIfTwoAccountsAreTheSame() {
+
         //Arrange
         Account supermarket = new Account("Supermarket", "Weekly spends");
         Account supermercado = new Account("Supermarket", "Weekly spends");
@@ -29,6 +30,7 @@ class AccountTest {
     @Test
     @DisplayName("Test if two accounts are the same - false")
     public void testIfTwoAccountsAreTheSameNoBeing() {
+
         //Arrange
         Account supermarket = new Account("Supermarket", "Weekly spends");
         Account supermercado = new Account("Supermarket", "Monthly spends");
@@ -43,8 +45,10 @@ class AccountTest {
     @Test
     @DisplayName("Test if two accounts are the same - Same Account")
     public void testIfTwoAccountsAreTheSame_SameAccount() {
+
         //Arrange
         Account oneAccount = new Account("Supermarket", "Weekly spends");
+
         //Act
         boolean result = oneAccount.equals(oneAccount);
 
@@ -58,12 +62,47 @@ class AccountTest {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
         Account otherAccount = null;
+
         //Act
         boolean result = oneAccount.equals(otherAccount);
 
         //Assert
         assertFalse(result);
     }
+
+    @Test
+    @DisplayName("Test if two accounts are the same - diferent objects")
+    public void testIfTwoAccountsAreTheSame_DiferentObjects() {
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto account");
+        Person onePerson = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Act
+        boolean result = oneAccount.equals(onePerson);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test if two lists have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test if two accounts are the same - one Account is Null")
+    public void testIfTwoAccountsHaveTheSameHashCode_Same() {
+
+        //Arrange & Act
+        Account oneAccount = new Account("xpto", "xpto account");
+        Account otherAccount = new Account("xpto", "xpto account");
+
+        //Assert
+        assertEquals(oneAccount.hashCode(), otherAccount.hashCode());
+    }
+
+    /**
+     * Test set function for denomination
+     */
 
     @Test
     @DisplayName("Test set function for denomination")
@@ -117,6 +156,9 @@ class AccountTest {
         assertEquals(expected, football.getDenomination());
     }
 
+    /**
+     * Test set function for description
+     */
 
     @Test
     @DisplayName("Test set function for description")
