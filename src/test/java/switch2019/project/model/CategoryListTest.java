@@ -125,6 +125,31 @@ class CategoryListTest {
         assertEquals(oneCategoryList.hashCode(), otherCategoryList.hashCode());
     }
 
+    /**
+     * Test if two CategoriesList are the same when created from different classes or null
+     *
+     */
+    @Test
+    @DisplayName("test if two CategoriesList are the same when created from different classes")
+    public void testIfTwoAccountListsAreTheSameDifferentClasses() {
+        //Arrange
+        CategoryList oneCategoryList = new CategoryList();
+        GroupsList otherCategoryList = new GroupsList();
+
+        //Assert
+        assertNotEquals(oneCategoryList, otherCategoryList);
+    }
+
+    @Test
+    @DisplayName("test if two CategoriesList are the same when null")
+    public void testIfTwoAccountListsAreTheSameNull() {
+        //Arrange
+        CategoryList oneCategoryList = null;
+        GroupsList otherCategoryList = new GroupsList();
+
+        //Assert
+        assertNotEquals(oneCategoryList, otherCategoryList);
+    }
 
     /**
      * Test if one category was added to the Category List
