@@ -116,6 +116,22 @@ class AccountTest {
         //Assert
         assertEquals(expected, football.getDenomination());
     }
+    @Test
+    @DisplayName("Test set function for denomination - Empty")
+    void setDenominationEmpty() {
+        //Arrange
+        Account butcher = new Account ("Butcher","Talho do Amadeu");
+        String newDenomination = "";
+        try {
+            //Act
+            butcher.setDenomination(newDenomination);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The denomination can´t be null or empty!", description.getMessage());
+        }
+    }
 
 
     @Test
