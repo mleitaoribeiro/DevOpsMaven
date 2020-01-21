@@ -44,7 +44,7 @@ class AccountTest {
 
     @Test
     @DisplayName("Test if two accounts are the same - Same Account")
-    public void testIfTwoAccountsAreTheSame_SameAccount() {
+    public void testIfSameObject() {
 
         //Arrange
         Account oneAccount = new Account("Supermarket", "Weekly spends");
@@ -58,7 +58,7 @@ class AccountTest {
 
     @Test
     @DisplayName("Test if two accounts are the same - one Account is Null")
-    public void testIfTwoAccountsAreTheSame_oneAccountIsNull() {
+    public void testIfTwoAccountsAreTheSameOneAccountIsNull() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
         Account otherAccount = null;
@@ -72,7 +72,7 @@ class AccountTest {
 
     @Test
     @DisplayName("Test if two accounts are the same - diferent objects")
-    public void testIfTwoAccountsAreTheSame_DiferentObjects() {
+    public void testIfTwoAccountsAreTheSameDiferentObjects() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
         Person onePerson = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
@@ -89,8 +89,8 @@ class AccountTest {
      */
 
     @Test
-    @DisplayName("Test if two accounts are the same - one Account is Null")
-    public void testIfTwoAccountsHaveTheSameHashCode_Same() {
+    @DisplayName("Test if two lists have the same Hashcode - True")
+    public void testIfTwoAccountsHaveTheSameHashCode() {
 
         //Arrange & Act
         Account oneAccount = new Account("xpto", "xpto account");
@@ -98,6 +98,18 @@ class AccountTest {
 
         //Assert
         assertEquals(oneAccount.hashCode(), otherAccount.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test if two lists have the same Hashcode - Not The Same")
+    public void testIfTwoAccountsDontHaveTheSameHashCode() {
+
+        //Arrange & Act
+        Account oneAccount = new Account("xpto", "xpto account");
+        Account otherAccount = new Account("xyz", "xyz account");
+
+        //Assert
+        assertNotEquals(oneAccount.hashCode(), otherAccount.hashCode());
     }
 
     /**
