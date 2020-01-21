@@ -889,6 +889,10 @@ class PersonTest {
         assertTrue(realResult);
     }
 
+    /**
+     * * Tests to validate if two persons are equal with only the birthdate different
+     *
+     */
     @Test
     @DisplayName("Check if two persons are the same if they have different ages")
     void checkEqualsSameAttributesButDifferentAge() {
@@ -898,6 +902,22 @@ class PersonTest {
 
         //Act
         boolean realResult = person1.equals(person2);
+
+        //Assert
+        assertFalse(realResult);
+    }
+
+    @Test
+    @DisplayName("Check if two persons are the same if they have different ages")
+    void checkEqualsSameAttributesButDifferentAge2ndConstructor() {
+        //Arrange
+        Person person1 = new Person("Mae do Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Pai do Alexandre", 1950, 1, 19, new Address("Porto"));
+        Person person3 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"), person1, person2);
+        Person person4 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"), person1, person2);
+
+        //Act
+        boolean realResult = person3.equals(person4);
 
         //Assert
         assertFalse(realResult);
