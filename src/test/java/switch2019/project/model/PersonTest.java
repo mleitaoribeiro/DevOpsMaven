@@ -1011,4 +1011,25 @@ class PersonTest {
         //Assert
         assertEquals(person1.hashCode(), person2.hashCode());
     }
+
+    /**
+     * Test to check the number os categories in the CategoryList
+     */
+    @Test
+    @DisplayName("Check the number of categories in the CategoryList")
+    void numberOfCategoryInTheCategoryList() {
+        //Arrange
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        String categoryDescriptionOne = "Health";
+        String categoryDescriptionTwo="Saude";
+        String categoryDescriptionThree="paz";
+        HashSet<String> categoriesList=new HashSet<>(Arrays.asList(categoryDescriptionOne,categoryDescriptionTwo,categoryDescriptionThree));
+        person1.createAndAddMultipleCategoriesToList(categoriesList);
+
+        //Act
+        int result = person1.numberOfCategoryInTheCategoryList();
+
+        //Assert
+        assertEquals(3,result);
+    }
 }
