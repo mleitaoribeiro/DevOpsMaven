@@ -902,4 +902,54 @@ class PersonTest {
         //Assert
         assertFalse(realResult);
     }
+
+    /**
+     * * Tests to validate if a person is another person's mother
+     *
+     */
+    @Test
+    @DisplayName("Check if a given person anothers' mother - true")
+    void checkIsMotherTrue() {
+        //Arrange
+        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Marta", 1950, 1, 19, new Address("Porto"));
+        person1.setMother(person2);
+
+        //Act
+        boolean realResult = person1.isMother(person2);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("Check if a given person anothers' mother - false")
+    void checkIsMotherFalse() {
+        //Arrange
+        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Marta", 1980, 1, 19, new Address("Porto"));
+        Person person3 = new Person("Diana", 1970, 2, 8, new Address("Porto"));
+        person1.setMother(person2);
+
+        //Act
+        boolean realResult = person1.isMother(person3);
+
+        //Assert
+        assertFalse(realResult);
+    }
+
+    @Test
+    @DisplayName("Check if a given person anothers' mother - false null case")
+    void checkIsMotherFalseNull() {
+        //Arrange
+        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Marta", 1980, 1, 19, new Address("Porto"));
+        person1.setMother(null);
+
+        //Act
+        boolean realResult = person1.isMother(person2);
+
+        //Assert
+        assertFalse(realResult);
+    }
 }
