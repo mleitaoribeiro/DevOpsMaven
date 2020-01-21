@@ -33,7 +33,7 @@ public class User {
      *
      * @param category category
      */
-    public boolean removeCategoryFromList(Category category){
+    public boolean removeCategoryFromList(String category){
         return person.removeCategoryFromList(category);
     }
 
