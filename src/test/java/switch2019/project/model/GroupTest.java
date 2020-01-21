@@ -401,6 +401,80 @@ class GroupTest {
         assertTrue(removeSingleMember);
     }
 
+    /**
+     * Test if member was removed from Group - null member
+     */
+    @Test
+    @DisplayName("Test if a null member was removed from a Group")
+    void removeNullMemberFromGroup() {
+
+        //Arrange
+        Group group1 = new Group("Grupo a ser submetido aos testes");
+
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
+        Person person3 = null;
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
+
+        //Act
+        group1.addMultipleMembers(putMembers);
+
+        boolean removeSingleMember = group1.removeMember(person3);
+
+        //Assert
+        assertFalse(removeSingleMember);
+    }
+
+    /**
+     * Test if an Administrator was removed from the Group in case he's the only Admin - Shouldn't work
+     */
+
+    @Test
+    @DisplayName("Test if a member, not null, that is the only administrator is removed - false")
+    void removeTheOnlyAdministratorFromGroup() {
+
+        //Arrange
+        Group group1 = new Group("OS FIXES");
+
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person3 = new Person("Diana", 1995, 12, 4, new Address("Porto"));
+
+        //Act
+        group1.addMember(person1); //Admin
+        group1.addMember(person3);
+
+        boolean removeAdmin = group1.removeMember(person1);
+
+        //Assert
+        assertFalse(removeAdmin);
+    }
+
+    /**
+     * Test if an Administrator was removed from the Group in case he's the only Admin - Shouldn't work
+     */
+
+    @Test
+    @DisplayName("Test if one of the administrators is removed - true em case more then one")
+    void removeTheOneOfTheAdministratorFromGroup() {
+
+        //Arrange
+        Group group1 = new Group("OS FIXES");
+
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person2 = new Person("Mariana", 1995, 9, 4, new Address("Porto"));
+        Person person3 = new Person("Diana", 1995, 12, 4, new Address("Porto"));
+
+        //Act
+        group1.addMember(person1); //Admin
+        group1.setAdmin(person2); //Admin
+        group1.addMember(person3);
+
+        boolean removeAdmin = group1.removeMember(person1);
+
+        //Assert
+        assertTrue(removeAdmin);
+    }
+
     @Test
     @DisplayName("Test if a member was removed from a Group")
     void removeMemberFromGroupNullPerson() {
