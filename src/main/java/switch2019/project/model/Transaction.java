@@ -104,7 +104,5 @@ public class Transaction {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         date = LocalDateTime.parse(dateNow.format(formatter), formatter);
 
-        // for the future to return a date without the 'T' in the middle
-        // System.out.println("STRING: " + date.format(formatter));
     }
 }
