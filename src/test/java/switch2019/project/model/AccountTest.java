@@ -89,7 +89,7 @@ class AccountTest {
      */
 
     @Test
-    @DisplayName("Test if two accounts are the same - one Account is Null")
+    @DisplayName("Test if two lists have the same Hashcode - True")
     public void testIfTwoAccountsHaveTheSameHashCode_Same() {
 
         //Arrange & Act
@@ -98,6 +98,18 @@ class AccountTest {
 
         //Assert
         assertEquals(oneAccount.hashCode(), otherAccount.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test if two lists have the same Hashcode - Not The Same")
+    public void testIfTwoAccountsHaveTheSameHashCode_NotTheSame() {
+
+        //Arrange & Act
+        Account oneAccount = new Account("xpto", "xpto account");
+        Account otherAccount = new Account("xyz", "xyz account");
+
+        //Assert
+        assertNotEquals(oneAccount.hashCode(), otherAccount.hashCode());
     }
 
     /**
