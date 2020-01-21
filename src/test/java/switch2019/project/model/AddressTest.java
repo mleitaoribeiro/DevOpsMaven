@@ -325,7 +325,7 @@ class AddressTest {
         boolean expected = isNumeric (city);
 
         //Assert
-        assertEquals(expected, false);
+        assertEquals(false, expected);
     }
 
     @Test
@@ -338,7 +338,7 @@ class AddressTest {
         boolean expected = isNumeric (city);
 
         //Assert
-        assertEquals(expected, true);
+        assertEquals(true, expected);
     }
 
     @Test
@@ -351,7 +351,7 @@ class AddressTest {
         boolean expected = isNumeric (city);
 
         //Assert
-        assertEquals(expected, false);
+        assertEquals(false, expected);
     }
 
     /**
