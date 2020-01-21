@@ -23,13 +23,36 @@ class GroupTest {
         Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
         Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
         Group group1 = new Group("Amigos");
-
-        //Act
         group1.addMember(person1);
         group1.addMember(person2);
 
+        //Act
+        boolean result = group1.equals(group1);
+
         //Assert
-        assertEquals(group1, group1);
+        assertTrue(result);
+    }
+
+    /**
+     * Compare a Group with a null Group
+     */
+
+    @Test
+    @DisplayName("Compare one Group with a null Group")
+    public void equalsWithNullGroup() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+        group1.addMember(person1);
+        group1.addMember(person2);
+        Group group2 = null;
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertFalse(result);
     }
 
     /**
