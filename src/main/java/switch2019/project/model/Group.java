@@ -203,10 +203,13 @@ public class Group {
      */
 
     public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleMembers) {
+        if (multipleMembers.size() >= this.admins.size()){
+            return false;
+        }
         for (Person member : multipleMembers) {
             demoteMemberFromAdmin(member);
         }
-        return members.containsAll(multipleMembers);
+        return members.containsAll(multipleMembers) && !admins.containsAll(multipleMembers);
     }
 
     /**
