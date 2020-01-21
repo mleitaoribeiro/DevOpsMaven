@@ -206,7 +206,7 @@ public class Group {
         for (Person member : multipleMembers) {
             demoteMemberFromAdmin(member);
         }
-        return admins.containsAll(multipleMembers);
+        return members.containsAll(multipleMembers);
     }
 
     /**
