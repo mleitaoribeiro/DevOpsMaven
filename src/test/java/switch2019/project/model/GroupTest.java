@@ -1201,6 +1201,11 @@ class GroupTest {
 
     }
 
+
+    /**
+     * Check if a Group is the same as another with Hashcode
+     */
+    
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
@@ -1219,6 +1224,40 @@ class GroupTest {
         //Assert
         assertTrue(realResult);
 
+    }
+
+    @Test
+    @DisplayName("test if two Groups are the same")
+    public void testIfTwoGroupsAreTheSameHashcode() {
+        //Arrange
+
+        Group group1 = new Group("Talho do Amadeu");
+        Group group2 = new Group("Talho do Amadeu");
+
+        //Act
+        int g1 = group1.hashCode();
+        int g2 = group2.hashCode();
+
+
+        //Assert
+        assertEquals(g1, g2);
+    }
+
+    @Test
+    @DisplayName("test if two Groups are the same")
+    public void testIfTwoGroupsAreTheSameHashcodeFalse() {
+        //Arrange
+
+        Group group1 = new Group("Talho do Amadeu");
+        Group group2 = new Group("Talho do João");
+
+        //Act
+        int g1 = group1.hashCode();
+        int g2 = group2.hashCode();
+
+
+        //Assert
+        assertNotEquals(g1, g2);
     }
 
     /**
