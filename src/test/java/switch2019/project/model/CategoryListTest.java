@@ -12,6 +12,44 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryListTest {
 
     /**
+     *
+     * Tests for the CategoryList HashCode
+     */
+    @Test
+    @DisplayName("Test if two Category Lists with the same categories have the same HashCode")
+    public void compareTwoCategoryListsHashCode() {
+
+        //Arrange:
+        CategoryList firstCategoryList = new CategoryList();
+        CategoryList secondCategoryList = new CategoryList();
+
+        //Act:
+        firstCategoryList.addCategoryToCategoryList("cinema");
+        firstCategoryList.addCategoryToCategoryList("jantares");
+        secondCategoryList.addCategoryToCategoryList("cinema");
+        secondCategoryList.addCategoryToCategoryList("jantares");
+
+        //Assert:
+        assertEquals(firstCategoryList.hashCode(), secondCategoryList.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test if two Category Lists with different categories, have different HashCodes")
+    public void compareTwoCategoryListsHashCodeFalse(){
+
+        //Arrange:
+        CategoryList firstCategoryList = new CategoryList();
+        CategoryList secondCategoryList = new CategoryList();
+
+        //Act:
+        firstCategoryList.addCategoryToCategoryList("cinema");
+        secondCategoryList.addCategoryToCategoryList("jantares");
+
+        //Assert:
+        assertNotEquals(firstCategoryList.hashCode(), secondCategoryList.hashCode());
+    }
+
+    /**
      * Test to see if two Category Lists are the same
      * Main Scenario
      **/
