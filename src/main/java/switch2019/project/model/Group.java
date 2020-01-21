@@ -141,8 +141,9 @@ public class Group {
         if (dadPerson == null || momPerson == null) return false;
 
         for (Person person : members) {
-            if (!person.equals(dadPerson) && !person.equals(momPerson))
+            if (!person.equals(dadPerson) && !person.equals(momPerson)) {
                 if (!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
+            }
         }
         return true;
     }
