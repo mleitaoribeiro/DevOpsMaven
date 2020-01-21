@@ -995,13 +995,12 @@ class PersonTest {
         //Arrange
 
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"));
-        Person person3 = new Person("Maria", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Maria", 1996, 3, 4, new Address("Porto"));
         person1.setFather(null);
 
         //Act
 
-        boolean result = person1.isFather(person3);
+        boolean result = person1.isFather(person2);
         //
         assertFalse(result);
     }
