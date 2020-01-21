@@ -140,4 +140,32 @@ class CategoryTest {
         //Assert
         assertEquals(false, realResult);
     }
+
+    /**
+     * Test if two objects have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test if two categories are the same - same HashCode")
+    public void testIfTwoCategoriesHaveTheSameHashCodeSame() {
+
+        //Arrange & Act
+        Category category1 = new Category("Health");
+        Category category2 = new Category("Health");
+
+        //Assert
+        assertEquals(category1.hashCode(), category2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test if two categories are the same - not the same HashCode")
+    public void testIfTwoCategoriesHaveTheSameHashCodeNotSame() {
+
+        //Arrange & Act
+        Category category1 = new Category("Health");
+        Category category2 = new Category("Education");
+
+        //Assert
+        assertNotEquals(category1.hashCode(), category2.hashCode());
+    }
 }
