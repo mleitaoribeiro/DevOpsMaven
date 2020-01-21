@@ -12,6 +12,7 @@ public class Account {
     public Account(String accountDenomination, String accountDescription) {
         setDenomination(accountDenomination);
         setDescription(accountDescription);
+        balance = 0;
     }
 
     @Override

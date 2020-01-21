@@ -48,23 +48,23 @@ public class User {
         return person.createAndAddMultipleCategoriesToList(categories);
     }
 
-    /**
+   /* *//**
      * Remove multiple categories from CategoryList
      *
      * @param categories<Category> categories
-     */
-    public boolean removeMultipleCategoriesToList(HashSet<String> categories){
+     *//*
+    public boolean removeMultipleCategoriesToList(HashSet<Category> categories){
         return person.removeMultipleCategoriesToList(categories);
 
     }
 
-    /**Method to get the numbers of Categories in the Category List
+    *//**Method to get the numbers of Categories in the Category List
      *
-     */
+     *//*
     public int numberOfCategoryInTheCategoryList() {
         return person.numberOfCategoryInTheCategoryList();
     }
-
+*/
     /**
      * Develop method to create a new transaction | USER STORY - 08:
      * 
@@ -81,7 +81,7 @@ public class User {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type){
+    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type){
         return person.createTransaction(amount, description, category, accountFrom, accountTo, type);
     }
 

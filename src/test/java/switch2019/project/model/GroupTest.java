@@ -12,6 +12,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
+     * Compare the same Group - Should be the Same
+     */
+
+    @Test
+    @DisplayName("Compare the same Group - Should be the Same")
+    public void compareTheSameObject() {
+
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+
+        //Act
+        group1.addMember(person1);
+        group1.addMember(person2);
+
+        //Assert
+        assertEquals(group1, group1);
+    }
+
+    /**
      * USER STORY 2 - check if user was added
      * Methods to check if the number of groups in the GroupList is increased
      */

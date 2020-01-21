@@ -30,5 +30,5 @@ deactivate "person1:Person" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(accountCreatedAndAdded)
+":Test" -> ":Test" : assertTrue(createAccount)
 @enduml

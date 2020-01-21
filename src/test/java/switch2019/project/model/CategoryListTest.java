@@ -200,6 +200,7 @@ class CategoryListTest {
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
         newCategoryList.addCategoryToCategoryList(otherCategory);
+
         //Remove one Category
 
         boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);

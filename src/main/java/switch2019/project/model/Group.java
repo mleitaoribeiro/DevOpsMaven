@@ -217,7 +217,7 @@ public class Group {
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
     public boolean addAccountToGroupAccountsList(String accountDenomination, String accountDescription) {
-        return this.groupAccountsList.addAccountToAccountsList(accountDenomination, accountDescription);
+        return this.groupAccountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
     }
 
     /**
