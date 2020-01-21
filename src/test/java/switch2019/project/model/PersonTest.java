@@ -856,8 +856,8 @@ class PersonTest {
         //Arrange
         Person person1 = new Person("Mae do Alexandre", 1996, 3, 4, new Address("Porto"));
         Person person2 = new Person("Pai do Alexandre", 1950, 1, 19, new Address("Porto"));
-        Person person3 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"), person1, person2);
-        Person person4 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"));
+        Person person3 = new Person("Alexandre", 1996, 1, 4, new Address("Porto"), person1, person2);
+        Person person4 = new Person("Alexandre", 1996, 1, 4, new Address("Porto"));
         person4.setMother(person1);
         person4.setFather(person2);
 
@@ -865,7 +865,7 @@ class PersonTest {
         boolean realResult = person3.equals(person4);
 
         //Assert
-        assertFalse(realResult);
+        assertTrue(realResult);
     }
 
     /**
