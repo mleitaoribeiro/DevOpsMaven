@@ -66,7 +66,7 @@ public class Group {
      * @return true if member was added, false if it wasn't
      */
     public boolean addMember(Person person) {
-        if (this.members.size() != 0 && person != null) {
+        if (this.members.size() > 0 && person != null) {
             return members.add(person);
         } else if (person != null) {
             return setAdmin(person);
@@ -98,10 +98,13 @@ public class Group {
      * @return true if multiple members were added, false if they weren't
      */
     public boolean addMultipleMembers(HashSet<Person> newMembers) {
-        for (Person member : newMembers) {
-            addMember(member);
+        if (members.size() != 0 ) {
+            for (Person member : newMembers) {
+                addMember(member);
+            }
+            return this.members.containsAll(newMembers);
         }
-        return this.members.containsAll(newMembers);
+        else throw new IllegalArgumentException("You can't add multiple members to an empty group");
     }
 
     /**
@@ -189,7 +192,7 @@ public class Group {
      * @return true if group admin was demoted, false if it wasn't
      */
     public boolean demoteMemberFromAdmin(Person member) {
-        if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() > 1) {
+        if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() >= 2) {
             return this.admins.remove(member);
         }
         return false;

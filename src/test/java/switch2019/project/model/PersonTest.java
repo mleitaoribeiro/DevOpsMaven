@@ -857,7 +857,9 @@ class PersonTest {
         Person person1 = new Person("Mae do Alexandre", 1996, 3, 4, new Address("Porto"));
         Person person2 = new Person("Pai do Alexandre", 1950, 1, 19, new Address("Porto"));
         Person person3 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"), person1, person2);
-        Person person4 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"), person1, person2);
+        Person person4 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"));
+        person4.setMother(person1);
+        person4.setFather(person2);
 
         //Act
         boolean realResult = person3.equals(person4);
@@ -1001,6 +1003,7 @@ class PersonTest {
         assertEquals(person1.hashCode(), person2.hashCode());
     }
 
+    @Test
     @DisplayName("Test if two persons have the same Hashcode - False")
     public void testIfTwoPersonsHaveTheSameHashCodeFalse() {
 
@@ -1009,7 +1012,28 @@ class PersonTest {
         Person person2 = new Person("Marta", 1996, 4, 27, new Address("Porto"));
 
         //Assert
-        assertEquals(person1.hashCode(), person2.hashCode());
+        assertNotEquals(person1.hashCode(), person2.hashCode());
+    }
+
+    /**
+     * * Tests to validate if a category was added to Category List
+     */
+    @Test
+    @DisplayName("Check if a category was added to Category List - Main Scenario")
+    void removeMultipleCategoriesToListMainScenario() {
+        //Arrange
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        person1.createCategoryAndAddToCategoryList("food");
+        person1.createCategoryAndAddToCategoryList("car");
+        person1.createCategoryAndAddToCategoryList("dog");
+        person1.createCategoryAndAddToCategoryList("school");
+        person1.createCategoryAndAddToCategoryList("drinks");
+
+        //Act
+        boolean result = person1.removeMultipleCategoriesToList(new HashSet<>(Arrays.asList("dog", "school", "drinks")));
+
+        //Assert
+        assertTrue(result);
     }
 
     /**

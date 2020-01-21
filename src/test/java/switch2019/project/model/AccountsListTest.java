@@ -211,6 +211,119 @@ class AccountsListTest {
 
     }
 
+    @Test
+    @DisplayName("Test if two account lists are the same - null denomination")
+
+    public void testIfTwoAccountListsAreTheSameNull() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        String marketDescription = "Mercado do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        try {
+            september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+            aMonth.createAndAddAccountToAccountsList(null, marketDescription);
+        }
+
+        //Assert
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if two account lists are the same - null description")
+
+    public void testIfTwoAccountListsAreTheSameNullDescription() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+        String marketDenomination = "Market";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        try {
+            september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+            aMonth.createAndAddAccountToAccountsList(marketDenomination, null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null or empty!", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if two account lists are the same - one of them is null")
+
+    public void testIfTwoAccountListsAreTheSameOneIsNull() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = null;
+
+        //Act
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+
+        boolean result = september.equals(aMonth);
+
+        //Assert
+        assertEquals(false, result);
+    }
+
+    @Test
+    @DisplayName("Test if two account lists are the same -  Same List")
+    public void testIfTwoAccountListsAreTheSameBeingTheSame() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+
+        //Act
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+
+        boolean result = september.equals(september);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if two account lists are the same - Different objects")
+    public void testIfTwoAccountListsAreTheSameDifferentObjects() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        Person onePerson = new Person("Maria", 1968, 4, 25, new Address("Santo Adrião"));
+
+        //Act
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        boolean result = september.equals(onePerson);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
     /**
      * Test if two lists are the same
      * With Hashcode
@@ -253,7 +366,7 @@ class AccountsListTest {
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.createAndAddAccountToAccountsList(marketDenomination,marketDescription);
+        aMonth.createAndAddAccountToAccountsList(marketDenomination, marketDescription);
 
 
         //Assert
@@ -261,42 +374,84 @@ class AccountsListTest {
     }
 
 
+
+
     /**
      * Test if Account was removed from list
      */
+
     @Test
     @DisplayName("Test if an account was removed from an accounts list")
-    public void testIfOneAccountWasRemoved (){
-        Account butcher=new Account("Butcher", "Talho do Amadeu");
+    public void testIfOneAccountWasRemoved() {
+        Account butcher = new Account("Butcher", "Talho do Amadeu");
         AccountsList september = new AccountsList();
 
         //Act
         september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
-        september.createAndAddAccountToAccountsList("Market","Mercado do Amadeu");
-        september.createAndAddAccountToAccountsList("Post","Correios do Amadeu");
+        september.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
+        september.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
         september.removeOneAccountFromAList(butcher);
 
         //Assert
-        assertEquals(2,september.numberOfAccountsInTheAccountsList());
+        assertEquals(2, september.numberOfAccountsInTheAccountsList());
 
     }
 
     @Test
     @DisplayName("Test if an account was removed from an accounts list - not in the list")
-    public void testIfOneAccountWasRemovedNotInTheList (){
-        Account post = new Account("Post","Correios do Amadeu");
+    public void testIfOneAccountWasRemovedNotInTheList() {
+        Account post = new Account("Post", "Correios do Amadeu");
 
         AccountsList september = new AccountsList();
 
         //Act
         september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
-        september.createAndAddAccountToAccountsList("Market","Mercado do Amadeu");
+        september.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
         september.removeOneAccountFromAList(post);
 
         //Assert
-        assertEquals(2,september.numberOfAccountsInTheAccountsList());
+        assertEquals(2, september.numberOfAccountsInTheAccountsList());
 
     }
+
+    @Test
+    @DisplayName("Test if an account was removed from an accounts list - Account Null")
+    public void testIfOneAccountWasRemovedNull() {
+
+        //Arrange
+        Account oneAccount = null;
+        AccountsList oneAccountsList = new AccountsList();
+
+        //Act
+        oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
+        boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
+
+        //Assert
+        assertFalse(real);
+
+    }
+
+    @Test
+    @DisplayName("Test if an account was removed from an accounts list - True")
+    public void testIfOneAccountWasRemovedTrue() {
+
+        //Arrange
+        Account oneAccount = new Account("Post", "Correios do Amadeu");
+        AccountsList oneAccountsList = new AccountsList();
+
+        //Act
+        oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
+        boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
+
+        //Assert
+        assertTrue(real);
+
+    }
+
 
     /**
      * Test if account is in the List
