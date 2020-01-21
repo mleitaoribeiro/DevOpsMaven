@@ -211,6 +211,63 @@ class AccountsListTest {
 
     }
 
+    @Test
+    @DisplayName("Test if two account lists are the same - null denomination")
+
+    public void testIfTwoAccountListsAreTheSameNull() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        String marketDescription = "Mercado do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+        AccountsList aMonth = new AccountsList();
+
+        //Act
+        try {
+            september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+            aMonth.createAndAddAccountToAccountsList(null, marketDescription);
+        }
+
+        //Assert
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
+        }
+    }
+
+        @Test
+        @DisplayName("Test if two account lists are the same - null description")
+
+        public void testIfTwoAccountListsAreTheSameNullDescription() {
+            //Arrange
+            String butcherDenomination = "Butcher";
+            String butcherDescription = "Talho do Amadeu";
+
+            String marketDenomination = "Market";
+
+
+
+            AccountsList september = new AccountsList();
+            AccountsList aMonth = new AccountsList();
+
+            //Act
+            try {
+                september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+                aMonth.createAndAddAccountToAccountsList(marketDenomination, null);
+            }
+
+            //Assert
+            catch (IllegalArgumentException description) {
+                assertEquals("The description can´t be null or empty!", description.getMessage());
+            }
+
+
+    }
+
+
     /**
      * Test if two lists are the same
      * With Hashcode
