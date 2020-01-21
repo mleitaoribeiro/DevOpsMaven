@@ -13,7 +13,7 @@ class MonetaryValueTest {
      * Validate if an amount is positive
       */
     @Test
-    @DisplayName("Test for validating monetarValue Positive-true")
+    @DisplayName("Test for validating monetaryValue Positive-true")
     void validateIfAmountIsPositive() {
         //Arrange
         MonetaryValue monetaryValue1 = new MonetaryValue(2.00, Currency.getInstance("EUR"));
@@ -26,14 +26,28 @@ class MonetaryValueTest {
 
 
     @Test
-    @DisplayName("Test for validating monetarValue Negative-false")
+    @DisplayName("Test for validating monetaryValue Negative-false")
     void validateIfAmountIsNegative() {
         //Arrange
         MonetaryValue monetaryValue1 = new MonetaryValue(-2.00, Currency.getInstance("EUR"));
         //Act
-        boolean validateIfAmountIsPostive = monetaryValue1.validateIfAmountIsPositive();
+        boolean validateIfAmountIsPositive = monetaryValue1.validateIfAmountIsPositive();
 
         //Assert
-        assertFalse(validateIfAmountIsPostive);
+        assertFalse(validateIfAmountIsPositive);
     }
+
+    @Test
+    @DisplayName("Test for validating monetaryValue Positive-boundaryTest")
+    void validateIfAmountIsPositiveBoundary() {
+        //Arrange
+        MonetaryValue monetaryValue1 = new MonetaryValue(0.00, Currency.getInstance("EUR"));
+
+        //Act
+        boolean validateIfAmountIsPositive = monetaryValue1.validateIfAmountIsPositive();
+
+        //Assert
+        assertEquals(false, validateIfAmountIsPositive);
+    }
+
 }
