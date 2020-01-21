@@ -417,6 +417,8 @@ class AccountsListTest {
     @Test
     @DisplayName("Test if an account was removed from an accounts list - Account Null")
     public void testIfOneAccountWasRemovedNull() {
+
+        //Arrange
         Account oneAccount = null;
         AccountsList oneAccountsList = new AccountsList();
 
@@ -428,6 +430,25 @@ class AccountsListTest {
 
         //Assert
         assertFalse(real);
+
+    }
+
+    @Test
+    @DisplayName("Test if an account was removed from an accounts list - True")
+    public void testIfOneAccountWasRemovedTrue() {
+
+        //Arrange
+        Account oneAccount = new Account("Post", "Correios do Amadeu");
+        AccountsList oneAccountsList = new AccountsList();
+
+        //Act
+        oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
+        boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
+
+        //Assert
+        assertTrue(real);
 
     }
 
