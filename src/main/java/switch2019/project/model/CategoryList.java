@@ -68,9 +68,7 @@ public class CategoryList {
     public boolean addMultipleCategoriesToList(HashSet<String> categories) {
         int sizeBefore = this.categories.size();
         for (String category : categories) {
-            if (category == null) {
-                sizeBefore--;
-            } else this.addCategoryToCategoryList(category);
+            this.addCategoryToCategoryList(category);
         }
         return this.categories.size() == sizeBefore + categories.size();
     }

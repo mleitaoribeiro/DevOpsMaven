@@ -392,34 +392,6 @@ class CategoryListTest {
 
     /**
      * Test to add a set of categories to user category list
-     * see if a null was added
-     */
-
-    @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
-    void addMultipleCategoriesToListWithANullCase() {
-        // Arrange
-        // Categories to be included in Category List
-        String categoryBets ="Bets and Games";
-        String categoryNull = null;
-        String categoryBeauty = "Beauty";
-
-        CategoryList newCategoryList = new CategoryList();
-        //A collection of categories to be added
-        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
-
-        //Act
-        //Add several categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategoriesToList(setOfCategories);
-
-        int realNumberOfCategoriesAdded = newCategoryList.numberOfCategoryInTheCategoryList();
-        //Assert
-        assertEquals(2, realNumberOfCategoriesAdded);
-    }
-
-
-    /**
-     * Test to add a set of categories to user category list
      * See if the same category was not added simultaneously
      */
 
