@@ -21,7 +21,8 @@ public class CategoryList {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
         CategoryList categoriesList = (CategoryList) o;
         return Objects.equals(categories, categoriesList.categories);
     }
