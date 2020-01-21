@@ -235,10 +235,9 @@ public class Group {
      * @return true if group account was created, false if it wasn't
      */
     public boolean createGroupAccount(String accountDenomination, String accountDescription, Person person1) {
-        if (this.admins.contains(person1) && this.members.contains(person1) && accountDenomination != null && this.description != null) {
+        if (this.admins.contains(person1) && accountDenomination != null && accountDescription != null && this.description != null) {
             return this.addAccountToGroupAccountsList(accountDenomination, accountDescription);
-        }
-        return false;
+        } return false;
     }
 
     /**

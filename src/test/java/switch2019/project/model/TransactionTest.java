@@ -13,7 +13,7 @@ class TransactionTest {
 
     /**
      * Tests to validate if a transaction was created
-     */
+     *//*
 
     @Test
     @DisplayName("Test for validating transaction - sucess case")
@@ -142,5 +142,5 @@ class TransactionTest {
         catch (IllegalArgumentException description) {
             assertEquals("The type can´t be null. Please try again.", description.getMessage());
         }
-    }
+    }*/
 }
