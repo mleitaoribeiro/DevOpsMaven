@@ -41,6 +41,19 @@ class AccountTest {
     }
 
     @Test
+    @DisplayName("Test if two accounts are the same - Same Account")
+    public void testIfTwoAccountsAreTheSame_SameAccount() {
+        //Arrange
+        Account oneAccount = new Account("Supermarket", "Weekly spends");
+        //Act
+        boolean result = oneAccount.equals(oneAccount);
+
+        //Assert
+        assertTrue(result);
+    }
+
+
+    @Test
     @DisplayName("Test set function for denomination")
     void setDenomination() {
         //Arrange
