@@ -1025,7 +1025,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Check if a given person is father- Null Scenario")
-    void isFather_nullCase() {
+    void isFatherNullCase() {
         //Arrange
 
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
