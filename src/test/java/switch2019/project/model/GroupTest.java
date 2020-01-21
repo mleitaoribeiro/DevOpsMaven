@@ -404,7 +404,7 @@ class GroupTest {
     /**
      * Test if member was removed from Group - null member
      */
-    @Test
+/*    @Test
     @DisplayName("Test if a null member was removed from a Group")
     void removeNullMemberFromGroup() {
 
@@ -423,7 +423,7 @@ class GroupTest {
 
         //Assert
         assertFalse(removeSingleMember);
-    }
+    }*/
 
     /**
      * Test if an Administrator was removed from the Group in case he's the only Admin - Shouldn't work
@@ -475,7 +475,7 @@ class GroupTest {
         assertTrue(removeAdmin);
     }
 
-    @Test
+/*    @Test
     @DisplayName("Test if a member was removed from a Group")
     void removeMemberFromGroupNullPerson() {
 
@@ -494,7 +494,7 @@ class GroupTest {
 
         //Assert
         assertFalse(removeSingleMember);
-    }
+    }*/
 
     @Test
     @DisplayName("Test if a member was removed from a Group")
@@ -520,7 +520,7 @@ class GroupTest {
         assertFalse(removeSingleMember);
     }
 
-    @Test
+/*    @Test
     @DisplayName("Test if a member was removed from a Group")
     void removeMemberFromGroupPersonNotInGroup() {
 
@@ -540,7 +540,7 @@ class GroupTest {
 
         //Assert
         assertFalse(removeSingleMember);
-    }
+    }*/
 
     @Test
     @DisplayName("Test if a member was removed from a Group - try to remove all members")
