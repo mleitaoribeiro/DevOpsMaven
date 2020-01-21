@@ -285,6 +285,25 @@ class AccountsListTest {
         assertEquals(false, result);
     }
 
+    @Test
+    @DisplayName("Test if two account lists are the same -  Same List")
+    public void testIfTwoAccountListsAreTheSameBeingTheSame() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+
+        AccountsList september = new AccountsList();
+
+        //Act
+        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+
+        boolean result = september.equals(september);
+
+        //Assert
+        assertTrue(result);
+    }
+
 
     /**
      * Test if two lists are the same
