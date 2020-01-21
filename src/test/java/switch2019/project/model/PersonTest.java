@@ -621,6 +621,23 @@ class PersonTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Test if two persons have the same father - False with Null")
+    void checkSameFatherFalseNull() {
+        //Arrange
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Miragaia"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
+        Person father1 = new Person("jose", 1980, 05, 04, new Address("Matosinhos"));
+        //Act
+        person1.setFather(father1);
+        person2.setFather(null);
+
+        boolean result = person1.checkSameFather(person2);
+
+        //Assert
+        assertFalse(result);
+    }
+
     /**
      * Test if two persons are siblings
      */
