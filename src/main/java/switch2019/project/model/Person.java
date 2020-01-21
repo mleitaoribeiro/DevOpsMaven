@@ -263,26 +263,6 @@ public class Person {
     }
 
     /**
-     * Person exists on the other Siblings list
-     *
-     * @return boolean
-     */
-    public boolean personExistsOtherSiblingsList() {
-        // Check if sibling list is empty:
-        if (this.siblingList.isEmpty()) {
-            return false;
-        }
-        // Cycle each Person inside the sibling list, to assert
-        // if the current object is contained within each of sibling lists:
-        for (Person p : this.siblingList) {
-            if (!p.siblingList.contains(this)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Person exists on the other Person siblings list (USER STORIES)
      *
      * @return boolean
