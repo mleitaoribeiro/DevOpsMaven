@@ -889,4 +889,17 @@ class PersonTest {
         assertTrue(realResult);
     }
 
+    @Test
+    @DisplayName("Check if two persons are the same if they have different ages")
+    void checkEqualsSameAttributesButDifferentAge() {
+        //Arrange
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"));
+
+        //Act
+        boolean realResult = person1.equals(person2);
+
+        //Assert
+        assertFalse(realResult);
+    }
 }

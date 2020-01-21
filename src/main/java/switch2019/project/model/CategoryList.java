@@ -72,7 +72,7 @@ public class CategoryList {
                 sizeBefore--;
             } else this.addCategoryToCategoryList(category);
         }
-        return this.categories.size() == categories.size() + sizeBefore;
+        return this.categories.size() == sizeBefore + categories.size();
     }
 
     /**
