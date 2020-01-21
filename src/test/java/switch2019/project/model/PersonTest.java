@@ -639,7 +639,7 @@ class PersonTest {
         boolean resultado = person1.isSibling(person2);
 
         //Assert
-        assertTrue(resultado);
+        assertEquals(true, resultado);
     }
 
 
@@ -657,7 +657,7 @@ class PersonTest {
         boolean resultado = person1.isSibling(person2);
 
         //Assert
-        assertTrue(resultado);
+        assertEquals(true, resultado);
     }
 
     @Test
@@ -678,7 +678,7 @@ class PersonTest {
         boolean resultado = person1.isSibling(person2);
 
         //Assert
-        assertTrue(resultado);
+        assertEquals(true, resultado);
     }
 
     /**
@@ -798,110 +798,25 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Test if an Account was created - Sucess case")
+    @DisplayName("Test if an Account was created - success case")
     void createAccountSucessCase() {
         // Arrange
 
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
 
+        String accountDenomination = "Wallet";
+        String accountDescription = "General expenses";
 
         //Act
-        boolean real = onePerson.createAccount("Wallet", "General expenses");
+        boolean real = onePerson.createAccount(accountDenomination, accountDescription);
 
         // assert
         assertTrue(real);
     }
 
-    @Test
-    @DisplayName("Test if an Account was created - Account already exists")
-    void createAccount_AccountAlreadyExists () {
-
-        // Arrange
-        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
-
-
-        //Act
-        onePerson.createAccount("Wallet", "General expenses");
-        boolean real = onePerson.createAccount("Wallet", "General expenses");
-
-        // assert
-        assertFalse(real);
-    }
-
-    @Test
-    @DisplayName("Test if an Account was created - Denomination Null")
-    void createAccount_DenominationNull() {
-
-        // Arrange
-        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
-
-        //Act
-        try {
-            onePerson.createAccount(null,"General expenses");
-        }
-        //Assert
-        catch (IllegalArgumentException denomination) {
-            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("Test if an Account was created - Denomination Empty")
-    void createAccount_DenominationEmpty() {
-
-        // Arrange
-        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
-
-
-        //Act
-        try {
-            onePerson.createAccount("","General expenses");
-        }
-        //Assert
-        catch (IllegalArgumentException denomination) {
-            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("Test if an Account was created - Description Null")
-    void createAccount_DescriptionNull() {
-
-        // Arrange
-        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
-
-
-        //Act
-        try {
-            onePerson.createAccount("Wallet",null);
-        }
-        //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("The description can´t be null or empty!", description.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("Test if an Account was created - Description Empty")
-    void createAccount_DescriptionEmpty() {
-
-        // Arrange
-        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
-
-
-        //Act
-        try {
-            onePerson.createAccount("Wallet","");
-        }
-        //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("The description can´t be null or empty!", description.getMessage());
-        }
-    }
-
     /**
-     * +* Tests to validate if a category was added to Category List
-     * +
+     * * Tests to validate if a category was added to Category List
+     *
      */
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
@@ -909,9 +824,11 @@ class PersonTest {
         //Arrange
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
 
+        //Category to be included in Category List
+        String category1 = "School expenses";
 
         //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList("School expenses");
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
 
         //Assert
         assertTrue(realResult);
