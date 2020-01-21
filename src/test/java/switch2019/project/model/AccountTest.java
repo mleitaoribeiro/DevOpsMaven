@@ -52,6 +52,18 @@ class AccountTest {
         assertTrue(result);
     }
 
+    @Test
+    @DisplayName("Test if two accounts are the same - one Account is Null")
+    public void testIfTwoAccountsAreTheSame_oneAccountIsNull() {
+        //Arrange
+        Account oneAccount = new Account("xpto", "xpto account");
+        Account otherAccount = null;
+        //Act
+        boolean result = oneAccount.equals(otherAccount);
+
+        //Assert
+        assertFalse(result);
+    }
 
     @Test
     @DisplayName("Test set function for denomination")
