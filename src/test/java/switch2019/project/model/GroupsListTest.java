@@ -28,6 +28,10 @@ class GroupsListTest {
 
     }
 
+    /**
+     * Test if Group is not created when its description is null
+     */
+
     @Test
     @DisplayName("Test if Group is not created when its description is null")
     public void testIfGroupWasNotCreated() {
@@ -42,8 +46,12 @@ class GroupsListTest {
         assertFalse(wasGroupCreated);
     }
 
+    /**
+     * Test if group was not created when it is already contained within a groupsList - Same name and same Members
+     */
+
     @Test
-    @DisplayName("Test if group was not created when it is already contained within a groupsList")
+    @DisplayName("Test if group was not created when it is already contained within a groupsList - Same name and same Members")
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         GroupsList groupsList = new GroupsList();
@@ -52,6 +60,65 @@ class GroupsListTest {
         //Act
         groupsList.createGroup("Grupo de Teste",person1);
         boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste",person1);
+
+        //Assert
+        assertFalse(wasGroupCreated);
+    }
+
+    /**
+     * Test if group is created even it has the same name but different members
+     */
+
+    @Test
+    @DisplayName("Test if group is created even it has the same name but different members")
+    public void createGroupWithSameDescriptionAndDifferentMembers() {
+        //Arrange
+        GroupsList groupsList = new GroupsList();
+        Person person1 = new Person("Amy", 2002,5,20,new Address("Boston"));
+        Person person2 = new Person("Marshall", 2002,5,20,new Address("Boston"));
+
+        //Act
+        groupsList.createGroup("Grupo de Teste",person1);
+
+        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste",person2);
+
+        //Assert
+        assertTrue(wasGroupCreated);
+    }
+
+    /**
+     * Test if group is created with different description but same person
+     */
+
+    @Test
+    @DisplayName("Test if group is created with different description but same person")
+    public void createGroupWithDifferentDescriptionAndDifferentMembers() {
+        //Arrange
+        GroupsList groupsList = new GroupsList();
+        Person person1 = new Person("Amy", 2002,5,20,new Address("Boston"));
+
+        //Act
+        groupsList.createGroup("Grupo de Teste",person1);
+
+        boolean wasGroupCreated = groupsList.createGroup("Grupo Diferente",person1);
+
+        //Assert
+        assertTrue(wasGroupCreated);
+    }
+
+    /**
+     * Test if a null group was not created by a null person
+     */
+
+    @Test
+    @DisplayName("Test if group was not created when its null")
+    public void testIfWasCreatedWhenNull() {
+        //Arrange
+        GroupsList groupsList = new GroupsList();
+        Person person1 = null;
+
+        //Act
+        boolean wasGroupCreated = groupsList.createGroup(null, person1);
 
         //Assert
         assertFalse(wasGroupCreated);

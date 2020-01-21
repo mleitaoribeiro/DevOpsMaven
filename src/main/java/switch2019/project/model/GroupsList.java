@@ -17,7 +17,6 @@ public class GroupsList {
      *Develop @override of equals for Group and @override of hashcode
      */
 
-
     /**
      * Method used to create a Group
      *
