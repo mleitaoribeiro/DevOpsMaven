@@ -501,7 +501,7 @@ class UserTest {
         //Assert
         assertTrue(monetaryValuePositive && !monetaryValueNegative);
     }
-    
+
     /**
      * Test to validate if a account was created
      */

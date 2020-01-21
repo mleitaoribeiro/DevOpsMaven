@@ -90,21 +90,6 @@ class AddressTest {
         assertEquals("RUA DAS CAMELIAS", actual);
     }
 
-    @Test
-    @DisplayName("validate input for street - no call to setStreet")
-    void setStreetnoCalltoSetStreetMethod() {
-        //Arrange
-        Address casa = new Address("Avenida de Gaia", "Porto", "4450-632");
-
-        //Act
-        String actual = casa.getStreet();
-
-        //Assert
-        assertEquals("AVENIDA DE GAIA", actual);
-
-    }
-
-
 
     /**
      * Test - Validate input for City
@@ -265,7 +250,7 @@ class AddressTest {
     }
 
     /**
-     * Test Equals method for the Adress class
+     * Test Equals method for the Address class
      */
 
     @Test
@@ -280,15 +265,27 @@ class AddressTest {
     }
 
     @Test
-    @DisplayName("Testing if two Addresses are equal - different addresses")
-    void sameAddressDifferentAddresses () {
+    @DisplayName("Testing if two Addresses are equal - different streets")
+    void sameAddressDifferentStreets () {
         //Arrange
         Address casaDaAna = new Address("Rua das Flores, 36", "Porto", "4050-262");
-        Address casaDaRita = new Address("Rua de S.Tomé, 133", "Porto", "4420-485");
+        Address casaDaRita = new Address("Rua de S.Tome, 133", "Porto", "4050-262");
 
         //Act and Assert
         assertFalse(casaDaAna.equals(casaDaRita));
     }
+
+    @Test
+    @DisplayName("Testing if two Addresses are equal - different cities")
+    void sameAddressDifferentCities () {
+        //Arrange
+        Address house1 = new Address("Avenida da Republica", "Porto", "4050-262");
+        Address house2 = new Address("Avenida da Republica", "Gaia", "4050-262");
+
+        //Act and Assert
+        assertFalse(house1.equals(house2));
+    }
+
 
     @Test
     @DisplayName("Testing if two Addresses are equal - one address with null parameters")
