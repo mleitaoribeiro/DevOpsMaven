@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Currency;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionTest {
@@ -19,10 +20,10 @@ class TransactionTest {
     void isAValidTransactionTrue() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Category category =new Category("grocery");
+        Category category = new Category("grocery");
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
-        Type type = new Type(true);
+        boolean type = true;
 
         Transaction transaction = new Transaction(monetaryValue, "payment", category, account1, account2, type);
 
@@ -38,13 +39,13 @@ class TransactionTest {
     void isAValidTransactionWithNoAutomaticDate() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Category category =new Category("grocery");
+        Category category = new Category("grocery");
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        LocalDateTime date1 = LocalDateTime.parse("2019-04-12 20:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        Type type1 = new Type(true);
+        LocalDateTime date1 = LocalDateTime.parse("2019-04-12 20:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        boolean type1 = true;
 
         Transaction transaction = new Transaction(monetaryValue, "payment", date1, category, account1, account2, type1);
 
@@ -62,7 +63,7 @@ class TransactionTest {
         Category category = new Category("grocery");
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
-        Type type = new Type(true);
+        boolean type = true;
 
         Transaction transaction = new Transaction(null, "payment", category, account1, account2, type);
 
@@ -84,7 +85,7 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
-        Type type = new Type(true);
+        boolean type = true;
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, account1, account2, type);
 
@@ -106,7 +107,7 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Category category = new Category("grocery");
         Account account1 = new Account("mercearia", "mercearia Continente");
-        Type type = new Type(true);
+        boolean type = true;
 
         Transaction transaction = new Transaction(monetaryValue, "payment", category, account1, null, type);
 
@@ -130,7 +131,7 @@ class TransactionTest {
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
-        Transaction transaction = new Transaction(monetaryValue, "payment", category, account1, account2, null);
+        Transaction transaction = new Transaction(monetaryValue, "payment", category, account1, account2,false);
 
         //Act
         try {

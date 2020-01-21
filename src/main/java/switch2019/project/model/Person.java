@@ -314,7 +314,7 @@ public class Person {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
+    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
         if (amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
                 accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
             return ledger.addTransactionToLedger(amount, description, category, accountFrom, accountTo, type);

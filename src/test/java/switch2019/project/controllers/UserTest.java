@@ -402,7 +402,7 @@ class UserTest {
         User user = new User(person);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         //Category category = new Category("General");
         Category category = new Category("General");
@@ -429,7 +429,7 @@ class UserTest {
         User user = new User(person);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         Category categoryBaby = new Category("baby");
         Category categoryHome = new Category("home");
@@ -456,7 +456,7 @@ class UserTest {
         User user1 = new User(person1);
         MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
         String description = "payment";
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         Category category = new Category("General");
         user1.addCategoryToList("General");
@@ -484,7 +484,7 @@ class UserTest {
         MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description = "payment";
-        Type type = new Type(false); //debit
+        boolean type = false; //debit
 
         Category category = new Category("General");
         user1.addCategoryToList("General");
