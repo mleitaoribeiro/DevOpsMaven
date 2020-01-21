@@ -266,4 +266,19 @@ class AccountTest {
         }
     }
 
+    @Test
+    @DisplayName("Test Constructor - Description")
+    void descriptionConstructor() {
+
+        //Arrange
+            Account oneAccount = new Account ("xpto","xyz");
+            String expected = "xyz";
+
+        //Act
+            String real = oneAccount.getDescription();
+
+        //Assert
+            assertEquals(expected, real);
+    }
+
 }
