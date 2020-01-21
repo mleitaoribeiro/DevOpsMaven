@@ -74,6 +74,25 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
+    @Test
+    @DisplayName("Test if two Category List equals a Null List")
+    public void compareOneCategoryWithNull() {
+        //Arrange
+
+        CategoryList oneCategoryList = new CategoryList();
+        CategoryList otherCategoryList = null;
+
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
+
+        //Act
+
+        oneCategoryList.addMultipleCategoriesToList(setOfCategories);
+
+        boolean realResult = oneCategoryList.equals(otherCategoryList);
+        //Assert
+        assertFalse(realResult);
+    }
+
     /**
      * Test to see if two Caterogy Lists aren't the same
      * Main Scenario
