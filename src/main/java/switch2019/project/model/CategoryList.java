@@ -53,7 +53,7 @@ public class CategoryList {
 
     public boolean removeCategoryFromList(String categoryToRemove) {
         Category category = new Category(categoryToRemove);
-        if (categoryToRemove != null){
+        if (this.categories.contains(categoryToRemove)){
             return categories.remove(category);}
         else
             return false;

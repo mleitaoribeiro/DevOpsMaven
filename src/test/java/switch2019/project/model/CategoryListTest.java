@@ -270,6 +270,19 @@ class CategoryListTest {
         //Assert
         assertTrue(realResult);
     }
+    @Test
+    @DisplayName("check if category is not in list and threfore cant be removed")
+    void removeCategoryThatIsNotInTheList() {
+
+        //Arrange:
+        CategoryList testCategoryList = new CategoryList();
+
+        //Act:
+        boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema");
+
+        //Assert:
+        assertFalse(isACategoryNotInListRemoved);
+    }
 
     /**
      * Test if a category was removed from category list
