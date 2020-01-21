@@ -18,6 +18,7 @@ class FamilyControllerTest {
      *  If the list of groups consists exclusively in families.
      */
 
+/*
     @Test
     @DisplayName("Validate if only groups of families are being returned")
 
@@ -109,5 +110,6 @@ class FamilyControllerTest {
         //Assert
         assertEquals(expectedResult, realResult);
     }
+*/
 
 }
