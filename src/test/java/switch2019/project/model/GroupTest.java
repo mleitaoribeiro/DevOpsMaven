@@ -171,7 +171,7 @@ class GroupTest {
 
 
     /**
-     * USER STORY 2 - check if user was added
+     * US002 - check if group was added to group
      * Methods to check if the number of groups in the GroupList is increased
      */
 
@@ -237,7 +237,7 @@ class GroupTest {
     }
 
     /**
-     * User Story 3 (add a member to a group)
+     * US003 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
     @Test
@@ -356,6 +356,7 @@ class GroupTest {
         //Assert
         assertFalse(memberNotAdded);
     }
+
 /*
     @Test
     @DisplayName("Test if a null case is added to group")
