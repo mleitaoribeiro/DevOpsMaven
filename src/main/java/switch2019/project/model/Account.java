@@ -8,10 +8,12 @@ public class Account {
     private String denomination;
     private String description;
     private double balance;
+    private double amount;
 
-    public Account(String accountDenomination, String accountDescription) {
+    public Account(String accountDenomination, String accountDescription, double amount) {
         setDenomination(accountDenomination);
         setDescription(accountDescription);
+        this.amount = amount;
     }
 
     @Override
