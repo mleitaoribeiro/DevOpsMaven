@@ -816,7 +816,6 @@ class PersonTest {
 
     /**
      * * Tests to validate if a category was added to Category List
-     *
      */
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
@@ -891,7 +890,6 @@ class PersonTest {
 
     /**
      * * Tests to validate if two persons are equal with only the birthdate different
-     *
      */
     @Test
     @DisplayName("Check if two persons are the same if they have different ages")
@@ -925,7 +923,6 @@ class PersonTest {
 
     /**
      * * Tests to validate if a person is another person's mother
-     *
      */
     @Test
     @DisplayName("Check if a given person anothers' mother - true")
@@ -1021,7 +1018,25 @@ class PersonTest {
         //Act
 
         boolean result = person1.isFather(person2);
-        //
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test to check if a person and group are the same
+     */
+    @Test
+    @DisplayName("Check if a person and group are the same-False")
+    void testEquals() {
+        //Arrange
+
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Group group1 = new Group("Test Group");
+
+        //Act
+        boolean result = person1.equals(group1);
+
+        //Assert
         assertFalse(result);
     }
 }
