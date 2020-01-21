@@ -2,6 +2,7 @@ package switch2019.project.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Transaction {
 
@@ -57,6 +58,24 @@ public class Transaction {
         this.type = type;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return type == that.type &&
+                Objects.equals(amount, that.amount) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(category, that.category) &&
+                Objects.equals(accountFrom, that.accountFrom) &&
+                Objects.equals(accountTo, that.accountTo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, description, date, category, accountFrom, accountTo, type);
+    }
 
     /**
      * Verify is a given transaction is valid or not
