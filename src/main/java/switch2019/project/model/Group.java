@@ -82,9 +82,9 @@ public class Group {
      */
     public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
-            if (admins.contains(memberToRemove) && admins.size() > 1) {
+            if (admins.contains(memberToRemove) && members.contains(memberToRemove) && admins.size() > 1) {
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
-            } else if (!admins.contains(memberToRemove)) {
+            } else if (!admins.contains(memberToRemove) && members.contains(memberToRemove)) {
                 return members.remove(memberToRemove);
             } else
                 return false;
@@ -203,10 +203,13 @@ public class Group {
      */
 
     public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleMembers) {
+        if (multipleMembers.size() >= this.admins.size()){
+            return false;
+        }
         for (Person member : multipleMembers) {
             demoteMemberFromAdmin(member);
         }
-        return members.containsAll(multipleMembers);
+        return members.containsAll(multipleMembers) && !admins.containsAll(multipleMembers);
     }
 
     /**
@@ -240,15 +243,14 @@ public class Group {
      * @param nameOfCategory
      * @return true if category was added to group's Category List, false if it wasn't
      */
-    /*
+
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
         if (nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
 
-    */
-
+/*
     /**
      * Develop method add multiple categories to group's Category List
      *

@@ -23,14 +23,152 @@ class GroupTest {
         Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
         Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
         Group group1 = new Group("Amigos");
-
-        //Act
         group1.addMember(person1);
         group1.addMember(person2);
 
+        //Act
+        boolean result = group1.equals(group1);
+
         //Assert
-        assertEquals(group1, group1);
+        assertTrue(result);
     }
+
+    /**
+     * Compare a Group with a null Group
+     */
+
+    @Test
+    @DisplayName("Compare one Group with a null Group")
+    public void equalsWithNullGroup() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Amigos");
+        group1.addMember(person1);
+        group1.addMember(person2);
+        Group group2 = null;
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Compare two groups with same description but different members
+     */
+    @Test
+    @DisplayName("Compare two groups with same members and different description")
+    public void compareGroupsWithSameDescriptionAndDifferentMembers() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Person person3 = new Person("Mary", 1995, 12, 04, new Address("Detroit"));
+        Person person4 = new Person("Vasylia", 1990, 04, 12, new Address("California"));
+        Group group1 = new Group("Amigos");
+        group1.addMember(person1);
+        group1.addMember(person2);
+        Group group2 =  new Group("Amigos");
+        group2.addMember(person3);
+        group2.addMember(person4);
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Compare two groups with members but different description
+     */
+    @Test
+    @DisplayName("Compare two groups with members but different description")
+    public void compareGroupsWithSameMembersButDifferentDescription() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Mary's Gift");
+        group1.addMember(person1);
+        group1.addMember(person2);
+        Group group2 =  new Group("School Trip");
+        group2.addMember(person1);
+        group2.addMember(person2);
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Compare two groups - same members but one with null description
+     */
+
+    @Test
+    @DisplayName("Compare two groups - same members but one with null description")
+    public void compareGroupsSameMembersButOneWithNullDescription() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Mary's Gift");
+        group1.addMember(person1);
+        group1.addMember(person2);
+        Group group2 =  new Group(null);
+        group2.addMember(person1);
+        group2.addMember(person2);
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Compare two groups with same members and same description
+     */
+
+    @Test
+    @DisplayName("Compare two groups with same members and same description")
+    public void compareGroupsWithSameMembersAndSameDescription() {
+        //Arrange
+        Person person1 = new Person("John", 1998, 10, 15, new Address("New York"));
+        Person person2 = new Person("Frank", 1994, 10, 12, new Address("Washington D.C."));
+        Group group1 = new Group("Mary's Gift");
+        group1.addMember(person1);
+        group1.addMember(person2);
+        Group group2 =  new Group("Mary's Gift");
+        group2.addMember(person1);
+        group2.addMember(person2);
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    /**
+     *
+     */
+    @Test
+    @DisplayName("Compare different objects")
+    public void compareGroupToAnotherObject() {
+        //Arrange
+        Group group1 = new Group("Mary's Gift");
+        Account group2 = new Account("Mary", "Mary Gift");
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
 
     /**
      * USER STORY 2 - check if user was added
@@ -260,6 +398,50 @@ class GroupTest {
 
         //Assert
         assertTrue(removeSingleMember);
+    }
+
+    @Test
+    @DisplayName("Test if a member was removed from a Group")
+    void removeMemberFromGroupNullPerson() {
+
+        //Arrange
+        Group group1 = new Group("Grupo a ser submetido aos testes");
+
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
+
+        //Act
+        group1.addMultipleMembers(putMembers);
+
+        boolean removeSingleMember = group1.removeMember(null);
+
+        //Assert
+        assertFalse(removeSingleMember);
+    }
+
+
+    @Test
+    @DisplayName("Test if a member was removed from a Group")
+    void removeMemberFromGroupPersonNotInGroup() {
+
+        //Arrange
+        Group group1 = new Group("Grupo a ser submetido aos testes");
+
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
+        Person person3= new Person("Gabriel", 1995, 2, 2, new Address("Porto"));
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
+
+        //Act
+        group1.addMultipleMembers(putMembers);
+
+        boolean removeSingleMember = group1.removeMember(person3);
+
+        //Assert
+        assertFalse(removeSingleMember);
     }
 
     @Test
@@ -1149,7 +1331,7 @@ class GroupTest {
     /**
      * Check if a Category was added to the groups Category list
      */
-    /*
+
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
@@ -1158,11 +1340,8 @@ class GroupTest {
 
         Group group1 = new Group("Grupo dos amigos");
 
-        //Category to be included in Category List
-        Category category1 = new Category("School expenses");
-
         //Act
-        boolean realResult = group1.addCategoryToCategoryList(category1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses");
 
         //Assert
         assertTrue(realResult);
@@ -1176,11 +1355,8 @@ class GroupTest {
         //Initialize Group
         Group group1 = new Group("Grupo dos amigos");
 
-        //Category to be included in Category List
-        Category category1 = null;
-
         //Act
-        boolean realResult = group1.addCategoryToCategoryList(category1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList(null);
 
         //Assert
         assertFalse(realResult);
@@ -1196,17 +1372,22 @@ class GroupTest {
         Group group1 = new Group("Groupo dos amigos");
 
         //Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("School expenses");
 
         //Act
-        boolean realResult =  group1.addCategoryToCategoryList(category1) && !group1.addCategoryToCategoryList(category2);
+        boolean categoryAdded = group1.createAndAddCategoryToCategoryList("Cinema");
+        boolean sameCategoryAdded = group1.createAndAddCategoryToCategoryList("Cinema");
+        boolean isSameCategoryAdded = categoryAdded && sameCategoryAdded;
 
         //Assert
-        assertTrue(realResult);
+        assertFalse(isSameCategoryAdded);
 
     }
 
+
+    /**
+     * Check if a Group is the same as another with Hashcode
+     */
+    
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
@@ -1220,11 +1401,45 @@ class GroupTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-        boolean realResult = group1.addCategoryToCategoryList(category1) && !group1.addCategoryToCategoryList(category2);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses") && !group1.createAndAddCategoryToCategoryList("SCHOóL expenses");
 
         //Assert
         assertTrue(realResult);
 
+    }
+
+    @Test
+    @DisplayName("test if two Groups are the same")
+    public void testIfTwoGroupsAreTheSameHashcode() {
+        //Arrange
+
+        Group group1 = new Group("Talho do Amadeu");
+        Group group2 = new Group("Talho do Amadeu");
+
+        //Act
+        int g1 = group1.hashCode();
+        int g2 = group2.hashCode();
+
+
+        //Assert
+        assertEquals(g1, g2);
+    }
+
+    @Test
+    @DisplayName("test if two Groups are the same")
+    public void testIfTwoGroupsAreTheSameHashcodeFalse() {
+        //Arrange
+
+        Group group1 = new Group("Talho do Amadeu");
+        Group group2 = new Group("Talho do João");
+
+        //Act
+        int g1 = group1.hashCode();
+        int g2 = group2.hashCode();
+
+
+        //Assert
+        assertNotEquals(g1, g2);
     }
 
     /**
