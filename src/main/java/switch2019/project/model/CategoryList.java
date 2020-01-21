@@ -1,7 +1,4 @@
 package switch2019.project.model;
-
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -14,7 +11,7 @@ public class CategoryList {
      */
 
     public CategoryList() {
-        categories = new HashSet<Category>();
+        categories = new HashSet<>();
     }
 
 
