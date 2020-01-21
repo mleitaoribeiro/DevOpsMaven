@@ -621,6 +621,23 @@ class PersonTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Test if two persons have the same father - False with Null")
+    void checkSameFatherFalseNull() {
+        //Arrange
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Miragaia"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
+        Person father1 = new Person("jose", 1980, 05, 04, new Address("Matosinhos"));
+        //Act
+        person1.setFather(father1);
+        person2.setFather(null);
+
+        boolean result = person1.checkSameFather(person2);
+
+        //Assert
+        assertFalse(result);
+    }
+
     /**
      * Test if two persons are siblings
      */
@@ -816,7 +833,6 @@ class PersonTest {
 
     /**
      * * Tests to validate if a category was added to Category List
-     *
      */
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
@@ -891,7 +907,6 @@ class PersonTest {
 
     /**
      * * Tests to validate if two persons are equal with only the birthdate different
-     *
      */
     @Test
     @DisplayName("Check if two persons are the same if they have different ages")
@@ -925,7 +940,6 @@ class PersonTest {
 
     /**
      * * Tests to validate if a person is another person's mother
-     *
      */
     @Test
     @DisplayName("Check if a given person anothers' mother - true")
@@ -1021,7 +1035,25 @@ class PersonTest {
         //Act
 
         boolean result = person1.isFather(person2);
-        //
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Test to check if a person and group are the same
+     */
+    @Test
+    @DisplayName("Check if a person and group are the same-False")
+    void testEquals() {
+        //Arrange
+
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Group group1 = new Group("Test Group");
+
+        //Act
+        boolean result = person1.equals(group1);
+
+        //Assert
         assertFalse(result);
     }
 }
