@@ -47,7 +47,7 @@ public class Address {
 
     //Auxiliar method to check if String is numeric
     public static boolean isNumeric(String city) {
-        if (!(city == null)) {
+        if (city != null) {
             for (char c : city.toCharArray()) {
                 if (!Character.isDigit(c))
                     return false;
