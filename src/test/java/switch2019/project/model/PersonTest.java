@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Currency;
@@ -989,21 +990,18 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Check if two persons are the same if they have different ages")
-    void checkEqualsSameAttributesButDifferentAge2ndConstructor() {
+    @DisplayName("Check if two persons have the same birthdate - 2nd constructor")
+    void checkIfTwoPeopleHaveTheSameBirthdate() {
         //Arrange
-        Person person1 = new Person("Mae do Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         Person person2 = new Person("Pai do Alexandre", 1950, 1, 19, new Address("Porto"));
-        Person person3 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"), person1, person2);
-        Person person4 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"));
-        person4.setMother(person1);
-        person4.setFather(person2);
+        Person person3 = new Person("Alexandre", 1996, 1, 4, new Address("Porto"), person1, person2);
 
         //Act
-        boolean realResult = person3.equals(person4);
+        boolean realResult = person3.getBirthDate().equals(LocalDate.of(1996, 1, 4));
 
         //Assert
-        assertFalse(realResult);
+        assertTrue(realResult);
     }
 
     /**

@@ -1,7 +1,4 @@
 package switch2019.project.model;
-
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -14,7 +11,7 @@ public class CategoryList {
      */
 
     public CategoryList() {
-        categories = new HashSet<Category>();
+        categories = new HashSet<>();
     }
 
 
@@ -24,7 +21,8 @@ public class CategoryList {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
+        if (getClass() != o.getClass()) return false;
         CategoryList categoriesList = (CategoryList) o;
         return Objects.equals(categories, categoriesList.categories);
     }
@@ -70,9 +68,7 @@ public class CategoryList {
     public boolean addMultipleCategoriesToList(HashSet<String> categories) {
         int sizeBefore = this.categories.size();
         for (String category : categories) {
-            if (category == null) {
-                sizeBefore--;
-            } else this.addCategoryToCategoryList(category);
+            this.addCategoryToCategoryList(category);
         }
         return this.categories.size() == sizeBefore + categories.size();
     }
