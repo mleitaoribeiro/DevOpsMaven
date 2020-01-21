@@ -104,7 +104,7 @@ public class Group {
             }
             return this.members.containsAll(newMembers);
         }
-        else throw new IllegalArgumentException("You can't add multiple members to an empty group");
+        else throw new IllegalArgumentException("You cannot add an empty list of members or a non existing person. Please try again.");
     }
 
     /**
@@ -118,6 +118,7 @@ public class Group {
             removeMember(member);
         }
         return !this.members.containsAll(toRemove);
+
     }
 
     /**
