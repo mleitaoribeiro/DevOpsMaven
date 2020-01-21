@@ -326,7 +326,6 @@ class AddressTest {
 
         //Assert
         assertEquals(expected, false);
-
     }
 
     @Test
@@ -340,7 +339,19 @@ class AddressTest {
 
         //Assert
         assertEquals(expected, true);
+    }
 
+    @Test
+    @DisplayName("Test to validate if a input for city is numeric - Null Case")
+    void isNumericNullString() {
+        //Arrange
+        String city = null;
+
+        //Act
+        boolean expected = isNumeric (city);
+
+        //Assert
+        assertEquals(expected, false);
     }
 
 }
