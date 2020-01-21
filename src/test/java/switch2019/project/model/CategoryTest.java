@@ -141,8 +141,18 @@ class CategoryTest {
         assertEquals(false, realResult);
     }
 
+    @Test
+    @DisplayName("Verfiy if two categories are the same - same object")
+    void twoCategoriesAreEqualsSame () {
+        //Arrange
+        Category categoryDescription = new Category("Health");
+
+        //Assert
+        assertEquals(categoryDescription, categoryDescription);
+    }
+
     /**
-     * Test if two objects have the same Hashcode
+     * Test if two categories have the same Hashcode
      */
 
     @Test

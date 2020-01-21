@@ -82,9 +82,9 @@ public class Group {
      */
     public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
-            if (admins.contains(memberToRemove) && admins.size() > 1) {
+            if (admins.contains(memberToRemove) && members.contains(memberToRemove) && admins.size() > 1) {
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
-            } else if (!admins.contains(memberToRemove)) {
+            } else if (!admins.contains(memberToRemove) && members.contains(memberToRemove)) {
                 return members.remove(memberToRemove);
             } else
                 return false;

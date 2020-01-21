@@ -441,78 +441,6 @@ class PersonTest {
     }
 
     /**
-     * Test if person exists on the other siblings list
-     */
-
-    @Test
-    @DisplayName("Test if person exists on the other siblings list | True")
-    public void personExistsOtherSiblingsList1() {
-        //Arrange
-        Person person1 = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
-        Person person2 = new Person("Marta", 1996, 3, 4, new Address("Porto"));
-
-        Person brother = new Person("Paulo", 1993, 9, 1, new Address("Porto"));
-        Person sister = new Person("Diana", 2000, 9, 1, new Address("Porto"));
-
-        //Act
-        person1.addSibling(brother);
-        person1.addSibling(sister);
-        person1.addSibling(person2);
-
-        person2.addSibling(brother);
-        person2.addSibling(sister);
-        person2.addSibling(person1);
-
-        brother.addSibling(person1);
-        sister.addSibling(person1);
-
-        boolean personExistsOtherSiblingsList = person1.personExistsOtherSiblingsList();
-
-        //Assert
-        assertTrue(personExistsOtherSiblingsList);
-    }
-
-    @Test
-    @DisplayName("Test if person exists on the other siblings list | True")
-    public void personExistsOnOtherSiblingsList2() {
-        //Arrange
-        Person person1 = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
-        Person person2 = new Person("Marta", 1996, 3, 4, new Address("Porto"));
-
-        Person brother = new Person("Paulo", 1993, 9, 1, new Address("Porto"));
-        Person sister = new Person("Diana", 2000, 9, 1, new Address("Porto"));
-
-        HashSet<Person> person1Siblings = new HashSet<>(Arrays.asList(brother, sister, person2));
-        HashSet<Person> person2Siblings = new HashSet<>(Arrays.asList(person1, sister));
-        HashSet<Person> brotherSiblings = new HashSet<>(Collections.singletonList(person1));
-        HashSet<Person> sisterSiblings = new HashSet<>(Collections.singletonList(person2));
-
-        //Act
-        person1.addMultipleSiblings(person1Siblings);
-        person2.addMultipleSiblings(person2Siblings);
-        brother.addMultipleSiblings(brotherSiblings);
-        sister.addMultipleSiblings(sisterSiblings);
-
-        boolean personExistsOtherSiblingsList = person1.personExistsOtherSiblingsList();
-
-        //Assert
-        assertTrue(personExistsOtherSiblingsList);
-    }
-
-    @Test
-    @DisplayName("Test if person exists on the other siblings list | FALSE")
-    public void personExistsOnOtherSiblingsListEmptyList() {
-        //Arrange
-        Person onePerson = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
-
-        //Act
-        boolean personExistsOtherSiblingsList = onePerson.personExistsOtherSiblingsList();
-
-        //Assert
-        assertFalse(personExistsOtherSiblingsList);
-    }
-
-    /**
      * Test if Person exists on the other Person siblings list (USER STORIES)
      *
      * @return boolean
@@ -1055,5 +983,32 @@ class PersonTest {
 
         //Assert
         assertFalse(result);
+    }
+
+    /**
+     * Test if two person have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test if two persons have the same Hashcode - True")
+    public void testIfTwoPersonsHaveTheSameHashCodeTrue() {
+
+        //Arrange & Act
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Assert
+        assertEquals(person1.hashCode(), person2.hashCode());
+    }
+
+    @DisplayName("Test if two persons have the same Hashcode - False")
+    public void testIfTwoPersonsHaveTheSameHashCodeFalse() {
+
+        //Arrange & Act
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Marta", 1996, 4, 27, new Address("Porto"));
+
+        //Assert
+        assertEquals(person1.hashCode(), person2.hashCode());
     }
 }

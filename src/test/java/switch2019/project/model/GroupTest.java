@@ -421,6 +421,29 @@ class GroupTest {
         assertFalse(removeSingleMember);
     }
 
+
+    @Test
+    @DisplayName("Test if a member was removed from a Group")
+    void removeMemberFromGroupPersonNotInGroup() {
+
+        //Arrange
+        Group group1 = new Group("Grupo a ser submetido aos testes");
+
+        Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
+        Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
+        Person person3= new Person("Gabriel", 1995, 2, 2, new Address("Porto"));
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
+
+        //Act
+        group1.addMultipleMembers(putMembers);
+
+        boolean removeSingleMember = group1.removeMember(person3);
+
+        //Assert
+        assertFalse(removeSingleMember);
+    }
+
     @Test
     @DisplayName("Test if a member was removed from a Group - try to remove all members")
     void removeMemberFromGroupAllMembers() {

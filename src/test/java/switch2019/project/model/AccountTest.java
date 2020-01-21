@@ -218,4 +218,36 @@ class AccountTest {
         }
     }
 
+    /**
+     * Test Account Constructor
+     */
+
+    @Test
+    @DisplayName("Test Constructor - Denomination Null")
+    void denominationConstructorNull() {
+
+        //Arrange & Act
+        try {
+            Account oneAccount = new Account (null,"xpto Account");
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The denomination can´t be null or empty!", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test Constructor - Description Null")
+    void descriptionConstructorNull() {
+
+        //Arrange & Act
+        try {
+            Account oneAccount = new Account ("xpto",null);
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The description can´t be null or empty!", description.getMessage());
+        }
+    }
+
 }
