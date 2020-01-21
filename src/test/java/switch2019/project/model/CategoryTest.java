@@ -141,8 +141,32 @@ class CategoryTest {
         assertEquals(false, realResult);
     }
 
+    @Test
+    @DisplayName("Verfiy if two categories are the same - same object")
+    void twoCategoriesAreEqualsSame () {
+        //Arrange
+        Category categoryDescription = new Category("Health");
+
+        //Assert
+        assertEquals(categoryDescription, categoryDescription);
+    }
+
+    @Test
+    @DisplayName("Verify if equals method verifies if object is not of the same type")
+    public void testIfACategoryIsNotEqualToAnotherObject() {
+        //Arrange:
+        Category categoryPlaceholder = new Category("Dinner");
+        Group groupPlaceholder = new Group("Friends");
+
+        //Act:
+        boolean result = categoryPlaceholder.equals(groupPlaceholder);
+
+        //Assert:
+        assertEquals(false, result);
+    }
+
     /**
-     * Test if two objects have the same Hashcode
+     * Test if two categories have the same Hashcode
      */
 
     @Test
