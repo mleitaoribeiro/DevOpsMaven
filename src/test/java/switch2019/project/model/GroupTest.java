@@ -1172,7 +1172,7 @@ class GroupTest {
     /**
      * Check if a Category was added to the groups Category list
      */
-    /*
+
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
@@ -1181,11 +1181,8 @@ class GroupTest {
 
         Group group1 = new Group("Grupo dos amigos");
 
-        //Category to be included in Category List
-        Category category1 = new Category("School expenses");
-
         //Act
-        boolean realResult = group1.addCategoryToCategoryList(category1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses");
 
         //Assert
         assertTrue(realResult);
@@ -1199,11 +1196,8 @@ class GroupTest {
         //Initialize Group
         Group group1 = new Group("Grupo dos amigos");
 
-        //Category to be included in Category List
-        Category category1 = null;
-
         //Act
-        boolean realResult = group1.addCategoryToCategoryList(category1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList(null);
 
         //Assert
         assertFalse(realResult);
@@ -1219,14 +1213,14 @@ class GroupTest {
         Group group1 = new Group("Groupo dos amigos");
 
         //Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("School expenses");
 
         //Act
-        boolean realResult =  group1.addCategoryToCategoryList(category1) && !group1.addCategoryToCategoryList(category2);
+        boolean categoryAdded = group1.createAndAddCategoryToCategoryList("Cinema");
+        boolean sameCategoryAdded = group1.createAndAddCategoryToCategoryList("Cinema");
+        boolean isSameCategoryAdded = categoryAdded && sameCategoryAdded;
 
         //Assert
-        assertTrue(realResult);
+        assertFalse(isSameCategoryAdded);
 
     }
 
@@ -1243,7 +1237,7 @@ class GroupTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-        boolean realResult = group1.addCategoryToCategoryList(category1) && !group1.addCategoryToCategoryList(category2);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses") && !group1.createAndAddCategoryToCategoryList("SCHOóL expenses");
 
         //Assert
         assertTrue(realResult);
