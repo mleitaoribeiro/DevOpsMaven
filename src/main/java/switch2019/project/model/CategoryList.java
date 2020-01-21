@@ -53,9 +53,6 @@ public class CategoryList {
         Category category = new Category(categoryToRemove);
         if (this.categories.contains(category)){
             return categories.remove(category);}
-        else if (!this.categories.contains(category)) {
-            return false;
-        }
         return false;
     }
 
