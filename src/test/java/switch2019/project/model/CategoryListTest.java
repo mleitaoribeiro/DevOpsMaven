@@ -125,6 +125,31 @@ class CategoryListTest {
         assertEquals(oneCategoryList.hashCode(), otherCategoryList.hashCode());
     }
 
+    /**
+     * Test if two CategoriesList are the same when created from different classes or null
+     *
+     */
+    @Test
+    @DisplayName("test if two CategoriesList are the same when created from different classes")
+    public void testIfTwoAccountListsAreTheSameDifferentClasses() {
+        //Arrange
+        CategoryList oneCategoryList = new CategoryList();
+        GroupsList otherCategoryList = new GroupsList();
+
+        //Assert
+        assertNotEquals(oneCategoryList, otherCategoryList);
+    }
+
+    @Test
+    @DisplayName("test if two CategoriesList are the same when null")
+    public void testIfTwoAccountListsAreTheSameNull() {
+        //Arrange
+        CategoryList oneCategoryList = null;
+        GroupsList otherCategoryList = new GroupsList();
+
+        //Assert
+        assertNotEquals(oneCategoryList, otherCategoryList);
+    }
 
     /**
      * Test if one category was added to the Category List
@@ -269,6 +294,19 @@ class CategoryListTest {
 
         //Assert
         assertTrue(realResult);
+    }
+    @Test
+    @DisplayName("check if category is not in list and threfore cant be removed")
+    void removeCategoryThatIsNotInTheList() {
+
+        //Arrange:
+        CategoryList testCategoryList = new CategoryList();
+
+        //Act:
+        boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema");
+
+        //Assert:
+        assertFalse(isACategoryNotInListRemoved);
     }
 
     /**
