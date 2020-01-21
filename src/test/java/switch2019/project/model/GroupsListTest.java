@@ -107,6 +107,19 @@ class GroupsListTest {
     }
 
     @Test
+    @DisplayName("Test if a null group is not added to the list")
+    public void testAddGroupIsNull() {
+        //Arrange
+        GroupsList groupList = new GroupsList();
+
+        //Act
+        boolean groupAdded = groupList.addGroupToGroupList(null);
+
+        //Assert
+        assertFalse(groupAdded);
+    }
+
+    @Test
     @DisplayName("Test if more than one group was added is in the list")
     public void testGroupIsInList_MoreThanOne() {
         //Arrange
