@@ -4,14 +4,14 @@ import java.util.HashSet;
 
 public class Ledger {
     //Private Ledger variables
-    private HashSet<Transaction> ledger;
+    private HashSet<Transaction> ledgerTransactions;
 
     /**
-     * Ledger Construtor
+     * Ledger Constructor
      */
 
     public Ledger() {
-        ledger = new HashSet<>();
+        ledgerTransactions = new HashSet<>();
     }
 
     /**
@@ -19,7 +19,7 @@ public class Ledger {
      */
     public boolean addTransactionToLedger(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
         Transaction transaction = new Transaction(amount, description, category, accountFrom, accountTo, type);
-        if (transaction.isAValidTransaction()) return ledger.add(transaction);
+        if (transaction.isAValidTransaction()) return ledgerTransactions.add(transaction);
         else return false;
     }
 }
