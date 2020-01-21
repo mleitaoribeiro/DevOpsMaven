@@ -90,6 +90,22 @@ class AddressTest {
         assertEquals("RUA DAS CAMELIAS", actual);
     }
 
+    @Test
+    @DisplayName("validate input for street - no call to setStreet")
+    void setStreetnoCalltoSetStreetMethod() {
+        //Arrange
+        Address casa = new Address("Avenida de Gaia", "Porto", "4450-632");
+
+        //Act
+        String actual = casa.getStreet();
+
+        //Assert
+        assertEquals("AVENIDA DE GAIA", actual);
+
+    }
+
+
+
     /**
      * Test - Validate input for City
      */
