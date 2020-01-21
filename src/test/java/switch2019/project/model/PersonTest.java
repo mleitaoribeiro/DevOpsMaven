@@ -1041,4 +1041,31 @@ class PersonTest {
         //
         assertFalse(result);
     }
+
+    /**
+     * Test if two person have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test if two persons have the same Hashcode - True")
+    public void testIfTwoPersonsHaveTheSameHashCodeTrue() {
+
+        //Arrange & Act
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+
+        //Assert
+        assertEquals(person1.hashCode(), person2.hashCode());
+    }
+
+    @DisplayName("Test if two persons have the same Hashcode - False")
+    public void testIfTwoPersonsHaveTheSameHashCodeFalse() {
+
+        //Arrange & Act
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person2 = new Person("Marta", 1996, 4, 27, new Address("Porto"));
+
+        //Assert
+        assertEquals(person1.hashCode(), person2.hashCode());
+    }
 }
