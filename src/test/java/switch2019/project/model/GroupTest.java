@@ -1250,7 +1250,7 @@ class GroupTest {
 
         //Act :
         group1.addMember(person1);
-        boolean result = group1.createGroupAccount("Account1", "Test", person1);
+        boolean result = group1.createGroupAccount("Account1", "Test");
 
         //Assert :
         assertTrue(result);
@@ -1266,15 +1266,15 @@ class GroupTest {
 
         //Act
         group1.addMember(person1);
-        boolean addGroupAccount1 = group1.createGroupAccount("Account1", "Test", person1);
-        boolean addGroupAccount2 = group1.createGroupAccount("Account2", "Test", person1);
-        boolean addGroupAccount3 = group1.createGroupAccount("Account3", "Test", person1);
+        boolean addGroupAccount1 = group1.createGroupAccount("Account1", "Test");
+        boolean addGroupAccount2 = group1.createGroupAccount("Account2", "Test");
+        boolean addGroupAccount3 = group1.createGroupAccount("Account3", "Test");
 
         //Assert
         assertTrue(addGroupAccount1 && addGroupAccount2 && addGroupAccount3);
     }
 
-    @Test
+    /*@Test
     @DisplayName("Test if a person that is not a group admin can create a group account - False")
     void createGroupAccountFalse() {
 
@@ -1286,13 +1286,13 @@ class GroupTest {
         //Act :
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean addGroupAccount = group1.createGroupAccount("Account1", "Test", person2);
+        boolean addGroupAccount = group1.createGroupAccount("Account1", "Test");
 
         //Assert:
         assertFalse(addGroupAccount);
-    }
+    }*/
 
-    @Test
+    /*@Test
     @DisplayName("Test if a regular member can add a Group Account")
     void createGroupAccountRegularMemberFalse() {
 
@@ -1304,12 +1304,12 @@ class GroupTest {
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1", "Test", person2);
+        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1", "Test");
 
 
         //Assert
         assertFalse(canARegularMemberAddGroupAccount);
-    }
+    }*/
 
     @Test
     @DisplayName("Test if method works while the group description is null")
@@ -1321,7 +1321,7 @@ class GroupTest {
 
         //Act:
         boolean canAnAccountBeAddedToNullGroup = group1.addMember(person1)
-                && group1.createGroupAccount("Account1", "Test", person1);
+                && group1.createGroupAccount("Account1", "Test");
 
         //Assert:
         assertFalse(canAnAccountBeAddedToNullGroup);
@@ -1337,7 +1337,7 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7", person1);
+        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7");
 
         //Assert:
         assertFalse(canNullAccountBeAdded);
@@ -1353,8 +1353,8 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Account1", "Test", person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1", "Test", person1);
+        group1.createGroupAccount("Account1", "Test");
+        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1", "Test");
 
         //Assert
         assertFalse(addGroupAccountRepeated);
@@ -1369,8 +1369,8 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Account1", "Test", person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test", person1);
+        group1.createGroupAccount("Account1", "Test");
+        boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test");
 
         //Assert:
         assertFalse(addGroupAccountRepeated);
@@ -1390,9 +1390,9 @@ class GroupTest {
         group1.addMember(person1);
         group2.addMember(person1);
         group3.addMember(person1);
-        boolean isGroup1AccountCreated = group1.createGroupAccount("Account1", "User Story 7", person1);
-        boolean isGroup2AccountCreated = group2.createGroupAccount("Account2", "User Story 7", person1);
-        boolean isGroup3AccountCreated = group3.createGroupAccount("Account3", "User Story 7", person1);
+        boolean isGroup1AccountCreated = group1.createGroupAccount("Account1", "User Story 7");
+        boolean isGroup2AccountCreated = group2.createGroupAccount("Account2", "User Story 7");
+        boolean isGroup3AccountCreated = group3.createGroupAccount("Account3", "User Story 7");
 
         //Assert
         assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
