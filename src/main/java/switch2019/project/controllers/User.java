@@ -1,5 +1,6 @@
 package switch2019.project.controllers;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
 import switch2019.project.model.*;
@@ -81,8 +82,8 @@ public class User {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type){
-        return person.createTransaction(amount, description, category, accountFrom, accountTo, type);
+    public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type){
+        return person.createTransaction(amount, description, localDate, category, accountFrom, accountTo, type);
     }
 
     /**
