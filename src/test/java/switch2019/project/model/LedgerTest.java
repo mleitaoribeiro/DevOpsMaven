@@ -22,7 +22,7 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Act
-        boolean result = ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, account2, type);
+        boolean result = ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
 
         //Assert
         assertTrue(result);
@@ -45,8 +45,8 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction1 = ledger.addTransactionToLedger(monetaryValue, "payment", category1, account1, account2, type);
-        boolean addedTransaction2 = ledger.addTransactionToLedger(monetaryValue, "payment", category2, account1, account2, type);
+        boolean addedTransaction1 = ledger.addTransactionToLedger(monetaryValue, "payment", null, category1, account1, account2, type);
+        boolean addedTransaction2 = ledger.addTransactionToLedger(monetaryValue, "payment", null, category2, account1, account2, type);
 
         //Assert
         assertTrue(addedTransaction1 && addedTransaction2);
@@ -69,7 +69,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.addTransactionToLedger(null, "payment", category, account1, account2, type);
+            ledger.addTransactionToLedger(null, "payment", null, category, account1, account2, type);
         }
 
         //Assert
@@ -96,7 +96,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.addTransactionToLedger(monetaryValue, null, category, account1, account2, type);
+            ledger.addTransactionToLedger(monetaryValue, null, null,category, account1, account2, type);
         }
 
         //Assert
@@ -122,7 +122,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.addTransactionToLedger(monetaryValue, "payment", null, account1, account2, type);
+            ledger.addTransactionToLedger(monetaryValue, "payment", null, null, account1, account2, type);
         }
 
         //Assert
@@ -149,7 +149,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.addTransactionToLedger(monetaryValue, "payment", category, account1, null, type);
+            ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, null, type);
         }
 
         //Assert
