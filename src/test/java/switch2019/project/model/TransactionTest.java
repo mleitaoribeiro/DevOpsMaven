@@ -68,7 +68,6 @@ class TransactionTest {
 
     @Test
     @DisplayName("Test if two transactions are the equals - false - different date")
-
     public void testIfTwoTransactionsAreEqualsFalseDifferentDate() {
 
         //Arrange
@@ -79,16 +78,37 @@ class TransactionTest {
         LocalDateTime date = LocalDateTime.of(2020, 1, 13,13,02);
         Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
         Transaction transaction2 = new Transaction(monetaryValue, "payment",date, category, account1, account2,false);
-        
+
+
         //Act
         boolean result = transaction.equals(transaction2);
 
         //Assert
         assertEquals(false, result);
-
     }
 
 
+    @Test
+    @DisplayName("Test if two transactions are the equals - True - system date")
+    public void testIfTwoTransactionsAreEqualsTrueSystemDate() {
+        //Arrange
+        Account account1 = new Account("Health", "Health Maria");
+        Account account2 = new Account("Transport", "Metro");
+        Category category = new Category("House");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime dateNow = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = LocalDateTime.parse(dateNow.format(formatter), formatter);
+        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Transaction transaction2 = new Transaction(monetaryValue, "payment",date, category, account1, account2,false);
+
+        //Act
+        boolean result = transaction.equals(transaction2);
+
+        //Assert
+        assertEquals(true, result);
+
+    }
 
     @Test
     @DisplayName("Test if two transactions are the equals - one is null")
