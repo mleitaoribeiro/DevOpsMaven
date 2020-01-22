@@ -802,6 +802,62 @@ class GroupTest {
     }
 
     /**
+     * Check if a person is directly added to a group as both member and admin
+     * setAdmin method.
+     */
+    @Test
+    @DisplayName("add 1 person to both group member and group admin")
+    void isPersonAddedAsMemberAndAdmin(){
+
+        //Arrange:
+        Person person1 = new Person ("Francisco", 1988,5,24,new Address("Braga"));
+        Person groupAdmin = new Person ("João", 1980,12,5,new Address("Braga"));
+        Group group1 = new Group ("Test Group");
+
+        //Act:
+        group1.addMember(groupAdmin);
+        boolean result = group1.setAdmin(person1);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("trying to user method on a null person returns - FALSE")
+    void isNullPersonAddedToGroupAsAdminAndMember() {
+
+        //Arrange:
+        Person groupAdmin = new Person ("Francisco", 1988,5,24,new Address("Braga"));
+        Person person1 = null;
+        Group group1 = new Group ("Test Group");
+
+        //Act:
+        group1.addMember(groupAdmin);
+        boolean result = group1.setAdmin(person1);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("setting a person who is already member and admin - FALSE")
+    void setAdminOnAAdmin() {
+
+        //Arrange:
+        Person person1 = new Person ("Francisco", 1988,5,24,new Address("Braga"));
+        Person groupAdmin = new Person ("João", 1980,12,5,new Address("Braga"));
+        Group group1 = new Group ("Test Group");
+
+        //Act:
+        group1.addMember(groupAdmin);
+        group1.setAdmin(person1);
+        boolean result = group1.setAdmin(person1);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    /**
      * Check if member was promoted to group admin
      */
     @Test
