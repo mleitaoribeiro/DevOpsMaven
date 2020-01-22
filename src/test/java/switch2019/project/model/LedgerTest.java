@@ -137,8 +137,9 @@ class LedgerTest {
      */
 
     @Test
-    @DisplayName("Test for validating ledger not adding invalid transactions - null account")
+    @DisplayName("Test for validate if ledger is not adding invalid transactions - null account")
     void addTransactionToLedgerTransactionNullAccount() {
+
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Category category = new Category("grocery");
