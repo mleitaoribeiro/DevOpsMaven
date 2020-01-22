@@ -86,7 +86,7 @@ class TransactionTest {
         assertEquals(false, result);
         }
 
-        
+
 
         /**
          * Tests to validate if a transaction was created
