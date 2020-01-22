@@ -3,7 +3,9 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 
@@ -25,9 +27,10 @@ class TransactionTest {
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date = LocalDateTime.of(2020, 1, 13,13,02);
 
-        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
-        Transaction transaction2 = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Transaction transaction = new Transaction(monetaryValue, "payment",date, category, account1, account2,false);
+        Transaction transaction2 = new Transaction(monetaryValue, "payment",date, category, account1, account2,false);
 
 
         //Act
