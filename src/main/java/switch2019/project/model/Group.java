@@ -151,7 +151,6 @@ public class Group {
 
     /**
      * Setter function to promote a person directly to group administrator
-     * This Method uses the addMember and promoteMemberToAdmin methods.
      *
      * @param person
      * @return true if person was promoted, false if it wasn't
