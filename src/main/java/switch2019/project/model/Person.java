@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -294,10 +295,10 @@ public class Person {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
         if (amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
                 accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
-            return ledger.addTransactionToLedger(amount, description, category, accountFrom, accountTo, type);
+            return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         else return false;
     }
 
