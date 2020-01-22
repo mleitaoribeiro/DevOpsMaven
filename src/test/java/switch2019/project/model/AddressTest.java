@@ -386,6 +386,21 @@ class AddressTest {
     }
 
     @Test
+    @DisplayName("Test to validate if the address is the same - Other object of different Class")
+    public void testEqualsSameAddressOtherObjectofDifferentClass() {
+        //Arrange
+        Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
+        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"));
+
+        //Act
+        boolean result = address1.equals(person1);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    @Test
     @DisplayName("Test to validate if the address is the same - comparison with a Null Address")
     void testEqualsNullAddress() {
         //Arrange

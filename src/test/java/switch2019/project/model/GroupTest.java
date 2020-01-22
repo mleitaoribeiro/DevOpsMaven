@@ -69,7 +69,7 @@ class GroupTest {
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 =  new Group("Amigos");
+        Group group2 = new Group("Amigos");
         group2.addMember(person3);
         group2.addMember(person4);
 
@@ -92,7 +92,7 @@ class GroupTest {
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 =  new Group("School Trip");
+        Group group2 = new Group("School Trip");
         group2.addMember(person1);
         group2.addMember(person2);
 
@@ -116,7 +116,7 @@ class GroupTest {
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 =  new Group(null);
+        Group group2 = new Group(null);
         group2.addMember(person1);
         group2.addMember(person2);
 
@@ -140,7 +140,7 @@ class GroupTest {
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 =  new Group("Mary's Gift");
+        Group group2 = new Group("Mary's Gift");
         group2.addMember(person1);
         group2.addMember(person2);
 
@@ -167,7 +167,6 @@ class GroupTest {
         //Assert
         assertFalse(result);
     }
-
 
 
     /**
@@ -254,8 +253,8 @@ class GroupTest {
 
         //Act
         boolean areMembersAddedToGroup = (
-            group1.addMember(person1) &&
-            group1.addMember(person2));
+                group1.addMember(person1) &&
+                        group1.addMember(person2));
 
         //Assert
         assertTrue(areMembersAddedToGroup);
@@ -305,8 +304,8 @@ class GroupTest {
 
         //Act
         boolean areMembersAddedToANonEmptyGroup = (
-            group1.addMember(person1) &&
-            group1.addMember(person2));
+                group1.addMember(person1) &&
+                        group1.addMember(person2));
 
         //Assert
         assertTrue(areMembersAddedToANonEmptyGroup);
@@ -330,9 +329,9 @@ class GroupTest {
 
         //Act
         boolean areThreePeopleAdded = (
-            group1.addMember(person1) &&
-            group1.addMember(person2) &&
-            group1.addMember(person3));
+                group1.addMember(person1) &&
+                        group1.addMember(person2) &&
+                        group1.addMember(person3));
 
 
         //Assert
@@ -373,11 +372,9 @@ class GroupTest {
             //Act
             boolean isPerson2NotAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
             fail();
+        } catch (IllegalArgumentException message) {
+            assertEquals("You cannot add an empty list of members or a non existing person. Please try again.", message.getMessage());
         }
-
-        catch(IllegalArgumentException message){
-                assertEquals("You cannot add an empty list of members or a non existing person. Please try again.", message.getMessage());
-            }
     }
 
     /**
@@ -390,7 +387,7 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
-        Person personAdmin = new Person("António", 1960, 4,12, new Address("Guimarães"));
+        Person personAdmin = new Person("António", 1960, 4, 12, new Address("Guimarães"));
         Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
         Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
 
@@ -511,7 +508,7 @@ class GroupTest {
 
         Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
         Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
-        Person person3= new Person("Gabriel", 1995, 2, 2, new Address("Porto"));
+        Person person3 = new Person("Gabriel", 1995, 2, 2, new Address("Porto"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person2, person1));
 
@@ -532,10 +529,10 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
-        Person personAdmin = new Person("Catarina",1991, 5, 13, new Address("Lisboa"));
+        Person personAdmin = new Person("Catarina", 1991, 5, 13, new Address("Lisboa"));
         Person person1 = new Person("João", 1993, 9, 1, new Address("Paranhos"));
         Person person2 = new Person("Elsa", 1992, 10, 9, new Address("Porto"));
-        Person person3= new Person("Gabriel", 1995, 2, 2, new Address("Porto"));
+        Person person3 = new Person("Gabriel", 1995, 2, 2, new Address("Porto"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
         group1.setAdmin(personAdmin);
@@ -568,7 +565,7 @@ class GroupTest {
         boolean areBothMembersRemoved = (group1.removeMember(person3) && group1.removeMember(person2));
 
         //Assert
-        assertTrue (areBothMembersRemoved);
+        assertTrue(areBothMembersRemoved);
     }
 
     /**
@@ -593,8 +590,8 @@ class GroupTest {
         HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person4));
 
         boolean removeOnlyNonAdminMembers = (
-            group1.addMultipleMembers(setOfMembers) &&
-            group1.removeMultipleMembers(setOfMembersToRemove));
+                group1.addMultipleMembers(setOfMembers) &&
+                        group1.removeMultipleMembers(setOfMembersToRemove));
 
         //Assert
         assertTrue(removeOnlyNonAdminMembers);
@@ -619,8 +616,8 @@ class GroupTest {
         HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person2, person4));
 
         boolean removeMultipleMembersAndAdmins = (
-            group1.addMultipleMembers(setOfMembers) &&
-            group1.removeMultipleMembers(setOfMembersToRemove));
+                group1.addMultipleMembers(setOfMembers) &&
+                        group1.removeMultipleMembers(setOfMembersToRemove));
 
         //Assert
         assertTrue(removeMultipleMembersAndAdmins);
@@ -665,11 +662,11 @@ class GroupTest {
 
         //Act:
         boolean areMembersBeingAddedAndRemoved = (
-            group1.addMember(person1) &&
-            group1.addMember(person2) &&
-            group1.promoteMemberToAdmin(person2) &&
-            group1.addMember(person3) &&
-            group1.removeMember(person1)
+                group1.addMember(person1) &&
+                        group1.addMember(person2) &&
+                        group1.promoteMemberToAdmin(person2) &&
+                        group1.addMember(person3) &&
+                        group1.removeMember(person1)
         );
 
         //Assert:
@@ -834,7 +831,7 @@ class GroupTest {
         //Arrange
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
-        Person person3 = new Person("Albert",1987,10,10,new Address("Bristol"));
+        Person person3 = new Person("Albert", 1987, 10, 10, new Address("Bristol"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -982,7 +979,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Demote a member who is not an admin - FALSE")
-    void demoteMemberTestFalse(){
+    void demoteMemberTestFalse() {
 
         //Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
@@ -1005,7 +1002,7 @@ class GroupTest {
         //Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
-        Person person3 = new Person("Vladimir",1970,4,12, new Address("Moscow"));
+        Person person3 = new Person("Vladimir", 1970, 4, 12, new Address("Moscow"));
         Group group1 = new Group("Francis Group");
 
         //Act:
@@ -1018,7 +1015,7 @@ class GroupTest {
         boolean isSecondAdminRemoved = group1.demoteMemberFromAdmin(person3);
 
         //Assert:
-        assertTrue (isFirstAdminRemoved && isSecondAdminRemoved);
+        assertTrue(isFirstAdminRemoved && isSecondAdminRemoved);
     }
 
     @Test
@@ -1026,11 +1023,11 @@ class GroupTest {
     void demoteMemberFromMultipleGroups() {
 
         //Arrange:
-        Person person1 = new Person ("Francis", 1994, 05, 23, new Address("London"));
+        Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
         Group group1 = new Group("Test Group 1");
         Group group2 = new Group("Test Group 2");
-        Group group3 = new Group ("Test Group 3");
+        Group group3 = new Group("Test Group 3");
 
         //Act:
         group1.addMember(person1); // admin automatically
@@ -1057,7 +1054,7 @@ class GroupTest {
         //Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
-        Group group1 = new Group ("Test Group");
+        Group group1 = new Group("Test Group");
 
         //Act:
         group1.addMember(person1); //Automatically promoted to admin
@@ -1066,7 +1063,7 @@ class GroupTest {
         boolean isRemovedFromAdminPerson1 = group1.demoteMemberFromAdmin(person1);
 
         //Assert:
-        assertFalse (isRemovedFromAdminPerson2 && isRemovedFromAdminPerson1);
+        assertFalse(isRemovedFromAdminPerson2 && isRemovedFromAdminPerson1);
     }
 
     /**
@@ -1080,8 +1077,8 @@ class GroupTest {
         // Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
-        Person person3 = new Person("John",1990,06,22,new Address("Bristol"));
-        Person person4 = new Person("Susan",1997,12,11,new Address("Edinburgh"));
+        Person person3 = new Person("John", 1990, 06, 22, new Address("Bristol"));
+        Person person4 = new Person("Susan", 1997, 12, 11, new Address("Edinburgh"));
         Group group1 = new Group("Test Group");
 
         // Act:
@@ -1105,8 +1102,8 @@ class GroupTest {
         //Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
-        Person person3 = new Person("John",1990,06,22,new Address("Bristol"));
-        Person person4 = new Person("Susan",1997,12,11,new Address("Edinburgh"));
+        Person person3 = new Person("John", 1990, 06, 22, new Address("Bristol"));
+        Person person4 = new Person("Susan", 1997, 12, 11, new Address("Edinburgh"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -1117,7 +1114,7 @@ class GroupTest {
         HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
         group1.promoteMultipleMemberToAdmin(membersToPromote);
         HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
-            // Last person will not be removed since if it is, there will be no admins left on the group;
+        // Last person will not be removed since if it is, there will be no admins left on the group;
         boolean isLastAdminDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
 
         //Assert:
@@ -1131,8 +1128,8 @@ class GroupTest {
         //Arrange:
         Person person1 = new Person("Francis", 1994, 05, 23, new Address("London"));
         Person person2 = new Person("Jaques", 2000, 12, 1, new Address("Paris"));
-        Person person3 = new Person("John",1990,06,22,new Address("Bristol"));
-        Person person4 = new Person("Susan",1997,12,11,new Address("Edinburgh"));
+        Person person3 = new Person("John", 1990, 06, 22, new Address("Bristol"));
+        Person person4 = new Person("Susan", 1997, 12, 11, new Address("Edinburgh"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -1142,7 +1139,7 @@ class GroupTest {
         HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3));
         group1.promoteMultipleMemberToAdmin(membersToPromote);
         HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
-            // person4 is not part of the group
+        // person4 is not part of the group
         boolean isNonMemberDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
 
         //Assert:
@@ -1217,7 +1214,7 @@ class GroupTest {
         Group group1 = new Group("Test Group");
 
         //Act
-        boolean result =group1.addAccountToGroupAccountsList("Group Account Test", "group account");
+        boolean result = group1.addAccountToGroupAccountsList("Group Account Test", "group account");
 
         //Assert
         assertTrue(result);
@@ -1245,11 +1242,11 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if a group admin can create a group account - TRUE")
-    void createGroupAccountTest(){
+    void createGroupAccountTest() {
 
         //Arrange :
-        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
-        Group group1 = new Group ("Test group");
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Group group1 = new Group("Test group");
 
         //Act :
         group1.addMember(person1);
@@ -1261,17 +1258,17 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if a group can create multiple group accounts - TRUE")
-    void createGroupAccountsTest(){
+    void createGroupAccountsTest() {
 
         //Arrange
-        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
         Group group1 = new Group("Test group");
 
         //Act
         group1.addMember(person1);
-        boolean addGroupAccount1 = group1.createGroupAccount("Account1","Test", person1);
+        boolean addGroupAccount1 = group1.createGroupAccount("Account1", "Test", person1);
         boolean addGroupAccount2 = group1.createGroupAccount("Account2", "Test", person1);
-        boolean addGroupAccount3 = group1.createGroupAccount("Account3","Test",person1);
+        boolean addGroupAccount3 = group1.createGroupAccount("Account3", "Test", person1);
 
         //Assert
         assertTrue(addGroupAccount1 && addGroupAccount2 && addGroupAccount3);
@@ -1279,17 +1276,17 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if a person that is not a group admin can create a group account - False")
-    void createGroupAccountFalse(){
+    void createGroupAccountFalse() {
 
         //Arrange :
-        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
-        Person person2 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Person person2 = new Person("Francisca", 12, 3, 15, new Address("Lisboa"));
         Group group1 = new Group("Test group");
 
         //Act :
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean addGroupAccount = group1.createGroupAccount("Account1","Test", person2);
+        boolean addGroupAccount = group1.createGroupAccount("Account1", "Test", person2);
 
         //Assert:
         assertFalse(addGroupAccount);
@@ -1297,34 +1294,34 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if a regular member can add a Group Account")
-    void createGroupAccountRegularMemberFalse(){
+    void createGroupAccountRegularMemberFalse() {
 
         //Arrange:
-        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
-        Person person2 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
+        Person person2 = new Person("Francisca", 12, 3, 15, new Address("Lisboa"));
         Group group1 = new Group("Test group");
 
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1","Test", person2);
+        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1", "Test", person2);
 
 
         //Assert
-        assertFalse (canARegularMemberAddGroupAccount);
+        assertFalse(canARegularMemberAddGroupAccount);
     }
 
     @Test
     @DisplayName("Test if method works while the group description is null")
-    void createGroupAccountOnNullGroup(){
+    void createGroupAccountOnNullGroup() {
 
         //Arrange:
-        Person person1 = new Person ("João",1994,11,13,new Address("Porto"));
+        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
         Group group1 = new Group(null);
 
         //Act:
         boolean canAnAccountBeAddedToNullGroup = group1.addMember(person1)
-                && group1.createGroupAccount("Account1","Test",person1);
+                && group1.createGroupAccount("Account1", "Test", person1);
 
         //Assert:
         assertFalse(canAnAccountBeAddedToNullGroup);
@@ -1335,12 +1332,12 @@ class GroupTest {
     void canAccountWithNullDescriptionBeCreated() {
 
         //Arrange:
-        Person person1 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Person person1 = new Person("Francisca", 12, 3, 15, new Address("Lisboa"));
         Group group1 = new Group("Test Group");
 
         //Act:
         group1.addMember(person1);
-        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7",person1);
+        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7", person1);
 
         //Assert:
         assertFalse(canNullAccountBeAdded);
@@ -1356,8 +1353,8 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Account1","Test", person1);
-        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1","Test", person1);
+        group1.createGroupAccount("Account1", "Test", person1);
+        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1", "Test", person1);
 
         //Assert
         assertFalse(addGroupAccountRepeated);
@@ -1381,10 +1378,10 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if an admin of many groups can add an account to all of them")
-    void createGroupAccountsOnMultipleGroups(){
+    void createGroupAccountsOnMultipleGroups() {
 
         //Arrange:
-        Person person1 = new Person ("Francisca", 12,3,15,new Address("Lisboa"));
+        Person person1 = new Person("Francisca", 12, 3, 15, new Address("Lisboa"));
         Group group1 = new Group("Test Group");
         Group group2 = new Group("Test Group 2");
         Group group3 = new Group("Test Group 3");
@@ -1393,8 +1390,8 @@ class GroupTest {
         group1.addMember(person1);
         group2.addMember(person1);
         group3.addMember(person1);
-        boolean isGroup1AccountCreated = group1.createGroupAccount("Account1","User Story 7", person1);
-        boolean isGroup2AccountCreated = group2.createGroupAccount("Account2","User Story 7", person1);
+        boolean isGroup1AccountCreated = group1.createGroupAccount("Account1", "User Story 7", person1);
+        boolean isGroup2AccountCreated = group2.createGroupAccount("Account2", "User Story 7", person1);
         boolean isGroup3AccountCreated = group3.createGroupAccount("Account3", "User Story 7", person1);
 
         //Assert
@@ -1460,7 +1457,7 @@ class GroupTest {
     /**
      * Check if a Group is the same as another with Hashcode
      */
-    
+
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
@@ -1568,209 +1565,9 @@ class GroupTest {
         assertTrue(result);
     }
 
-    /**
-     * Check if multiple Categories were added to the groups Category list
-     */
-
-    /*
-    @Test
-    @DisplayName("Add a Set of Categories to user Category List - Main Scenario")
-    void addMultipleCategoriesToListMainScenario() {
-        // Arrange
-
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryUniversity = new Category("University");
-
-        //Act
-
-        // set of Categories to be added to categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-        //Category - add several categories to the user Category List with method
-        boolean realResult = group1.addMultipleCategoriesToList(setOfCategories);
-
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if null category is not added")
-    void addMultipleCategoriesToListWithANullCase() {
-        // Arrange
-
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        // Categories to be included in Category List
-        Category categoryBets = new Category("Bets and Games");
-        Category categoryNull = null;
-        Category categoryBeauty = new Category("Beauty");
-
-        //Act
-
-        // set of Categories to be added to categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryBets, categoryNull, categoryBeauty));
-        //Category - add several categories to the user Category List with method
-        group1.addMultipleCategoriesToList(setOfCategories);
-
-        boolean realResult = !group1.addCategoryToCategoryList(categoryNull);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
-    void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
-        // Arrange
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-        // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryHealthDuplicated = new Category("Health");
-        Category categoryBeauty = new Category("Beauty");
-
-        //Act
-        // set of Categories to be added to categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
-        //The user adds several categories to his Category List with method
-
-        boolean realResult = group1.addMultipleCategoriesToList(setOfCategories);
-        //Assert
-        assertTrue(realResult);
-
-    }
-
-    @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
-            "Ignore letter capitalization and special characters ")
-    void addMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
-        // Arrange
-
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryHealthDuplicated = new Category("heálth");
-        Category categoryBeauty = new Category("Beauty");
-
-        //Act
-
-        // set of Categories to be added to categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
-
-        //The user adds several categories to his Category List with method
-        boolean realResult =  group1.addMultipleCategoriesToList(setOfCategories);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    /**
-     * Check if multiple Categories were removed from the groups Category list
-     */
-/*
-    @Test
-    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
-    void removeMultipleCategoriesToListMainScenario() {
-        // Arrange
-
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryBeauty = new Category("Beauty");
-
-        //Act
-
-        // set of Categories to be added to Categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        group1.addMultipleCategoriesToList(setOfCategories);
-
-        //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
-        boolean realResult = group1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that does not " +
-            "or null")
-    void removeMultipleCategoriesToListExceptionCase() {
-        // Arrange
-
-        ///Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryBeauty = new Category("Beauty");
-
-        Category categoryCar = new Category("Car");
-        Category categoryNull = null;
-        Category categoryUniversity = new Category("University");
-
-        //Act
-
-        // set of Categories to be added to Categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        group1.addMultipleCategoriesToList(setOfCategories);
-
-        //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
-
-
-        boolean realResult = group1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
-    void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
-        // Arrange
-
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        // Categories to be included in Category List
-        Category categoryHealth = new Category("Health");
-        Category categoryGym = new Category("Gym");
-        Category categoryBeauty = new Category("Beauty");
-
-        Category categoryHealthLowerCase = new Category("health");
-        Category categoryGymSpecialCharacter = new Category("Gým");
-        Category categoryBeautyUpperCase = new Category("BEAUTY");
-
-        //Act
-
-        // set of Categories to be added to Categories list
-        HashSet<Category> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        group1.addMultipleCategoriesToList(setOfCategories);
-
-        //set of Categories to be removed from Categories List
-        HashSet<Category> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
-
-
-        boolean realResult = group1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
-        //Assert
-        assertTrue(realResult);
-    }
-
-*/
 }
+
+
 
 
 

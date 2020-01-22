@@ -415,7 +415,7 @@ class UserTest {
         user.createAccount("TransportAccount", "Transport expenses");
 
         //Act
-        boolean result = user.createTransaction(amount, description, category, from, to, type);
+        boolean result = user.createTransaction(amount, description, null, category, from, to, type);
 
         //Assert
         assertTrue(result);
@@ -441,8 +441,8 @@ class UserTest {
         user.createAccount("TransportAccount", "Transport expenses");
 
         //Act
-        boolean categoryInTheList = user.createTransaction(amount, description, categoryBaby, from, to, type);
-        boolean categoryNotInTheList = user.createTransaction(amount, description, categoryHome, from, to, type);
+        boolean categoryInTheList = user.createTransaction(amount, description, null, categoryBaby, from, to, type);
+        boolean categoryNotInTheList = user.createTransaction(amount, description, null, categoryHome, from, to, type);
 
         //Assert
         assertTrue(categoryInTheList && !categoryNotInTheList);
@@ -468,8 +468,8 @@ class UserTest {
         user1.createAccount("Transport", "Transport expenses");
 
         //Act
-        boolean accountInTheList = user1.createTransaction(amount, description, category, accountWallet, accountTransport, type);
-        boolean accountNotInTheList = user1.createTransaction(amount, description, category, accountWallet, accountBaby, type);
+        boolean accountInTheList = user1.createTransaction(amount, description, null, category, accountWallet, accountTransport, type);
+        boolean accountNotInTheList = user1.createTransaction(amount, description, null, category, accountWallet, accountBaby, type);
 
         //Assert
         assertTrue(accountInTheList && !accountNotInTheList);
@@ -495,8 +495,8 @@ class UserTest {
         user1.createAccount("Transport", "Transport expenses");
 
         //Act
-        boolean monetaryValuePositive = user1.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
-        boolean monetaryValueNegative = user1.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
+        boolean monetaryValuePositive = user1.createTransaction(amountPositive, description, null, category, accountWallet, accountTransport, type);
+        boolean monetaryValueNegative = user1.createTransaction(amountNegative, description, null, category, accountWallet, accountTransport, type);
 
         //Assert
         assertTrue(monetaryValuePositive && !monetaryValueNegative);

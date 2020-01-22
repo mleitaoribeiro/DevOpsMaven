@@ -98,13 +98,13 @@ public class Group {
      * @return true if multiple members were added, false if they weren't
      */
     public boolean addMultipleMembers(HashSet<Person> newMembers) {
-        if (members.size() != 0 ) {
+        if (members.size() != 0) {
             for (Person member : newMembers) {
                 addMember(member);
             }
             return this.members.containsAll(newMembers);
-        }
-        else throw new IllegalArgumentException("You cannot add an empty list of members or a non existing person. Please try again.");
+        } else
+            throw new IllegalArgumentException("You cannot add an empty list of members or a non existing person. Please try again.");
     }
 
     /**
@@ -208,7 +208,7 @@ public class Group {
      */
 
     public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleMembers) {
-        if (multipleMembers.size() >= this.admins.size()){
+        if (multipleMembers.size() >= this.admins.size()) {
             return false;
         }
         for (Person member : multipleMembers) {
@@ -248,7 +248,8 @@ public class Group {
     public boolean createGroupAccount(String accountDenomination, String accountDescription) {
         if (accountDenomination != null && accountDescription != null && this.description != null) {
             return this.addAccountToGroupAccountsList(accountDenomination, accountDescription);
-        } return false;
+        }
+        return false;
     }
 
     /**
@@ -264,19 +265,7 @@ public class Group {
         } else return false;
     }
 
-    /**
-     * Develop method add multiple categories to group's Category List
-     *
-     * @param categories
-     * @return true if category was added to group's Category List, false if it wasn't
-     */
-/*
 
-    public boolean addMultipleCategoriesToList(HashSet<String> categories) {
-        return categoryList.addMultipleCategoriesToList(categories);
-    }
-
-*/
     /**
      * Remove a category from CategoryList
      *
@@ -290,18 +279,6 @@ public class Group {
         return categoryList.removeCategoryFromList(nameOfcategory);
     }
 
-
-    /**
-     * Remove multiple categories from CategoryList
-     *
-     * @param categories<Category> categories
-     */
-
-    /*
-    public boolean removeMultipleCategoriesToList(HashSet<Category> categories) {
-        return categoryList.removeMultipleCategoriesToList(categories);
-    }
-     */
 }
 
 

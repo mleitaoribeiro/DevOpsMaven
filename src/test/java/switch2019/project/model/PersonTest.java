@@ -783,7 +783,7 @@ class PersonTest {
         boolean type = false; //debit
 
         //Act
-        boolean result = person.createTransaction(amount, description, category, from, to, type);
+        boolean result = person.createTransaction(amount, description, null, category, from, to, type);
 
         //Assert
         assertTrue(result);
@@ -810,8 +810,8 @@ class PersonTest {
         boolean type = false; //debit
 
         //Act
-        boolean categoryInTheList = person.createTransaction(amount, description, categoryFood, from, to, type);
-        boolean categoryNotInTheList = person.createTransaction(amount, description, categoryBaby, from, to, type);
+        boolean categoryInTheList = person.createTransaction(amount, description, null, categoryFood, from, to, type);
+        boolean categoryNotInTheList = person.createTransaction(amount, description, null, categoryBaby, from, to, type);
 
         //Assert
         assertTrue(categoryInTheList && !categoryNotInTheList);
@@ -837,8 +837,8 @@ class PersonTest {
         boolean type = false; //debit
 
         //Act
-        boolean accountInTheList = person.createTransaction(amount, description, category, accountWallet, accountTransport, type);
-        boolean accountNotInTheList = person.createTransaction(amount, description, category, accountWallet, accountBaby, type);
+        boolean accountInTheList = person.createTransaction(amount, description, null, category, accountWallet, accountTransport, type);
+        boolean accountNotInTheList = person.createTransaction(amount, description, null, category, accountWallet, accountBaby, type);
 
         //Assert
         assertTrue(accountInTheList && !accountNotInTheList);
@@ -864,8 +864,8 @@ class PersonTest {
         boolean type = false; //debit
 
         //Act
-        boolean accountInTheList = person.createTransaction(amountPositive, description, category, accountWallet, accountTransport, type);
-        boolean accountNotInTheList = person.createTransaction(amountNegative, description, category, accountWallet, accountTransport, type);
+        boolean accountInTheList = person.createTransaction(amountPositive, description, null, category, accountWallet, accountTransport, type);
+        boolean accountNotInTheList = person.createTransaction(amountNegative, description, null, category, accountWallet, accountTransport, type);
 
         //Assert
         assertTrue(accountInTheList && !accountNotInTheList);
