@@ -19,7 +19,6 @@ public class Ledger {
      */
     public boolean addTransactionToLedger(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
         Transaction transaction = new Transaction(amount, description, category, accountFrom, accountTo, type);
-        if (transaction.isAValidTransaction()) return ledgerTransactions.add(transaction);
-        else return false;
+        return ledgerTransactions.add(transaction);
     }
 }
