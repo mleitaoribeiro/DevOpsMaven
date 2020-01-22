@@ -441,38 +441,10 @@ class PersonTest {
         assertFalse(person1.checkSameSiblings(person2));
     }
 
+
     /**
-     * Test if Person exists on the other Person siblings list (USER STORIES)
+     * Test if Person exists on the other Person siblings list
      *
-     * @return boolean
-     */
-
-
-    @Test
-    @DisplayName("Test if two individuals are siblings -not related")
-    void isSiblingsFalse() {
-        //Arrange
-        Person mae =new Person("Maria",1965,3,4,new Address("Penacova"));
-        Person mama=new Person("Amália",1962,9,14,new Address("Penacova"));
-        Person senhor=new Person("Ricardo",1964,6,9,new Address("Penacova"));
-        Person pai=new Person("José",1963,3,9,new Address("Penacova"));
-        Person antonio=new Person("António",1987,12,9,new Address("Penacova"));
-        Person manuel=new Person("Manuel",1986,9,12,new Address("Penacova"));
-
-        //Act
-        antonio.setMother(mae);
-        antonio.setFather(senhor);
-        manuel.setMother(mama);
-        manuel.setFather(pai);
-        boolean resultado=antonio.isSibling(manuel);
-
-        //Assert
-        assertFalse(resultado);
-    }
-
-
-    /**
-     *  Test if Person exists on the other Person siblings list
      * @return boolean
      */
 
@@ -484,39 +456,39 @@ class PersonTest {
         //One Person
         String name = "João Cardoso";
         //One Person BirthDate
-        int year  = 1993;
+        int year = 1993;
         int month = 9;
         int day = 1;
-        Address birthPlaceJoao=new Address("Porto");
+        Address birthPlaceJoao = new Address("Porto");
 
         //Other Person
         String otherPersonName = "Marta";
         //Other Person BirthDate
-        int otherPersonYear  = 1996;
+        int otherPersonYear = 1996;
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
-        Address birthPlaceMarta=new Address("Porto");
+        Address birthPlaceMarta = new Address("Porto");
 
         //One Brother
         String bortherName = "Paulo";
         //One brother BirthDate
-        int brotherYear  = 1993;
+        int brotherYear = 1993;
         int brotherMonth = 9;
         int brotherDay = 1;
-        Address birthPlacePaulo=new Address("Porto");
+        Address birthPlacePaulo = new Address("Porto");
 
         //one Sister
         String sisterName = "Diana";
         //One Sister BirthDate
-        int sisterYear  = 2000;
+        int sisterYear = 2000;
         int sisterMonth = 9;
         int sisterDay = 1;
-        Address birthPlaceDiana=new Address("Porto");
+        Address birthPlaceDiana = new Address("Porto");
 
-        Person onePerson = new Person(name, year, month, day,birthPlaceJoao);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay,birthPlaceMarta);
-        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay,birthPlacePaulo);
-        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay,birthPlaceDiana);
+        Person onePerson = new Person(name, year, month, day, birthPlaceJoao);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta);
+        Person brother = new Person(bortherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
+        Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana);
 
         //Act
         onePerson.addSibling(otherPerson);
@@ -537,39 +509,39 @@ class PersonTest {
         //One Person
         String name = "João Cardoso";
         //One Person BirthDate
-        int year  = 1993;
+        int year = 1993;
         int month = 9;
         int day = 1;
-        Address birthPlaceJoao=new Address("Porto");
+        Address birthPlaceJoao = new Address("Porto");
 
         //Other Person
         String otherPersonName = "Marta";
         //Other Person BirthDate
-        int otherPersonYear  = 1996;
+        int otherPersonYear = 1996;
         int otherPersonMonth = 3;
         int otherPersonDay = 4;
-        Address birthPlaceMarta=new Address("Porto");
+        Address birthPlaceMarta = new Address("Porto");
 
         //One Brother
         String bortherName = "Paulo";
         //One brother BirthDate
-        int brotherYear  = 1993;
+        int brotherYear = 1993;
         int brotherMonth = 9;
         int brotherDay = 1;
-        Address birthPlacePaulo=new Address("Porto");
+        Address birthPlacePaulo = new Address("Porto");
 
         //one Sister
         String sisterName = "Diana";
         //One Sister BirthDate
-        int sisterYear  = 2000;
+        int sisterYear = 2000;
         int sisterMonth = 9;
         int sisterDay = 1;
-        Address birthPlaceDiana=new Address("Porto");
+        Address birthPlaceDiana = new Address("Porto");
 
-        Person onePerson = new Person(name, year, month, day,birthPlaceJoao);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay,birthPlaceMarta);
-        Person brother = new Person (bortherName,brotherYear,brotherMonth,brotherDay,birthPlacePaulo);
-        Person sister = new Person(sisterName,sisterYear,sisterMonth,sisterDay,birthPlaceDiana);
+        Person onePerson = new Person(name, year, month, day, birthPlaceJoao);
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta);
+        Person brother = new Person(bortherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
+        Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana);
 
         //Act
         onePerson.addSibling(brother);
@@ -763,6 +735,28 @@ class PersonTest {
 
         //Assert
         assertEquals(true, resultado);
+    }
+
+    @Test
+    @DisplayName("Test if two individuals are siblings -not related")
+    void isSiblingsFalse() {
+        //Arrange
+        Person mae = new Person("Maria", 1965, 3, 4, new Address("Penacova"));
+        Person mama = new Person("Amália", 1962, 9, 14, new Address("Penacova"));
+        Person senhor = new Person("Ricardo", 1964, 6, 9, new Address("Penacova"));
+        Person pai = new Person("José", 1963, 3, 9, new Address("Penacova"));
+        Person antonio = new Person("António", 1987, 12, 9, new Address("Penacova"));
+        Person manuel = new Person("Manuel", 1986, 9, 12, new Address("Penacova"));
+
+        //Act
+        antonio.setMother(mae);
+        antonio.setFather(senhor);
+        manuel.setMother(mama);
+        manuel.setFather(pai);
+        boolean resultado = antonio.isSibling(manuel);
+
+        //Assert
+        assertFalse(resultado);
     }
 
     /**
@@ -1181,15 +1175,15 @@ class PersonTest {
         //Arrange
         Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
         String categoryDescriptionOne = "Health";
-        String categoryDescriptionTwo="Saude";
-        String categoryDescriptionThree="paz";
-        HashSet<String> categoriesList=new HashSet<>(Arrays.asList(categoryDescriptionOne,categoryDescriptionTwo,categoryDescriptionThree));
+        String categoryDescriptionTwo = "Saude";
+        String categoryDescriptionThree = "paz";
+        HashSet<String> categoriesList = new HashSet<>(Arrays.asList(categoryDescriptionOne, categoryDescriptionTwo, categoryDescriptionThree));
         person1.createAndAddMultipleCategoriesToList(categoriesList);
 
         //Act
         int result = person1.numberOfCategoryInTheCategoryList();
 
         //Assert
-        assertEquals(3,result);
+        assertEquals(3, result);
     }
 }

@@ -17,6 +17,7 @@ public class Transaction {
 
     /**
      * Default Transaction constructor
+     *
      * @param amount
      * @param description
      * @param category
@@ -26,38 +27,18 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if(isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
+    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, boolean type) {
+        if (isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
             this.amount = amount;
             this.description = description;
             this.category = category;
             this.accountFrom = accountFrom;
             this.accountTo = accountTo;
             this.type = type;
-            setDate();
+            if (date == null) {
+                setDate();
+            } else this.date = date;
         }
-    }
-
-    /**
-     * Transaction constructor with date inserted by user
-     *
-     * @param amount
-     * @param description
-     * @param date
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-
-    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, boolean type) {
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.category = category;
-        this.accountFrom = accountFrom;
-        this.accountTo = accountTo;
-        this.type = type;
     }
 
     @Override
