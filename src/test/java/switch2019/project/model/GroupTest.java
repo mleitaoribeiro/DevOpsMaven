@@ -1519,7 +1519,6 @@ class GroupTest {
      * Check if a Category was removed from the groups Category list
      */
 
-    /*
     @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
@@ -1528,15 +1527,10 @@ class GroupTest {
         //Initialize group
         Group group1 = new Group("Groupo dos amigos");
 
-        //Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("Health expenses");
-
-        group1.addCategoryToCategoryList(category1);
-        group1.addCategoryToCategoryList(category2);
-
         //Act
-        boolean realResult = group1.removeCategoryFromList(category1);
+        group1.createAndAddCategoryToCategoryList("Jantares de Grupo");
+        group1.createAndAddCategoryToCategoryList("filmes");
+        boolean realResult = group1.removeCategoryFromList("filmes");
 
         //Assert
         assertTrue(realResult);
@@ -1550,19 +1544,14 @@ class GroupTest {
         //Initialize Group
         Group group1 = new Group("Groupo dos amigos");
 
-        //Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = null;
-
-        group1.addCategoryToCategoryList(category1);
-        group1.addCategoryToCategoryList(category2);
+        group1.createAndAddCategoryToCategoryList("Jantares de Grupo");
+        group1.createAndAddCategoryToCategoryList(null);
 
         //Act
-        boolean realResult = group1.removeCategoryFromList(category1);
+        boolean realResult = group1.removeCategoryFromList(null);
 
         //Assert
-        assertTrue(realResult);
-
+        assertFalse(realResult);
     }
 
     @Test
@@ -1572,16 +1561,11 @@ class GroupTest {
         //Initialize group
         Group group1 = new Group("Groupo dos amigos");
 
-        // Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("ScHOÓL eXpenSÉs");
-        group1.addCategoryToCategoryList(category1);
-
         //Act
-        boolean realResult = group1.removeCategoryFromList(category2);
+        boolean result = group1.createAndAddCategoryToCategoryList("SCHOóL expenses");
 
         //Assert
-        assertTrue(realResult);
+        assertTrue(result);
     }
 
     /**
