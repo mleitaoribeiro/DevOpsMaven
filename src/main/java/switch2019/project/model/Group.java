@@ -151,15 +151,25 @@ public class Group {
 
     /**
      * Setter function to promote a person directly to group administrator
+     * This Method uses the addMember and promoteMemberToAdmin methods.
      *
      * @param person
      * @return true if person was promoted, false if it wasn't
      */
     public boolean setAdmin(Person person) {
-        if (!members.contains(person) && (!admins.contains(person) && person != null)) {
-            return members.add(person) && admins.add(person);
-        } else
+        if (person == null) {
             return false;
+        }
+        if (!this.members.contains(person)) {
+            addMember(person);
+        }
+        if (!this.admins.contains(person)) {
+            promoteMemberToAdmin(person);
+        }
+        if (this.admins.contains(person) && this.members.contains(person)) {
+            return true;
+        }
+        return false;
     }
 
     /**
