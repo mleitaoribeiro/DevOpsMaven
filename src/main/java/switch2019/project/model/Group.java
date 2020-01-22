@@ -160,11 +160,14 @@ public class Group {
         if (person == null) {
             return false;
         }
+        if (this.admins.contains(person) && this.members.contains(person)) {
+            return false;
+        }
         if (!this.members.contains(person)) {
-            addMember(person);
+            this.members.add(person);
         }
         if (!this.admins.contains(person)) {
-            promoteMemberToAdmin(person);
+            this.admins.add(person);
         }
         if (this.admins.contains(person) && this.members.contains(person)) {
             return true;
