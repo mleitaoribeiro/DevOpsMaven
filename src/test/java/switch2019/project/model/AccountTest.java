@@ -72,7 +72,7 @@ class AccountTest {
 
     @Test
     @DisplayName("Test if two accounts are the same - diferent objects")
-    public void testIfTwoAccountsAreTheSameDiferentObjects() {
+    public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
         Person onePerson = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
