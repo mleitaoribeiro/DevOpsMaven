@@ -11,11 +11,88 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionTest {
 
+
     /**
-     * Tests to validate if a transaction was created
-     *//*
+     * Test to see if two transactions are the equals
+     */
 
     @Test
+    @DisplayName("Test if two transactions are the equals - true")
+
+    public void testIfTwoTransactionsAreEqualsTrue() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+
+        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Transaction transaction2 = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+
+
+        //Act
+
+        boolean result = transaction.equals(transaction2);
+
+        //Assert
+        assertEquals(true, result);
+
+    }
+
+    @Test
+    @DisplayName("Test if two transactions are the equals - false")
+
+    public void testIfTwoTransactionsAreEqualsFalse() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account3 = new Account("bowling", "bowling NorteShopping");
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+
+        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Transaction transaction2 = new Transaction(monetaryValue, "payment",null, category, account1, account3,false);
+
+
+        //Act
+
+        boolean result = transaction.equals(transaction2);
+
+        //Assert
+        assertEquals(false, result);
+
+    }
+
+    @Test
+    @DisplayName("Test if two transactions are the equals - one is null")
+
+    public void testIfTwoTransactionsAreEqualsOneIsNull() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+
+        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Transaction transaction2 = null;
+
+
+        //Act
+
+        boolean result = transaction.equals(transaction2);
+
+        //Assert
+        assertEquals(false, result);
+        }
+
+        
+
+        /**
+         * Tests to validate if a transaction was created
+         */
+
+   /* @Test
     @DisplayName("Test for validating transaction - sucess case")
     void isAValidTransactionTrue() {
         //Arrange
