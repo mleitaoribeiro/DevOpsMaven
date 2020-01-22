@@ -229,14 +229,24 @@ public class Group {
     }
 
     /**
+     * Validate if a person is a Group Admin
+     *
+     * @param isAdmin
+     * @return
+     */
+    public boolean isGroupAdmin (Person isAdmin) {
+        return false;
+    }
+
+    /**
      * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
      *
      * @param accountDenomination
      * @param accountDescription
      * @return true if group account was created, false if it wasn't
      */
-    public boolean createGroupAccount(String accountDenomination, String accountDescription, Person person1) {
-        if (this.admins.contains(person1) && accountDenomination != null && accountDescription != null && this.description != null) {
+    public boolean createGroupAccount(String accountDenomination, String accountDescription) {
+        if (accountDenomination != null && accountDescription != null && this.description != null) {
             return this.addAccountToGroupAccountsList(accountDenomination, accountDescription);
         } return false;
     }
