@@ -16,22 +16,7 @@ class SibilingsControllerTest {
      * Test if two persons are siblings
      */
 
-    @Test
-    @DisplayName("Test if two individuals are siblings - same mother")
-    void isSiblingsSameMother() {
-        //Arrange
-        Person mae =new Person("Maria",1965,3,4,new Address("Penacova"));
-        Person antonio=new Person("António",1987,12,9,new Address("Penacova"));
-        Person manuel=new Person("Manuel",1986,9,12,new Address("Penacova"));
 
-        //Act
-        antonio.setMother(mae);
-        manuel.setMother(mae);
-        boolean resultado=antonio.isSibling(manuel);
-
-        //Assert
-        assertEquals(true,resultado);
-    }
     @Test
     @DisplayName("Test if two individuals are siblings -not related")
     void isSiblingsFalse() {
@@ -54,45 +39,6 @@ class SibilingsControllerTest {
         assertFalse(resultado);
     }
 
-
-    @Test
-    @DisplayName("Test if two individuals are siblings - same father")
-    void isSiblingsSameFather() {
-        //Arrange
-        Person pai=new Person("José",1963,3,9,new Address("Penacova"));
-        Person antonio=new Person("António",1987,12,9,new Address("Penacova"));
-        Person manuel=new Person("Manuel",1986,9,12,new Address("Penacova"));
-
-        //Act
-        antonio.setFather(pai);
-        manuel.setFather(pai);
-        boolean resultado=antonio.isSibling(manuel);
-
-        //Assert
-        assertEquals(true,resultado);
-    }
-
-    @Test
-    @DisplayName("Test if two individuals are siblings - in each other list")
-    void isSiblingsInTheSiblingsList() {
-        //Arrange
-        Person antonio=new Person("António",1987,12,9,new Address("Penacova"));
-        Person manuel=new Person("Manuel",1986,9,12,new Address("Penacova"));
-        Person ricardo=new Person("Roberto",1992,8,10,new Address("Penacova"));
-
-
-        HashSet<Person> siblings=new HashSet<Person>(Arrays.asList(manuel,ricardo));
-        HashSet<Person>siblings2=new HashSet<Person>(Arrays.asList(antonio,ricardo));
-
-        //Act
-        antonio.addMultipleSiblings(siblings);
-        ricardo.addMultipleSiblings(siblings2);
-
-        boolean resultado=antonio.isSibling(manuel);
-
-        //Assert
-        assertEquals(true,resultado);
-    }
 
     /**
      *  Test if Person exists on the other Person siblings list (USER STORIES)
