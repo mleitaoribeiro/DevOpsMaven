@@ -1401,6 +1401,52 @@ class GroupTest {
     }
 
     /**
+     * Test if a person is a Group Admin
+     */
+    @DisplayName("Check if a person is in the Group Admin List")
+    @Test
+    void isGroupAdmin() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),
+                new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"),
+                new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", 1996, 3, 4, new Address("Porto"),
+                new Address ("Rua X", "Porto", "4520-266"), person2, person1);
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person3);
+
+        //Act
+        boolean isAdmin = group1.isGroupAdmin(person3);
+
+        //Assert
+        assertTrue(isAdmin);
+    }
+
+    @DisplayName("Check if a person is in the Group Admin List")
+    @Test
+    void isGroupAdminFalse() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),
+                new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"),
+                new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", 1996, 3, 4, new Address("Porto"),
+                new Address ("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("João", 1994, 11, 13, new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3);
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person3);
+        group1.addMember(person4);
+
+        //Act
+        boolean isAdmin = group1.isGroupAdmin(person4);
+
+        //Assert
+        assertFalse(isAdmin);
+    }
+
+    /**
      * Check if Account was added to the groups account list
      * Testing getGroupAccountList() to see if account was added to the group´s list
      */
