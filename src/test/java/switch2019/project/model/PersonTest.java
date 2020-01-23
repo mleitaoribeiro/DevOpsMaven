@@ -392,6 +392,24 @@ class PersonTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Validate if two people have the same mother - Null mothers")
+    void checkSameMotherNullMothers() {
+        //Arrage
+        Person mother1 = null;
+        Person mother2 = null;
+        Person person1 = new Person("Miguel", 2006, 4, 10, new Address("Gaia"));
+        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"));
+        person1.setMother(mother1);
+        person2.setMother(mother2);
+
+        //Act
+        boolean result = person1.checkSameMother(person2);
+
+        //Assert
+        assertFalse(result);
+    }
+
     /**
      * Test if two people have the same siblings
      */
@@ -470,7 +488,7 @@ class PersonTest {
         Address birthPlaceMarta = new Address("Porto");
 
         //One Brother
-        String bortherName = "Paulo";
+        String brotherName = "Paulo";
         //One brother BirthDate
         int brotherYear = 1993;
         int brotherMonth = 9;
@@ -487,7 +505,7 @@ class PersonTest {
 
         Person onePerson = new Person(name, year, month, day, birthPlaceJoao);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta);
-        Person brother = new Person(bortherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
+        Person brother = new Person(brotherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
         Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana);
 
         //Act
@@ -523,7 +541,7 @@ class PersonTest {
         Address birthPlaceMarta = new Address("Porto");
 
         //One Brother
-        String bortherName = "Paulo";
+        String brotherName = "Paulo";
         //One brother BirthDate
         int brotherYear = 1993;
         int brotherMonth = 9;
@@ -540,7 +558,7 @@ class PersonTest {
 
         Person onePerson = new Person(name, year, month, day, birthPlaceJoao);
         Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta);
-        Person brother = new Person(bortherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
+        Person brother = new Person(brotherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
         Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana);
 
         //Act
@@ -822,7 +840,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test if an Account was created - success case")
-    void createAccountSucessCase() {
+    void createAccountSuccessCase() {
         // Arrange
 
         Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
