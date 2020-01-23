@@ -1030,7 +1030,7 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        boolean isFirstMemberPromoted = group1.setAdmin(person1);
+        group1.setAdmin(person1);
 
         boolean wasPromoted = group1.setAdmin(person1);
 

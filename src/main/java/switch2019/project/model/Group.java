@@ -162,7 +162,6 @@ public class Group {
             if (this.admins.contains(person) && this.members.contains(person)) {
                 return true;
             }
-            return false;
         }
         return false;
     }
