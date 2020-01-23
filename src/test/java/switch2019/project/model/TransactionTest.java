@@ -3,6 +3,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -285,7 +286,7 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
-        Person person1 = new Person("António",1987,6,22, new Address("Porto"), new Address("Rua 2", "Porto", "4620-580"));
+        Person person1 = new Person("António", LocalDate.of(1995,12,4), new Address("Porto"), new Address("Rua 2", "Porto", "4620-580"));
 
 
         //Act

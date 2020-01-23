@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static switch2019.project.model.Address.isNumeric;
@@ -390,7 +391,7 @@ class AddressTest {
     public void testEqualsSameAddressOtherObjectofDifferentClass() {
         //Arrange
         Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
-        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"),new Address ("Rua das Flores","Porto","4450-230"));
+        Person person1 = new Person("Miguel", LocalDate.of(1990, 12,04), new Address("Porto"),new Address ("Rua das Flores","Porto","4450-230"));
 
         //Act
         boolean result = address1.equals(person1);

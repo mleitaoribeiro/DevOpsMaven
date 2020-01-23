@@ -4,6 +4,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -313,7 +314,7 @@ class AccountsListTest {
 
 
         AccountsList september = new AccountsList();
-        Person onePerson = new Person("Maria",1989,12,13,new Address("Braga"),new Address("Rua das Flores","Braga","4432-045"));
+        Person onePerson = new Person("Maria", LocalDate.of(1990, 12,04),new Address("Braga"),new Address("Rua das Flores","Braga","4432-045"));
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);

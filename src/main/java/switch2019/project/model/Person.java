@@ -23,15 +23,15 @@ public class Person {
      * Default Person constructor
      *
      * @param name
-     * @param birthdayDay
-     * @param birthdayMonth
-     * @param birthdayYear
+     * @param birthDate
+     * @param birthPlace
+     * @param homeAddress
      */
 
-    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Address homeAddress) {
+    public Person(String name, LocalDate birthDate, Address birthPlace, Address homeAddress) {
         this.name = name;
-        setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
         this.birthPlace = birthPlace;
+        setBirthDate(birthDate);
         siblingList = new HashSet<>();
         categoryList = new CategoryList();
         accountsList = new AccountsList();
@@ -43,17 +43,16 @@ public class Person {
      * Overload Person constructor
      *
      * @param name
-     * @param birthdayDay
-     * @param birthdayMonth
-     * @param birthdayYear
+     * @param birthDate
      * @param birthPlace
+     * @param homeAddress
      * @param mother
      * @param father
      */
 
-    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Address homeAddress, Person mother, Person father) {
+    public Person(String name, LocalDate birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
         this.name = name;
-        setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
+        setBirthDate(birthDate);
         this.birthPlace = birthPlace;
         this.address = homeAddress;
         this.mother = mother;
@@ -67,16 +66,13 @@ public class Person {
     /**
      * Set Person Birth Date: with input validation
      *
-     * @param newYear
-     * @param newMonth
-     * @param newDay
+     * @param birthDate
      */
 
-    public void setBirthDate(int newYear, int newMonth, int newDay) {
-        LocalDate birthDateTemp = LocalDate.of(newYear, newMonth, newDay);
-        if (birthDateTemp.isAfter(LocalDate.now())) {
+    public void setBirthDate(LocalDate birthDate) {
+        if (birthDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Birth Date Not Supported.");
-        } else birthDate = birthDateTemp;
+        } else this.birthDate = birthDate;
     }
 
     /**
