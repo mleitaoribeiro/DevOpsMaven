@@ -1,0 +1,40 @@
+@startuml
+create ":Test"
+
+==Arrange==
+create "group1:Group"
+create "catList: CategoryList"
+create "acList:AccountsList"
+create "ledger:Ledger"
+
+create "amount:MonetaryValue"
+":Test" -> "amount:MonetaryValue" : create (amount, currency)
+
+== Act ==
+
+":Test" -> "group1:Group" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+activate "person:Person"  #FFBBBB
+
+"group1:Group" -> "amount:MonetaryValue" : validateIfAmountIsPositive()
+
+"group1:Group" -> "catList: CategoryList" : validateIfCategoryIsInTheCategoryList(category)
+
+"group1:Group" -> "acList:AccountsList" : validateIfAccountIsInTheAccountsList(accountTo)
+
+"group1:Group" -> "acList:AccountsList" : validateIfAccountIsInTheAccountsList(accountFrom)
+
+"group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, cat, accountFrom, accountTo, type)
+activate "ledger:Ledger"  #FFBBBB
+
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : create (amount, description, cat, accountFrom, accountTo, type)
+
+"ledger:Ledger" -> "ledger:Ledger": add
+deactivate "ledger:Ledger"  #FFBBBB
+deactivate "group1:Group"  #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(TransactionCreated)
+
+@enduml
