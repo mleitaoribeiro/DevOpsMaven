@@ -230,6 +230,19 @@ public class Group {
     }
 
     /**
+     * Validate if a person is a Group Admin
+     *
+     * @param isAdmin
+     * @return
+     */
+    public boolean isGroupAdmin (Person isAdmin) {
+        if (this.admins.contains(isAdmin) && isAdmin != null) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Add account to Group´s Account List
      *
      * @param accountDenomination
@@ -240,15 +253,6 @@ public class Group {
         return this.groupAccountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
     }
 
-    /**
-     * Validate if a person is a Group Admin
-     *
-     * @param isAdmin
-     * @return
-     */
-    public boolean isGroupAdmin (Person isAdmin) {
-        return false;
-    }
 
     /**
      * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
