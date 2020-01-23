@@ -183,6 +183,22 @@ class PersonTest {
         assertNotEquals(onePerson, otherPerson);
     }
 
+
+    @Test
+    @DisplayName("Test if two people are the same - False - Different Class")
+    public void individualsAreTheSameDifferentClass() {
+        //Arrange
+        Person person1Mother = new Person("Maria", 1960, 3, 4, new Address("Porto"));
+        Person person1Father = new Person("Artur", 1960, 3, 4, new Address("Porto"));
+
+        Address address1 = new Address("Rua da Alegria","Porto","4430-654");
+        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"), person1Mother, person1Father);
+
+        //Act & Assert
+        assertNotEquals(address1, person1);
+    }
+
+
     /**
      * Validate if a sibling was added to siblings list
      */
