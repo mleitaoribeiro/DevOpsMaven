@@ -91,6 +91,31 @@ class TransactionTest {
     }
 
     @Test
+    @DisplayName("Test if two transactions are the equals - false - different monetary value")
+
+    public void testIfTwoTransactionsAreEqualsFalseDifferentMonetaryValue() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(30, Currency.getInstance("EUR"));
+
+        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Transaction transaction2 = new Transaction(monetaryValue2, "payment",null, category, account1, account2,false);
+
+
+        //Act
+
+        boolean result = transaction.equals(transaction2);
+
+        //Assert
+        assertEquals(false, result);
+
+    }
+
+
+    @Test
     @DisplayName("Test if two transactions are the equals - false - different date")
     public void testIfTwoTransactionsAreEqualsFalseDifferentDate() {
 
