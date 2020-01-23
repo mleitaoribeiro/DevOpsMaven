@@ -1423,7 +1423,7 @@ class GroupTest {
         assertTrue(isAdmin);
     }
 
-    @DisplayName("Check if a person is in the Group Admin List")
+    @DisplayName("Check if a person is not in the Group Admin List")
     @Test
     void isGroupAdminFalse() {
         //Arrange:
@@ -1441,6 +1441,21 @@ class GroupTest {
 
         //Act
         boolean isAdmin = group1.isGroupAdmin(person4);
+
+        //Assert
+        assertFalse(isAdmin);
+    }
+
+    @DisplayName("Check if a person null can be a Group Admin")
+    @Test
+    void isGroupAdminNull() {
+        //Arrange:
+        Person person1 = null;
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person1);
+
+        //Act
+        boolean isAdmin = group1.isGroupAdmin(person1);
 
         //Assert
         assertFalse(isAdmin);
