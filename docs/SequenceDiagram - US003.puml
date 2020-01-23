@@ -2,17 +2,21 @@
 
 create ":Test"
 
-== Arrange ==
+note left of ":Test" #powderblue
+	Arrange
+end note
 
 create "person1:Person"
-":Test" -> "person1:Person" : new Person (name, birthDay, birthPlace)
+":Test" -> "person1:Person" : new Person (name, birthDate, birthPlace, homeAddress, mother, father)
 activate "person1:Person" #FFBBBB
 
 create "group1:Group"
 "group1:Group" <- "person1:Person" : new Group
 deactivate "person1:Person" #FFBBBB
 
-== Act ==
+note left of ":Test" #powderblue
+	Act
+end note
 
 "person1:Person" -> "group1:Group" : addMember(person1)
 activate "group1:Group" #FFBBBB
@@ -24,7 +28,9 @@ deactivate  "group1:Group" #FFBBBB
 "person1:Person" --> ":Test" : memberAdded
 deactivate  "person1:Person" #FFBBBB
 
-== Assert ==
+note left of ":Test" #powderblue
+	Assert
+end note
 
 ":Test" -> ":Test" : assertTrue(memberAdded)
 

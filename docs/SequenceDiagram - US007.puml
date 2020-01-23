@@ -2,7 +2,9 @@
 
 create ":Test"
 
-== Arrange ==
+note left of ":Test" #powderblue
+	Arrange
+end note
 
 create "group1:Group"
 ":Test" -> "group1:Group" : new Group (description)
@@ -12,7 +14,9 @@ create "accountList1:AccountsList"
 "group1:Group" -> "accountList1:AccountsList" : new AccountList
 deactivate "group1:Group" #FFBBBB
 
-== Act ==
+note left of ":Test" #powderblue
+	Act
+end note
 
 ":Test" -> "group1:Group" : createGroupAccount(denomination, description)
 activate "group1:Group" #FFBBBB
@@ -29,7 +33,9 @@ deactivate "accountList1:AccountsList" #FFBBBB
 "group1:Group" --> ":Test" : accountCreatedAndAdded
 deactivate "group1:Group" #FFBBBB
 
-== Assert ==
+note left of ":Test" #powderblue
+	Assert
+end note
 
 ":Test" -> ":Test" : assertTrue(accountCreatedAndAdded)
 
