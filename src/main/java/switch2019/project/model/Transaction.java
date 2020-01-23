@@ -35,9 +35,7 @@ public class Transaction {
             this.accountFrom = accountFrom;
             this.accountTo = accountTo;
             this.type = type;
-            if (date == null) {
-                setDate();
-            } else this.date = date;
+            setDate(date);
         }
     }
 
@@ -82,10 +80,12 @@ public class Transaction {
      * Set and format date
      */
 
-    public void setDate() {
-        LocalDateTime dateNow = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        date = LocalDateTime.parse(dateNow.format(formatter), formatter);
+    public void setDate(LocalDateTime date) {
+        if(date == null) {
+            LocalDateTime dateNow = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            this.date = LocalDateTime.parse(dateNow.format(formatter), formatter);
+        } else this.date = date;
 
     }
 }
