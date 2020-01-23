@@ -1,0 +1,45 @@
+@startuml
+
+participant ":Test"
+note left of ":Test" #powderblue
+	Arrange
+end note
+participant ":US011Controller"
+
+create "person1:Person"
+":Test" -> "person1:Person" : new Person (name, birthDay, birthPlace, birthDate, homeAddress, mother, father)
+activate "person1:Person" #FFBBBB
+
+create "ledger1:Ledger"
+"person1:Person" -> "ledger1:Ledger" : new Ledger()
+deactivate "person1:Person" #FFBBBB
+
+note left of ":Test" #powderblue
+	Act
+end note
+
+":Test" -> ":US011Controller" : returnPersonLedgerFromPeriod(initialDate, finalDate)
+activate ":US011Controller" #FFBBBB
+
+":US011Controller" -> "person1:Person" : returnPersonLedgerFromPeriod(initialDate, finalDate)
+activate "person1:Person" #FFBBBB
+
+"person1:Person" -> "ledger1:Ledger" : returnTransactionsFromPeriod(initialDate, finalDate)
+activate "ledger1:Ledger" #FFBBBB
+
+"ledger1:Ledger" --> "person1:Person" : returnedTransactions
+deactivate "ledger1:Ledger" #FFBBBB
+
+"person1:Person" --> ":US011Controller" : returnedTransactions
+deactivate "person1:Person" #FFBBBB
+
+":US011Controller" --> ":Test" : returnedTransactions
+deactivate ":US011Controller" #FFBBBB
+
+note left of ":Test" #powderblue
+	Assert
+end note
+
+":Test" -> ":Test" : assertTrue(returnedTransactions)
+
+@enduml
