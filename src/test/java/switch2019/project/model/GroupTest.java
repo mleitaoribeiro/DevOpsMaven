@@ -515,7 +515,7 @@ class GroupTest {
         //Act
         group1.addMember(person2);
         group1.addMember(person1);
-        group1.promoteMemberToAdmin(person2);
+        group1.setAdmin(person2);
 
         boolean removeSingleMember = group1.removeMember(person2);
 
@@ -664,7 +664,7 @@ class GroupTest {
         boolean areMembersBeingAddedAndRemoved = (
                 group1.addMember(person1) &&
                         group1.addMember(person2) &&
-                        group1.promoteMemberToAdmin(person2) &&
+                        group1.setAdmin(person2) &&
                         group1.addMember(person3) &&
                         group1.removeMember(person1)
         );
@@ -872,7 +872,7 @@ class GroupTest {
         //Act
         boolean isFirstMemberAdded = group1.addMember(person1);
         boolean isSecondMemberAdded = group1.addMember(person2);
-        boolean isSecondMemberPromoted = group1.promoteMemberToAdmin(person2);
+        boolean isSecondMemberPromoted = group1.setAdmin(person2);
 
         boolean wasPromoted = isFirstMemberAdded && isSecondMemberAdded && isSecondMemberPromoted;
 
@@ -894,7 +894,7 @@ class GroupTest {
         group1.addMember(person1);
         group1.addMember(person2);
         group1.addMember(person3);
-        boolean wereMembersPromoted = group1.promoteMemberToAdmin(person2) && group1.promoteMemberToAdmin(person3);
+        boolean wereMembersPromoted = group1.setAdmin(person2) && group1.setAdmin(person3);
 
         //Assert
         assertTrue(wereMembersPromoted);
@@ -912,7 +912,7 @@ class GroupTest {
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        boolean isFirstMemberPromotedAgain = group1.promoteMemberToAdmin(person1);
+        boolean isFirstMemberPromotedAgain = group1.setAdmin(person1);
 
         boolean wasPromoted = isFirstMemberPromotedAgain;
 
@@ -930,9 +930,9 @@ class GroupTest {
         Group group1 = new Group("Francis Group");
 
         //Act
-        boolean isFirstMemberPromoted = group1.promoteMemberToAdmin(person1);
+        boolean isFirstMemberPromoted = group1.setAdmin(person1);
 
-        boolean wasPromoted = isFirstMemberPromoted;
+        boolean wasPromoted = group1.setAdmin(person1);
 
         //Assert
         assertFalse(wasPromoted);
@@ -1008,7 +1008,7 @@ class GroupTest {
         //Act
         group1.addMember(person1);
         group1.addMember(person2);
-        group1.promoteMemberToAdmin(person2);
+        group1.setAdmin(person2);
         boolean wasDemoted = group1.demoteMemberFromAdmin(person2);
 
         //Assert
@@ -1065,8 +1065,8 @@ class GroupTest {
         group1.addMember(person1); // Torna-se admin automaticamente
         group1.addMember(person2);
         group1.addMember(person3);
-        group1.promoteMemberToAdmin(person2);
-        group1.promoteMemberToAdmin(person3);
+        group1.setAdmin(person2);
+        group1.setAdmin(person3);
         boolean isFirstAdminRemoved = group1.demoteMemberFromAdmin(person2);
         boolean isSecondAdminRemoved = group1.demoteMemberFromAdmin(person3);
 
@@ -1092,9 +1092,9 @@ class GroupTest {
         group2.addMember(person2);
         group3.addMember(person1); // admin automatically
         group3.addMember(person2);
-        group1.promoteMemberToAdmin(person2);
-        group2.promoteMemberToAdmin(person2);
-        group3.promoteMemberToAdmin(person2);
+        group1.setAdmin(person2);
+        group2.setAdmin(person2);
+        group3.setAdmin(person2);
         boolean isRemovedFromGroup1 = group1.demoteMemberFromAdmin(person1);
         boolean isRemovedFromGroup2 = group2.demoteMemberFromAdmin(person1);
         boolean isRemovedFromGroup3 = group3.demoteMemberFromAdmin(person1);
