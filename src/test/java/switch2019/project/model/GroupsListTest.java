@@ -298,5 +298,4 @@ class GroupsListTest {
         //Assert
         assertEquals(expectedResult, realResult);
     }
-
 }
