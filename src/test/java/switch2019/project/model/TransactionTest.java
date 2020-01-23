@@ -43,6 +43,30 @@ class TransactionTest {
     }
 
     @Test
+    @DisplayName("Test if two transactions are the same - true")
+
+    public void testIfTwoTransactionsAreTheSame() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date = LocalDateTime.of(2020, 1, 13,13,02);
+
+        Transaction transaction = new Transaction(monetaryValue, "payment",date, category, account1, account2,false);
+
+
+
+        //Act
+
+        boolean result = transaction.equals(transaction);
+
+        //Assert
+        assertEquals(true, result);
+
+    }
+
+    @Test
     @DisplayName("Test if two transactions are the equals - different account to")
 
     public void testIfTwoTransactionsAreEqualsDifferentAccountTo() {
