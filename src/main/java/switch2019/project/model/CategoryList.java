@@ -1,10 +1,11 @@
 package switch2019.project.model;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class CategoryList {
     // Private instance variables
-    private HashSet<Category> categories;
+    private Set<Category> categories;
 
     /**
      * Constructor for Category List

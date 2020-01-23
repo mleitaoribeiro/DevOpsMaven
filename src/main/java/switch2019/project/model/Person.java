@@ -4,12 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Person {
     // Private Person variables
     private String name;
     private LocalDate birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
-    private HashSet<Person> siblingList;
+    private Set<Person> siblingList;
     private Person mother;
     private Person father;
     private Address address;
