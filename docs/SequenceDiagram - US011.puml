@@ -7,7 +7,7 @@ end note
 participant ":US011Controller"
 
 create "person1:Person"
-":Test" -> "person1:Person" : new Person (name, birthDay, birthPlace, birthDate, homeAddress, mother, father)
+":Test" -> "person1:Person" : new Person (name, birthDate, birthPlace, homeAddress, mother, father)
 activate "person1:Person" #FFBBBB
 
 create "ledger1:Ledger"
