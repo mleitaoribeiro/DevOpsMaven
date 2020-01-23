@@ -285,7 +285,7 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
-        Person person1 = new Person("António",1987,6,22,new Address("Porto"));
+        Person person1 = new Person("António",1987,6,22,new Address("Rua 2", "Porto", "4620-580"),new Address("Porto"));
 
 
         //Act
