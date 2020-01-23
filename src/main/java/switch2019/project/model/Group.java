@@ -156,7 +156,7 @@ public class Group {
      * @return true if person was promoted, false if it wasn't
      */
     public boolean setAdmin(Person person) {
-        if (person == null) {
+        if (person == null ) {
             return false;
         }
         if (this.admins.contains(person) && this.members.contains(person)) {
@@ -180,12 +180,13 @@ public class Group {
      * @param member
      * @return true if person was promoted, false if it wasn't
      */
+    /*
     public boolean promoteMemberToAdmin(Person member) {
         if (members.contains(member) && member != null) {
             return admins.add(member);
         } else return false;
     }
-
+*/
     /**
      * Promote multiple members to group admins
      *
@@ -194,7 +195,7 @@ public class Group {
      */
     public boolean promoteMultipleMemberToAdmin(HashSet<Person> multipleMembers) {
         for (Person member : multipleMembers) {
-            promoteMemberToAdmin(member);
+            setAdmin(member);
         }
         return admins.containsAll(multipleMembers);
     }

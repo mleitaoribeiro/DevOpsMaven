@@ -27,7 +27,7 @@ public class Person {
      * @param birthdayYear
      */
 
-    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace) {
+    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Address homeAddress) {
         this.name = name;
         setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
         this.birthPlace = birthPlace;
@@ -35,6 +35,7 @@ public class Person {
         categoryList = new CategoryList();
         accountsList = new AccountsList();
         ledger = new Ledger();
+        this.address = homeAddress;
     }
 
     /**
@@ -49,13 +50,14 @@ public class Person {
      * @param father
      */
 
-    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Person mother, Person father) {
+    public Person(String name, int birthdayYear, int birthdayMonth, int birthdayDay, Address birthPlace, Address homeAddress, Person mother, Person father) {
         this.name = name;
         setBirthDate(birthdayYear, birthdayMonth, birthdayDay);
         this.birthPlace = birthPlace;
+        this.address = homeAddress;
         this.mother = mother;
         this.father = father;
-        siblingList = new HashSet<>();
+        this.siblingList = new HashSet<>();
         categoryList = new CategoryList();
         accountsList = new AccountsList();
         ledger = new Ledger();
@@ -296,8 +298,7 @@ public class Person {
      */
 
     public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
-                accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
+        if (amount.validateIfAmountIsPositive() && !accountFrom.equals(accountTo))
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         else return false;
     }
