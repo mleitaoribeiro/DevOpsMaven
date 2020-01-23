@@ -133,6 +133,30 @@ class TransactionTest {
         assertEquals(false, result);
         }
 
+    @Test
+    @DisplayName("Test if two transactions are the equals - different objects")
+
+    public void testIfTwoTransactionsAreEqualsDifferentObjects() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+
+        Transaction transaction = new Transaction(monetaryValue, "payment",null, category, account1, account2,false);
+        Person person1 = new Person("António",1987,6,22,new Address("Porto"));
+
+
+        //Act
+
+        boolean result = transaction.equals(person1);
+
+        //Assert
+        assertEquals(false, result);
+    }
+
+
 
 
         /**
