@@ -75,7 +75,7 @@ class AccountTest {
     public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
-        Person onePerson = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person onePerson = new Person("Alexandre", 1996, 3, 4, new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
 
         //Act
         boolean result = oneAccount.equals(onePerson);

@@ -18,10 +18,10 @@ class GroupsListTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("John",2015,5,10,new Address("London"));
+        Person person1 = new Person("John", 2015, 5, 10, new Address("London"),new Address("Rua B","45","4520"));
 
         //Act
-        boolean wasGroupCreated = groupsList.createGroup("Test Person",person1);
+        boolean wasGroupCreated = groupsList.createGroup("Test Person", person1);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -37,10 +37,10 @@ class GroupsListTest {
     public void testIfGroupWasNotCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Francis",2012,4,23,new Address("Dublin"));
+        Person person1 = new Person("Francis", 2012, 4, 23, new Address("Dublin"),new Address("Rua B","45","4520"));
 
         //Act
-        boolean wasGroupCreated = groupsList.createGroup(null,person1);
+        boolean wasGroupCreated = groupsList.createGroup(null, person1);
 
         //Assert
         assertFalse(wasGroupCreated);
@@ -55,11 +55,11 @@ class GroupsListTest {
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy", 2002,5,20,new Address("Boston"));
+        Person person1 = new Person("Amy", 2002, 5, 20, new Address("Boston"),new Address("Rua B","45","4520"));
 
         //Act
-        groupsList.createGroup("Grupo de Teste",person1);
-        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste",person1);
+        groupsList.createGroup("Grupo de Teste", person1);
+        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste", person1);
 
         //Assert
         assertFalse(wasGroupCreated);
@@ -74,13 +74,13 @@ class GroupsListTest {
     public void createGroupWithSameDescriptionAndDifferentMembers() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy", 2002,5,20,new Address("Boston"));
-        Person person2 = new Person("Marshall", 2002,5,20,new Address("Boston"));
+        Person person1 = new Person("Amy", 2002, 5, 20, new Address("Boston"),new Address("Rua B","45","4520"));
+        Person person2 = new Person("Marshall", 2002, 5, 20, new Address("Boston"),new Address("Rua B","45","4520"));
 
         //Act
-        groupsList.createGroup("Grupo de Teste",person1);
+        groupsList.createGroup("Grupo de Teste", person1);
 
-        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste",person2);
+        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste", person2);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -95,12 +95,12 @@ class GroupsListTest {
     public void createGroupWithDifferentDescriptionAndDifferentMembers() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy", 2002,5,20,new Address("Boston"));
+        Person person1 = new Person("Amy", 2002, 5, 20, new Address("Boston"),new Address("Rua B","45","4520"));
 
         //Act
-        groupsList.createGroup("Grupo de Teste",person1);
+        groupsList.createGroup("Grupo de Teste", person1);
 
-        boolean wasGroupCreated = groupsList.createGroup("Grupo Diferente",person1);
+        boolean wasGroupCreated = groupsList.createGroup("Grupo Diferente", person1);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -129,10 +129,10 @@ class GroupsListTest {
      */
     @Test
     @DisplayName("Test if the number of groups on the list was increased")
-    public void howManyGroupsTest(){
+    public void howManyGroupsTest() {
         //Arrange
-        Group group1 = new Group ("Amigos");
-        Group group2 = new Group ("Pokémons");
+        Group group1 = new Group("Amigos");
+        Group group2 = new Group("Pokémons");
         GroupsList groupList = new GroupsList();
 
         //Act
@@ -141,7 +141,7 @@ class GroupsListTest {
         int result = groupList.howManyGroups();
 
         //Assert
-        assertEquals(2,result);
+        assertEquals(2, result);
     }
 
     /**
@@ -210,7 +210,7 @@ class GroupsListTest {
 
     /**
      * US004 - Check which groups are family
-     *  If the list of groups consists exclusively in families.
+     * If the list of groups consists exclusively in families.
      */
     @Test
     @DisplayName("Validate if only groups of families are being returned")
@@ -222,14 +222,11 @@ class GroupsListTest {
 
         // 1 _________________________________________________________________________________________________________
         // First global group - All Family
-        Person manuelaMOM = new Person("Manuela", 1990, 10, 10, new Address("Miragaia"));
-        Person carlosDAD = new Person("Carlos", 1990, 10, 10, new Address("Porto"));
-        Person oscar = new Person("Oscar", 1990, 10, 10,
-                new Address("Espinho"), manuelaMOM, carlosDAD);
-        Person marta = new Person("Marta", 1990, 10, 10,
-                new Address("Paranhos"), manuelaMOM, carlosDAD);
-        Person joao = new Person("Joao", 1990, 10, 10,
-                new Address("Matosinhos"), manuelaMOM, carlosDAD);
+        Person manuelaMOM = new Person("Manuela", 1990, 10, 10, new Address("Miragaia"),new Address("Rua B","45","4520"));
+        Person carlosDAD = new Person("Carlos", 1990, 10, 10, new Address("Porto"),new Address("Rua B","45","4520"));
+        Person oscar = new Person("Oscar", 1990, 10, 10, new Address("Espinho"),new Address("Rua B","45","4520"), manuelaMOM, carlosDAD);
+        Person marta = new Person("Marta", 1990, 10, 10, new Address("Paranhos"),new Address("Rua B","45","4520"), manuelaMOM, carlosDAD);
+        Person joao = new Person("Joao", 1990, 10, 10, new Address("Matosinhos"),new Address("Rua B","45","4520"), manuelaMOM, carlosDAD);
 
         // Group
         HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
@@ -240,14 +237,11 @@ class GroupsListTest {
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
-        Person homer = new Person("Homer", 1990, 10, 10, new Address("Springfield"));
-        Person marge = new Person("Marge", 1990, 10, 10, new Address("Springfield"));
-        Person bart = new Person("Bart", 1990, 10, 10,
-                new Address("Springfield"), marge, homer);
-        Person lisa = new Person("Lisa", 1990, 10, 10,
-                new Address("Springfield"), marge, homer);
-        Person maggie = new Person("Maggie", 1990, 10, 10,
-                new Address("Springfield"), marge, homer);
+        Person homer = new Person("Homer", 1990, 10, 10, new Address("Springfield"),new Address("Rua B","45","4520"));
+        Person marge = new Person("Marge", 1990, 10, 10, new Address("Springfield"),new Address("Rua B","45","4520"));
+        Person bart = new Person("Bart", 1990, 10, 10, new Address("Springfield"),new Address("Rua B","45","4520"), marge, homer);
+        Person lisa = new Person("Lisa", 1990, 10, 10, new Address("Springfield"), new Address("Rua B","45","4520"),marge, homer);
+        Person maggie = new Person("Maggie", 1990, 10, 10, new Address("Springfield"),new Address("Rua B","45","4520"), marge, homer);
 
         // Group
         HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(marge, bart, lisa, maggie));
@@ -258,13 +252,10 @@ class GroupsListTest {
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
-        Person joaoDAD = new Person("Joao", 1990, 10, 10, new Address("Miragaia"));
-        Person diana = new Person("Diana", 1990, 10, 10,
-                new Address("Porto"), null, joaoDAD);
-        Person elsa = new Person("Elsa", 1990, 10, 10,
-                new Address("Matosinhos"), null, joaoDAD);
-        Person ines = new Person("Ines", 1990, 10, 10,
-                new Address("Paranhos"), null, joaoDAD);
+        Person joaoDAD = new Person("Joao", 1990, 10, 10, new Address("Miragaia"),new Address("Rua B","45","4520"));
+        Person diana = new Person("Diana", 1990, 10, 10, new Address("Porto"),new Address("Rua B","45","4520"), null, joaoDAD);
+        Person elsa = new Person("Elsa", 1990, 10, 10, new Address("Matosinhos"),new Address("Rua B","45","4520"), null, joaoDAD);
+        Person ines = new Person("Ines", 1990, 10, 10, new Address("Paranhos"),new Address("Rua B","45","4520" ),null, joaoDAD);
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines));
@@ -275,9 +266,9 @@ class GroupsListTest {
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
-        Person martaR = new Person("Marta Ribeiro", 1990, 10, 10, new Address("Miragaia"));
-        Person martaC = new Person("Marta Cardoso", 1990, 10, 10, new Address("Matosinhos"));
-        Person martaP = new Person("Marta Pinheiro", 1990, 10, 10, new Address("Porto"));
+        Person martaR = new Person("Marta Ribeiro", 1990, 10, 10, new Address("Miragaia"),new Address("Rua B","45","4520"));
+        Person martaC = new Person("Marta Cardoso", 1990, 10, 10, new Address("Matosinhos"),new Address("Rua B","45","4520"));
+        Person martaP = new Person("Marta Pinheiro", 1990, 10, 10, new Address("Porto"),new Address("Rua B","45","4520"));
 
         // Group
         HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaC, martaP));
@@ -288,10 +279,10 @@ class GroupsListTest {
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
-        Person bojack = new Person("Bojack", 1990, 10, 10, new Address("Porto"));
-        Person carolyn = new Person("Princess Carolyn", 1990, 10, 10, new Address("Lisboa"));
-        Person todd = new Person("Todd Chavez", 1990, 10, 10, new Address("Matosinhos"));
-        Person diane = new Person("Diane Nguyen", 1990, 10, 10, new Address("Espinho"));
+        Person bojack = new Person("Bojack", 1990, 10, 10, new Address("Porto"),new Address("Rua B","45","4520"));
+        Person carolyn = new Person("Princess Carolyn", 1990, 10, 10, new Address("Lisboa"),new Address("Rua B","45","4520"));
+        Person todd = new Person("Todd Chavez", 1990, 10, 10, new Address("Matosinhos"),new Address("Rua B","45","4520"));
+        Person diane = new Person("Diane Nguyen", 1990, 10, 10, new Address("Espinho"),new Address("Rua B","45","4520"));
 
         // Group
         HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(carolyn, todd, diane));
