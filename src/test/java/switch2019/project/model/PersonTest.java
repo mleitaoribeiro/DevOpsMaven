@@ -788,62 +788,7 @@ class PersonTest {
         //Assert
         assertTrue(result);
     }
-
-    @Test
-    @DisplayName("Test if a transaction was created - category is not in the list")
-    void createTransactionCategoryisNotinTheList() {
-        //Arrange
-        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-
-        Category categoryFood = new Category("food");
-        Category categoryBaby = new Category("baby");
-        person.createAndAddMultipleCategoriesToList(new HashSet<>(Arrays.asList("food", "home")));
-
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
-        boolean type = false; //debit
-
-        //Act
-        boolean categoryInTheList = person.createTransaction(amount, description, null, categoryFood, from, to, type);
-        boolean categoryNotInTheList = person.createTransaction(amount, description, null, categoryBaby, from, to, type);
-
-        //Assert
-        assertTrue(categoryInTheList && !categoryNotInTheList);
-    }
-
-    @Test
-    @DisplayName("Test if a transaction was created - account is not in the list")
-    void createTransactionAccountIsNotInTheList() {
-        //Arrange
-        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
-        MonetaryValue amount = new MonetaryValue(22, Currency.getInstance("EUR"));
-        String description = "payment";
-
-        Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
-
-        Account accountWallet = new Account("Wallet", "General expenses");
-        Account accountTransport = new Account("Transport", "Transport expenses");
-        Account accountBaby = new Account("Baby", "Baby expenses");
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("Transport", "Transport expenses");
-
-        boolean type = false; //debit
-
-        //Act
-        boolean accountInTheList = person.createTransaction(amount, description, null, category, accountWallet, accountTransport, type);
-        boolean accountNotInTheList = person.createTransaction(amount, description, null, category, accountWallet, accountBaby, type);
-
-        //Assert
-        assertTrue(accountInTheList && !accountNotInTheList);
-    }
-
+    
     @Test
     @DisplayName("Test if a transaction was created - monetary value is negative")
     void createTransactionAccountNegativeMonetaryValue() {
