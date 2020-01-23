@@ -1,10 +1,11 @@
 package switch2019.project.model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class GroupsList {
     // Private instance variables
-    private HashSet<Group> groupsList;
+    private Set<Group> groupsList;
 
     /**
      * Default Constructor for Group List

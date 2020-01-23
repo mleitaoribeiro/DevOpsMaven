@@ -2,9 +2,10 @@ package switch2019.project.model;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class AccountsList {
-    private HashSet<Account> accounts;
+    private Set<Account> accounts;
 
     /**
      * Construtor for Accounts List
