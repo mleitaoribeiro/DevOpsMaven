@@ -36,7 +36,7 @@ public class Person {
         categoryList = new CategoryList();
         accountsList = new AccountsList();
         ledger = new Ledger();
-        this.address = homeAddress;
+        address = homeAddress;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Person {
         this.name = name;
         setBirthDate(birthDate);
         this.birthPlace = birthPlace;
-        this.address = homeAddress;
+        address = homeAddress;
         this.mother = mother;
         this.father = father;
         this.siblingList = new HashSet<>();
@@ -253,13 +253,14 @@ public class Person {
         return Objects.equals(name, person.name) &&
                 Objects.equals(birthDate, person.birthDate) &&
                 Objects.equals(birthPlace, person.birthPlace) &&
+                Objects.equals(address, person.address) &&
                 Objects.equals(father, person.father) &&
                 Objects.equals(mother, person.mother);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, birthDate, birthPlace);
+        return Objects.hash(name, birthDate, birthPlace, address);
     }
 
     /**
@@ -295,7 +296,7 @@ public class Person {
      */
 
     public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (amount.validateIfAmountIsPositive() && !accountFrom.equals(accountTo))
+        if (!accountFrom.equals(accountTo))
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         else return false;
     }

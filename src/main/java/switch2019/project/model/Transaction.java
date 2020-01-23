@@ -65,8 +65,8 @@ public class Transaction {
      */
 
     public boolean isAValidTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (amount == null)
-            throw new IllegalArgumentException("The monetary value can´t be null. Please try again.");
+        if (amount == null || !amount.validateIfAmountIsPositive())
+            throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
         else if (description == null)
             throw new IllegalArgumentException("The description can´t be null. Please try again.");
         else if (category == null)
