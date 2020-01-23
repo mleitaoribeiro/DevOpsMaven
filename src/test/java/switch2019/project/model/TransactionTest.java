@@ -206,6 +206,27 @@ class TransactionTest {
         assertEquals(false, result);
     }
 
+    @Test
+    @DisplayName("Test if two transactions are the equals  - different types")
+    public void testIfTwoTransactionsAreEqualsDifferentTypes() {
+
+        //Arrange
+        Account account1 = new Account("Health", "Health Maria");
+        Account account2 = new Account("Transport", "Metro");
+        Category category = new Category("House");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date = LocalDateTime.of(2020, 1, 13,13,02);
+        Transaction transaction = new Transaction(monetaryValue, "payment",date, category, account1, account2,false);
+        Transaction transaction2 = new Transaction(monetaryValue, "payment",date, category, account1, account2,true);
+
+
+        //Act
+        boolean result = transaction.equals(transaction2);
+
+        //Assert
+        assertEquals(false, result);
+    }
+
 
     @Test
     @DisplayName("Test if two transactions are the equals - True - system date")
