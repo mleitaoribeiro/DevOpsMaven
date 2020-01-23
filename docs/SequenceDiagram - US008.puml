@@ -1,4 +1,4 @@
-@startuml
+  @startuml
 create ":Test"
 ==Arrange==
 create "person:Person"
