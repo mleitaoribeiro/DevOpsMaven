@@ -1,0 +1,39 @@
+  @startuml
+create ":Test"
+
+== Arrange ==
+create "US017:Controller"
+
+create "person:Person"
+":Test" -> "person:Person" : create()
+activate "person:Person" #FFBBBB
+
+create "ledger:Ledger"
+"person:Person" -> "ledger:Ledger" : create()
+deactivate "person:Person"
+activate "ledger:Ledger" #FFBBBB
+
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger()
+deactivate "ledger:Ledger"
+
+== Act ==
+
+":Test" -> "US017:Controller" : getPersonalBalanceInTime(person, initialDate, finalDate)
+activate "US017:Controller" #FFBBBB
+"US017:Controller" -> "person:Person": getPersonalBalanceInTime(initialDate, finalDate)
+activate "person:Person" #FFBBBB
+"person:Person" -> "ledger:Ledger": getBalanceInTime(initialDate, finalDate)
+activate "ledger:Ledger" #FFBBBB
+"ledger:Ledger" -> "person:Person" : finalBalance
+deactivate "ledger:Ledger"
+"person:Person" -> "US017:Controller" : finalBalance
+deactivate "person:Person"
+"US017:Controller" -> ":Test" : finalBalance
+deactivate "US017:Controller"
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(expectedPersonalBalanceInTime, personalBalanceInTime)
+
+@enduml
