@@ -2,6 +2,7 @@
 create ":Test"
 
 ==Arrange==
+create "createTransaction:Controller"
 create "group1:Group"
 create "catList: CategoryList"
 create "acList:AccountsList"
@@ -12,16 +13,11 @@ create "amount:MonetaryValue"
 
 == Act ==
 
-":Test" -> "group1:Group" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
-activate "person:Person"  #FFBBBB
+":Test" -> "createTransaction:Controller" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+activate "createTransaction:Controller"  #FFBBBB
 
-"group1:Group" -> "amount:MonetaryValue" : validateIfAmountIsPositive()
-
-"group1:Group" -> "catList: CategoryList" : validateIfCategoryIsInTheCategoryList(category)
-
-"group1:Group" -> "acList:AccountsList" : validateIfAccountIsInTheAccountsList(accountTo)
-
-"group1:Group" -> "acList:AccountsList" : validateIfAccountIsInTheAccountsList(accountFrom)
+"createTransaction:Controller" -> "group1:Group" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+activate "group1:Group"  #FFBBBB
 
 "group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, cat, accountFrom, accountTo, type)
 activate "ledger:Ledger"  #FFBBBB
@@ -32,6 +28,7 @@ create "transaction:Transaction"
 "ledger:Ledger" -> "ledger:Ledger": add
 deactivate "ledger:Ledger"  #FFBBBB
 deactivate "group1:Group"  #FFBBBB
+deactivate "createTransaction:Controller"  #FFBBBB
 
 == Assert ==
 
