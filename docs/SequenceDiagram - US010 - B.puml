@@ -11,17 +11,11 @@ create "oneGroup:Group"
 
 create "ledger:Ledger"
 
-"oneGroup:Group" -> "ledger:Ledger" : create ()
-"oneGroup:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, cat, accountFrom, accountTo, type)
 create "transaction:Transaction"
 
 
 "ledger:Ledger" -> "transaction:Transaction" : create (amount, description, cat, accountFrom, accountTo, type)
 "ledger:Ledger" -> "ledger:Ledger" : add
-
-
-"oneGroup:Group" -> "oneGroup:Group" : addMember (onePerson)
-
 
 == Act ==
 
