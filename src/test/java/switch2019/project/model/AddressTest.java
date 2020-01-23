@@ -390,7 +390,7 @@ class AddressTest {
     public void testEqualsSameAddressOtherObjectofDifferentClass() {
         //Arrange
         Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
-        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"),new Address ("Rua das Flores","Porto","4450-230"));
 
         //Act
         boolean result = address1.equals(person1);

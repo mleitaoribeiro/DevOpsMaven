@@ -23,7 +23,8 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is null before")
     public void validateNameNullBefore() {
         //Arrange
-        Person person1 = new Person("Alex", 1996, 04, 02, new Address("Lisboa"));
+
+        Person person1 = new Person("Alex", 1996, 04, 02, new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setName("Mario");
@@ -37,7 +38,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
-        Person person1 = new Person("João", 1996, 04, 05, new Address(("Porto")));
+        Person person1 = new Person("João", 1996, 04, 05, new Address(("Porto")),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setName("Alex");
@@ -51,7 +52,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is empty")
     public void validateNameEmpty() {
         //Arrange
-        Person person1 = new Person("João", 1996, 04, 03, new Address("Feira"));
+        Person person1 = new Person("João", 1996, 04, 03, new Address("Feira"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setName("");
@@ -70,7 +71,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => success case")
     public void validateBirthDate() {
         //Arrange
-        Person person1 = new Person("Mary", 1996, 03, 07, new Address("Maia"));
+        Person person1 = new Person("Mary", 1996, 03, 07, new Address("Maia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setBirthDate(1995, 4, 4);
@@ -85,7 +86,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDateWhenMonthisInvalid() {
         //Arrange
-        Person person1 = new Person("Pedro", 1995, 04, 15, new Address("SaoJoao"));
+        Person person1 = new Person("Pedro", 1995, 04, 15, new Address("SaoJoao"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         try {
@@ -102,7 +103,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDateWhenBirthDateIsAfterCurrentDate() {
         //Arrange
-        Person person1 = new Person("Rui", 1995, 8, 15, new Address("Lousada"));
+        Person person1 = new Person("Rui", 1995, 8, 15, new Address("Lousada"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         try {
@@ -119,7 +120,7 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case")
     public void validateBirthDateWhenDayIsInvalid() {
         //Arrange
-        Person person1 = new Person("Rui", 1995, 8, 16, new Address("lamas"));
+        Person person1 = new Person("Rui", 1995, 8, 16, new Address("lamas"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         try {
@@ -140,11 +141,11 @@ class PersonTest {
     @DisplayName("Test if two people are the same | True")
     public void individualsAreTheSame() {
         //Arrange
-        Person onePersonMother = new Person("Maria", 1960, 3, 4, new Address("Porto"));
-        Person onePersonFather = new Person("Artur", 1960, 3, 4, new Address("Porto"));
+        Person onePersonMother = new Person("Maria", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person onePerson = new Person("João", 1996, 3, 4, new Address("Porto"), onePersonMother, onePersonFather);
-        Person samePerson = new Person("João", 1996, 3, 4, new Address("Porto"), onePersonMother, onePersonFather);
+        Person onePerson = new Person("João", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person samePerson = new Person("João", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
 
         //Act & Assert
         assertEquals(onePerson, samePerson);
@@ -154,13 +155,13 @@ class PersonTest {
     @DisplayName("Test if two people are the same | True")
     public void individualsAreTheSame2() {
         //Arrange
-        Person onePersonMother = new Person("Maria", 1960, 3, 4, new Address("Porto"));
-        Person onePersonFather = new Person("Artur", 1960, 3, 4, new Address("Porto"));
-        Person otherPersonMother = new Person("Maria", 1960, 3, 4, new Address("Porto"));
-        Person otherPersonFather = new Person("Artur", 1960, 3, 4, new Address("Porto"));
+        Person onePersonMother = new Person("Maria", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonMother = new Person("Maria", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonFather = new Person("Artur", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person onePerson = new Person("João Cardoso", 1996, 3, 4, new Address("Lisboa"), onePersonMother, onePersonFather);
-        Person otherPerson = new Person("João Cardoso", 1996, 3, 4, new Address("Porto"), otherPersonMother, otherPersonFather);
+        Person onePerson = new Person("João Cardoso", 1996, 3, 4, new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person otherPerson = new Person("João Cardoso", 1996, 3, 4, new Address("Porto"), new Address ("Rua X", "Porto", "4520-266"),otherPersonMother, otherPersonFather);
 
         //Act & Assert
         assertEquals(onePerson, otherPerson);
@@ -170,13 +171,13 @@ class PersonTest {
     @DisplayName("Test if two people are the same | False")
     public void notTheSamePerson() {
         //Arrange
-        Person onePersonMother = new Person("Maria", 1960, 3, 4, new Address("Portugal"));
-        Person onePersonFather = new Person("Artur", 1960, 3, 4, new Address("Portugal"));
-        Person otherPersonMother = new Person("Maria", 1960, 3, 4, new Address("Portugal"));
-        Person otherPersonFather = new Person("Raul", 1960, 3, 4, new Address("Portugal"));
+        Person onePersonMother = new Person("Maria", 1960, 3, 4, new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", 1960, 3, 4, new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonMother = new Person("Maria", 1960, 3, 4, new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonFather = new Person("Raul", 1960, 3, 4, new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person onePerson = new Person("João Cardoso", 1996, 3, 4, new Address("Portugal"), onePersonMother, onePersonFather);
-        Person otherPerson = new Person("João Cardoso", 1996, 3, 4, new Address("Porto"), otherPersonMother, otherPersonFather);
+        Person onePerson = new Person("João Cardoso", 1996, 3, 4, new Address("Portugal"), new Address ("Rua X", "Porto", "4520-266"),onePersonMother, onePersonFather);
+        Person otherPerson = new Person("João Cardoso", 1996, 3, 4, new Address("Porto"), new Address ("Rua X", "Porto", "4520-266"), otherPersonMother, otherPersonFather);
 
 
         //Act & Assert
@@ -188,11 +189,11 @@ class PersonTest {
     @DisplayName("Test if two people are the same - False - Different Class")
     public void individualsAreTheSameDifferentClass() {
         //Arrange
-        Person person1Mother = new Person("Maria", 1960, 3, 4, new Address("Porto"));
-        Person person1Father = new Person("Artur", 1960, 3, 4, new Address("Porto"));
+        Person person1Mother = new Person("Maria", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1Father = new Person("Artur", 1960, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         Address address1 = new Address("Rua da Alegria","Porto","4430-654");
-        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"), person1Mother, person1Father);
+        Person person1 = new Person("Miguel", 1996, 3, 4, new Address("Porto"), new Address ("Rua X", "Porto", "4520-266"),person1Mother, person1Father);
 
         //Act & Assert
         assertNotEquals(address1, person1);
@@ -207,8 +208,8 @@ class PersonTest {
     @DisplayName("Test for validating add a new sibling")
     public void validateAddSibling() {
         //Arrange
-        Person person1 = new Person("Marta", 1996, 05, 12, new Address("Porto"));
-        Person person2 = new Person("Elsa", 1987, 01, 16, new Address("Lyon"));
+        Person person1 = new Person("Marta", 1996, 05, 12, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", 1987, 01, 16, new Address("Lyon"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(person2);
@@ -224,10 +225,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person person1 = new Person("Teresa", 1987, 4, 5, new Address("Lisboa"));
-        Person person2 = new Person("Paulo", 1994, 5, 18, new Address("Porto"));
-        Person person3 = new Person("Paulo", 1985, 5, 17, new Address("Coimbra"));
-        Person person4 = new Person("Luis", 2000, 10, 4, new Address("Mozelos"));
+        Person person1 = new Person("Teresa", 1987, 4, 5, new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Paulo", 1994, 5, 18, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Paulo", 1985, 5, 17, new Address("Coimbra"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Luis", 2000, 10, 4, new Address("Mozelos"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> newSiblings = new HashSet<>(Arrays.asList(person2, person4, person3));
 
         //Act
@@ -244,8 +245,8 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list")
     void validateRemoveSibling() {
         //Arrange
-        Person person1 = new Person("Maria", 1956, 05, 17, new Address("FozCoa"));
-        Person person2 = new Person("António", 1985, 10, 12, new Address("Gaia"));
+        Person person1 = new Person("Maria", 1956, 05, 17, new Address("FozCoa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("António", 1985, 10, 12, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(person2);
@@ -259,9 +260,9 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list - more than one sibling")
     void validateRemoveSiblingMoreThanOne() {
         //Arrange
-        Person person1 = new Person("Maria", 1954, 10, 14, new Address("Porto"));
-        Person person2 = new Person("António", 1985, 10, 2, new Address("Porto"));
-        Person person3 = new Person("Manuel", 1993, 10, 4, new Address("Gaia"));
+        Person person1 = new Person("Maria", 1954, 10, 14, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("António", 1985, 10, 2, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Manuel", 1993, 10, 4, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> threeSiblings = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
@@ -279,10 +280,10 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - 1 remaining")
     void validateMultipleSiblingRemoval() {
         //Arrange
-        Person person1 = new Person("John", 1996, 12, 9, new Address("gaia"));
-        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
-        Person person3 = new Person("Susan", 1993, 3, 9, new Address("Gaia"));
-        Person person4 = new Person("Frank", 1996, 12, 5, new Address("Gaia"));
+        Person person1 = new Person("John", 1996, 12, 9, new Address("gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Susan", 1993, 3, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Frank", 1996, 12, 5, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> threeSiblings = new HashSet<>(Arrays.asList(person2, person3, person4));
         HashSet<Person> twoSiblings = new HashSet<>(Arrays.asList(person3, person4));
 
@@ -298,12 +299,12 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - multiple remaining")
     void validateMultipleSiblingRemovalMultipleRemaining() {
         //Arrange
-        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"));
-        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
-        Person person3 = new Person("Susan", 1993, 3, 9, new Address("Gaia"));
-        Person person4 = new Person("Frank", 1996, 12, 5, new Address("Gaia"));
-        Person person5 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"));
-        Person person6 = new Person("Jack", 1990, 1, 3, new Address("Gaia"));
+        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Susan", 1993, 3, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Frank", 1996, 12, 5, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person5 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person6 = new Person("Jack", 1990, 1, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> totalSib = new HashSet<>(Arrays.asList(person2, person3, person4, person5, person6));
         HashSet<Person> removeSib = new HashSet<>(Arrays.asList(person3, person4));
 
@@ -319,11 +320,11 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - not contains exact ones")
     void validateMultipleSiblingRemovalNotContainsExactOnes() {
         //Arrange
-        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"));
-        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
-        Person person3 = new Person("Susan", 1993, 3, 9, new Address("Gaia"));
-        Person person4 = new Person("Frank", 1996, 12, 5, new Address("Gaia"));
-        Person person5 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"));
+        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Susan", 1993, 3, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Frank", 1996, 12, 5, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person5 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> totalSib = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
         HashSet<Person> removeSib = new HashSet<>(Arrays.asList(person3, person4));
         HashSet<Person> expectedSib = new HashSet<>(Arrays.asList(person2, person5));
