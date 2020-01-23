@@ -296,8 +296,7 @@ public class Person {
      */
 
     public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (amount.validateIfAmountIsPositive() && categoryList.validateIfCategoryIsInTheCategoryList(category) &&
-                accountsList.validateIfAccountIsInTheAccountsList(accountFrom) && accountsList.validateIfAccountIsInTheAccountsList(accountTo))
+        if (amount.validateIfAmountIsPositive() && !accountFrom.equals(accountTo))
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         else return false;
     }
