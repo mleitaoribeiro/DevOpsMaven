@@ -6,8 +6,11 @@ create ":US0012Controller"
 create "group1:Group"
 
 
-create "transaction:Transaction"
-":Test" -> "transaction:Transaction" :
+create "person1:Person"
+":Test" -> "person1:Person" : create()
+
+create "ledger1:Ledger"
+"person1:Person" -> "ledger1:Ledger" : create()
 
 == Act ==
 
@@ -27,6 +30,6 @@ deactivate ":US0012Controller"  #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals
+":Test" -> ":Test" : assertEquals(expectedArrayListTransaction,ArrayListTransaction)
 
 @enduml
