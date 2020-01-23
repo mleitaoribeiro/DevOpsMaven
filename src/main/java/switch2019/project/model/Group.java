@@ -156,20 +156,13 @@ public class Group {
      * @return true if person was promoted, false if it wasn't
      */
     public boolean setAdmin(Person person) {
-        if (person == null ) {
-            return false;
-        }
-        if (this.admins.contains(person) && this.members.contains(person)) {
-            return false;
-        }
-        if (!this.members.contains(person)) {
+        if (person != null && !this.admins.contains(person)) {
             this.members.add(person);
-        }
-        if (!this.admins.contains(person)) {
             this.admins.add(person);
-        }
-        if (this.admins.contains(person) && this.members.contains(person)) {
-            return true;
+            if (this.admins.contains(person) && this.members.contains(person)) {
+                return true;
+            }
+            return false;
         }
         return false;
     }
