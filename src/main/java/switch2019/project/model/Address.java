@@ -154,4 +154,14 @@ public class Address {
     public int hashCode() {
         return Objects.hash(street, city, zipCode);
     }
+
+    /**
+     * Override toString
+     */
+    @Override
+    public String toString() {
+        return "Address{" + street + ','+" "+ city + ','+" " + zipCode + ',' + birthPlace +" "+
+                '}';
+    }
 }
+
