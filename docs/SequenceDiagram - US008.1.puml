@@ -13,10 +13,10 @@ create "amount:MonetaryValue"
 
 == Act ==
 
-":Test" -> "createTransaction:Controller" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+":Test" -> "createTransaction:Controller" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
 activate "createTransaction:Controller"  #FFBBBB
 
-"createTransaction:Controller" -> "group1:Group" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+"createTransaction:Controller" -> "group1:Group" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
 activate "group1:Group"  #FFBBBB
 
 "group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, cat, accountFrom, accountTo, type)
