@@ -9,9 +9,6 @@ create "ledger:Ledger"
 create "amount:MonetaryValue"
 ":Test" -> "amount:MonetaryValue" : create (amount, currency)
 
-create "type:Type"
-":Test" -> "type:Type" : create (description)
-
 == Act ==
 
 ":Test" -> "person:Person" : createTransaction (amount, description, \ncat, accountFrom, accountTo, type)
