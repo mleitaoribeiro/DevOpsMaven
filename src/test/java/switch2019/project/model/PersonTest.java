@@ -344,10 +344,10 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - False")
     void checkSameMotherFalse() {
         //Arrange
-        Person mother1 = new Person("Maria", 1988, 3, 23, new Address("Gaia"));
-        Person mother2 = new Person("Josefa", 1987, 4, 23, new Address("Gaia"));
-        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"));
-        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"));
+        Person mother1 = new Person("Maria", 1988, 3, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person mother2 = new Person("Josefa", 1987, 4, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother2);
 
@@ -362,9 +362,9 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - True")
     void checkSameMotherTrue() {
         //Arrange
-        Person mother1 = new Person("Maria", 1988, 3, 23, new Address("Gaia"));
-        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"));
-        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"));
+        Person mother1 = new Person("Maria", 1988, 3, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother1);
 
@@ -379,9 +379,9 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - no mother")
     void checkSameMotherNoMother() {
         //Arrange
-        Person mother1 = new Person("Teresa", 1980, 1, 23, new Address("Gaia"));
-        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"));
-        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"));
+        Person mother1 = new Person("Teresa", 1980, 1, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
 
         //Act
@@ -395,10 +395,10 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - Null mother")
     void checkSameMotherNullMother() {
         //Arrage
-        Person mother1 = new Person("Teresa", 1980, 1, 23, new Address("Gaia"));
+        Person mother1 = new Person("Teresa", 1980, 1, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         Person mother2 = null;
-        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"));
-        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"));
+        Person person1 = new Person("Ricardo", 2005, 4, 20, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother2);
 
@@ -415,8 +415,8 @@ class PersonTest {
         //Arrage
         Person mother1 = null;
         Person mother2 = null;
-        Person person1 = new Person("Miguel", 2006, 4, 10, new Address("Gaia"));
-        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"));
+        Person person1 = new Person("Miguel", 2006, 4, 10, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", 2006, 4, 21, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother2);
 
@@ -434,13 +434,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings")
     void compareSameSiblings() {
         //Arrange
-        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"));
-        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
+        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblings:
-        Person sibling1 = new Person("Susan", 1993, 3, 9, new Address("Gaia"));
-        Person sibling2 = new Person("Frank", 1996, 12, 5, new Address("Gaia"));
-        Person sibling3 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"));
-        Person sibling4 = new Person("Jack", 1990, 1, 3, new Address("Gaia"));
+        Person sibling1 = new Person("Susan", 1993, 3, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling2 = new Person("Frank", 1996, 12, 5, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling3 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling4 = new Person("Jack", 1990, 1, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblingList arrangement
         HashSet<Person> person1siblings = new HashSet<>(Arrays.asList(person2, sibling1, sibling2, sibling3, sibling4));
         HashSet<Person> person2siblings = new HashSet<>(Arrays.asList(person1, sibling1, sibling2, sibling3, sibling4));
@@ -457,13 +457,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings - False")
     void compareSameSiblings2() {
         //Arrange
-        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"));
-        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"));
+        Person person1 = new Person("John", 1996, 12, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", 1993, 2, 23, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblings:
-        Person sibling1 = new Person("Susan", 1993, 3, 9, new Address("Gaia"));
-        Person sibling2 = new Person("Frank", 1996, 12, 5, new Address("Gaia"));
-        Person sibling3 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"));
-        Person sibling4 = new Person("Jack", 1990, 1, 3, new Address("Gaia"));
+        Person sibling1 = new Person("Susan", 1993, 3, 9, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling2 = new Person("Frank", 1996, 12, 5, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling3 = new Person("Jessica", 2002, 12, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling4 = new Person("Jack", 1990, 1, 3, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblingList arrangement
         HashSet<Person> person1siblings = new HashSet<>(Arrays.asList(sibling1, sibling2));
         HashSet<Person> person2siblings = new HashSet<>(Arrays.asList(sibling3, sibling4));
@@ -520,10 +520,10 @@ class PersonTest {
         int sisterDay = 1;
         Address birthPlaceDiana = new Address("Porto");
 
-        Person onePerson = new Person(name, year, month, day, birthPlaceJoao);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta);
-        Person brother = new Person(brotherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
-        Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana);
+        Person onePerson = new Person(name, year, month, day, birthPlaceJoao,new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta,new Address ("Rua X", "Porto", "4520-266"));
+        Person brother = new Person(brotherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo,new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana,new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         onePerson.addSibling(otherPerson);
@@ -573,10 +573,10 @@ class PersonTest {
         int sisterDay = 1;
         Address birthPlaceDiana = new Address("Porto");
 
-        Person onePerson = new Person(name, year, month, day, birthPlaceJoao);
-        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta);
-        Person brother = new Person(brotherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo);
-        Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana);
+        Person onePerson = new Person(name, year, month, day, birthPlaceJoao,new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPerson = new Person(otherPersonName, otherPersonYear, otherPersonMonth, otherPersonDay, birthPlaceMarta,new Address ("Rua X", "Porto", "4520-266"));
+        Person brother = new Person(brotherName, brotherYear, brotherMonth, brotherDay, birthPlacePaulo,new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person(sisterName, sisterYear, sisterMonth, sisterDay, birthPlaceDiana,new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         onePerson.addSibling(brother);
@@ -596,11 +596,11 @@ class PersonTest {
     @DisplayName("Test if person exists on the other Person siblings list | True")
     public void personExistsOnTheOtherPersonSiblingsList() {
         //Arrange
-        Person person1 = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
-        Person person2 = new Person("Marta", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person brother = new Person("Paulo", 1993, 9, 1, new Address("Porto"));
-        Person sister = new Person("Diana", 2000, 9, 1, new Address("Porto"));
+        Person brother = new Person("Paulo", 1993, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person("Diana", 2000, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(person2);
@@ -617,11 +617,11 @@ class PersonTest {
     @DisplayName("Test if person exists on the other Person siblings list | False")
     public void personDoNotExistsOnTheOtherPersonSiblingsList() {
         //Arrange
-        Person person1 = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"));
-        Person person2 = new Person("Marta", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("João Cardoso", 1993, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person brother = new Person("Paulo", 1993, 9, 1, new Address("Porto"));
-        Person sister = new Person("Diana", 2000, 9, 1, new Address("Porto"));
+        Person brother = new Person("Paulo", 1993, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person("Diana", 2000, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(brother);
@@ -644,9 +644,9 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - True")
     void checkSameFatherTrue() {
         //Arrange
-        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Gaia"));
-        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Gaia"));
-        Person father1 = new Person("Antonio", 1970, 02, 15, new Address("Gaia"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("Antonio", 1970, 02, 15, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setFather(father1);
@@ -662,10 +662,10 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - False")
     void checkSameFatherFalse() {
         //Arrange
-        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Gaia"));
-        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Gaia"));
-        Person father1 = new Person("josé", 1990, 1, 12, new Address("Gaia"));
-        Person father2 = new Person("Afonso", 1950, 8, 07, new Address("Gaia"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("josé", 1990, 1, 12, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father2 = new Person("Afonso", 1950, 8, 07, new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setFather(father1);
@@ -681,10 +681,10 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - False Version 2")
     void checkSameFatherFalse2() {
         //Arrange
-        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Miragaia"));
-        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
-        Person father1 = new Person("jose", 1980, 05, 04, new Address("Matosinhos"));
-        Person father2 = new Person("Pedro", 1970, 05, 04, new Address("Miragaia"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("jose", 1980, 05, 04, new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father2 = new Person("Pedro", 1970, 05, 04, new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
         //Act
         person1.setFather(father1);
         person2.setFather(father2);
@@ -699,9 +699,9 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - False with Null")
     void checkSameFatherFalseNull() {
         //Arrange
-        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Miragaia"));
-        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"));
-        Person father1 = new Person("jose", 1980, 05, 04, new Address("Matosinhos"));
+        Person person1 = new Person("Elsa", 2000, 02, 24, new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", 1990, 01, 05, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("jose", 1980, 05, 04, new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
         //Act
         person1.setFather(father1);
         person2.setFather(null);
@@ -720,9 +720,9 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - same mother")
     void isSiblingsSameMother() {
         //Arrange
-        Person mother = new Person("Maria", 1965, 3, 4, new Address("Miragaia"));
-        Person person1 = new Person("António", 1987, 12, 9, new Address("Porto"));
-        Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Matosinhos"));
+        Person mother = new Person("Maria", 1965, 3, 4, new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("António", 1987, 12, 9, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setMother(mother);
@@ -738,9 +738,9 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - same father")
     void isSiblingsSameFather() {
         //Arrange
-        Person father = new Person("José", 1963, 3, 9, new Address("Miragaia"));
-        Person person1 = new Person("António", 1987, 12, 9, new Address("Matosinhos"));
-        Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Porto"));
+        Person father = new Person("José", 1963, 3, 9, new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("António", 1987, 12, 9, new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setFather(father);
@@ -755,9 +755,9 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - in each other list")
     void isSiblingsInTheSiblingsList() {
         //Arrange
-        Person person1 = new Person("António", 1987, 12, 9, new Address("Miragaia"));
-        Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Porto"));
-        Person person3 = new Person("Roberto", 1992, 8, 10, new Address("Matosinhos"));
+        Person person1 = new Person("António", 1987, 12, 9, new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Manuel", 1986, 9, 12, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Roberto", 1992, 8, 10, new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
 
         HashSet<Person> siblings1 = new HashSet<>(Arrays.asList(person2, person3));
         HashSet<Person> siblings2 = new HashSet<>(Arrays.asList(person1, person3));
@@ -776,12 +776,12 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings -not related")
     void isSiblingsFalse() {
         //Arrange
-        Person mae = new Person("Maria", 1965, 3, 4, new Address("Penacova"));
-        Person mama = new Person("Amália", 1962, 9, 14, new Address("Penacova"));
-        Person senhor = new Person("Ricardo", 1964, 6, 9, new Address("Penacova"));
-        Person pai = new Person("José", 1963, 3, 9, new Address("Penacova"));
-        Person antonio = new Person("António", 1987, 12, 9, new Address("Penacova"));
-        Person manuel = new Person("Manuel", 1986, 9, 12, new Address("Penacova"));
+        Person mae = new Person("Maria", 1965, 3, 4, new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person mama = new Person("Amália", 1962, 9, 14, new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person senhor = new Person("Ricardo", 1964, 6, 9, new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person pai = new Person("José", 1963, 3, 9, new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person antonio = new Person("António", 1987, 12, 9, new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person manuel = new Person("Manuel", 1986, 9, 12, new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         antonio.setMother(mae);
@@ -802,7 +802,7 @@ class PersonTest {
     @DisplayName("Test if a transaction was created - success case")
     void createTransactionSuccessCase() {
         //Arrange
-        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -828,7 +828,7 @@ class PersonTest {
     @DisplayName("Test if a transaction was created - monetary value is negative")
     void createTransactionAccountNegativeMonetaryValue() {
         //Arrange
-        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"));
+        Person person = new Person("Jose", 1996, 04, 02, new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
         MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description = "payment";
@@ -860,7 +860,7 @@ class PersonTest {
     void createAccountSuccessCase() {
         // Arrange
 
-        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"));
+        Person onePerson = new Person("João", 1993, 9, 1, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         String accountDenomination = "Wallet";
         String accountDescription = "General expenses";
@@ -879,7 +879,7 @@ class PersonTest {
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void createCategoryAndAddToCategoryListMainScenario() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Category to be included in Category List
         String category1 = "School expenses";
@@ -895,7 +895,7 @@ class PersonTest {
     @DisplayName("Check if null category is not added")
     void createCategoryAndAddToCategoryListWithANullCase() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Category to be included in Category List
         String category1 = null;
@@ -915,7 +915,7 @@ class PersonTest {
     @DisplayName("Check if the same Category is not added simultaneously")
     void createAndAddTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Categories to be included in Category List
         String category1 = "School expenses";
@@ -933,7 +933,7 @@ class PersonTest {
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void createAndAddTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Categories to be included in Category List
         String category1 = "School expenses";
@@ -953,8 +953,8 @@ class PersonTest {
     @DisplayName("Check if two persons are the same if they have different ages")
     void checkEqualsSameAttributesButDifferentAge() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Alexandre", 1950, 1, 19, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         boolean realResult = person1.equals(person2);
@@ -967,9 +967,9 @@ class PersonTest {
     @DisplayName("Check if two persons have the same birthdate - 2nd constructor")
     void checkIfTwoPeopleHaveTheSameBirthdate() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Pai do Alexandre", 1950, 1, 19, new Address("Porto"));
-        Person person3 = new Person("Alexandre", 1996, 1, 4, new Address("Porto"), person1, person2);
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pai do Alexandre", 1950, 1, 19, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Alexandre", 1996, 1, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"), person1, person2);
 
         //Act
         boolean realResult = person3.getBirthDate().equals(LocalDate.of(1996, 1, 4));
@@ -985,8 +985,8 @@ class PersonTest {
     @DisplayName("Check if a given person anothers' mother - true")
     void checkIsMotherTrue() {
         //Arrange
-        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Marta", 1950, 1, 19, new Address("Porto"));
+        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", 1950, 1, 19, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(person2);
 
         //Act
@@ -1000,9 +1000,9 @@ class PersonTest {
     @DisplayName("Check if a given person anothers' mother - false")
     void checkIsMotherFalse() {
         //Arrange
-        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Marta", 1980, 1, 19, new Address("Porto"));
-        Person person3 = new Person("Diana", 1970, 2, 8, new Address("Porto"));
+        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", 1980, 1, 19, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Diana", 1970, 2, 8, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(person2);
 
         //Act
@@ -1016,8 +1016,8 @@ class PersonTest {
     @DisplayName("Check if a given person anothers' mother - false null case")
     void checkIsMotherFalseNull() {
         //Arrange
-        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Marta", 1980, 1, 19, new Address("Porto"));
+        Person person1 = new Person("Elsa", 1990, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", 1980, 1, 19, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(null);
 
         //Act
@@ -1035,8 +1035,8 @@ class PersonTest {
     void isFather() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setFather(person2);
 
         //Act
@@ -1051,9 +1051,9 @@ class PersonTest {
     void isFather_manyPerson() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"));
-        Person person3 = new Person("Maria", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setFather(person2);
 
         //Act
@@ -1068,8 +1068,8 @@ class PersonTest {
     void isFatherNullCase() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Maria", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Maria", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setFather(null);
 
         //Act
@@ -1087,7 +1087,7 @@ class PersonTest {
     void testEquals() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         Group group1 = new Group("Test Group");
 
         //Act
@@ -1106,8 +1106,8 @@ class PersonTest {
     public void testIfTwoPersonsHaveTheSameHashCodeTrue() {
 
         //Arrange & Act
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Assert
         assertEquals(person1.hashCode(), person2.hashCode());
@@ -1118,8 +1118,8 @@ class PersonTest {
     public void testIfTwoPersonsHaveTheSameHashCodeFalse() {
 
         //Arrange & Act
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
-        Person person2 = new Person("Marta", 1996, 4, 27, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", 1996, 4, 27, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Assert
         assertNotEquals(person1.hashCode(), person2.hashCode());
@@ -1132,7 +1132,7 @@ class PersonTest {
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void removeMultipleCategoriesToListMainScenario() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.createCategoryAndAddToCategoryList("food");
         person1.createCategoryAndAddToCategoryList("car");
         person1.createCategoryAndAddToCategoryList("dog");
@@ -1153,7 +1153,7 @@ class PersonTest {
     @DisplayName("Check the number of categories in the CategoryList")
     void numberOfCategoryInTheCategoryList() {
         //Arrange
-        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"));
+        Person person1 = new Person("Alexandre", 1996, 3, 4, new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         String categoryDescriptionOne = "Health";
         String categoryDescriptionTwo = "Saude";
         String categoryDescriptionThree = "paz";
