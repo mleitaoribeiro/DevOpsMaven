@@ -30,6 +30,13 @@ public class AccountsList {
         return Objects.hash(accounts);
     }
 
+    /**
+     * Develop @override of AccountsList
+     */
+    @Override
+    public String toString() {
+        return "Accounts List: " + accounts;
+    }
 
     /**
      * Method to get the numbers of Accounts in the Accounts List

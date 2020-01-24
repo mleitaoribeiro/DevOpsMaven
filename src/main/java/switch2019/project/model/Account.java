@@ -28,10 +28,12 @@ public class Account {
         return Objects.hash(denomination, description, balance);
     }
 
+    /**
+     * Develop @override of Account
+     */
     @Override
     public String toString() {
-        return "Account{" + denomination + ","+ description + "," + balance +
-                '}';
+        return "Account: " + denomination + ", "+ description + ", " + balance + "€";
     }
 
     /**
