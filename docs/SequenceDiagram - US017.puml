@@ -10,20 +10,22 @@ activate "person:Person" #FFBBBB
 
 create "ledger:Ledger"
 "person:Person" -> "ledger:Ledger" : create()
-deactivate "person:Person"
 activate "ledger:Ledger" #FFBBBB
+":Test" -> "person:Person" : createTransaction(amount, description, date, category, accountFrom, accountTo, type)
 
+"person:Person" -> "ledger:Ledger" : addTransactionToLedger()
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger()
+"ledger:Ledger" -> "transaction:Transaction" : create()
+deactivate "person:Person"
 deactivate "ledger:Ledger"
 
 == Act ==
 
-":Test" -> "US017:Controller" : getPersonalBalanceInTime(person, initialDate, finalDate)
+":Test" -> "US017:Controller" : getPersonalBalanceFromPeriod(person, initialDate, finalDate)
 activate "US017:Controller" #FFBBBB
-"US017:Controller" -> "person:Person": getPersonalBalanceInTime(initialDate, finalDate)
+"US017:Controller" -> "person:Person": getPersonalBalanceFromPeriod(initialDate, finalDate)
 activate "person:Person" #FFBBBB
-"person:Person" -> "ledger:Ledger": getBalanceInTime(initialDate, finalDate)
+"person:Person" -> "ledger:Ledger": getBalanceFromPeriod(initialDate, finalDate)
 activate "ledger:Ledger" #FFBBBB
 "ledger:Ledger" -> "person:Person" : finalBalance
 deactivate "ledger:Ledger"
@@ -34,6 +36,6 @@ deactivate "US017:Controller"
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedPersonalBalanceInTime, personalBalanceInTime)
+":Test" -> ":Test" : assertEquals(expectedPersonalBalanceFromPeriod, personalBalanceFromPeriod
 
 @enduml
