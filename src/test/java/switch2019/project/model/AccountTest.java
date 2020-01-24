@@ -127,7 +127,7 @@ class AccountTest {
         //Act
         toPay.setDenomination("Water bill");
         //Assert
-        assertEquals(expected, toPay.getDenomination());
+        assertEquals(expected, toPay.denominationToString());
     }
 
     @Test
@@ -155,7 +155,7 @@ class AccountTest {
         //Act
         escolaDosMiudos.setDenomination("Escola dos Miúdos");
         //Assert
-        assertEquals(expected, escolaDosMiudos.getDenomination());
+        assertEquals(expected, escolaDosMiudos.denominationToString());
     }
 
     @Test
@@ -167,7 +167,7 @@ class AccountTest {
         //Act
         football.setDenomination("Os-Mancos");
         //Assert
-        assertEquals(expected, football.getDenomination());
+        assertEquals(expected, football.denominationToString());
     }
     @Test
     @DisplayName("Test set function for denomination - Empty")

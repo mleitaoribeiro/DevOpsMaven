@@ -59,6 +59,32 @@ public class Transaction {
     }
 
     /**
+     * toString() of type
+     */
+    private String typeToString() {
+        if(type) return "CREDIT";
+        else return "DEBIT";
+    }
+
+    /**
+     * toString() of date
+     */
+    private String dateToString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return  date.format(formatter);
+    }
+
+    /**
+     * Develop @override of toString()
+     */
+    @Override
+    public String toString() {
+        return dateToString() + " | " + amount + " " +  typeToString() +  " | " +
+                accountFrom.denominationToString() + " -> " + accountTo.denominationToString()
+                + " | Description: \"" + description + "\" " + " | " +category;
+    }
+
+    /**
      * Verify is a given transaction is valid or not
      *
      * @return boolean

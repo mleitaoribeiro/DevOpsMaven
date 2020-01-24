@@ -29,19 +29,19 @@ public class Account {
     }
 
     /**
-     * Develop @override of Account
+     * Develop @override of toString()
      */
     @Override
     public String toString() {
-        return "Account: " + denomination + ", "+ description + ", " + balance + "€";
+        return denomination + ", "+ description + ", " + balance + "€";
     }
 
     /**
      * Public get for denomination
      */
 
-    public String getDenomination() {
-        return this.denomination;
+    public String denominationToString() {
+        return denomination;
     }
 
     /**

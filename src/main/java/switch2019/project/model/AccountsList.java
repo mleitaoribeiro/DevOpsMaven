@@ -31,7 +31,7 @@ public class AccountsList {
     }
 
     /**
-     * Develop @override of AccountsList
+     * Develop @override of toString()
      */
     @Override
     public String toString() {

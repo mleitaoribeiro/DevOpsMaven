@@ -27,7 +27,7 @@ public class MonetaryValue {
     }
 
     /**
-     * Develop @override of MonetaryValue
+     * Develop @override of toString()
      */
     @Override
     public String toString() {
