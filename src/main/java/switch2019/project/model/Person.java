@@ -365,6 +365,15 @@ public class Person {
     public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
         return 0;
     }
+
+
+    public Set<String> returnPersonLedgerFromPeriod (LocalDate initialDate, LocalDate finalDate){
+
+        //write code here
+
+        return new HashSet<String>();
+
+    }
 }
 
 
