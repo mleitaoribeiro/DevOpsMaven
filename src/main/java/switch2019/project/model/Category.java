@@ -17,6 +17,16 @@ public class Category {
     }
 
     /**
+     * toString method for Category
+     *
+     *
+     */
+    @Override
+    public String toString() {
+        return "Category: \"" + nameOfCategory + "\"";
+    }
+
+    /**
      * setter for Category Name -> with input validation
      *
      * @param newCategory

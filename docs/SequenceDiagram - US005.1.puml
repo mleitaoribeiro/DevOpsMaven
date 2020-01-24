@@ -1,0 +1,46 @@
+@startuml
+create ":Test"
+
+== Arrange ==
+create "US005.1:Controller"
+create "group1:Group"
+":Test" -> "group1:Group" : createGroupAndSetAsAdmin (description, startingDate)
+activate "group1:Group" #FFBBBB
+create "categoryList1:CategoryList"
+"group1:Group" -> "categoryList1:CategoryList" :  createCategoryList(description)
+deactivate "group1:Group" #FFBBBB
+
+
+
+
+
+== Act ==
+":Test" -> "createCategory:Controller" : createCategory(description)
+activate "createCategory:Controller" #FFBBBB
+
+"createCategory:Controller" -> "group1:Group" : createAndAddCategoryToCategoryList()
+activate "group1:Group" #FFBBBB
+"group1:Group" -->"createCategory:Controller" :created
+deactivate "group1:Group" #FFBBBB
+"createCategory:Controller" -> "group1:Group" : verifyIfAdmin()
+activate "group1:Group" #FFBBBB
+
+"group1:Group" -> "categoryList1:CategoryList" : addCategoryToCategoryList(description)
+activate "categoryList1:CategoryList" #FFBBBB
+
+create "category1:Category"
+"categoryList1:CategoryList" -> "category1:Category"  : createCategory(description)
+activate "category1:Category" #FFBBBB
+
+deactivate "createCategory:Controller" #FFBBBB
+deactivate "group1:Group" #FFBBBB
+deactivate "categoryList1:CategoryList"
+deactivate "category1:Category"
+
+
+
+
+
+== Assert ==
+":Test" -> ":Test" : assertTrue(categoryCreated)
+@enduml

@@ -1,0 +1,65 @@
+@startuml
+
+participant ":Test"
+note left of ":Test" #powderblue
+	Arrange
+end note
+participant ":US019Controller"
+participant "person:Person"
+participant "personalLedger:Ledger"
+participant "groupsList:GroupsList"
+participant "group:Group"
+participant "groupLedger:Ledger"
+
+note left of ":Test" #powderblue
+	Act
+end note
+
+":Test" -> ":US019Controller" : returnAllGroupAndPersonLedgersFromPeriod(initialDate, finalDate)
+activate ":US019Controller" #FFBBBB
+
+":US019Controller" -> "person:Person" : personTransactions = returnPersonLedgerFromPeriod(initialDate, finalDate)
+activate "person:Person" #FFBBBB
+
+"person:Person" -> "personalLedger:Ledger" : returnTransactionsFromPeriod(initialDate, finalDate)
+activate "personalLedger:Ledger" #FFBBBB
+
+deactivate "personalLedger:Ledger" #FFBBBB
+
+
+
+":US019Controller" -> "person:Person" : searchPersonGroups()
+
+"person:Person" -> "groupsList:GroupsList" : searchPersonGroups()
+activate "groupsList:GroupsList" #FFBBBB
+
+
+
+"groupsList:GroupsList" -> "group:Group" : searchPersonGroups()
+activate "group:Group" #FFBBBB
+deactivate "groupsList:GroupsList" #FFBBBB
+deactivate "group:Group" #FFBBBB
+
+":US019Controller" -> "person:Person" : groupTransactions = returnGroupsLedgerFromPeriod(initialDate, finalDate)
+
+"person:Person" -> "group:Group" : returnGroupsLedgerFromPeriod(initialDate, finalDate)
+activate "group:Group" #FFBBBB
+
+"group:Group" -> "groupLedger:Ledger" : returnGroupTransactionsFromPeriod()
+activate "groupLedger:Ledger" #FFBBBB
+deactivate "groupLedger:Ledger" #FFBBBB
+deactivate "group:Group" #FFBBBB
+deactivate "person:Person" #FFBBBB
+
+":US019Controller" -> ":US019Controller" : transactions = personTransactions+groupTransactions
+
+":US019Controller" --> ":Test" : returnedTransactions
+deactivate ":US019Controller" #FFBBBB
+
+note left of ":Test" #powderblue
+	Assert
+end note
+
+":Test" -> ":Test" : assertTrue(returnedTransactions)
+
+@enduml

@@ -7,17 +7,17 @@ create "group1:Group"
 
 
 create "person1:Person"
-":Test" -> "person1:Person" : create()
+":Test" -> "person1:Person" : create(name, birthDate, birthPlace, homeAddress, mother, father)
 
 create "ledger1:Ledger"
 "person1:Person" -> "ledger1:Ledger" : create()
 
 == Act ==
 
-":Test" -> ":US0012Controller" : setTransaction=getTransaction(inicialDate,finalDate)
+":Test" -> ":US0012Controller" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
 activate ":US0012Controller"  #FFBBBB
 
-":US0012Controller" -> "group1:Group" : setTransaction=getTransaction(inicialDate,finalDate)
+":US0012Controller" -> "group1:Group" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
 activate "group1:Group"  #FFBBBB
 
 "group1:Group" -> "ledger1:Ledger" : ArrayListTransaction=getTransaction(inicialDate,finalDateDate)

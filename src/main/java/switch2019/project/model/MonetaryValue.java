@@ -25,4 +25,12 @@ public class MonetaryValue {
     public boolean validateIfAmountIsPositive() {
         return this.amount > 0;
     }
+
+    /**
+     * Develop @override of MonetaryValue
+     */
+    @Override
+    public String toString() {
+        return amount + " " + currency;
+    }
 }

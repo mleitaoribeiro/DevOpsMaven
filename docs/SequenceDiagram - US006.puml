@@ -4,7 +4,7 @@ create ":Test"
 ==Arrange==
 
 create "person1:Person"
-":Test" -> "person1:Person" : new Person (name, birthDay, birthPlace)
+":Test" -> "person1:Person" : new Person (name, birthDate, birthPlace, homeAddress, mother, father)
 activate "person1:Person" #FFBBBB
 
 create "accountList1:AccountsList"

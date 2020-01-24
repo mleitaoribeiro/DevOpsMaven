@@ -1,7 +1,45 @@
-@startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+ @startuml
+create ":Test"
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+note left of ":Test" #powderblue
+	Arrange
+end note
+create "US017:Controller"
+
+create "group1:Group"
+":Test" -> "group1:Group" : create()
+activate "group1:Group" #FFBBBB
+
+create "ledger:Ledger"
+"group1:Group" -> "ledger:Ledger" : create()
+deactivate "group1:Group"
+activate "ledger:Ledger" #FFBBBB
+
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger()
+deactivate "ledger:Ledger"
+
+note left of ":Test" #powderblue
+	Act
+end note
+
+":Test" -> "US017:Controller" : getGroupBalanceInDateRange(initialDate, finalDate)
+activate "US017:Controller" #FFBBBB
+"US017:Controller" -> "group1:Group": getGroupBalanceInDateRange(initialDate, finalDate)
+activate "group1:Group" #FFBBBB
+"group1:Group" -> "ledger:Ledger": getGroupBalanceInDateRange(initialDate, finalDate)
+activate "ledger:Ledger" #FFBBBB
+"ledger:Ledger" -> "group1:Group" : finalBalance
+deactivate "ledger:Ledger"
+"group1:Group" -> "US017:Controller" : finalBalance
+deactivate "group1:Group"
+"US017:Controller" -> ":Test" : finalBalance
+deactivate "US017:Controller"
+
+note left of ":Test" #powderblue
+	Assert
+end note
+
+":Test" -> ":Test" : assertEquals(expectedGroupBalanceInTime, groupBalanceInTime)
+
 @enduml
