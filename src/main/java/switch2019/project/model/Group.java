@@ -169,18 +169,16 @@ public class Group {
     }
 
     /**
-     * Promote member to group admin.
+     * toString 
      *
-     * @param member
-     * @return true if person was promoted, false if it wasn't
      */
-    /*
-    public boolean promoteMemberToAdmin(Person member) {
-        if (members.contains(member) && member != null) {
-            return admins.add(member);
-        } else return false;
+    @Override
+    public String toString() {
+        return "Group: " + description +
+                ", created on " + startingDate + ".";
+
     }
-*/
+
     /**
      * Promote multiple members to group admins
      *

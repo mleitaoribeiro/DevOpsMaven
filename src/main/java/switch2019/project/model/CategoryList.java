@@ -15,6 +15,10 @@ public class CategoryList {
         categories = new HashSet<>();
     }
 
+    @Override
+    public String toString() {
+        return "CategoryList:"+ categories;
+    }
 
     /**
      * Develop @override of equals for Category List and @override of hashcode
