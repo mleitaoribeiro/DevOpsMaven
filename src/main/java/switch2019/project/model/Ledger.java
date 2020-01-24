@@ -25,4 +25,9 @@ public class Ledger {
         return ledgerTransactions.add(transaction);
     }
 
+    @Override
+    public String toString() {
+        return "Ledger:" + ledgerTransactions +
+                ".";
+    }
 }
