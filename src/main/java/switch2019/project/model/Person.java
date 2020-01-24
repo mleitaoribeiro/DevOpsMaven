@@ -367,6 +367,12 @@ public class Person {
     }
 
 
+    /**
+     * Get the person's ledger movements in a given period (US011)
+     * @param initialDate
+     * @param finalDate
+     */
+
     public Set<String> returnPersonLedgerFromPeriod (LocalDate initialDate, LocalDate finalDate){
 
         //write code here
