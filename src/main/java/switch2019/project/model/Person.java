@@ -373,6 +373,21 @@ public class Person {
     public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
         return 0;
     }
+
+
+    /**
+     * Get the person's ledger movements in a given period (US011)
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public Set<String> returnPersonLedgerFromPeriod (LocalDate initialDate, LocalDate finalDate){
+
+        //write code here
+
+        return new HashSet<String>();
+
+    }
 }
 
 
