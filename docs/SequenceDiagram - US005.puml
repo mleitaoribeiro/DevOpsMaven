@@ -2,7 +2,7 @@
 create ":Test"
 == Arrange ==
 create "person1:Person"
-":Test" -> "person1:Person" : create(name, birthDate, birthPlace)
+":Test" -> "person1:Person" : create(name, birthDate, birthPlace, homeAddress, mother, father)
 activate "person1:Person" #FFBBBB
 create "categoryList1:CategoryList"
 "person1:Person" -> "categoryList1:CategoryList" :  create()
@@ -13,11 +13,11 @@ activate "person1:Person" #FFBBBB
 "person1:Person" -> "categoryList1:CategoryList" : addCategoryToCategoryList(categoryDescription)
 activate "categoryList1:CategoryList" #FFBBBB
 create "category1:Category"
-"categoryList1:CategoryList" -> "category1:Category" : create(description)
-"categoryList1:CategoryList" --> "person1:Person" : categoryCreatedAndAdded
+"categoryList1:CategoryList" -> "category1:Category" : create(categoryDescription)
+"categoryList1:CategoryList" --> "person1:Person" : categoryCreatedAndAddedToCategoryList
 deactivate "categoryList1:CategoryList" #FFBBBB
-"person1:Person" --> ":Test" : categoryCreatedAndAdded
+"person1:Person" --> ":Test" :  categoryCreatedAndAddedToCategoryList
 deactivate "person1:Person" #FFBBBB
 == Assert ==
-":Test" -> ":Test" : assertTrue(categoryAddedToCategoryList)
+":Test" -> ":Test" : assertTrue( categoryCreatedAndAddedToCategoryList)
 @enduml
