@@ -4,7 +4,7 @@ create ":Test"
 == Arrange ==
 create "createCategory:Controller"
 create "group1:Group"
-":Test" -> "group1:Group" : createGroupAndSetAsAdmin (description)
+":Test" -> "group1:Group" : createGroupAndSetAsAdmin (description, startingDate)
 activate "group1:Group" #FFBBBB
 create "categoryList1:CategoryList"
 "group1:Group" -> "categoryList1:CategoryList" :  createCategoryList(description)
