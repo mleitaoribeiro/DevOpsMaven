@@ -158,9 +158,12 @@ public class Address {
     /**
      * Override toString
      */
-    @Override
-    public String toString() {
-        return "Address: " + street + ','+" "+ city + ','+" " + zipCode + ", " + birthPlace +".";
+    public String homeAddressToString() {
+        return street + ", " + city +  ", " + zipCode;
+    }
+
+    public String birthplaceToString(){
+        return birthPlace;
     }
 }
 
