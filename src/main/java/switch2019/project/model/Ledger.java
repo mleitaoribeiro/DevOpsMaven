@@ -25,4 +25,13 @@ public class Ledger {
         return ledgerTransactions.add(transaction);
     }
 
+    /**
+     * Get the balance of the transactions given a specific date range
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
+        return 0;
+    }
 }

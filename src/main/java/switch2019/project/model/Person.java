@@ -64,6 +64,30 @@ public class Person {
     }
 
     /**
+     * override of equals for Person Instance and @override hashcode
+     *
+     * @param o
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) &&
+                Objects.equals(birthDate, person.birthDate) &&
+                Objects.equals(birthPlace, person.birthPlace) &&
+                Objects.equals(address, person.address) &&
+                Objects.equals(father, person.father) &&
+                Objects.equals(mother, person.mother);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthDate, birthPlace, address);
+    }
+
+    /**
      * Set Person Birth Date: with input validation
      *
      * @param birthDate
@@ -239,29 +263,6 @@ public class Person {
         } else return father.equals(otherPerson.father);
     }
 
-    /**
-     * override of equals for Person Instance and @override hashcode
-     *
-     * @param o
-     * @return boolean
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(name, person.name) &&
-                Objects.equals(birthDate, person.birthDate) &&
-                Objects.equals(birthPlace, person.birthPlace) &&
-                Objects.equals(address, person.address) &&
-                Objects.equals(father, person.father) &&
-                Objects.equals(mother, person.mother);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, birthDate, birthPlace, address);
-    }
 
     /**
      * Person exists on the other Person siblings list (USER STORIES)
@@ -355,6 +356,15 @@ public class Person {
         return this.categoryList.numberOfCategoryInTheCategoryList();
     }
 
+    /**
+     * Get the balance of the transactions of one Person given a specific date range
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
+        return 0;
+    }
 }
 
 
