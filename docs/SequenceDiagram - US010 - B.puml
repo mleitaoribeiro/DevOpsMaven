@@ -11,6 +11,10 @@ create "oneGroup:Group"
 
 create "ledger:Ledger"
 
+"oneGroup:Group" -> "ledger:Ledger" : Create ()
+
+create "oneAccount:Account"
+
 create "transaction:Transaction"
 
 
