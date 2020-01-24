@@ -1170,10 +1170,10 @@ class PersonTest {
         LocalDate initialDate = LocalDate.of(2020, 1, 13);
         LocalDate finalDate = LocalDate.of(2020, 1, 20);
 
-        //HashSet<String> result =
+        //ArrayList<String> result = 
 
         //Act
-        Set<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
         //AssertEquals (personLedgerMovements)

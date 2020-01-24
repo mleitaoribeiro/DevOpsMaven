@@ -2,6 +2,7 @@ package switch2019.project.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -381,11 +382,11 @@ public class Person {
      * @param finalDate
      */
 
-    public Set<String> returnPersonLedgerFromPeriod (LocalDate initialDate, LocalDate finalDate){
+    public ArrayList<String> returnPersonLedgerFromPeriod (LocalDate initialDate, LocalDate finalDate){
 
         //write code here
 
-        return new HashSet<String>();
+        return new ArrayList<>();
 
     }
 }
