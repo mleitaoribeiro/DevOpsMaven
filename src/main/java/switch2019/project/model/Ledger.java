@@ -34,4 +34,9 @@ public class Ledger {
     public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
         return 0;
     }
+    @Override
+    public String toString() {
+        return "Ledger:" + ledgerTransactions +
+                ".";
+    }
 }
