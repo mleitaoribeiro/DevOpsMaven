@@ -5,25 +5,30 @@ create ":Test"
 create "US017:Controller"
 
 create "person:Person"
-":Test" -> "person:Person" : create()
+":Test" -> "person:Person" : create(name, birthDate, birthPlace, homeAddress, mother, father)
 activate "person:Person" #FFBBBB
 
 create "ledger:Ledger"
 "person:Person" -> "ledger:Ledger" : create()
 deactivate "person:Person"
-activate "ledger:Ledger" #FFBBBB
+":Test" -> "person:Person" : createTransaction(amount, description, date, category, \n                             accountFrom, accountTo, type)
+activate "person:Person" #FFBBBB
 
+"person:Person" -> "ledger:Ledger" : addTransactionToLedger(amount, description, date, category, \n                                         accountFrom, accountTo, type)
+deactivate "person:Person" #FFBBBB
+activate "ledger:Ledger" #FFBBBB
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger()
+"ledger:Ledger" -> "transaction:Transaction" : create(amount, description, date, category, \n             accountFrom, accountTo, type)
+deactivate "person:Person"
 deactivate "ledger:Ledger"
 
 == Act ==
 
-":Test" -> "US017:Controller" : getPersonalBalanceInTime(person, initialDate, finalDate)
+":Test" -> "US017:Controller" : getPersonalBalanceInDateRange(person, initialDate, finalDate)
 activate "US017:Controller" #FFBBBB
-"US017:Controller" -> "person:Person": getPersonalBalanceInTime(initialDate, finalDate)
+"US017:Controller" -> "person:Person": getPersonalBalanceInDateRange(initialDate, finalDate)
 activate "person:Person" #FFBBBB
-"person:Person" -> "ledger:Ledger": getBalanceInTime(initialDate, finalDate)
+"person:Person" -> "ledger:Ledger": getBalanceInDateRange(initialDate, finalDate)
 activate "ledger:Ledger" #FFBBBB
 "ledger:Ledger" -> "person:Person" : finalBalance
 deactivate "ledger:Ledger"
@@ -34,6 +39,6 @@ deactivate "US017:Controller"
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedPersonalBalanceInTime, personalBalanceInTime)
+":Test" -> ":Test" : assertEquals(expectedPersonalBalanceFromDateRange, \n                        personalBalanceFromDateRange)
 
 @enduml
