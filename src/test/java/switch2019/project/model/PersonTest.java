@@ -1170,7 +1170,7 @@ class PersonTest {
         LocalDate initialDate = LocalDate.of(2020, 1, 13);
         LocalDate finalDate = LocalDate.of(2020, 1, 20);
 
-        //ArrayList<String> result = 
+        //ArrayList<String> result =
 
         //Act
         ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
@@ -1179,4 +1179,8 @@ class PersonTest {
         //AssertEquals (personLedgerMovements)
 
     }
+
+    /**
+     * User Story 17:
+     */
 }

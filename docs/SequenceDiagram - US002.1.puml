@@ -2,39 +2,21 @@
 
 create ":Test"
 create ":Controller"
+
 == Arrange ==
-
-create "person1:Person"
-":Test" -> "person1:Person" : new Person (name, birthDate, birthPlace, homeAddress, mother, father)
-activate "person1:Person" #FFBBBB
-
 create "groupList1:GroupsList"
-"person1:Person" -> "groupList1:GroupsList" : new GroupList()
-deactivate "person1:Person" #FFBBBB
+":Test" -> "groupList1:GroupsList" : new GroupList()
 
 == Act ==
-":Test" -> ":Controller" : createGroup(groupDescription, groupCreator)
-":Controller" -> "person1:Person" : createGroup(groupDescription)
-
-
-
-"person1:Person" -> "groupList1:GroupsList" : createGroup(groupDescription, groupCreator)
-activate "groupList1:GroupsList" #FFBBBB
+":Test" -> ":Controller" : createGroup(groupDescription, groupDescription)
+":Controller" -> "groupList1:GroupsList" : createGroup(groupDescription, groupCreator)
 
 create "group1:Group"
-"groupList1:GroupsList" -> "group1:Group" : new Group(groupDescription)
-activate "group1:Group" #FFBBBB
-
-"group1:Group" -> "group1:Group": addMember(groupCreator)
-
-"group1:Group" --> "groupList1:GroupsList" : groupCreatedAndAddedToGroupsListWithOneAdministrator
-deactivate "group1:Group" #FFBBBB
-
-"groupList1:GroupsList" --> "person1:Person" : groupCreatedAndAddedToGroupsListWithOneAdministrator
-deactivate "groupList1:GroupsList" #FFBBBB
-
-"person1:Person" --> ":Test" : groupCreatedAndAddedToGroupsListWithOneAdministrator
-deactivate  "person1:Person" #FFBBBB
+"groupList1:GroupsList" -> "group1:Group": newGroup(groupDescription)
+"group1:Group" ->"group1:Group": addMember(groupCreator)
+"group1:Group" ->"groupList1:GroupsList": groupCreatedAndAddedToGroupsListWithOneAdminstrator
+"groupList1:GroupsList" -> ":Controller": groupCreatedAndAddedToGroupsListWithOneAdminstrator
+":Controller" -> ":Test": groupCreatedAndAddedToGroupsListWithOneAdminstrator
 
 == Assert ==
 
