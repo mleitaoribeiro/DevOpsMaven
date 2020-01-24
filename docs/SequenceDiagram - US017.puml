@@ -10,10 +10,13 @@ activate "person:Person" #FFBBBB
 
 create "ledger:Ledger"
 "person:Person" -> "ledger:Ledger" : create()
-activate "ledger:Ledger" #FFBBBB
+deactivate "person:Person"
 ":Test" -> "person:Person" : createTransaction(amount, description, date, category, accountFrom, accountTo, type)
+activate "person:Person" #FFBBBB
 
 "person:Person" -> "ledger:Ledger" : addTransactionToLedger()
+deactivate "person:Person" #FFBBBB
+activate "ledger:Ledger" #FFBBBB
 create "transaction:Transaction"
 "ledger:Ledger" -> "transaction:Transaction" : create()
 deactivate "person:Person"
