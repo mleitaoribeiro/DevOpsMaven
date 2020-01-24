@@ -168,6 +168,10 @@ public class Group {
         return false;
     }
 
+    /**
+     * toString 
+     *
+     */
     @Override
     public String toString() {
         return "Group: " + description +
