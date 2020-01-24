@@ -87,6 +87,14 @@ public class Person {
         return Objects.hash(name, birthDate, birthPlace, address);
     }
 
+    @Override
+    public String toString() {
+        return "Person: " + name + ", currently lives in " + address +
+                ", was born in " + birthPlace +
+                ", on " + birthDate +
+                ".";
+    }
+
     /**
      * Set Person Birth Date: with input validation
      *
