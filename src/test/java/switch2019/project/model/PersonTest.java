@@ -813,7 +813,7 @@ class PersonTest {
         Person person = new Person("Jose", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
         MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
-        String description = "payment";
+        String description1 = "payment";
 
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
@@ -826,11 +826,14 @@ class PersonTest {
         boolean type = false; //debit
 
         //Act
-        boolean accountInTheList = person.createTransaction(amountPositive, description, null, category, accountWallet, accountTransport, type);
-        boolean accountNotInTheList = person.createTransaction(amountNegative, description, null, category, accountWallet, accountTransport, type);
+        try {
+            person.createTransaction(amountNegative, description1, null, category, accountWallet, accountTransport, type);
+        }
 
         //Assert
-        assertTrue(accountInTheList && !accountNotInTheList);
+        catch (IllegalArgumentException description) {
+            assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
+        }
     }
 
     /**

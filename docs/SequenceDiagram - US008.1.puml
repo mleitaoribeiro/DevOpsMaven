@@ -25,8 +25,9 @@ activate "ledger:Ledger"  #FFBBBB
 
 create "transaction:Transaction"
 "ledger:Ledger" -> "transaction:Transaction" : create (amount, description, cat, accountFrom, accountTo, type)
-
+"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, cat, accountFrom, accountTo, type)
 "ledger:Ledger" -> "ledger:Ledger": add
+
 deactivate "ledger:Ledger"  #FFBBBB
 deactivate "group1:Group"  #FFBBBB
 deactivate "createTransaction:Controller"  #FFBBBB

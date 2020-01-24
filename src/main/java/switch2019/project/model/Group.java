@@ -12,6 +12,7 @@ public class Group {
     private HashSet<Person> admins;
     private AccountsList groupAccountsList;
     private CategoryList categoryList;
+    private Ledger ledger;
 
     /**
      * Default Group constructor
@@ -26,6 +27,7 @@ public class Group {
         admins = new HashSet<>();
         groupAccountsList = new AccountsList();
         categoryList = new CategoryList();
+        ledger= new Ledger();
     }
 
     /**

@@ -431,7 +431,7 @@ class TransactionTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The monetary value can´t be null. Please try again.", description.getMessage());
+            assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
         }
     }
 

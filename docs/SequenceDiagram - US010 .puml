@@ -1,0 +1,36 @@
+@startuml
+create ":Test"
+
+==Arrange==
+
+create "US010:controller"
+create "onePerson:Person"
+create "oneGroup:Group"
+create "ledger:Ledger"
+"oneGroup:Group" -> "ledger:Ledger" : Create ()
+activate "ledger:Ledger" #FFBBBB
+create "oneAccount:Account"
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger\n(amount, description, cat, accountFrom, accountTo, type)
+deactivate "ledger:Ledger" #FFBBBB
+
+== Act ==
+
+":Test" -> "US010:controller" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
+activate "US010:controller" #FFBBBB
+"US010:controller" -> "oneGroup:Group" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
+activate "oneGroup:Group" #FFBBBB
+"oneGroup:Group" -> "ledger:Ledger" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
+activate "ledger:Ledger" #FFBBBB
+"ledger:Ledger" --> "oneGroup:Group" : getOneAccountMovementsFromGroup
+deactivate "ledger:Ledger" #FFBBBB
+"oneGroup:Group" --> "US010:controller" : getOneAccountMovementsFromGroup
+deactivate "oneGroup:Group" #FFBBBB
+"US010:controller" --> ":Test" : getOneAccountMovementsFromGroup
+deactivate "US010:controller" #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(expected, real)
+
+@enduml
