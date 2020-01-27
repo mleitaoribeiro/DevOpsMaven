@@ -1956,10 +1956,10 @@ class GroupTest {
         group1.setLedgerToTest();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -1998,10 +1998,10 @@ class GroupTest {
         group1.setLedgerToTest();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2039,10 +2039,10 @@ class GroupTest {
         group1.setLedgerToTest();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2081,10 +2081,10 @@ class GroupTest {
         group1.setLedgerToTest();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2124,10 +2124,10 @@ class GroupTest {
         group1.setLedgerToTest();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2166,10 +2166,10 @@ class GroupTest {
         group1.setLedgerToTest();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2211,7 +2211,7 @@ class GroupTest {
         group1.setLedger();
         group1.addMember(person1);
 
-        HashSet<Transaction> allTransactions= new HashSet<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
         /*try {

@@ -323,8 +323,8 @@ public class Group {
     public void setLedgerToTest() {
         ledger = new Util_PersonalLedger().getLedger();
     }
-    public HashSet<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
-        return new HashSet();
+    public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
+        return new ArrayList();
     }
     public void setLedger() {
         this.ledger = ledger;
