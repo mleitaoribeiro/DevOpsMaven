@@ -6,7 +6,7 @@ import switch2019.project.model.Transaction;
 import java.time.LocalDateTime;
 
 public class US017 {
-    public double getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
+    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
        return person1.getPersonalBalanceInDateRange(initialDate, finalDate);
     }
 }

@@ -59,7 +59,7 @@ public class Ledger {
             throw new IllegalArgumentException("The dates can´t be null");
 
         if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
-            throw new IllegalArgumentException("One of the submitted dates is not valid");
+            throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
         //Validate if Date is in the correct order
         if (initialDate.isAfter(finalDate)) {
@@ -107,8 +107,16 @@ public class Ledger {
      * @param finalDate
      */
 
-    public double getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         double balance = 0;
+        if (initialDate == null || finalDate == null)
+            throw new IllegalArgumentException("The dates can´t be null");
+
+        if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
+            throw new IllegalArgumentException("One of the submitted dates is not valid.");
+
+        if(ledgerTransactions.isEmpty())
+            throw new IllegalArgumentException("The ledger is Empty.");
 
         //Validate if Date is in the correct order
         if (initialDate.isAfter(finalDate)) {

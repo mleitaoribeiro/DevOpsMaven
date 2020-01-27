@@ -1404,11 +1404,11 @@ class PersonTest {
         try {
             //Act
             double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-            //fail();
+            fail();
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the dates submitted is not valid.", result.getMessage());
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
         }
     }
 
@@ -1445,7 +1445,7 @@ class PersonTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            //assertEquals("One of the dates submitted is not valid or is missing.", result.getMessage());
+            assertEquals("One of the dates submitted is not valid or is missing.", result.getMessage());
         }
     }
 
@@ -1475,14 +1475,10 @@ class PersonTest {
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
 
-        try {
             //Act
             double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-            // fail();
-        }
-        //Assert
-        catch (IllegalArgumentException result) {
-            assertEquals("Your Ledger is empty in this date range selection.", result.getMessage());
+
+
+            assertEquals(0, personalBalanceInDateRange);
         }
     }
-}
