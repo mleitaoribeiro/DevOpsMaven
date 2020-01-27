@@ -332,7 +332,7 @@ public class Group {
 
 
     public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
-        ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
+        ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
         ArrayList<Transaction> listOfTransactionsOfThatAccount = new ArrayList<>();
 
         if (this.isGroupMember(person1)) {
@@ -354,7 +354,7 @@ public class Group {
      */
 
     public ArrayList<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
+        return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
     }
 
     /**

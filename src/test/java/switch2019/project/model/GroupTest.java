@@ -2678,7 +2678,7 @@ class GroupTest {
 
         //Act
         try {
-            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40), null);
+            ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40), null);
         }
 
         //Assert

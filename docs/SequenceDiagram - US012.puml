@@ -20,7 +20,7 @@ activate ":US0012Controller"  #FFBBBB
 ":US0012Controller" -> "group1:Group" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger1:Ledger" : ArrayListTransaction=getTransaction(inicialDate,finalDateDate)
+"group1:Group" -> "ledger1:Ledger" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
 activate "ledger1:Ledger"  #FFBBBB
 
 
