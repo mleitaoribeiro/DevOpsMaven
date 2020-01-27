@@ -585,4 +585,250 @@ class LedgerTest {
         assertEquals(expected, ledger.getLedgerTransactions());
     }
 
+    @Test
+    @DisplayName("Get the balance of transactions over a valid date range - Main Scenario of US17")
+    void getPersonalBalanceInDateRange() {
+        //Arrange
+        Ledger ledger = new Ledger();
+
+        //Init Transactions
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1,00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6,00,00);
+
+        double expectedPersonalBalanceFromDateRange = -95.4;
+
+        //Act
+        double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+
+        //Assert
+        assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+    }
+
+    @Test
+    @DisplayName("Get the balance of transactions for one day - valid day")
+    void getBalanceForGivenDay() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        //Init Transactions
+        ledger.addTransactionToLedger(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
+                LocalDateTime.of(2020, 1, 13, 13, 05),
+                new Category("grocery"),new Account("Revolut", "For trips expenses"),
+                new Account("Friends & Company", "Holidays"),
+                true);
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
+                LocalDateTime.of(2020, 1, 13, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
+                LocalDateTime.of(2020, 1, 18, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13,23,59);
+
+        double expectedPersonalBalanceFromDateRange = 230;
+
+        //Act
+        double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+
+        //Assert
+        assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Get the balance of transactions over a valid date range but initial date and final date not in order")
+    void getBalanceInDateRangeWithDatesDisordered() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        //Init Transactions
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00,00);
+        LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31,00,00);
+
+        double expectedPersonalBalanceFromDateRange = -95.4;
+
+        //Act
+        double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+
+        //Assert
+        assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+    }
+
+    @Test
+    @DisplayName("Get the balance transactions over invalid date range - final date higher than today!")
+    void getBalanceInDateRangeWithNotValidDate() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27,00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00,00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of ledger that is empty!")
+    void getBalanceInDateRangeEmptyBalance() {
+        //Arrange
+       Ledger ledger = new Ledger();
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("The ledger is Empty.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
+    void getBalanceInDateRangeWithInvalidDate() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        //Init Transactions
+        ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27,00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00,00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my ledger that has zero transactions")
+    void getBalanceInDateRangeOfEmptyLedger() {
+        //Arrange
+        Ledger ledger = new Ledger();
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("The ledger is Empty.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over a period with zero transactions in date range")
+    void getBalanceInDateRangeEmptyBalanceOverDateRange() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        //Init Transactions
+        ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        //Act
+        double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+
+
+        assertEquals(0, personalBalanceInDateRange);
+    }
 }
