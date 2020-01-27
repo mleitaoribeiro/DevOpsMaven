@@ -1,5 +1,7 @@
 @startuml
 
+skinparam DefaultFontSize 20
+
 participant ":Test"
 note left of ":Test" #powderblue
 	Arrange
