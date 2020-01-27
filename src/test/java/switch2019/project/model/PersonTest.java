@@ -1232,6 +1232,37 @@ class PersonTest {
         // assertEquals(personLedgerMovements,expectedResult);
     }
 
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - no transactions in that period -  US011")
+    void returnPersonLedgerFromPeriodNoTransactions() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - ExpectedResult//
+        ArrayList<String> expectedResult = new ArrayList<>();
+
+        LocalDate initialDate = LocalDate.of(2020, 1, 9);
+        LocalDate finalDate = LocalDate.of(2020, 1, 10);
+
+        //Act
+        ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+
+        //Assert
+        // assertEquals(personLedgerMovements,expectedResult);
+    }
 
     /**
      * User Story 17:
