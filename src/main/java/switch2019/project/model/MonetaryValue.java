@@ -33,4 +33,11 @@ public class MonetaryValue {
     public String toString() {
         return amount + " " + currency;
     }
+
+     /**
+     * Get Amount
+     */
+    public double getAmount() {
+        return amount;
+    }
 }
