@@ -6,7 +6,6 @@ import switch2019.project.utils.Util_PersonalLedger;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -1234,8 +1233,7 @@ class PersonTest {
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
-        personalLedger1.getLedger();
+        person1.setLedgerToTest();
 
         LocalDate finalDate = LocalDate.of(2020, 1, 13);
         LocalDate initialDate = LocalDate.of(2020, 1, 27);
