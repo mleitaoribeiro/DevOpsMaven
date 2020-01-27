@@ -53,7 +53,7 @@ public class Ledger {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> getTransactionsFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public ArrayList<Transaction> getTransactionsFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException  {
 
         sortLedgerByTransactionDate ();
 
@@ -110,7 +110,7 @@ public class Ledger {
      * @param finalDate
      */
 
-    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException {
         double balance = 0;
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
@@ -137,7 +137,7 @@ public class Ledger {
                 }
             }
         }
-        return balance;
+        return (double)Math.round(balance*1000)/1000; //balance rounded to three decimal places
     }
 
 
