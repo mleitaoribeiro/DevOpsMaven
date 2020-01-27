@@ -28,8 +28,7 @@ public class GroupsList {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.addMember(groupCreator) && this.groupsList.add(group1));
-        }
-        return false;
+        } return false;
     }
 
     /**
@@ -57,8 +56,7 @@ public class GroupsList {
             if (g.isFamily()) {
                 groupsFamily.add(g);
             }
-        }
-        return groupsFamily;
+        } return groupsFamily;
     }
 
     public HashSet<Group> returnAllGroupsAPersonIsIn(Person person){
@@ -69,4 +67,10 @@ public class GroupsList {
         } return groups;
     }
 
+    public Group returnSpecificGroup(String description){
+        for (Group group : groupsList) {
+            if (group.getDescription().equalsIgnoreCase(description))
+                return group;
+        } return new Group(null);
+    }
 }
