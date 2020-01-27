@@ -68,7 +68,7 @@ public class Ledger {
 
         HashSet<Transaction> myTransactions = new HashSet<>();
         for(Transaction transactions : ledgerTransactions) {
-            if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate))
+            if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
         return myTransactions;
