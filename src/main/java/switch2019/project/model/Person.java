@@ -384,11 +384,7 @@ public class Person {
      */
 
     public ArrayList<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
-
         ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
-
-        for (Transaction transaction: listOfTransactions)
-            listOfTransactions.add(transaction);
         return listOfTransactions;
     }
 
