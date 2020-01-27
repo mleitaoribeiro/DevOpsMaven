@@ -142,4 +142,13 @@ public class Transaction {
     public Account getAccountFrom() {
         return accountFrom;
     }
+
+    /**
+     * Get AccountTo
+     */
+    public Account getAccountTo() {
+        return accountTo;
+    }
+
+
 }
