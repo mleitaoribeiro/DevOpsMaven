@@ -46,12 +46,16 @@ public class Ledger {
         return 0;
     }
     /**
-     * US011: Get the balance of the transactions given a specific date range
+     * US011/US012: Get the transactions in a given specific date range
      * @param initialDate
      * @param finalDate
      */
 
     public HashSet<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
+
+        if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
+            throw new IllegalArgumentException("One of the submitted dates is not valid");
+
         //Validate if Date is in the correct order
         if(initialDate.isAfter(finalDate)){
             LocalDateTime aux = initialDate;
@@ -59,24 +63,12 @@ public class Ledger {
             finalDate = aux;
         }
 
-        HashSet<Transaction> myTransactions = new HashSet<Transaction>();
+        HashSet<Transaction> myTransactions = new HashSet<>();
         for(Transaction transactions : ledgerTransactions) {
             if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate))
                 myTransactions.add(transactions);
         }
         return myTransactions;
-    }
-
-
-    /**
-     * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo  num dado período.
-     *
-     * @param initialDate
-     * @param finalDate
-     */
-
-    public HashSet<Transaction> getLedgerTransactionsInPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
-        return new HashSet<>();
     }
 
 }
