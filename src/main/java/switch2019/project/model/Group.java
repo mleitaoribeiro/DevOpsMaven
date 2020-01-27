@@ -243,7 +243,7 @@ public class Group {
      * @return
      */
     public boolean isGroupMember (Person isMember) {
-        return false;
+        return this.members.contains(isMember);
     }
 
 
