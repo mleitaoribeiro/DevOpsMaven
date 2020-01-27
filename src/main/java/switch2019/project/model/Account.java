@@ -106,4 +106,13 @@ public class Account {
         }
     }
 
+    /**
+     * Public set for description: Can not be Null.
+     *
+     * @return copy of Account
+     */
+
+    public Account getCopyOfAccount() {
+        return new Account(denomination, description);
+    }
 }
