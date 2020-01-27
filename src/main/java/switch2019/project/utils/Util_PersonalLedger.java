@@ -18,6 +18,8 @@ public class Util_PersonalLedger {
 
     public Util_PersonalLedger() {
 
+        personalLedger = new Ledger();
+
         //Categories:
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
