@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -236,6 +237,17 @@ public class Group {
     }
 
     /**
+     * Validate if a person is a Group Admin
+     *
+     * @param isMember
+     * @return
+     */
+    public boolean isGroupMember (Person isMember) {
+        return false;
+    }
+
+
+    /**
      * Add account to Group´s Account List
      *
      * @param accountDenomination
@@ -286,6 +298,16 @@ public class Group {
             return false;
         }
         return categoryList.removeCategoryFromList(nameOfcategory);
+    }
+
+    /**
+     * Develop method to create a new group transaction (US008.1)
+     *
+     * @return
+     */
+
+    public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
+        return false;
     }
 
 }
