@@ -114,4 +114,13 @@ public class Transaction {
         } else this.date = date;
 
     }
+
+    /**
+     * Get date
+     */
+
+    public LocalDateTime getDate() {
+        return this.date;
+    }
+
 }

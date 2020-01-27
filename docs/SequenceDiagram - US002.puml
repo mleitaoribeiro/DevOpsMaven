@@ -10,8 +10,12 @@ create "person1:Person"
 ":Test" -> "person1:Person" : new Person (name, birthDay, birthPlace, homeAddress, mother, father)
 activate "person1:Person" #FFBBBB
 
+create "group1:Group"
+"person1:Person" -> "group1:Group" : new Group()
+deactivate "person1:Person" #FFBBBB
+
 create "groupList1:GroupsList"
-"person1:Person" -> "groupList1:GroupsList" : new GroupList
+"group1:Group" -> "groupList1:GroupsList" : new GroupList
 deactivate "person1:Person" #FFBBBB
 
 note left of ":Test" #powderblue
@@ -21,18 +25,17 @@ end note
 ":Test" -> "person1:Person" : createGroup(description)
 activate "person1:Person" #FFBBBB
 
-"person1:Person" -> "groupList1:GroupsList" : addGroupToGroupsList(description)
-activate "groupList1:GroupsList" #FFBBBB
-
-create "group1:Group"
-"groupList1:GroupsList" -> "group1:Group" : new Group(description)
+"person1:Person" -> "group1:Group" : new Group(description)
 activate "group1:Group" #FFBBBB
 
-"group1:Group" --> "groupList1:GroupsList" : groupCreatedAndAdded
-deactivate "group1:Group" #FFBBBB
+"group1:Group" -> "groupList1:GroupsList" : addGroupToGroupsList(description)
+activate "groupList1:GroupsList" #FFBBBB
 
-"groupList1:GroupsList" --> "person1:Person" : groupCreatedAndAdded
+"groupList1:GroupsList" --> "group1:Group" : groupCreatedAndAdded
 deactivate "groupList1:GroupsList" #FFBBBB
+
+"group1:Group" --> "person1:Person" : groupCreatedAndAdded
+deactivate "group1:Group" #FFBBBB
 
 "person1:Person" --> ":Test" : groupCreatedAndAdded
 deactivate  "person1:Person" #FFBBBB

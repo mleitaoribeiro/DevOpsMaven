@@ -6,7 +6,6 @@ import switch2019.project.utils.Util_PersonalLedger;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +21,7 @@ class PersonTest {
     public void validateNameNullBefore() {
         //Arrange
 
-        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alex", LocalDate.of(1995,12,04) ,new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setName("Mario");
@@ -36,7 +35,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
-        Person person1 = new Person("João", LocalDate.of(1990, 12, 04), new Address(("Porto")), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("João", LocalDate.of(1990, 12,04), new Address(("Porto")),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setName("Alex");
@@ -50,7 +49,7 @@ class PersonTest {
     @DisplayName("Test for validating imput's name, name is empty")
     public void validateNameEmpty() {
         //Arrange
-        Person person1 = new Person("João", LocalDate.of(1990, 12, 04), new Address("Feira"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("João", LocalDate.of(1990, 12,04), new Address("Feira"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setName("");
@@ -69,10 +68,10 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => success case")
     public void validateBirthDate() {
         //Arrange
-        Person person1 = new Person("Mary", LocalDate.of(1990, 12, 05), new Address("Maia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Mary", LocalDate.of(1990, 12,05), new Address("Maia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
-        person1.setBirthDate(LocalDate.of(1995, 04, 04));
+        person1.setBirthDate(LocalDate.of(1995, 04,04));
 
         LocalDate expected = LocalDate.parse("1995-04-04");
 
@@ -84,11 +83,11 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDateWhenMonthisInvalid() {
         //Arrange
-        Person person1 = new Person("Pedro", LocalDate.of(1990, 12, 04), new Address("SaoJoao"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Pedro", LocalDate.of(1990, 12,04), new Address("SaoJoao"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         try {
-            person1.setBirthDate(LocalDate.of(1990, 13, 04));
+            person1.setBirthDate(LocalDate.of(1990, 13,04));
             fail();
         }
         //Assert
@@ -101,11 +100,11 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case ")
     public void validateBirthDateWhenBirthDateIsAfterCurrentDate() {
         //Arrange
-        Person person1 = new Person("Rui", LocalDate.of(1990, 12, 04), new Address("Lousada"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Rui", LocalDate.of(1990, 12,04), new Address("Lousada"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         try {
-            person1.setBirthDate(LocalDate.of(2050, 12, 04));
+            person1.setBirthDate(LocalDate.of(2050, 12,04));
             fail();
         }
         //Assert
@@ -118,11 +117,11 @@ class PersonTest {
     @DisplayName("Test for validating birth date input => error case")
     public void validateBirthDateWhenDayIsInvalid() {
         //Arrange
-        Person person1 = new Person("Rui", LocalDate.of(1990, 12, 04), new Address("lamas"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Rui", LocalDate.of(1990, 12,04), new Address("lamas"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         try {
-            person1.setBirthDate(LocalDate.of(1990, 12, 50));
+            person1.setBirthDate(LocalDate.of(1990, 12,50));
             fail();
         }
         //Assert
@@ -139,11 +138,11 @@ class PersonTest {
     @DisplayName("Test if two people are the same | True")
     public void individualsAreTheSame() {
         //Arrange
-        Person onePersonMother = new Person("Maria", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person onePersonFather = new Person("Artur", LocalDate.of(1990, 11, 04), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonMother = new Person("Maria",LocalDate.of(1990, 12,04), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1990, 11,04), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person onePerson = new Person("João", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
-        Person samePerson = new Person("João", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person onePerson = new Person("João",LocalDate.of(1990, 12,04), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person samePerson = new Person("João",LocalDate.of(1990, 12,04), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
 
         //Act & Assert
         assertEquals(onePerson, samePerson);
@@ -153,13 +152,13 @@ class PersonTest {
     @DisplayName("Test if two people are the same | True")
     public void individualsAreTheSame2() {
         //Arrange
-        Person onePersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person onePersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person otherPersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person otherPersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonMother = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonMother = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonFather = new Person("Artur", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person onePerson = new Person("João Cardoso", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
-        Person otherPerson = new Person("João Cardoso", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), otherPersonMother, otherPersonFather);
+        Person onePerson = new Person("João Cardoso", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person otherPerson = new Person("João Cardoso", LocalDate.of(1995,12,13), new Address("Lisboa"), new Address ("Rua X", "Porto", "4520-266"),otherPersonMother, otherPersonFather);
 
         //Act & Assert
         assertEquals(onePerson, otherPerson);
@@ -169,13 +168,13 @@ class PersonTest {
     @DisplayName("Test if two people are the same | False")
     public void notTheSamePerson() {
         //Arrange
-        Person onePersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
-        Person onePersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
-        Person otherPersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
-        Person otherPersonFather = new Person("Raul", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonMother = new Person("Maria", LocalDate.of(1995,12,13), new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1995,12,13), new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonMother = new Person("Maria", LocalDate.of(1995,12,13), new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPersonFather = new Person("Raul", LocalDate.of(1995,12,13), new Address("Portugal"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person onePerson = new Person("João Cardoso", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
-        Person otherPerson = new Person("João Cardoso", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), otherPersonMother, otherPersonFather);
+        Person onePerson = new Person("João Cardoso", LocalDate.of(1995,12,13), new Address("Portugal"), new Address ("Rua X", "Porto", "4520-266"),onePersonMother, onePersonFather);
+        Person otherPerson = new Person("João Cardoso", LocalDate.of(1995,12,13), new Address("Porto"), new Address ("Rua X", "Porto", "4520-266"), otherPersonMother, otherPersonFather);
 
 
         //Act & Assert
@@ -187,11 +186,11 @@ class PersonTest {
     @DisplayName("Test if two people are the same - False - Different Class")
     public void individualsAreTheSameDifferentClass() {
         //Arrange
-        Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person1Father = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1Mother = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1Father = new Person("Artur", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Address address1 = new Address("Rua da Alegria", "Porto", "4430-654");
-        Person person1 = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), person1Mother, person1Father);
+        Address address1 = new Address("Rua da Alegria","Porto","4430-654");
+        Person person1 = new Person("Miguel",LocalDate.of(1995,12,13), new Address("Porto"), new Address ("Rua X", "Porto", "4520-266"),person1Mother, person1Father);
 
         //Act & Assert
         assertNotEquals(address1, person1);
@@ -206,8 +205,8 @@ class PersonTest {
     @DisplayName("Test for validating add a new sibling")
     public void validateAddSibling() {
         //Arrange
-        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Lyon"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Lyon"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(person2);
@@ -223,10 +222,10 @@ class PersonTest {
     @Test
     void addMultipleSiblings() {
         //Arrange
-        Person person1 = new Person("Teresa", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Paulo", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Paulo", LocalDate.of(1995, 12, 13), new Address("Coimbra"), new Address("Rua X", "Porto", "4520-266"));
-        Person person4 = new Person("Luis", LocalDate.of(1995, 12, 13), new Address("Mozelos"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Teresa", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Paulo", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Paulo", LocalDate.of(1995,12,13), new Address("Coimbra"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Luis", LocalDate.of(1995,12,13), new Address("Mozelos"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> newSiblings = new HashSet<>(Arrays.asList(person2, person4, person3));
 
         //Act
@@ -243,8 +242,8 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list")
     void validateRemoveSibling() {
         //Arrange
-        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("FozCoa"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("António", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("FozCoa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("António", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(person2);
@@ -258,9 +257,9 @@ class PersonTest {
     @DisplayName("Validate if a sibling was removed from to siblings list - more than one sibling")
     void validateRemoveSiblingMoreThanOne() {
         //Arrange
-        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("António", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Manuel", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("António", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Manuel", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> threeSiblings = new HashSet<>(Arrays.asList(person2, person3));
 
         //Act
@@ -278,10 +277,10 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - 1 remaining")
     void validateMultipleSiblingRemoval() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Anna", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Susan", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person4 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Susan", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> threeSiblings = new HashSet<>(Arrays.asList(person2, person3, person4));
         HashSet<Person> twoSiblings = new HashSet<>(Arrays.asList(person3, person4));
 
@@ -297,12 +296,12 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - multiple remaining")
     void validateMultipleSiblingRemovalMultipleRemaining() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Anna", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Susan", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person4 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person5 = new Person("Jessica", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person6 = new Person("Jack", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Susan", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person5 = new Person("Jessica", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person6 = new Person("Jack", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> totalSib = new HashSet<>(Arrays.asList(person2, person3, person4, person5, person6));
         HashSet<Person> removeSib = new HashSet<>(Arrays.asList(person3, person4));
 
@@ -318,11 +317,11 @@ class PersonTest {
     @DisplayName("Validate if multiple siblings were removed from a siblings list - not contains exact ones")
     void validateMultipleSiblingRemovalNotContainsExactOnes() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Anna", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Susan", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person4 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person5 = new Person("Jessica", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Susan",LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person4 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person5 = new Person("Jessica", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         HashSet<Person> totalSib = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
         HashSet<Person> removeSib = new HashSet<>(Arrays.asList(person3, person4));
         HashSet<Person> expectedSib = new HashSet<>(Arrays.asList(person2, person5));
@@ -342,10 +341,10 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - False")
     void checkSameMotherFalse() {
         //Arrange
-        Person mother1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person mother2 = new Person("Josefa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person1 = new Person("Ricardo", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person mother1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person mother2 = new Person("Josefa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother2);
 
@@ -360,9 +359,9 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - True")
     void checkSameMotherTrue() {
         //Arrange
-        Person mother1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person1 = new Person("Ricardo", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person mother1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother1);
 
@@ -377,9 +376,9 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - no mother")
     void checkSameMotherNoMother() {
         //Arrange
-        Person mother1 = new Person("Teresa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person1 = new Person("Ricardo", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person mother1 = new Person("Teresa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
 
         //Act
@@ -393,10 +392,10 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - Null mother")
     void checkSameMotherNullMother() {
         //Arrage
-        Person mother1 = new Person("Teresa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person mother1 = new Person("Teresa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         Person mother2 = null;
-        Person person1 = new Person("Ricardo", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Ricardo", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother2);
 
@@ -413,8 +412,8 @@ class PersonTest {
         //Arrage
         Person mother1 = null;
         Person mother2 = null;
-        Person person1 = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Miguel", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(mother1);
         person2.setMother(mother2);
 
@@ -432,13 +431,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings")
     void compareSameSiblings() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Anna", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblings:
-        Person sibling1 = new Person("Susan", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person sibling2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person sibling3 = new Person("Jessica", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person sibling4 = new Person("Jack", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person sibling1 = new Person("Susan", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling3 = new Person("Jessica", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling4 = new Person("Jack", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblingList arrangement
         HashSet<Person> person1siblings = new HashSet<>(Arrays.asList(person2, sibling1, sibling2, sibling3, sibling4));
         HashSet<Person> person2siblings = new HashSet<>(Arrays.asList(person1, sibling1, sibling2, sibling3, sibling4));
@@ -455,13 +454,13 @@ class PersonTest {
     @DisplayName("Validate if two people have the same siblings - False")
     void compareSameSiblings2() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Anna", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Anna", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblings:
-        Person sibling1 = new Person("Susan", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person sibling2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person sibling3 = new Person("Jessica", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person sibling4 = new Person("Jack", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person sibling1 = new Person("Susan", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling3 = new Person("Jessica", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sibling4 = new Person("Jack", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
         //siblingList arrangement
         HashSet<Person> person1siblings = new HashSet<>(Arrays.asList(sibling1, sibling2));
         HashSet<Person> person2siblings = new HashSet<>(Arrays.asList(sibling3, sibling4));
@@ -510,10 +509,10 @@ class PersonTest {
         //One Sister BirthDate
         Address birthPlaceDiana = new Address("Porto");
 
-        Person onePerson = new Person(name, LocalDate.of(1995, 12, 13), birthPlaceJoao, new Address("Rua X", "Porto", "4520-266"));
-        Person otherPerson = new Person(otherPersonName, LocalDate.of(1995, 12, 13), birthPlaceMarta, new Address("Rua X", "Porto", "4520-266"));
-        Person brother = new Person(brotherName, LocalDate.of(1995, 12, 13), birthPlacePaulo, new Address("Rua X", "Porto", "4520-266"));
-        Person sister = new Person(sisterName, LocalDate.of(1995, 12, 13), birthPlaceDiana, new Address("Rua X", "Porto", "4520-266"));
+        Person onePerson = new Person(name, LocalDate.of(1995,12,13), birthPlaceJoao,new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPerson = new Person(otherPersonName,LocalDate.of(1995,12,13), birthPlaceMarta,new Address ("Rua X", "Porto", "4520-266"));
+        Person brother = new Person(brotherName, LocalDate.of(1995,12,13), birthPlacePaulo,new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person(sisterName, LocalDate.of(1995,12,13), birthPlaceDiana,new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         onePerson.addSibling(otherPerson);
@@ -553,10 +552,10 @@ class PersonTest {
         //One Sister BirthDate
         Address birthPlaceDiana = new Address("Porto");
 
-        Person onePerson = new Person(name, LocalDate.of(1995, 12, 13), birthPlaceJoao, new Address("Rua X", "Porto", "4520-266"));
-        Person otherPerson = new Person(otherPersonName, LocalDate.of(1995, 12, 13), birthPlaceMarta, new Address("Rua X", "Porto", "4520-266"));
-        Person brother = new Person(brotherName, LocalDate.of(1995, 12, 13), birthPlacePaulo, new Address("Rua X", "Porto", "4520-266"));
-        Person sister = new Person(sisterName, LocalDate.of(1995, 12, 13), birthPlaceDiana, new Address("Rua X", "Porto", "4520-266"));
+        Person onePerson = new Person(name, LocalDate.of(1995,12,13), birthPlaceJoao,new Address ("Rua X", "Porto", "4520-266"));
+        Person otherPerson = new Person(otherPersonName, LocalDate.of(1995,12,13), birthPlaceMarta,new Address ("Rua X", "Porto", "4520-266"));
+        Person brother = new Person(brotherName, LocalDate.of(1995,12,13), birthPlacePaulo,new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person(sisterName, LocalDate.of(1995,12,13), birthPlaceDiana,new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         onePerson.addSibling(brother);
@@ -576,11 +575,11 @@ class PersonTest {
     @DisplayName("Test if person exists on the other Person siblings list | True")
     public void personExistsOnTheOtherPersonSiblingsList() {
         //Arrange
-        Person person1 = new Person("João Cardoso", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("João Cardoso", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person brother = new Person("Paulo", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person sister = new Person("Diana", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person brother = new Person("Paulo", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person("Diana", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(person2);
@@ -597,11 +596,11 @@ class PersonTest {
     @DisplayName("Test if person exists on the other Person siblings list | False")
     public void personDoNotExistsOnTheOtherPersonSiblingsList() {
         //Arrange
-        Person person1 = new Person("João Cardoso", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("João Cardoso", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
-        Person brother = new Person("Paulo", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person sister = new Person("Diana", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person brother = new Person("Paulo", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person sister = new Person("Diana", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.addSibling(brother);
@@ -624,9 +623,9 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - True")
     void checkSameFatherTrue() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Filipa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person father1 = new Person("Antonio", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("Antonio", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setFather(father1);
@@ -642,10 +641,10 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - False")
     void checkSameFatherFalse() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Filipa", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person father1 = new Person("josé", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person father2 = new Person("Afonso", LocalDate.of(1995, 12, 13), new Address("Gaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("josé", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father2 = new Person("Afonso", LocalDate.of(1995,12,13), new Address("Gaia"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setFather(father1);
@@ -661,10 +660,10 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - False Version 2")
     void checkSameFatherFalse2() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Miragaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Filipa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person father1 = new Person("jose", LocalDate.of(1995, 12, 13), new Address("Matosinhos"), new Address("Rua X", "Porto", "4520-266"));
-        Person father2 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Miragaia"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("jose", LocalDate.of(1995,12,13), new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father2 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
         //Act
         person1.setFather(father1);
         person2.setFather(father2);
@@ -679,9 +678,9 @@ class PersonTest {
     @DisplayName("Test if two persons have the same father - False with Null")
     void checkSameFatherFalseNull() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Miragaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Filipa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person father1 = new Person("jose", LocalDate.of(1995, 12, 13), new Address("Matosinhos"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Filipa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person father1 = new Person("jose", LocalDate.of(1995,12,13), new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
         //Act
         person1.setFather(father1);
         person2.setFather(null);
@@ -700,9 +699,9 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - same mother")
     void isSiblingsSameMother() {
         //Arrange
-        Person mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Miragaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person1 = new Person("António", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Manuel", LocalDate.of(1995, 12, 13), new Address("Matosinhos"), new Address("Rua X", "Porto", "4520-266"));
+        Person mother = new Person("Maria", LocalDate.of(1995,12,13), new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("António", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Manuel", LocalDate.of(1995,12,13), new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setMother(mother);
@@ -718,9 +717,9 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - same father")
     void isSiblingsSameFather() {
         //Arrange
-        Person father = new Person("José", LocalDate.of(1995, 12, 13), new Address("Miragaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person1 = new Person("António", LocalDate.of(1995, 12, 13), new Address("Matosinhos"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Manuel", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person father = new Person("José", LocalDate.of(1995,12,13), new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("António", LocalDate.of(1995,12,13), new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Manuel", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         person1.setFather(father);
@@ -735,9 +734,9 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings - in each other list")
     void isSiblingsInTheSiblingsList() {
         //Arrange
-        Person person1 = new Person("António", LocalDate.of(1995, 12, 13), new Address("Miragaia"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Manuel", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Roberto", LocalDate.of(1995, 12, 13), new Address("Matosinhos"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("António", LocalDate.of(1995,12,13), new Address("Miragaia"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Manuel", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Roberto", LocalDate.of(1995,12,13), new Address("Matosinhos"),new Address ("Rua X", "Porto", "4520-266"));
 
         HashSet<Person> siblings1 = new HashSet<>(Arrays.asList(person2, person3));
         HashSet<Person> siblings2 = new HashSet<>(Arrays.asList(person1, person3));
@@ -756,12 +755,12 @@ class PersonTest {
     @DisplayName("Test if two individuals are siblings -not related")
     void isSiblingsFalse() {
         //Arrange
-        Person mae = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Penacova"), new Address("Rua X", "Porto", "4520-266"));
-        Person mama = new Person("Amália", LocalDate.of(1995, 12, 13), new Address("Penacova"), new Address("Rua X", "Porto", "4520-266"));
-        Person senhor = new Person("Ricardo", LocalDate.of(1995, 12, 13), new Address("Penacova"), new Address("Rua X", "Porto", "4520-266"));
-        Person pai = new Person("José", LocalDate.of(1995, 12, 13), new Address("Penacova"), new Address("Rua X", "Porto", "4520-266"));
-        Person antonio = new Person("António", LocalDate.of(1995, 12, 13), new Address("Penacova"), new Address("Rua X", "Porto", "4520-266"));
-        Person manuel = new Person("Manuel", LocalDate.of(1995, 12, 13), new Address("Penacova"), new Address("Rua X", "Porto", "4520-266"));
+        Person mae = new Person("Maria", LocalDate.of(1995,12,13), new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person mama = new Person("Amália", LocalDate.of(1995,12,13), new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person senhor = new Person("Ricardo", LocalDate.of(1995,12,13), new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person pai = new Person("José", LocalDate.of(1995,12,13), new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person antonio = new Person("António", LocalDate.of(1995,12,13), new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
+        Person manuel = new Person("Manuel", LocalDate.of(1995,12,13), new Address("Penacova"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         antonio.setMother(mae);
@@ -782,7 +781,7 @@ class PersonTest {
     @DisplayName("Test if a transaction was created - success case")
     void createTransactionSuccessCase() {
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -803,12 +802,12 @@ class PersonTest {
         //Assert
         assertTrue(result);
     }
-
+    
     @Test
     @DisplayName("Test if a transaction was created - monetary value is negative")
     void createTransactionAccountNegativeMonetaryValue() {
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
         MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description1 = "payment";
@@ -843,7 +842,7 @@ class PersonTest {
     void createAccountSuccessCase() {
         // Arrange
 
-        Person onePerson = new Person("João", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePerson = new Person("João", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         String accountDenomination = "Wallet";
         String accountDescription = "General expenses";
@@ -862,7 +861,7 @@ class PersonTest {
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void createCategoryAndAddToCategoryListMainScenario() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Category to be included in Category List
         String category1 = "School expenses";
@@ -878,7 +877,7 @@ class PersonTest {
     @DisplayName("Check if null category is not added")
     void createCategoryAndAddToCategoryListWithANullCase() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Category to be included in Category List
         String category1 = null;
@@ -898,7 +897,7 @@ class PersonTest {
     @DisplayName("Check if the same Category is not added simultaneously")
     void createAndAddTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Categories to be included in Category List
         String category1 = "School expenses";
@@ -916,7 +915,7 @@ class PersonTest {
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
     void createAndAddTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Categories to be included in Category List
         String category1 = "School expenses";
@@ -936,8 +935,8 @@ class PersonTest {
     @DisplayName("Check if two persons are the same if they have different ages")
     void checkEqualsSameAttributesButDifferentAge() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Alexandre", LocalDate.of(1995, 12, 14), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre",LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Alexandre", LocalDate.of(1995,12,14), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         boolean realResult = person1.equals(person2);
@@ -950,9 +949,9 @@ class PersonTest {
     @DisplayName("Check if two persons have the same birthdate - 2nd constructor")
     void checkIfTwoPeopleHaveTheSameBirthdate() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Pai do Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Pai do Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act
         boolean realResult = person3.getBirthDate().equals(person1.getBirthDate());
@@ -968,8 +967,8 @@ class PersonTest {
     @DisplayName("Check if a given person anothers' mother - true")
     void checkIsMotherTrue() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(person2);
 
         //Act
@@ -983,9 +982,9 @@ class PersonTest {
     @DisplayName("Check if a given person anothers' mother - false")
     void checkIsMotherFalse() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Diana", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Diana", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(person2);
 
         //Act
@@ -999,8 +998,8 @@ class PersonTest {
     @DisplayName("Check if a given person anothers' mother - false null case")
     void checkIsMotherFalseNull() {
         //Arrange
-        Person person1 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setMother(null);
 
         //Act
@@ -1018,8 +1017,8 @@ class PersonTest {
     void isFather() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setFather(person2);
 
         //Act
@@ -1034,9 +1033,9 @@ class PersonTest {
     void isFather_manyPerson() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setFather(person2);
 
         //Act
@@ -1051,8 +1050,8 @@ class PersonTest {
     void isFatherNullCase() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.setFather(null);
 
         //Act
@@ -1070,7 +1069,7 @@ class PersonTest {
     void testEquals() {
         //Arrange
 
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         Group group1 = new Group("Test Group");
 
         //Act
@@ -1089,8 +1088,8 @@ class PersonTest {
     public void testIfTwoPersonsHaveTheSameHashCodeTrue() {
 
         //Arrange & Act
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Alexandre",LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Assert
         assertEquals(person1.hashCode(), person2.hashCode());
@@ -1101,8 +1100,8 @@ class PersonTest {
     public void testIfTwoPersonsHaveTheSameHashCodeFalse() {
 
         //Arrange & Act
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Assert
         assertNotEquals(person1.hashCode(), person2.hashCode());
@@ -1115,7 +1114,7 @@ class PersonTest {
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void removeMultipleCategoriesToListMainScenario() {
         //Arrange
-        Person person1 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Alexandre", LocalDate.of(1995,12,13), new Address("Porto"),new Address ("Rua X", "Porto", "4520-266"));
         person1.createCategoryAndAddToCategoryList("food");
         person1.createCategoryAndAddToCategoryList("car");
         person1.createCategoryAndAddToCategoryList("dog");
@@ -1180,8 +1179,6 @@ class PersonTest {
         //Assert
         // assertEquals(personLedgerMovements,expectedResult);
     }
-   
-    */
 
     /**
      * User Story 17:
@@ -1236,8 +1233,7 @@ class PersonTest {
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
-        personalLedger1.getLedger();
+        person1.setLedgerToTest();
 
         LocalDate finalDate = LocalDate.of(2020, 1, 13);
         LocalDate initialDate = LocalDate.of(2020, 1, 27);
@@ -1251,74 +1247,72 @@ class PersonTest {
         //AssertEquals (expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
     }
 
-//    @Test
-//    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
-//    void getPersonalBalanceInDateRangeWithInvalidDate() {
-//        //Arrange
-//        Person person1 = new Person("Marta", LocalDate.of(1995,12,04), new Address("Porto"),
-//                new Address ("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-//        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
-//        personalLedger1.getLedger();
-//
-//        LocalDate initialDate = LocalDate.of(2020, 1, 27);
-//        LocalDate finalDate = LocalDate.of(2021, 1, 27);
-//
-//        try {
-//        //Act
-//        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-//        fail();
-//        }
-//        //Assert
-//        catch (IllegalArgumentException result) {
-//            assertEquals("One of the dates submitted is not valid.", result.getMessage());
-//        }
-//    }
+    @Test
+    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
+    void getPersonalBalanceInDateRangeWithInvalidDate() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995,12,04), new Address("Porto"),
+                new Address ("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
+        personalLedger1.getLedger();
 
-//    @Test
-//    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
-//    void getPersonalBalanceInDateRangeWithNullDate() {
-//        //Arrange
-//        Person person1 = new Person("Marta", LocalDate.of(1995,12,04), new Address("Porto"),
-//                new Address ("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-//        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
-//        personalLedger1.getLedger();
-//
-//        LocalDate initialDate = null;
-//        LocalDate finalDate = LocalDate.of(2021, 1, 27);
-//
-//        try {
-//            //Act
-//            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-//            fail();
-//        }
-//        //Assert
-//        catch (IllegalArgumentException result) {
-//            assertEquals("One of the dates submitted is not valid or is missing.", result.getMessage());
-//        }
-//    }
-//
-//    @Test
-//    @DisplayName("Get the balance of my own transactions over a period with any transactions")
-//    void getPersonalBalanceInDateRangeEmptyBalance() {
-//        //Arrange
-//        Person person1 = new Person("Marta", LocalDate.of(1995,12,04), new Address("Porto"),
-//                new Address ("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-//        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
-//        personalLedger1.getLedger();
-//
-//        LocalDate initialDate = LocalDate.of(2019, 10, 27);
-//        LocalDate finalDate = LocalDate.of(2019, 9, 20);
-//
-//        try {
-//            //Act
-//            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-//            fail();
-//        }
-//            //Assert
-//            catch (IllegalArgumentException result) {
-//            assertEquals("Your Ledger is empty in this date range selection.", result.getMessage());
-//        }
-//    }
+        LocalDate initialDate = LocalDate.of(2020, 1, 27);
+        LocalDate finalDate = LocalDate.of(2021, 1, 27);
 
+        try {
+        //Act
+        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+        //fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            //assertEquals("One of the dates submitted is not valid.", result.getMessage());
+        }
+    }
 
+    @Test
+    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
+    void getPersonalBalanceInDateRangeWithNullDate() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995,12,04), new Address("Porto"),
+                new Address ("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
+        personalLedger1.getLedger();
+
+        LocalDate initialDate = null;
+        LocalDate finalDate = LocalDate.of(2021, 1, 27);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            //fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            //assertEquals("One of the dates submitted is not valid or is missing.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over a period with any transactions")
+    void getPersonalBalanceInDateRangeEmptyBalance() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995,12,04), new Address("Porto"),
+                new Address ("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Util_PersonalLedger personalLedger1 = new Util_PersonalLedger();
+        personalLedger1.getLedger();
+
+        LocalDate initialDate = LocalDate.of(2019, 10, 27);
+        LocalDate finalDate = LocalDate.of(2019, 9, 20);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            // fail();
+        }
+            //Assert
+            catch (IllegalArgumentException result) {
+           // assertEquals("Your Ledger is empty in this date range selection.", result.getMessage());
+        }
+    }
 }

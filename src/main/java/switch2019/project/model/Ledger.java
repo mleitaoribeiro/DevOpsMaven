@@ -18,6 +18,17 @@ public class Ledger {
     }
 
     /**
+     * toString
+     */
+
+
+    @Override
+    public String toString() {
+        return "Ledger:" + ledgerTransactions +
+                ".";
+    }
+
+    /**
      * Add Transaction to Ledger
      */
     public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
@@ -26,7 +37,7 @@ public class Ledger {
     }
 
     /**
-     * Get the balance of the transactions given a specific date range
+     * US11: Get the balance of the transactions given a specific date range
      * @param initialDate
      * @param finalDate
      */
@@ -34,16 +45,26 @@ public class Ledger {
     public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
         return 0;
     }
-
-
     /**
-     * toString
+     * US011: Get the balance of the transactions given a specific date range
+     * @param initialDate
+     * @param finalDate
      */
 
-    @Override
-    public String toString() {
-        return "Ledger:" + ledgerTransactions +
-                ".";
+    public HashSet<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
+        //Validate if Date is in the correct order
+        if(initialDate.isAfter(finalDate)){
+            LocalDateTime aux = initialDate;
+            initialDate = finalDate;
+            finalDate = aux;
+        }
+
+        HashSet<Transaction> myTransactions = new HashSet<Transaction>();
+        for(Transaction transactions : ledgerTransactions) {
+            if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate))
+                myTransactions.add(transactions);
+        }
+        return myTransactions;
     }
 
 

@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import switch2019.project.utils.Util_PersonalLedger;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -317,6 +319,9 @@ public class Group {
         return this.ledger.isTransactionInLedger(newGroupTransaction);
     }
 
+    public void setLedgerToTest() {
+        ledger = new Util_PersonalLedger().getLedger();
+    }
 }
 
 

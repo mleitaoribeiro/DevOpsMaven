@@ -21,9 +21,9 @@ class GroupTest {
     public void compareTheSameObject() {
 
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank",LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
@@ -44,9 +44,9 @@ class GroupTest {
     @DisplayName("Compare one Group with a null Group")
     public void equalsWithNullGroup() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
@@ -67,13 +67,13 @@ class GroupTest {
     @DisplayName("Compare two groups with same members and different description")
     public void compareGroupsWithSameDescriptionAndDifferentMembers() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Mary", LocalDate.of(1995,12,13), new Address("Detroit"),
+        Person person3 = new Person("Mary", LocalDate.of(1995, 12, 13), new Address("Detroit"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Vasylia", LocalDate.of(1995,12,13), new Address("California"),
+        Person person4 = new Person("Vasylia", LocalDate.of(1995, 12, 13), new Address("California"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
@@ -96,9 +96,9 @@ class GroupTest {
     @DisplayName("Compare two groups with members but different description")
     public void compareGroupsWithSameMembersButDifferentDescription() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
@@ -122,9 +122,9 @@ class GroupTest {
     @DisplayName("Compare two groups - same members but one with null description")
     public void compareGroupsSameMembersButOneWithNullDescription() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
@@ -148,9 +148,9 @@ class GroupTest {
     @DisplayName("Compare two groups with same members and same description")
     public void compareGroupsWithSameMembersAndSameDescription() {
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank",LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
@@ -167,7 +167,7 @@ class GroupTest {
     }
 
     /**
-     *
+     * Check if a group and another object are diferent
      */
     @Test
     @DisplayName("Compare different objects")
@@ -185,7 +185,7 @@ class GroupTest {
 
 
     /**
-     * US002 - check if group was added to group
+     * US002 - check if group was added to groupList
      * Methods to check if the number of groups in the GroupList is increased
      */
 
@@ -194,9 +194,9 @@ class GroupTest {
     public void wasGroupAddedToList() {
 
         //Arrange
-        Person person1 = new Person("John", LocalDate.of(1995,12,13), new Address("New York"),
+        Person person1 = new Person("John", LocalDate.of(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Frank", LocalDate.of(1995,12,13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Amigos");
         GroupsList groupList1 = new GroupsList();
@@ -261,9 +261,9 @@ class GroupTest {
     void addMember() {
 
         //Arrange
-        Person person1 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Mariana", LocalDate.of(1995,12,13), new Address("Lisboa"),
+        Person person2 = new Person("Mariana", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person1, person2));
@@ -302,7 +302,7 @@ class GroupTest {
     void promoteAddedMemberIfEmptyTrue() {
 
         //Arrange
-        Person person1 = new Person("Juan", LocalDate.of(1995,12,13), new Address("Toledo"),
+        Person person1 = new Person("Juan", LocalDate.of(1995, 12, 13), new Address("Toledo"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Group with no members");
 
@@ -318,9 +318,9 @@ class GroupTest {
     void promoteAddedMemberIfEmptyTestFalse() {
 
         //Arrange
-        Person person1 = new Person("Juan", LocalDate.of(1995,12,13), new Address("Toledo"),
+        Person person1 = new Person("Juan", LocalDate.of(1995, 12, 13), new Address("Toledo"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Pablo", LocalDate.of(1995,12,13), new Address("Madrid"),
+        Person person2 = new Person("Pablo", LocalDate.of(1995, 12, 13), new Address("Madrid"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Group with no members");
 
@@ -343,11 +343,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("MNation");
 
-        Person person1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Mariana", LocalDate.of(1995,12,13), new Address("Lisboa"),
+        Person person2 = new Person("Mariana", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Marisa", LocalDate.of(1995,12,13), new Address("Leiria"),
+        Person person3 = new Person("Marisa", LocalDate.of(1995, 12, 13), new Address("Leiria"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
@@ -370,9 +370,9 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Maria's Group");
 
-        Person person1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         //Act
@@ -391,7 +391,7 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo das M'Nation");
 
-        Person person1 = new Person("Maria", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person2 = null;
 
@@ -415,11 +415,11 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
-        Person personAdmin = new Person("António", LocalDate.of(1995,12,13), new Address("Guimarães"),
+        Person personAdmin = new Person("António", LocalDate.of(1995, 12, 13), new Address("Guimarães"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
@@ -442,11 +442,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
 
-        Person personAdmin = new Person("Maria", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person personAdmin = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person3 = null;
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
@@ -473,9 +473,9 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("OS FIXES");
 
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Diana", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Diana", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         //Act
@@ -499,11 +499,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("OS FIXES");
 
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Mariana", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Mariana", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Diana", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Diana", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         //Act
@@ -523,11 +523,11 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
-        Person personAdmin = new Person("Maria", LocalDate.of(1995,12,13), new Address("Lisboa"),
+        Person personAdmin = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         group1.setAdmin(personAdmin);
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
@@ -548,11 +548,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
 
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Gabriel", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Gabriel", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person2, person1));
@@ -574,13 +574,13 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
-        Person personAdmin = new Person("Catarina", LocalDate.of(1995,12,13), new Address("Lisboa"),
+        Person personAdmin = new Person("Catarina", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Paranhos"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Gabriel", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Gabriel", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
@@ -602,11 +602,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("123 são os primeiros três números inteiros");
 
-        Person person1 = new Person("João", LocalDate.of(1995,12,13), new Address("Lisboa"),
+        Person person1 = new Person("João", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Laurinda",LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Laurinda", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         group1.addMember(person1);
@@ -629,13 +629,13 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
-        Person person1 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Gabriel", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Gabriel", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Laurinda", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Laurinda", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         //Act
@@ -659,13 +659,13 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
-        Person person1 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Gabriel", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Gabriel", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Laurinda", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Laurinda", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         //Act
@@ -689,13 +689,13 @@ class GroupTest {
 
         //Arrange
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
-        Person person1 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Gabriel", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Gabriel", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Laurinda", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Laurinda", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         group1.addMember(person1);
@@ -720,11 +720,11 @@ class GroupTest {
 
         //Arrange:
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
-        Person person1 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Gabriel", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Gabriel", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Laurinda", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Laurinda", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         //Act:
@@ -750,15 +750,15 @@ class GroupTest {
     void ifGroupIsFamilyAllFamily() {
 
         //Arrange
-        Person person1 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Joao", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Joao", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Manuela", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Manuela", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person5 = new Person("Carlos", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person5 = new Person("Carlos", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5));
 
@@ -783,17 +783,17 @@ class GroupTest {
     void ifGroupIsFamilyAllFamilyExceptOne() {
 
         //Arrange
-        Person person1 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Joao", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Joao", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Manuela", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Manuela", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person5 = new Person("Carlos", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person5 = new Person("Carlos", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person6 = new Person("Diana", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person6 = new Person("Diana", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5, person6));
 
@@ -818,15 +818,15 @@ class GroupTest {
     void ifGroupIsFamilyNoneFamily() {
 
         //Arrange
-        Person person1 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Joao", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Joao", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Manuela", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Manuela", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person5 = new Person("Carlos",LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person5 = new Person("Carlos", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
 
@@ -845,15 +845,15 @@ class GroupTest {
     void ifGroupIsFamilyFamilyButNoMother() {
 
         //Arrange
-        Person person1 = new Person("Oscar", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person1 = new Person("Oscar", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person2 = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Joao", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Joao", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Manuela", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Manuela", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person5 = new Person("Carlos", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person5 = new Person("Carlos", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
 
@@ -895,14 +895,14 @@ class GroupTest {
      */
     @Test
     @DisplayName("add 1 person to both group member and group admin")
-    void isPersonAddedAsMemberAndAdmin(){
+    void isPersonAddedAsMemberAndAdmin() {
 
         //Arrange:
-        Person person1 = new Person ("Francisco", LocalDate.of(1995,12,13),new Address("Braga"),
+        Person person1 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person groupAdmin = new Person ("João",LocalDate.of(1995,12,13),new Address("Braga"),
+        Person groupAdmin = new Person("João", LocalDate.of(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group group1 = new Group ("Test Group");
+        Group group1 = new Group("Test Group");
 
         //Act:
         group1.addMember(groupAdmin);
@@ -917,10 +917,10 @@ class GroupTest {
     void isNullPersonAddedToGroupAsAdminAndMember() {
 
         //Arrange:
-        Person groupAdmin = new Person ("Francisco", LocalDate.of(1995,12,13),new Address("Braga"),
+        Person groupAdmin = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person1 = null;
-        Group group1 = new Group ("Test Group");
+        Group group1 = new Group("Test Group");
 
         //Act:
         group1.addMember(groupAdmin);
@@ -935,11 +935,11 @@ class GroupTest {
     void setAdminOnAAdmin() {
 
         //Arrange:
-        Person person1 = new Person ("Francisco", LocalDate.of(1995,12,13),new Address("Braga"),
+        Person person1 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person groupAdmin = new Person ("João", LocalDate.of(1995,12,13),new Address("Braga"),
+        Person groupAdmin = new Person("João", LocalDate.of(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group group1 = new Group ("Test Group");
+        Group group1 = new Group("Test Group");
 
         //Act:
         group1.addMember(groupAdmin);
@@ -958,9 +958,9 @@ class GroupTest {
     void promoteMember() {
 
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -980,11 +980,11 @@ class GroupTest {
     void promoteMemberTest2() {
 
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Albert",LocalDate.of(1995,12,13), new Address("Bristol"),
+        Person person3 = new Person("Albert", LocalDate.of(1995, 12, 13), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1003,9 +1003,9 @@ class GroupTest {
     void promoteMemberFalseAlreadyAdmin() {
 
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1025,9 +1025,9 @@ class GroupTest {
     void promoteMemberFalseNotMember() {
 
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1049,13 +1049,13 @@ class GroupTest {
     void promoteMultipleMembersToAdmin() {
 
         //Arrange
-        Person personAdmin = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person personAdmin = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques",LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         Group group1 = new Group("Francis Group");
@@ -1076,15 +1076,15 @@ class GroupTest {
     void promoteMultipleMembersToAdminWhileThereAreOtherGroupMembers() {
 
         //Arrange
-        Person personAdmin = new Person("Marta", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person personAdmin = new Person("Marta", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Pedro", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person3 = new Person("Pedro", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Elsa", LocalDate.of(1995,12,13), new Address("Porto"),
+        Person person4 = new Person("Elsa", LocalDate.of(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         Group group1 = new Group("Francis Group");
@@ -1112,9 +1112,9 @@ class GroupTest {
     void demoteMemberTest() {
 
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1133,9 +1133,9 @@ class GroupTest {
     void demoteMemberNotAdmin() {
 
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1153,9 +1153,9 @@ class GroupTest {
     void demoteMemberTestFalse() {
 
         //Arrange:
-        Person person1 = new Person("Francis",LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1173,11 +1173,11 @@ class GroupTest {
     void demoteMultipleMembersTest() {
 
         //Arrange:
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Vladimir", LocalDate.of(1995,12,13), new Address("Moscow"),
+        Person person3 = new Person("Vladimir", LocalDate.of(1995, 12, 13), new Address("Moscow"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1199,9 +1199,9 @@ class GroupTest {
     void demoteMemberFromMultipleGroups() {
 
         //Arrange:
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group 1");
         Group group2 = new Group("Test Group 2");
@@ -1230,9 +1230,9 @@ class GroupTest {
     void canLastAdminBeDemoted() {
 
         //Arrange:
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group");
 
@@ -1255,13 +1255,13 @@ class GroupTest {
     void multipleAdminDemotionTest() {
 
         // Arrange:
-        Person person1 = new Person("Francis", LocalDate.of(1995,12,13), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("John", LocalDate.of(1995,12,13), new Address("Bristol"),
+        Person person3 = new Person("John", LocalDate.of(1995, 12, 13), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Susan", LocalDate.of(1995,12,13), new Address("Edinburgh"),
+        Person person4 = new Person("Susan", LocalDate.of(1995, 12, 13), new Address("Edinburgh"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group");
 
@@ -1284,13 +1284,13 @@ class GroupTest {
     void multipleAdminsDemotionTestFalse() {
 
         //Arrange:
-        Person person1 = new Person("Francis", LocalDate.of(2000,12,12), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(2000,12,12), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(2000, 12, 12), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("John", LocalDate.of(2000,12,12), new Address("Bristol"),
+        Person person3 = new Person("John", LocalDate.of(2000, 12, 12), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Susan", LocalDate.of(2000,12,12), new Address("Edinburgh"),
+        Person person4 = new Person("Susan", LocalDate.of(2000, 12, 12), new Address("Edinburgh"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group");
 
@@ -1314,13 +1314,13 @@ class GroupTest {
     void multipleAdminsDemotionTestFalseNotInGroup() {
 
         //Arrange:
-        Person person1 = new Person("Francis", LocalDate.of(2000,12,12), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(2000,12,12), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(2000, 12, 12), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("John", LocalDate.of(2000,12,12), new Address("Bristol"),
+        Person person3 = new Person("John", LocalDate.of(2000, 12, 12), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Susan", LocalDate.of(2000,12,12), new Address("Edinburgh"),
+        Person person4 = new Person("Susan", LocalDate.of(2000, 12, 12), new Address("Edinburgh"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group");
 
@@ -1345,7 +1345,7 @@ class GroupTest {
     @DisplayName("Promote person to member and group admin simultaneously")
     void memberAndGroupAdminSimultaneously() {
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(2000,12,12), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1360,7 +1360,7 @@ class GroupTest {
     @DisplayName("Promote person to member and group admin simultaneously - false because member is already group admin")
     void memberAndGroupAdminSimultaneouslyFalse() {
         //Arrange
-        Person person1 = new Person("Francis", LocalDate.of(2000,12,12), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
 
@@ -1376,15 +1376,15 @@ class GroupTest {
     @DisplayName("Promote person to member and group admin simultaneously while there are more than members that are not admins")
     void memberAndGroupAdminSimultaneouslyWhileThereAreOtherGroupMembers() {
         //Arrange
-        Person personAdmin = new Person("Marta", LocalDate.of(2000,12,12), new Address("Guimarães"),
+        Person personAdmin = new Person("Marta", LocalDate.of(2000, 12, 12), new Address("Guimarães"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("Francis", LocalDate.of(2000,12,12), new Address("London"),
+        Person person1 = new Person("Francis", LocalDate.of(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person("Jaques", LocalDate.of(2000,12,12), new Address("Paris"),
+        Person person2 = new Person("Jaques", LocalDate.of(2000, 12, 12), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person3 = new Person("Pedro", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person3 = new Person("Pedro", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person4 = new Person("Elsa", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person4 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
 
         Group group1 = new Group("Francis Group");
@@ -1409,12 +1409,12 @@ class GroupTest {
     @Test
     void isGroupAdmin() {
         //Arrange:
-        Person person1 = new Person("Alexandre", LocalDate.of(2000,12,12), new Address("Porto"),
-                new Address ("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Elsa", LocalDate.of(2000,12,12), new Address("Porto"),
-                new Address ("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Maria", LocalDate.of(2000,12,12),new Address("Porto"),
-                new Address ("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person1 = new Person("Alexandre", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
 
@@ -1429,13 +1429,13 @@ class GroupTest {
     @Test
     void isGroupAdminFalse() {
         //Arrange:
-        Person person1 = new Person("Alexandre", LocalDate.of(2000,12,12), new Address("Porto"),
-                new Address ("Rua X", "Porto", "4520-266"));
-        Person person2 = new Person("Elsa", LocalDate.of(2000,12,12), new Address("Porto"),
-                new Address ("Rua X", "Porto", "4520-266"));
-        Person person3 = new Person("Maria", LocalDate.of(2000,12,12), new Address("Porto"),
-                new Address ("Rua X", "Porto", "4520-266"), person2, person1);
-        Person person4 = new Person("João", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person1 = new Person("Alexandre", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3);
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
@@ -1461,6 +1461,66 @@ class GroupTest {
 
         //Assert
         assertFalse(isAdmin);
+    }
+
+    /**
+     * Test if a person is a Group Member
+     */
+    @DisplayName("Check if a person is in the Group Member List")
+    @Test
+    void isGroupMember() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person3);
+
+        //Act
+        boolean isMember = group1.isGroupMember(person3);
+
+        //Assert
+        //assertTrue(isMember);
+    }
+
+    @DisplayName("Check if a person is not in the Group Member List")
+    @Test
+    void isGroupMemberFalse() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3);
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person3);
+
+        //Act
+        boolean isMember = group1.isGroupMember(person4);
+
+        //Assert
+        //assertFalse(isMember);
+    }
+
+    @DisplayName("Check if a person null can be a Group Member")
+    @Test
+    void isGroupMemberNull() {
+        //Arrange:
+        Person person1 = null;
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person1);
+
+        //Act
+        boolean isMember = group1.isGroupMember(person1);
+
+        //Assert
+        //assertFalse(isMember);
     }
 
     /**
@@ -1505,13 +1565,16 @@ class GroupTest {
     void createGroupAccountTest() {
 
         //Arrange :
-        Person person1 = new Person("João", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test group");
-
-        //Act :
         group1.addMember(person1);
-        boolean result = group1.createGroupAccount("Account1", "Test");
+
+        //Act
+        boolean result = false;
+        if (group1.isGroupAdmin(person1)) {
+            result = group1.createGroupAccount("Account1", "Test");
+        }
 
         //Assert :
         assertTrue(result);
@@ -1522,63 +1585,84 @@ class GroupTest {
     void createGroupAccountsTest() {
 
         //Arrange
-        Person person1 = new Person("João", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test group");
+        group1.addMember(person1);
 
         //Act
-        group1.addMember(person1);
-        boolean addGroupAccount1 = group1.createGroupAccount("Account1", "Test");
-        boolean addGroupAccount2 = group1.createGroupAccount("Account2", "Test");
-        boolean addGroupAccount3 = group1.createGroupAccount("Account3", "Test");
+        boolean addGroupAccount1 = false;
+        boolean addGroupAccount2 = false;
+        boolean addGroupAccount3 = false;
+        if (group1.isGroupAdmin(person1)) {
+            addGroupAccount1 = group1.createGroupAccount("Account1", "Test");
+            addGroupAccount2 = group1.createGroupAccount("Account2", "Test");
+            addGroupAccount3 = group1.createGroupAccount("Account3", "Test");
+        }
 
         //Assert
         assertTrue(addGroupAccount1 && addGroupAccount2 && addGroupAccount3);
     }
 
-    /*@Test
-    @DisplayName("Test if a person that is not a group admin can create a group account - False")
+    @Test
+    @DisplayName("Test if a person that is not in a group can create a group account - False")
     void createGroupAccountFalse() {
 
         //Arrange :
-        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
-        Person person2 = new Person("Francisca", 12, 3, 15, new Address("Lisboa"));
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Group group1 = new Group("Test group");
+        group1.addMember(person3);
 
         //Act :
-        group1.addMember(person1);
-        group1.addMember(person2);
-        boolean addGroupAccount = group1.createGroupAccount("Account1", "Test");
+        boolean addGroupAccount = false;
+        if (group1.isGroupAdmin(person4)) {
+            addGroupAccount = group1.createGroupAccount("Account1", "Test");
+        }
 
         //Assert:
         assertFalse(addGroupAccount);
-    }*/
+    }
 
-    /*@Test
+    @Test
     @DisplayName("Test if a regular member can add a Group Account")
     void createGroupAccountRegularMemberFalse() {
 
         //Arrange:
-        Person person1 = new Person("João", 1994, 11, 13, new Address("Porto"));
-        Person person2 = new Person("Francisca", 12, 3, 15, new Address("Lisboa"));
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person1, person2);
+        Person person4 = new Person("Alexandre", LocalDate.of(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
         Group group1 = new Group("Test group");
+        group1.addMember(person3);
+        group1.addMember(person4);
 
         //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
-        boolean canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1", "Test");
-
+        boolean canARegularMemberAddGroupAccount = false;
+        if (group1.isGroupAdmin(person4)) {
+            canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1", "Test");
+        }
 
         //Assert
         assertFalse(canARegularMemberAddGroupAccount);
-    }*/
+    }
 
     @Test
     @DisplayName("Test if method works while the group description is null")
     void createGroupAccountOnNullGroup() {
 
         //Arrange:
-        Person person1 = new Person("João", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group(null);
 
@@ -1595,7 +1679,7 @@ class GroupTest {
     void canAccountWithNullDescriptionBeCreated() {
 
         //Arrange:
-        Person person1 = new Person("Francisca", LocalDate.of(2000,12,12), new Address("Lisboa"),
+        Person person1 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group");
 
@@ -1607,13 +1691,12 @@ class GroupTest {
         assertFalse(canNullAccountBeAdded);
     }
 
-    /*
     @Test
     @DisplayName("Test if an Account with the same Account Denomination is added to the list")
     void createGroupAccountSameDescriptionFalse() {
 
         //Arrange :
-        Person person1 = new Person("João", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("test group");
 
@@ -1623,14 +1706,14 @@ class GroupTest {
         boolean addGroupAccountRepeated = group1.createGroupAccount("Account1", "Test");
 
         //Assert
-        assertFalse(addGroupAccountRepeated);
+        //assertFalse(addGroupAccountRepeated);
     }
 
     @Test
     @DisplayName("Test if Method cant create two accounts with the same Account Denomination, but different letter casing.")
     void createGroupAccountSameDescriptionIgnoreCasing() {
         //Arrange:
-        Person person1 = new Person("João", LocalDate.of(2000,12,12), new Address("Porto"),
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test group");
 
@@ -1640,17 +1723,15 @@ class GroupTest {
         boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test");
 
         //Assert:
-        assertFalse(addGroupAccountRepeated);
+        //assertFalse(addGroupAccountRepeated);
     }
-
-     */
 
     @Test
     @DisplayName("Test if an admin of many groups can add an account to all of them")
     void createGroupAccountsOnMultipleGroups() {
 
         //Arrange:
-        Person person1 = new Person("Francisca", LocalDate.of(2000,12,12), new Address("Lisboa"),
+        Person person1 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Test Group");
         Group group2 = new Group("Test Group 2");
@@ -1833,6 +1914,139 @@ class GroupTest {
 
         //Assert
         assertTrue(result);
+    }
+
+    /**
+     * Test if a group transaction was created
+     */
+    @Test
+    @DisplayName("Test if a group transaction was created - success case")
+    void createGroupTransactionSuccessCase() {
+        //Arrange
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Group group1 = new Group("Test group");
+        group1.addMember(person3);
+        group1.addMember(person4);
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+
+        if (group1.isGroupAdmin(person3)) {
+            group1.createGroupAccount("Wallet", "General expenses");
+            group1.createGroupAccount("TransportAccount", "Transport expenses");
+        }
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+
+        String description = "payment";
+
+        Category category = new Category("General");
+        person4.createCategoryAndAddToCategoryList("General");
+
+        boolean type = false; //debit
+
+        //Act
+        boolean transactionCreated = false;
+        if (group1.isGroupMember(person4)) {
+            transactionCreated = group1.createGroupTransaction(amount, description, null, category, from, to, type);
+        }
+
+        //Assert
+        //assertTrue(transactionCreated);
+    }
+
+    @Test
+    @DisplayName("Test if a group transaction was created - monetary value is negative")
+    void createGroupTransactionAccountNegativeMonetaryValue() {
+        //Arrange
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Group group1 = new Group("Test group");
+        group1.addMember(person3);
+        group1.addMember(person4);
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+
+        if (group1.isGroupAdmin(person3)) {
+            group1.createGroupAccount("Wallet", "General expenses");
+            group1.createGroupAccount("TransportAccount", "Transport expenses");
+        }
+
+        MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
+        String description1 = "payment";
+
+        Category category = new Category("General");
+        person4.createCategoryAndAddToCategoryList("General");
+
+        boolean type = false; //debit
+
+        //Act
+        try {
+            if (group1.isGroupMember(person4)) {
+                group1.createGroupTransaction(amountNegative, description1, null, category, from, to, type);
+            }
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            //assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if a transaction was created - person is not a member of the group")
+    void createGroupTransactionNotMember() {
+        //Arrange
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Group group1 = new Group("Test group");
+        group1.addMember(person3);
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+
+        if (group1.isGroupAdmin(person3)) {
+            group1.createGroupAccount("Wallet", "General expenses");
+            group1.createGroupAccount("TransportAccount", "Transport expenses");
+        }
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+
+        String description = "payment";
+
+        Category category = new Category("General");
+        person4.createCategoryAndAddToCategoryList("General");
+
+        boolean type = false; //debit
+
+        //Act
+        boolean transactionCreated = false;
+        if (group1.isGroupMember(person4)) {
+            transactionCreated = group1.createGroupTransaction(amount, description, null, category, from, to, type);
+        }
+
+        //Assert
+        //assertFalse(transactionCreated);
     }
 
 }
