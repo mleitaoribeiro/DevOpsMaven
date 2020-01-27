@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupsListTest {
 
     /**
-     * Check if group can be created
+     * As user , I Want to Creat a group and be admin (US002.1)
      */
+
     @Test
     @DisplayName("Test if Group was Created")
     public void testIfGroupWasCreated() {
@@ -29,10 +30,6 @@ class GroupsListTest {
 
     }
 
-    /**
-     * Test if Group is not created when its description is null
-     */
-
     @Test
     @DisplayName("Test if Group is not created when its description is null")
     public void testIfGroupWasNotCreated() {
@@ -47,9 +44,6 @@ class GroupsListTest {
         assertFalse(wasGroupCreated);
     }
 
-    /**
-     * Test if group was not created when it is already contained within a groupsList - Same name and same Members
-     */
 
     @Test
     @DisplayName("Test if group was not created when it is already contained within a groupsList - Same name and same Members")
@@ -66,9 +60,6 @@ class GroupsListTest {
         assertFalse(wasGroupCreated);
     }
 
-    /**
-     * Test if group is created even it has the same name but different members
-     */
 
     @Test
     @DisplayName("Test if group is created even it has the same name but different members")
@@ -87,9 +78,6 @@ class GroupsListTest {
         assertTrue(wasGroupCreated);
     }
 
-    /**
-     * Test if group is created with different description but same person
-     */
 
     @Test
     @DisplayName("Test if group is created with different description but same person")
@@ -106,10 +94,6 @@ class GroupsListTest {
         //Assert
         assertTrue(wasGroupCreated);
     }
-
-    /**
-     * Test if a null group was not created by a null person
-     */
 
     @Test
     @DisplayName("Test if group was not created when its null")
