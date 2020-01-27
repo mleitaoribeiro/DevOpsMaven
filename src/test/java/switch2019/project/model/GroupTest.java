@@ -1464,6 +1464,66 @@ class GroupTest {
     }
 
     /**
+     * Test if a person is a Group Member
+     */
+    @DisplayName("Check if a person is in the Group Member List")
+    @Test
+    void isGroupMember() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person3);
+
+        //Act
+        boolean isMember = group1.isGroupMember(person3);
+
+        //Assert
+        //assertTrue(isMember);
+    }
+
+    @DisplayName("Check if a person is not in the Group Member List")
+    @Test
+    void isGroupMemberFalse() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person2 = new Person("Elsa", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"));
+        Person person3 = new Person("Maria", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3);
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person3);
+
+        //Act
+        boolean isMember = group1.isGroupMember(person4);
+
+        //Assert
+        //assertFalse(isMember);
+    }
+
+    @DisplayName("Check if a person null can be a Group Member")
+    @Test
+    void isGroupMemberNull() {
+        //Arrange:
+        Person person1 = null;
+        Group group1 = new Group("Maria's Group");
+        group1.addMember(person1);
+
+        //Act
+        boolean isMember = group1.isGroupMember(person1);
+
+        //Assert
+        //assertFalse(isMember);
+    }
+
+    /**
      * Check if Account was added to the groups account list
      * Testing getGroupAccountList() to see if account was added to the group´s list
      */
