@@ -375,7 +375,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsFromPeriod) {
-            assertEquals("One of the submitted dates is not valid", getTransactionsFromPeriod.getMessage());
+            assertEquals("One of the submitted dates is not valid.", getTransactionsFromPeriod.getMessage());
         }
     }
 
@@ -415,7 +415,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsFromPeriod) {
-            assertEquals("One of the submitted dates is not valid", getTransactionsFromPeriod.getMessage());
+            assertEquals("One of the submitted dates is not valid.", getTransactionsFromPeriod.getMessage());
         }
     }
 

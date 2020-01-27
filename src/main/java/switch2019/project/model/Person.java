@@ -373,7 +373,7 @@ public class Person {
 
     public double getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
 
-      return ledger.getPersonalBalanceInDateRange(initialDate,finalDate);
+      return ledger.getBalanceInDateRange(initialDate,finalDate);
     }
 
 
