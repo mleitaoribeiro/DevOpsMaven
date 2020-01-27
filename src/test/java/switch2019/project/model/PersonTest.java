@@ -1,5 +1,4 @@
 package switch2019.project.model;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -1166,17 +1165,18 @@ class PersonTest {
         boolean type = false; //debit
         person.createTransaction(amount, "payment", dateTransaction1, category, from, to, type);
 
-
         LocalDate initialDate = LocalDate.of(2020, 1, 13);
         LocalDate finalDate = LocalDate.of(2020, 1, 20);
 
-        //ArrayList<String> result =
+        Transaction transaction1 = new Transaction (amount, "payment", dateTransaction1, category, from, to, type);
+        ArrayList<String> expectedResult = new ArrayList<>();
+        expectedResult.add(transaction1.toString());
 
         //Act
         ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
-        //AssertEquals (personLedgerMovements)
+        assertEquals(personLedgerMovements,expectedResult);
 
     }
 
