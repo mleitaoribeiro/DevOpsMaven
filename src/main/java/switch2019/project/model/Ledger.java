@@ -80,11 +80,14 @@ public class Ledger {
      *  Sort Ledger By Transaction Date
      */
     public void sortLedgerByTransactionDate () {
-        ledgerTransactions.sort(new Comparator<Transaction>() {
-            public int compare(Transaction transaction1, Transaction transaction2) {
-                return transaction1.getDate().compareTo(transaction2.getDate());
-            }
-        });
+        ledgerTransactions.sort(Comparator.comparing(Transaction::getDate));
+    }
+
+    /**
+     *  Get Ledger transactions
+     */
+    public List <Transaction> getLedgerTransactions () {
+        return ledgerTransactions;
     }
 
     /**
