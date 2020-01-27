@@ -2,19 +2,20 @@ package switch2019.project.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class Ledger {
     //Private Ledger variables
-    private Set<Transaction> ledgerTransactions;
+    private List<Transaction> ledgerTransactions;
 
     /**
      * Ledger Constructor
      */
 
     public Ledger() {
-        ledgerTransactions = new HashSet<>();
+        ledgerTransactions = new ArrayList<>();
     }
 
     /**
@@ -51,7 +52,7 @@ public class Ledger {
      * @param finalDate
      */
 
-    public HashSet<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
+    public ArrayList<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
 
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");
@@ -66,7 +67,7 @@ public class Ledger {
             finalDate = aux;
         }
 
-        HashSet<Transaction> myTransactions = new HashSet<>();
+        ArrayList<Transaction> myTransactions = new ArrayList<>();
         for(Transaction transactions : ledgerTransactions) {
             if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
@@ -76,19 +77,9 @@ public class Ledger {
 
 
     /**
-     * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo  num dado período.
-     *
-     * @param initialDate
-     * @param finalDate
-     */
-
-    public HashSet<Transaction> getLedgerTransactionsInPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
-        return new HashSet<>();
-    }
-
-    /**
      * Method that checks if a transaction is contained within a Ledger
      */
+
     public boolean isTransactionInLedger(Transaction transactionInLedger){
         return this.ledgerTransactions.contains(transactionInLedger);
     }

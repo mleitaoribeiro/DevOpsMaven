@@ -385,12 +385,11 @@ public class Person {
 
     public ArrayList<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
 
-        HashSet<Transaction> setOfTransactionsUnsorted = this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
-        ArrayList<Transaction> personalTransactionsFromPeriod = new ArrayList<Transaction>();
+        ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
 
-        for (Transaction transaction: setOfTransactionsUnsorted)
-            personalTransactionsFromPeriod.add(transaction);
-        return personalTransactionsFromPeriod;
+        for (Transaction transaction: listOfTransactions)
+            listOfTransactions.add(transaction);
+        return listOfTransactions;
     }
 
     public void setLedgerToTest() {

@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Currency;
-import java.util.HashSet;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -201,9 +198,9 @@ class LedgerTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        HashSet<Transaction> expected = new HashSet<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2019, 2, 3, 10, 40));
         //Assert
         assertEquals(expected, real);
@@ -216,10 +213,10 @@ class LedgerTest {
         //Arrange
         Ledger ledger = new Ledger();
 
-        HashSet<Transaction> expected = new HashSet<>();
+        ArrayList<Transaction> expected = new ArrayList<>();
 
         //Act
-        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2017, 12, 3, 10, 40));
         //Assert
         assertEquals(expected, real);
@@ -256,9 +253,9 @@ class LedgerTest {
         //Expected Transactions
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
 
-        HashSet<Transaction> expected = new HashSet<>(Collections.singletonList(expectedTransaction1));
+        ArrayList<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
-        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
+        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
                 LocalDateTime.of(2018, 10, 2, 9, 10));
         //Assert
         assertEquals(expected, real);
@@ -293,9 +290,9 @@ class LedgerTest {
         ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
 
         //Expected Transactions
-        HashSet<Transaction> expected = new HashSet<>();
+        ArrayList<Transaction> expected = new ArrayList<>();
         //Act
-        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
+        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
                 LocalDateTime.of(2013, 10, 2, 9, 10));
         //Assert
         assertEquals(expected, real);
@@ -333,9 +330,9 @@ class LedgerTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        HashSet<Transaction> expected = new HashSet<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
                 LocalDateTime.of(2017, 10, 2, 9, 20));
 
         //Assert

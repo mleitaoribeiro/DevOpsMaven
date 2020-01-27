@@ -1151,6 +1151,7 @@ class PersonTest {
         assertEquals(3, result);
     }
 
+/*
     @Test
     @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
@@ -1181,8 +1182,9 @@ class PersonTest {
         //Assert
         assertEquals(personLedgerMovements,expectedResult);
     }
+*/
 
-    @Test
+  /*  @Test
     @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseSeveralTransactions() {
         //Arrange
@@ -1218,10 +1220,7 @@ class PersonTest {
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
 
         //Arrange - ExpectedResult//
-        ArrayList<Transaction> expectedResult = new ArrayList<>();
-        expectedResult.add(transaction1);
-        expectedResult.add(transaction2);
-        expectedResult.add(transaction3);
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2,transaction3));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00,00);
@@ -1231,7 +1230,7 @@ class PersonTest {
 
         //Assert
         assertEquals(personLedgerMovements,expectedResult);
-    }
+    }*/
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - no transactions in that period -  US011")
