@@ -17,7 +17,7 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Test for validating imput's name, name is null before")
+    @DisplayName("Test for validating input's name, name is null before")
     public void validateNameNullBefore() {
         //Arrange
 
@@ -1150,7 +1150,7 @@ class PersonTest {
         assertEquals(3, result);
     }
 
-/*
+
     @Test
     @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
@@ -1181,9 +1181,9 @@ class PersonTest {
         //Assert
         assertEquals(personLedgerMovements,expectedResult);
     }
-*/
 
-  /*  @Test
+
+   @Test
     @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseSeveralTransactions() {
         //Arrange
@@ -1195,7 +1195,7 @@ class PersonTest {
         person.createAccount("TransportAccount", "Transport expenses");
 
         //Arrange - Transaction1//
-        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 10, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
@@ -1203,7 +1203,7 @@ class PersonTest {
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
 
         //Arrange - Transaction2//
-        LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 16, 13, 00);
+        LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category2 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
@@ -1211,7 +1211,7 @@ class PersonTest {
         Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, false);
 
         //Arrange - Transaction3//
-        LocalDateTime dateTransaction3 = LocalDateTime.of(2020, 1, 10, 13, 00);
+        LocalDateTime dateTransaction3 = LocalDateTime.of(2020, 1, 16, 13, 00);
         MonetaryValue amount3 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category3 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
@@ -1229,7 +1229,7 @@ class PersonTest {
 
         //Assert
         assertEquals(personLedgerMovements,expectedResult);
-    }*/
+    }
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - no transactions in that period -  US011")
@@ -1413,7 +1413,7 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
+    @DisplayName("Get the balance of my own transactions of an invalid date range - final date higher than today!")
     void getPersonalBalanceInDateRangeWithNullDate() {
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
@@ -1435,23 +1435,44 @@ class PersonTest {
                 new Account("BP", "Gas"),
                 false);
 
-       // LocalDateTime initialDate = null;
+        LocalDateTime initialDate = null;
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27,00,00);
 
         try {
             //Act
-         //   double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-            //fail();
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            fail();
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the dates submitted is not valid or is missing.", result.getMessage());
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
         }
     }
 
     @Test
-    @DisplayName("Get the balance of my own transactions over a period with any transactions")
+    @DisplayName("Get the balance of my ledger that has any transactions")
     void getPersonalBalanceInDateRangeEmptyBalance() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("The ledger is Empty.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over a period with zero transactions in date range")
+    void getPersonalBalanceInDateRangeEmptyBalanceOverDateRange() {
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
