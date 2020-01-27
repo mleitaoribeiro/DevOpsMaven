@@ -17,7 +17,7 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Test for validating imput's name, name is null before")
+    @DisplayName("Test for validating input's name, name is null before")
     public void validateNameNullBefore() {
         //Arrange
 
@@ -1413,7 +1413,7 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
+    @DisplayName("Get the balance of my own transactions of an invalid date range - final date higher than today!")
     void getPersonalBalanceInDateRangeWithNullDate() {
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
@@ -1435,23 +1435,44 @@ class PersonTest {
                 new Account("BP", "Gas"),
                 false);
 
-       // LocalDateTime initialDate = null;
+        LocalDateTime initialDate = null;
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27,00,00);
 
         try {
             //Act
-         //   double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-            //fail();
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            fail();
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the dates submitted is not valid or is missing.", result.getMessage());
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
         }
     }
 
     @Test
-    @DisplayName("Get the balance of my own transactions over a period with any transactions")
+    @DisplayName("Get the balance of my ledger that has any transactions")
     void getPersonalBalanceInDateRangeEmptyBalance() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("The ledger is Empty.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over a period with zero transactions in date range")
+    void getPersonalBalanceInDateRangeEmptyBalanceOverDateRange() {
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));

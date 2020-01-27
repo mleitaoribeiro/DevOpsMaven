@@ -113,7 +113,7 @@ public class Ledger {
     public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         double balance = 0;
         if (initialDate == null || finalDate == null)
-            throw new IllegalArgumentException("The dates can´t be null");
+            throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
         if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
