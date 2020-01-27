@@ -365,14 +365,15 @@ public class Person {
     }
 
     /**
-     * Get the balance of the transactions of one Person given a specific date range
+     * Get the balance of the transactions of one Person given a specific date range(US02.1)
      *
      * @param initialDate
      * @param finalDate
      */
 
-    public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
-        return 0;
+    public double getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+
+      return ledger.getPersonalBalanceInDateRange(initialDate,finalDate);
     }
 
 
