@@ -53,7 +53,8 @@ public class AccountsList {
      */
     public boolean createAndAddAccountToAccountsList(String accountDenomination, String accountDescription) {
         Account oneAccount = new Account(accountDenomination, accountDescription);
-        return accounts.add(oneAccount);
+        accounts.add(oneAccount);
+        return accounts.contains(oneAccount);
     }
 
     /**
