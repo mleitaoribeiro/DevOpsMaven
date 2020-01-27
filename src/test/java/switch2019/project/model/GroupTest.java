@@ -1959,7 +1959,7 @@ class GroupTest {
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+       // ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2001,11 +2001,11 @@ class GroupTest {
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        //ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        //assertEquals(transactionsAccount5,allTransactions);
+       // assertEquals(transactionsAccount5,allTransactions);
     }
     @Test
     @DisplayName("Obtain movements from an account - same day")
@@ -2042,7 +2042,7 @@ class GroupTest {
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        //ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2088,7 +2088,7 @@ class GroupTest {
 
 
         //Assert
-        //assertEquals(transactionsAccount5,allTransactions);
+       // assertEquals(transactionsAccount5,allTransactions);
     }
 
     @Test
@@ -2127,7 +2127,7 @@ class GroupTest {
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        //ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2169,7 +2169,7 @@ class GroupTest {
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+       // ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
