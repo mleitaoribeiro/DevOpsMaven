@@ -9,9 +9,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class getPersonalAndGroupTransactionsController {
+public class GetPersonalAndGroupTransactionsController {
+
+    /**
+     * US019
+     * As a user, i want to obtain my personal transactions and the transactions
+     * from all the groups I'm a member of in a given date range
+     */
+
     public ArrayList<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
-        ArrayList<Transaction> personalAndGroupTransactions = new ArrayList<Transaction>();
+        ArrayList<Transaction> personalAndGroupTransactions = new ArrayList<>();
 
         // add all the personal movements
         personalAndGroupTransactions.addAll(person.returnPersonLedgerFromPeriod(initialDate, finalDate));
