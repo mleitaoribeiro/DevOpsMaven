@@ -31,7 +31,7 @@ public class Group {
         admins = new HashSet<>();
         groupAccountsList = new AccountsList();
         categoryList = new CategoryList();
-        ledger= new Ledger();
+        ledger = new Ledger();
     }
 
     /**
@@ -173,8 +173,7 @@ public class Group {
     }
 
     /**
-     * toString 
-     *
+     * toString
      */
     @Override
     public String toString() {
@@ -232,7 +231,7 @@ public class Group {
      * @param isAdmin
      * @return
      */
-    public boolean isGroupAdmin (Person isAdmin) {
+    public boolean isGroupAdmin(Person isAdmin) {
         if (this.admins.contains(isAdmin) && isAdmin != null) {
             return true;
         }
@@ -245,7 +244,7 @@ public class Group {
      * @param isMember
      * @return
      */
-    public boolean isGroupMember (Person isMember) {
+    public boolean isGroupMember(Person isMember) {
         if (this.members.contains(isMember) && isMember != null) {
             return true;
         }
@@ -313,18 +312,37 @@ public class Group {
      */
 
     public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
-        Transaction newGroupTransaction = new Transaction(amount,description,localDate,category,accountFrom,accountTo,type);
+        Transaction newGroupTransaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         if (newGroupTransaction.isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
             this.ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         }
-        return this.ledger.isTransactionInLedger(newGroupTransaction);
+        return this.isTransactionInsideTheGroupLedger(newGroupTransaction);
     }
 
     public void setLedgerToTest() {
         ledger = new Util_PersonalLedger().getLedger();
     }
-    public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
-        return new ArrayList();
+
+    /**
+     * Get the group's ledger movements in a given period from specific account (US010)
+     *
+     * @param initialDate
+     * @param finalDate
+     */
+
+
+    public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
+        ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
+        ArrayList<Transaction> listOfTransactionsOfThatAccount = new ArrayList<>();
+
+        if (this.isGroupMember(person1)) {
+            for (Transaction transaction : listOfTransactions) {
+                if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
+                    listOfTransactionsOfThatAccount.add(transaction);
+                }
+            }
+        }
+        return listOfTransactionsOfThatAccount;
     }
 
 
@@ -339,6 +357,13 @@ public class Group {
         return this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
     }
 
+
+    /**
+     * Method used to check if a transaction is inside a groupLedger
+     */
+    public boolean isTransactionInsideTheGroupLedger(Transaction transaction1) {
+        return this.ledger.isTransactionInLedger(transaction1);
+    }
 }
 
 

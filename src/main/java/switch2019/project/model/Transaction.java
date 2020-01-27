@@ -135,4 +135,20 @@ public class Transaction {
     public double getAmount(){
         return amount.getAmount();
     }
+
+    /**
+     * Get AccountFrom
+     */
+    public Account getAccountFrom() {
+        return accountFrom;
+    }
+
+    /**
+     * Get AccountTo
+     */
+    public Account getAccountTo() {
+        return accountTo;
+    }
+
+
 }
