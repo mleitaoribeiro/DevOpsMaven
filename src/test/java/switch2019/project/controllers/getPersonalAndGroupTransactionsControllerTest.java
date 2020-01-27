@@ -11,7 +11,7 @@ import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US019_getPersonalAndGroupTransactionsTest {
+class getPersonalAndGroupTransactionsControllerTest {
     @Test
     void getPersonalAndGroupTransactions() {
         // Arrange ____________________________________________________________________________________________________
@@ -78,57 +78,59 @@ class US019_getPersonalAndGroupTransactionsTest {
         spiceGirls.createGroupAccount("dinner", "partilha de jantares");
 
         Account accountSweets = new Account("sweets", "doces de sexta");
-        spiceGirls.createGroupAccount("comida de gato", "comida para a gatinha");
+        work.createGroupAccount("comida de gato", "comida para a gatinha");
         Account accountFruta = new Account("fruta", "fruta para a equipa");
-        spiceGirls.createGroupAccount("dinner", "partilha de jantares");
+        work.createGroupAccount("dinner", "partilha de jantares");
 
         // Group Transactions:
-        spiceGirls.createGroupTransaction(monetaryValue100, "payment",
+        groupsList.returnSpecificGroup("spice girls").createGroupTransaction(monetaryValue100, "payment",
                 LocalDateTime.of(2019, 12, 25, 12, 15),
                 categoryFriends, accountCombustivel, accountGato, typeDebit);
-        spiceGirls.createGroupTransaction(monetaryValue200, "payment",
+        groupsList.returnSpecificGroup("spice girls").createGroupTransaction(monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountGato, accountDinner, typeCredit);
-        spiceGirls.createGroupTransaction(monetaryValue100, "payment",
+        groupsList.returnSpecificGroup("spice girls").createGroupTransaction(monetaryValue100, "payment",
                 LocalDateTime.of(2020, 1, 2, 12, 15),
                 categoryFriends, accountDinner, accountCombustivel, typeDebit);
 
-        work.createGroupTransaction(monetaryValue200, "payment",
+        groupsList.returnSpecificGroup("work").createGroupTransaction(monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountSweets, accountFruta, typeCredit);
-        work.createGroupTransaction(monetaryValue30, "payment",
+        groupsList.returnSpecificGroup("work").createGroupTransaction(monetaryValue30, "payment",
                 LocalDateTime.of(2020, 1, 1, 12, 05),
                 categoryFriends, accountFruta, accountSweets, typeCredit);
 
         // Transactions:
-        Transaction transaction1 = new Transaction(monetaryValue200, "payment",
-                LocalDateTime.of(2020, 1, 14, 13, 5),
-                categoryGrocery, accountMercearia, accountCinema, typeCredit);
+        Transaction transaction1 = new Transaction(monetaryValue30, "payment",
+                LocalDateTime.of(2020, 1, 1, 12, 05),
+                categoryFriends, accountFruta, accountSweets, typeCredit);
         Transaction transaction2 = new Transaction(monetaryValue100, "payment",
-                LocalDateTime.of(2020, 1, 15, 10, 07),
-                categoryFriends, accountTransporte, accountCinema, typeDebit);
+                LocalDateTime.of(2020, 1, 2, 12, 15),
+                categoryFriends, accountDinner, accountCombustivel, typeDebit);
         Transaction transaction3 = new Transaction(monetaryValue50, "payment",
                 LocalDateTime.of(2020, 1, 3, 14, 10),
                 categoryGrocery, accountCinema, accountMercearia, typeCredit);
         Transaction transaction4 = new Transaction(monetaryValue150, "payment",
                 LocalDateTime.of(2020, 1, 5, 3, 15),
                 categoryFriends, accountCinema, accountTransporte, typeDebit);
-        Transaction transaction5 = new Transaction(monetaryValue100, "payment",
-                LocalDateTime.of(2020, 1, 2, 12, 15),
-                categoryFriends, accountDinner, accountCombustivel, typeDebit);
-        Transaction transaction6 = new Transaction(monetaryValue30, "payment",
-                LocalDateTime.of(2020, 1, 1, 12, 05),
-                categoryFriends, accountFruta, accountSweets, typeCredit);
+        Transaction transaction5 = new Transaction(monetaryValue200, "payment",
+                LocalDateTime.of(2020, 1, 14, 13, 5),
+                categoryGrocery, accountMercearia, accountCinema, typeCredit);
+        Transaction transaction6 = new Transaction(monetaryValue100, "payment",
+                LocalDateTime.of(2020, 1, 15, 10, 07),
+                categoryFriends, accountTransporte, accountCinema, typeDebit);
 
         ArrayList<Transaction> expectedTransaction = new ArrayList<Transaction>(Arrays.asList(transaction1, transaction2,
                 transaction3, transaction4, transaction5, transaction6));
 
+        getPersonalAndGroupTransactionsController controller = new getPersonalAndGroupTransactionsController();
+
         // Act _______________________________________________________________________________________________________
-        // ArrayList selectedTransactions = US019_getPersonalAndGroupTransactionsTest.getPersonalAndGroupTransactions(person,
-        // LocalDateTime.of(2020, 1, 1, 10, 10),
-        // LocalDateTime.of(2020, 1, 20, 10, 10));
+        ArrayList<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
+                (person, LocalDateTime.of(2020, 1, 1, 10, 10),
+                LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
 
         // Arrange ___________________________________________________________________________________________________
-        // assertEquals(expectedTransaction, selectedTransactions);
+        assertEquals(expectedTransaction, selectedTransactions);
     }
 }

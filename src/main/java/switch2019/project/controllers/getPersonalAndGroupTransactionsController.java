@@ -7,23 +7,22 @@ import switch2019.project.model.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Comparator;
 
 public class getPersonalAndGroupTransactionsController {
-    public ArrayList getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
-        ArrayList personalAndGroupTransactions = new ArrayList();
+    public ArrayList<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
+        ArrayList<Transaction> personalAndGroupTransactions = new ArrayList<Transaction>();
 
-        for (Transaction transaction : person.returnPersonLedgerFromPeriod(initialDate, finalDate)) {
-        personalAndGroupTransactions.add(transaction);
+        // add all the personal movements
+        personalAndGroupTransactions.addAll(person.returnPersonLedgerFromPeriod(initialDate, finalDate));
+
+        // add all the group movements
+        for (Group oneGroup : groupsList.returnAllGroupsAPersonIsIn(person)) {
+            personalAndGroupTransactions.addAll(oneGroup.returnGroupLedgerFromPeriod(initialDate, finalDate));
         }
 
-        HashSet<Group> groups = groupsList.returnAllGroupsAPersonIsIn(person);
-        for (Group oneGroup : groups) {
-            personalAndGroupTransactions.add(oneGroup.returnGroupLedgerFromPeriod(initialDate, finalDate));
-        }
-
+        // sort the movements by date and return
+        personalAndGroupTransactions.sort(Comparator.comparing(Transaction::getDate));
         return personalAndGroupTransactions;
     }
-
-
 }
