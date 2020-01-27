@@ -58,4 +58,11 @@ public class Ledger {
         return new HashSet<>();
     }
 
+    /**
+     * Method that checks if a transaction is contained within a Ledger
+     */
+    public boolean isTransactionInLedger(Transaction transactionInLedger){
+        return this.ledgerTransactions.contains(transactionInLedger);
+    }
+
 }
