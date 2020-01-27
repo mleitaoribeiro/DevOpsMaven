@@ -1132,6 +1132,7 @@ class PersonTest {
     /**
      * Test to check the number os categories in the CategoryList
      */
+
     @Test
     @DisplayName("Check the number of categories in the CategoryList")
     void numberOfCategoryInTheCategoryList() {
@@ -1150,7 +1151,7 @@ class PersonTest {
         assertEquals(3, result);
     }
 
-   @Test
+    @Test
     @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
         //Arrange
@@ -1167,18 +1168,18 @@ class PersonTest {
         boolean type = false; //debit
         person.createTransaction(amount, "payment", dateTransaction1, category, from, to, type);
 
-        LocalDate initialDate = LocalDate.of(2020, 1, 13);
-        LocalDate finalDate = LocalDate.of(2020, 1, 20);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 23,00) ;
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23,00);
 
         Transaction transaction1 = new Transaction(amount, "payment", dateTransaction1, category, from, to, type);
-        ArrayList<String> expectedResult = new ArrayList<>();
-        expectedResult.add(transaction1.toString());
+        ArrayList<Transaction> expectedResult = new ArrayList<>();
+        expectedResult.add(transaction1);
 
         //Act
-        ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
-        // assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements,expectedResult);
     }
 
     @Test
@@ -1217,19 +1218,19 @@ class PersonTest {
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
 
         //Arrange - ExpectedResult//
-        ArrayList<String> expectedResult = new ArrayList<>();
-        expectedResult.add(transaction1.toString());
-        expectedResult.add(transaction2.toString());
-        expectedResult.add(transaction3.toString());
+        ArrayList<Transaction> expectedResult = new ArrayList<>();
+        expectedResult.add(transaction1);
+        expectedResult.add(transaction2);
+        expectedResult.add(transaction3);
 
-        LocalDate initialDate = LocalDate.of(2020, 1, 9);
-        LocalDate finalDate = LocalDate.of(2020, 1, 16);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 23, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 16, 23,00);
 
         //Act
-        ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
-        // assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements,expectedResult);
     }
 
     @Test
