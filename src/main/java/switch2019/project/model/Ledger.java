@@ -55,6 +55,8 @@ public class Ledger {
 
     public ArrayList<Transaction> getTransactionsFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
 
+        sortLedgerByTransactionDate ();
+
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");
 
@@ -73,7 +75,7 @@ public class Ledger {
             if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
-        myTransactions.sort(Comparator.comparing(Transaction::getDate));
+
         return myTransactions;
     }
 
@@ -86,10 +88,11 @@ public class Ledger {
     }
 
     /**
-     *  Get Ledger transactions
+     *  Get All Ledger transactions
      */
     public List <Transaction> getLedgerTransactions () {
-        return ledgerTransactions;
+        List <Transaction> newLedger = ledgerTransactions;
+        return newLedger;
     }
 
     /**
