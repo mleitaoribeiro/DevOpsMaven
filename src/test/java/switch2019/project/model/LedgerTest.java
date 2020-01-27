@@ -198,7 +198,7 @@ class LedgerTest {
 
             //Expected Transactions
                 Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount,otherAccount , oneType);
-                Transaction expectedTransaction2 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount,otherAccount , oneType);
+                Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
                 HashSet <Transaction> expected = new HashSet<>(Arrays.asList(expectedTransaction1,expectedTransaction2));
 
