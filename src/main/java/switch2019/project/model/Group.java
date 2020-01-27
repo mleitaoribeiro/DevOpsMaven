@@ -374,6 +374,13 @@ public class Group {
     public boolean isTransactionInsideTheGroupLedger(Transaction transaction1) {
         return this.ledger.isTransactionInLedger(transaction1);
     }
+
+    /**
+     * Method used to get group description
+     */
+    public String getDescription() {
+        return description;
+    }
 }
 
 
