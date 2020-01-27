@@ -45,4 +45,17 @@ public class Ledger {
         return "Ledger:" + ledgerTransactions +
                 ".";
     }
+
+
+    /**
+     * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo  num dado período.
+     *
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public HashSet<Transaction> getLedgerTransactionsInPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
+        return new HashSet<>();
+    }
+
 }
