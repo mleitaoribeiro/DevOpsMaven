@@ -42,7 +42,7 @@ public class Ledger {
      * @param finalDate
      */
 
-    public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
+    public int getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         return 0;
     }
 
@@ -55,16 +55,16 @@ public class Ledger {
 
     public ArrayList<Transaction> getTransactionsFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException  {
 
-        sortLedgerByTransactionDate ();
+        sortLedgerByTransactionDate();
 
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");
 
-        if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
+        else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
         //Validate if Date is in the correct order
-        if (initialDate.isAfter(finalDate)) {
+        else if (initialDate.isAfter(finalDate)) {
             LocalDateTime aux = initialDate;
             initialDate = finalDate;
             finalDate = aux;
@@ -72,7 +72,8 @@ public class Ledger {
 
         ArrayList<Transaction> myTransactions = new ArrayList<>();
         for (Transaction transactions : ledgerTransactions) {
-            if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
+            if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) ||
+                    (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
 
@@ -100,7 +101,7 @@ public class Ledger {
      */
 
     public boolean isTransactionInLedger(Transaction transactionInLedger) {
-        return this.ledgerTransactions.contains(transactionInLedger);
+        return ledgerTransactions.contains(transactionInLedger);
     }
 
     /**
@@ -115,14 +116,14 @@ public class Ledger {
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
-        if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
+        else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
-        if(ledgerTransactions.isEmpty())
+        else if(ledgerTransactions.isEmpty())
             throw new IllegalArgumentException("The ledger is Empty.");
 
         //Validate if Date is in the correct order
-        if (initialDate.isAfter(finalDate)) {
+        else if (initialDate.isAfter(finalDate)) {
             LocalDateTime aux = initialDate;
             initialDate = finalDate;
             finalDate = aux;
@@ -137,8 +138,6 @@ public class Ledger {
                 }
             }
         }
-        return (double)Math.round(balance*1000)/1000; //balance rounded to three decimal places
+        return (double)Math.round(balance*1000)/1000; // balance rounded to three decimal places
     }
-
-
 }
