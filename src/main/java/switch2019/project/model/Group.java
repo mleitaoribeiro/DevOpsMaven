@@ -330,6 +330,17 @@ public class Group {
         this.ledger = ledger;
     }
 
+    /**
+     * Get the group's ledger movements in a given period (US012)
+     *
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public ArrayList<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
+        return this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
+    }
+
 }
 
 
