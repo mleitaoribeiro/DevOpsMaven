@@ -14,13 +14,13 @@ create "ledger1:Ledger"
 
 == Act ==
 
-":Test" -> ":US0012Controller" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
+":Test" -> ":US0012Controller" : ArrayListTransaction=getTransactionInDateRange(inicialDate,finalDate)
 activate ":US0012Controller"  #FFBBBB
 
-":US0012Controller" -> "group1:Group" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
+":US0012Controller" -> "group1:Group" : ArrayListTransaction=getTransactionInDateRange(inicialDate,finalDate)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger1:Ledger" : ArrayListTransaction=getTransaction(inicialDate,finalDate)
+"group1:Group" -> "ledger1:Ledger" : ArrayListTransaction=getTransactionInDateRange(inicialDate,finalDate)
 activate "ledger1:Ledger"  #FFBBBB
 
 
