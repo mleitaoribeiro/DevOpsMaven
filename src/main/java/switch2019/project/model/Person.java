@@ -365,7 +365,7 @@ public class Person {
     }
 
     /**
-     * Get the balance of the transactions of one Person given a specific date range(US02.1)
+     * Get the balance of the transactions of one Person given a specific date range(US0017)
      *
      * @param initialDate
      * @param finalDate
