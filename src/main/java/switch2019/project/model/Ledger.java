@@ -73,12 +73,14 @@ public class Ledger {
             if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
+        myTransactions.sort(Comparator.comparing(Transaction::getDate));
         return myTransactions;
     }
 
     /**
      *  Sort Ledger By Transaction Date
      */
+
     public void sortLedgerByTransactionDate () {
         ledgerTransactions.sort(Comparator.comparing(Transaction::getDate));
     }
@@ -125,6 +127,7 @@ public class Ledger {
             }
         }
         return balance;
-
     }
+
+
 }
