@@ -339,6 +339,16 @@ public class Group {
         return this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
     }
 
+    /**
+     * Get the balance of the group transactions given a specific date range(US018)
+     *
+     * @param initialDate
+     * @param finalDate
+     */
+    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+        return ledger.getPersonalBalanceInDateRange(initialDate,finalDate);
+    }
+
 
     /**
      * Method used to check if a transaction is inside a groupLedger

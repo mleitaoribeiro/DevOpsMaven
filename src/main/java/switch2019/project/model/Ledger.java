@@ -101,7 +101,7 @@ public class Ledger {
     }
 
     /**
-     * US017- Get the balance of the transactions given a specific date range
+     * US017/18 - Get the balance of the transactions given a specific date range
      *
      * @param initialDate
      * @param finalDate

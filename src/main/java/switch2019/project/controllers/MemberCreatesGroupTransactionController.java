@@ -4,7 +4,7 @@ import switch2019.project.model.*;
 
 import java.time.LocalDateTime;
 
-public class MemberCreatesGroupTransaction {
+public class MemberCreatesGroupTransactionController {
 
     /**
      * UserStory 8.1 :

@@ -9,7 +9,7 @@ import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberCreatesGroupTransactionTest {
+class MemberCreatesGroupTransactionControllerTest {
 
     /**
      *
@@ -50,7 +50,7 @@ class MemberCreatesGroupTransactionTest {
 
         boolean type = false; //debit
 
-        MemberCreatesGroupTransaction groupTransaction = new MemberCreatesGroupTransaction();
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
 
         //Act
         boolean transactionCreated = groupTransaction.memberCreatesAGroupTransaction(amount, description, null,
@@ -94,7 +94,7 @@ class MemberCreatesGroupTransactionTest {
 
         boolean type = false; //debit
 
-        MemberCreatesGroupTransaction groupTransaction = new MemberCreatesGroupTransaction();
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
 
         //Act
         try {
@@ -142,7 +142,7 @@ class MemberCreatesGroupTransactionTest {
 
         boolean type = false; //debit
 
-        MemberCreatesGroupTransaction groupTransaction = new MemberCreatesGroupTransaction();
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
 
         //Act
         boolean transactionCreated = groupTransaction.memberCreatesAGroupTransaction(amount, description, null,
