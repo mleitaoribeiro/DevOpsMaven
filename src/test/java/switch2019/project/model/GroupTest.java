@@ -1859,7 +1859,7 @@ class GroupTest {
     /**
      * Test if a group transaction was created
      */
-    @Test
+    /*@Test
     @DisplayName("Test if a group transaction was created - success case")
     void createGroupTransactionSuccessCase() {
         //Arrange
@@ -1987,7 +1987,7 @@ class GroupTest {
 
         //Assert
         assertFalse(transactionCreated);
-    }
+    }*/
 
 }
 
