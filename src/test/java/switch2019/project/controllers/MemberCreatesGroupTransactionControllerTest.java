@@ -12,13 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberCreatesGroupTransactionControllerTest {
 
     /**
+     * US008.1
+     * As a group member, i want to create a group transaction by atribuing a value, a description, a category,
+     * a debit account and a credit account
      *
-     * Test if a group transaction was created
      */
     @Test
     @DisplayName("Test if a group transaction was created - success case")
     void createGroupTransactionSuccessCase() {
         //Arrange
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
+
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
@@ -50,8 +54,6 @@ class MemberCreatesGroupTransactionControllerTest {
 
         boolean type = false; //debit
 
-        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
-
         //Act
         boolean transactionCreated = groupTransaction.memberCreatesAGroupTransaction(amount, description, null,
                 category, from, to, type, group1, person4);
@@ -62,8 +64,10 @@ class MemberCreatesGroupTransactionControllerTest {
 
     @Test
     @DisplayName("Test if a group transaction was created - monetary value is negative")
-    void createGroupTransactionAccountNegativeMonetaryValue() {
+    void createGroupTransactionAccountNegativeMonetaryValue() throws IllegalArgumentException {
         //Arrange
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
+
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
@@ -94,8 +98,6 @@ class MemberCreatesGroupTransactionControllerTest {
 
         boolean type = false; //debit
 
-        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
-
         //Act
         try {
             groupTransaction.memberCreatesAGroupTransaction(amountNegative, description1, null, category, from,
@@ -112,6 +114,8 @@ class MemberCreatesGroupTransactionControllerTest {
     @DisplayName("Test if a transaction was created - person is not a member of the group")
     void createGroupTransactionNotMember() {
         //Arrange
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
+
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
@@ -141,8 +145,6 @@ class MemberCreatesGroupTransactionControllerTest {
         person4.createCategoryAndAddToCategoryList("General");
 
         boolean type = false; //debit
-
-        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
 
         //Act
         boolean transactionCreated = groupTransaction.memberCreatesAGroupTransaction(amount, description, null,

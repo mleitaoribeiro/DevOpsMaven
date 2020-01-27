@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 public class MemberCreatesGroupTransactionController {
 
     /**
-     * UserStory 8.1 :
-     * As a group member, i want to create a group transaction by atribuing a value, a description, a category
-     * , a debit account and a credit account
+     * US008.1
+     * As a group member, i want to create a group transaction by atribuing a value, a description, a category,
+     * a debit account and a credit account
      */
 
     public boolean memberCreatesAGroupTransaction (MonetaryValue amount, String description, LocalDateTime localDate,
