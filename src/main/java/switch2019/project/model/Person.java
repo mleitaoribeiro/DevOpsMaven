@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import switch2019.project.utils.Util_PersonalLedger;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -388,6 +390,10 @@ public class Person {
 
         return new ArrayList<>();
 
+    }
+
+    public void setLedgerToTest() {
+        ledger = new Util_PersonalLedger().getLedger();
     }
 }
 
