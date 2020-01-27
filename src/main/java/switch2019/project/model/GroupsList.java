@@ -60,4 +60,13 @@ public class GroupsList {
         }
         return groupsFamily;
     }
+
+    public HashSet<Group> returnAllGroupsAPersonIsIn(Person person){
+        HashSet<Group> groups = new HashSet<>();
+        for (Group g : groupsList) {
+            if (g.isGroupMember(person))
+                groups.add(g);
+        } return groups;
+    }
+    
 }
