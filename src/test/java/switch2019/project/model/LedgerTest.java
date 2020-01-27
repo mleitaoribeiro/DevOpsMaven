@@ -212,33 +212,12 @@ class LedgerTest {
     @Test
     @DisplayName("Get Ledger Transactions in a given period - EmptyLedger")
     void getLedgerTransactionsInPeriodEmptyLedger() {
+
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
-
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
-
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
-
-        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
-
-        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
-        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
-        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
-
         Ledger ledger = new Ledger();
 
-        //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
-
-
         HashSet<Transaction> expected = new HashSet<>();
+
         //Act
         HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2017, 12, 3, 10, 40));
