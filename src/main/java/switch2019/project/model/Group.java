@@ -305,9 +305,13 @@ public class Group {
      *
      * @return
      */
-
+    
     public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
-        return false;
+        Transaction newGroupTransaction = new Transaction(amount,description,localDate,category,accountFrom,accountTo,type);
+        if (newGroupTransaction.isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
+            this.ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
+        }
+        return this.ledger.isTransactionInLedger(newGroupTransaction);
     }
 
 }
