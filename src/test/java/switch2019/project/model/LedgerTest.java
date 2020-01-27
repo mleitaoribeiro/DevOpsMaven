@@ -209,4 +209,52 @@ class LedgerTest {
 //            assertEquals(expected, real);
 //    }
 
+    /**
+     * isTransactionInLedger tests
+     */
+    @DisplayName("test true")
+    @Test
+    void checkIfTransactionIsInsideALedger(){
+        //Arrange:
+
+        Ledger ledgerToCheck = new Ledger();
+        MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category1 = new Category("grocery");
+        Transaction transaction1 = new Transaction(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+
+        ledgerToCheck.addTransactionToLedger(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+
+        //Act:
+        boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
+
+        //Assert:
+        assertTrue(isTransactionInsideLedger);
+    }
+
+    @DisplayName("test false")
+    @Test
+    void checkIfTransactionIsInsideALedger2(){
+        //Arrange:
+
+        Ledger ledgerToCheck = new Ledger();
+        MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(225, Currency.getInstance("EUR"));
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category1 = new Category("grocery");
+
+
+        Transaction transaction1 = new Transaction(monetaryValue2,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+
+        ledgerToCheck.addTransactionToLedger(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+
+        //Act:
+        boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
+
+        //Assert:
+        assertFalse(isTransactionInsideLedger);
+    }
+
 }
