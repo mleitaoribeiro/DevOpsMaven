@@ -1,9 +1,12 @@
 
 @startuml
+
+skinparam DefaultFontSize 20
+
 create ":Test"
 
 ==Arrange==
-create "createTransaction:Controller"
+create ":createTransactionController"
 create "group1:Group"
 create "catList: CategoryList"
 create "acList:AccountsList"
@@ -14,8 +17,8 @@ create "amount:MonetaryValue"
 
 == Act ==
 
-":Test" -> "createTransaction:Controller" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
-activate "createTransaction:Controller"  #FFBBBB
+":Test" -> ":createTransactionController" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+activate ":createTransactionController"  #FFBBBB
 
 "createTransaction:Controller" -> "group1:Group" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
 activate "group1:Group"  #FFBBBB
@@ -30,7 +33,7 @@ create "transaction:Transaction"
 
 deactivate "ledger:Ledger"  #FFBBBB
 deactivate "group1:Group"  #FFBBBB
-deactivate "createTransaction:Controller"  #FFBBBB
+deactivate ":createTransactionController"  #FFBBBB
 
 == Assert ==
 
