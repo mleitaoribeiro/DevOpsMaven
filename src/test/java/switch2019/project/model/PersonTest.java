@@ -6,6 +6,7 @@ import switch2019.project.utils.Util_PersonalLedger;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -1149,9 +1150,9 @@ class PersonTest {
         assertEquals(3, result);
     }
 
-   /* @Test
-    @DisplayName("Test if a person get their movements in a given period - success case - US011")
-    void returnPersonLedgerFromPeriodSuccessCase() {
+   @Test
+    @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
+    void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
@@ -1179,6 +1180,58 @@ class PersonTest {
         //Assert
         // assertEquals(personLedgerMovements,expectedResult);
     }
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
+    void returnPersonLedgerFromPeriodSuccessCaseSeveralTransactions() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - Transaction2//
+        LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 16, 13, 00);
+        MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
+        Category category2 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+
+        //Arrange - Transaction3//
+        LocalDateTime dateTransaction3 = LocalDateTime.of(2020, 1, 10, 13, 00);
+        MonetaryValue amount3 = new MonetaryValue(22, Currency.getInstance("EUR"));
+        Category category3 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount3, "payment", dateTransaction3, category3, from, to, false);
+        Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
+
+        //Arrange - ExpectedResult//
+        ArrayList<String> expectedResult = new ArrayList<>();
+        expectedResult.add(transaction1.toString());
+        expectedResult.add(transaction2.toString());
+        expectedResult.add(transaction3.toString());
+
+        LocalDate initialDate = LocalDate.of(2020, 1, 9);
+        LocalDate finalDate = LocalDate.of(2020, 1, 16);
+
+        //Act
+        ArrayList<String> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+
+        //Assert
+        // assertEquals(personLedgerMovements,expectedResult);
+    }
+
 
     /**
      * User Story 17:
