@@ -33,11 +33,13 @@ class MemberCreatesGroupTransactionTest {
         Group group1 = new Group("Test group");
         group1.addMember(person4);
 
+        if (group1.isGroupAdmin(person3)) {
+            group1.createGroupAccount("Wallet", "General expenses");
+            group1.createGroupAccount("TransportAccount", "Transport expenses");
+        }
+
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
-
-        group1.createGroupAccount("Wallet", "General expenses");
-        group1.createGroupAccount("TransportAccount", "Transport expenses");
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
 
@@ -70,10 +72,16 @@ class MemberCreatesGroupTransactionTest {
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        
         GroupsList groupList1 = new GroupsList();
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
         group1.addMember(person4);
+
+        if (group1.isGroupAdmin(person3)) {
+            group1.createGroupAccount("Wallet", "General expenses");
+            group1.createGroupAccount("TransportAccount", "Transport expenses");
+        }
 
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
@@ -117,11 +125,13 @@ class MemberCreatesGroupTransactionTest {
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
 
+        if (group1.isGroupAdmin(person3)) {
+            group1.createGroupAccount("Wallet", "General expenses");
+            group1.createGroupAccount("TransportAccount", "Transport expenses");
+        }
+
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
-
-        group1.createGroupAccount("Wallet", "General expenses");
-        group1.createGroupAccount("TransportAccount", "Transport expenses");
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
 
