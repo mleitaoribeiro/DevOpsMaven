@@ -326,9 +326,7 @@ public class Group {
     public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
         return new ArrayList();
     }
-    public void setLedger() {
-        this.ledger = ledger;
-    }
+
 
     /**
      * Get the group's ledger movements in a given period (US012)
