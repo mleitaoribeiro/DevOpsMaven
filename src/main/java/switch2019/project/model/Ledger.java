@@ -2,9 +2,7 @@ package switch2019.project.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Ledger {
     //Private Ledger variables
@@ -78,6 +76,16 @@ public class Ledger {
         return myTransactions;
     }
 
+    /**
+     *  Sort Ledger By Transaction Date
+     */
+    public void sortLedgerByTransactionDate () {
+        ledgerTransactions.sort(new Comparator<Transaction>() {
+            public int compare(Transaction transaction1, Transaction transaction2) {
+                return transaction1.getDate().compareTo(transaction2.getDate());
+            }
+        });
+    }
 
     /**
      * Method that checks if a transaction is contained within a Ledger
