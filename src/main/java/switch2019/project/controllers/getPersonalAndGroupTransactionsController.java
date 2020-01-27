@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class US019_getPersonalAndGroupTransactions {
+public class getPersonalAndGroupTransactionsController {
     public ArrayList getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
         ArrayList personalAndGroupTransactions = new ArrayList();
 
