@@ -165,7 +165,7 @@ class LedgerTest {
     }
 
     /**
-     *  US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo  num dado período.
+     *  US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo num dado período.
      */
 
 //    @Test
