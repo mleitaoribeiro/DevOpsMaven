@@ -317,7 +317,7 @@ public class Group {
         if (newGroupTransaction.isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
             this.ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         }
-        return this.ledger.isTransactionInLedger(newGroupTransaction);
+        return this.isTransactionInsideTheGroupLedger(newGroupTransaction);
     }
 
     public void setLedgerToTest() {
@@ -325,6 +325,13 @@ public class Group {
     }
     public ArrayList getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
         return new ArrayList();
+    }
+
+    /**
+     * Method used to check if a transaction is inside a groupLedger
+     */
+    public boolean isTransactionInsideTheGroupLedger(Transaction transaction1) {
+        return this.ledger.isTransactionInLedger(transaction1);
     }
 }
 
