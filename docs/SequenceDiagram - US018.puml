@@ -1,45 +1,49 @@
- @startuml
+@startuml
+
+skinparam DefaultFontSize 20
+
 create ":Test"
 
 note left of ":Test" #powderblue
 	Arrange
 end note
-create "US017:Controller"
+create ":MemberGetsBalanceInDateRangeController"
+":Test" -> ":MemberGetsBalanceInDateRangeController" : new MemberGetsBalance\nInDateRangeController
 
 create "group1:Group"
-":Test" -> "group1:Group" : create()
+":Test" -> "group1:Group" : new Group(description)
 activate "group1:Group" #FFBBBB
 
 create "ledger:Ledger"
-"group1:Group" -> "ledger:Ledger" : create()
+"group1:Group" -> "ledger:Ledger" : new Ledger()
 deactivate "group1:Group"
 activate "ledger:Ledger" #FFBBBB
 
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger()
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
 deactivate "ledger:Ledger"
 
 note left of ":Test" #powderblue
 	Act
 end note
 
-":Test" -> "US017:Controller" : getGroupBalanceInDateRange(initialDate, finalDate)
-activate "US017:Controller" #FFBBBB
-"US017:Controller" -> "group1:Group": getGroupBalanceInDateRange(initialDate, finalDate)
+":Test" -> ":MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, group1, Person member)
+activate ":MemberGetsBalanceInDateRangeController" #FFBBBB
+
+":MemberGetsBalanceInDateRangeController" -> "group1:Group": getGroupBalanceInDateRange\n(initialDate, finalDate)
 activate "group1:Group" #FFBBBB
-"group1:Group" -> "ledger:Ledger": getGroupBalanceInDateRange(initialDate, finalDate)
+
+"group1:Group" -> "ledger:Ledger": getBalanceInDateRange\n(initialDate, finalDate)
 activate "ledger:Ledger" #FFBBBB
-"ledger:Ledger" -> "group1:Group" : finalBalance
+
 deactivate "ledger:Ledger"
-"group1:Group" -> "US017:Controller" : finalBalance
 deactivate "group1:Group"
-"US017:Controller" -> ":Test" : finalBalance
-deactivate "US017:Controller"
+deactivate ":MemberGetsBalanceInDateRangeController"
 
 note left of ":Test" #powderblue
 	Assert
 end note
 
-":Test" -> ":Test" : assertEquals(expectedGroupBalanceInTime, groupBalanceInTime)
+":Test" -> ":Test" : assertEquals(expectedGroupBalance, groupBalance)
 
 @enduml
