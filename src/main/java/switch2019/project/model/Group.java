@@ -323,9 +323,22 @@ public class Group {
     public void setLedgerToTest() {
         ledger = new Util_PersonalLedger().getLedger();
     }
-    public ArrayList getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
+    public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
         return new ArrayList();
     }
+
+
+    /**
+     * Get the group's ledger movements in a given period (US012)
+     *
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public ArrayList<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
+        return this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
+    }
+
 
     /**
      * Method used to check if a transaction is inside a groupLedger

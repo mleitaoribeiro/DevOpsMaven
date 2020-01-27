@@ -2,19 +2,18 @@ package switch2019.project.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Ledger {
     //Private Ledger variables
-    private Set<Transaction> ledgerTransactions;
+    private List<Transaction> ledgerTransactions;
 
     /**
      * Ledger Constructor
      */
 
     public Ledger() {
-        ledgerTransactions = new HashSet<>();
+        ledgerTransactions = new ArrayList<>();
     }
 
     /**
@@ -38,6 +37,7 @@ public class Ledger {
 
     /**
      * US11: Get the balance of the transactions given a specific date range
+     *
      * @param initialDate
      * @param finalDate
      */
@@ -45,13 +45,15 @@ public class Ledger {
     public int getPersonalBalanceInDateRange(LocalDate initialDate, LocalDate finalDate) {
         return 0;
     }
+
     /**
      * US011/US012: Get the transactions in a given specific date range
+     *
      * @param initialDate
      * @param finalDate
      */
 
-    public HashSet<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
+    public ArrayList<Transaction> getTransactionsFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
 
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");
@@ -60,37 +62,69 @@ public class Ledger {
             throw new IllegalArgumentException("One of the submitted dates is not valid");
 
         //Validate if Date is in the correct order
-        if(initialDate.isAfter(finalDate)){
+        if (initialDate.isAfter(finalDate)) {
             LocalDateTime aux = initialDate;
             initialDate = finalDate;
             finalDate = aux;
         }
 
-        HashSet<Transaction> myTransactions = new HashSet<>();
-        for(Transaction transactions : ledgerTransactions) {
+        ArrayList<Transaction> myTransactions = new ArrayList<>();
+        for (Transaction transactions : ledgerTransactions) {
             if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
         return myTransactions;
     }
 
+    /**
+     *  Sort Ledger By Transaction Date
+     */
+    public void sortLedgerByTransactionDate () {
+        ledgerTransactions.sort(Comparator.comparing(Transaction::getDate));
+    }
 
     /**
-     * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo  num dado período.
-     *
-     * @param initialDate
-     * @param finalDate
+     *  Get Ledger transactions
      */
-
-    public HashSet<Transaction> getLedgerTransactionsInPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
-        return new HashSet<>();
+    public List <Transaction> getLedgerTransactions () {
+        return ledgerTransactions;
     }
 
     /**
      * Method that checks if a transaction is contained within a Ledger
      */
-    public boolean isTransactionInLedger(Transaction transactionInLedger){
+
+    public boolean isTransactionInLedger(Transaction transactionInLedger) {
         return this.ledgerTransactions.contains(transactionInLedger);
     }
 
+    /**
+     * US017- Get the balance of the transactions given a specific date range
+     *
+     * @param initialDate
+     * @param finalDate
+     */
+
+    public double getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+        double balance = 0;
+
+        //Validate if Date is in the correct order
+        if (initialDate.isAfter(finalDate)) {
+            LocalDateTime aux = initialDate;
+            initialDate = finalDate;
+            finalDate = aux;
+        }
+        //Check if transaction is in that range
+        for (Transaction transactions : ledgerTransactions) {
+            if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) {
+                if (transactions.getType() == true) {
+                    balance = balance + transactions.getAmount();
+                } else if (transactions.getType() == false) {
+                    balance = balance - transactions.getAmount();
+                }
+            }
+        }
+        return balance;
+
+    }
 }

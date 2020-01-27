@@ -62,7 +62,7 @@ public class Transaction {
      * toString() of type
      */
     private String typeToString() {
-        if(type) return "CREDIT";
+        if (type) return "CREDIT";
         else return "DEBIT";
     }
 
@@ -71,7 +71,7 @@ public class Transaction {
      */
     private String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return  date.format(formatter);
+        return date.format(formatter);
     }
 
     /**
@@ -79,9 +79,9 @@ public class Transaction {
      */
     @Override
     public String toString() {
-        return dateToString() + " | " + amount + " " +  typeToString() +  " | " +
+        return dateToString() + " | " + amount + " " + typeToString() + " | " +
                 accountFrom.denominationToString() + " -> " + accountTo.denominationToString()
-                + " | Description: \"" + description + "\" " + " | " +category;
+                + " | Description: \"" + description + "\" " + " | " + category;
     }
 
     /**
@@ -107,7 +107,7 @@ public class Transaction {
      */
 
     public void setDate(LocalDateTime date) {
-        if(date == null) {
+        if (date == null) {
             LocalDateTime dateNow = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.date = LocalDateTime.parse(dateNow.format(formatter), formatter);
@@ -123,4 +123,23 @@ public class Transaction {
         return this.date;
     }
 
+    /**
+     * Get Type
+     */
+    public boolean getType() {
+        return type;
+    }
+    /**
+     * Get Amount
+     */
+    public double getAmount(){
+        return amount.getAmount();
+    }
+
+    /**
+     * Get AccountFrom
+     */
+    public Account getAccountFrom() {
+        return accountFrom;
+    }
 }
