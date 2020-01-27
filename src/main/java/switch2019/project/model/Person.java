@@ -4,10 +4,7 @@ import switch2019.project.utils.Util_PersonalLedger;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Person {
     // Private Person variables
@@ -369,6 +366,7 @@ public class Person {
 
     /**
      * Get the balance of the transactions of one Person given a specific date range
+     *
      * @param initialDate
      * @param finalDate
      */
@@ -380,16 +378,19 @@ public class Person {
 
     /**
      * Get the person's ledger movements in a given period (US011)
+     *
      * @param initialDate
      * @param finalDate
      */
 
-    public ArrayList<String> returnPersonLedgerFromPeriod (LocalDate initialDate, LocalDate finalDate){
+    public ArrayList<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
 
-        //write code here
+        HashSet<Transaction> setOfTransactionsUnsorted = this.ledger.getTransactionsFromPeriod(initialDate, finalDate);
+        ArrayList<Transaction> personalTransactionsFromPeriod = new ArrayList<Transaction>();
 
-        return new ArrayList<>();
-
+        for (Transaction transaction: setOfTransactionsUnsorted)
+            personalTransactionsFromPeriod.add(transaction);
+        return personalTransactionsFromPeriod;
     }
 
     public void setLedgerToTest() {

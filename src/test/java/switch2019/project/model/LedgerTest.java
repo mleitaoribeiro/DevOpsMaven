@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.HashSet;
 
@@ -208,56 +209,294 @@ class LedgerTest {
         assertEquals(expected, real);
     }
 
-    /**
-     * USER STORY 17 -
-     */
-
-    /**
-     * isTransactionInLedger tests
-     */
-    @DisplayName("test true")
     @Test
-    void checkIfTransactionIsInsideALedger(){
-        //Arrange:
+    @DisplayName("Get Ledger Transactions in a given period - EmptyLedger")
+    void getLedgerTransactionsInPeriodEmptyLedger() {
 
-        Ledger ledgerToCheck = new Ledger();
-        MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Category category1 = new Category("grocery");
-        Transaction transaction1 = new Transaction(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        //Arrange
+        Ledger ledger = new Ledger();
 
-        ledgerToCheck.addTransactionToLedger(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        HashSet<Transaction> expected = new HashSet<>();
 
-        //Act:
-        boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
-
-        //Assert:
-        assertTrue(isTransactionInsideLedger);
+        //Act
+        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+                LocalDateTime.of(2017, 12, 3, 10, 40));
+        //Assert
+        assertEquals(expected, real);
     }
 
-    @DisplayName("test false")
     @Test
-    void checkIfTransactionIsInsideALedger2(){
-        //Arrange:
+    @DisplayName("Get Ledger Transactions in a given period - Same date")
+    void getLedgerTransactionsInPeriodSameDay() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
 
-        Ledger ledgerToCheck = new Ledger();
-        MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
-        MonetaryValue monetaryValue2 = new MonetaryValue(225, Currency.getInstance("EUR"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Category category1 = new Category("grocery");
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
 
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
 
-        Transaction transaction1 = new Transaction(monetaryValue2,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
-        ledgerToCheck.addTransactionToLedger(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        //Act:
-        boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
+        Ledger ledger = new Ledger();
 
-        //Assert:
-        assertFalse(isTransactionInsideLedger);
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Expected Transactions
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+
+        HashSet<Transaction> expected = new HashSet<>(Collections.singletonList(expectedTransaction1));
+        //Act
+        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
+                LocalDateTime.of(2018, 10, 2, 9, 10));
+        //Assert
+        assertEquals(expected, real);
     }
 
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - No transactions on the given date")
+    void getLedgerTransactionsInPeriodNoTransactions() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Expected Transactions
+        HashSet<Transaction> expected = new HashSet<>();
+        //Act
+        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
+                LocalDateTime.of(2013, 10, 2, 9, 10));
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Initital Date > Final Date")
+    void getLedgerTransactionsInPeriodFalse() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Expected Transactions
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+
+        HashSet<Transaction> expected = new HashSet<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        //Act
+        HashSet<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+                LocalDateTime.of(2017, 10, 2, 9, 20));
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Initital Date > Actual Date")
+    void getLedgerTransactionsInPeriodInitialDateSuperiorActualDate() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(LocalDateTime.of(2025, 2, 3, 10, 40),
+                    LocalDateTime.of(2017, 10, 2, 9, 20));
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("One of the submitted dates is not valid", getTransactionsFromPeriod.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Final  Date > Actual Date")
+    void getLedgerTransactionsInPeriodFinalDateSuperiorActualDate() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+                    LocalDateTime.of(2030, 10, 2, 9, 20));
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("One of the submitted dates is not valid", getTransactionsFromPeriod.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Initial Date null")
+    void getLedgerTransactionsInPeriodInitialDateNull() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(null, LocalDateTime.of(2030, 10, 2, 9, 20));
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("The dates can´t be null", getTransactionsFromPeriod.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Final Date null")
+    void getLedgerTransactionsInPeriodFinalDateNull() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40), null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("The dates can´t be null", getTransactionsFromPeriod.getMessage());
+        }
+    }
 }

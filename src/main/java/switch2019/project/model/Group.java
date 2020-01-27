@@ -4,6 +4,7 @@ import switch2019.project.utils.Util_PersonalLedger;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -321,6 +322,9 @@ public class Group {
 
     public void setLedgerToTest() {
         ledger = new Util_PersonalLedger().getLedger();
+    }
+    public ArrayList getOneAccountMovementsFromGroup(Account account1, LocalDateTime date1, LocalDateTime date2, Person person1) {
+        return new ArrayList();
     }
 }
 

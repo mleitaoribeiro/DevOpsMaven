@@ -46,12 +46,19 @@ public class Ledger {
         return 0;
     }
     /**
-     * US011: Get the balance of the transactions given a specific date range
+     * US011/US012: Get the transactions in a given specific date range
      * @param initialDate
      * @param finalDate
      */
 
     public HashSet<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
+
+        if (initialDate == null || finalDate == null)
+            throw new IllegalArgumentException("The dates can´t be null");
+
+        if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
+            throw new IllegalArgumentException("One of the submitted dates is not valid");
+
         //Validate if Date is in the correct order
         if(initialDate.isAfter(finalDate)){
             LocalDateTime aux = initialDate;
@@ -59,9 +66,9 @@ public class Ledger {
             finalDate = aux;
         }
 
-        HashSet<Transaction> myTransactions = new HashSet<Transaction>();
+        HashSet<Transaction> myTransactions = new HashSet<>();
         for(Transaction transactions : ledgerTransactions) {
-            if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate))
+            if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) || (transactions.getDate().equals(initialDate) && transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
         return myTransactions;
