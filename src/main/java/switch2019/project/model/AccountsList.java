@@ -53,7 +53,8 @@ public class AccountsList {
      */
     public boolean createAndAddAccountToAccountsList(String accountDenomination, String accountDescription) {
         Account oneAccount = new Account(accountDenomination, accountDescription);
-        return accounts.add(oneAccount);
+        accounts.add(oneAccount);
+        return accounts.contains(oneAccount);
     }
 
     /**
@@ -61,8 +62,11 @@ public class AccountsList {
      * @param accountToBeRemoved
      */
     public boolean removeOneAccountFromAList (Account accountToBeRemoved){
-        if (accountToBeRemoved != null)
-            return accounts.remove(accountToBeRemoved);
+        if (accountToBeRemoved != null) {
+            boolean isAccountRemoved = accounts.remove(accountToBeRemoved);
+            boolean isAccountNotContained = !accounts.contains(accountToBeRemoved);
+            return isAccountRemoved && isAccountNotContained;
+        }
         else
             return false;
     }
