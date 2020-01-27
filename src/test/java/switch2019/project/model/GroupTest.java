@@ -1606,6 +1606,7 @@ class GroupTest {
         assertFalse(canNullAccountBeAdded);
     }
 
+    /*
     @Test
     @DisplayName("Test if an Account with the same Account Denomination is added to the list")
     void createGroupAccountSameDescriptionFalse() {
@@ -1640,6 +1641,8 @@ class GroupTest {
         //Assert:
         assertFalse(addGroupAccountRepeated);
     }
+
+     */
 
     @Test
     @DisplayName("Test if an admin of many groups can add an account to all of them")
