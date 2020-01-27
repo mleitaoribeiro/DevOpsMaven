@@ -62,8 +62,11 @@ public class AccountsList {
      * @param accountToBeRemoved
      */
     public boolean removeOneAccountFromAList (Account accountToBeRemoved){
-        if (accountToBeRemoved != null)
-            return accounts.remove(accountToBeRemoved);
+        if (accountToBeRemoved != null) {
+            boolean isAccountRemoved = accounts.remove(accountToBeRemoved);
+            boolean isAccountNotContained = !accounts.contains(accountToBeRemoved);
+            return isAccountRemoved && isAccountNotContained;
+        }
         else
             return false;
     }
