@@ -12,7 +12,7 @@ public class MemberCreatesGroupTransaction {
      * , a debit account and a credit account
      */
 
-    public boolean MemberCreatesAGroupTransaction (MonetaryValue amount, String description, LocalDateTime localDate,
+    public boolean memberCreatesAGroupTransaction (MonetaryValue amount, String description, LocalDateTime localDate,
                                                           Category category, Account accountFrom, Account accountTo, boolean type,
                                                           Group group1, Person transactionCreator) {
 
