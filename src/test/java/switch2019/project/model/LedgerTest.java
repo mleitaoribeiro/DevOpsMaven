@@ -286,4 +286,161 @@ class LedgerTest {
         assertEquals(expected, real);
     }
 
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Initital Date > Actual Date")
+    void getLedgerTransactionsInPeriodInitialDateSuperiorActualDate() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(LocalDateTime.of(2025, 2, 3, 10, 40),
+                    LocalDateTime.of(2017, 10, 2, 9, 20));
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("One of the submitted dates is not valid", getTransactionsFromPeriod.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Final  Date > Actual Date")
+    void getLedgerTransactionsInPeriodFinalDateSuperiorActualDate() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+                    LocalDateTime.of(2030, 10, 2, 9, 20));
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("One of the submitted dates is not valid", getTransactionsFromPeriod.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Initial Date null")
+    void getLedgerTransactionsInPeriodInitialDateNull() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(null, LocalDateTime.of(2030, 10, 2, 9, 20));
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("The dates can´t be null", getTransactionsFromPeriod.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Final Date null")
+    void getLedgerTransactionsInPeriodFinalDateNull() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40), null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("The dates can´t be null", getTransactionsFromPeriod.getMessage());
+        }
+    }
 }
