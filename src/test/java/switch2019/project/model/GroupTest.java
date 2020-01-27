@@ -1483,7 +1483,7 @@ class GroupTest {
         boolean isMember = group1.isGroupMember(person3);
 
         //Assert
-        //assertTrue(isMember);
+        assertTrue(isMember);
     }
 
     @DisplayName("Check if a person is not in the Group Member List")
@@ -1505,7 +1505,7 @@ class GroupTest {
         boolean isMember = group1.isGroupMember(person4);
 
         //Assert
-        //assertFalse(isMember);
+        assertFalse(isMember);
     }
 
     @DisplayName("Check if a person null can be a Group Member")
@@ -1520,7 +1520,7 @@ class GroupTest {
         boolean isMember = group1.isGroupMember(person1);
 
         //Assert
-        //assertFalse(isMember);
+        assertFalse(isMember);
     }
 
     /**
@@ -1929,7 +1929,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
-        Person person4 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+        Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Group group1 = new Group("Test group");
         group1.addMember(person3);
@@ -1959,7 +1959,7 @@ class GroupTest {
         }
 
         //Assert
-        //assertTrue(transactionCreated);
+        assertTrue(transactionCreated);
     }
 
     @Test
@@ -1972,7 +1972,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
-        Person person4 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+        Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Group group1 = new Group("Test group");
         group1.addMember(person3);
@@ -2003,7 +2003,7 @@ class GroupTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            //assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
+            assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
         }
     }
 
@@ -2017,7 +2017,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
-        Person person4 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+        Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Group group1 = new Group("Test group");
         group1.addMember(person3);
@@ -2046,7 +2046,7 @@ class GroupTest {
         }
 
         //Assert
-        //assertFalse(transactionCreated);
+        assertFalse(transactionCreated);
     }
 
 }
