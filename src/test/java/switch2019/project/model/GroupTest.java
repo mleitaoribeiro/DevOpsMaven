@@ -962,12 +962,11 @@ class GroupTest {
         Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
-
-        //Act
         boolean isFirstMemberAdded = group1.addMember(person1);
         boolean isSecondMemberAdded = group1.addMember(person2);
-        boolean isSecondMemberPromoted = group1.setAdmin(person2);
 
+        //Act
+        boolean isSecondMemberPromoted = group1.setAdmin(person2);
         boolean wasPromoted = isFirstMemberAdded && isSecondMemberAdded && isSecondMemberPromoted;
 
         //Assert
@@ -986,11 +985,12 @@ class GroupTest {
         Person person3 = new Person("Albert",LocalDate.of(1995,12,13), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
-
-        //Act
         group1.addMember(person1);
         group1.addMember(person2);
         group1.addMember(person3);
+
+        //Act
+
         boolean wereMembersPromoted = group1.setAdmin(person2) && group1.setAdmin(person3);
 
         //Assert
@@ -1007,10 +1007,10 @@ class GroupTest {
         Person person2 = new Person("Jaques", LocalDate.of(1995,12,13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Francis Group");
-
-        //Act
         group1.addMember(person1);
         group1.addMember(person2);
+        //Act
+
         boolean isFirstMemberPromotedAgain = group1.setAdmin(person1);
 
         boolean wasPromoted = isFirstMemberPromotedAgain;
@@ -1830,7 +1830,6 @@ class GroupTest {
         //Assert
         assertTrue(result);
     }
-
 }
 
 
