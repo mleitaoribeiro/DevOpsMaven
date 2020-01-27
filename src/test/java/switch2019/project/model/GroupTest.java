@@ -2009,8 +2009,8 @@ class GroupTest {
     void obtainMovementsFromAnAccountSameDay() {
         //Arrange
         Group group1 = new Group("Caloteiros");
-        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 00, 00);
-        LocalDateTime date2 = LocalDateTime.of(2020, 1, 31, 23, 59);
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 14, 00, 00);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 14, 23, 59);
 
         MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
