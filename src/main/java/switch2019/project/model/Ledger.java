@@ -53,6 +53,9 @@ public class Ledger {
 
     public HashSet<Transaction> getTransactionsFromPeriod ( LocalDateTime initialDate, LocalDateTime finalDate) {
 
+        if (initialDate == null || finalDate == null)
+            throw new IllegalArgumentException("The dates can´t be null");
+
         if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
             throw new IllegalArgumentException("One of the submitted dates is not valid");
 
