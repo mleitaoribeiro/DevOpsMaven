@@ -72,7 +72,7 @@ class MemberCreatesGroupTransactionTest {
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
         Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
-        
+
         GroupsList groupList1 = new GroupsList();
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
