@@ -116,11 +116,8 @@ public class Address {
             if (zip.length() == 7) {
                 zip = addHyphenToZipCode(zip);
             }
-            //Validates if the zip code is in the correct format (4620-580)
-            String regex = "^[0-9]{4}-[0-9]{3}$";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(zip);
-            if (matcher.matches()) {
+            //Validates if the zip code is in the correct format (4620-580) - PT Format
+            if (validateIfZipCodeIsInCorrectFormate(zip)) {
                 this.zipCode = zip;
             } else {
                 throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
@@ -128,7 +125,15 @@ public class Address {
         }
     }
 
-    //auxiliary method to Add '-' in case user forget to add it.
+    //Auxiliary method to Validate if the zip code is in the correct format (4620-580) - Validation for PT users
+    private boolean validateIfZipCodeIsInCorrectFormate (String zip) {
+        String regex = "^[0-9]{4}-[0-9]{3}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(zip);
+        return matcher.matches();
+    }
+
+    //Auxiliary method to Add '-' in case user forget to add it.
     private static String addHyphenToZipCode(String zip) {
             return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
     }
