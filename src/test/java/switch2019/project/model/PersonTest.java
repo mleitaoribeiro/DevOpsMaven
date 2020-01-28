@@ -1182,7 +1182,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
-    void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
+    void returnPersonLedgerInDateRangeSuccessCaseOneTransaction() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
@@ -1214,7 +1214,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
-    void returnPersonLedgerFromPeriodSuccessCaseSeveralTransactions() {
+    void returnPersonLedgerInDateRangeSuccessCaseSeveralTransactions() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
@@ -1263,7 +1263,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - no transactions in that period -  US011")
-    void returnPersonLedgerFromPeriodNoTransactions() {
+    void returnPersonLedgerInDateRangeiodNoTransactions() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
@@ -1295,7 +1295,7 @@ class PersonTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - null date -  US011")
-    void returnPersonLedgerFromPeriodNullDate() {
+    void returnPersonLedgerInDateRangeiodNullDate() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
@@ -1323,15 +1323,15 @@ class PersonTest {
         }
 
         //Assert
-        catch (IllegalArgumentException returnPersonLedgerFromPeriod) {
-            assertEquals("The dates can´t be null", returnPersonLedgerFromPeriod.getMessage());
+        catch (IllegalArgumentException returnPersonLedgerInDateRange) {
+            assertEquals("The dates can´t be null", returnPersonLedgerInDateRange.getMessage());
         }
 
     }
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - invalid date -  US011")
-    void returnPersonLedgerFromPeriodInvalidDate() {
+    void returnPersonLedgerInDateRangeInvalidDate() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
@@ -1360,8 +1360,8 @@ class PersonTest {
         }
 
         //Assert
-        catch (IllegalArgumentException returnPersonLedgerFromPeriod) {
-            assertEquals("One of the submitted dates is not valid.", returnPersonLedgerFromPeriod.getMessage());
+        catch (IllegalArgumentException returnPersonLedgerInDateRange) {
+            assertEquals("One of the submitted dates is not valid.", returnPersonLedgerInDateRange.getMessage());
         }
     }
     
