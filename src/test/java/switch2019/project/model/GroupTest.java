@@ -2566,18 +2566,23 @@ class GroupTest {
         //Assert
         assertFalse(transactionCreated);
     }
-}
 
     /**
      * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo num dado período.
      */
 
-   /* @Test
+    @Test
     @DisplayName("Get Group Ledger Transactions in a given period - Success Case")
     void getLedgerTransactionsInPeriod() {
 
         //Arrange
         Group oneGroup = new Group("XPTO");
+
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+
+        oneGroup.setAdmin(onePerson);
 
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
@@ -2608,7 +2613,7 @@ class GroupTest {
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
         ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
-                LocalDateTime.of(2019, 2, 3, 10, 40));
+                LocalDateTime.of(2019, 2, 3, 10, 40), onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2620,13 +2625,16 @@ class GroupTest {
         //Arrange
         Group oneGroup = new Group("XPTO");
 
-        Ledger ledger = new Ledger();
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
 
         ArrayList<Transaction> expected = new ArrayList<>();
 
         //Act
         ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
-                LocalDateTime.of(2017, 12, 3, 10, 40));
+                LocalDateTime.of(2017, 12, 3, 10, 40),onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2637,6 +2645,11 @@ class GroupTest {
 
         //Arrange
         Group oneGroup = new Group("XPTO");
+
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
 
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
@@ -2666,7 +2679,7 @@ class GroupTest {
         ArrayList<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
         ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2018, 10, 2, 9, 10),
-                LocalDateTime.of(2018, 10, 2, 9, 10));
+                LocalDateTime.of(2018, 10, 2, 9, 10),onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2678,11 +2691,15 @@ class GroupTest {
         //Arrange
         Group oneGroup = new Group("XPTO");
 
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
+
         Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
         Account anotherAccount = new Account("abc", "abc Account");
 
-        Category oneCategory = new Category("ASD");
+
         Category otherCategory = new Category("QWERTY");
 
         boolean oneType = true; //Credit
@@ -2691,11 +2708,8 @@ class GroupTest {
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
-        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
-
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
@@ -2705,7 +2719,7 @@ class GroupTest {
         ArrayList<Transaction> expected = new ArrayList<>();
         //Act
         ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2012, 10, 2, 9, 10),
-                LocalDateTime.of(2013, 10, 2, 9, 10));
+                LocalDateTime.of(2013, 10, 2, 9, 10),onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2716,6 +2730,11 @@ class GroupTest {
 
         //Arrange
         Group oneGroup = new Group("XPTO");
+
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
 
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
@@ -2746,7 +2765,7 @@ class GroupTest {
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
         ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
-                LocalDateTime.of(2017, 10, 2, 9, 20));
+                LocalDateTime.of(2017, 10, 2, 9, 20),onePerson);
 
         //Assert
         assertEquals(expected, real);
@@ -2758,6 +2777,11 @@ class GroupTest {
 
         //Arrange
         Group oneGroup = new Group("XPTO");
+
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
 
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
@@ -2776,8 +2800,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
-
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
@@ -2786,7 +2808,7 @@ class GroupTest {
         //Act
         try {
             oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2025, 2, 3, 10, 40),
-                    LocalDateTime.of(2017, 10, 2, 9, 20));
+                    LocalDateTime.of(2017, 10, 2, 9, 20),onePerson);
         }
 
         //Assert
@@ -2802,6 +2824,11 @@ class GroupTest {
         //Arrange
         Group oneGroup = new Group("XPTO");
 
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
+
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
         Account anotherAccount = new Account("abc", "abc Account");
@@ -2819,8 +2846,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
-
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
@@ -2829,7 +2854,7 @@ class GroupTest {
         //Act
         try {
             oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
-                    LocalDateTime.of(2030, 10, 2, 9, 20));
+                    LocalDateTime.of(2030, 10, 2, 9, 20), onePerson);
         }
 
         //Assert
@@ -2845,6 +2870,11 @@ class GroupTest {
         //Arrange
         Group oneGroup = new Group("XPTO");
 
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
+
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
         Account anotherAccount = new Account("abc", "abc Account");
@@ -2862,7 +2892,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
@@ -2871,7 +2900,7 @@ class GroupTest {
 
         //Act
         try {
-            oneGroup.returnGroupLedgerInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20));
+            oneGroup.returnGroupLedgerInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20),onePerson);
         }
 
         //Assert
@@ -2887,6 +2916,11 @@ class GroupTest {
         //Arrange
         Group oneGroup = new Group("XPTO");
 
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        oneGroup.setAdmin(onePerson);
+
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
         Account anotherAccount = new Account("abc", "abc Account");
@@ -2904,7 +2938,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
@@ -2913,7 +2946,7 @@ class GroupTest {
 
         //Act
         try {
-            ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40), null);
+            oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40), null,onePerson);
         }
 
         //Assert
@@ -2922,7 +2955,50 @@ class GroupTest {
         }
     }
 
-}*/
+    @Test
+    @DisplayName("Get Ledger Transactions in a given period - Person is not admin")
+    void getLedgerTransactionsInPeriodPersonNotAdmin() {
+
+        //Arrange
+        Group oneGroup = new Group("XPTO");
+
+        Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+
+        //Add Transactions to Ledger
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Act
+        try {
+            oneGroup.returnGroupLedgerInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20), onePerson);
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsFromPeriod) {
+            assertEquals("Person is not a member of the group.", getTransactionsFromPeriod.getMessage());
+        }
+    }
+}
 
 
 

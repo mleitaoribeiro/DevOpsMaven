@@ -1,5 +1,6 @@
 package switch2019.project.controllers;
 
+import switch2019.project.model.Group;
 import switch2019.project.model.GroupsList;
 import switch2019.project.model.Person;
 
@@ -18,4 +19,13 @@ public class AdminCreatesGroupController {
         return groupsList.createGroup(groupDescription,groupCreator);
     }
 
+    /**
+     * Verify if the group creator was added as Administrator
+     * @param groupCreator
+     * @return
+     */
+
+    public boolean verifyIsGroupCreatorIsAdmin(Group groupCreated, Person groupCreator) {
+        return groupCreated.isGroupAdmin(groupCreator);
+    }
 }
