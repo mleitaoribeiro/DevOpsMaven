@@ -332,10 +332,10 @@ public class Group {
 
 
     public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
-        ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
         ArrayList<Transaction> listOfTransactionsOfThatAccount = new ArrayList<>();
 
         if (this.isGroupMember(person1)) {
+            ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
             for (Transaction transaction : listOfTransactions) {
                 if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
                     listOfTransactionsOfThatAccount.add(transaction);
