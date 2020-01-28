@@ -18,8 +18,6 @@ public class Category {
 
     /**
      * toString method for Category
-     *
-     *
      */
     @Override
     public String toString() {
@@ -41,15 +39,22 @@ public class Category {
         }
     }
 
-    private String removeAccents(String texto) {
-        texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
-        texto = texto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 
-        return texto;
+    /**
+     * Develop method to remove accents from categories
+     *
+     * @param text
+     * @return text without accents
+     */
+    private String removeAccents(String text) {
+        text = Normalizer.normalize(text, Normalizer.Form.NFD);
+        text = text.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
+        return text;
     }
 
     /**
-     * Get Category
+     * Get Category name
      *
      * @return category Clone
      */
@@ -58,6 +63,13 @@ public class Category {
         return this.nameOfCategory;
     }
 
+
+    /**
+     * Develop @override of equals for Category and @override of hashcode
+     *
+     * @param o
+     * @return true if equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

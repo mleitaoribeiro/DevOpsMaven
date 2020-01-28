@@ -13,16 +13,16 @@ import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
+class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.
      */
 
-    /*@Test
+   /* @Test
     @DisplayName("Obtain movements from an account - case of success")
     void obtainMovementsFromAnAccount() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010 group1 = new MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010();
+        MemberGetsTheMovementsOfAnAccountInDateRangeController_US010 group1 = new MemberGetsTheMovementsOfAnAccountInDateRangeController_US010();
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
 
@@ -58,12 +58,12 @@ import static org.junit.jupiter.api.Assertions.*;
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = .getOneAccountMovementsFromGroupController(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroupController(account5, date1, date2, person1);
 
 
         //Assert
         assertEquals(transactionsAccount5, allTransactions);
-    }
+    }*/
 
     @Test
     @DisplayName("Obtain movements from an account - dates change")
@@ -432,4 +432,4 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
 }
-*/
+

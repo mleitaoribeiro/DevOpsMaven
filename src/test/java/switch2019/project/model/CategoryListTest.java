@@ -15,7 +15,7 @@ class CategoryListTest {
      */
     @Test
     @DisplayName("Test if method toString returns the categories in the CategoryList")
-    public void ValidateToString() {
+    public void validateToString() {
         //Arrange:
         CategoryList firstCategoryList = new CategoryList();
         firstCategoryList.addCategoryToCategoryList("cinema");
@@ -68,7 +68,6 @@ class CategoryListTest {
 
     /**
      * Test to see if two Category Lists are the same
-     * Main Scenario
      **/
 
     @Test
@@ -112,7 +111,6 @@ class CategoryListTest {
 
     /**
      * Test to see if two Caterogy Lists aren't the same
-     * Main Scenario
      **/
 
     @Test
@@ -187,7 +185,6 @@ class CategoryListTest {
 
     /**
      * Test if one category was added to the Category List
-     * Main Scenario
      */
 
     @Test
@@ -208,7 +205,6 @@ class CategoryListTest {
 
     /**
      * Test if two different categories were added to the Category List
-     * Main Scenario
      */
 
     @Test
@@ -281,7 +277,6 @@ class CategoryListTest {
 
     /**
      * Test if a category was removed from the Category List
-     * Main Scenario
      */
 
     @Test
@@ -305,11 +300,6 @@ class CategoryListTest {
         //Assert
         assertTrue(realResult);
     }
-
-    /**
-     * Test if a category was removed from the Category List
-     * Ignore case and spelling accents
-     */
 
     @Test
     @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
@@ -345,11 +335,6 @@ class CategoryListTest {
         assertFalse(isACategoryNotInListRemoved);
     }
 
-    /**
-     * Test if a category was removed from category list
-     * Null Case
-     */
-
     @Test
     @DisplayName("Test if a category was removed from the Category List - null case")
     void removeCategoryFromListNullCase() {
@@ -374,11 +359,6 @@ class CategoryListTest {
 
     }
 
-    /**
-     * Test if a category was removed from the category list
-     * category doesn't exist
-     */
-
     @Test
     @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
     void removeCategoryFromListDoesntExist() {
@@ -402,7 +382,6 @@ class CategoryListTest {
 
     /**
      * Test to add a set of categories to a category list
-     * Main Scenario
      */
 
     @Test
@@ -425,11 +404,6 @@ class CategoryListTest {
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
     }
-
-    /**
-     * Test to add a set of categories to user category list
-     * See if the same category was not added simultaneously
-     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
@@ -455,12 +429,6 @@ class CategoryListTest {
         assertEquals(2, realNumberOfCategoriesOfTheList);
 
     }
-
-    /**
-     * Test to add a set of categories to user category list
-     * See if the same category was not added simultaneously
-     * Ignore letter capitalization and special characters
-     */
 
     @Test
     @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
@@ -488,12 +456,11 @@ class CategoryListTest {
 
     /**
      * Test to remove a set of categories from user category list
-     * Main Scenario
      */
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
-    void removeMultipleCategoriesToList_MainScenario() {
+    void removeMultipleCategoriesToListMainScenario() {
         // Arrange
         // Categories to be included in Category List
         String categoryHealth = "Health";
@@ -516,16 +483,11 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
-    /**
-     * Test to remove a set categories from user category list
-     * See if can remove a category that doesn't exist
-     * Test for null
-     */
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that doesnt exist " +
             "or null")
-    void removeMultipleCategoriesToList_exceptionCase() {
+    void removeMultipleCategoriesToListExceptionCase() {
         // Arrange
         // Categories to be included in Category List
         String categoryHealth = "Health";
@@ -552,18 +514,11 @@ class CategoryListTest {
         catch (IllegalArgumentException setterEx) {
             assertEquals("The category description is not valid or it's missing. Please try again.", setterEx.getMessage());
         }
-
-
     }
-
-    /**
-     * Test to remove a set of categories from a user category list
-     * Ignore letter capitalization and special characters
-     */
 
     @Test
     @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
-    void removeMultipleCategoriesToList_ignoreLettersFormatAndSpecialCase() {
+    void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
         // Arrange
         // Categories to be included in Category List
         String categoryHealth = "Health";
@@ -592,7 +547,6 @@ class CategoryListTest {
 
     /**
      * Test to validate if a category is in the list
-     * True case
      */
 
     @Test
@@ -616,10 +570,6 @@ class CategoryListTest {
         assertEquals(true, result);
     }
 
-    /**
-     * Test to validate if a category is in the list
-     * False case
-     */
 
     @Test
     @DisplayName("Test if a category is in the category list - false case")
@@ -640,10 +590,6 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
-    /**
-     * Test to validate if set of categories in the the list
-     * True case for all
-     */
 
     @Test
     @DisplayName("Test to validate if set of categories is the the category list-true case for all")
@@ -660,10 +606,6 @@ class CategoryListTest {
         assertTrue(result);
     }
 
-    /**
-     * Test to validate if set of categories in the the list
-     * False case
-     */
     @Test
     @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
     void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {

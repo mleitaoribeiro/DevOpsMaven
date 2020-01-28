@@ -13,14 +13,6 @@ participant "catList: CategoryList"
 participant "acList:AccountsList"
 participant "ledger:Ledger"
 
-ref over "group1:Group"
-    US002 createGroup
-end
-
-ref over "catList: CategoryList", "acList:AccountsList", "ledger:Ledger"
-    US008 createTransaction
-end
-
 == Act ==
 
 ":Test" -> "groupTransaction:MemberCreatesGroupTransactionController" : transactionCreated = memberCreatesAGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type, group1, transactionCreator)
@@ -49,6 +41,6 @@ deactivate "groupTransaction:MemberCreatesGroupTransactionController" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(TransactionCreated)
+":Test" -> ":Test" : assertTrue(transactionCreated)
 
 @enduml
