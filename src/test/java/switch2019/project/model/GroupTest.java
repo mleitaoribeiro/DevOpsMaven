@@ -2609,8 +2609,6 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Ledger ledger = new Ledger();
-
         ArrayList<Transaction> expected = new ArrayList<>();
 
         //Act
@@ -2678,10 +2676,9 @@ class GroupTest {
         oneGroup.setAdmin(onePerson);
 
         Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
         Account anotherAccount = new Account("abc", "abc Account");
 
-        Category oneCategory = new Category("ASD");
+
         Category otherCategory = new Category("QWERTY");
 
         boolean oneType = true; //Credit
@@ -2690,11 +2687,8 @@ class GroupTest {
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
-        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
-
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
@@ -2785,8 +2779,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
-
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
@@ -2832,8 +2824,6 @@ class GroupTest {
         LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
-
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
@@ -2881,7 +2871,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
@@ -2928,7 +2917,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
@@ -2973,7 +2961,6 @@ class GroupTest {
         LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
-        Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
         oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
