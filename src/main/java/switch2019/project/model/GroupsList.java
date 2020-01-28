@@ -32,22 +32,25 @@ public class GroupsList {
 
     /**
      * method to add group to the list
+     * @param group
      */
-    public boolean addGroupToGroupList(Group group1) {
-        if (group1 != null) {
-            return groupsList.add(group1);
+    public boolean addGroupToGroupList(Group group) {
+        if (group != null) {
+            return groupsList.add(group);
         } else return false;
     }
 
     /**
      * Method to check the number of Groups inside the list.
+     * @return size of the groupsList
      */
     public int howManyGroups() {
-        return this.groupsList.size();
+        return groupsList.size();
     }
 
     /**
      * Method to return Only Families
+     * @return groups that are all family
      */
     public HashSet<Group> returnOnlyFamilies() {
         HashSet<Group> groupsFamily = new HashSet<>();
@@ -58,16 +61,33 @@ public class GroupsList {
         } return groupsFamily;
     }
 
+    /**
+     * Method to create a transaction on a specific group
+     * @param groupDescription
+     * @param amount
+     * @param transactionDescription
+     * @param localDate
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
     public boolean createTransactionOnSpecificGroup(String groupDescription, MonetaryValue amount, String transactionDescription,
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type){
-        Group groupFound = new Group(null);
         for (Group group : groupsList) {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
-                groupFound = group;
-        } return groupFound.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+                group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+        } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 
+
+    /**
+     * Method to return the transactions of all the groups a given person is a member on, in a selected date range
+     * @param person
+     * @param initialDate
+     * @param finalDate
+     */
     public ArrayList<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
         ArrayList<Transaction> groupTransactions = new ArrayList<>();
         HashSet<Group> groups = new HashSet<>();
@@ -77,5 +97,17 @@ public class GroupsList {
         } for (Group g : groups) {
             groupTransactions.addAll(g.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         } return groupTransactions;
+    }
+
+    /**
+     * Method to check if a person is admin on a group
+     * @param groupDescription
+     * @param person
+     */
+    public boolean checkIfAPersonIsAdminInAGivenGroup(String groupDescription, Person person){
+        for (Group group : groupsList) {
+            if (group.getDescription().equalsIgnoreCase(groupDescription))
+                return group.isGroupAdmin(person);
+        } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 }
