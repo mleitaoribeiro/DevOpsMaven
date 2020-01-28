@@ -1968,17 +1968,19 @@ class GroupTest {
      * Check if a Category was removed from the groups Category list
      */
 
-    /*@Test
+    @Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
         //Arrange
-
+        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
+                new Address("Rua das Flores", "Porto", "4455-987"));
         //Initialize group
         Group group1 = new Group("Groupo dos amigos");
+        group1.setAdmin(person1);
 
         //Act
-        group1.createAndAddCategoryToCategoryList("Jantares de Grupo");
-        group1.createAndAddCategoryToCategoryList("filmes");
+        group1.createAndAddCategoryToCategoryList("Jantares de Grupo", person1);
+        group1.createAndAddCategoryToCategoryList("filmes", person1);
         boolean realResult = group1.removeCategoryFromList("filmes");
 
         //Assert
@@ -1989,12 +1991,15 @@ class GroupTest {
     @DisplayName("To Try to remove a set of Categories that does not exist or null")
     void removeCategoriesToListWithANullCase() {
         //Arrange
+        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
+                new Address("Rua das Flores", "Porto", "4455-987"));
 
         //Initialize Group
         Group group1 = new Group("Groupo dos amigos");
+        group1.setAdmin(person1);
 
-        group1.createAndAddCategoryToCategoryList("Jantares de Grupo");
-        group1.createAndAddCategoryToCategoryList(null);
+        group1.createAndAddCategoryToCategoryList("Jantares de Grupo", person1);
+        group1.createAndAddCategoryToCategoryList(null, person1);
 
         //Act
         boolean realResult = group1.removeCategoryFromList(null);
@@ -2003,19 +2008,7 @@ class GroupTest {
         assertFalse(realResult);
     }
 
-    @Test
-    @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
-    void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
-        //Arrange
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
 
-        //Act
-        boolean result = group1.createAndAddCategoryToCategoryList("SCHOóL expenses");
-
-        //Assert
-        assertTrue(result);
-    }*/
 
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.
