@@ -174,16 +174,6 @@ public class Group {
     }
 
     /**
-     * toString
-     */
-    @Override
-    public String toString() {
-        return "Group: " + description +
-                ", created on " + startingDate + ".";
-
-    }
-
-    /**
      * Promote multiple members to group admins
      *
      * @param multipleMembers
