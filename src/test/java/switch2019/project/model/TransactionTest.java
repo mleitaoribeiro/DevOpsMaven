@@ -41,6 +41,23 @@ class TransactionTest {
         assertEquals(true, result);
 
     }
+    @Test
+    @DisplayName("Test if two transactions are the same - true")
+
+    public void testIfDatesAreTheSameWithToString() {
+        //Arrange
+        LocalDateTime date = LocalDateTime.of(2020, 1, 13,13,02);
+
+        String test = date.toString();
+
+        //Act
+
+        boolean result = test.equals("2020-01-13T13:02");
+
+        //Assert
+        assertTrue(result);
+
+    }
 
     @Test
     @DisplayName("Test if two transactions are the same - true")
@@ -62,7 +79,7 @@ class TransactionTest {
         boolean result = transaction.equals(transaction);
 
         //Assert
-        assertEquals(true, result);
+        assertTrue(result);
 
     }
 
