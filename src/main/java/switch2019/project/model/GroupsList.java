@@ -78,7 +78,7 @@ public class GroupsList {
             if (g.isGroupMember(person))
                 groups.add(g);
         } for (Group g : groups) {
-            groupTransactions.addAll(g.returnGroupLedgerInDateRange(initialDate, finalDate));
+            groupTransactions.addAll(g.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         } return groupTransactions;
     }
 }
