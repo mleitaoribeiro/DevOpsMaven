@@ -301,10 +301,10 @@ public class Group {
      */
 
     public boolean removeCategoryFromList(String nameOfcategory, Person groupAdmin) {
-        if (nameOfcategory == null && this.isGroupAdmin(groupAdmin)) {
+        if (nameOfcategory == null || !this.isGroupAdmin(groupAdmin)) {
             return false;
         }
-        return categoryList.removeCategoryFromList(nameOfcategory);
+        return this.categoryList.removeCategoryFromList(nameOfcategory);
     }
 
     /**
