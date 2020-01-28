@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,18 +61,13 @@ public class GroupsList {
         } return groupsFamily;
     }
 
-    public HashSet<Group> returnAllGroupsAPersonIsIn(Person person){
-        HashSet<Group> groups = new HashSet<>();
-        for (Group g : groupsList) {
-            if (g.isGroupMember(person))
-                groups.add(g);
-        } return groups;
-    }
-
-    public Group returnSpecificGroup(String description){
+    public boolean createTransactionOnSpecificGroup(String groupDescription, MonetaryValue amount, String transactionDescription,
+                                                    LocalDateTime localDate, Category category,
+                                                    Account accountFrom, Account accountTo, boolean type){
+        Group groupFound = new Group(null);
         for (Group group : groupsList) {
-            if (group.getDescription().equalsIgnoreCase(description))
-                return group;
-        } return new Group(null);
+            if (group.getDescription().equalsIgnoreCase(groupDescription))
+                groupFound = group;
+        } return groupFound.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
     }
 }
