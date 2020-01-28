@@ -58,7 +58,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
         person.createAccount("TransportAccount", "Transport expenses");
 
         //Arrange - Transaction1//
-        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 10, 13, 00);
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
@@ -95,5 +95,78 @@ public class PersonalTransactionsFromPeriodControllerTest {
         //Assert
         assertEquals(personLedgerMovements,expectedResult);
     }
-    
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - null date -  US011")
+    void returnPersonLedgerFromPeriodNullDate() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - ExpectedResult//
+        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
+
+        //Act
+        try {
+            List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException returnPersonLedgerFromPeriod) {
+            assertEquals("The dates can´t be null", returnPersonLedgerFromPeriod.getMessage());
+        }
+
+    }
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - invalid date -  US011")
+    void returnPersonLedgerFromPeriodInvalidDate() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - ExpectedResult//
+        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2030, 1, 9, 00, 00);
+
+        //Act
+        try {
+            List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        }
+
+        //Assert
+        catch (IllegalArgumentException returnPersonLedgerFromPeriod) {
+            assertEquals("One of the submitted dates is not valid.", returnPersonLedgerFromPeriod.getMessage());
+        }
+    }
+
+
 }
