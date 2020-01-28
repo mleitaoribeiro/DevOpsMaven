@@ -5,7 +5,14 @@ import switch2019.project.model.Transaction;
 
 import java.time.LocalDateTime;
 
-public class US017 {
+public class PersonalBalanceInDateRangeController {
+    /**
+     * US017: As a user, I want to see the balance of my personal transactions in a specific date range.
+     * @param initialDate
+     * @param finalDate
+     * @param person1
+     * @return
+     */
     public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
        return person1.getPersonalBalanceInDateRange(initialDate, finalDate);
     }

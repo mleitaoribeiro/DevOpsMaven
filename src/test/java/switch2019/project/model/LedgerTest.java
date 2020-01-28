@@ -3,7 +3,6 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -580,7 +579,7 @@ class LedgerTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction3, expectedTransaction1, expectedTransaction2));
         //Act
-        ledger.sortLedgerByTransactionDate();
+        ledger.sortLedgerByTransactionDateAscending();
         //Assert
         assertEquals(expected, ledger.getLedgerTransactions());
     }

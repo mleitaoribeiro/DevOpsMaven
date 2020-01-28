@@ -833,6 +833,35 @@ class PersonTest {
         }
     }
 
+    @Test
+    @DisplayName("Test if a transaction was created - Same account")
+    void createTransactionSameAccount() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
+        MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
+        String description1 = "payment";
+
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+
+        Account accountWallet = new Account("Wallet", "General expenses");
+        person.createAccount("Wallet", "General expenses");
+
+        boolean type = false; //debit
+
+        //Act
+        try {
+            person.createTransaction(amountNegative, description1, null, category, accountWallet, accountWallet, type);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The account can´t be the same. Choose another account", description.getMessage());
+        }
+    }
+
+
     /**
      * Test if an Account was created
      */
@@ -1172,11 +1201,11 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23, 00);
 
         Transaction transaction1 = new Transaction(amount, "payment", dateTransaction1, category, from, to, type);
-        ArrayList<Transaction> expectedResult = new ArrayList<>();
+        List<Transaction> expectedResult = new ArrayList<>();
         expectedResult.add(transaction1);
 
         //Act
-        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
@@ -1219,14 +1248,14 @@ class PersonTest {
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
 
         //Arrange - ExpectedResult//
-        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
         expectedResult.sort(Comparator.comparing(Transaction::getDate));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
 
         //Act
-        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);

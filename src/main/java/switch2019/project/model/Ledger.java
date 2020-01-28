@@ -1,6 +1,5 @@
 package switch2019.project.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -44,7 +43,7 @@ public class Ledger {
 
     public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException  {
 
-        sortLedgerByTransactionDate();
+        sortLedgerByTransactionDateAscending();
 
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");
@@ -73,9 +72,14 @@ public class Ledger {
      *  Sort Ledger By Transaction Date
      */
 
-    public void sortLedgerByTransactionDate () {
+    public void sortLedgerByTransactionDateAscending() {
         List <Transaction> newLedger = ledgerTransactions;
         newLedger.sort(Comparator.comparing(Transaction::getDate));
+    }
+
+    public void sortLedgerByTransactionDateDescending () {
+        List <Transaction> newLedger = ledgerTransactions;
+        newLedger.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
     }
 
     /**
