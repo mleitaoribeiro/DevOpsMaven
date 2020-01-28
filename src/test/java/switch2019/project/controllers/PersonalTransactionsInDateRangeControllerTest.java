@@ -116,7 +116,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
 
         //Arrange - ExpectedResult//
-        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
+        PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
@@ -153,7 +153,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
 
         //Arrange - ExpectedResult//
-        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
+        PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
