@@ -1833,7 +1833,7 @@ class GroupTest {
     /**
      * Check if a Category was added to the groups Category list
      */
-    @Test
+    /*@Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
         //Arrange
@@ -1885,9 +1885,9 @@ class GroupTest {
     }
 
 
-    /**
+    *//**
      * Check if a Group is the same as another with Hashcode
-     */
+     *//*
 
     @Test
     @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
@@ -1907,7 +1907,7 @@ class GroupTest {
         //Assert
         assertTrue(realResult);
 
-    }
+    }*/
 
     @Test
     @DisplayName("test if two Groups are the same")
@@ -1947,7 +1947,7 @@ class GroupTest {
      * Check if a Category was removed from the groups Category list
      */
 
-    @Test
+    /*@Test
     @DisplayName("Remove categories from User Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
         //Arrange
@@ -1994,7 +1994,7 @@ class GroupTest {
 
         //Assert
         assertTrue(result);
-    }
+    }*/
 
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.

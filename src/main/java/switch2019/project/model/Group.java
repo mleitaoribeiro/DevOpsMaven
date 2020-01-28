@@ -286,7 +286,9 @@ public class Group {
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
-    public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
+    public boolean createAndAddCategoryToCategoryList(String nameOfCategory, Person categoryCreator) {
+        if (!isGroupAdmin(categoryCreator))
+            throw new IllegalArgumentException("The Category creator must be a Group Admin");
         if (nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
