@@ -3,7 +3,7 @@ package switch2019.project.controllers;
 import switch2019.project.model.GroupsList;
 import switch2019.project.model.Person;
 
-public class US002_1 {
+public class AdminCreatesGroup {
 
     /**
      * US002.1 - As a user I want to create a group becoming a group administrator.
