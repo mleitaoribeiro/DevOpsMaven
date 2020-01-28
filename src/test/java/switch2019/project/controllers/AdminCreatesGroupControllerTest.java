@@ -3,6 +3,7 @@ package switch2019.project.controllers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.Address;
+import switch2019.project.model.Group;
 import switch2019.project.model.GroupsList;
 import switch2019.project.model.Person;
 
@@ -22,14 +23,16 @@ public class AdminCreatesGroupControllerTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
+        Group group1= new Group("familia");
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
         Person person1 = new Person("John", LocalDate.of(2000, 12,04), new Address("London"),new Address("Rua B","Feira","4520-233"));
 
         //Act
-        boolean wasGroupCreated = controller.createGroup("Test Person", person1,groupsList);
+        boolean wasGroupCreated = controller.createGroup("familia", person1,groupsList);
+        boolean ifAdminIsTheCreator=controller.verifyIsGroupCreatorIsAdmin(group1, person1);
 
         //Assert
-        assertTrue(wasGroupCreated);
+        assertTrue(wasGroupCreated && ifAdminIsTheCreator);
 
     }
 
