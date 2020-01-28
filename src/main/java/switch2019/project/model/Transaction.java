@@ -39,6 +39,13 @@ public class Transaction {
         }
     }
 
+
+    /**
+     * Develop @override of equals for Transaction and @override of hashcode
+     *
+     * @param o
+     * @return true if equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,7 +74,7 @@ public class Transaction {
     }
 
     /**
-     * toString() of date
+     * Methood toString() of date
      */
     private String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -129,10 +136,11 @@ public class Transaction {
     public boolean getType() {
         return type;
     }
+
     /**
      * Get Amount
      */
-    public double getAmount(){
+    public double getAmount() {
         return amount.getAmount();
     }
 
