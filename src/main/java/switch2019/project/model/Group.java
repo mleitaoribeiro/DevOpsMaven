@@ -287,9 +287,7 @@ public class Group {
      */
 
     public boolean createAndAddCategoryToCategoryList(String nameOfCategory, Person categoryCreator) {
-        if (!isGroupAdmin(categoryCreator))
-            throw new IllegalArgumentException("The Category creator must be a Group Admin");
-        if (nameOfCategory != null) {
+        if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
