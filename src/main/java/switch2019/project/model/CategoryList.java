@@ -1,4 +1,5 @@
 package switch2019.project.model;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,9 +16,14 @@ public class CategoryList {
         categories = new HashSet<>();
     }
 
+    /**
+     * Develop @override of toString method for CategoryList
+     *
+     * @return String with the categories in the CategoryList
+     */
     @Override
     public String toString() {
-        return "CategoryList:"+ categories;
+        return "CategoryList: " + categories;
     }
 
     /**
@@ -56,8 +62,9 @@ public class CategoryList {
 
     public boolean removeCategoryFromList(String categoryToRemove) {
         Category category = new Category(categoryToRemove);
-        if (this.categories.contains(category)){
-            return categories.remove(category);}
+        if (this.categories.contains(category)) {
+            return categories.remove(category);
+        }
         return false;
     }
 

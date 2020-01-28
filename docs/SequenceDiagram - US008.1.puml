@@ -1,4 +1,3 @@
-
 @startuml
 
 skinparam DefaultFontSize 20
@@ -6,34 +5,47 @@ skinparam DefaultFontSize 20
 create ":Test"
 
 ==Arrange==
-create ":createTransactionController"
-create "group1:Group"
-create "catList: CategoryList"
-create "acList:AccountsList"
-create "ledger:Ledger"
+create "groupTransaction:MemberCreatesGroupTransactionController"
+":Test" -> "groupTransaction:MemberCreatesGroupTransactionController" : new MemberCreatesGroupTransactionController
 
-create "amount:MonetaryValue"
-":Test" -> "amount:MonetaryValue" : create (amount, currency)
+participant "group1:Group"
+participant "catList: CategoryList"
+participant "acList:AccountsList"
+participant "ledger:Ledger"
+
+ref over "group1:Group"
+    US002 createGroup
+end
+
+ref over "catList: CategoryList", "acList:AccountsList", "ledger:Ledger"
+    US008 createTransaction
+end
 
 == Act ==
 
-":Test" -> ":createTransactionController" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
-activate ":createTransactionController"  #FFBBBB
+":Test" -> "groupTransaction:MemberCreatesGroupTransactionController" : transactionCreated = memberCreatesAGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type, group1, transactionCreator)
+activate "groupTransaction:MemberCreatesGroupTransactionController"  #FFBBBB
 
-"createTransaction:Controller" -> "group1:Group" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+"groupTransaction:MemberCreatesGroupTransactionController" -> "group1:Group" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, cat, accountFrom, accountTo, type)
+"group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, \ncat, accountFrom, accountTo, type)
 activate "ledger:Ledger"  #FFBBBB
 
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : create (amount, description, cat, accountFrom, accountTo, type)
-"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, cat, accountFrom, accountTo, type)
-"ledger:Ledger" -> "ledger:Ledger": add
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction (amount, description, cat, accountFrom, accountTo, type)
+activate "transaction:Transaction"  #FFBBBB
 
+"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, cat, accountFrom, accountTo, type)
+deactivate "transaction:Transaction"  #FFBBBB
+
+"ledger:Ledger" -> "ledger:Ledger": add(Transaction)
 deactivate "ledger:Ledger"  #FFBBBB
+
+"group1:Group" -> "group1:Group" : isTransactionInsideTheGroupLedger(Transaction)
+
 deactivate "group1:Group"  #FFBBBB
-deactivate ":createTransactionController"  #FFBBBB
+deactivate "groupTransaction:MemberCreatesGroupTransactionController" #FFBBBB
 
 == Assert ==
 

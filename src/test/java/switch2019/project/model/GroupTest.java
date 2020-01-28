@@ -2041,7 +2041,7 @@ class GroupTest {
         //Assert:
         assertFalse(result);
     }
-    
+
 
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.
