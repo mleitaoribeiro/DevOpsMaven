@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class PersonalBalanceInDateRangeController {
     /**
-     * US017: As a user, I want to see my transactions in a specific date range.
+     * US017: As a user, I want to see the balance of my personal transactions in a specific date range.
      * @param initialDate
      * @param finalDate
      * @param person1
