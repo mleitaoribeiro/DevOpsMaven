@@ -320,10 +320,6 @@ public class Group {
         return this.isTransactionInsideTheGroupLedger(newGroupTransaction);
     }
 
-    public void setLedgerToTest() {
-        ledger = new Util_PersonalLedger().getLedger();
-    }
-
     /**
      * Get the group's ledger movements in a given period from specific account (US010)
      *
