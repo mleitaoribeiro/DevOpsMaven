@@ -5,6 +5,14 @@ import switch2019.project.model.Person;
 
 public class AdminCreatesCategoryController {
 
+    /**
+     *
+     * @param categoryDescription
+     * @param oneGroup
+     * @param categoryCreator
+     * @return
+     */
+
     public boolean createCategory(String categoryDescription, Group oneGroup, Person categoryCreator) {
 
         //Check if the Category Creator is the group admin
