@@ -14,14 +14,6 @@ participant "group1:Group"
 participant "ledger:Ledger"
 participant "transaction:Transaction"
 
-ref over "group1:Group"
-    US002 createGroup
-end
-
-ref over "group1:Group", "ledger:Ledger", "transaction:Transaction"
-    US008.1 memberCreatesAGroupTransaction
-end
-
 note left of ":Test" #powderblue
 	Act
 end note
