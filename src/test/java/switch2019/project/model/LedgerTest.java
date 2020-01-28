@@ -585,6 +585,46 @@ class LedgerTest {
     }
 
     @Test
+    @DisplayName("Sort Transactions in DESC by date")
+    void sortTransactionsInDescendingOrderByDate() {
+        //Arrange
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Account anotherAccount = new Account("abc", "abc Account");
+
+        Category oneCategory = new Category("ASD");
+        Category otherCategory = new Category("QWERTY");
+
+        boolean oneType = true; //Credit
+        boolean otherType = false; //Debit
+
+        MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
+
+        LocalDateTime oneLocalDate = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime otherLocalDate = LocalDateTime.of(2019, 1, 2, 10, 40);
+        LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
+
+        Ledger ledger = new Ledger();
+
+        //Add Transactions to Ledger
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        //Expected Transactions
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        Transaction expectedTransaction3 = new Transaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+
+        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1, expectedTransaction3));
+        //Act
+        ledger.sortLedgerByTransactionDateDescending();
+        //Assert
+        assertEquals(expected, ledger.getLedgerTransactions());
+    }
+
+    @Test
     @DisplayName("Get the balance of transactions over a valid date range - Main Scenario of US17")
     void getPersonalBalanceInDateRange() {
         //Arrange
