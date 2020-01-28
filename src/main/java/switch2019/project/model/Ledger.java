@@ -94,7 +94,7 @@ public class Ledger {
      * @return ArrayList<Transaction> myTransactions
      */
 
-    public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException {
+    public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
 
         sortLedgerByTransactionDateAscending();
 
@@ -129,7 +129,7 @@ public class Ledger {
      * @param finalDate
      */
 
-    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException {
+    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         double balance = 0;
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
