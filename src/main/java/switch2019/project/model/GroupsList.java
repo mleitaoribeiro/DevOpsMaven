@@ -26,8 +26,7 @@ public class GroupsList {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.addMember(groupCreator) && this.groupsList.add(group1));
-        }
-        return false;
+        } return false;
     }
 
     /**
@@ -75,10 +74,11 @@ public class GroupsList {
     public boolean createTransactionOnSpecificGroup(String groupDescription, MonetaryValue amount, String transactionDescription,
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type){
+        Group groupFound = new Group(null);
         for (Group group : groupsList) {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
-                group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
-        } throw new IllegalArgumentException("There're no groups found with that description.");
+                groupFound = group;
+        } return groupFound.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
     }
 
 
