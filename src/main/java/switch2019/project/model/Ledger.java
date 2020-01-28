@@ -85,7 +85,8 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDate () {
-        ledgerTransactions.sort(Comparator.comparing(Transaction::getDate));
+        List <Transaction> newLedger = ledgerTransactions;
+        newLedger.sort(Comparator.comparing(Transaction::getDate));
     }
 
     /**
