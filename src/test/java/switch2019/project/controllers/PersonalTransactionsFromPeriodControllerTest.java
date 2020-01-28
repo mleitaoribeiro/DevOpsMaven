@@ -116,18 +116,19 @@ public class PersonalTransactionsFromPeriodControllerTest {
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
 
         //Arrange - ExpectedResult//
+        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, null);
+            List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, null,person);
         }
 
         //Assert
-        catch (IllegalArgumentException returnPersonLedgerFromPeriod) {
-            assertEquals("The dates can´t be null", returnPersonLedgerFromPeriod.getMessage());
+        catch (IllegalArgumentException returnPersonLedgerInDateRange) {
+            assertEquals("The dates can´t be null", returnPersonLedgerInDateRange.getMessage());
         }
 
     }
@@ -152,6 +153,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
 
         //Arrange - ExpectedResult//
+        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
@@ -159,12 +161,12 @@ public class PersonalTransactionsFromPeriodControllerTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+            List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate,person);
         }
 
         //Assert
-        catch (IllegalArgumentException returnPersonLedgerFromPeriod) {
-            assertEquals("One of the submitted dates is not valid.", returnPersonLedgerFromPeriod.getMessage());
+        catch (IllegalArgumentException returnPersonLedgerInDateRange) {
+            assertEquals("One of the submitted dates is not valid.", returnPersonLedgerInDateRange.getMessage());
         }
     }
 
