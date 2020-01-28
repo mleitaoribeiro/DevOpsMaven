@@ -838,9 +838,8 @@ class PersonTest {
     void createTransactionSameAccount() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        MonetaryValue amountPositive = new MonetaryValue(50, Currency.getInstance("EUR"));
-        MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
-        String description1 = "payment";
+        MonetaryValue amount = new MonetaryValue(50, Currency.getInstance("EUR"));
+        String description = "payment";
 
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
@@ -851,14 +850,10 @@ class PersonTest {
         boolean type = false; //debit
 
         //Act
-        try {
-            person.createTransaction(amountNegative, description1, null, category, accountWallet, accountWallet, type);
-        }
+        boolean result = person.createTransaction(amount, description, null, category, accountWallet, accountWallet, type);
 
         //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("The account can´t be the same. Choose another account", description.getMessage());
-        }
+        assertFalse(result);
     }
 
 
