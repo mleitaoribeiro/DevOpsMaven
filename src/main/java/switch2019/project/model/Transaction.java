@@ -94,9 +94,8 @@ public class Transaction {
     /**
      * Verify is a given transaction is valid or not
      *
-     * @return boolean
+     * @return true if all parameters are valid
      */
-
     public boolean isAValidTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
         if (amount == null || !amount.validateIfAmountIsPositive())
             throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
@@ -111,8 +110,9 @@ public class Transaction {
 
     /**
      * Set and format date
+     *
+     * @param date
      */
-
     public void setDate(LocalDateTime date) {
         if (date == null) {
             LocalDateTime dateNow = LocalDateTime.now();
@@ -125,7 +125,6 @@ public class Transaction {
     /**
      * Get date
      */
-
     public LocalDateTime getDate() {
         return this.date;
     }
