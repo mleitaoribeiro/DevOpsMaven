@@ -140,14 +140,14 @@ public class Transaction {
      * Get AccountFrom
      */
     public Account getAccountFrom() {
-        return accountFrom;
+        return accountFrom.getCopyOfAccount();
     }
 
     /**
      * Get AccountTo
      */
     public Account getAccountTo() {
-        return accountTo;
+        return accountTo.getCopyOfAccount();
     }
 
 

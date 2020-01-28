@@ -53,7 +53,7 @@ public class Ledger {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> getTransactionsFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException  {
+    public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException  {
 
         sortLedgerByTransactionDate();
 

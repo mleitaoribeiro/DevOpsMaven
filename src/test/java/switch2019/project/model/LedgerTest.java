@@ -200,7 +200,7 @@ class LedgerTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2019, 2, 3, 10, 40));
         //Assert
         assertEquals(expected, real);
@@ -216,7 +216,7 @@ class LedgerTest {
         ArrayList<Transaction> expected = new ArrayList<>();
 
         //Act
-        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2017, 12, 3, 10, 40));
         //Assert
         assertEquals(expected, real);
@@ -255,7 +255,7 @@ class LedgerTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
-        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
+        ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2018, 10, 2, 9, 10),
                 LocalDateTime.of(2018, 10, 2, 9, 10));
         //Assert
         assertEquals(expected, real);
@@ -292,7 +292,7 @@ class LedgerTest {
         //Expected Transactions
         ArrayList<Transaction> expected = new ArrayList<>();
         //Act
-        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
+        ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2012, 10, 2, 9, 10),
                 LocalDateTime.of(2013, 10, 2, 9, 10));
         //Assert
         assertEquals(expected, real);
@@ -332,7 +332,7 @@ class LedgerTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        ArrayList<Transaction> real = ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+        ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
                 LocalDateTime.of(2017, 10, 2, 9, 20));
 
         //Assert
@@ -369,7 +369,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.getTransactionsFromPeriod(LocalDateTime.of(2025, 2, 3, 10, 40),
+            ledger.getTransactionsInDateRange(LocalDateTime.of(2025, 2, 3, 10, 40),
                     LocalDateTime.of(2017, 10, 2, 9, 20));
         }
 
@@ -409,7 +409,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+            ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
                     LocalDateTime.of(2030, 10, 2, 9, 20));
         }
 
@@ -449,7 +449,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.getTransactionsFromPeriod(null, LocalDateTime.of(2030, 10, 2, 9, 20));
+            ledger.getTransactionsInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20));
         }
 
         //Assert
@@ -488,7 +488,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.getTransactionsFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40), null);
+            ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40), null);
         }
 
         //Assert

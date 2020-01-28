@@ -11,7 +11,7 @@ import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class getPersonalAndGroupTransactionsControllerTest {
+class GetPersonalAndGroupTransactionsControllerTest {
     @Test
     void getPersonalAndGroupTransactions() {
         // Arrange ____________________________________________________________________________________________________
@@ -123,7 +123,7 @@ class getPersonalAndGroupTransactionsControllerTest {
         ArrayList<Transaction> expectedTransaction = new ArrayList<Transaction>(Arrays.asList(transaction1, transaction2,
                 transaction3, transaction4, transaction5, transaction6));
 
-        getPersonalAndGroupTransactionsController controller = new getPersonalAndGroupTransactionsController();
+        GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
 
         // Act _______________________________________________________________________________________________________
         ArrayList<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
