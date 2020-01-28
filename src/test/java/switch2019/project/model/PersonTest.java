@@ -1205,7 +1205,7 @@ class PersonTest {
         expectedResult.add(transaction1);
 
         //Act
-        List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
@@ -1255,7 +1255,7 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
 
         //Act
-        List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
@@ -1287,7 +1287,7 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 10, 23, 0);
 
         //Act
-        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
@@ -1319,7 +1319,7 @@ class PersonTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, null);
+            List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, null);
         }
 
         //Assert
@@ -1356,7 +1356,7 @@ class PersonTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
+            List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
         }
 
         //Assert

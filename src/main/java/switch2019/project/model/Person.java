@@ -383,7 +383,7 @@ public class Person {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public ArrayList<Transaction> returnPersonLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
         return listOfTransactions;
     }

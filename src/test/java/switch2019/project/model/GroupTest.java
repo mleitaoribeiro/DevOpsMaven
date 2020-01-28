@@ -1750,9 +1750,89 @@ class GroupTest {
     }
 
     /**
+     *  Check if a transaction is inside a groups Ledger
+     */
+    @Test
+    @DisplayName("isTransactionInsideGroupLedger - True (Happy Case")
+    void isTransactionInsideGroupLedgerTrue() {
+
+        //Arrange:
+        Group group1 = new Group("Grupo de Jantares");
+
+            // Arrange Transaction:
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        boolean oneType = true; //Credit
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Category category1 = new Category("ASD");
+        Transaction transaction1 = new Transaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,oneType);
+
+        //Act:
+        group1.createGroupTransaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,oneType);
+        boolean result = group1.isTransactionInsideTheGroupLedger(transaction1);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("isTransactionInsideGroupLedger - False")
+    void isTransactonInsideGroupLedgerFalse() {
+
+        //Arrange:
+        Group group1 = new Group("Grupo de Jantares");
+
+        // Arrange Transaction:
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        boolean creditType = true; //Credit
+        boolean debitType = false; //Debit
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Category category1 = new Category("ASD");
+        Transaction transaction1 = new Transaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,creditType);
+
+        //Act:
+        group1.createGroupTransaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,debitType);
+        boolean result = group1.isTransactionInsideTheGroupLedger(transaction1);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("is Transaction Inside the Ledger - Two transactions (True)")
+    void areTwoTransactionsInsideTheLedger(){
+
+        //Arrange:
+        Group group1 = new Group("Grupo de Jantares");
+
+        // Arrange Transaction:
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        boolean creditType = true; //Credit
+        boolean debitType = false; //Debit
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Category category1 = new Category("ASD");
+        Transaction transaction1 = new Transaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,debitType);
+        Transaction transaction2 = new Transaction(monetaryValue,"Test Transaction2",date1,category1,oneAccount,otherAccount,creditType);
+
+        //Act:
+        group1.createGroupTransaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,debitType);
+        group1.createGroupTransaction(monetaryValue,"Test Transaction2",date1,category1,oneAccount,otherAccount,creditType);
+
+        boolean result = group1.isTransactionInsideTheGroupLedger(transaction1)
+                && group1.isTransactionInsideTheGroupLedger(transaction2);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    /**
      * Check if a Category was added to the groups Category list
      */
-
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
@@ -1926,7 +2006,7 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
-        LocalDateTime date2 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
 
 
         MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -1950,17 +2030,21 @@ class GroupTest {
         Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        group1.setLedgerToTest();
         group1.addMember(person1);
 
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-       // ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+       ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        //assertEquals(transactionsAccount5,allTransactions);
+        assertEquals(transactionsAccount5,allTransactions);
     }
 
     @Test
@@ -1968,7 +2052,7 @@ class GroupTest {
     void obtainMovementsFromAnAccountDateChange() {
         //Arrange
         Group group1 = new Group("Caloteiros");
-        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
 
         MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -1992,17 +2076,21 @@ class GroupTest {
         Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        group1.setLedgerToTest();
         group1.addMember(person1);
 
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        //ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-       // assertEquals(transactionsAccount5,allTransactions);
+        assertEquals(transactionsAccount5,allTransactions);
     }
     @Test
     @DisplayName("Obtain movements from an account - same day")
@@ -2033,17 +2121,21 @@ class GroupTest {
         Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        group1.setLedgerToTest();
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        //ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        //assertEquals(transactionsAccount5,allTransactions);
+        assertEquals(transactionsAccount5,allTransactions);
     }
     @Test
     @DisplayName("Obtain movements from an account - check before the creation of the ledger")
@@ -2075,17 +2167,22 @@ class GroupTest {
         Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        group1.setLedgerToTest();
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList());
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
         ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
+
         //Assert
-       // assertEquals(transactionsAccount5,allTransactions);
+        assertEquals(transactionsAccount5,allTransactions);
     }
 
     @Test
@@ -2118,24 +2215,31 @@ class GroupTest {
         Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        group1.setLedgerToTest();
         group1.addMember(person1);
 
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        //ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
-
+       try {
+           ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+       }
 
         //Assert
-        //assertEquals(transactionsAccount5,allTransactions);
+        catch (IllegalArgumentException initialDate){
+                assertEquals("The dates can´t be null", initialDate.getMessage());
+        }
     }
     @Test
     @DisplayName("Obtain movements from an account - second date null")
     void obtainMovementsFromAnAccountSecondDateNull() {
         //Arrange
         Group group1 = new Group("Caloteiros");
-        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = null;
 
 
@@ -2160,17 +2264,124 @@ class GroupTest {
         Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        group1.setLedgerToTest();
         group1.addMember(person1);
 
         ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-       // ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
-
+        try {
+            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        }
 
         //Assert
-        //assertEquals(transactionsAccount5,allTransactions);
+        catch(IllegalArgumentException finalDate){
+            assertEquals("The dates can´t be null", finalDate.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - first date is after now")
+    void obtainMovementsFromAnAccountFirstDateNotValide() {
+        //Arrange
+        Group group1 = new Group("Caloteiros");
+        LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
+                new Address("Rua das Flores", "Porto", "4455-987"));
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1= new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        group1.addMember(person1);
+
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        try {
+            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        }
+
+        //Assert
+        catch(IllegalArgumentException initialDate){
+            assertEquals("One of the submitted dates is not valid.", initialDate.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - final date is after now")
+    void obtainMovementsFromAnAccountFinalDateNotValide() {
+        //Arrange
+        Group group1 = new Group("Caloteiros");
+        LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2020, 12, 13, 13, 02);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
+                new Address("Rua das Flores", "Porto", "4455-987"));
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1= new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2= new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3= new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        group1.addMember(person1);
+
+        ArrayList<Transaction> allTransactions= new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        try {
+            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        }
+
+        //Assert
+        catch(IllegalArgumentException finalDate){
+            assertEquals("One of the submitted dates is not valid.", finalDate.getMessage());
+        }
     }
 
     @Test
@@ -2178,7 +2389,7 @@ class GroupTest {
     void obtainMovementsFromAnAccountEmptyLedger() {
         //Arrange
         Group group1 = new Group("Caloteiros");
-        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
 
         Account account5 = new Account("comida de gato", "comida para a gatinha");
@@ -2190,14 +2401,14 @@ class GroupTest {
 
 
         //Act
-        /*try {
-            HashSet<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        try {
+            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
         catch (IllegalArgumentException ledger){
             assertEquals("The ledger is empty. ", ledger.getMessage());
-        }*/
+        }
     }
 
     /**

@@ -38,7 +38,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
 
         //Act
         PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
-        List<Transaction> personLedgerMovements = controller.returnPersonLedgerFromPeriod(initialDate, finalDate, person);
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate, person);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
@@ -90,7 +90,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
 
         //Act
         PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
-        List<Transaction> personLedgerMovements = controller.returnPersonLedgerFromPeriod(initialDate, finalDate,person);
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate,person);
 
         //Assert
         assertEquals(personLedgerMovements,expectedResult);
