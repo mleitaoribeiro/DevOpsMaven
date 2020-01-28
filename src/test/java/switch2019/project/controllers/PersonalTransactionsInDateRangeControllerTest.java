@@ -23,7 +23,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
@@ -53,7 +53,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -82,19 +82,95 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
 
         //Arrange - ExpectedResult//
-        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2,transaction3));
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
         expectedResult.sort(Comparator.comparing(Transaction::getDate));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
 
         //Act
         PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
-        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate,person);
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate, person);
 
         //Assert
-        assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements, expectedResult);
     }
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - exchanged dates  -  US011")
+    void returnPersonLedgerFromPeriodExchangedDates() {
+        //Arrange
+        Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Account1", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Account1", "General expenses");
+        person.createAccount("Account2", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - Transaction2//
+        LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
+        Category category2 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+
+        //Arrange - ExpectedResult//
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2));
+        expectedResult.sort(Comparator.comparing(Transaction::getDate));
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
+
+        //Act
+        PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(finalDate, initialDate, person);
+
+        //Assert
+        assertEquals(personLedgerMovements, expectedResult);
+    }
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - same day  -  US011")
+    void returnPersonLedgerFromPeriodSameDay() {
+        //Arrange
+        Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Account1", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Account1", "General expenses");
+        person.createAccount("Account2", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - ExpectedResult//
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 14, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 14, 23, 59);
+
+        //Act
+        PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(finalDate, initialDate, person);
+
+        //Assert
+        assertEquals(personLedgerMovements, expectedResult);
+    }
+
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - null date -  US011")
@@ -103,7 +179,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -123,7 +199,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, null,person);
+           controller.returnPersonLedgerInDateRange(initialDate, null, person);
         }
 
         //Assert
@@ -140,7 +216,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -161,7 +237,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate,person);
+            controller.returnPersonLedgerInDateRange(initialDate, finalDate, person);
         }
 
         //Assert

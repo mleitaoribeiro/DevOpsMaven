@@ -7,7 +7,7 @@ import switch2019.project.model.Transaction;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class MemberGetsTheMovimentsInAGivenPeriodController {
+public class MemberGetsTheMovementsInAGivenPeriodController {
 
     /**
      * Get the group's ledger movements in a given period (US012)

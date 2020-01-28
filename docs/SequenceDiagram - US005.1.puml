@@ -1,10 +1,18 @@
 @startuml
+
+skinparam DefaultFontSize 20
+
 create ":Test"
 
 == Arrange ==
-create "US005.1:Controller"
+create ":CreateCategoryController"
+create "groupList1:GroupList"
+":Test" -> "groupList1:GroupList" : createGroup (description, startingDate)
+activate "groupList1:GroupList" #FFBBBB
 create "group1:Group"
-":Test" -> "group1:Group" : createGroupAndSetAsAdmin (description, startingDate)
+"groupList1:GroupList" -> "group1:Group" : addMember (person)
+"groupList1:GroupList" -> "group1:Group" : setAdmin (person)
+
 activate "group1:Group" #FFBBBB
 create "categoryList1:CategoryList"
 "group1:Group" -> "categoryList1:CategoryList" :  createCategoryList(description)
@@ -15,24 +23,22 @@ deactivate "group1:Group" #FFBBBB
 
 
 == Act ==
-":Test" -> "createCategory:Controller" : createCategory(description)
-activate "createCategory:Controller" #FFBBBB
+":Test" -> ":CreateCategoryController" : createCategory(description)
+activate ":CreateCategoryController" #FFBBBB
 
-"createCategory:Controller" -> "group1:Group" : createAndAddCategoryToCategoryList()
+":CreateCategoryController" -> "group1:Group" : createAndAddCategoryToCategoryList(nameOfCategory, categoryCreator)
 activate "group1:Group" #FFBBBB
-"group1:Group" -->"createCategory:Controller" :created
-deactivate "group1:Group" #FFBBBB
-"createCategory:Controller" -> "group1:Group" : verifyIfAdmin()
-activate "group1:Group" #FFBBBB
+"group1:Group" -->":CreateCategoryController" :created
 
 "group1:Group" -> "categoryList1:CategoryList" : addCategoryToCategoryList(description)
 activate "categoryList1:CategoryList" #FFBBBB
+deactivate "group1:Group" #FFBBBB
 
 create "category1:Category"
 "categoryList1:CategoryList" -> "category1:Category"  : createCategory(description)
 activate "category1:Category" #FFBBBB
 
-deactivate "createCategory:Controller" #FFBBBB
+deactivate ":CreateCategoryController" #FFBBBB
 deactivate "group1:Group" #FFBBBB
 deactivate "categoryList1:CategoryList"
 deactivate "category1:Category"
