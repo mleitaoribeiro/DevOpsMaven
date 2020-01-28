@@ -11,7 +11,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryListTest {
 
     /**
-     *
+     * Tests for the CategoryList method toString
+     */
+    @Test
+    @DisplayName("Test if method toString returns the categories in the CategoryList")
+    public void ValidateToString() {
+        //Arrange:
+        CategoryList firstCategoryList = new CategoryList();
+        firstCategoryList.addCategoryToCategoryList("cinema");
+        firstCategoryList.addCategoryToCategoryList("jantares");
+        String expected = "CategoryList: [CINEMA, JANTARES]";
+
+        //Act:
+        String result = firstCategoryList.toString();
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    /**
      * Tests for the CategoryList HashCode
      */
     @Test
@@ -34,7 +52,7 @@ class CategoryListTest {
 
     @Test
     @DisplayName("Test if two Category Lists with different categories, have different HashCodes")
-    public void compareTwoCategoryListsHashCodeFalse(){
+    public void compareTwoCategoryListsHashCodeFalse() {
 
         //Arrange:
         CategoryList firstCategoryList = new CategoryList();
@@ -120,7 +138,6 @@ class CategoryListTest {
 
     /**
      * Test if two Categories list are consider the same and Have the same Hashcode
-     *
      */
 
     @Test
@@ -135,8 +152,8 @@ class CategoryListTest {
         CategoryList otherCategoryList = new CategoryList();
 
         //Act
-       oneCategoryList.addCategoryToCategoryList(oneCategoryName);
-       otherCategoryList.addCategoryToCategoryList(otherCategoryName);
+        oneCategoryList.addCategoryToCategoryList(oneCategoryName);
+        otherCategoryList.addCategoryToCategoryList(otherCategoryName);
 
 
         //Assert
@@ -145,7 +162,6 @@ class CategoryListTest {
 
     /**
      * Test if two CategoriesList are the same when created from different classes or null
-     *
      */
     @Test
     @DisplayName("test if two CategoriesList are the same when created from different classes")
@@ -179,7 +195,7 @@ class CategoryListTest {
     void addCategoryToListMainScenario() {
         //Arrange
         //Category to be included in Category List
-        String oneCategory ="School expenses";
+        String oneCategory = "School expenses";
         CategoryList newCategoryList = new CategoryList();
 
         //Act
@@ -201,7 +217,7 @@ class CategoryListTest {
         //Arrange
         //Category to be included in Category List
         String oneCategory = "School expenses";
-        String otherCategory ="Health";
+        String otherCategory = "Health";
         CategoryList newCategoryList = new CategoryList();
 
         //Act
@@ -290,7 +306,8 @@ class CategoryListTest {
         assertTrue(realResult);
     }
 
-    /** Test if a category was removed from the Category List
+    /**
+     * Test if a category was removed from the Category List
      * Ignore case and spelling accents
      */
 
@@ -299,7 +316,7 @@ class CategoryListTest {
     void removeCategoryFromList() {
         //Arrange
         String oneCategory = "Saude";
-        String otherCategory="saúde";
+        String otherCategory = "saúde";
         String otherCategoryObject = "saúde";
 
         CategoryList newCategoryList = new CategoryList();
@@ -313,6 +330,7 @@ class CategoryListTest {
         //Assert
         assertTrue(realResult);
     }
+
     @Test
     @DisplayName("check if category is not in list and threfore cant be removed")
     void removeCategoryThatIsNotInTheList() {
@@ -336,8 +354,8 @@ class CategoryListTest {
     @DisplayName("Test if a category was removed from the Category List - null case")
     void removeCategoryFromListNullCase() {
         //Arrange
-        String oneCategory ="Saude";
-        String otherCategory= "null";
+        String oneCategory = "Saude";
+        String otherCategory = "null";
         String otherCategoryObject = null;
 
         CategoryList newCategoryList = new CategoryList();
@@ -365,8 +383,8 @@ class CategoryListTest {
     @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
     void removeCategoryFromListDoesntExist() {
         //Arrange
-        String oneCategory ="Saude";
-        String otherCategory= "Educação";
+        String oneCategory = "Saude";
+        String otherCategory = "Educação";
         String otherCategoryObject = "Educação";
 
         CategoryList newCategoryList = new CategoryList();
@@ -392,7 +410,7 @@ class CategoryListTest {
     void addMultipleCategoriesToListMainScenario() {
         // Arrange
         // Categories to be included in Category List
-        String categoryHealth ="Health";
+        String categoryHealth = "Health";
         String categoryGym = "Gym";
         String categoryUniversity = "University";
 
@@ -419,7 +437,7 @@ class CategoryListTest {
         // Arrange
         // Categories to be included in Category List
         String categoryHealth = "Health";
-        String categoryHealthDuplicated ="Health";
+        String categoryHealthDuplicated = "Health";
         String categoryBeauty = "Beauty";
 
         CategoryList newCategoryList = new CategoryList();
@@ -450,7 +468,7 @@ class CategoryListTest {
     void addMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
         // Arrange
         // Categories to be included in Category List
-        String categoryHealth ="Health";
+        String categoryHealth = "Health";
         String categoryHealthDuplicated = "heálth";
         String categoryBeauty = "Beauty";
 
@@ -479,7 +497,7 @@ class CategoryListTest {
         // Arrange
         // Categories to be included in Category List
         String categoryHealth = "Health";
-        String categoryGym ="Gym";
+        String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
 
         CategoryList newCategoryList = new CategoryList();
@@ -515,7 +533,7 @@ class CategoryListTest {
         String categoryBeauty = "Beauty";
         String categoryCar = "Car";
         String categoryNull = null;
-        String categoryUniversity ="University";
+        String categoryUniversity = "University";
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -534,7 +552,6 @@ class CategoryListTest {
         catch (IllegalArgumentException setterEx) {
             assertEquals("The category description is not valid or it's missing. Please try again.", setterEx.getMessage());
         }
-        
 
 
     }
@@ -552,9 +569,9 @@ class CategoryListTest {
         String categoryHealth = "Health";
         String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
-        String categoryHealthLowerCase ="health";
-        String categoryGymSpecialCharacter ="Gým";
-        String categoryBeautyUpperCase ="BEAUTY";
+        String categoryHealthLowerCase = "health";
+        String categoryGymSpecialCharacter = "Gým";
+        String categoryBeautyUpperCase = "BEAUTY";
 
         CategoryList newCategoryList = new CategoryList();
 
@@ -563,7 +580,7 @@ class CategoryListTest {
         newCategoryList.addMultipleCategoriesToList(setOfCategories);
 
         //set of Categories to be removed from Categories List
-        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase,categoryGymSpecialCharacter, categoryBeautyUpperCase));
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
         // Remove the previous categories with the method under test
 
         //Act
@@ -582,10 +599,10 @@ class CategoryListTest {
     @DisplayName("Test if a category is in the category list - true case")
     void testValidateIfCategoryIsInTheCategoryListTrueCase() {
         //Arrange
-        String house ="House";
+        String house = "House";
         String cats = "Cats";
         String transport = "Transport";
-        Category catsObject=new Category ("Cats");
+        Category catsObject = new Category("Cats");
         CategoryList newCategories = new CategoryList();
 
         HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
@@ -609,13 +626,13 @@ class CategoryListTest {
     void testValidateIfCategoryIsInTheCategoryListFalseCase() {
         //Arrange
         String house = "House";
-        String cats ="Cats";
-        String  transport ="Transport";
+        String cats = "Cats";
+        String transport = "Transport";
         CategoryList newCategories = new CategoryList();
 
         HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
 
-    //Act
+        //Act
 
         boolean realResult = newCategories.addMultipleCategoriesToList(myCategories);
 
