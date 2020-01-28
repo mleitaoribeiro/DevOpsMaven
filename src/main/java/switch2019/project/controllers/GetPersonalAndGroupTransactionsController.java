@@ -25,7 +25,7 @@ public class GetPersonalAndGroupTransactionsController {
 
         // add all the group movements
         for (Group oneGroup : groupsList.returnAllGroupsAPersonIsIn(person)) {
-            personalAndGroupTransactions.addAll(oneGroup.returnGroupLedgerFromPeriod(initialDate, finalDate));
+            personalAndGroupTransactions.addAll(oneGroup.returnGroupLedgerInDateRange(initialDate, finalDate));
         }
 
         // sort the movements by date and return
