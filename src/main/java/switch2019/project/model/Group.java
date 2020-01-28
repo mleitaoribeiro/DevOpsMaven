@@ -354,8 +354,12 @@ public class Group {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+    public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
+        if(isGroupMember(person)){
+            return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+        }
+
+        throw new IllegalArgumentException("Person is not a member of the group.");
     }
 
     /**
@@ -364,7 +368,7 @@ public class Group {
      * @param initialDate
      * @param finalDate
      */
-    
+
     public double getGroupBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         return ledger.getBalanceInDateRange(initialDate,finalDate);
     }
