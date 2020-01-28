@@ -11,7 +11,14 @@ create "groupTransaction:MemberCreatesGroupTransactionController"
 participant "group1:Group"
 participant "catList: CategoryList"
 participant "acList:AccountsList"
-participant "ledger:Ledger"
+
+create "ledger:Ledger"
+":Test" -> "ledger:Ledger" : new Ledger()
+activate "ledger:Ledger" #FFBBBB
+
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
+deactivate "ledger:Ledger" #FFBBBB
 
 == Act ==
 
@@ -25,10 +32,10 @@ activate "group1:Group"  #FFBBBB
 activate "ledger:Ledger"  #FFBBBB
 
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction (amount, description, cat, accountFrom, accountTo, type)
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction (amount, description, \ncat, accountFrom, accountTo, type)
 activate "transaction:Transaction"  #FFBBBB
 
-"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, cat, accountFrom, accountTo, type)
+"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, \ncat, accountFrom, accountTo, type)
 deactivate "transaction:Transaction"  #FFBBBB
 
 "ledger:Ledger" -> "ledger:Ledger": add(Transaction)
