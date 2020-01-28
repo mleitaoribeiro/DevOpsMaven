@@ -2503,7 +2503,7 @@ class GroupTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        ArrayList<Transaction> real = oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2019, 2, 3, 10, 40));
         //Assert
         assertEquals(expected, real);
@@ -2521,7 +2521,7 @@ class GroupTest {
         ArrayList<Transaction> expected = new ArrayList<>();
 
         //Act
-        ArrayList<Transaction> real = oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2017, 12, 3, 10, 40));
         //Assert
         assertEquals(expected, real);
@@ -2561,7 +2561,7 @@ class GroupTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
-        ArrayList<Transaction> real = oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
+        ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2018, 10, 2, 9, 10),
                 LocalDateTime.of(2018, 10, 2, 9, 10));
         //Assert
         assertEquals(expected, real);
@@ -2600,7 +2600,7 @@ class GroupTest {
         //Expected Transactions
         ArrayList<Transaction> expected = new ArrayList<>();
         //Act
-        ArrayList<Transaction> real = oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
+        ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2012, 10, 2, 9, 10),
                 LocalDateTime.of(2013, 10, 2, 9, 10));
         //Assert
         assertEquals(expected, real);
@@ -2641,7 +2641,7 @@ class GroupTest {
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        ArrayList<Transaction> real = oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+        ArrayList<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
                 LocalDateTime.of(2017, 10, 2, 9, 20));
 
         //Assert
@@ -2681,7 +2681,7 @@ class GroupTest {
 
         //Act
         try {
-            oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2025, 2, 3, 10, 40),
+            oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2025, 2, 3, 10, 40),
                     LocalDateTime.of(2017, 10, 2, 9, 20));
         }
 
@@ -2724,7 +2724,7 @@ class GroupTest {
 
         //Act
         try {
-            oneGroup.returnGroupLedgerFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+            oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
                     LocalDateTime.of(2030, 10, 2, 9, 20));
         }
 
@@ -2767,7 +2767,7 @@ class GroupTest {
 
         //Act
         try {
-            oneGroup.returnGroupLedgerFromPeriod(null, LocalDateTime.of(2030, 10, 2, 9, 20));
+            oneGroup.returnGroupLedgerInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20));
         }
 
         //Assert
