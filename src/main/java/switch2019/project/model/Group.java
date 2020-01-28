@@ -280,9 +280,10 @@ public class Group {
     }
 
     /**
-     * Develop method add one category to group's Category List
+     *  As a admin i want to develop method add one category to group's Category List(US005.1)
      *
      * @param nameOfCategory
+     * @param categoryCreator
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
