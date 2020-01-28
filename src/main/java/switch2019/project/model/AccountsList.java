@@ -16,7 +16,10 @@ public class AccountsList {
 
     /**
      * Develop @override of equals for Accounts List and @override of hashcode
+     * @param o
+     * @return boolean
      */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,6 +27,11 @@ public class AccountsList {
         AccountsList accountsList = (AccountsList) o;
         return Objects.equals(this.accounts, accountsList.accounts);
     }
+
+    /**
+     *  Develop  @override of hashcode
+     * @return
+     */
 
     @Override
     public int hashCode() {
@@ -40,6 +48,7 @@ public class AccountsList {
 
     /**
      * Method to get the numbers of Accounts in the Accounts List
+     * @return int
      */
     public int numberOfAccountsInTheAccountsList() {
         return this.accounts.size();
@@ -50,7 +59,9 @@ public class AccountsList {
      *
      * @param accountDenomination
      * @param accountDescription
+     * @return boolean
      */
+
     public boolean createAndAddAccountToAccountsList(String accountDenomination, String accountDescription) {
         Account oneAccount = new Account(accountDenomination, accountDescription);
         accounts.add(oneAccount);
@@ -60,7 +71,9 @@ public class AccountsList {
     /**
      * method to remove one account from a list
      * @param accountToBeRemoved
+     * @return boolean
      */
+
     public boolean removeOneAccountFromAList (Account accountToBeRemoved){
         if (accountToBeRemoved != null) {
             boolean isAccountRemoved = accounts.remove(accountToBeRemoved);
@@ -73,9 +86,10 @@ public class AccountsList {
 
     /**
      * method to validate if the account is in the accounts list
-     *
      * @param accountToValidate
+     * @return boolean
      */
+
     public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
         return this.accounts.contains(accountToValidate);
     }
