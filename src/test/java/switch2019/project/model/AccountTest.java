@@ -59,6 +59,21 @@ class AccountTest {
     }
 
     @Test
+    @DisplayName("Test if two accounts are the same - Same Account")
+    public void testIfSameObjectToString() {
+
+        //Arrange
+        Account oneAccount = new Account("Supermarket", "Weekly spends");
+        String one = oneAccount.toString();
+
+        //Act
+        boolean result = one.equals("SUPERMARKET, Weekly spends, 0.0€");
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Test if two accounts are the same - one Account is Null")
     public void testIfTwoAccountsAreTheSameOneAccountIsNull() {
         //Arrange

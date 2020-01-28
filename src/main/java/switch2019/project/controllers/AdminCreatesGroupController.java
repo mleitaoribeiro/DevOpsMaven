@@ -15,17 +15,7 @@ public class AdminCreatesGroupController {
      * @return
      */
 
-    public boolean createGroup (String groupDescription, Person groupCreator, GroupsList groupsList) {
-        return groupsList.createGroup(groupDescription,groupCreator);
-    }
-
-    /**
-     * Verify if the group creator was added as Administrator
-     * @param groupCreator
-     * @return
-     */
-
-    public boolean verifyIsGroupCreatorIsAdmin(Group groupCreated, Person groupCreator) {
-        return groupCreated.isGroupAdmin(groupCreator);
+    public boolean createGroup(String groupDescription, Person groupCreator, GroupsList groupsList) {
+        return groupsList.createGroup(groupDescription, groupCreator);
     }
 }
