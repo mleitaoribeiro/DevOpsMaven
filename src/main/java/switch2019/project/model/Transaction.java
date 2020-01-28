@@ -69,7 +69,7 @@ public class Transaction {
     /**
      * toString() of date
      */
-    private String dateToString() {
+    public String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return date.format(formatter);
     }

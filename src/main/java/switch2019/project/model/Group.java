@@ -230,7 +230,7 @@ public class Group {
      * Validate if a person is a Group Admin
      *
      * @param isAdmin
-     * @return
+     * @return true if is group admin, false if isn't
      */
     public boolean isGroupAdmin(Person isAdmin) {
         if (this.admins.contains(isAdmin) && isAdmin != null) {
@@ -300,17 +300,25 @@ public class Group {
      * @param nameOfcategory
      */
 
-    public boolean removeCategoryFromList(String nameOfcategory) {
-        if (nameOfcategory == null) {
+    public boolean removeCategoryFromList(String nameOfcategory, Person groupAdmin) {
+        if (nameOfcategory == null || !this.isGroupAdmin(groupAdmin)) {
             return false;
         }
-        return categoryList.removeCategoryFromList(nameOfcategory);
+        return this.categoryList.removeCategoryFromList(nameOfcategory);
     }
 
     /**
      * Develop method to create a new group transaction (US008.1)
      *
-     * @return
+     * @param amount
+     * @param description
+     * @param localDate
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     * @return true if transaction was created and added to Ledger
+     *
      */
 
     public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
@@ -327,11 +335,12 @@ public class Group {
     /**
      * Get the group's ledger movements in a given period from specific account (US010)
      *
+     * @param account1
      * @param initialDate
      * @param finalDate
+     * @param person1
+     *
      */
-
-
     public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
         ArrayList<Transaction> listOfTransactionsOfThatAccount = new ArrayList<>();
 
@@ -352,6 +361,7 @@ public class Group {
      *
      * @param initialDate
      * @param finalDate
+     * @param person
      */
 
     public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
@@ -367,6 +377,7 @@ public class Group {
      *
      * @param initialDate
      * @param finalDate
+     * @return group balance in a specific date range
      */
 
     public double getGroupBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
@@ -376,6 +387,8 @@ public class Group {
 
     /**
      * Method used to check if a transaction is inside a groupLedger
+     * @param transaction1
+     * @return true if transaction is inside the group ledger
      */
     public boolean isTransactionInsideTheGroupLedger(Transaction transaction1) {
         return this.ledger.isTransactionInLedger(transaction1);
@@ -383,6 +396,7 @@ public class Group {
 
     /**
      * Method used to get group description
+     * @return description
      */
     public String getDescription() {
         return description;

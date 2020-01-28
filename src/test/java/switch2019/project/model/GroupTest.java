@@ -1968,54 +1968,80 @@ class GroupTest {
      * Check if a Category was removed from the groups Category list
      */
 
-    /*@Test
-    @DisplayName("Remove categories from User Category List - Main Scenario")
-    void removeCategoryFromListMainScenario() {
-        //Arrange
-
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        //Act
-        group1.createAndAddCategoryToCategoryList("Jantares de Grupo");
-        group1.createAndAddCategoryToCategoryList("filmes");
-        boolean realResult = group1.removeCategoryFromList("filmes");
-
-        //Assert
-        assertTrue(realResult);
-    }
-
     @Test
-    @DisplayName("To Try to remove a set of Categories that does not exist or null")
-    void removeCategoriesToListWithANullCase() {
-        //Arrange
+    @DisplayName("Remove category from GroupList - Happy Case(True)")
+    void isCategoryRemovedFromCategoryList(){
 
-        //Initialize Group
-        Group group1 = new Group("Groupo dos amigos");
+        //Arrange:
+        Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
 
-        group1.createAndAddCategoryToCategoryList("Jantares de Grupo");
-        group1.createAndAddCategoryToCategoryList(null);
+        //Act:
+        boolean result = testGroup.removeCategoryFromList("groceries",groupAdmin);
 
-        //Act
-        boolean realResult = group1.removeCategoryFromList(null);
-
-        //Assert
-        assertFalse(realResult);
-    }
-
-    @Test
-    @DisplayName("Remove a Category from user's Category List - Ignore letter capitalization and special characters")
-    void removeCategoryFromListIgnoreLettersFormatAndSpecialCase() {
-        //Arrange
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-
-        //Act
-        boolean result = group1.createAndAddCategoryToCategoryList("SCHOóL expenses");
-
-        //Assert
+        //Assert:
         assertTrue(result);
-    }*/
+    }
+
+    @Test
+    @DisplayName("Remove category from GroupList - False - person trying to remove is not an admin)")
+    void isCategoryRemovedFromCategoryListNotAdmin(){
+
+        //Arrange:
+        Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person groupMember = new Person("João", LocalDate.of(1991, 12, 11), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.addMember(groupMember);
+        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
+
+        //Act:
+        boolean result = testGroup.removeCategoryFromList("groceries",groupMember);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Remove category from GroupList - False - person trying to remove is null)")
+    void isCategoryRemovedFromCategoryListNullAdmin(){
+
+        //Arrange:
+        Person groupAdmin = null;
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
+
+        //Act:
+        boolean result = testGroup.removeCategoryFromList("groceries",groupAdmin);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Remove category from GroupList - False - category to remove is null)")
+    void isCategoryRemovedFromCategoryListNullCategory(){
+
+        //Arrange:
+        Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList(null,groupAdmin);
+
+        //Act:
+        boolean result = testGroup.removeCategoryFromList(null,groupAdmin);
+
+        //Assert:
+        assertFalse(result);
+    }
+
 
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.

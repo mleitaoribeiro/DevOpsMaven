@@ -7,30 +7,29 @@ create ":Test"
 note left of ":Test" #powderblue
 	Arrange
 end note
-create ":MemberGetsBalanceInDateRangeController"
-":Test" -> ":MemberGetsBalanceInDateRangeController" : new MemberGetsBalance\nInDateRangeController
+create "balanceController:MemberGetsBalanceInDateRangeController"
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : new MemberGetsBalance\nInDateRangeController
 
-create "group1:Group"
-":Test" -> "group1:Group" : new Group(description)
-activate "group1:Group" #FFBBBB
+participant "group1:Group"
+participant "ledger:Ledger"
+participant "transaction:Transaction"
 
-create "ledger:Ledger"
-"group1:Group" -> "ledger:Ledger" : new Ledger()
-deactivate "group1:Group"
-activate "ledger:Ledger" #FFBBBB
+ref over "group1:Group"
+    US002 createGroup
+end
 
-create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
-deactivate "ledger:Ledger"
+ref over "group1:Group", "ledger:Ledger", "transaction:Transaction"
+    US008.1 memberCreatesAGroupTransaction
+end
 
 note left of ":Test" #powderblue
 	Act
 end note
 
-":Test" -> ":MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, group1, Person member)
-activate ":MemberGetsBalanceInDateRangeController" #FFBBBB
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, group1, Person member)
+activate "balanceController:MemberGetsBalanceInDateRangeController" #FFBBBB
 
-":MemberGetsBalanceInDateRangeController" -> "group1:Group": getGroupBalanceInDateRange\n(initialDate, finalDate)
+"balanceController:MemberGetsBalanceInDateRangeController" -> "group1:Group": getGroupBalanceInDateRange\n(initialDate, finalDate)
 activate "group1:Group" #FFBBBB
 
 "group1:Group" -> "ledger:Ledger": getBalanceInDateRange\n(initialDate, finalDate)
@@ -38,7 +37,7 @@ activate "ledger:Ledger" #FFBBBB
 
 deactivate "ledger:Ledger"
 deactivate "group1:Group"
-deactivate ":MemberGetsBalanceInDateRangeController"
+deactivate "balanceController:MemberGetsBalanceInDateRangeController"
 
 note left of ":Test" #powderblue
 	Assert
