@@ -8,11 +8,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class US011ControllerTest {
+public class PersonalTransactionsFromPeriodControllerTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
@@ -39,11 +40,11 @@ public class US011ControllerTest {
         expectedResult.add(transaction1);
 
         //Act
-        US011 us011Controller = new US011();
-        //ArrayList<Transaction> personLedgerMovements = us011Controller.returnPersonLedgerFromPeriod(initialDate, finalDate, person);
+        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
+        ArrayList<Transaction> personLedgerMovements = controller.returnPersonLedgerFromPeriod(initialDate, finalDate, person);
 
         //Assert
-        //assertEquals(personLedgerMovements, expectedResult);
+        assertEquals(personLedgerMovements, expectedResult);
 
     }
 
@@ -85,16 +86,17 @@ public class US011ControllerTest {
 
         //Arrange - ExpectedResult//
         ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2,transaction3));
+        expectedResult.sort(Comparator.comparing(Transaction::getDate));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00,00);
 
         //Act
-        US011 us011Controller = new US011();
-        //ArrayList<Transaction> personLedgerMovements = us011Controller.returnPersonLedgerFromPeriod(initialDate, finalDate,person);
+        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
+        ArrayList<Transaction> personLedgerMovements = controller.returnPersonLedgerFromPeriod(initialDate, finalDate,person);
 
         //Assert
-        //assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements,expectedResult);
     }
     
 }

@@ -7,9 +7,9 @@ import switch2019.project.model.Transaction;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class US011 {
+public class PersonalTransactionsFromPeriodController {
 
-    private ArrayList<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Person personController) {
+    public ArrayList<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Person personController) {
         return personController.returnPersonLedgerFromPeriod(initialDate, finalDate);
     }
 }

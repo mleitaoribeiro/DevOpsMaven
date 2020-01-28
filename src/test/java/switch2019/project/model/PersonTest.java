@@ -1168,8 +1168,8 @@ class PersonTest {
         boolean type = false; //debit
         person.createTransaction(amount, "payment", dateTransaction1, category, from, to, type);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 23,00) ;
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23,00);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 23, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23, 00);
 
         Transaction transaction1 = new Transaction(amount, "payment", dateTransaction1, category, from, to, type);
         ArrayList<Transaction> expectedResult = new ArrayList<>();
@@ -1179,11 +1179,11 @@ class PersonTest {
         ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
-        assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements, expectedResult);
     }
 
 
-   @Test
+    @Test
     @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseSeveralTransactions() {
         //Arrange
@@ -1219,16 +1219,17 @@ class PersonTest {
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
 
         //Arrange - ExpectedResult//
-        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2,transaction3));
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+        expectedResult.sort(Comparator.comparing(Transaction::getDate));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
 
         //Act
         ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
-        assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements, expectedResult);
     }
 
     @Test
@@ -1260,7 +1261,7 @@ class PersonTest {
         ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerFromPeriod(initialDate, finalDate);
 
         //Assert
-        assertEquals(personLedgerMovements,expectedResult);
+        assertEquals(personLedgerMovements, expectedResult);
     }
 
     /**
@@ -1278,22 +1279,22 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1,00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6,00,00);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
 
         double expectedPersonalBalanceFromDateRange = -95.4;
 
@@ -1313,22 +1314,22 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
                 LocalDateTime.of(2020, 1, 13, 13, 05),
-                new Category("grocery"),new Account("Revolut", "For trips expenses"),
+                new Category("grocery"), new Account("Revolut", "For trips expenses"),
                 new Account("Friends & Company", "Holidays"),
                 true);
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13,23,59);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13, 23, 59);
 
         double expectedPersonalBalanceFromDateRange = 230;
 
@@ -1349,22 +1350,22 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00,00);
-        LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31,00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
+        LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31, 00, 00);
 
         double expectedPersonalBalanceFromDateRange = -95.4;
 
@@ -1384,22 +1385,22 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27,00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00,00);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
 
         try {
             //Act
@@ -1421,22 +1422,22 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
         LocalDateTime initialDate = null;
-        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27,00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
 
         try {
             //Act
@@ -1479,27 +1480,27 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
 
-            //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+        //Act
+        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
 
 
-            assertEquals(0, personalBalanceInDateRange);
-        }
+        assertEquals(0, personalBalanceInDateRange);
     }
+}
