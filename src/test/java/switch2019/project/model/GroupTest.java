@@ -2998,6 +2998,255 @@ class GroupTest {
             assertEquals("Person is not a member of the group.", getTransactionsFromPeriod.getMessage());
         }
     }
+
+    /**
+     * getGroupBalanceInDateRange Tests - Check Group balance between two dates
+     */
+
+    @Test
+    @DisplayName("Check Group balance between two dates - Happy Case (True)")
+    void getGroupBalanceInDateRangeTrue() {
+
+        // Arrange:
+        //Transaction attributes:
+        MonetaryValue monetaryValueOne = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueTwo = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueThree = new MonetaryValue(125, Currency.getInstance("EUR"));
+
+        LocalDateTime localDateOne = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime localDateTwo = LocalDateTime.of(2018, 11, 23, 9, 10);
+        LocalDateTime localDateThree = LocalDateTime.of(2019, 10, 2, 9, 10);
+
+        Category categoryOne = new Category("food");
+        Category categoryTwo = new Category("movie");
+        Category categoryThree = new Category("groceries");
+
+        Account accountOne = new Account("myxpto", "xpto Account");
+        Account accountTwo = new Account("xyz", "xyz Account");
+
+        boolean typeOne = true;  // Credit
+        boolean typeTwo = false; // Debit
+
+        //Group instanced:
+        Group group1 = new Group("Test Group");
+
+        //Add the Transactions to Group:
+        group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
+                accountTwo, accountOne, typeTwo);
+
+        //Act:
+        double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2018, 01, 01, 0, 0),
+                LocalDateTime.of(2019, 01, 01, 0, 0));
+
+        double expected = 450;
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Check Group balance between two dates - Happy Case (True) - Reorder Dates")
+    void getGroupBalanceInDateRangeTrueReorderDates() {
+        // Arrange:
+        //Transaction attributes:
+        MonetaryValue monetaryValueOne = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueTwo = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueThree = new MonetaryValue(125, Currency.getInstance("EUR"));
+
+        LocalDateTime localDateOne = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime localDateTwo = LocalDateTime.of(2018, 11, 23, 9, 10);
+        LocalDateTime localDateThree = LocalDateTime.of(2019, 10, 2, 9, 10);
+
+        Category categoryOne = new Category("food");
+        Category categoryTwo = new Category("movie");
+        Category categoryThree = new Category("groceries");
+
+        Account accountOne = new Account("myxpto", "xpto Account");
+        Account accountTwo = new Account("xyz", "xyz Account");
+
+        boolean typeOne = true;  // Credit
+        boolean typeTwo = false; // Debit
+
+        //Group instanced:
+        Group group1 = new Group("Test Group");
+
+        //Add the Transactions to Group:
+        group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
+                accountTwo, accountOne, typeTwo);
+
+        //Act:
+        double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2019, 01, 01, 0, 0),
+                LocalDateTime.of(2018, 01, 01, 0, 0));
+
+        double expected = 450;
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Check Group balance between two dates - Happy Case (True) - One hour interval")
+    void getGroupBalanceInDateRangeTrueOneHour() {
+
+        // Arrange:
+        //Transaction attributes:
+        MonetaryValue monetaryValueOne = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueTwo = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueThree = new MonetaryValue(125, Currency.getInstance("EUR"));
+
+        LocalDateTime localDateOne = LocalDateTime.of(2018, 10, 23, 9, 10);
+        LocalDateTime localDateTwo = LocalDateTime.of(2018, 10, 23, 9, 20);
+        LocalDateTime localDateThree = LocalDateTime.of(2018, 10, 23, 9, 40);
+
+        Category categoryOne = new Category("food");
+        Category categoryTwo = new Category("movie");
+        Category categoryThree = new Category("groceries");
+
+        Account accountOne = new Account("myxpto", "xpto Account");
+        Account accountTwo = new Account("xyz", "xyz Account");
+
+        boolean typeOne = true;  // Credit
+        boolean typeTwo = false; // Debit
+
+        //Group instanced:
+        Group group1 = new Group("Test Group");
+
+        //Add the Transactions to Group:
+        group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
+                accountTwo, accountOne, typeTwo);
+
+        //Act:
+        double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2018, 10, 23, 9, 0),
+                LocalDateTime.of(2019, 10, 23, 10, 0));
+
+        double expected = 325;
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Check Group balance between two dates - Invalid Date (after current date")
+    void getGroupBalanceInDateRangeExceptionInvalidDate() {
+        // Arrange:
+        //Transaction attributes:
+        MonetaryValue monetaryValueOne = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueTwo = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueThree = new MonetaryValue(125, Currency.getInstance("EUR"));
+
+        LocalDateTime localDateOne = LocalDateTime.of(2018, 10, 2, 9, 10);
+        LocalDateTime localDateTwo = LocalDateTime.of(2018, 11, 23, 9, 10);
+        LocalDateTime localDateThree = LocalDateTime.of(2019, 10, 2, 9, 10);
+
+        Category categoryOne = new Category("food");
+        Category categoryTwo = new Category("movie");
+        Category categoryThree = new Category("groceries");
+
+        Account accountOne = new Account("myxpto", "xpto Account");
+        Account accountTwo = new Account("xyz", "xyz Account");
+
+        boolean typeOne = true;  // Credit
+        boolean typeTwo = false; // Debit
+
+        //Group instanced:
+        Group group1 = new Group("Test Group");
+
+        //Add the Transactions to Group:
+        group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
+                accountTwo, accountOne, typeTwo);
+
+        String expected = "One of the submitted dates is not valid.";
+
+        //Act:
+        try {
+            double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2021, 03, 01, 0, 0),
+                    LocalDateTime.of(2022, 01, 17, 0, 0));
+        }
+        //Assert:
+        catch (IllegalArgumentException result) {
+            assertEquals(expected, result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Check Group balance between two dates - Happy Case (True) - No results for the date")
+    void getGroupBalanceInDateRangeTrueNotFoundAny() {
+
+        // Arrange:
+        //Transaction attributes:
+        MonetaryValue monetaryValueOne = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueTwo = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValueThree = new MonetaryValue(125, Currency.getInstance("EUR"));
+
+        LocalDateTime localDateOne = LocalDateTime.of(2018, 10, 23, 9, 10);
+        LocalDateTime localDateTwo = LocalDateTime.of(2018, 10, 23, 9, 20);
+        LocalDateTime localDateThree = LocalDateTime.of(2018, 10, 23, 9, 40);
+
+        Category categoryOne = new Category("food");
+        Category categoryTwo = new Category("movie");
+        Category categoryThree = new Category("groceries");
+
+        Account accountOne = new Account("myxpto", "xpto Account");
+        Account accountTwo = new Account("xyz", "xyz Account");
+
+        boolean typeOne = true;  // Credit
+        boolean typeTwo = false; // Debit
+
+        //Group instanced:
+        Group group1 = new Group("Test Group");
+
+        //Add the Transactions to Group:
+        group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
+                accountOne, accountTwo, typeOne);
+        group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
+                accountTwo, accountOne, typeTwo);
+
+        //Act:
+        double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2019, 10, 23, 9, 0),
+                LocalDateTime.of(2019, 10, 23, 10, 0));
+
+        double expected = 0;
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Check Group balance between two dates - empty ledger")
+    void getGroupBalanceInDateRangeExceptionNoResults() {
+        // Arrange:
+        //Group instanced:
+        Group group1 = new Group("Test Group");
+
+        //Act:
+        String expected = "The ledger is Empty.";
+        try {
+            double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2018, 03, 01, 0, 0),
+                    LocalDateTime.of(2016, 01, 17, 0, 0));
+        }
+        //Assert:
+        catch (IllegalArgumentException result) {
+            assertEquals(expected, result.getMessage());
+        }
+    }
 }
 
 
