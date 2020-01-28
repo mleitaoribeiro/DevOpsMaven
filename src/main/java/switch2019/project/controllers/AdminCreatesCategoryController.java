@@ -14,13 +14,8 @@ public class AdminCreatesCategoryController {
      */
 
     public boolean createCategory(String categoryDescription, Group oneGroup, Person categoryCreator) {
-
-        //Check if the Category Creator is the group admin
-        if (oneGroup.isGroupAdmin(categoryCreator)) {
-            // Add the category to the Group Categories List:
-            return oneGroup.createAndAddCategoryToCategoryList(categoryDescription);
+            return oneGroup.createAndAddCategoryToCategoryList(categoryDescription, categoryCreator);
         }
-        return false; //If the Category creator isn´t the admin of the group the Category is not created
-    }
+
 }
 

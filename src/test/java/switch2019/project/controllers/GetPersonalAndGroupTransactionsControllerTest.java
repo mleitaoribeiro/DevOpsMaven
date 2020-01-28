@@ -83,20 +83,20 @@ class GetPersonalAndGroupTransactionsControllerTest {
         work.createGroupAccount("dinner", "partilha de jantares");
 
         // Group Transactions:
-        groupsList.returnSpecificGroup("spice girls").createGroupTransaction(monetaryValue100, "payment",
+        groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2019, 12, 25, 12, 15),
                 categoryFriends, accountCombustivel, accountGato, typeDebit);
-        groupsList.returnSpecificGroup("spice girls").createGroupTransaction(monetaryValue200, "payment",
+        groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountGato, accountDinner, typeCredit);
-        groupsList.returnSpecificGroup("spice girls").createGroupTransaction(monetaryValue100, "payment",
+        groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2020, 1, 2, 12, 15),
                 categoryFriends, accountDinner, accountCombustivel, typeDebit);
 
-        groupsList.returnSpecificGroup("work").createGroupTransaction(monetaryValue200, "payment",
+        groupsList.createTransactionOnSpecificGroup("work", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountSweets, accountFruta, typeCredit);
-        groupsList.returnSpecificGroup("work").createGroupTransaction(monetaryValue30, "payment",
+        groupsList.createTransactionOnSpecificGroup("work", monetaryValue30, "payment",
                 LocalDateTime.of(2020, 1, 1, 12, 05),
                 categoryFriends, accountFruta, accountSweets, typeCredit);
 

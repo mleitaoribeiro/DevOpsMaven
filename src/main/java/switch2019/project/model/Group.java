@@ -280,14 +280,15 @@ public class Group {
     }
 
     /**
-     * Develop method add one category to group's Category List
+     *  As a admin i want to develop method add one category to group's Category List(US005.1)
      *
      * @param nameOfCategory
+     * @param categoryCreator
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
-    public boolean createAndAddCategoryToCategoryList(String nameOfCategory) {
-        if (nameOfCategory != null) {
+    public boolean createAndAddCategoryToCategoryList(String nameOfCategory, Person categoryCreator) {
+        if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;
     }
@@ -353,8 +354,12 @@ public class Group {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+    public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
+        if(isGroupMember(person)){
+            return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+        }
+
+        throw new IllegalArgumentException("Person is not a member of the group.");
     }
 
     /**
@@ -363,7 +368,7 @@ public class Group {
      * @param initialDate
      * @param finalDate
      */
-    
+
     public double getGroupBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         return ledger.getBalanceInDateRange(initialDate,finalDate);
     }
