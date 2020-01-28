@@ -6,10 +6,7 @@ import switch2019.project.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Currency;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -96,7 +93,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -104,7 +101,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -142,7 +139,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -150,7 +147,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -189,7 +186,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList());
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList());
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -197,7 +194,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -236,7 +233,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -245,7 +242,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         //Act
         try {
-            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -286,7 +283,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -295,7 +292,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         //Act
         try {
-            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -336,7 +333,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -345,7 +342,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         //Act
         try {
-            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -386,7 +383,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         group1.addMember(person1);
 
-        ArrayList<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
         allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -395,7 +392,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         //Act
         try {
-            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -422,7 +419,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
 
         //Act
         try {
-            ArrayList<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
