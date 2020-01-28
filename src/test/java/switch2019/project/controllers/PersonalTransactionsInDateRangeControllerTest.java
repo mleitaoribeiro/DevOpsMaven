@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PersonalTransactionsFromPeriodControllerTest {
+public class PersonalTransactionsInDateRangeControllerTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
@@ -37,7 +37,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
         expectedResult.add(transaction1);
 
         //Act
-        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
+        PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
         List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate, person);
 
         //Assert
@@ -89,7 +89,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00,00);
 
         //Act
-        PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
+        PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
         List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate,person);
 
         //Assert
