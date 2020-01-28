@@ -70,4 +70,15 @@ public class GroupsList {
                 groupFound = group;
         } return groupFound.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
     }
+
+    public ArrayList<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
+        ArrayList<Transaction> groupTransactions = new ArrayList<>();
+        HashSet<Group> groups = new HashSet<>();
+        for (Group g : groupsList) {
+            if (g.isGroupMember(person))
+                groups.add(g);
+        } for (Group g : groups) {
+            groupTransactions.addAll(g.returnGroupLedgerInDateRange(initialDate, finalDate));
+        } return groupTransactions;
+    }
 }
