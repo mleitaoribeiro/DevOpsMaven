@@ -16,7 +16,7 @@ public class PersonalTransactionsFromPeriodController {
      * @return
      */
 
-    public List<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Person personController) {
-        return personController.returnPersonLedgerFromPeriod(initialDate, finalDate);
+    public List<Transaction> returnPersonLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person personController) {
+        return personController.returnPersonLedgerInDateRange(initialDate, finalDate);
     }
 }
