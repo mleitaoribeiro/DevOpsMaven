@@ -1969,45 +1969,78 @@ class GroupTest {
      */
 
     @Test
-    @DisplayName("Remove categories from User Category List - Main Scenario")
-    void removeCategoryFromListMainScenario() {
-        //Arrange
-        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
-        //Initialize group
-        Group group1 = new Group("Groupo dos amigos");
-        group1.setAdmin(person1);
+    @DisplayName("Remove category from GroupList - Happy Case(True)")
+    void isCategoryRemovedFromCategoryList(){
 
-        //Act
-        group1.createAndAddCategoryToCategoryList("Jantares de Grupo", person1);
-        group1.createAndAddCategoryToCategoryList("filmes", person1);
-        boolean realResult = group1.removeCategoryFromList("filmes");
+        //Arrange:
+        Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
 
-        //Assert
-        assertTrue(realResult);
+        //Act:
+        boolean result = testGroup.removeCategoryFromList("groceries",groupAdmin);
+
+        //Assert:
+        assertTrue(result);
     }
 
     @Test
-    @DisplayName("To Try to remove a set of Categories that does not exist or null")
-    void removeCategoriesToListWithANullCase() {
-        //Arrange
-        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+    @DisplayName("Remove category from GroupList - False - person trying to remove is not an admin)")
+    void isCategoryRemovedFromCategoryListNotAdmin(){
 
-        //Initialize Group
-        Group group1 = new Group("Groupo dos amigos");
-        group1.setAdmin(person1);
+        //Arrange:
+        Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person groupMember = new Person("João", LocalDate.of(1991, 12, 11), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.addMember(groupMember);
+        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
 
-        group1.createAndAddCategoryToCategoryList("Jantares de Grupo", person1);
-        group1.createAndAddCategoryToCategoryList(null, person1);
+        //Act:
+        boolean result = testGroup.removeCategoryFromList("groceries",groupMember);
 
-        //Act
-        boolean realResult = group1.removeCategoryFromList(null);
-
-        //Assert
-        assertFalse(realResult);
+        //Assert:
+        assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Remove category from GroupList - False - person trying to remove is null)")
+    void isCategoryRemovedFromCategoryListNullAdmin(){
+
+        //Arrange:
+        Person groupAdmin = null;
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
+
+        //Act:
+        boolean result = testGroup.removeCategoryFromList("groceries",groupAdmin);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Remove category from GroupList - False - category to remove is null)")
+    void isCategoryRemovedFromCategoryListNullCategory(){
+
+        //Arrange:
+        Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Group testGroup = new Group ("Test group");
+        testGroup.addMember(groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList(null,groupAdmin);
+
+        //Act:
+        boolean result = testGroup.removeCategoryFromList(null,groupAdmin);
+
+        //Assert:
+        assertFalse(result);
+    }
 
 
     /**
