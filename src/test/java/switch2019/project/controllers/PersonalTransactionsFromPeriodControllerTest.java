@@ -6,10 +6,7 @@ import switch2019.project.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Currency;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,12 +33,12 @@ public class PersonalTransactionsFromPeriodControllerTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23, 00);
 
         Transaction transaction1 = new Transaction(amount, "payment", dateTransaction1, category, from, to, type);
-        ArrayList<Transaction> expectedResult = new ArrayList<>();
+        List<Transaction> expectedResult = new ArrayList<>();
         expectedResult.add(transaction1);
 
         //Act
         PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
-        ArrayList<Transaction> personLedgerMovements = controller.returnPersonLedgerFromPeriod(initialDate, finalDate, person);
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate, person);
 
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
@@ -93,7 +90,7 @@ public class PersonalTransactionsFromPeriodControllerTest {
 
         //Act
         PersonalTransactionsFromPeriodController controller = new PersonalTransactionsFromPeriodController();
-        ArrayList<Transaction> personLedgerMovements = controller.returnPersonLedgerFromPeriod(initialDate, finalDate,person);
+        List<Transaction> personLedgerMovements = controller.returnPersonLedgerInDateRange(initialDate, finalDate,person);
 
         //Assert
         assertEquals(personLedgerMovements,expectedResult);

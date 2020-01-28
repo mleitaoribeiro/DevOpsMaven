@@ -21,7 +21,7 @@ public class GetPersonalAndGroupTransactionsController {
         ArrayList<Transaction> personalAndGroupTransactions = new ArrayList<>();
 
         // add all the personal movements
-        personalAndGroupTransactions.addAll(person.returnPersonLedgerFromPeriod(initialDate, finalDate));
+        personalAndGroupTransactions.addAll(person.returnPersonLedgerInDateRange(initialDate, finalDate));
 
         // add all the group movements
         for (Group oneGroup : groupsList.returnAllGroupsAPersonIsIn(person)) {

@@ -1,10 +1,10 @@
 @startuml
-
+skinparam DefaultFontSize 20
 participant ":Test"
 note left of ":Test" #powderblue
 	Arrange
 end note
-participant ":US019Controller"
+participant ":GetPersonalAndGroupTransactionsInDateRangeController"
 participant "person:Person"
 participant "personalLedger:Ledger"
 participant "groupsList:GroupsList"
@@ -15,20 +15,20 @@ note left of ":Test" #powderblue
 	Act
 end note
 
-":Test" -> ":US019Controller" : returnAllGroupAndPersonLedgersFromPeriod(initialDate, finalDate)
-activate ":US019Controller" #FFBBBB
+":Test" -> ":GetPersonalAndGroupTransactionsInDateRangeController" : returnAllGroupAndPersonLedgers\nInDateRange(initialDate, finalDate)
+activate ":GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB
 
-":US019Controller" -> "person:Person" : personTransactions = returnPersonLedgerFromPeriod(initialDate, finalDate)
+":GetPersonalAndGroupTransactionsInDateRangeController" -> "person:Person" : personTransactions = returnPersonLedger\nInDateRange(initialDate, finalDate)
 activate "person:Person" #FFBBBB
 
-"person:Person" -> "personalLedger:Ledger" : returnTransactionsFromPeriod(initialDate, finalDate)
+"person:Person" -> "personalLedger:Ledger" : returnTransactionsInDateRange(initialDate, finalDate)
 activate "personalLedger:Ledger" #FFBBBB
 
 deactivate "personalLedger:Ledger" #FFBBBB
 
 
 
-":US019Controller" -> "person:Person" : searchPersonGroups()
+":GetPersonalAndGroupTransactionsInDateRangeController" -> "person:Person" : searchPersonGroups()
 
 "person:Person" -> "groupsList:GroupsList" : searchPersonGroups()
 activate "groupsList:GroupsList" #FFBBBB
@@ -40,7 +40,7 @@ activate "group:Group" #FFBBBB
 deactivate "groupsList:GroupsList" #FFBBBB
 deactivate "group:Group" #FFBBBB
 
-":US019Controller" -> "person:Person" : groupTransactions = returnGroupsLedgerFromPeriod(initialDate, finalDate)
+":GetPersonalAndGroupTransactionsInDateRangeController" -> "person:Person" : groupTransactions = returnGroupsLedgerIn\nDateRange(initialDate, finalDate)
 
 "person:Person" -> "group:Group" : returnGroupsLedgerFromPeriod(initialDate, finalDate)
 activate "group:Group" #FFBBBB
@@ -51,10 +51,10 @@ deactivate "groupLedger:Ledger" #FFBBBB
 deactivate "group:Group" #FFBBBB
 deactivate "person:Person" #FFBBBB
 
-":US019Controller" -> ":US019Controller" : transactions = personTransactions+groupTransactions
+":GetPersonalAndGroupTransactionsInDateRangeController" -> ":GetPersonalAndGroupTransactionsInDateRangeController" : transactions = personTransactions+groupTransactions
 
-":US019Controller" --> ":Test" : returnedTransactions
-deactivate ":US019Controller" #FFBBBB
+":GetPersonalAndGroupTransactionsInDateRangeController" --> ":Test" : returnedTransactions
+deactivate ":GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB
 
 note left of ":Test" #powderblue
 	Assert
