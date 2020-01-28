@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class US002_1Test {
+public class AdminCreatesGroupTest {
     /**
      * As user , I Want to Creat a group and be admin (US002.1)
      */

@@ -36,17 +36,6 @@ public class Ledger {
     }
 
     /**
-     * US11: Get the balance of the transactions given a specific date range
-     *
-     * @param initialDate
-     * @param finalDate
-     */
-
-    public int getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return 0;
-    }
-
-    /**
      * US011/US012: Get the transactions in a given specific date range
      *
      * @param initialDate
