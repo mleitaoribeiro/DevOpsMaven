@@ -17,7 +17,7 @@ public class GroupsList {
     }
 
     /**
-     * Method used to create a Group
+     *As a user I want to create a group becoming a group administrator(US02.1)
      *
      * @param groupDescription
      * @param groupCreator
