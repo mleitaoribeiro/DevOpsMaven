@@ -8,7 +8,15 @@ import java.util.List;
 
 public class PersonalTransactionsFromPeriodController {
 
-    public List<Transaction> returnPersonLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Person personController) {
-        return personController.returnPersonLedgerFromPeriod(initialDate, finalDate);
+    /**
+     * US011: As a user, I want to get my transactions in a specific date range
+     * @param initialDate
+     * @param finalDate
+     * @param personController
+     * @return
+     */
+
+    public List<Transaction> returnPersonLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person personController) {
+        return personController.returnPersonLedgerInDateRange(initialDate, finalDate);
     }
 }
