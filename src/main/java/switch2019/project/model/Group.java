@@ -354,7 +354,7 @@ public class Group {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
     }
 
