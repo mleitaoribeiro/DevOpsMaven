@@ -3,7 +3,7 @@ package switch2019.project.controllers;
 import switch2019.project.model.Group;
 import switch2019.project.model.Person;
 
-public class AdminCreatesCategory {
+public class AdminCreatesCategoryController {
 
     public boolean createCategory(String categoryDescription, Group oneGroup, Person categoryCreator) {
 
