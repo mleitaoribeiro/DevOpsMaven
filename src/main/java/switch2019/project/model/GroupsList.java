@@ -17,10 +17,6 @@ public class GroupsList {
     }
 
     /**
-     *Develop @override of equals for Group and @override of hashcode
-     */
-
-    /**
      * Method used to create a Group
      *
      * @param groupDescription
@@ -30,7 +26,8 @@ public class GroupsList {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.addMember(groupCreator) && this.groupsList.add(group1));
-        } return false;
+        }
+        return false;
     }
 
     /**
