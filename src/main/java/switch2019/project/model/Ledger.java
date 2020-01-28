@@ -34,7 +34,7 @@ public class Ledger {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         return ledgerTransactions.add(transaction);
     }
-    
+
     /**
      * US011/US012: Get the transactions in a given specific date range
      *
