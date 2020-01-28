@@ -1750,9 +1750,89 @@ class GroupTest {
     }
 
     /**
+     *  Check if a transaction is inside a groups Ledger
+     */
+    @Test
+    @DisplayName("isTransactionInsideGroupLedger - True (Happy Case")
+    void isTransactionInsideGroupLedgerTrue() {
+
+        //Arrange:
+        Group group1 = new Group("Grupo de Jantares");
+
+            // Arrange Transaction:
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        boolean oneType = true; //Credit
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Category category1 = new Category("ASD");
+        Transaction transaction1 = new Transaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,oneType);
+
+        //Act:
+        group1.createGroupTransaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,oneType);
+        boolean result = group1.isTransactionInsideTheGroupLedger(transaction1);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("isTransactionInsideGroupLedger - False")
+    void isTransactonInsideGroupLedgerFalse() {
+
+        //Arrange:
+        Group group1 = new Group("Grupo de Jantares");
+
+        // Arrange Transaction:
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        boolean creditType = true; //Credit
+        boolean debitType = false; //Debit
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Category category1 = new Category("ASD");
+        Transaction transaction1 = new Transaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,creditType);
+
+        //Act:
+        group1.createGroupTransaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,debitType);
+        boolean result = group1.isTransactionInsideTheGroupLedger(transaction1);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("is Transaction Inside the Ledger - Two transactions (True)")
+    void areTwoTransactionsInsideTheLedger(){
+
+        //Arrange:
+        Group group1 = new Group("Grupo de Jantares");
+
+        // Arrange Transaction:
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
+        boolean creditType = true; //Credit
+        boolean debitType = false; //Debit
+        Account oneAccount = new Account("myxpto", "xpto Account");
+        Account otherAccount = new Account("xyz", "xyz Account");
+        Category category1 = new Category("ASD");
+        Transaction transaction1 = new Transaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,debitType);
+        Transaction transaction2 = new Transaction(monetaryValue,"Test Transaction2",date1,category1,oneAccount,otherAccount,creditType);
+
+        //Act:
+        group1.createGroupTransaction(monetaryValue,"Test Transaction",date1,category1,oneAccount,otherAccount,debitType);
+        group1.createGroupTransaction(monetaryValue,"Test Transaction2",date1,category1,oneAccount,otherAccount,creditType);
+
+        boolean result = group1.isTransactionInsideTheGroupLedger(transaction1)
+                && group1.isTransactionInsideTheGroupLedger(transaction2);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    /**
      * Check if a Category was added to the groups Category list
      */
-
     @Test
     @DisplayName("Check if a category was added to Category List - Main Scenario")
     void addCategoryToListMainScenario() {
