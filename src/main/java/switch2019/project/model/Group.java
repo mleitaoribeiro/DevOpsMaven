@@ -300,8 +300,8 @@ public class Group {
      * @param nameOfcategory
      */
 
-    public boolean removeCategoryFromList(String nameOfcategory) {
-        if (nameOfcategory == null) {
+    public boolean removeCategoryFromList(String nameOfcategory, Person groupAdmin) {
+        if (nameOfcategory == null && this.isGroupAdmin(groupAdmin)) {
             return false;
         }
         return categoryList.removeCategoryFromList(nameOfcategory);
