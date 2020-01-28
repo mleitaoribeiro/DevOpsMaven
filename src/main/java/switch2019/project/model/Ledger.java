@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Ledger {
+
     //Private Ledger variables
     private List<Transaction> ledgerTransactions;
 
@@ -16,9 +17,10 @@ public class Ledger {
     }
 
     /**
-     * toString
+     * To String
+     *
+     * @return
      */
-
 
     @Override
     public String toString() {
@@ -27,11 +29,61 @@ public class Ledger {
     }
 
     /**
-     * Add Transaction to Ledger
+     * Get All Ledger transactions
+     *
+     * @return ledger Clone
      */
+
+    public List<Transaction> getLedgerTransactions() {
+        List<Transaction> newLedger = ledgerTransactions;
+        return newLedger;
+    }
+
+    /**
+     * Method that checks if a transaction is contained within a Ledger
+     *
+     * @param transactionInLedger
+     * @return
+     */
+
+    public boolean isTransactionInLedger(Transaction transactionInLedger) {
+        return ledgerTransactions.contains(transactionInLedger);
+    }
+
+    /**
+     * Method to Add Transactions to Ledger
+     *
+     * @param amount
+     * @param description
+     * @param localDate
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     * @return
+     */
+
     public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         return ledgerTransactions.add(transaction);
+    }
+
+    /**
+     *  Sort Ledger Transactions By Transaction Date in Ascending Order
+     */
+
+    public void sortLedgerByTransactionDateAscending() {
+        List <Transaction> newLedger = ledgerTransactions;
+        newLedger.sort(Comparator.comparing(Transaction::getDate));
+    }
+
+    /**
+     * Sort Ledger Transactions By Transaction Date in Descending Order
+     */
+
+    public void sortLedgerByTransactionDateDescending () {
+        List <Transaction> newLedger = ledgerTransactions;
+        newLedger.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
     }
 
     /**
@@ -39,9 +91,10 @@ public class Ledger {
      *
      * @param initialDate
      * @param finalDate
+     * @return ArrayList<Transaction> myTransactions
      */
 
-    public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException  {
+    public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) throws IllegalArgumentException {
 
         sortLedgerByTransactionDateAscending();
 
@@ -51,7 +104,7 @@ public class Ledger {
         else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
-        //Validate if Date is in the correct order
+            //Validate if Date is in the correct order
         else if (initialDate.isAfter(finalDate)) {
             LocalDateTime aux = initialDate;
             initialDate = finalDate;
@@ -68,39 +121,6 @@ public class Ledger {
         return myTransactions;
     }
 
-    /**
-     *  Sort Ledger By Transaction Date
-     */
-
-    public void sortLedgerByTransactionDateAscending() {
-        List <Transaction> newLedger = ledgerTransactions;
-        newLedger.sort(Comparator.comparing(Transaction::getDate));
-    }
-
-    /**
-     *
-     */
-
-    public void sortLedgerByTransactionDateDescending () {
-        List <Transaction> newLedger = ledgerTransactions;
-        newLedger.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
-    }
-
-    /**
-     *  Get All Ledger transactions
-     */
-    public List <Transaction> getLedgerTransactions () {
-        List <Transaction> newLedger = ledgerTransactions;
-        return newLedger;
-    }
-
-    /**
-     * Method that checks if a transaction is contained within a Ledger
-     */
-
-    public boolean isTransactionInLedger(Transaction transactionInLedger) {
-        return ledgerTransactions.contains(transactionInLedger);
-    }
 
     /**
      * US017/18 - Get the balance of the transactions given a specific date range
