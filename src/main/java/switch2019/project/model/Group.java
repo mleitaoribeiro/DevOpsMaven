@@ -7,13 +7,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Group {
 
     private String description;
     private LocalDate startingDate;
-    private HashSet<Person> members;
-    private HashSet<Person> admins;
+    private Set<Person> members;
+    private Set<Person> admins;
     private AccountsList groupAccountsList;
     private CategoryList categoryList;
     private Ledger ledger;
@@ -363,8 +364,8 @@ public class Group {
      * @param initialDate
      * @param finalDate
      */
-    public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return ledger.getPersonalBalanceInDateRange(initialDate,finalDate);
+    public double getGroupBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+        return ledger.getBalanceInDateRange(initialDate,finalDate);
     }
 
 
