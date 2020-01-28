@@ -125,7 +125,12 @@ public class Address {
         }
     }
 
-    //Auxiliary method to Validate if the zip code is in the correct format (4620-580) - Validation for PT users
+    /**
+     * Auxiliary method to Validate if the zip code is in the correct format (4620-580) - Validation for PT users
+     * @param zip
+     * @return
+     */
+
     private boolean validateIfZipCodeIsInCorrectFormate (String zip) {
         String regex = "^[0-9]{4}-[0-9]{3}$";
         Pattern pattern = Pattern.compile(regex);
@@ -133,7 +138,12 @@ public class Address {
         return matcher.matches();
     }
 
-    //Auxiliary method to Add '-' in case user forget to add it.
+    /**
+     * Auxiliary method to Add '-' in case user forget to add it
+     * @param zip
+     * @return
+     */
+
     private static String addHyphenToZipCode(String zip) {
             return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
     }
@@ -155,17 +165,29 @@ public class Address {
                 Objects.equals(zipCode, address.zipCode);
     }
 
+    /**
+     * Override method hashcode
+     * @return
+     */
+
     @Override
     public int hashCode() {
         return Objects.hash(street, city, zipCode);
     }
 
     /**
-     * Override toString
+     *  Return homeAdress as a String
+     * @return String
      */
+
     public String homeAddressToString() {
         return street + ", " + city +  ", " + zipCode;
     }
+
+    /**
+     * Return birthPlace as a String
+     * @return String
+     */
 
     public String birthplaceToString(){
         return birthPlace;

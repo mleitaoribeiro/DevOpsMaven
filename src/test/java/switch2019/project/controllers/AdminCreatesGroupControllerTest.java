@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AdminCreatesGroupControllerTest {
+
     /**
      * As user , I Want to Creat a group and be admin (US002.1)
      */
@@ -21,7 +22,7 @@ public class AdminCreatesGroupControllerTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        AdminCreatesGroupController controller= new AdminCreatesGroupController();
+        AdminCreatesGroupController controller = new AdminCreatesGroupController();
         Person person1 = new Person("John", LocalDate.of(2000, 12,04), new Address("London"),new Address("Rua B","Feira","4520-233"));
 
         //Act

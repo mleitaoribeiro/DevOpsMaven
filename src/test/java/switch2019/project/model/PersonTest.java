@@ -1186,7 +1186,7 @@ class PersonTest {
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
@@ -1214,7 +1214,7 @@ class PersonTest {
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1258,12 +1258,12 @@ class PersonTest {
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - no transactions in that period -  US011")
-    void returnPersonLedgerInDateRangeiodNoTransactions() {
+    void returnPersonLedgerInDateRangeNoTransactions() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1287,6 +1287,80 @@ class PersonTest {
         //Assert
         assertEquals(personLedgerMovements, expectedResult);
     }
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - exchanged dates  -  US011")
+    void returnPersonLedgerFromPeriodExchangedDates() {
+        //Arrange
+        Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Account1", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Account1", "General expenses");
+        person.createAccount("Account2", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - Transaction2//
+        LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
+        Category category2 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+
+        //Arrange - ExpectedResult//
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2));
+        expectedResult.sort(Comparator.comparing(Transaction::getDate));
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
+
+        //Act
+        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(finalDate, initialDate);
+
+        //Assert
+        assertEquals(personLedgerMovements, expectedResult);
+    }
+
+    @Test
+    @DisplayName("Test if a person get their movements in a given period - same day  -  US011")
+    void returnPersonLedgerFromPeriodSameDay() {
+        //Arrange
+        Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Account from = new Account("Account1", "General expenses");
+        Account to = new Account("Account2", "Transport expenses");
+        person.createAccount("Account1", "General expenses");
+        person.createAccount("Account2", "Transport expenses");
+
+        //Arrange - Transaction1//
+        LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
+        MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+
+        //Arrange - ExpectedResult//
+        ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 14, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 14, 23, 59);
+
+        //Act
+        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(finalDate, initialDate);
+
+        //Assert
+        assertEquals(personLedgerMovements, expectedResult);
+    }
+
 
     @Test
     @DisplayName("Test if a person get their movements in a given period - null date -  US011")
@@ -1359,244 +1433,244 @@ class PersonTest {
             assertEquals("One of the submitted dates is not valid.", returnPersonLedgerInDateRange.getMessage());
         }
     }
-    
-        /**
-         * User Story 17:
-         */
 
-        @Test
-        @DisplayName("Get the balance of my own transactions over a valid date range - Main Scenario of US17")
-        void getPersonalBalanceInDateRange () {
-            //Arrange
-            //Init Person:
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+    /**
+     * User Story 17:
+     */
 
-            //Init Transactions
-            person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
-                    LocalDateTime.of(2020, 1, 1, 13, 05),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 1, 14, 11),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
-                    LocalDateTime.of(2020, 1, 5, 17, 23),
-                    new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                    new Account("BP", "Gas"),
-                    false);
+    @Test
+    @DisplayName("Get the balance of my own transactions over a valid date range - Main Scenario of US17")
+    void getPersonalBalanceInDateRange() {
+        //Arrange
+        //Init Person:
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
 
-            LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
-            LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
+        //Init Transactions
+        person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
 
-            double expectedPersonalBalanceFromDateRange = -95.4;
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
 
+        double expectedPersonalBalanceFromDateRange = -95.4;
+
+        //Act
+        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+
+        //Assert
+        assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions for one day - valid day")
+    void getPersonalBalanceForJustOneDay() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        //Init Transactions
+        person1.createTransaction(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
+                LocalDateTime.of(2020, 1, 13, 13, 05),
+                new Category("grocery"), new Account("Revolut", "For trips expenses"),
+                new Account("Friends & Company", "Holidays"),
+                true);
+        person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
+                LocalDateTime.of(2020, 1, 13, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
+                LocalDateTime.of(2020, 1, 18, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13, 23, 59);
+
+        double expectedPersonalBalanceFromDateRange = 230;
+
+        //Act
+        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+
+        //Assert
+        assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over a valid date range but initial date and final date not in order")
+    void getPersonalBalanceInDateRangeWithDatesNotInOrder() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        //Init Transactions
+        person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
+        LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31, 00, 00);
+
+        double expectedPersonalBalanceFromDateRange = -95.4;
+
+        //Act
+        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+
+        //Assert
+        assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
+    void getPersonalBalanceInDateRangeWithInvalidDate() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        //Init Transactions
+        person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
+
+        try {
             //Act
             double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-
-            //Assert
-            assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
+            fail();
         }
-
-        @Test
-        @DisplayName("Get the balance of my own transactions for one day - valid day")
-        void getPersonalBalanceForJustOneDay () {
-            //Arrange
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-            //Init Transactions
-            person1.createTransaction(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
-                    LocalDateTime.of(2020, 1, 13, 13, 05),
-                    new Category("grocery"), new Account("Revolut", "For trips expenses"),
-                    new Account("Friends & Company", "Holidays"),
-                    true);
-            person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
-                    LocalDateTime.of(2020, 1, 13, 14, 11),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
-                    LocalDateTime.of(2020, 1, 18, 17, 23),
-                    new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                    new Account("BP", "Gas"),
-                    false);
-
-            LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
-            LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13, 23, 59);
-
-            double expectedPersonalBalanceFromDateRange = 230;
-
-            //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-
-            //Assert
-            assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
-        }
-
-
-        @Test
-        @DisplayName("Get the balance of my own transactions over a valid date range but initial date and final date not in order")
-        void getPersonalBalanceInDateRangeWithDatesNotInOrder () {
-            //Arrange
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-            //Init Transactions
-            person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
-                    LocalDateTime.of(2020, 1, 1, 13, 05),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 1, 14, 11),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 5, 17, 23),
-                    new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                    new Account("BP", "Gas"),
-                    false);
-
-            LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
-            LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31, 00, 00);
-
-            double expectedPersonalBalanceFromDateRange = -95.4;
-
-            //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-
-            //Assert
-            assertEquals(expectedPersonalBalanceFromDateRange, personalBalanceInDateRange);
-        }
-
-        @Test
-        @DisplayName("Get the balance of my own transactions over invalid date range - final date higher than today!")
-        void getPersonalBalanceInDateRangeWithInvalidDate () {
-            //Arrange
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-            //Init Transactions
-            person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
-                    LocalDateTime.of(2020, 1, 1, 13, 05),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 1, 14, 11),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 5, 17, 23),
-                    new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                    new Account("BP", "Gas"),
-                    false);
-
-            LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
-            LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
-
-            try {
-                //Act
-                double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-                fail();
-            }
-            //Assert
-            catch (IllegalArgumentException result) {
-                assertEquals("One of the submitted dates is not valid.", result.getMessage());
-            }
-        }
-
-        @Test
-        @DisplayName("Get the balance of my own transactions of an invalid date range - final date higher than today!")
-        void getPersonalBalanceInDateRangeWithNullDate () {
-            //Arrange
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-            //Init Transactions
-            person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
-                    LocalDateTime.of(2020, 1, 1, 13, 05),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 1, 14, 11),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 5, 17, 23),
-                    new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                    new Account("BP", "Gas"),
-                    false);
-
-            LocalDateTime initialDate = null;
-            LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
-
-            try {
-                //Act
-                double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-                fail();
-            }
-            //Assert
-            catch (IllegalArgumentException result) {
-                assertEquals("One of the submitted dates is not valid.", result.getMessage());
-            }
-        }
-
-        @Test
-        @DisplayName("Get the balance of my ledger that has any transactions")
-        void getPersonalBalanceInDateRangeEmptyBalance () {
-            //Arrange
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-
-            LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
-            LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
-
-            try {
-                //Act
-                double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-                fail();
-            }
-            //Assert
-            catch (IllegalArgumentException result) {
-                assertEquals("The ledger is Empty.", result.getMessage());
-            }
-        }
-
-        @Test
-        @DisplayName("Get the balance of my own transactions over a period with zero transactions in date range")
-        void getPersonalBalanceInDateRangeEmptyBalanceOverDateRange () {
-            //Arrange
-            Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                    new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
-            //Init Transactions
-            person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
-                    LocalDateTime.of(2020, 1, 1, 13, 05),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 1, 14, 11),
-                    new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                    new Account("Continente", "Food Expenses"),
-                    false);
-            person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
-                    LocalDateTime.of(2020, 1, 5, 17, 23),
-                    new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                    new Account("BP", "Gas"),
-                    false);
-
-            LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
-            LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
-
-            //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
-
-
-            assertEquals(0, personalBalanceInDateRange);
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions of an invalid date range - final date higher than today!")
+    void getPersonalBalanceInDateRangeWithNullDate() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        //Init Transactions
+        person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = null;
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my ledger that has any transactions")
+    void getPersonalBalanceInDateRangeEmptyBalance() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("The ledger is Empty.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance of my own transactions over a period with zero transactions in date range")
+    void getPersonalBalanceInDateRangeEmptyBalanceOverDateRange() {
+        //Arrange
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        //Init Transactions
+        person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
+
+        //Act
+        double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+
+
+        assertEquals(0, personalBalanceInDateRange);
+    }
+}

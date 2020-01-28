@@ -5,7 +5,6 @@ import switch2019.project.model.*;
 import java.time.LocalDateTime;
 
 public class MemberGetsBalanceInDateRangeController {
-
     /**
      * US018
      * As a group member, i want to to get the balance of group transactions given a specific date range

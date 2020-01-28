@@ -4,16 +4,31 @@ import java.text.Normalizer;
 import java.util.Objects;
 
 public class Account {
+    /**
+     * Private Instance Variables
+     */
 
     private String denomination;
     private String description;
     private double balance;
+
+    /**
+     * Constructor of Account
+     * @param accountDenomination
+     * @param accountDescription
+     */
 
     public Account(String accountDenomination, String accountDescription) {
         setDenomination(accountDenomination);
         setDescription(accountDescription);
         balance = 0;
     }
+
+    /**
+     * override equals method of Acccount object
+     * @param o
+     * @return
+     */
 
     @Override
     public boolean equals(Object o) {
@@ -23,6 +38,11 @@ public class Account {
         return Objects.equals(this.denomination, oneAccount.denomination);
     }
 
+    /**
+     * override hascode of Account object
+     * @return
+     */
+
     @Override
     public int hashCode() {
         return Objects.hash(denomination, description, balance);
@@ -31,6 +51,7 @@ public class Account {
     /**
      * Develop @override of toString()
      */
+
     @Override
     public String toString() {
         return denomination + ", "+ description + ", " + balance + "€";
@@ -38,6 +59,7 @@ public class Account {
 
     /**
      * Public get for denomination
+     * @return denomination
      */
 
     public String denominationToString() {
@@ -62,7 +84,12 @@ public class Account {
         }
     }
 
-    //Auxiliary method to remove special Characters
+    /**
+     * Auxiliary method to remove special Characters
+     * @param sentence
+     * @return
+     */
+
     private static String removeSpecialCharacters(String sentence) {
 
         String[] str = sentence.split("[, &´#!%()`>?+.<@;-]+");
@@ -75,7 +102,12 @@ public class Account {
         return buildNewStringArray.toString().replaceFirst(" ", "");
     }
 
-    //Auxiliary method to remove word accents
+    /**
+     * Auxiliary method to remove word accents
+     * @param sentence
+     * @return sentence
+     */
+
     private static String removeWordAccents(String sentence) {
 
         sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
@@ -86,6 +118,7 @@ public class Account {
 
     /**
      * Public get for description
+     * @return descritpion
      */
 
     public String getDescription() {
@@ -107,7 +140,7 @@ public class Account {
     }
 
     /**
-     * Public set for description: Can not be Null.
+     * Public get to acess a clone of Account
      *
      * @return copy of Account
      */
