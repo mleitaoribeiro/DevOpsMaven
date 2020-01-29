@@ -1692,6 +1692,7 @@ class PersonTest {
     }
 
     @Test
+    @DisplayName("Schedule a personal transaction")
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
