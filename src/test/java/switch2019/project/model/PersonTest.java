@@ -1677,8 +1677,8 @@ class PersonTest {
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1708,8 +1708,8 @@ class PersonTest {
     void scheduleNewTransactionMonthly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1733,7 +1733,7 @@ class PersonTest {
     /**
      * test for creating transaction with size of Ledger
      */
-    
+
     @Test
     @DisplayName("Test for validating add a new transaction")
     void addTransactionToLedgerChangeSize() {
@@ -1758,6 +1758,47 @@ class PersonTest {
         int sizeAfter = ledger.getLedgerSize();
 
         //Assert
-        assertEquals(sizeBefore+3, sizeAfter);
+        assertEquals(sizeBefore + 3, sizeAfter);
+    }
+
+    /**
+     * Test to verify if multiple categories were removed to list
+     */
+
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - Main Scenario")
+    void removeCategoryFromListMainScenario() {
+        //Arrange
+        String oneCategory = "Saude";
+        String otherCategory = "Health";
+        String otherCategoryObject = "Health";
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+        newCategoryList.addCategoryToCategoryList(oneCategory);
+        newCategoryList.addCategoryToCategoryList(otherCategory);
+
+        //Remove one Category
+
+        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("check if category is not in list and threfore cant be removed")
+    void removeCategoryFromListThatIsNotInTheList() {
+
+        //Arrange:
+        CategoryList testCategoryList = new CategoryList();
+
+        //Act:
+        boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema");
+
+        //Assert:
+        assertFalse(isACategoryNotInListRemoved);
     }
 }
+
