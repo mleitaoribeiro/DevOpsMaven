@@ -295,17 +295,17 @@ class GroupsListTest {
         //Arrange:
         GroupsList testGroupList = new GroupsList();
 
-            //Arrange Groups:
+        //Arrange Groups:
         Group testGroup = new Group("test group");
         testGroupList.addGroupToGroupList(testGroup);
 
-            //Arrange Admin:
+        //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", LocalDate.of(1999, 7, 22),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         testGroup.addMember(testGroupAdmin);
 
         //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group", testGroupAdmin);
 
         //Assert:
         assertTrue(result);
@@ -327,7 +327,7 @@ class GroupsListTest {
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group", testGroupAdmin);
 
         //Assert:
         assertFalse(result);
@@ -352,9 +352,11 @@ class GroupsListTest {
         //Act:
         try {
             testGroupList.checkIfAPersonIsAdminInAGivenGroup("blabla", testGroupAdmin);
-        }
-        catch(IllegalArgumentException groupNotFound) {
+        } catch (IllegalArgumentException groupNotFound) {
             assertEquals("There're no groups found with that description.", groupNotFound.getMessage());
         }
     }
+
+
+
 }
