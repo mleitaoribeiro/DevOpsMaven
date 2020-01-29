@@ -16,20 +16,20 @@ participant "amount:MonetaryValue"
 
 == Act ==
 
-":Test" -> "groupTransaction:MemberCreatesGroupTransactionController" : transactionCreated = memberCreatesAGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type, group1, transactionCreator)
+":Test" -> "groupTransaction:MemberCreatesGroupTransactionController" : transactionCreated = memberCreatesAGroupTransaction (amount, \ndescription, date, category, accountFrom, accountTo, type)
 activate "groupTransaction:MemberCreatesGroupTransactionController"  #FFBBBB
 
-"groupTransaction:MemberCreatesGroupTransactionController" -> "group1:Group" : createGroupTransaction (amount, description, \ncat, accountFrom, accountTo, type)
+"groupTransaction:MemberCreatesGroupTransactionController" -> "group1:Group" : createGroupTransaction (amount, description, date, \ncategory, accountFrom, accountTo, type)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, \ncat, accountFrom, accountTo, type)
+"group1:Group" -> "ledger:Ledger" : addTransactionToLedger(amount, description, date, \ncategory, accountFrom, accountTo, type)
 activate "ledger:Ledger"  #FFBBBB
 
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction (amount, description, \ncat, accountFrom, accountTo, type)
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction (amount, description, date, category, accountFrom, accountTo, type)
 activate "transaction:Transaction"  #FFBBBB
 
-"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, \ncat, accountFrom, accountTo, type)
+"ledger:Ledger" -> "transaction:Transaction" : isAValidTransaction(amount, description, date, category, accountFrom, accountTo, type)
 deactivate "transaction:Transaction"  #FFBBBB
 
 "ledger:Ledger" -> "ledger:Ledger": add(Transaction)

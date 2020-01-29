@@ -1677,8 +1677,8 @@ class PersonTest {
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1693,7 +1693,7 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1000);
+        Thread.sleep(2400); // 250 x 10 = 2500
 
         //Assert
         assertTrue(result && person.ledgerSize() == 10);
@@ -1704,8 +1704,8 @@ class PersonTest {
     void scheduleNewTransactionWorkingDays() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1720,18 +1720,18 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1600);
+        Thread.sleep(1900); // 500 x 4 = 2000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 8);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 
     @Test
     void scheduleNewTransactionWeekly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1746,10 +1746,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1500);
+        Thread.sleep(2900); // 750 x 4 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 5);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 
 
@@ -1757,8 +1757,8 @@ class PersonTest {
     void scheduleNewTransactionMonthly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1773,18 +1773,18 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1600);
+        Thread.sleep(2900); // 1000 x 3 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 4);
+        assertTrue(result && person.ledgerSize() == 3);
     }
 
     @Test
     void scheduleNewTransactionNoMatch() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1812,13 +1812,13 @@ class PersonTest {
     /**
      * test for creating transaction with size of Ledger
      */
-    
+
     @Test
     @DisplayName("Test for validating add a new transaction")
     void addTransactionToLedgerChangeSize() {
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         person.createAccount("mercearia", "mercearia Continente");
@@ -1837,6 +1837,233 @@ class PersonTest {
         int sizeAfter = ledger.getLedgerSize();
 
         //Assert
-        assertEquals(sizeBefore+3, sizeAfter);
+        assertEquals(sizeBefore + 3, sizeAfter);
+    }
+
+    /**
+     * Test to verify if multiple categories were removed to list
+     */
+
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - Main Scenario")
+    void removeCategoryFromListMainScenario() {
+
+        //Arrange
+        String oneCategory = "Saude";
+        String otherCategory = "Cinema";
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+
+        //Act
+        person.createCategoryAndAddToCategoryList(oneCategory);
+        person.createCategoryAndAddToCategoryList(otherCategory);
+
+        //Remove one Category
+
+        boolean realResult = person.removeCategoryFromList(otherCategory);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("check if category is not in list and threfore cant be removed")
+    void removeCategoryFromListThatIsNotInTheList() {
+
+        //Arrange:
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        //Act:
+        boolean isACategoryNotInListRemoved = person.removeCategoryFromList("Cinema");
+
+        //Assert:
+        assertFalse(isACategoryNotInListRemoved);
+    }
+
+    @Test
+    @DisplayName("Add a Set of Categories to Category List - Main Scenario")
+    void addMultipleCategoriesToListMainScenario() {
+        // Arrange
+        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryUniversity = "University";
+
+        //A collection of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+
+        boolean validateIfTheSetOfCategoriesWasAdded = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+
+        //Assert
+        assertTrue(validateIfTheSetOfCategoriesWasAdded);
+    }
+
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
+    void removeMultipleCategoriesToList() {
+        // Arrange
+        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryBeauty = "Beauty";
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //set of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        newCategoryList.addMultipleCategoriesToList(setOfCategories);
+
+        //set of Categories to be removed from Categories List
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
+
+        //Act
+        //Remove the set of categories with the method under test
+        boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+
+        assertTrue(realResult);
+    }
+
+    /**
+     * US010 Como utilizador, quero obter os movimentos de determinada conta num dado período.
+     */
+
+    @Test
+    @DisplayName("Obtain movements from an account - case of success")
+    void obtainMovementsFromAnAccount() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        List<Transaction> listOfTransactions = person.getOneAccountMovementsFromUser(account5, date1, date2);
+
+
+        //Assert
+        assertEquals(expectedTransactions, listOfTransactions);
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - same day")
+    void obtainMovementsFromAnAccountSameDay() {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 00, 00);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        List<Transaction> listOfTransactions = person.getOneAccountMovementsFromUser(account5, date1, date2);
+
+
+        //Assert
+        assertEquals(expectedTransactions, listOfTransactions);
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - date null")
+    void obtainMovementsDateNull() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        LocalDateTime date1 = null;
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        try {
+            person.getOneAccountMovementsFromUser(account5, date1, date2);
+        }
+
+        //Assert
+        catch (IllegalArgumentException initialDate) {
+            assertEquals("The dates can´t be null", initialDate.getMessage());
+        }
     }
 }

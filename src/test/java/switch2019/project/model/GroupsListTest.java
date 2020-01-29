@@ -2,9 +2,13 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.controllers.GetPersonalAndGroupTransactionsController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -295,17 +299,17 @@ class GroupsListTest {
         //Arrange:
         GroupsList testGroupList = new GroupsList();
 
-        //Arrange Groups:
+            //Arrange Groups:
         Group testGroup = new Group("test group");
         testGroupList.addGroupToGroupList(testGroup);
 
-        //Arrange Admin:
+            //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", LocalDate.of(1999, 7, 22),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         testGroup.addMember(testGroupAdmin);
 
         //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group", testGroupAdmin);
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
 
         //Assert:
         assertTrue(result);
@@ -327,7 +331,7 @@ class GroupsListTest {
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group", testGroupAdmin);
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
 
         //Assert:
         assertFalse(result);
@@ -357,6 +361,52 @@ class GroupsListTest {
         }
     }
 
+    @Test
+    void createTransactionOnSpecificGroup() {
+        // Arrange ____________________________________________________________________________________________________
+
+            // Person:
+            Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
+                    new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+
+            //Categories:
+
+            person.createCategoryAndAddToCategoryList("grocery");
+            Category categoryFriends = new Category("friends");
+            person.createCategoryAndAddToCategoryList("friends");
+
+            //Type:
+            boolean typeDebit = false; // debit
+
+            //Monetary Value:
+            MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
 
 
-}
+            // Groups:
+            GroupsList groupsList = new GroupsList();
+            Group spiceGirls = new Group("spice girls");
+            Group work = new Group("work");
+            groupsList.createGroup("spice girls", person);
+            groupsList.createGroup("work", person);
+
+            // Group Accounts:
+            Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
+            spiceGirls.createGroupAccount("combustivel", "gastos de combustivél");
+            Account accountGato = new Account("comida de gato", "comida para a gatinha");
+            spiceGirls.createGroupAccount("comida de gato", "comida para a gatinha");
+            spiceGirls.createGroupAccount("dinner", "partilha de jantares");
+
+
+            work.createGroupAccount("comida de gato", "comida para a gatinha");
+            work.createGroupAccount("dinner", "partilha de jantares");
+
+            //Act
+            boolean result = groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue100, "payment",
+                    LocalDateTime.of(2019, 12, 25, 12, 15),
+                    categoryFriends, accountCombustivel, accountGato, typeDebit);
+
+            // Arrange ___________________________________________________________________________________________________
+            assertTrue(result);
+        }
+
+    }

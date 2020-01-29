@@ -64,9 +64,9 @@ public class Ledger {
 
     public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
-            boolean transactionAdded = ledgerTransactions.add(transaction);
-            sortLedgerByTransactionDateDescending();
-            return transactionAdded;
+        boolean transactionAdded = ledgerTransactions.add(transaction);
+        sortLedgerByTransactionDateDescending();
+        return transactionAdded;
     }
 
     /**
@@ -129,12 +129,15 @@ public class Ledger {
      */
     public List<Transaction> getMovementsFromOneAccount(Account account1, List<Transaction> listOfTransactions) {
         List<Transaction> listOfTransactionsFromOneAccount = new ArrayList<>();
-        for (Transaction transaction : listOfTransactions) {
-            if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
-                listOfTransactionsFromOneAccount.add(transaction);
+        if (account1 != null) {
+            for (Transaction transaction : listOfTransactions) {
+                if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
+                    listOfTransactionsFromOneAccount.add(transaction);
+                }
             }
-        }
-        return listOfTransactionsFromOneAccount;
+            return listOfTransactionsFromOneAccount;
+        } else
+            throw new IllegalArgumentException("The account can't be null");
     }
 
 
