@@ -1713,10 +1713,6 @@ class PersonTest {
     void scheduleNewTransactionMonthly() throws InterruptedException {
 
         //Arrange
-        Person dad = new Person("Carlos", LocalDate.of(1980,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
-        Person mom = new Person("Manuela", LocalDate.of(1980,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995,12,13),
                 new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
