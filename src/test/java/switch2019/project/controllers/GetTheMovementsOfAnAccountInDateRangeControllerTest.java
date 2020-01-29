@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
+class GetTheMovementsOfAnAccountInAGivenTimeController {
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.
      */
@@ -19,7 +19,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - case of success")
     void obtainMovementsFromAnAccount() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
@@ -64,7 +64,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - dates change")
     void obtainMovementsFromAnAccountDateChange() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -110,7 +110,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - same day")
     void obtainMovementsFromAnAccountSameDay() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 14, 00, 00);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 14, 23, 59);
@@ -156,7 +156,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - check before the creation of the ledger")
     void obtainMovementsFromAnAccountBeforeLedger() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2017, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2018, 1, 31, 13, 02);
@@ -203,7 +203,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - first date null")
     void obtainMovementsFromAnAccountFirstDateNull() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = null;
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -253,7 +253,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - second date null")
     void obtainMovementsFromAnAccountSecondDateNull() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = null;
@@ -303,7 +303,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - first date is after now")
     void obtainMovementsFromAnAccountFirstDateNotValide() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -353,7 +353,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - final date is after now")
     void obtainMovementsFromAnAccountFinalDateNotValide() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 12, 13, 13, 02);
@@ -403,7 +403,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - empty ledger exception")
     void obtainMovementsFromAnAccountEmptyLedger() {
         //Arrange
-        GetsTheMovementsOfAnAccountInDateRangeController groupController = new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -437,7 +437,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        GetsTheMovementsOfAnAccountInDateRangeController controller= new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
 
@@ -482,7 +482,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        GetsTheMovementsOfAnAccountInDateRangeController controller= new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 00, 00);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
 
@@ -526,7 +526,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        GetsTheMovementsOfAnAccountInDateRangeController controller= new GetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
         LocalDateTime date1 = null;
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
 
