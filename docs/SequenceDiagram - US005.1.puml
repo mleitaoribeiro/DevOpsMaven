@@ -5,48 +5,30 @@ skinparam DefaultFontSize 20
 create ":Test"
 
 == Arrange ==
-create ":CreateCategoryController"
-create "groupList1:GroupList"
-":Test" -> "groupList1:GroupList" : createGroup (description, startingDate)
-activate "groupList1:GroupList" #FFBBBB
+create "controller:AdminCreatesCategoryController"
+":Test" -> "controller:AdminCreatesCategoryController" : new AdminCreatesCategoryController()
 create "group1:Group"
-"groupList1:GroupList" -> "group1:Group" : addMember (person)
-"groupList1:GroupList" -> "group1:Group" : setAdmin (person)
-
-activate "group1:Group" #FFBBBB
-create "categoryList1:CategoryList"
-"group1:Group" -> "categoryList1:CategoryList" :  createCategoryList(description)
-deactivate "group1:Group" #FFBBBB
-
-
-
+":Test" -> "group1:Group" : new Group()
 
 
 == Act ==
-":Test" -> ":CreateCategoryController" : createCategory(description)
-activate ":CreateCategoryController" #FFBBBB
-
-":CreateCategoryController" -> "group1:Group" : createAndAddCategoryToCategoryList(nameOfCategory, categoryCreator)
+":Test" -> "controller:AdminCreatesCategoryController" : createCategory\n(nameOfCategory, oneGroup, categoryCreator)
+activate "controller:AdminCreatesCategoryController" #FFBBBB
+"controller:AdminCreatesCategoryController" -> "group1:Group" : createAndAddCategoryToCategoryList\n(nameOfCategory, categoryCreator)
 activate "group1:Group" #FFBBBB
-"group1:Group" -->":CreateCategoryController" :created
-
-"group1:Group" -> "categoryList1:CategoryList" : addCategoryToCategoryList(description)
-activate "categoryList1:CategoryList" #FFBBBB
-deactivate "group1:Group" #FFBBBB
-
+"group1:Group" -> "categoriesList :CategoryList" : addCategoryToCategoryList(nameOfCategory)
+activate "categoriesList :CategoryList" #FFBBBB
 create "category1:Category"
-"categoryList1:CategoryList" -> "category1:Category"  : createCategory(description)
-activate "category1:Category" #FFBBBB
-
-deactivate ":CreateCategoryController" #FFBBBB
+"categoriesList :CategoryList" -> "category1:Category" : new Category(nameOfCategory)
+"categoriesList :CategoryList"-> "categoriesList :CategoryList" : add(category1)
+"categoriesList :CategoryList" --> "group1:Group" : categoryCreated
+deactivate "categoriesList :CategoryList" #FFBBBB
+"group1:Group" --> "controller:AdminCreatesCategoryController" : categoryCreated
 deactivate "group1:Group" #FFBBBB
-deactivate "categoryList1:CategoryList"
-deactivate "category1:Category"
-
-
-
-
+"controller:AdminCreatesCategoryController" --> ":Test" : categoryCreated
+deactivate "controller:AdminCreatesCategoryController" #FFBBBB
 
 == Assert ==
 ":Test" -> ":Test" : assertTrue(categoryCreated)
+
 @enduml
