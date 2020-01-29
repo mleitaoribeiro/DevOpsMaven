@@ -6,13 +6,13 @@ create ":Test"
 
 ==Arrange==
 
-create ":MemberGetsTheMovementsOfAnAccountInDateRangeController"
-":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : new
+create ":GetTheMovementsOfAnAccountInDateRangeController"
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : new
 
 participant "group1:Group"
-":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
-activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
-":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":GetTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
 activate "group1:Group" #FFBBBB
 
 participant "trans:Transaction"
@@ -20,14 +20,13 @@ participant "ledger:Ledger"
 "group1:Group" -> "trans:Transaction" : new
 "group1:Group" -> "ledger:Ledger" : addTransactionToLedger\n(amount, description, date, category, accountFrom, accountTo, type)
 deactivate "group1:Group" #FFBBBB
-deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
-
+deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 
 == Act ==
 
-":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, group1, person)
-activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
-":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, person)
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, group1, person)
+activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":GetTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, person)
 activate "group1:Group" #FFBBBB
 
 "group1:Group" -> "group1:Group" : isGroupMember(person)
@@ -39,10 +38,10 @@ activate "ledger:Ledger" #FFBBBB
 "group1:Group" -> "ledger:Ledger" : getMovementsFromOneAccount (account, listOfTransactionsFromPeriod)
 "ledger:Ledger" --> "group1:Group" : listOfTransactions
 deactivate "ledger:Ledger" #FFBBBB
-"group1:Group" --> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : listOfTransactions
+"group1:Group" --> ":GetTheMovementsOfAnAccountInDateRangeController" : listOfTransactions
 deactivate "group1:Group" #FFBBBB
-":MemberGetsTheMovementsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
-deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":GetTheMovementsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
+deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 
 == Assert ==
 
