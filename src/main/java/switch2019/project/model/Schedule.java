@@ -8,13 +8,13 @@ public class Schedule {
     /**
      * Personal Schedule Constructor
      */
-    public Schedule(Person person, String periodicityString, MonetaryValue amount, String description, LocalDateTime date,
+    public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                Category category, Account accountFrom, Account accountTo, boolean type) {
-        int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
+        int periodicityToMilliseconds = convertKeyWordIntoMilliseconds(periodicity);
         Timer timer = new Timer();
         TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
                                                         description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledTransactionTask, 0, periodicity);
+        timer.schedule(scheduledTransactionTask, 0, periodicityToMilliseconds);
     }
 
     /*
@@ -33,8 +33,8 @@ public class Schedule {
     /**
      * Method to convert key word into milliseconds
      */
-    public int convertKeyWordIntoMilliseconds(String periodicityString) {
-        switch (periodicityString) {
+    public int convertKeyWordIntoMilliseconds(String periodicity) {
+        switch (periodicity) {
             case "daily":
                 return 250;
             case "working days":
