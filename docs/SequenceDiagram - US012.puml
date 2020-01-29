@@ -6,18 +6,18 @@ create ":Test"
 
 
 ==Arrange==
-create "controller:MemberGetsTheMovementsInDateRangeController"
-":Test" -> "controller:MemberGetsTheMovementsInDateRangeController" : create()
+create "controller:MemberGetsTransactionsInDateRangeController"
+":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : new MemberGetsTheMovementsOfAnAccountInDateRangeController()
 participant "group1:Group"
 participant "ledger1:Ledger"
 
 
 == Act ==
 
-":Test" -> "controller:MemberGetsTheMovementsInDateRangeController" : ListTransaction=returnGroupLedgerFromPeriod(inicialDate,finalDate,group1,person)
-activate "controller:MemberGetsTheMovementsInDateRangeController"  #FFBBBB
+":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : ListTransaction=returnGroupLedgerFromPeriod(inicialDate,finalDate,group1,person)
+activate "controller:MemberGetsTransactionsInDateRangeController"  #FFBBBB
 
-"controller:MemberGetsTheMovementsInDateRangeController" -> "group1:Group" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate,person)
+"controller:MemberGetsTransactionsInDateRangeController" -> "group1:Group" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate,person)
 activate "group1:Group"  #FFBBBB
 
 "group1:Group" -> "ledger1:Ledger" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate)
@@ -26,7 +26,7 @@ activate "ledger1:Ledger"  #FFBBBB
 
 
 deactivate "group1:Group"  #FFBBBB
-deactivate "controller:MemberGetsTheMovementsInDateRangeController"  #FFBBBB
+deactivate "controller:MemberGetsTransactionsInDateRangeController"  #FFBBBB
 
 == Assert ==
 
