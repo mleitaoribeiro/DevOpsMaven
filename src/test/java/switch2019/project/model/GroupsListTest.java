@@ -595,7 +595,7 @@ class GroupsListTest {
     }
 
     @Test
-    void scheduleNewTransactionNoMatch() throws InterruptedException {
+    void scheduleNewTransactionNoMatch() {
 
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
@@ -628,7 +628,7 @@ class GroupsListTest {
 
     @Test
     @DisplayName("In case there're no groups found with that description.")
-    void scheduleNewTransactionWithGroupThatDoesNotExistsInGroupList() throws InterruptedException {
+    void scheduleNewTransactionWithGroupThatDoesNotExistsInGroupList()  {
 
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
@@ -656,6 +656,41 @@ class GroupsListTest {
         //Assert
         catch (IllegalArgumentException result) {
             assertEquals("There're no groups found with that description.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("In case the person is not a member of that group")
+    void scheduleNewTransactionWherePersonIsNotAMember()  {
+
+        //Arrange
+        Person personMember = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person personNotMember = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        personMember.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        personMember.createAccount("Wallet", "General expenses");
+        personMember.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("JUST4FUN", personMember);
+
+        try {
+            //Act
+            groupsList.createScheduleOnSpecificGroup(personNotMember, "JUST4FUN", "monthly",
+                    amount, description, null, category, from, to, type);
+
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("You are not a member of that group.", result.getMessage());
         }
     }
 }
