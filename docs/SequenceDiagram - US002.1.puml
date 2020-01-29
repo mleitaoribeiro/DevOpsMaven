@@ -1,25 +1,34 @@
 @startuml
 
 create ":Test"
-create ":Controller"
 
 == Arrange ==
+create "controller:AdminCreatesGroupController"
+":Test" -> "controller:AdminCreatesGroupController" : new AdminCreatesGroupController()
+
 create "groupList1:GroupsList"
 ":Test" -> "groupList1:GroupsList" : new GroupList()
 
 == Act ==
-":Test" -> ":Controller" : createGroup(groupDescription, groupDescription)
-":Controller" -> "groupList1:GroupsList" : createGroup(groupDescription, groupCreator)
 
+":Test" -> "controller:AdminCreatesGroupController" : createGroup(groupDescription, groupCreator, groupsList)
+"controller:AdminCreatesGroupController" -> "groupList1:GroupsList" : createGroup(groupDescription, groupCreator)
 create "group1:Group"
 "groupList1:GroupsList" -> "group1:Group": newGroup(groupDescription)
 "group1:Group" ->"group1:Group": addMember(groupCreator)
-"group1:Group" ->"groupList1:GroupsList": groupCreatedAndAddedToGroupsListWithOneAdminstrator
-"groupList1:GroupsList" -> ":Controller": groupCreatedAndAddedToGroupsListWithOneAdminstrator
-":Controller" -> ":Test": groupCreatedAndAddedToGroupsListWithOneAdminstrator
+"group1:Group" -->"groupList1:GroupsList": wasGroupCreated
+"groupList1:GroupsList" --> "controller:AdminCreatesGroupController": wasGroupCreated
+"controller:AdminCreatesGroupController" --> ":Test": wasGroupCreated
+
+":Test" -> "controller:AdminCreatesGroupController" : checkIfAPersonIsAdminInAGivenGroup(groupDescription, person)
+"controller:AdminCreatesGroupController" -> "groupList1:GroupsList" : checkIfAPersonIsAdminInAGivenGroup(groupDescription, person)
+"groupList1:GroupsList" -> "group1:Group" : isGroupAdmin(person)
+"group1:Group" -->"groupList1:GroupsList": ifIsAdmin
+"groupList1:GroupsList" --> "controller:AdminCreatesGroupController": ifIsAdmin
+"controller:AdminCreatesGroupController" --> ":Test": ifIsAdmin
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(groupCreatedAndAddedToGroupsListWithOneAdminstrator)
+":Test" -> ":Test" : assertTrue(wasGroupCreated && ifIsAdmin)
 
 @enduml
