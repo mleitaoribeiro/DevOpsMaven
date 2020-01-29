@@ -24,8 +24,7 @@ public class Ledger {
 
     @Override
     public String toString() {
-        return "Ledger:" + ledgerTransactions +
-                ".";
+        return "Ledger:" + ledgerTransactions + ".";
     }
 
     /**
@@ -65,7 +64,9 @@ public class Ledger {
 
     public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
-        return ledgerTransactions.add(transaction);
+            boolean transactionAdded = ledgerTransactions.add(transaction);
+            sortLedgerByTransactionDateDescending();
+            return transactionAdded;
     }
 
     /**
@@ -95,8 +96,6 @@ public class Ledger {
      */
 
     public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-
-        sortLedgerByTransactionDateAscending();
 
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");

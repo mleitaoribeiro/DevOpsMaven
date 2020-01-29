@@ -9,16 +9,10 @@ create "groupTransaction:MemberCreatesGroupTransactionController"
 ":Test" -> "groupTransaction:MemberCreatesGroupTransactionController" : new MemberCreatesGroupTransactionController
 
 participant "group1:Group"
+participant "ledger:Ledger"
 participant "catList: CategoryList"
 participant "acList:AccountsList"
-
-create "ledger:Ledger"
-":Test" -> "ledger:Ledger" : new Ledger()
-activate "ledger:Ledger" #FFBBBB
-
-create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
-deactivate "ledger:Ledger" #FFBBBB
+participant "amount:MonetaryValue"
 
 == Act ==
 

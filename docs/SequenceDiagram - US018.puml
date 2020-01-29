@@ -11,9 +11,7 @@ create "balanceController:MemberGetsBalanceInDateRangeController"
 
 participant "group1:Group"
 
-create "ledger:Ledger"
-":Test" -> "ledger:Ledger" : new Ledger()
-activate "ledger:Ledger" #FFBBBB
+participant "ledger:Ledger"
 
 create "transaction:Transaction"
 "ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
