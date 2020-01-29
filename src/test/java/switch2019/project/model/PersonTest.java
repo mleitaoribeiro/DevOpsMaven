@@ -1729,4 +1729,35 @@ class PersonTest {
         //Assert
         assertTrue(result && person.ledgerSize() == 4);
     }
+
+    /**
+     * test for creating transaction with size of Ledger
+     */
+    
+    @Test
+    @DisplayName("Test for validating add a new transaction")
+    void addTransactionToLedgerChangeSize() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        person.createAccount("mercearia", "mercearia Continente");
+        person.createAccount("transporte", "transporte Metro");
+        person.createCategoryAndAddToCategoryList("grocery");
+        Category category = new Category("grocery");
+        boolean type = true;
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Ledger ledger = new Ledger();
+
+        //Act
+        int sizeBefore = ledger.getLedgerSize();
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        int sizeAfter = ledger.getLedgerSize();
+
+        //Assert
+        assertEquals(sizeBefore+3, sizeAfter);
+    }
 }
