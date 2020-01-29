@@ -143,7 +143,7 @@ class CategoryTest {
 
     @Test
     @DisplayName("Verfiy if two categories are the same - same object")
-    void twoCategoriesAreEqualsSame () {
+    void twoCategoriesAreEqualsSame() {
         //Arrange
         Category categoryDescription = new Category("Health");
 
