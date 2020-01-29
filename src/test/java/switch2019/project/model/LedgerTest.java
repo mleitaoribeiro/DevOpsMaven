@@ -885,10 +885,11 @@ class LedgerTest {
         boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
+        
+        //Act
         int sizeBefore = ledger.getLedgerSize();
         ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
         int sizeAfter = ledger.getLedgerSize();
-        //Act
 
         //Assert
         assertEquals(sizeBefore+1, sizeAfter);
