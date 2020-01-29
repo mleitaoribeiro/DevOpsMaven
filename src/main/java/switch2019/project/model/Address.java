@@ -45,7 +45,13 @@ public class Address {
         return this.city;
     }
 
-    //Auxiliar method to check if String is numeric
+    /**
+     * Auxiliar method to check if String is numeric
+     *
+     * @param city
+     * @return
+     */
+
     public static boolean isNumeric(String city) {
         if (city != null) {
             for (char c : city.toCharArray()) {
@@ -127,11 +133,12 @@ public class Address {
 
     /**
      * Auxiliary method to Validate if the zip code is in the correct format (4620-580) - Validation for PT users
+     *
      * @param zip
      * @return
      */
 
-    private boolean validateIfZipCodeIsInCorrectFormate (String zip) {
+    private boolean validateIfZipCodeIsInCorrectFormate(String zip) {
         String regex = "^[0-9]{4}-[0-9]{3}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(zip);
@@ -140,12 +147,13 @@ public class Address {
 
     /**
      * Auxiliary method to Add '-' in case user forget to add it
+     *
      * @param zip
      * @return
      */
 
     private static String addHyphenToZipCode(String zip) {
-            return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
+        return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
     }
 
     /**
@@ -167,6 +175,7 @@ public class Address {
 
     /**
      * Override method hashcode
+     *
      * @return
      */
 
@@ -176,20 +185,22 @@ public class Address {
     }
 
     /**
-     *  Return homeAdress as a String
+     * Return homeAdress as a String
+     *
      * @return String
      */
 
     public String homeAddressToString() {
-        return street + ", " + city +  ", " + zipCode;
+        return street + ", " + city + ", " + zipCode;
     }
 
     /**
      * Return birthPlace as a String
+     *
      * @return String
      */
 
-    public String birthplaceToString(){
+    public String birthplaceToString() {
         return birthPlace;
     }
 }

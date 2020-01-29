@@ -14,6 +14,7 @@ public class Account {
 
     /**
      * Constructor of Account
+     *
      * @param accountDenomination
      * @param accountDescription
      */
@@ -26,6 +27,7 @@ public class Account {
 
     /**
      * override equals method of Acccount object
+     *
      * @param o
      * @return
      */
@@ -40,6 +42,7 @@ public class Account {
 
     /**
      * override hascode of Account object
+     *
      * @return
      */
 
@@ -54,11 +57,12 @@ public class Account {
 
     @Override
     public String toString() {
-        return denomination + ", "+ description + ", " + balance + "€";
+        return denomination + ", " + description + ", " + balance + "€";
     }
 
     /**
      * Public get for denomination
+     *
      * @return denomination
      */
 
@@ -86,6 +90,7 @@ public class Account {
 
     /**
      * Auxiliary method to remove special Characters
+     *
      * @param sentence
      * @return
      */
@@ -104,6 +109,7 @@ public class Account {
 
     /**
      * Auxiliary method to remove word accents
+     *
      * @param sentence
      * @return sentence
      */
@@ -118,6 +124,7 @@ public class Account {
 
     /**
      * Public get for description
+     *
      * @return descritpion
      */
 

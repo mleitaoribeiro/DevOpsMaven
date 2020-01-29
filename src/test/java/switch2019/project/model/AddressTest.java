@@ -178,7 +178,7 @@ class AddressTest {
     @DisplayName("validate input for ZIP-CODE - without (-) ")
     public void setZIPNotStandard() {
         //Arrange
-        Address address1= new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
+        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
         String zip = "4430-094";
 
         //Act
@@ -461,6 +461,40 @@ class AddressTest {
 
         //Assert
         assertEquals(expected,real);
+    }
+
+    @Test
+    @DisplayName("homeAdressToString tested - Success")
+    void homeAddressToStringTest() {
+
+        //Arrange:
+        Address addressOne = new Address("Rua das Flores", "Porto", "4430-098");
+
+        //Act:
+        String homeAddressInString = addressOne.homeAddressToString();
+        String expected = "RUA DAS FLORES, PORTO, 4430-098";
+
+        //Assert:
+        assertEquals(expected, homeAddressInString);
+    }
+
+    /**
+     * Test to check if birtplaceToString converts a birthplace into a String.
+     */
+
+    @Test
+    @DisplayName("birthplaceToString tested - Success")
+    void birthplaceToStringTest() {
+
+        //Arrange:
+        Address addressOne = new Address("Porto");
+
+        //Act:
+        String birthplaceInString = addressOne.birthplaceToString();
+        String expected = "Porto";
+
+        //Assert:
+        assertEquals(expected, birthplaceInString);
     }
 
 

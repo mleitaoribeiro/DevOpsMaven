@@ -92,7 +92,7 @@ class AccountTest {
     public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
-        Person onePerson = new Person("Alexandre", LocalDate.of(1994,02,10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
+        Person onePerson = new Person("Alexandre", LocalDate.of(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
 
         //Act
         boolean result = oneAccount.equals(onePerson);
@@ -161,6 +161,7 @@ class AccountTest {
             assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
         }
     }
+
     @Test
     @DisplayName("Test set function for denomination - remove word accents")
     void setDenominationToRemoveAccents() {
@@ -184,11 +185,12 @@ class AccountTest {
         //Assert
         assertEquals(expected, football.denominationToString());
     }
+
     @Test
     @DisplayName("Test set function for denomination - Empty")
     void setDenominationEmpty() {
         //Arrange
-        Account butcher = new Account ("Butcher","Talho do Amadeu");
+        Account butcher = new Account("Butcher", "Talho do Amadeu");
         String newDenomination = "";
         try {
             //Act
@@ -209,7 +211,7 @@ class AccountTest {
     @DisplayName("Test set function for description")
     void setDescription() {
         //Arrange
-        Account oneAccount = new Account ("xpto","account 1");
+        Account oneAccount = new Account("xpto", "account 1");
         String expected = "MILU";
         //Act
         oneAccount.setDescription(expected);
@@ -221,7 +223,7 @@ class AccountTest {
     @DisplayName("Test set function for description - null")
     void setDescriptionNull() {
         //Arrange
-        Account oneAccount = new Account ("xpto","xpto account");
+        Account oneAccount = new Account("xpto", "xpto account");
         String expected = null;
         try {
             //Act
@@ -238,7 +240,7 @@ class AccountTest {
     @DisplayName("Test set function for description - Empty")
     void setDescriptionEmpty() {
         //Arrange
-        Account oneAccount = new Account ("xpto","xpto account");
+        Account oneAccount = new Account("xpto", "xpto account");
         String newDescription = "";
         try {
             //Act
@@ -261,7 +263,7 @@ class AccountTest {
 
         //Arrange & Act
         try {
-            Account oneAccount = new Account (null,"xpto Account");
+            Account oneAccount = new Account(null, "xpto Account");
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -275,7 +277,7 @@ class AccountTest {
 
         //Arrange & Act
         try {
-            Account oneAccount = new Account ("xpto",null);
+            Account oneAccount = new Account("xpto", null);
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -288,14 +290,14 @@ class AccountTest {
     void descriptionConstructor() {
 
         //Arrange
-            Account oneAccount = new Account ("xpto","xyz");
-            String expected = "xyz";
+        Account oneAccount = new Account("xpto", "xyz");
+        String expected = "xyz";
 
         //Act
-            String real = oneAccount.getDescription();
+        String real = oneAccount.getDescription();
 
         //Assert
-            assertEquals(expected, real);
+        assertEquals(expected, real);
     }
 
 }
