@@ -12,21 +12,32 @@ create "groupList1:GroupsList"
 == Act ==
 
 ":Test" -> "controller:AdminCreatesGroupController" : createGroup(groupDescription, groupCreator, groupsList)
+activate "controller:AdminCreatesGroupController" #FFBBBB
 "controller:AdminCreatesGroupController" -> "groupList1:GroupsList" : createGroup(groupDescription, groupCreator)
 create "group1:Group"
+activate "groupList1:GroupsList" #FFBBBB
 "groupList1:GroupsList" -> "group1:Group": newGroup(groupDescription)
+activate "group1:Group" #FFBBBB
 "group1:Group" ->"group1:Group": addMember(groupCreator)
 "group1:Group" -->"groupList1:GroupsList": wasGroupCreated
+deactivate "group1:Group" #FFBBBB
 "groupList1:GroupsList" --> "controller:AdminCreatesGroupController": wasGroupCreated
+deactivate "groupList1:GroupsList" #FFBBBB
 "controller:AdminCreatesGroupController" --> ":Test": wasGroupCreated
+deactivate "controller:AdminCreatesGroupController" #FFBBBB
 
 ":Test" -> "controller:AdminCreatesGroupController" : checkIfAPersonIsAdminInAGivenGroup(groupDescription, person)
+activate "controller:AdminCreatesGroupController" #FFBBBB
 "controller:AdminCreatesGroupController" -> "groupList1:GroupsList" : checkIfAPersonIsAdminInAGivenGroup(groupDescription, person)
+activate "groupList1:GroupsList" #FFBBBB
 "groupList1:GroupsList" -> "group1:Group" : isGroupAdmin(person)
+activate "group1:Group" #FFBBBB
 "group1:Group" -->"groupList1:GroupsList": ifIsAdmin
+deactivate "group1:Group" #FFBBBB
 "groupList1:GroupsList" --> "controller:AdminCreatesGroupController": ifIsAdmin
+deactivate "groupList1:GroupsList" #FFBBBB
 "controller:AdminCreatesGroupController" --> ":Test": ifIsAdmin
-
+deactivate "controller:AdminCreatesGroupController" #FFBBBB
 == Assert ==
 
 ":Test" -> ":Test" : assertTrue(wasGroupCreated && ifIsAdmin)
