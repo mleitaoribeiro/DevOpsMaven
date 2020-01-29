@@ -1980,6 +1980,7 @@ class PersonTest {
     @Test
     @DisplayName("Obtain movements from an account - same day")
     void obtainMovementsFromAnAccountSameDay() {
+
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
