@@ -102,9 +102,12 @@ public class Person {
      */
 
     public void setBirthDate(LocalDate birthDate) {
-        if (birthDate.isAfter(LocalDate.now())) {
+        if(birthDate == null)
+            throw new IllegalArgumentException(("Birth Date Can't be Null."));
+        else if (birthDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Birth Date Not Supported.");
-        } else this.birthDate = birthDate;
+        }
+        else this.birthDate = birthDate;
     }
 
     /**
