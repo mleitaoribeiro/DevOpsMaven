@@ -445,5 +445,24 @@ class AddressTest {
         assertNotEquals(address1.hashCode(), address2.hashCode());
     }
 
+    /**
+     * Test for the constructor of the birthPlace
+     */
+    @Test
+    @DisplayName("Test for the constructor of the birthPlace")
+    public void testForTheConstructorOfTheBirthPlace() {
+
+        //Arrange
+        Address birthPlace = new Address("Matosinhos");
+        String expected="Matosinhos";
+
+        //Act
+        String real=birthPlace.birthplaceToString();
+
+        //Assert
+        assertEquals(expected,real);
+    }
+
+
 
 }
