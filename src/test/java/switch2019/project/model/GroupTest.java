@@ -1835,8 +1835,8 @@ class GroupTest {
      */
 
     @Test
-    @DisplayName("Verify if multiple transactions are inside the GroupLedger")
-    void areMultipleTransactionsInsideTheGroupLedgerTest1() {
+    @DisplayName("Verify if multiple transactions are inside the GroupLedger - Happy Case")
+    void areMultipleTransactionsInsideTheGroupLedgerTrue() {
         //Arrange:
         Group testGroup = new Group("test group");
 
@@ -1911,6 +1911,43 @@ class GroupTest {
         catch (IllegalArgumentException nullTransaction) {
             assertEquals("One (or more) of the transactions is null.",nullTransaction.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("Verify if multiple transactions are inside the GroupLedger")
+    void areMultipleTransactionsInsideTheGroupLedgerTest1() {
+        //Arrange:
+        Group testGroup = new Group("test group");
+
+        //Transactions arrangement:
+        MonetaryValue monetaryValue1 = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
+
+        Category category1 = new Category("grocery");
+
+        Account account1 = new Account("groceries", "mercearia Continente");
+        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+
+        //Transactions added to Group Ledger:
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+
+        //Transactions to check:
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+
+        Set transactionsToCheck = new HashSet<Transaction>();
+        transactionsToCheck.add(testTransaction1);
+        transactionsToCheck.add(testTransaction2);
+        transactionsToCheck.add(testTransaction3);
+
+        //Act:
+        boolean result = testGroup.areMultipleTransactionsInsideTheGroupLedger(transactionsToCheck);
+
+        //Assert:
+        assertFalse(result);
     }
 
     /**
