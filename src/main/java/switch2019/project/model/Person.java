@@ -18,7 +18,7 @@ public class Person {
     private CategoryList categoryList;
     private AccountsList accountsList;
     private Ledger ledger;
-    private ListOfScheduledTasks listOfScheduledTasks;
+    private ScheduledTasksList scheduledTasksList;
 
     /**
      * Default Person constructor
@@ -38,7 +38,7 @@ public class Person {
         accountsList = new AccountsList();
         ledger = new Ledger();
         address = homeAddress;
-        listOfScheduledTasks = new ListOfScheduledTasks();
+        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
