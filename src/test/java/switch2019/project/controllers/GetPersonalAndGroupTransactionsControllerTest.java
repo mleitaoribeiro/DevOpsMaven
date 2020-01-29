@@ -87,14 +87,14 @@ class GetPersonalAndGroupTransactionsControllerTest {
         groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2019, 12, 25, 12, 15),
                 categoryFriends, accountCombustivel, accountGato, typeDebit);
-        groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue200, "payment",
+        groupsList.createTransactionOnSpecificGroup("SPICE GIRLS", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountGato, accountDinner, typeCredit);
         groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2020, 1, 2, 12, 15),
                 categoryFriends, accountDinner, accountCombustivel, typeDebit);
 
-        groupsList.createTransactionOnSpecificGroup("work", monetaryValue200, "payment",
+        groupsList.createTransactionOnSpecificGroup("WORK", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountSweets, accountFruta, typeCredit);
         groupsList.createTransactionOnSpecificGroup("work", monetaryValue30, "payment",
