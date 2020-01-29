@@ -871,7 +871,7 @@ class LedgerTest {
         //Act
         double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
 
-
+        // Assert
         assertEquals(0, personalBalanceInDateRange);
     }
 
@@ -926,7 +926,49 @@ class LedgerTest {
 
     }
 
+    @Test
+    @DisplayName("Get the Ledger Size")
+    void getLedgerSize() {
 
+        //Arrange
+        Ledger ledger = new Ledger();
 
+        //Transactions
+        ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        //Act
+        int ledgerSize = ledger.getLedgerSize();
+
+        // Assert
+        assertEquals(3, ledgerSize);
+    }
+
+    @Test
+    @DisplayName("Get the Ledger Size - Empty")
+    void getLedgerSizeEmpty() {
+
+        //Arrange
+        Ledger ledger = new Ledger();
+
+        //Act
+        int ledgerSize = ledger.getLedgerSize();
+
+        // Assert
+        assertEquals(0, ledgerSize);
+    }
 
 }
