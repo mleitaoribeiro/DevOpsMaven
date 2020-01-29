@@ -21,6 +21,8 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
     void getLedgerTransactionsInPeriod() {
 
         //Arrange
+        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
@@ -51,8 +53,6 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
         oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
 
-        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
-
         //Expected Transactions
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
@@ -71,6 +71,8 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
     void getLedgerTransactionsInPeriodEmptyLedger() {
 
         //Arrange
+        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
@@ -80,7 +82,7 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
 
         List<Transaction> expected = new ArrayList<>();
 
-        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
 
         //Act
         List<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
@@ -94,6 +96,8 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
     void getLedgerTransactionsInPeriodSameDay() {
 
         //Arrange
+        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
@@ -123,7 +127,6 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
         oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
 
-        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
 
         //Expected Transactions
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
