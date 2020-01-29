@@ -1693,7 +1693,7 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1000);
+        Thread.sleep(2400); // 250 x 10 = 2500
 
         //Assert
         assertTrue(result && person.ledgerSize() == 10);
@@ -1720,10 +1720,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1600);
+        Thread.sleep(1900); // 500 x 4 = 2000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 8);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 
     @Test
@@ -1746,10 +1746,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1500);
+        Thread.sleep(2900); // 750 x 4 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 5);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 
 
@@ -1773,10 +1773,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1600);
+        Thread.sleep(2900); // 1000 x 3 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 4);
+        assertTrue(result && person.ledgerSize() == 3);
     }
 
     @Test
@@ -1928,6 +1928,53 @@ class PersonTest {
         boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
 
         assertTrue(realResult);
+    }
+
+    /**
+     * US010 Como utilizador, quero obter os movimentos de determinada conta num dado período.
+     */
+
+    @Test
+    @DisplayName("Obtain movements from an account - case of success")
+    void obtainMovementsFromAnAccount() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        List<Transaction> listOfTransactions = person.getOneAccountMovementsFromUser(account5, date1, date2);
+
+
+        //Assert
+        assertEquals(expectedTransactions,listOfTransactions);
     }
 
 

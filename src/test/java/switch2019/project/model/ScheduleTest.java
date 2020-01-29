@@ -31,7 +31,7 @@ class ScheduleTest {
         int x = oneSchedule.convertKeyWordIntoMilliseconds("daily");
 
         //Assert
-        assertEquals(100, x);
+        assertEquals(250, x);
     }
 
     @Test
@@ -50,7 +50,7 @@ class ScheduleTest {
         int x = oneSchedule.convertKeyWordIntoMilliseconds("weekly");
 
         //Assert
-        assertEquals(300, x);
+        assertEquals(750, x);
     }
 
     @Test
@@ -69,7 +69,7 @@ class ScheduleTest {
         int x = oneSchedule.convertKeyWordIntoMilliseconds("working days");
 
         //Assert
-        assertEquals(200, x);
+        assertEquals(500, x);
     }
 
     @Test
@@ -88,7 +88,7 @@ class ScheduleTest {
         int x = oneSchedule.convertKeyWordIntoMilliseconds("monthly");
 
         //Assert
-        assertEquals(400, x);
+        assertEquals(1000, x);
     }
 
     @Test
