@@ -408,6 +408,71 @@ class GroupsListTest {
     }
 
     @Test
+    @DisplayName("Create Transaction group description isn't contained in GroupList and person is a member")
+    void testIfAGroupThatIsNotInTheListCanCreateTransaction() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("JUST4FUN", person);
+        try {
+            //Act
+            groupsList.createTransactionOnSpecificGroup(person, "Tarzan", amount, description,
+                    LocalDateTime.of(1995,12,4,00,00), category, from, to, false);
+
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("There're no groups found with that description.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Trying to create transaction that member is not contained. ")
+    void testIfATransactionCanBeCreatedIfMemberIsNotMember() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        Person person1 = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("JUST4FUN", person);
+        try {
+            //Act
+            groupsList.createTransactionOnSpecificGroup(person1, "Tarzan", amount, description,
+                    LocalDateTime.of(1995,12,4,00,00), category, from, to, false);
+
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("There're no groups found with that description.", result.getMessage());
+        }
+    }
+
+    @Test
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
@@ -558,6 +623,39 @@ class GroupsListTest {
         //Assert
         catch (IllegalArgumentException result) {
             assertEquals("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("In case there're no groups found with that description.")
+    void scheduleNewTransactionWithGroupThatDoesNotExistsInGroupList() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("JUST4FUN", person);
+
+        try {
+            //Act
+            groupsList.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
+                    amount, description, null, category, from, to, type);
+
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("There're no groups found with that description.", result.getMessage());
         }
     }
 }

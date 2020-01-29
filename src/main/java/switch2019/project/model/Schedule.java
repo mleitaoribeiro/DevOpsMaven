@@ -12,9 +12,9 @@ public class Schedule {
                                Category category, Account accountFrom, Account accountTo, boolean type) {
         int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
         Timer timer = new Timer();
-        PersonalTransactionTask scheduledPersonalTransactionTask = new PersonalTransactionTask(person, amount,
+        TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
                                                         description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledPersonalTransactionTask, 0, periodicity);
+        timer.schedule(scheduledTransactionTask, 0, periodicity);
     }
 
     /*
@@ -25,7 +25,7 @@ public class Schedule {
                     Category category, Account accountFrom, Account accountTo, boolean type) {
         int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
         Timer timer = new Timer();
-        GroupTransactionTask scheduledGroupTransactionTask = new GroupTransactionTask(group, amount,
+        TransactionTask scheduledGroupTransactionTask = new TransactionTask(group, amount,
                                                         description, date, category, accountFrom, accountTo, type);
         timer.schedule(scheduledGroupTransactionTask, 0, periodicity);
     }
