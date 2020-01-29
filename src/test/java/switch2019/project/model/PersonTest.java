@@ -1677,10 +1677,6 @@ class PersonTest {
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
-        Person dad = new Person("Carlos", LocalDate.of(1980,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
-        Person mom = new Person("Manuela", LocalDate.of(1980,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995,12,13),
                 new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
@@ -1697,7 +1693,7 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1010);
+        Thread.sleep(1000);
 
         //Assert
         assertTrue(result && person.ledgerSize() == 10);
@@ -1728,9 +1724,9 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(2010);
+        Thread.sleep(1600);
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 5);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 }

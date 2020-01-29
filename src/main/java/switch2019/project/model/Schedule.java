@@ -5,9 +5,6 @@ import java.util.Timer;
 
 public class Schedule {
 
-    // Schedule private attribute
-    private int periodicity;
-
     /**
      * Schedule Constructor
      */
