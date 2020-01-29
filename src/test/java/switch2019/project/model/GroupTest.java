@@ -1932,7 +1932,7 @@ class GroupTest {
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
         testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
-        
+
         //Transactions to check:
         Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
         Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
