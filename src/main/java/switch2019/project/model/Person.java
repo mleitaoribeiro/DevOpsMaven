@@ -406,6 +406,10 @@ public class Person {
                                                         category, accountFrom, accountTo, type);
         else return false;
     }
+
+    public int ledgerSize() {
+        return ledger.getLedgerSize();
+    }
 }
 
 
