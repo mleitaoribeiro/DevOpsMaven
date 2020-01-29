@@ -399,12 +399,14 @@ public class Person {
 
     public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                           Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (!accountFrom.equals(accountTo))
-            return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
-                    category, accountFrom, accountTo, type);
-        else return false;
+        return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
+                category, accountFrom, accountTo, type);
     }
 
+    /**
+     * Develop method to return the ledger size
+     * @return ledger size
+     */
     public int ledgerSize() {
         return ledger.getLedgerSize();
     }
