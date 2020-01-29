@@ -243,8 +243,7 @@ class GetPersonalAndGroupTransactionsControllerTest {
                 LocalDateTime.of(2020, 1, 15, 10, 07),
                 categoryFriends, accountTransporte, accountCinema, typeDebit);
 
-        ArrayList<Transaction> expectedTransaction = new ArrayList<Transaction>(Arrays.asList(transaction1, transaction2,
-                transaction3, transaction4, transaction5, transaction6));
+        ArrayList<Transaction> expectedTransaction = new ArrayList<>(Collections.emptyList());
 
         GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
 
@@ -254,7 +253,7 @@ class GetPersonalAndGroupTransactionsControllerTest {
                         LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
 
         // Arrange ___________________________________________________________________________________________________
-        assertNotEquals(expectedTransaction, selectedTransactions);
+        assertEquals(expectedTransaction, selectedTransactions);
     }
 
 
