@@ -18,6 +18,7 @@ public class Person {
     private CategoryList categoryList;
     private AccountsList accountsList;
     private Ledger ledger;
+    private ScheduledTasksList scheduledTasksList;
 
     /**
      * Default Person constructor
@@ -37,6 +38,7 @@ public class Person {
         accountsList = new AccountsList();
         ledger = new Ledger();
         address = homeAddress;
+        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**

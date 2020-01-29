@@ -18,16 +18,16 @@ public class GetPersonalAndGroupTransactionsController {
      */
 
     public ArrayList<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
-        ArrayList<Transaction> personalAndGroupTransactions = new ArrayList<>();
+        ArrayList<Transaction> selectedTransactions = new ArrayList<>();
 
         // add all the personal movements
-        personalAndGroupTransactions.addAll(person.returnPersonLedgerInDateRange(initialDate, finalDate));
+        selectedTransactions.addAll(person.returnPersonLedgerInDateRange(initialDate, finalDate));
 
         // add all the group movements
-        personalAndGroupTransactions.addAll(groupsList.returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate));
+        selectedTransactions.addAll(groupsList.returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate));
 
         // sort the movements by date and return
-        personalAndGroupTransactions.sort(Comparator.comparing(Transaction::getDate));
-        return personalAndGroupTransactions;
+        selectedTransactions.sort(Comparator.comparing(Transaction::getDate));
+        return selectedTransactions;
     }
 }
