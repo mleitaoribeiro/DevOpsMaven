@@ -69,11 +69,11 @@ public class Ledger {
     }
 
     /**
-     *  Sort Ledger Transactions By Transaction Date in Ascending Order
+     * Sort Ledger Transactions By Transaction Date in Ascending Order
      */
 
     public void sortLedgerByTransactionDateAscending() {
-        List <Transaction> newLedger = ledgerTransactions;
+        List<Transaction> newLedger = ledgerTransactions;
         newLedger.sort(Comparator.comparing(Transaction::getDate));
     }
 
@@ -81,8 +81,8 @@ public class Ledger {
      * Sort Ledger Transactions By Transaction Date in Descending Order
      */
 
-    public void sortLedgerByTransactionDateDescending () {
-        List <Transaction> newLedger = ledgerTransactions;
+    public void sortLedgerByTransactionDateDescending() {
+        List<Transaction> newLedger = ledgerTransactions;
         newLedger.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
     }
 
@@ -123,6 +123,23 @@ public class Ledger {
 
 
     /**
+     * Method to get the movements from a specific account
+     *
+     * @param account1
+     * @param listOfTransactions
+     */
+    public List<Transaction> getMovementsFromOneAccount(Account account1, List<Transaction> listOfTransactions) {
+        List<Transaction> listOfTransactionsFromOneAccount = new ArrayList<>();
+        for (Transaction transaction : listOfTransactions) {
+            if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
+                listOfTransactionsFromOneAccount.add(transaction);
+            }
+        }
+        return listOfTransactionsFromOneAccount;
+    }
+
+
+    /**
      * US017/18 - Get the balance of the transactions given a specific date range
      *
      * @param initialDate
@@ -137,10 +154,10 @@ public class Ledger {
         else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
             throw new IllegalArgumentException("One of the submitted dates is not valid.");
 
-        else if(ledgerTransactions.isEmpty())
+        else if (ledgerTransactions.isEmpty())
             throw new IllegalArgumentException("The ledger is Empty.");
 
-        //Validate if Date is in the correct order
+            //Validate if Date is in the correct order
         else if (initialDate.isAfter(finalDate)) {
             LocalDateTime aux = initialDate;
             initialDate = finalDate;
@@ -156,14 +173,15 @@ public class Ledger {
                 }
             }
         }
-        return (double)Math.round(balance*1000)/1000; // balance rounded to three decimal places
+        return (double) Math.round(balance * 1000) / 1000; // balance rounded to three decimal places
     }
+
     /**
      * Get the size of the legder
-     *
+     * <p>
      * return int legderSize
      */
-    public int getLedgerSize(){
+    public int getLedgerSize() {
         return this.ledgerTransactions.size();
     }
 }

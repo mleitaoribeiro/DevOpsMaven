@@ -317,22 +317,6 @@ public class Group {
 
 
     /**
-     *  Method to get the movements from a specific account
-     * @param account1
-     * @param listOfTransactions
-     *
-     */
-    public List<Transaction> getMovementsFromOneAccount(Account account1, List<Transaction> listOfTransactions) {
-        List<Transaction> listOfTransactionsFromOneAccount = new ArrayList<>();
-        for (Transaction transaction : listOfTransactions) {
-            if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
-                listOfTransactionsFromOneAccount.add(transaction);
-            }
-        }
-        return listOfTransactionsFromOneAccount;
-    }
-
-    /**
      * Get the group's ledger movements in a given period from specific account (US010)
      *
      * @param account1
@@ -341,10 +325,9 @@ public class Group {
      * @param person1
      */
     public List<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
-
         if (this.isGroupMember(person1)) {
-            List<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-            List<Transaction> listOfTransactionsOfThatAccount = getMovementsFromOneAccount(account1, listOfTransactions);
+            List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+            List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
             return listOfTransactionsOfThatAccount;
         } else
             throw new IllegalArgumentException("You don't have access to that account.");
