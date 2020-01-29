@@ -1693,7 +1693,7 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1000);
+        Thread.sleep(2400); // 250 x 10 = 2500
 
         //Assert
         assertTrue(result && person.ledgerSize() == 10);
@@ -1720,10 +1720,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1600);
+        Thread.sleep(1900); // 500 x 4 = 2000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 8);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 
     @Test
@@ -1746,10 +1746,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1500);
+        Thread.sleep(2900); // 750 x 4 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 5);
+        assertTrue(result && person.ledgerSize() == 4);
     }
 
 
@@ -1773,10 +1773,10 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1600);
+        Thread.sleep(2900); // 1000 x 3 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 4);
+        assertTrue(result && person.ledgerSize() == 3);
     }
 
     @Test
