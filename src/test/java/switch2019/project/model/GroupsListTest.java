@@ -365,48 +365,199 @@ class GroupsListTest {
     void createTransactionOnSpecificGroup() {
         // Arrange ____________________________________________________________________________________________________
 
-            // Person:
-            Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
-                    new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        // Person:
+        Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
 
-            //Categories:
+        //Categories:
 
-            person.createCategoryAndAddToCategoryList("grocery");
-            Category categoryFriends = new Category("friends");
-            person.createCategoryAndAddToCategoryList("friends");
+        person.createCategoryAndAddToCategoryList("grocery");
+        Category categoryFriends = new Category("friends");
+        person.createCategoryAndAddToCategoryList("friends");
 
-            //Type:
-            boolean typeDebit = false; // debit
+        //Type:
+        boolean typeDebit = false; // debit
 
-            //Monetary Value:
-            MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        //Monetary Value:
+        MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
 
+        // Groups:
+        GroupsList groupsList = new GroupsList();
+        Group spiceGirls = new Group("spice girls");
+        Group work = new Group("work");
+        groupsList.createGroup("spice girls", person);
+        groupsList.createGroup("work", person);
 
-            // Groups:
-            GroupsList groupsList = new GroupsList();
-            Group spiceGirls = new Group("spice girls");
-            Group work = new Group("work");
-            groupsList.createGroup("spice girls", person);
-            groupsList.createGroup("work", person);
+        // Group Accounts:
+        Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
+        spiceGirls.createGroupAccount("combustivel", "gastos de combustivél");
+        Account accountGato = new Account("comida de gato", "comida para a gatinha");
+        spiceGirls.createGroupAccount("comida de gato", "comida para a gatinha");
+        spiceGirls.createGroupAccount("dinner", "partilha de jantares");
 
-            // Group Accounts:
-            Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
-            spiceGirls.createGroupAccount("combustivel", "gastos de combustivél");
-            Account accountGato = new Account("comida de gato", "comida para a gatinha");
-            spiceGirls.createGroupAccount("comida de gato", "comida para a gatinha");
-            spiceGirls.createGroupAccount("dinner", "partilha de jantares");
+        work.createGroupAccount("comida de gato", "comida para a gatinha");
+        work.createGroupAccount("dinner", "partilha de jantares");
 
+        //Act
+        boolean result = groupsList.createTransactionOnSpecificGroup(person, "spice girls",
+                monetaryValue100, "payment", LocalDateTime.of(2019, 12, 25, 12, 15),
+                categoryFriends, accountCombustivel, accountGato, typeDebit);
 
-            work.createGroupAccount("comida de gato", "comida para a gatinha");
-            work.createGroupAccount("dinner", "partilha de jantares");
-
-            //Act
-            boolean result = groupsList.createTransactionOnSpecificGroup("spice girls", monetaryValue100, "payment",
-                    LocalDateTime.of(2019, 12, 25, 12, 15),
-                    categoryFriends, accountCombustivel, accountGato, typeDebit);
-
-            // Arrange ___________________________________________________________________________________________________
-            assertTrue(result);
-        }
-
+        // Arrange ___________________________________________________________________________________________________
+        assertTrue(result);
     }
+
+    @Test
+    void scheduleNewTransactionDaily() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("tarzan", person);
+
+        //Act
+        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "daily",
+                amount, description, null, category, from, to, type);
+
+        Thread.sleep(2400); // 250 x 10 = 2500
+
+        //Assert
+        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 10);
+    }
+
+
+    @Test
+    void scheduleNewTransactionWorkingDays() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("tarzan", person);
+
+        //Act
+        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "working days",
+                amount, description, null, category, from, to, type);
+
+        Thread.sleep(1900); // 500 x 4 = 2000
+
+        //Assert
+        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 4);
+    }
+
+    @Test
+    void scheduleNewTransactionWeekly() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("tarzan", person);
+
+        //Act
+        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "weekly",
+                amount, description, null, category, from, to, type);
+
+        Thread.sleep(2900); // 750 x 4 = 3000
+
+        //Assert
+        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 4);
+    }
+
+
+    @Test
+    void scheduleNewTransactionMonthly() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("tarzan", person);
+
+        //Act
+        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
+                amount, description, null, category, from, to, type);
+
+        Thread.sleep(2900); // 1000 x 3 = 3000
+
+        //Assert
+        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 3);
+    }
+
+    @Test
+    void scheduleNewTransactionNoMatch() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        GroupsList groupsList = new GroupsList();
+        groupsList.createGroup("tarzan", person);
+
+        try {
+            //Act
+            groupsList.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
+                    amount, description, null, category, from, to, type);
+
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.", result.getMessage());
+        }
+    }
+}
