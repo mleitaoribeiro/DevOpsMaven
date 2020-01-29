@@ -5,37 +5,40 @@ import java.util.Timer;
 
 public class Schedule {
 
-    private String description;
-    private LocalDateTime date;
-    private Transaction transaction;
-    private String periodicity;
+    // Schedule private attribute
+    private int periodicity;
 
-    public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    /**
+     * Schedule Constructor
+     */
+    public Schedule(Person person, String periodicityString, MonetaryValue amount, String description, LocalDateTime date,
                                Category category, Account accountFrom, Account accountTo, boolean type) {
-
+        convertKeyWordIntoMilliseconds(periodicityString);
         Timer timer = new Timer();
-
+        PersonalTransactionTask scheduledPersonalTransactionTask = new PersonalTransactionTask(person, amount, description, date, category, accountFrom, accountTo, type);
+        timer.schedule(scheduledPersonalTransactionTask, 0, periodicity);
     }
 
-    public Schedule scheduleATransaction(Schedule schedule) {
-        switch (schedule.periodicity) {
-            case "monthly":
-
-                break;
+    /**
+     * Method to convert key word into milliseconds
+     */
+    public void convertKeyWordIntoMilliseconds(String periodicityString) {
+        switch (periodicityString) {
             case "daily":
-
+                periodicity = 100;
                 break;
             case "dias úteis":
-
+                periodicity = 200;
                 break;
             case "semanal":
-
+                periodicity = 300;
+                break;
+            case "monthly":
+                periodicity = 400;
                 break;
             default:
                 throw new IllegalArgumentException("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.");
-
         }
-        return schedule;
     }
 
 }
