@@ -504,8 +504,29 @@ class TransactionTest {
     }
 
     @Test
-    @DisplayName("Test for validating transaction - null account")
-    void isAValidTransactionFalseNullAccount() {
+    @DisplayName("Test for validating transaction - null account1")
+    void isAValidTransactionFalseNullAccount1() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
+        Category category = new Category("grocery");
+        Account account2 = new Account("mercearia", "mercearia Continente");
+        boolean type = true;
+
+        //Act
+        try {
+            new Transaction(monetaryValue, "payment", localDateTime, category, null, account2, type);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test for validating transaction - null account2")
+    void isAValidTransactionFalseNullAccount2() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
