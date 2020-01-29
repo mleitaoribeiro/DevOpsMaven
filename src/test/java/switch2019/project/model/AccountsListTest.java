@@ -494,16 +494,16 @@ class AccountsListTest {
     void toStringOfAccountsListTest() {
 
         //Arrange:
-        Account account1 = new Account("test account 1","account for test purposes");
+        Account account1 = new Account("test account 1", "account for test purposes");
         Account account2 = new Account("test account 2", "account for test purposes");
         AccountsList testAccountsList = new AccountsList();
 
         //Act:
-        testAccountsList.createAndAddAccountToAccountsList("test account 1","account for test purposes");
-        testAccountsList.createAndAddAccountToAccountsList("test account 2","account for test purposes");
+        testAccountsList.createAndAddAccountToAccountsList("test account 1", "account for test purposes");
+        testAccountsList.createAndAddAccountToAccountsList("test account 2", "account for test purposes");
         String result = testAccountsList.toString();
 
         //Assert:
-        assertEquals("Accounts List: [TEST ACCOUNT 2, account for test purposes, 0.0€, TEST ACCOUNT 1, account for test purposes, 0.0€]",result);
+        assertEquals("Accounts List: [TEST ACCOUNT 2, account for test purposes, 0.0€, TEST ACCOUNT 1, account for test purposes, 0.0€]", result);
     }
 }
