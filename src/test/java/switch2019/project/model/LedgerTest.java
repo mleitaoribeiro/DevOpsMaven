@@ -501,7 +501,7 @@ class LedgerTest {
      */
     @DisplayName("test true")
     @Test
-    void checkIfTransactionIsInsideALedger(){
+    void checkIfTransactionIsInsideALedger() {
         //Arrange:
 
         Ledger ledgerToCheck = new Ledger();
@@ -509,9 +509,9 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category1 = new Category("grocery");
-        Transaction transaction1 = new Transaction(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
 
-        ledgerToCheck.addTransactionToLedger(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        ledgerToCheck.addTransactionToLedger(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
 
         //Act:
         boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
@@ -522,7 +522,7 @@ class LedgerTest {
 
     @DisplayName("test false")
     @Test
-    void checkIfTransactionIsInsideALedger2(){
+    void checkIfTransactionIsInsideALedger2() {
         //Arrange:
 
         Ledger ledgerToCheck = new Ledger();
@@ -533,9 +533,9 @@ class LedgerTest {
         Category category1 = new Category("grocery");
 
 
-        Transaction transaction1 = new Transaction(monetaryValue2,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        Transaction transaction1 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
 
-        ledgerToCheck.addTransactionToLedger(monetaryValue1,"payment",LocalDateTime.of(2020, 1, 14,13,05),category1,account1,account2,true);
+        ledgerToCheck.addTransactionToLedger(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
 
         //Act:
         boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
@@ -624,6 +624,61 @@ class LedgerTest {
         assertEquals(expected, ledger.getLedgerTransactions());
     }
 
+
+    @Test
+    @DisplayName("Get movements from one account")
+    void getMovementsFromOneAccount() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        Account account = new Account("Millenium", "Only for Groceries");
+
+        //Arrange-Transaction1
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+
+        //Arrange-Transaction2
+        ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("BNI", "General"),
+                new Account("Millenium", "Only for Groceries"),
+                false);
+        Transaction transaction2 = new Transaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("BNI", "General"),
+                new Account("Millenium", "Only for Groceries"),
+                false);
+
+        //Arrange-Transaction3
+        ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+        Transaction transaction3 = new Transaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction2,transaction1,transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2,transaction1));
+
+        //Act
+        List<Transaction> listOfTransactions = ledger.getMovementsFromOneAccount(account, allTransactions);
+
+        //Assert
+        assertEquals(expectedTransactions, listOfTransactions);
+    }
+
+
     /**
      * * US017/18 - Get the balance of the transactions given a specific date range
      */
@@ -637,22 +692,22 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1,00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6,00,00);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
 
         double expectedPersonalBalanceFromDateRange = -95.4;
 
@@ -671,22 +726,22 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
                 LocalDateTime.of(2020, 1, 13, 13, 05),
-                new Category("grocery"),new Account("Revolut", "For trips expenses"),
+                new Category("grocery"), new Account("Revolut", "For trips expenses"),
                 new Account("Friends & Company", "Holidays"),
                 true);
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13,23,59);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13, 23, 59);
 
         double expectedPersonalBalanceFromDateRange = 230;
 
@@ -706,22 +761,22 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00,00);
-        LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31,00,00);
+        LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
+        LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31, 00, 00);
 
         double expectedPersonalBalanceFromDateRange = -95.4;
 
@@ -739,22 +794,22 @@ class LedgerTest {
         Ledger ledger = new Ledger();
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27,00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00,00);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
 
         try {
             //Act
@@ -771,7 +826,7 @@ class LedgerTest {
     @DisplayName("Get the balance of ledger that is empty!")
     void getBalanceInDateRangeEmptyBalance() {
         //Arrange
-       Ledger ledger = new Ledger();
+        Ledger ledger = new Ledger();
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
@@ -795,22 +850,22 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
-        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27,00,00);
-        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00,00);
+        LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
 
         try {
             //Act
@@ -851,17 +906,17 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 
@@ -889,14 +944,14 @@ class LedgerTest {
         boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
-        
+
         //Act
         int sizeBefore = ledger.getLedgerSize();
         ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
         int sizeAfter = ledger.getLedgerSize();
 
         //Assert
-        assertEquals(sizeBefore+1, sizeAfter);
+        assertEquals(sizeBefore + 1, sizeAfter);
     }
 
     /**
@@ -916,7 +971,7 @@ class LedgerTest {
         LocalDateTime date = LocalDateTime.of(2019, 10, 27, 00, 00);
         ledger.addTransactionToLedger(monetaryValue, "payment", date, category, account1, account2, type);
 
-        String expected ="Ledger:[2019-10-27 00:00 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY].";
+        String expected = "Ledger:[2019-10-27 00:00 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY].";
         //Act
 
         String real = ledger.toString();
@@ -936,17 +991,17 @@ class LedgerTest {
         //Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"),new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
                 false);
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"),new Account("CGD", "Only Gas Expenses"),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
                 false);
 

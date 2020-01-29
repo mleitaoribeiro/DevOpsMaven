@@ -14,7 +14,7 @@ participant "group1:Group"
 participant "ledger:Ledger"
 
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, date, \ncategory, accountFrom, accountTo, type)
 deactivate "ledger:Ledger" #FFBBBB
 
 == Act  ==

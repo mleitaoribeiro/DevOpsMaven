@@ -1847,20 +1847,21 @@ class PersonTest {
     @Test
     @DisplayName("Test if a category was removed from the Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
+
         //Arrange
         String oneCategory = "Saude";
-        String otherCategory = "Health";
-        String otherCategoryObject = "Health";
+        String otherCategory = "Cinema";
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
-        CategoryList newCategoryList = new CategoryList();
 
         //Act
-        newCategoryList.addCategoryToCategoryList(oneCategory);
-        newCategoryList.addCategoryToCategoryList(otherCategory);
+        person.createCategoryAndAddToCategoryList(oneCategory);
+        person.createCategoryAndAddToCategoryList(otherCategory);
 
         //Remove one Category
 
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
+        boolean realResult = person.removeCategoryFromList(otherCategory);
 
         //Assert
         assertTrue(realResult);
@@ -1871,13 +1872,64 @@ class PersonTest {
     void removeCategoryFromListThatIsNotInTheList() {
 
         //Arrange:
-        CategoryList testCategoryList = new CategoryList();
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act:
-        boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema");
+        boolean isACategoryNotInListRemoved = person.removeCategoryFromList("Cinema");
 
         //Assert:
         assertFalse(isACategoryNotInListRemoved);
     }
+
+    @Test
+    @DisplayName("Add a Set of Categories to Category List - Main Scenario")
+    void addMultipleCategoriesToListMainScenario() {
+        // Arrange
+        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryUniversity = "University";
+
+        //A collection of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+
+        boolean validateIfTheSetOfCategoriesWasAdded = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+
+        //Assert
+        assertTrue(validateIfTheSetOfCategoriesWasAdded);
+    }
+
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
+    void removeMultipleCategoriesToList() {
+        // Arrange
+        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryBeauty = "Beauty";
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //set of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        newCategoryList.addMultipleCategoriesToList(setOfCategories);
+
+        //set of Categories to be removed from Categories List
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
+
+        //Act
+        //Remove the set of categories with the method under test
+        boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+
+        assertTrue(realResult);
+    }
+
+
 }
 
