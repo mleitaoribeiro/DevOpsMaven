@@ -1,32 +1,32 @@
 @startuml
+skinparam DefaultFontSize 20
+
 create ":Test"
 
+
+
 ==Arrange==
-create ":US0012Controller"
-create "group1:Group"
+create "controller:MemberGetsTheMovementsInDateRangeController"
+":Test" -> "controller:MemberGetsTheMovementsInDateRangeController" : create()
+participant "group1:Group"
+participant "ledger1:Ledger"
 
-
-create "person1:Person"
-":Test" -> "person1:Person" : create(name, birthDate, birthPlace, homeAddress, mother, father)
-
-create "ledger1:Ledger"
-"person1:Person" -> "ledger1:Ledger" : create()
 
 == Act ==
 
-":Test" -> ":US0012Controller" : ArrayListTransaction=getTransactionInDateRange(inicialDate,finalDate,person)
-activate ":US0012Controller"  #FFBBBB
+":Test" -> "controller:MemberGetsTheMovementsInDateRangeController" : ListTransaction=returnGroupLedgerFromPeriod(inicialDate,finalDate,group1,person)
+activate "controller:MemberGetsTheMovementsInDateRangeController"  #FFBBBB
 
-":US0012Controller" -> "group1:Group" : ArrayListTransaction=getTransactionInDateRange(inicialDate,finalDate)
+"controller:MemberGetsTheMovementsInDateRangeController" -> "group1:Group" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate,person)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger1:Ledger" : ArrayListTransaction=getTransactionInDateRange(inicialDate,finalDate)
+"group1:Group" -> "ledger1:Ledger" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate)
 activate "ledger1:Ledger"  #FFBBBB
 
 
 
 deactivate "group1:Group"  #FFBBBB
-deactivate ":US0012Controller"  #FFBBBB
+deactivate "controller:MemberGetsTheMovementsInDateRangeController"  #FFBBBB
 
 == Assert ==
 

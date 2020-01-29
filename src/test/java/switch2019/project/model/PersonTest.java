@@ -1678,7 +1678,12 @@ class PersonTest {
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person dad = new Person("Carlos", LocalDate.of(1980,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person mom = new Person("Manuela", LocalDate.of(1980,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1693,7 +1698,7 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
 
-        Thread.sleep(1000);
+        Thread.sleep(1010);
 
         //Assert
         assertTrue(result && person.ledgerSize() == 10);
@@ -1708,7 +1713,12 @@ class PersonTest {
     void scheduleNewTransactionMonthly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13), new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person dad = new Person("Carlos", LocalDate.of(1980,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person mom = new Person("Manuela", LocalDate.of(1980,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1723,7 +1733,7 @@ class PersonTest {
         //Act
         boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
 
-        Thread.sleep(2000);
+        Thread.sleep(2010);
 
         //Assert
         assertTrue(result && person.ledgerSize() == 5);
