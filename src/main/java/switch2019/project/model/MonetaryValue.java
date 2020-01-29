@@ -34,7 +34,7 @@ public class MonetaryValue {
         return amount + " " + currency;
     }
 
-     /**
+    /**
      * Get Amount
      */
     public double getAmount() {

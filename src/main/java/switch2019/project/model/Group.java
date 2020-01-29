@@ -374,6 +374,24 @@ public class Group {
     }
 
     /**
+     * Method used to check if multiple transactions are inside a groupLedger
+     * @param transactionsToVerify
+     * @return
+     */
+    public boolean areMultipleTransactionsInsideTheGroupLedger (Set<Transaction> transactionsToVerify) {
+        for (Transaction transaction : transactionsToVerify){
+            if (transaction == null){
+                throw new IllegalArgumentException("One (or more) of the transactions is null.");
+            }
+            else if (!this.ledger.isTransactionInLedger(transaction)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
      * Method used to get group description
      *
      * @return description
