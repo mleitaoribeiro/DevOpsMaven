@@ -1,0 +1,49 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+create ":Test"
+
+==Arrange==
+
+create ":GetTheMovementsOfAnAccountInDateRangeController"
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : new
+
+participant "person1:Person"
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":GetTheMovementsOfAnAccountInDateRangeController" -> "person1:Person" : createTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate "person1:Person" #FFBBBB
+
+participant "trans:Transaction"
+participant "ledger:Ledger"
+"person1:Person" -> "trans:Transaction" : new
+"person1:Person" -> "ledger:Ledger" : addTransactionToLedger\n(amount, description, date, category, accountFrom, accountTo, type)
+deactivate "person1:Person" #FFBBBB
+deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+
+== Act ==
+
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate, person1)
+activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":GetTheMovementsOfAnAccountInDateRangeController" -> "person1:Person" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate)
+activate "person1:Person" #FFBBBB
+
+
+"person1:Person" -> "ledger:Ledger" : getTransactionsInDateRange(initialDate, finalDate)
+activate "ledger:Ledger" #FFBBBB
+"ledger:Ledger" --> "person1:Person" : listOfTransactionsFromPeriod
+
+"person1:Person" -> "ledger:Ledger" : getMovementsFromOneAccount (account, listOfTransactionsFromPeriod)
+"ledger:Ledger" --> "person1:Person" : listOfTransactions
+deactivate "ledger:Ledger" #FFBBBB
+"person1:Person" --> ":GetTheMovementsOfAnAccountInDateRangeController" : listOfTransactions
+deactivate "person1:Person" #FFBBBB
+":GetTheMovementsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
+deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(expectedTransactions, listOfTransactions)
+
+@enduml
