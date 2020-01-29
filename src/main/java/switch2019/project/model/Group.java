@@ -415,6 +415,16 @@ public class Group {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
     }
+
+    /**
+     * Develop method to return the ledger size
+     * @return ledger size
+     */
+    public int ledgerSize() {
+        return ledger.getLedgerSize();
+    }
+
+
 }
 
 
