@@ -624,6 +624,10 @@ class LedgerTest {
         assertEquals(expected, ledger.getLedgerTransactions());
     }
 
+    /**
+     * * US017/18 - Get the balance of the transactions given a specific date range
+     */
+
     @Test
     @DisplayName("Get the balance of transactions over a valid date range - Main Scenario of US17")
     void getPersonalBalanceInDateRange() {

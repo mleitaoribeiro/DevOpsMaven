@@ -1,44 +1,35 @@
 @startuml
+
+skinparam DefaultFontSize 20
 create ":Test"
 
-== Arrange ==
-create "US017:Controller"
+==Arrange==
+create ":PersonalBalanceInDateRangeController"
+":Test" -> ":PersonalBalanceInDateRangeController" : new PersonalBalanceInDateRangeController
 
-create "person:Person"
-":Test" -> "person:Person" : create(name, birthDate, birthPlace, homeAddress, mother, father)
-activate "person:Person" #FFBBBB
+participant "person1:Person"
 
-create "ledger:Ledger"
-"person:Person" -> "ledger:Ledger" : create()
-deactivate "person:Person"
-":Test" -> "person:Person" : createTransaction(amount, description, date, category, \n                             accountFrom, accountTo, type)
-activate "person:Person" #FFBBBB
-
-"person:Person" -> "ledger:Ledger" : addTransactionToLedger(amount, description, date, category, \n                                         accountFrom, accountTo, type)
-deactivate "person:Person" #FFBBBB
-activate "ledger:Ledger" #FFBBBB
+participant "ledger:Ledger"
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : create(amount, description, date, category, \n             accountFrom, accountTo, type)
-deactivate "person:Person"
-deactivate "ledger:Ledger"
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
+deactivate "ledger:Ledger" #FFBBBB
+
 
 == Act ==
 
-":Test" -> "US017:Controller" : getPersonalBalanceInDateRange(person, initialDate, finalDate)
-activate "US017:Controller" #FFBBBB
-"US017:Controller" -> "person:Person": getPersonalBalanceInDateRange(initialDate, finalDate)
-activate "person:Person" #FFBBBB
-"person:Person" -> "ledger:Ledger": getBalanceInDateRange(initialDate, finalDate)
-activate "ledger:Ledger" #FFBBBB
-"ledger:Ledger" -> "person:Person" : finalBalance
-deactivate "ledger:Ledger"
-"person:Person" -> "US017:Controller" : finalBalance
-deactivate "person:Person"
-"US017:Controller" -> ":Test" : finalBalance
-deactivate "US017:Controller"
+":Test" -> ":PersonalBalanceInDateRangeController" : personalBalanceInDateRange = getPersonalBalanceInDateRange(initialDate, finalDate,person)
+activate ":PersonalBalanceInDateRangeController"  #FFBBBB
+
+":PersonalBalanceInDateRangeController" -> "person1:Person" :getPersonalBalanceInDateRange(initialDate, finalDate,person)
+activate "person1:Person"  #FFBBBB
+
+"person1:Person" -> "ledger:Ledger": getBalanceInDateRange(initialDate, finalDate)
+deactivate "person1:Person"  #FFBBBB
+deactivate ":PersonalBalanceInDateRangeController"  #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedPersonalBalanceFromDateRange, \n                        personalBalanceFromDateRange)
+":Test" -> ":Test" : assertEquals(expectedPersonalBalanceFromDateRange, \n                personalBalanceInDateRange)
+
 
 @enduml
