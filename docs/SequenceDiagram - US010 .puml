@@ -3,7 +3,8 @@ create ":Test"
 
 ==Arrange==
 
-create "US010:controller"
+create "controller:MemberGetsTheMovementsInAgivenPeriodController"
+":Test" -> "controller:MemberGetsTheMovementsInAgivenPeriodController" : Create ()
 create "onePerson:Person"
 create "oneGroup:Group"
 create "ledger:Ledger"
@@ -16,18 +17,18 @@ deactivate "ledger:Ledger" #FFBBBB
 
 == Act ==
 
-":Test" -> "US010:controller" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
-activate "US010:controller" #FFBBBB
-"US010:controller" -> "oneGroup:Group" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
+":Test" -> "controller:MemberGetsTheMovementsInAgivenPeriodController" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
+activate "controller:MemberGetsTheMovementsInAgivenPeriodController" #FFBBBB
+"controller:MemberGetsTheMovementsInAgivenPeriodController" -> "oneGroup:Group" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
 activate "oneGroup:Group" #FFBBBB
 "oneGroup:Group" -> "ledger:Ledger" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
 activate "ledger:Ledger" #FFBBBB
 "ledger:Ledger" --> "oneGroup:Group" : getOneAccountMovementsFromGroup
 deactivate "ledger:Ledger" #FFBBBB
-"oneGroup:Group" --> "US010:controller" : getOneAccountMovementsFromGroup
+"oneGroup:Group" --> "controller:MemberGetsTheMovementsInAgivenPeriodController" : getOneAccountMovementsFromGroup
 deactivate "oneGroup:Group" #FFBBBB
-"US010:controller" --> ":Test" : getOneAccountMovementsFromGroup
-deactivate "US010:controller" #FFBBBB
+"controller:MemberGetsTheMovementsInAgivenPeriodController" --> ":Test" : getOneAccountMovementsFromGroup
+deactivate "controller:MemberGetsTheMovementsInAgivenPeriodController" #FFBBBB
 
 == Assert ==
 
