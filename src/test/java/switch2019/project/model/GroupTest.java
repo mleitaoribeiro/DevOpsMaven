@@ -1831,6 +1831,126 @@ class GroupTest {
     }
 
     /**
+     * Are multiple transactions inside the GroupLedger
+     */
+
+    @Test
+    @DisplayName("Verify if multiple transactions are inside the GroupLedger - Happy Case")
+    void areMultipleTransactionsInsideTheGroupLedgerTrue() {
+        //Arrange:
+        Group testGroup = new Group("test group");
+
+        //Transactions arrangement:
+        MonetaryValue monetaryValue1 = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
+
+        Category category1 = new Category("grocery");
+
+        Account account1 = new Account("groceries", "mercearia Continente");
+        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+
+        //Transactions added to Group Ledger:
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        testGroup.createGroupTransaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+
+        //Transactions to check:
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+
+        Set transactionsToCheck = new HashSet<Transaction>();
+        transactionsToCheck.add(testTransaction1);
+        transactionsToCheck.add(testTransaction2);
+        transactionsToCheck.add(testTransaction3);
+
+        //Act:
+        boolean result = testGroup.areMultipleTransactionsInsideTheGroupLedger(transactionsToCheck);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Verify if multiple transactions are inside the GroupLedger - null transaction")
+    void areMultipleTransactionsInsideTheGroupLedgerTestNull() {
+        //Arrange:
+        Group testGroup = new Group("test group");
+
+        //Transactions arrangement:
+        MonetaryValue monetaryValue1 = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
+
+        Category category1 = new Category("grocery");
+
+        Account account1 = new Account("groceries", "mercearia Continente");
+        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+
+        //Transactions added to Group Ledger:
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        testGroup.createGroupTransaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+
+        //Transactions to check:
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        Transaction testTransaction3 = null;
+
+        Set transactionsToCheck = new HashSet<Transaction>();
+        transactionsToCheck.add(testTransaction1);
+        transactionsToCheck.add(testTransaction2);
+        transactionsToCheck.add(testTransaction3);
+
+        //Act:
+        try {
+            testGroup.areMultipleTransactionsInsideTheGroupLedger(transactionsToCheck);
+        }
+        //Assert:
+        catch (IllegalArgumentException nullTransaction) {
+            assertEquals("One (or more) of the transactions is null.",nullTransaction.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Verify if multiple transactions are inside the GroupLedger")
+    void areMultipleTransactionsInsideTheGroupLedgerTest1() {
+        //Arrange:
+        Group testGroup = new Group("test group");
+
+        //Transactions arrangement:
+        MonetaryValue monetaryValue1 = new MonetaryValue(250, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
+
+        Category category1 = new Category("grocery");
+
+        Account account1 = new Account("groceries", "mercearia Continente");
+        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+
+        //Transactions added to Group Ledger:
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+
+        //Transactions to check:
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+
+        Set transactionsToCheck = new HashSet<Transaction>();
+        transactionsToCheck.add(testTransaction1);
+        transactionsToCheck.add(testTransaction2);
+        transactionsToCheck.add(testTransaction3);
+
+        //Act:
+        boolean result = testGroup.areMultipleTransactionsInsideTheGroupLedger(transactionsToCheck);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    /**
      * Check if a Admin createad and added Category to the groups Category list (US05.1)
      */
 
@@ -2079,18 +2199,18 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        assertEquals(transactionsAccount5, allTransactions);
+        assertEquals(expectedTransactions,listOfTransactions);
     }
 
     @Test
@@ -2124,18 +2244,18 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        assertEquals(transactionsAccount5, allTransactions);
+        assertEquals(expectedTransactions,listOfTransactions);
     }
 
     @Test
@@ -2169,18 +2289,18 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        assertEquals(transactionsAccount5, allTransactions);
+        assertEquals(expectedTransactions,listOfTransactions);
     }
 
     @Test
@@ -2215,7 +2335,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList());
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList());
 
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -2223,11 +2343,11 @@ class GroupTest {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
-        assertEquals(transactionsAccount5, allTransactions);
+        assertEquals(expectedTransactions,listOfTransactions);
     }
 
     @Test
@@ -2262,7 +2382,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
@@ -2271,7 +2391,7 @@ class GroupTest {
 
         //Act
         try {
-            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2312,7 +2432,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2320,7 +2440,7 @@ class GroupTest {
 
         //Act
         try {
-            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2361,7 +2481,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2369,7 +2489,7 @@ class GroupTest {
 
         //Act
         try {
-            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2410,7 +2530,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2418,7 +2538,7 @@ class GroupTest {
 
         //Act
         try {
-            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2445,7 +2565,7 @@ class GroupTest {
 
         //Act
         try {
-            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2484,8 +2604,7 @@ class GroupTest {
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2493,7 +2612,7 @@ class GroupTest {
 
         //Act:
         try {
-            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         }
         //Assert:
         catch (IllegalArgumentException result) {
@@ -3314,6 +3433,8 @@ class GroupTest {
             assertEquals(expected, result.getMessage());
         }
     }
+
+
 }
 
 

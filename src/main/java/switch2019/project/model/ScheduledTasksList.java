@@ -21,7 +21,7 @@ public class ScheduledTasksList {
                                   Category category, Account accountFrom, Account accountTo, boolean type) {
 
         Schedule newSchedule = new Schedule(person, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
-        return scheduledTransactions.add(newSchedule);
+        return scheduledTransactions.add(newSchedule) && scheduledTransactions.contains(newSchedule);
     }
 
 }

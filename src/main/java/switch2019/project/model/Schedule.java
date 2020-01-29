@@ -5,9 +5,6 @@ import java.util.Timer;
 
 public class Schedule {
 
-    // Schedule private attribute
-    private int periodicity;
-
     /**
      * Schedule Constructor
      */
@@ -16,7 +13,7 @@ public class Schedule {
         int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
         Timer timer = new Timer();
         PersonalTransactionTask scheduledPersonalTransactionTask = new PersonalTransactionTask(person, amount, description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledPersonalTransactionTask, 0, periodicity);
+        timer.scheduleAtFixedRate(scheduledPersonalTransactionTask, 0, periodicity);
     }
 
     /**

@@ -24,8 +24,7 @@ public class Ledger {
 
     @Override
     public String toString() {
-        return "Ledger:" + ledgerTransactions +
-                ".";
+        return "Ledger:" + ledgerTransactions + ".";
     }
 
     /**
@@ -65,12 +64,9 @@ public class Ledger {
 
     public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
-        if (transaction != null) {
             boolean transactionAdded = ledgerTransactions.add(transaction);
             sortLedgerByTransactionDateDescending();
             return transactionAdded;
-        }
-        return false;
     }
 
     /**
