@@ -413,7 +413,7 @@ public class Person {
 
 
     /**
-     * Get the user ledger movements in a given period from specific account (US010)
+     * Get the user ledger movements in a given period from specific account (US010.2)
      *
      * @param account1
      * @param initialDate
