@@ -3433,7 +3433,148 @@ class GroupTest {
         }
     }
 
+    @Test
+    void scheduleNewTransactionDaily() throws InterruptedException {
 
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        Group group = new Group("tarzan");
+
+        //Act
+        boolean result = group.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
+
+        Thread.sleep(2400); // 250 x 10 = 2500
+
+        //Assert
+        assertTrue(result && group.ledgerSize() == 10);
+    }
+
+
+    @Test
+    void scheduleNewTransactionWorkingDays() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        Group group = new Group("tarzan");
+
+        //Act
+        boolean result = group.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
+
+        Thread.sleep(1900); // 500 x 4 = 2000
+
+        //Assert
+        assertTrue(result && group.ledgerSize() == 4);
+    }
+
+    @Test
+    void scheduleNewTransactionWeekly() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        Group group = new Group("tarzan");
+
+        //Act
+        boolean result = group.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
+
+        Thread.sleep(2900); // 750 x 4 = 3000
+
+        //Assert
+        assertTrue(result && group.ledgerSize() == 4);
+    }
+
+
+    @Test
+    void scheduleNewTransactionMonthly() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        Group group = new Group("tarzan");
+
+        //Act
+        boolean result = group.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
+
+        Thread.sleep(2900); // 1000 x 3 = 3000
+
+        //Assert
+        assertTrue(result && group.ledgerSize() == 3);
+    }
+
+    @Test
+    void scheduleNewTransactionNoMatch() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        Group group = new Group("tarzan");
+
+        try {
+            //Act
+            group.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, type);
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.", result.getMessage());
+        }
+    }
 }
 
 
