@@ -1631,7 +1631,7 @@ class PersonTest {
 
         try {
             //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            person1.getPersonalBalanceInDateRange(initialDate, finalDate);
             fail();
         }
         //Assert
@@ -1699,9 +1699,58 @@ class PersonTest {
         assertTrue(result && person.ledgerSize() == 10);
     }
 
-    // adicionar teste para dias uteis
 
-    // adicionar teste para semanal
+    @Test
+    void scheduleNewTransactionWorkingDays() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        //Act
+        boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
+
+        Thread.sleep(1600);
+
+        //Assert
+        assertTrue(result && person.ledgerSize() == 8);
+    }
+
+    @Test
+    void scheduleNewTransactionWeekly() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        //Act
+        boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
+
+        Thread.sleep(1500);
+
+        //Assert
+        assertTrue(result && person.ledgerSize() == 5);
+    }
 
 
     @Test
@@ -1728,5 +1777,66 @@ class PersonTest {
 
         //Assert
         assertTrue(result && person.ledgerSize() == 4);
+    }
+
+    @Test
+    void scheduleNewTransactionNoMatch() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        try {
+            //Act
+            person.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, type);
+
+            Thread.sleep(1600);
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.", result.getMessage());
+        }
+
+    }
+
+    /**
+     * test for creating transaction with size of Ledger
+     */
+    
+    @Test
+    @DisplayName("Test for validating add a new transaction")
+    void addTransactionToLedgerChangeSize() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        person.createAccount("mercearia", "mercearia Continente");
+        person.createAccount("transporte", "transporte Metro");
+        person.createCategoryAndAddToCategoryList("grocery");
+        Category category = new Category("grocery");
+        boolean type = true;
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Ledger ledger = new Ledger();
+
+        //Act
+        int sizeBefore = ledger.getLedgerSize();
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        int sizeAfter = ledger.getLedgerSize();
+
+        //Assert
+        assertEquals(sizeBefore+3, sizeAfter);
     }
 }

@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScheduleTest {
 
+    /**
+     * testing if the keywords can be converted into milliseconds to be used later
+     */
+
     @Test
     void convertKeyWordIntoMillisecondsDaily() {
 
