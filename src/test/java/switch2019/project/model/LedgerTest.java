@@ -197,7 +197,7 @@ class LedgerTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
         ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2019, 2, 3, 10, 40));
@@ -329,7 +329,7 @@ class LedgerTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
         ArrayList<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
                 LocalDateTime.of(2017, 10, 2, 9, 20));
@@ -623,6 +623,10 @@ class LedgerTest {
         //Assert
         assertEquals(expected, ledger.getLedgerTransactions());
     }
+
+    /**
+     * * US017/18 - Get the balance of the transactions given a specific date range
+     */
 
     @Test
     @DisplayName("Get the balance of transactions over a valid date range - Main Scenario of US17")

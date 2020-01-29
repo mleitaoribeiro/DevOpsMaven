@@ -1845,7 +1845,7 @@ class GroupTest {
 
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses",person1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses", person1);
 
         //Assert
         assertTrue(realResult);
@@ -1865,7 +1865,7 @@ class GroupTest {
         group1.addMember(person1);
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses",person2);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses", person2);
 
         //Assert
         assertFalse(realResult);
@@ -1882,7 +1882,7 @@ class GroupTest {
         group1.addMember(person1);
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList(null,person1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList(null, person1);
 
         //Assert
         assertFalse(realResult);
@@ -1901,8 +1901,8 @@ class GroupTest {
         //Categories to be included in Category List
 
         //Act
-        boolean categoryAdded = group1.createAndAddCategoryToCategoryList("Cinema",person1);
-        boolean sameCategoryAdded = group1.createAndAddCategoryToCategoryList("Cinema",person1);
+        boolean categoryAdded = group1.createAndAddCategoryToCategoryList("Cinema", person1);
+        boolean sameCategoryAdded = group1.createAndAddCategoryToCategoryList("Cinema", person1);
         boolean isSameCategoryAdded = categoryAdded && sameCategoryAdded;
 
         //Assert
@@ -1923,7 +1923,7 @@ class GroupTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses",person1) && !group1.createAndAddCategoryToCategoryList("SCHOóL expenses",person1);
+        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses", person1) && !group1.createAndAddCategoryToCategoryList("SCHOóL expenses", person1);
 
         //Assert
         assertTrue(realResult);
@@ -1970,17 +1970,17 @@ class GroupTest {
 
     @Test
     @DisplayName("Remove category from GroupList - Happy Case(True)")
-    void isCategoryRemovedFromCategoryList(){
+    void isCategoryRemovedFromCategoryList() {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group testGroup = new Group ("Test group");
+        Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
-        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries", groupAdmin);
 
         //Act:
-        boolean result = testGroup.removeCategoryFromList("groceries",groupAdmin);
+        boolean result = testGroup.removeCategoryFromList("groceries", groupAdmin);
 
         //Assert:
         assertTrue(result);
@@ -1988,20 +1988,20 @@ class GroupTest {
 
     @Test
     @DisplayName("Remove category from GroupList - False - person trying to remove is not an admin)")
-    void isCategoryRemovedFromCategoryListNotAdmin(){
+    void isCategoryRemovedFromCategoryListNotAdmin() {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Person groupMember = new Person("João", LocalDate.of(1991, 12, 11), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group testGroup = new Group ("Test group");
+        Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
         testGroup.addMember(groupMember);
-        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries", groupAdmin);
 
         //Act:
-        boolean result = testGroup.removeCategoryFromList("groceries",groupMember);
+        boolean result = testGroup.removeCategoryFromList("groceries", groupMember);
 
         //Assert:
         assertFalse(result);
@@ -2009,16 +2009,16 @@ class GroupTest {
 
     @Test
     @DisplayName("Remove category from GroupList - False - person trying to remove is null)")
-    void isCategoryRemovedFromCategoryListNullAdmin(){
+    void isCategoryRemovedFromCategoryListNullAdmin() {
 
         //Arrange:
         Person groupAdmin = null;
-        Group testGroup = new Group ("Test group");
+        Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
-        testGroup.createAndAddCategoryToCategoryList("groceries",groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList("groceries", groupAdmin);
 
         //Act:
-        boolean result = testGroup.removeCategoryFromList("groceries",groupAdmin);
+        boolean result = testGroup.removeCategoryFromList("groceries", groupAdmin);
 
         //Assert:
         assertFalse(result);
@@ -2026,17 +2026,17 @@ class GroupTest {
 
     @Test
     @DisplayName("Remove category from GroupList - False - category to remove is null)")
-    void isCategoryRemovedFromCategoryListNullCategory(){
+    void isCategoryRemovedFromCategoryListNullCategory() {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", LocalDate.of(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group testGroup = new Group ("Test group");
+        Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
-        testGroup.createAndAddCategoryToCategoryList(null,groupAdmin);
+        testGroup.createAndAddCategoryToCategoryList(null, groupAdmin);
 
         //Act:
-        boolean result = testGroup.removeCategoryFromList(null,groupAdmin);
+        boolean result = testGroup.removeCategoryFromList(null, groupAdmin);
 
         //Assert:
         assertFalse(result);
@@ -2079,8 +2079,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2125,8 +2124,7 @@ class GroupTest {
 
         group1.addMember(person1);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2172,7 +2170,6 @@ class GroupTest {
         group1.addMember(person1);
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2219,7 +2216,7 @@ class GroupTest {
         group1.addMember(person1);
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList());
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2266,7 +2263,7 @@ class GroupTest {
         group1.addMember(person1);
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2316,7 +2313,6 @@ class GroupTest {
         group1.addMember(person1);
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2366,7 +2362,6 @@ class GroupTest {
         group1.addMember(person1);
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2416,7 +2411,6 @@ class GroupTest {
         group1.addMember(person1);
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
-        allTransactions.sort(Comparator.comparing(Transaction::getDate));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
@@ -2457,6 +2451,53 @@ class GroupTest {
         //Assert
         catch (IllegalArgumentException ledger) {
             assertEquals("The ledger is empty. ", ledger.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - member is not a member")
+    void obtainMovementsFromAnAccountNotMember() {
+        //Arrange
+        Group group1 = new Group("Caloteiros");
+        LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        Person person1 = new Person("Maria", LocalDate.of(1998, 12, 5), new Address("Porto"),
+                new Address("Rua das Flores", "Porto", "4455-987"));
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+        allTransactions.sort(Comparator.comparing(Transaction::getDate));
+
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act:
+        try {
+            List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        }
+        //Assert:
+        catch (IllegalArgumentException result) {
+            assertEquals("You don't have access to that account.", result.getMessage());
         }
     }
 
@@ -2636,7 +2677,7 @@ class GroupTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
         List<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2019, 2, 3, 10, 40), onePerson);
@@ -2660,7 +2701,7 @@ class GroupTest {
 
         //Act
         List<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2017, 10, 2, 9, 20),
-                LocalDateTime.of(2017, 12, 3, 10, 40),onePerson);
+                LocalDateTime.of(2017, 12, 3, 10, 40), onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2705,7 +2746,7 @@ class GroupTest {
         List<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
         List<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2018, 10, 2, 9, 10),
-                LocalDateTime.of(2018, 10, 2, 9, 10),onePerson);
+                LocalDateTime.of(2018, 10, 2, 9, 10), onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2745,7 +2786,7 @@ class GroupTest {
         List<Transaction> expected = new ArrayList<>();
         //Act
         List<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2012, 10, 2, 9, 10),
-                LocalDateTime.of(2013, 10, 2, 9, 10),onePerson);
+                LocalDateTime.of(2013, 10, 2, 9, 10), onePerson);
         //Assert
         assertEquals(expected, real);
     }
@@ -2788,10 +2829,10 @@ class GroupTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
         List<Transaction> real = oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
-                LocalDateTime.of(2017, 10, 2, 9, 20),onePerson);
+                LocalDateTime.of(2017, 10, 2, 9, 20), onePerson);
 
         //Assert
         assertEquals(expected, real);
@@ -2834,7 +2875,7 @@ class GroupTest {
         //Act
         try {
             oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2025, 2, 3, 10, 40),
-                    LocalDateTime.of(2017, 10, 2, 9, 20),onePerson);
+                    LocalDateTime.of(2017, 10, 2, 9, 20), onePerson);
         }
 
         //Assert
@@ -2926,7 +2967,7 @@ class GroupTest {
 
         //Act
         try {
-            oneGroup.returnGroupLedgerInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20),onePerson);
+            oneGroup.returnGroupLedgerInDateRange(null, LocalDateTime.of(2030, 10, 2, 9, 20), onePerson);
         }
 
         //Assert
@@ -2972,7 +3013,7 @@ class GroupTest {
 
         //Act
         try {
-            oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40), null,onePerson);
+            oneGroup.returnGroupLedgerInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40), null, onePerson);
         }
 
         //Assert

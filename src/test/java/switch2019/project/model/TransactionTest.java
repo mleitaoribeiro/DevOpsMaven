@@ -356,6 +356,27 @@ class TransactionTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Test if method toString returns String Transaction for Credit")
+    public void validateToStringCredit() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category = new Category("grocery");
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
+
+        Transaction transaction = new Transaction(monetaryValue, "payment", date, category, account1, account2, true);
+
+        String expected = "2020-01-13 13:02 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY";
+
+        //Act
+        String result = transaction.toString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
     /**
      * Test if two transactions have the same hashcode
      */
