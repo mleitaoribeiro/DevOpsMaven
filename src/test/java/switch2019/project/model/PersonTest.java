@@ -1847,20 +1847,21 @@ class PersonTest {
     @Test
     @DisplayName("Test if a category was removed from the Category List - Main Scenario")
     void removeCategoryFromListMainScenario() {
+
         //Arrange
         String oneCategory = "Saude";
-        String otherCategory = "Health";
-        String otherCategoryObject = "Health";
+        String otherCategory = "Cinema";
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
-        CategoryList newCategoryList = new CategoryList();
 
         //Act
-        newCategoryList.addCategoryToCategoryList(oneCategory);
-        newCategoryList.addCategoryToCategoryList(otherCategory);
+        person.createCategoryAndAddToCategoryList(oneCategory);
+        person.createCategoryAndAddToCategoryList(otherCategory);
 
         //Remove one Category
 
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
+        boolean realResult = person.removeCategoryFromList(otherCategory);
 
         //Assert
         assertTrue(realResult);
@@ -1871,10 +1872,11 @@ class PersonTest {
     void removeCategoryFromListThatIsNotInTheList() {
 
         //Arrange:
-        CategoryList testCategoryList = new CategoryList();
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
 
         //Act:
-        boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema");
+        boolean isACategoryNotInListRemoved = person.removeCategoryFromList("Cinema");
 
         //Assert:
         assertFalse(isACategoryNotInListRemoved);
