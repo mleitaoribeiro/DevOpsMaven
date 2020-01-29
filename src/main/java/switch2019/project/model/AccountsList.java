@@ -83,9 +83,7 @@ public class AccountsList {
 
     public boolean removeOneAccountFromAList(Account accountToBeRemoved) {
         if (accountToBeRemoved != null) {
-            boolean isAccountRemoved = accounts.remove(accountToBeRemoved);
-            boolean isAccountNotContained = !accounts.contains(accountToBeRemoved);
-            return isAccountRemoved && isAccountNotContained;
+            return accounts.remove(accountToBeRemoved);
         } else
             return false;
     }

@@ -1631,7 +1631,7 @@ class PersonTest {
 
         try {
             //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            person1.getPersonalBalanceInDateRange(initialDate, finalDate);
             fail();
         }
         //Assert
@@ -1677,8 +1677,8 @@ class PersonTest {
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1699,17 +1699,66 @@ class PersonTest {
         assertTrue(result && person.ledgerSize() == 10);
     }
 
-    // adicionar teste para dias uteis
 
-    // adicionar teste para semanal
+    @Test
+    void scheduleNewTransactionWorkingDays() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        //Act
+        boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
+
+        Thread.sleep(1600);
+
+        //Assert
+        assertTrue(result && person.ledgerSize() == 8);
+    }
+
+    @Test
+    void scheduleNewTransactionWeekly() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        //Act
+        boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
+
+        Thread.sleep(1500);
+
+        //Assert
+        assertTrue(result && person.ledgerSize() == 5);
+    }
 
 
     @Test
     void scheduleNewTransactionMonthly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -1730,10 +1779,40 @@ class PersonTest {
         assertTrue(result && person.ledgerSize() == 4);
     }
 
+    @Test
+    void scheduleNewTransactionNoMatch() throws InterruptedException {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category("General");
+        person.createCategoryAndAddToCategoryList("General");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+        person.createAccount("Wallet", "General expenses");
+        person.createAccount("TransportAccount", "Transport expenses");
+        boolean type = false; //debit
+
+        try {
+            //Act
+            person.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, type);
+
+            Thread.sleep(1600);
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.", result.getMessage());
+        }
+
+    }
+
     /**
      * test for creating transaction with size of Ledger
      */
-    
+
     @Test
     @DisplayName("Test for validating add a new transaction")
     void addTransactionToLedgerChangeSize() {
@@ -1758,6 +1837,99 @@ class PersonTest {
         int sizeAfter = ledger.getLedgerSize();
 
         //Assert
-        assertEquals(sizeBefore+3, sizeAfter);
+        assertEquals(sizeBefore + 3, sizeAfter);
     }
+
+    /**
+     * Test to verify if multiple categories were removed to list
+     */
+
+    @Test
+    @DisplayName("Test if a category was removed from the Category List - Main Scenario")
+    void removeCategoryFromListMainScenario() {
+
+        //Arrange
+        String oneCategory = "Saude";
+        String otherCategory = "Cinema";
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+
+        //Act
+        person.createCategoryAndAddToCategoryList(oneCategory);
+        person.createCategoryAndAddToCategoryList(otherCategory);
+
+        //Remove one Category
+
+        boolean realResult = person.removeCategoryFromList(otherCategory);
+
+        //Assert
+        assertTrue(realResult);
+    }
+
+    @Test
+    @DisplayName("check if category is not in list and threfore cant be removed")
+    void removeCategoryFromListThatIsNotInTheList() {
+
+        //Arrange:
+        Person person = new Person("Jose", LocalDate.of(1995,12,13),
+                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+
+        //Act:
+        boolean isACategoryNotInListRemoved = person.removeCategoryFromList("Cinema");
+
+        //Assert:
+        assertFalse(isACategoryNotInListRemoved);
+    }
+
+    @Test
+    @DisplayName("Add a Set of Categories to Category List - Main Scenario")
+    void addMultipleCategoriesToListMainScenario() {
+        // Arrange
+        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryUniversity = "University";
+
+        //A collection of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
+        CategoryList newCategoryList = new CategoryList();
+
+        //Act
+
+        boolean validateIfTheSetOfCategoriesWasAdded = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+
+        //Assert
+        assertTrue(validateIfTheSetOfCategoriesWasAdded);
+    }
+
+    @Test
+    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
+    void removeMultipleCategoriesToList() {
+        // Arrange
+        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        // Categories to be included in Category List
+        String categoryHealth = "Health";
+        String categoryGym = "Gym";
+        String categoryBeauty = "Beauty";
+
+        CategoryList newCategoryList = new CategoryList();
+
+        //set of categories to be added
+        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
+        newCategoryList.addMultipleCategoriesToList(setOfCategories);
+
+        //set of Categories to be removed from Categories List
+        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
+
+        //Act
+        //Remove the set of categories with the method under test
+        boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+
+        assertTrue(realResult);
+    }
+
+
 }
+

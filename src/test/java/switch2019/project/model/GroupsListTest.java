@@ -20,7 +20,7 @@ class GroupsListTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("John", LocalDate.of(2000, 12,04), new Address("London"),new Address("Rua B","Feira","4520-233"));
+        Person person1 = new Person("John", LocalDate.of(2000, 12, 04), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
         boolean wasGroupCreated = groupsList.createGroup("Test Person", person1);
@@ -35,7 +35,7 @@ class GroupsListTest {
     public void testIfGroupWasNotCreated() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Francis",  LocalDate.of(2001, 04,12), new Address("Dublin"),new Address("Rua B","Feira","4520-233"));
+        Person person1 = new Person("Francis", LocalDate.of(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
         boolean wasGroupCreated = groupsList.createGroup(null, person1);
@@ -50,7 +50,7 @@ class GroupsListTest {
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy", LocalDate.of(1990, 12,04), new Address("Boston"),new Address("Rua B","Gaia","4520-233"));
+        Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
         groupsList.createGroup("Grupo de Teste", person1);
@@ -66,8 +66,8 @@ class GroupsListTest {
     public void createGroupWithSameDescriptionAndDifferentMembers() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy", LocalDate.of(1990, 12,04), new Address("Boston"),new Address("Rua B","Gaia","4520-233"));
-        Person person2 = new Person("Marshall",LocalDate.of(1990, 12,04), new Address("Boston"),new Address("Rua B","Gaia","4520-233"));
+        Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person2 = new Person("Marshall", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
         groupsList.createGroup("Grupo de Teste", person1);
@@ -84,7 +84,7 @@ class GroupsListTest {
     public void createGroupWithDifferentDescriptionAndDifferentMembers() {
         //Arrange
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy",  LocalDate.of(1999, 5,13), new Address("Boston"),new Address("Rua B","Gaia","4520-233"));
+        Person person1 = new Person("Amy", LocalDate.of(1999, 5, 13), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
         groupsList.createGroup("Grupo de Teste", person1);
@@ -207,11 +207,11 @@ class GroupsListTest {
 
         // 1 _________________________________________________________________________________________________________
         // First global group - All Family
-        Person manuelaMOM = new Person("Manuela",  LocalDate.of(1960, 10,10),new Address("Miragaia"),new Address("Rua B","Gaia","4520-233"));
-        Person carlosDAD = new Person("Carlos", LocalDate.of(1950, 12,12), new Address("Porto"),new Address("Rua B","Gaia","4520-233"));
-        Person oscar = new Person("Oscar",  LocalDate.of(1990, 12,04), new Address("Espinho"),new Address("Rua B","Gaia","4520-233"), manuelaMOM, carlosDAD);
-        Person marta = new Person("Marta", LocalDate.of(1995, 11,05), new Address("Paranhos"),new Address("Rua B","Gaia","4520-233"), manuelaMOM, carlosDAD);
-        Person joao = new Person("Joao", LocalDate.of(2000, 01,12),new Address("Matosinhos"),new Address("Rua B","Gaia","4520-233"), manuelaMOM, carlosDAD);
+        Person manuelaMOM = new Person("Manuela", LocalDate.of(1960, 10, 10), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
+        Person carlosDAD = new Person("Carlos", LocalDate.of(1950, 12, 12), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
+        Person oscar = new Person("Oscar", LocalDate.of(1990, 12, 04), new Address("Espinho"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
+        Person marta = new Person("Marta", LocalDate.of(1995, 11, 05), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
+        Person joao = new Person("Joao", LocalDate.of(2000, 01, 12), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
 
         // Group
         HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
@@ -222,11 +222,11 @@ class GroupsListTest {
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
-        Person homer = new Person("Homer", LocalDate.of(1990, 12,04), new Address("Springfield"),new Address("Rua B","Porto","4520-233"));
-        Person marge = new Person("Marge", LocalDate.of(1990, 12,04), new Address("Springfield"),new Address("Rua B","Porto","4520-233"));
-        Person bart = new Person("Bart", LocalDate.of(1990, 12,04), new Address("Springfield"),new Address("Rua B","Porto","4520-233"), marge, homer);
-        Person lisa = new Person("Lisa", LocalDate.of(1990, 12,04), new Address("Springfield"), new Address("Rua B","Porto","4520-233"),marge, homer);
-        Person maggie = new Person("Maggie", LocalDate.of(1990, 12,04), new Address("Springfield"),new Address("Rua B","Porto","4520-233"), marge, homer);
+        Person homer = new Person("Homer", LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
+        Person marge = new Person("Marge", LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
+        Person bart = new Person("Bart", LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
+        Person lisa = new Person("Lisa", LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
+        Person maggie = new Person("Maggie", LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
 
         // Group
         HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(marge, bart, lisa, maggie));
@@ -237,10 +237,10 @@ class GroupsListTest {
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
-        Person joaoDAD = new Person("Joao", LocalDate.of(1990, 12,04), new Address("Miragaia"),new Address("Rua B","Gaia","4520-233"));
-        Person diana = new Person("Diana", LocalDate.of(1990, 12,04), new Address("Porto"),new Address("Rua B","Gaia","4520-233"), null, joaoDAD);
-        Person elsa = new Person("Elsa", LocalDate.of(1990, 12,04), new Address("Matosinhos"),new Address("Rua B","Gaia","4520-233"), null, joaoDAD);
-        Person ines = new Person("Ines", LocalDate.of(1990, 12,04), new Address("Paranhos"),new Address("Rua B","Gaia","4520-233" ),null, joaoDAD);
+        Person joaoDAD = new Person("Joao", LocalDate.of(1990, 12, 04), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
+        Person diana = new Person("Diana", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
+        Person elsa = new Person("Elsa", LocalDate.of(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
+        Person ines = new Person("Ines", LocalDate.of(1990, 12, 04), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines));
@@ -251,9 +251,9 @@ class GroupsListTest {
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
-        Person martaR = new Person("Marta Ribeiro", LocalDate.of(1990, 12,04), new Address("Miragaia"),new Address("Rua B","Gaia","4520-233"));
-        Person martaC = new Person("Marta Cardoso", LocalDate.of(1990, 12,04), new Address("Matosinhos"),new Address("Rua B","Gaia","4520-233"));
-        Person martaP = new Person("Marta Pinheiro", LocalDate.of(1990, 12,04), new Address("Porto"),new Address("Rua B","Gaia","4520-233"));
+        Person martaR = new Person("Marta Ribeiro", LocalDate.of(1990, 12, 04), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
+        Person martaC = new Person("Marta Cardoso", LocalDate.of(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"));
+        Person martaP = new Person("Marta Pinheiro", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
 
         // Group
         HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaC, martaP));
@@ -264,10 +264,10 @@ class GroupsListTest {
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
-        Person bojack = new Person("Bojack", LocalDate.of(1990, 12,04), new Address("Porto"),new Address("Rua B","Porto","4520-233"));
-        Person carolyn = new Person("Princess Carolyn", LocalDate.of(1990, 12,04), new Address("Lisboa"),new Address("Rua B","Porto","4520-233"));
-        Person todd = new Person("Todd Chavez", LocalDate.of(1990, 12,04), new Address("Matosinhos"),new Address("Rua B","Porto","4520-233"));
-        Person diane = new Person("Diane Nguyen", LocalDate.of(1990, 12,04), new Address("Espinho"),new Address("Rua B","Porto","4520-233"));
+        Person bojack = new Person("Bojack", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Porto", "4520-233"));
+        Person carolyn = new Person("Princess Carolyn", LocalDate.of(1990, 12, 04), new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"));
+        Person todd = new Person("Todd Chavez", LocalDate.of(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"));
+        Person diane = new Person("Diane Nguyen", LocalDate.of(1990, 12, 04), new Address("Espinho"), new Address("Rua B", "Porto", "4520-233"));
 
         // Group
         HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(carolyn, todd, diane));
@@ -282,5 +282,79 @@ class GroupsListTest {
 
         //Assert
         assertEquals(expectedResult, realResult);
+    }
+
+    /**
+     * checkIfAPersonIsAdminInAGivenGroup method Tested
+     */
+
+    @Test
+    @DisplayName("Happy Case - Person is Admin")
+    void isPersonAdminOfAGivenGroupTrue() {
+
+        //Arrange:
+        GroupsList testGroupList = new GroupsList();
+
+            //Arrange Groups:
+        Group testGroup = new Group("test group");
+        testGroupList.addGroupToGroupList(testGroup);
+
+            //Arrange Admin:
+        Person testGroupAdmin = new Person("Francisco", LocalDate.of(1999, 7, 22),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        testGroup.addMember(testGroupAdmin);
+
+        //Act:
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Person is not an Admin")
+    void isPersonAdminOfAGivenGroupFalse() {
+
+        //Arrange:
+        GroupsList testGroupList = new GroupsList();
+
+        //Arrange Groups:
+        Group testGroup = new Group("test group");
+        testGroupList.addGroupToGroupList(testGroup);
+
+        //Arrange Admin:
+        Person testGroupAdmin = new Person("Francisco", LocalDate.of(1999, 7, 22),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+
+        //Act:
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Group Description is not found")
+    void isPersonAdminOfAGivenGroupException() {
+
+        //Arrange:
+        GroupsList testGroupList = new GroupsList();
+
+        //Arrange Groups:
+        Group testGroup = new Group("test group");
+        testGroupList.addGroupToGroupList(testGroup);
+
+        //Arrange Admin:
+        Person testGroupAdmin = new Person("Francisco", LocalDate.of(1999, 7, 22),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        testGroup.addMember(testGroupAdmin);
+
+        //Act:
+        try {
+            testGroupList.checkIfAPersonIsAdminInAGivenGroup("blabla", testGroupAdmin);
+        }
+        catch(IllegalArgumentException groupNotFound) {
+            assertEquals("There're no groups found with that description.", groupNotFound.getMessage());
+        }
     }
 }
