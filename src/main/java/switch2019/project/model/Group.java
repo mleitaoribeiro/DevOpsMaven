@@ -147,7 +147,8 @@ public class Group {
 
         for (Person person : members) {
             if (!person.equals(dadPerson) && !person.equals(momPerson) &&
-                    (!person.isMother(momPerson) || !person.isFather(dadPerson))) { return false;
+                    (!person.isMother(momPerson) || !person.isFather(dadPerson))) {
+                return false;
             }
         }
         return true;
@@ -267,7 +268,7 @@ public class Group {
     }
 
     /**
-     *  As a admin i want to develop method add one category to group's Category List(US005.1)
+     * As a admin i want to develop method add one category to group's Category List(US005.1)
      *
      * @param nameOfCategory
      * @param categoryCreator
@@ -305,7 +306,6 @@ public class Group {
      * @param accountTo
      * @param type
      * @return true if transaction was created and added to Ledger
-     *
      */
 
     public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
@@ -315,9 +315,6 @@ public class Group {
         return this.isTransactionInsideTheGroupLedger(newGroupTransaction);
     }
 
-    public void setLedgerToTest() {
-        ledger = new Util_PersonalLedger().getLedger();
-    }
 
     /**
      * Get the group's ledger movements in a given period from specific account (US010)
@@ -326,20 +323,14 @@ public class Group {
      * @param initialDate
      * @param finalDate
      * @param person1
-     *
      */
     public List<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
-        List<Transaction> listOfTransactionsOfThatAccount = new ArrayList<>();
-
         if (this.isGroupMember(person1)) {
-            List<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-            for (Transaction transaction : listOfTransactions) {
-                if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
-                    listOfTransactionsOfThatAccount.add(transaction);
-                }
-            }
-        }
-        return listOfTransactionsOfThatAccount;
+            List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+            List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
+            return listOfTransactionsOfThatAccount;
+        } else
+            throw new IllegalArgumentException("You don't have access to that account.");
     }
 
 
@@ -352,7 +343,7 @@ public class Group {
      */
 
     public List<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
-        if(isGroupMember(person)){
+        if (isGroupMember(person)) {
             return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
         }
 
@@ -368,12 +359,13 @@ public class Group {
      */
 
     public double getGroupBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return ledger.getBalanceInDateRange(initialDate,finalDate);
+        return ledger.getBalanceInDateRange(initialDate, finalDate);
     }
 
 
     /**
      * Method used to check if a transaction is inside a groupLedger
+     *
      * @param transaction1
      * @return true if transaction is inside the group ledger
      */
@@ -383,6 +375,7 @@ public class Group {
 
     /**
      * Method used to get group description
+     *
      * @return description
      */
     public String getDescription() {

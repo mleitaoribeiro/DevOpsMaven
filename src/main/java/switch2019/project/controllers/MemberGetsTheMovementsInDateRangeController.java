@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberGetsTheMovementsInAGivenPeriodController {
+public class MemberGetsTheMovementsInDateRangeController {
 
     /**
      * Get the group's ledger movements in a given period (US012)

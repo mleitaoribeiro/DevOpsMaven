@@ -7,14 +7,14 @@ public class AdminCreatesCategoryController {
 
     /**
      *
-     * @param categoryDescription
+     * @param nameOfCategory
      * @param oneGroup
      * @param categoryCreator
      * @return
      */
 
-    public boolean createCategory(String categoryDescription, Group oneGroup, Person categoryCreator) {
-            return oneGroup.createAndAddCategoryToCategoryList(categoryDescription, categoryCreator);
+    public boolean createCategory(String nameOfCategory, Group oneGroup, Person categoryCreator) {
+            return oneGroup.createAndAddCategoryToCategoryList(nameOfCategory, categoryCreator);
         }
 
 }

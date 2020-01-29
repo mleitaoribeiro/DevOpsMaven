@@ -1,37 +1,51 @@
 @startuml
+
+skinparam DefaultFontSize 20
+
 create ":Test"
 
 ==Arrange==
 
-create "controller:MemberGetsTheMovementsInAgivenPeriodController"
-":Test" -> "controller:MemberGetsTheMovementsInAgivenPeriodController" : Create ()
-create "onePerson:Person"
-create "oneGroup:Group"
-create "ledger:Ledger"
-"oneGroup:Group" -> "ledger:Ledger" : Create ()
-activate "ledger:Ledger" #FFBBBB
-create "oneAccount:Account"
-create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : addTransactionToLedger\n(amount, description, cat, accountFrom, accountTo, type)
-deactivate "ledger:Ledger" #FFBBBB
+create ":MemberGetsTheMovementsOfAnAccountInDateRangeController"
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : new
+
+participant "group1:Group"
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate "group1:Group" #FFBBBB
+
+participant "trans:Transaction"
+participant "ledger:Ledger"
+"group1:Group" -> "trans:Transaction" : new
+"group1:Group" -> "ledger:Ledger" : addTransactionToLedger\n(amount, description, date, category, accountFrom, accountTo, type)
+deactivate "group1:Group" #FFBBBB
+deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+
 
 == Act ==
 
-":Test" -> "controller:MemberGetsTheMovementsInAgivenPeriodController" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
-activate "controller:MemberGetsTheMovementsInAgivenPeriodController" #FFBBBB
-"controller:MemberGetsTheMovementsInAgivenPeriodController" -> "oneGroup:Group" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
-activate "oneGroup:Group" #FFBBBB
-"oneGroup:Group" -> "ledger:Ledger" : getOneAccountMovementsFromGroup\n(oneAccount, dateFrom, dateTo, onePerson)
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, group1, person)
+activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, person)
+activate "group1:Group" #FFBBBB
+
+"group1:Group" -> "group1:Group" : isGroupMember(person)
+
+"group1:Group" -> "ledger:Ledger" : getTransactionsInDateRange(initialDate, finalDate)
 activate "ledger:Ledger" #FFBBBB
-"ledger:Ledger" --> "oneGroup:Group" : getOneAccountMovementsFromGroup
+"ledger:Ledger" --> "group1:Group" : listOfTransactionsFromPeriod
+
+"group1:Group" -> "ledger:Ledger" : getMovementsFromOneAccount (account, listOfTransactionsFromPeriod)
+"ledger:Ledger" --> "group1:Group" : listOfTransactions
 deactivate "ledger:Ledger" #FFBBBB
-"oneGroup:Group" --> "controller:MemberGetsTheMovementsInAgivenPeriodController" : getOneAccountMovementsFromGroup
-deactivate "oneGroup:Group" #FFBBBB
-"controller:MemberGetsTheMovementsInAgivenPeriodController" --> ":Test" : getOneAccountMovementsFromGroup
-deactivate "controller:MemberGetsTheMovementsInAgivenPeriodController" #FFBBBB
+"group1:Group" --> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : listOfTransactions
+deactivate "group1:Group" #FFBBBB
+":MemberGetsTheMovementsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
+deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expected, real)
+":Test" -> ":Test" : assertEquals(expectedTransactions, listOfTransactions)
 
 @enduml

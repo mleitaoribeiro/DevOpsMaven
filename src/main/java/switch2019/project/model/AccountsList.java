@@ -10,12 +10,14 @@ public class AccountsList {
     /**
      * Construtor for Accounts List
      */
+
     public AccountsList() {
         accounts = new HashSet<Account>();
     }
 
     /**
      * Develop @override of equals for Accounts List and @override of hashcode
+     *
      * @param o
      * @return boolean
      */
@@ -29,7 +31,8 @@ public class AccountsList {
     }
 
     /**
-     *  Develop  @override of hashcode
+     * Develop  @override of hashcode
+     *
      * @return
      */
 
@@ -41,6 +44,7 @@ public class AccountsList {
     /**
      * Develop @override of toString()
      */
+
     @Override
     public String toString() {
         return "Accounts List: " + accounts;
@@ -48,8 +52,10 @@ public class AccountsList {
 
     /**
      * Method to get the numbers of Accounts in the Accounts List
+     *
      * @return int
      */
+
     public int numberOfAccountsInTheAccountsList() {
         return this.accounts.size();
     }
@@ -70,22 +76,23 @@ public class AccountsList {
 
     /**
      * method to remove one account from a list
+     *
      * @param accountToBeRemoved
      * @return boolean
      */
 
-    public boolean removeOneAccountFromAList (Account accountToBeRemoved){
+    public boolean removeOneAccountFromAList(Account accountToBeRemoved) {
         if (accountToBeRemoved != null) {
             boolean isAccountRemoved = accounts.remove(accountToBeRemoved);
             boolean isAccountNotContained = !accounts.contains(accountToBeRemoved);
             return isAccountRemoved && isAccountNotContained;
-        }
-        else
+        } else
             return false;
     }
 
     /**
      * method to validate if the account is in the accounts list
+     *
      * @param accountToValidate
      * @return boolean
      */
