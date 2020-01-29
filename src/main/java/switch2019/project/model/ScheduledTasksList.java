@@ -5,7 +5,14 @@ import java.util.HashSet;
 
 public class ScheduledTasksList {
 
-    private HashSet<Schedule> scheduledTasksList;
+    private HashSet<Schedule> scheduledTransactions;
+
+    /**
+     * ScheduledTasksList Constructor
+     */
+    public ScheduledTasksList() {
+        scheduledTransactions = new HashSet<>();
+    }
 
     /**
      * Method to add a new schedule do the scheduledTasksList
@@ -14,7 +21,7 @@ public class ScheduledTasksList {
                                   Category category, Account accountFrom, Account accountTo, boolean type) {
 
         Schedule newSchedule = new Schedule(person, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
-        return scheduledTasksList.add(newSchedule);
+        return scheduledTransactions.add(newSchedule);
     }
 
 }
