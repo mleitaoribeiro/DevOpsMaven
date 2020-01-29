@@ -913,9 +913,10 @@ class LedgerTest {
         boolean type = true;
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        LocalDateTime date = LocalDateTime.of(2019, 10, 27, 00, 00);
+        ledger.addTransactionToLedger(monetaryValue, "payment", date, category, account1, account2, type);
 
-        String expected ="Ledger:[2020-01-29 12:59 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY].";
+        String expected ="Ledger:[2019-10-27 00:00 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY].";
         //Act
 
         String real = ledger.toString();
