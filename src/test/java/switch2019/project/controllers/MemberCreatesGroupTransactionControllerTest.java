@@ -64,7 +64,7 @@ class MemberCreatesGroupTransactionControllerTest {
 
     @Test
     @DisplayName("Test if a group transaction was created - monetary value is negative")
-    void createGroupTransactionAccountNegativeMonetaryValue() throws IllegalArgumentException {
+    void createGroupTransactionAccountNegativeMonetaryValue() {
         //Arrange
         MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
 
@@ -102,6 +102,38 @@ class MemberCreatesGroupTransactionControllerTest {
         try {
             groupTransaction.memberCreatesAGroupTransaction(amountNegative, description1, null, category, from,
                     to, type, group1, person4);
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if a group transaction was created - transaction null")
+    void createGroupTransactionNull() {
+        //Arrange
+        MemberCreatesGroupTransactionController groupTransaction = new MemberCreatesGroupTransactionController();
+
+        Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person2 = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
+                new Address("Rua dos Flores", "Porto", "4450-852"));
+        Person person3 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+        Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+
+        GroupsList groupList1 = new GroupsList();
+        groupList1.createGroup("Test group", person3);
+        Group group1 = new Group("Test group");
+        group1.addMember(person4);
+
+        //Act
+        try {
+            groupTransaction.memberCreatesAGroupTransaction(null, null, null, null, null,
+                    null, false, group1, person4);
         }
 
         //Assert
