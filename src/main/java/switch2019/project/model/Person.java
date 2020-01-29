@@ -390,10 +390,6 @@ public class Person {
         return listOfTransactions;
     }
 
-    public void setLedgerToTest() {
-        ledger = new Util_PersonalLedger().getLedger();
-    }
-
     /**
      * Develop method to create a new schedule (USER STORY)
      *
