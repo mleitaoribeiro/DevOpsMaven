@@ -356,8 +356,7 @@ class GroupsListTest {
         //Act:
         try {
             testGroupList.checkIfAPersonIsAdminInAGivenGroup("blabla", testGroupAdmin);
-        }
-        catch(IllegalArgumentException groupNotFound) {
+        } catch (IllegalArgumentException groupNotFound) {
             assertEquals("There're no groups found with that description.", groupNotFound.getMessage());
         }
     }

@@ -1,9 +1,7 @@
 @startuml
 skinparam DefaultFontSize 20
 participant ":Test"
-note left of ":Test" #powderblue
-	Arrange
-end note
+== Arrange ==
 
 create "controller:GetPersonalAndGroupTransactionsInDateRangeController"
 ":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : create()
@@ -13,12 +11,11 @@ participant "personalLedger:Ledger"
 participant "groupsList:GroupsList"
 participant "group:Group"
 participant "groupLedger:Ledger"
+participant "transaction:Transaction"
 
-note left of ":Test" #powderblue
-	Act
-end note
+== Act ==
 
-":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : getPersonalAndGroupTransactions\n(person, initialDate, finalDate, groupsList)
+":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : selectedTransactions = getPersonalAndGroupTransactions\n(person, initialDate, finalDate, groupsList)
 activate "controller:GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB
 
 "controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "person:Person" : returnPersonLedgerInDateRange\n(initialDate, finalDate)
@@ -42,13 +39,11 @@ deactivate "groupLedger:Ledger" #FFBBBB
 deactivate "group:Group"
 "groupsList:GroupsList" --> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : groupTransactions
 deactivate "groupsList:GroupsList"
-
+"controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController": sort(Transaction::getDate)
 "controller:GetPersonalAndGroupTransactionsInDateRangeController" --> ":Test" : selectedTransactions
 deactivate "controller:GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB
 
-note left of ":Test" #powderblue
-	Assert
-end note
+== Assert ==
 
 ":Test" -> ":Test" : assertEquals(expectedTransactions, \n                    selectedTransactions)
 
