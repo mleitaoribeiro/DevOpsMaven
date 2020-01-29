@@ -71,16 +71,35 @@ public class GroupsList {
      * @param accountTo
      * @param type
      */
-    public boolean createTransactionOnSpecificGroup(String groupDescription, MonetaryValue amount, String transactionDescription,
+    public boolean createTransactionOnSpecificGroup(Person person, String groupDescription,
+                                                    MonetaryValue amount, String transactionDescription,
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type){
-        Group groupFound = new Group(null);
         for (Group group : groupsList) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription))
-                groupFound = group;
-        } return groupFound.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+            if (group.getDescription().equalsIgnoreCase(groupDescription) && group.isGroupMember(person))
+                return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+        } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 
+    /**
+     * Method to create a transaction on a specific group
+     * @param groupDescription
+     * @param amount
+     * @param transactionDescription
+     * @param localDate
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+    public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, String periodicity, MonetaryValue amount, String transactionDescription,
+                                                    LocalDateTime localDate, Category category,
+                                                    Account accountFrom, Account accountTo, boolean type){
+        for (Group group : groupsList) {
+            if (group.getDescription().equalsIgnoreCase(groupDescription) && group.isGroupMember(person))
+                return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+        } throw new IllegalArgumentException("There're no groups found with that description.");
+    }
 
     /**
      * Method to return the transactions of all the groups a given person is a member on, in a selected date range
@@ -108,6 +127,17 @@ public class GroupsList {
         for (Group group : groupsList) {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
                 return group.isGroupAdmin(person);
+        } throw new IllegalArgumentException("There're no groups found with that description.");
+    }
+
+    /**
+     * Method to check a specific group ledger size
+     * @param groupDescription
+     */
+    public int checkIfAGroupsLedgerSize(String groupDescription){
+        for (Group group : groupsList) {
+            if (group.getDescription().equalsIgnoreCase(groupDescription))
+                return group.ledgerSize();
         } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 }
