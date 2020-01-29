@@ -2085,4 +2085,19 @@ class PersonTest {
             assertEquals("The dates can´t be null", initialDate.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("Test Constructor - BirthDate")
+    void descriptionConstructor() {
+
+        //Arrange
+        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ));
+        LocalDate expected = LocalDate.of(1995, 12,3);
+
+        //Act
+        LocalDate real = person1.getBirthDate();
+
+        //Assert
+        assertEquals(expected, real);
+    }
 }
