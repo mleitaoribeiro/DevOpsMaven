@@ -101,7 +101,7 @@ class ScheduleTest {
 
         //Act
         try {
-            int x = oneSchedule.convertKeyWordIntoMilliseconds("tomorrow");
+            oneSchedule.convertKeyWordIntoMilliseconds("tomorrow");
         }
         //Assert
         catch (IllegalArgumentException result) {
