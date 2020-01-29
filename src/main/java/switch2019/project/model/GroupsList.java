@@ -76,8 +76,11 @@ public class GroupsList {
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type){
         for (Group group : groupsList) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription) && group.isGroupMember(person))
-                return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+            if (group.getDescription().equalsIgnoreCase(groupDescription)) {
+                if (group.isGroupMember(person))
+                    return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+                else throw new IllegalArgumentException("You are not a member of that group.");
+            }
         } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 
@@ -96,8 +99,11 @@ public class GroupsList {
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type){
         for (Group group : groupsList) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription) && group.isGroupMember(person))
-                return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+            if (group.getDescription().equalsIgnoreCase(groupDescription)){
+                if(group.isGroupMember(person))
+                    return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
+                else throw new IllegalArgumentException("You are not a member of that group.");
+            }
         } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 
