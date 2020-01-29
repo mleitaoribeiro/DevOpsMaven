@@ -4,10 +4,7 @@ import switch2019.project.utils.Util_PersonalLedger;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Group {
 
@@ -73,7 +70,7 @@ public class Group {
      * @return true if member was added, false if it wasn't
      */
     public boolean addMember(Person person) {
-        if (this.members.size() > 0 && person != null) {
+        if (!this.members.isEmpty() && person != null) {
             return members.add(person);
         } else if (person != null) {
             return setAdmin(person);
@@ -104,8 +101,8 @@ public class Group {
      * @param newMembers
      * @return true if multiple members were added, false if they weren't
      */
-    public boolean addMultipleMembers(HashSet<Person> newMembers) {
-        if (members.size() != 0) {
+    public boolean addMultipleMembers(Set<Person> newMembers) {
+        if (!members.isEmpty()) {
             for (Person member : newMembers) {
                 addMember(member);
             }
@@ -120,7 +117,7 @@ public class Group {
      * @param toRemove HashSet of members that are going to be removed
      * @return true if multiple members were removed, false if they weren't
      */
-    public boolean removeMultipleMembers(HashSet<Person> toRemove) {
+    public boolean removeMultipleMembers(Set<Person> toRemove) {
         for (Person member : toRemove) {
             removeMember(member);
         }
@@ -149,8 +146,9 @@ public class Group {
         if (dadPerson == null || momPerson == null) return false;
 
         for (Person person : members) {
-            if (!person.equals(dadPerson) && !person.equals(momPerson)) {
-                if (!person.isMother(momPerson) || !person.isFather(dadPerson)) return false;
+            if (!person.equals(dadPerson) && !person.equals(momPerson) &&
+                    (!person.isMother(momPerson) || !person.isFather(dadPerson))) {
+                return false;
             }
         }
         return true;
@@ -179,7 +177,7 @@ public class Group {
      * @param multipleMembers
      * @return true if person was promoted, false if it wasn't
      */
-    public boolean promoteMultipleMemberToAdmin(HashSet<Person> multipleMembers) {
+    public boolean promoteMultipleMemberToAdmin(Set<Person> multipleMembers) {
         for (Person member : multipleMembers) {
             setAdmin(member);
         }
@@ -206,7 +204,7 @@ public class Group {
      * @return true if all
      */
 
-    public boolean demoteMultipleMembersFromAdmin(HashSet<Person> multipleMembers) {
+    public boolean demoteMultipleMembersFromAdmin(Set<Person> multipleMembers) {
         if (multipleMembers.size() >= this.admins.size()) {
             return false;
         }
@@ -270,7 +268,7 @@ public class Group {
     }
 
     /**
-     *  As a admin i want to develop method add one category to group's Category List(US005.1)
+     * As a admin i want to develop method add one category to group's Category List(US005.1)
      *
      * @param nameOfCategory
      * @param categoryCreator
@@ -308,7 +306,6 @@ public class Group {
      * @param accountTo
      * @param type
      * @return true if transaction was created and added to Ledger
-     *
      */
 
     public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
@@ -318,9 +315,6 @@ public class Group {
         return this.isTransactionInsideTheGroupLedger(newGroupTransaction);
     }
 
-    public void setLedgerToTest() {
-        ledger = new Util_PersonalLedger().getLedger();
-    }
 
     /**
      * Get the group's ledger movements in a given period from specific account (US010)
@@ -329,20 +323,14 @@ public class Group {
      * @param initialDate
      * @param finalDate
      * @param person1
-     *
      */
-    public ArrayList<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
-        ArrayList<Transaction> listOfTransactionsOfThatAccount = new ArrayList<>();
-
+    public List<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
         if (this.isGroupMember(person1)) {
-            ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-            for (Transaction transaction : listOfTransactions) {
-                if (transaction.getAccountFrom().equals(account1) || transaction.getAccountTo().equals(account1)) {
-                    listOfTransactionsOfThatAccount.add(transaction);
-                }
-            }
-        }
-        return listOfTransactionsOfThatAccount;
+            List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+            List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
+            return listOfTransactionsOfThatAccount;
+        } else
+            throw new IllegalArgumentException("You don't have access to that account.");
     }
 
 
@@ -354,8 +342,8 @@ public class Group {
      * @param person
      */
 
-    public ArrayList<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
-        if(isGroupMember(person)){
+    public List<Transaction> returnGroupLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
+        if (isGroupMember(person)) {
             return this.ledger.getTransactionsInDateRange(initialDate, finalDate);
         }
 
@@ -371,12 +359,13 @@ public class Group {
      */
 
     public double getGroupBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return ledger.getBalanceInDateRange(initialDate,finalDate);
+        return ledger.getBalanceInDateRange(initialDate, finalDate);
     }
 
 
     /**
      * Method used to check if a transaction is inside a groupLedger
+     *
      * @param transaction1
      * @return true if transaction is inside the group ledger
      */
@@ -386,6 +375,7 @@ public class Group {
 
     /**
      * Method used to get group description
+     *
      * @return description
      */
     public String getDescription() {

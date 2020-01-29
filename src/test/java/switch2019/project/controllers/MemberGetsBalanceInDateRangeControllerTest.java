@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberGetsBalanceInDateRangeControllerTest {
 
     /**
-     * Tests to evaluate getGroupBalanceInDateRange - User Story
+     * Tests to evaluate getGroupBalanceInDateRange - US0018
      */
 
     @Test
@@ -270,7 +270,7 @@ class MemberGetsBalanceInDateRangeControllerTest {
 
     @Test
     @DisplayName("Happy Case - Results in negative balance")
-    void getGroupBalanceBetweenDatesNegativereResul(){
+    void getGroupBalanceBetweenDatesNegativeResult(){
         //ARRANGE:
         //Create object from controller class:
         MemberGetsBalanceInDateRangeController balanceController = new MemberGetsBalanceInDateRangeController();
@@ -478,9 +478,5 @@ class MemberGetsBalanceInDateRangeControllerTest {
             assertEquals("One of the submitted dates is not valid.",description.getMessage());
         }
     }
-
-
-
-
 
 }

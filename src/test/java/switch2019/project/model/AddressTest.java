@@ -305,7 +305,7 @@ class AddressTest {
     @DisplayName("Testing if two Addresses are equal - lowCase and upperCase")
     void sameAddressUpperCaseLowerCase() {
         //Arrange
-        Address address1 = new Address("rua das Flores, 36", "porto", "4050-262");
+        Address address1= new Address("rua das Flores, 36", "porto", "4050-262");
         Address address2 = new Address("Rua das flores, 36", "PortO", "4050-262");
 
         //Act and Assert
@@ -323,7 +323,7 @@ class AddressTest {
         String city = "PORTO";
 
         //Act
-        boolean expected = isNumeric(city);
+        boolean expected = isNumeric (city);
 
         //Assert
         assertEquals(false, expected);
@@ -336,7 +336,7 @@ class AddressTest {
         String city = "4245";
 
         //Act
-        boolean expected = isNumeric(city);
+        boolean expected = isNumeric (city);
 
         //Assert
         assertEquals(true, expected);
@@ -349,7 +349,7 @@ class AddressTest {
         String city = null;
 
         //Act
-        boolean expected = isNumeric(city);
+        boolean expected = isNumeric (city);
 
         //Assert
         assertEquals(false, expected);
@@ -391,7 +391,7 @@ class AddressTest {
     public void testEqualsSameAddressOtherObjectofDifferentClass() {
         //Arrange
         Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
-        Person person1 = new Person("Miguel", LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua das Flores", "Porto", "4450-230"));
+        Person person1 = new Person("Miguel", LocalDate.of(1990, 12,04), new Address("Porto"),new Address ("Rua das Flores","Porto","4450-230"));
 
         //Act
         boolean result = address1.equals(person1);
@@ -446,41 +446,23 @@ class AddressTest {
     }
 
     /**
-     * Test to check if homeAdressToString converts a homeAddress into a String.
+     * Test for the constructor of the birthPlace
      */
-
     @Test
-    @DisplayName("homeAdressToString tested - Success")
-    void homeAddressToStringTest() {
+    @DisplayName("Test for the constructor of the birthPlace")
+    public void testForTheConstructorOfTheBirthPlace() {
 
-        //Arrange:
-        Address addressOne = new Address("Rua das Flores", "Porto", "4430-098");
+        //Arrange
+        Address birthPlace = new Address("Matosinhos");
+        String expected="Matosinhos";
 
-        //Act:
-        String homeAddressInString = addressOne.homeAddressToString();
-        String expected = "RUA DAS FLORES, PORTO, 4430-098";
+        //Act
+        String real=birthPlace.birthplaceToString();
 
-        //Assert:
-        assertEquals(expected, homeAddressInString);
+        //Assert
+        assertEquals(expected,real);
     }
 
-    /**
-     * Test to check if birtplaceToString converts a birthplace into a String.
-     */
 
-    @Test
-    @DisplayName("birthplaceToString tested - Success")
-    void birthplaceToStringTest() {
-
-        //Arrange:
-        Address addressOne = new Address("Porto");
-
-        //Act:
-        String birthplaceInString = addressOne.birthplaceToString();
-        String expected = "Porto";
-
-        //Assert:
-        assertEquals(expected, birthplaceInString);
-    }
 
 }

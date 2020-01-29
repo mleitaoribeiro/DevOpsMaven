@@ -6,10 +6,7 @@ import switch2019.project.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Currency;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +21,8 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
     void getLedgerTransactionsInPeriod() {
 
         //Arrange
+        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
@@ -54,16 +53,14 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
         oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
 
-        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
-
         //Expected Transactions
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
 
         //Act
-        ArrayList<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        List<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2019, 2, 3, 10, 40), oneGroup, onePerson);
         //Assert
         assertEquals(expected, real);
@@ -74,6 +71,8 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
     void getLedgerTransactionsInPeriodEmptyLedger() {
 
         //Arrange
+        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
@@ -81,12 +80,12 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
 
         oneGroup.setAdmin(onePerson);
 
-        ArrayList<Transaction> expected = new ArrayList<>();
+        List<Transaction> expected = new ArrayList<>();
 
-        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
 
         //Act
-        ArrayList<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
+        List<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2017, 10, 2, 9, 20),
                 LocalDateTime.of(2017, 12, 3, 10, 40),oneGroup, onePerson);
         //Assert
         assertEquals(expected, real);
@@ -97,6 +96,8 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
     void getLedgerTransactionsInPeriodSameDay() {
 
         //Arrange
+        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
+
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", LocalDate.of(1995, 12, 04),
@@ -126,14 +127,13 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
         oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
         oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
 
-        MemberGetsTheMovementsInAGivenPeriodController controller = new MemberGetsTheMovementsInAGivenPeriodController();
 
         //Expected Transactions
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
 
-        ArrayList<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
+        List<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
-        ArrayList<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
+        List<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2018, 10, 2, 9, 10),
                 LocalDateTime.of(2018, 10, 2, 9, 10),oneGroup, onePerson);
         //Assert
         assertEquals(expected, real);
@@ -174,9 +174,9 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
         oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
 
         //Expected Transactions
-        ArrayList<Transaction> expected = new ArrayList<>();
+        List<Transaction> expected = new ArrayList<>();
         //Act
-        ArrayList<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
+        List<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2012, 10, 2, 9, 10),
                 LocalDateTime.of(2013, 10, 2, 9, 10),oneGroup, onePerson);
         //Assert
         assertEquals(expected, real);
@@ -222,9 +222,9 @@ class MemberGetsTheMovementsInAGivenPeriodControllerTest {
         Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
 
-        ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
+        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction1, expectedTransaction2));
         //Act
-        ArrayList<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
+        List<Transaction> real = controller.returnGroupLedgerFromPeriod(LocalDateTime.of(2019, 2, 3, 10, 40),
                 LocalDateTime.of(2017, 10, 2, 9, 20), oneGroup, onePerson);
 
         //Assert

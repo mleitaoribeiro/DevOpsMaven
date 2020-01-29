@@ -67,7 +67,7 @@ class AccountTest {
         String one = oneAccount.toString();
 
         //Act
-        boolean result = one.equals("SUPERMARKET, Weekly spends, 0.0€");
+        boolean result = one != null && one.equals("SUPERMARKET, Weekly spends, 0.0€");
 
         //Assert
         assertTrue(result);
