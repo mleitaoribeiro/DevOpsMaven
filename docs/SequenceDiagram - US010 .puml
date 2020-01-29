@@ -22,7 +22,6 @@ participant "ledger:Ledger"
 deactivate "group1:Group" #FFBBBB
 deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 
-
 == Act ==
 
 ":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, group1, person)
