@@ -158,4 +158,12 @@ public class Ledger {
         }
         return (double)Math.round(balance*1000)/1000; // balance rounded to three decimal places
     }
+    /**
+     * Get the size of the legder
+     *
+     * return int legderSize
+     */
+    public int getLedgerSize(){
+        return this.ledgerTransactions.size();
+    }
 }

@@ -393,6 +393,26 @@ public class Person {
     public void setLedgerToTest() {
         ledger = new Util_PersonalLedger().getLedger();
     }
+
+    /**
+     * Develop method to create a new schedule (USER STORY)
+     *
+     * @param periodicity
+     * @param amount
+     * @param description
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+
+    public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+        if (!accountFrom.equals(accountTo))
+            return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
+                                                        category, accountFrom, accountTo, type);
+        else return false;
+    }
 }
 
 
