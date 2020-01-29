@@ -7,9 +7,7 @@ create ":Test"
 == Arrange ==
 create "controller:AdminCreatesCategoryController"
 ":Test" -> "controller:AdminCreatesCategoryController" : new AdminCreatesCategoryController()
-create "group1:Group"
-":Test" -> "group1:Group" : new Group()
-
+participant "group1:Group"
 
 == Act ==
 ":Test" -> "controller:AdminCreatesCategoryController" : createCategory\n(nameOfCategory, oneGroup, categoryCreator)
