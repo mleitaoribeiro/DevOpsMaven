@@ -4,19 +4,22 @@ skinparam DefaultFontSize 20
 
 create ":Test"
 
-note left of ":Test" #powderblue
-	Arrange
-end note
+== Arrange ==
+
 create "balanceController:MemberGetsBalanceInDateRangeController"
 ":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : new MemberGetsBalance\nInDateRangeController
 
 participant "group1:Group"
-participant "ledger:Ledger"
-participant "transaction:Transaction"
 
-note left of ":Test" #powderblue
-	Act
-end note
+create "ledger:Ledger"
+":Test" -> "ledger:Ledger" : new Ledger()
+activate "ledger:Ledger" #FFBBBB
+
+create "transaction:Transaction"
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
+deactivate "ledger:Ledger" #FFBBBB
+
+== Act  ==
 
 ":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, group1, Person member)
 activate "balanceController:MemberGetsBalanceInDateRangeController" #FFBBBB
@@ -31,9 +34,7 @@ deactivate "ledger:Ledger"
 deactivate "group1:Group"
 deactivate "balanceController:MemberGetsBalanceInDateRangeController"
 
-note left of ":Test" #powderblue
-	Assert
-end note
+== Assert ==
 
 ":Test" -> ":Test" : assertEquals(expectedGroupBalance, groupBalance)
 

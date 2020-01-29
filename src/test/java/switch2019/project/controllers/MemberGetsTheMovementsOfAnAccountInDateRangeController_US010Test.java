@@ -101,6 +101,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
+        List<Transaction> transactionsAccount5 = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
         List<Transaction> transactionsAccount5 = groupController.MemberGetsTheMovementsOfAnAccountInDateRangeController_US010(account5, date1, date2, group1, person1);
 
 

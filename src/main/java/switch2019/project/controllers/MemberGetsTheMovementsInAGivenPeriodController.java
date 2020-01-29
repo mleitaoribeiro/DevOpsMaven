@@ -6,6 +6,7 @@ import switch2019.project.model.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MemberGetsTheMovementsInAGivenPeriodController {
 
@@ -16,7 +17,7 @@ public class MemberGetsTheMovementsInAGivenPeriodController {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Group group, Person person) {
+    public List<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Group group, Person person) {
         return group.returnGroupLedgerInDateRange(initialDate, finalDate, person);
     }
 }
