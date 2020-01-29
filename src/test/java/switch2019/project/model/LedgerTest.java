@@ -626,8 +626,8 @@ class LedgerTest {
 
 
     @Test
-    @DisplayName("Get movements from one account")
-    void getMovementsFromOneAccount() {
+    @DisplayName("Get movements from one account - Success Case")
+    void getMovementsFromOneAccountSuccessCase() {
         //Arrange
         Ledger ledger = new Ledger();
         Account account = new Account("Millenium", "Only for Groceries");
@@ -646,12 +646,12 @@ class LedgerTest {
 
         //Arrange-Transaction2
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                LocalDateTime.of(2020, 1, 1, 14, 11),
+                LocalDateTime.of(2020, 1, 2, 14, 11),
                 new Category("grocery"), new Account("BNI", "General"),
                 new Account("Millenium", "Only for Groceries"),
                 false);
         Transaction transaction2 = new Transaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
-                LocalDateTime.of(2020, 1, 1, 14, 11),
+                LocalDateTime.of(2020, 1, 2, 14, 11),
                 new Category("grocery"), new Account("BNI", "General"),
                 new Account("Millenium", "Only for Groceries"),
                 false);
@@ -668,8 +668,8 @@ class LedgerTest {
                 new Account("BP", "Gas"),
                 false);
 
-        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction2,transaction1,transaction3));
-        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2,transaction1));
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2));
 
         //Act
         List<Transaction> listOfTransactions = ledger.getMovementsFromOneAccount(account, allTransactions);
@@ -678,6 +678,65 @@ class LedgerTest {
         assertEquals(expectedTransactions, listOfTransactions);
     }
 
+    @Test
+    @DisplayName("Get movements from one account - Null Account")
+    void getMovementsFromOneAccountNullAccount() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        Account account = null;
+
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
+
+        //Act
+        try {
+            ledger.getMovementsFromOneAccount(account, allTransactions);
+        }
+
+        //Assert
+        catch (IllegalArgumentException getMovementsFromOneAccount) {
+            assertEquals("The account can't be null", getMovementsFromOneAccount.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get movements from one account - Account without movements")
+    void getMovementsFromOneAccountAccountWithoutMovements() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        Account account = new Account("CaixaGeral", "General");
+
+        //Arrange-Transaction1
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+
+        List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
+        List<Transaction> expectedTransactions = new ArrayList<>();
+
+        //Act
+        List<Transaction> listOfTransactions = ledger.getMovementsFromOneAccount(account, allTransactions);
+
+        //Assert
+        assertEquals(expectedTransactions, listOfTransactions);
+    }
 
     /**
      * * US017/18 - Get the balance of the transactions given a specific date range
