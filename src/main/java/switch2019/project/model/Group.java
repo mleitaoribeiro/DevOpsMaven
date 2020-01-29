@@ -1,7 +1,5 @@
 package switch2019.project.model;
 
-import switch2019.project.utils.Util_PersonalLedger;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -15,6 +13,7 @@ public class Group {
     private AccountsList groupAccountsList;
     private CategoryList categoryList;
     private Ledger ledger;
+    private ScheduledTasksList scheduledTasksList;
 
     /**
      * Default Group constructor
@@ -30,6 +29,7 @@ public class Group {
         groupAccountsList = new AccountsList();
         categoryList = new CategoryList();
         ledger = new Ledger();
+        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
@@ -386,10 +386,8 @@ public class Group {
             else if (!this.ledger.isTransactionInLedger(transaction)){
                 return false;
             }
-        }
-        return true;
+        } return true;
     }
-
 
     /**
      * Method used to get group description
@@ -398,6 +396,24 @@ public class Group {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Develop method to create a new schedule (USER STORY)
+     *
+     * @param periodicity
+     * @param amount
+     * @param description
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+
+    public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+        return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
+                category, accountFrom, accountTo, type);
     }
 }
 

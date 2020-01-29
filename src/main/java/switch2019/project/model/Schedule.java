@@ -12,20 +12,23 @@ public class Schedule {
                                Category category, Account accountFrom, Account accountTo, boolean type) {
         int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
         Timer timer = new Timer();
-        PersonalTransactionTask scheduledPersonalTransactionTask = new PersonalTransactionTask(person, amount, description, date, category, accountFrom, accountTo, type);
+        PersonalTransactionTask scheduledPersonalTransactionTask = new PersonalTransactionTask(person, amount,
+                                                        description, date, category, accountFrom, accountTo, type);
         timer.schedule(scheduledPersonalTransactionTask, 0, periodicity);
     }
 
-/*    *//**
+    /*
      * Group Schedule Constructor
-     *//*
+     */
+
     public Schedule(Group group, String periodicityString, MonetaryValue amount, String description, LocalDateTime date,
                     Category category, Account accountFrom, Account accountTo, boolean type) {
         int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
         Timer timer = new Timer();
-        PersonalTransactionTask scheduledPersonalTransactionTask = new PersonalTransactionTask(group, amount, description, date, category, accountFrom, accountTo, type);
-        timer.scheduleAtFixedRate(scheduledPersonalTransactionTask, 0, periodicity);
-    }*/
+        GroupTransactionTask scheduledGroupTransactionTask = new GroupTransactionTask(group, amount,
+                                                        description, date, category, accountFrom, accountTo, type);
+        timer.schedule(scheduledGroupTransactionTask, 0, periodicity);
+    }
 
     /**
      * Method to convert key word into milliseconds

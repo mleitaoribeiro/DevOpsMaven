@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
+class GetTheMovementsOfAnAccountInAGivenTimeController {
     /**
      * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.
      */
@@ -19,7 +19,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - case of success")
     void obtainMovementsFromAnAccount() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
@@ -64,7 +64,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - dates change")
     void obtainMovementsFromAnAccountDateChange() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -110,7 +110,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - same day")
     void obtainMovementsFromAnAccountSameDay() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 14, 00, 00);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 14, 23, 59);
@@ -156,7 +156,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - check before the creation of the ledger")
     void obtainMovementsFromAnAccountBeforeLedger() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2017, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2018, 1, 31, 13, 02);
@@ -203,7 +203,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - first date null")
     void obtainMovementsFromAnAccountFirstDateNull() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = null;
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -253,7 +253,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - second date null")
     void obtainMovementsFromAnAccountSecondDateNull() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = null;
@@ -303,7 +303,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - first date is after now")
     void obtainMovementsFromAnAccountFirstDateNotValide() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -353,7 +353,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - final date is after now")
     void obtainMovementsFromAnAccountFinalDateNotValide() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 12, 13, 13, 02);
@@ -403,7 +403,7 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
     @DisplayName("Obtain movements from an account - empty ledger exception")
     void obtainMovementsFromAnAccountEmptyLedger() {
         //Arrange
-        MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+        GetTheMovementsOfAnAccountInDateRangeController groupController = new GetTheMovementsOfAnAccountInDateRangeController();
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -427,5 +427,144 @@ class MemberGetsTheMovementsOfAnAccountInAGivenTimeController_US010Test {
         }
     }
 
+    /**
+     * US010 Como utilizador, quero obter os movimentos de determinada conta num dado período.
+     */
+
+    @Test
+    @DisplayName("Obtain movements from an account - Main Scenario")
+    void obtainMovementsFromAnAccountMainScenario() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
+        LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        List<Transaction> listOfTransactions = controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+
+
+        //Assert
+        assertEquals(expectedTransactions, listOfTransactions);
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - same day")
+    void obtainMovementsFromAnAccountInSameDay() {
+
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
+        LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 00, 00);
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        List<Transaction> listOfTransactions = controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+
+
+        //Assert
+        assertEquals(expectedTransactions, listOfTransactions);
+    }
+
+    @Test
+    @DisplayName("Obtain movements from an account - date null")
+    void obtainMovementsDateNull() {
+        //Arrange
+        Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
+        LocalDateTime date1 = null;
+        LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
+
+
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
+
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Account account5 = new Account("comida de gato", "comida para a gatinha");
+
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("friends");
+
+        //Type:
+        boolean type1 = true;
+        boolean type2 = false;
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
+
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        //Act
+        try {
+            controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+        }
+
+        //Assert
+        catch (IllegalArgumentException initialDate) {
+            assertEquals("The dates can´t be null", initialDate.getMessage());
+        }
+    }
 }
 
