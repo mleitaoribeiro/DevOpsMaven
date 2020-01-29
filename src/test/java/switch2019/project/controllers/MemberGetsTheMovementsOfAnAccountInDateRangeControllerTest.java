@@ -6,9 +6,13 @@ import switch2019.project.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Currency;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class MembersGestTheMovementsOfAnAccountInAGivenTimeController {
     /**
