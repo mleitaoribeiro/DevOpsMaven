@@ -1,6 +1,6 @@
 package switch2019.project.model;
 
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
 
 public class Schedule {
 
@@ -16,10 +16,10 @@ public class Schedule {
 
     public Schedule scheduleATransaction(Schedule schedule) {
         switch (schedule.periodicity) {
-            case "mensal":
+            case "monthly":
 
                 break;
-            case "diário":
+            case "daily":
 
                 break;
             case "dias úteis":
@@ -28,6 +28,8 @@ public class Schedule {
             case "semanal":
 
                 break;
+            default:
+                throw new IllegalArgumentException("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.");
 
         }
         return schedule;
