@@ -418,9 +418,8 @@ public class Person {
      * @param account1
      * @param initialDate
      * @param finalDate
-     * @param person1
      */
-    public List<Transaction> getOneAccountMovementsFromUser(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
+    public List<Transaction> getOneAccountMovementsFromUser(Account account1, LocalDateTime initialDate, LocalDateTime finalDate) {
         List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
         List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
         return listOfTransactionsOfThatAccount;
