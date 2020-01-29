@@ -1243,8 +1243,8 @@ class PersonTest {
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
 
         //Arrange - ExpectedResult//
-        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
-        expectedResult.sort(Comparator.comparing(Transaction::getDate));
+        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction3, transaction2, transaction1));
+
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
@@ -1317,7 +1317,6 @@ class PersonTest {
 
         //Arrange - ExpectedResult//
         ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2));
-        expectedResult.sort(Comparator.comparing(Transaction::getDate));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);

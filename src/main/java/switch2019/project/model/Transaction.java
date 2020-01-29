@@ -119,7 +119,6 @@ public class Transaction {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.date = LocalDateTime.parse(dateNow.format(formatter), formatter);
         } else this.date = date;
-
     }
 
     /**
