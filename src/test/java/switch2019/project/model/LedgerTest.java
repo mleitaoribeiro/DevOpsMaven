@@ -870,4 +870,27 @@ class LedgerTest {
 
         assertEquals(0, personalBalanceInDateRange);
     }
+
+    /**
+     * tests for size of the Ledger.
+     */
+
+    @Test
+    @DisplayName("Test for validating add a new transaction")
+    void addTransactionToLedgerChangeSize() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category = new Category("grocery");
+        boolean type = true;
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Ledger ledger = new Ledger();
+        int sizeBefore = ledger.getLedgerSize();
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        int sizeAfter = ledger.getLedgerSize();
+        //Act
+
+        //Assert
+        assertEquals(sizeBefore+1, sizeAfter);
+    }
 }
