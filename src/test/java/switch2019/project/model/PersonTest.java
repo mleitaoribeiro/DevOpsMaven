@@ -2100,4 +2100,21 @@ class PersonTest {
         //Assert
         assertEquals(expected, real);
     }
+
+    @Test
+    @DisplayName("Test Constructor - BirthDate Null")
+    void descriptionConstructorNull() {
+        //Arrange
+        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ));
+
+        try {
+            //Act
+            person1.setBirthDate(null);
+
+        }
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("Birth Date Can't be Null.", description.getMessage());
+        }
+    }
 }
