@@ -24,8 +24,7 @@ public class Ledger {
 
     @Override
     public String toString() {
-        return "Ledger:" + ledgerTransactions +
-                ".";
+        return "Ledger:" + ledgerTransactions + ".";
     }
 
     /**

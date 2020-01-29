@@ -898,4 +898,34 @@ class LedgerTest {
         //Assert
         assertEquals(sizeBefore+1, sizeAfter);
     }
+
+    /**
+     * Test - Method To String
+     */
+
+    @Test
+    @DisplayName("Test toString() Method")
+    void testToStringMethod() {
+        //Arrange
+        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account("transporte", "transporte Metro");
+        Category category = new Category("grocery");
+        boolean type = true;
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Ledger ledger = new Ledger();
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+
+        String expected ="Ledger:[2020-01-29 12:59 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY].";
+        //Act
+
+        String real = ledger.toString();
+
+        //Assert
+        assertEquals(expected, real);
+
+    }
+
+
+
+
 }
