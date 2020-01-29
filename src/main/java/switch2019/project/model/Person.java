@@ -168,7 +168,7 @@ public class Person {
      * @param sibling
      */
     public void removeSibling(Person sibling) {
-        this.siblingList.remove(sibling);
+        siblingList.remove(sibling);
         sibling.siblingList.remove(this);
     }
 
@@ -189,7 +189,7 @@ public class Person {
      * @return siblingList
      */
     public HashSet<Person> getSiblingList() {
-        return new HashSet<>(this.siblingList);
+        return new HashSet<>(siblingList);
     }
 
     /**
@@ -230,7 +230,7 @@ public class Person {
      */
 
     public boolean isFather(Person father) {
-        if (this.father == null) return false;
+        if (this.father == null || father == null) return false;
         else return this.father.equals(father);
     }
 
@@ -244,9 +244,7 @@ public class Person {
         HashSet<Person> list2 = otherPerson.getSiblingList();
         list1.remove(otherPerson);
         list2.remove(this);
-        if (list1.equals(list2)) {
-            return true;
-        } else return false;
+        return list1.equals(list2);
     }
 
     /**
@@ -268,7 +266,7 @@ public class Person {
      * @param otherPerson to validate if has the same father
      */
     public boolean checkSameFather(Person otherPerson) {
-        if (this.father == null || otherPerson.father == null) {
+        if (father == null || otherPerson.father == null) {
             return false;
         } else return father.equals(otherPerson.father);
     }
@@ -280,7 +278,7 @@ public class Person {
      * @return boolean
      */
     public boolean personExistsOnSiblingsList(Person otherPerson) {
-        return this.siblingList.contains(otherPerson);
+        return siblingList.contains(otherPerson);
     }
 
 
@@ -291,8 +289,8 @@ public class Person {
      */
 
     public boolean isSibling(Person otherPerson) {
-        return (this.personExistsOnSiblingsList(otherPerson) ||
-                this.checkSameFather(otherPerson) || this.checkSameMother(otherPerson));
+        return (personExistsOnSiblingsList(otherPerson) ||
+                checkSameFather(otherPerson) || checkSameMother(otherPerson));
     }
 
     /**
@@ -386,12 +384,31 @@ public class Person {
      */
 
     public ArrayList<Transaction> returnPersonLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        ArrayList<Transaction> listOfTransactions = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-        return listOfTransactions;
+        return ledger.getTransactionsInDateRange(initialDate, finalDate);
     }
 
-    public void setLedgerToTest() {
-        ledger = new Util_PersonalLedger().getLedger();
+    /**
+     * Develop method to create a new schedule (USER STORY)
+     *
+     * @param periodicity
+     * @param amount
+     * @param description
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     */
+
+    public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+        if (!accountFrom.equals(accountTo))
+            return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
+                                                        category, accountFrom, accountTo, type);
+        else return false;
+    }
+
+    public int ledgerSize() {
+        return ledger.getLedgerSize();
     }
 }
 

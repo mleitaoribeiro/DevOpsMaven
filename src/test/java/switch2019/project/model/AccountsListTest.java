@@ -314,7 +314,7 @@ class AccountsListTest {
 
 
         AccountsList september = new AccountsList();
-        Person onePerson = new Person("Maria", LocalDate.of(1990, 12,04),new Address("Braga"),new Address("Rua das Flores","Braga","4432-045"));
+        Person onePerson = new Person("Maria", LocalDate.of(1990, 12, 04), new Address("Braga"), new Address("Rua das Flores", "Braga", "4432-045"));
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -373,8 +373,6 @@ class AccountsListTest {
         //Assert
         assertNotEquals(september.hashCode(), aMonth.hashCode());
     }
-
-
 
 
     /**
@@ -488,4 +486,24 @@ class AccountsListTest {
         assertFalse(validateIfAccountIsInTheAccountsList);
     }
 
+    /**
+     * AccountsList.toString test
+     */
+    @Test
+    @DisplayName("test if an accountList can be put into a string")
+    void toStringOfAccountsListTest() {
+
+        //Arrange:
+        Account account1 = new Account("test account 1","account for test purposes");
+        Account account2 = new Account("test account 2", "account for test purposes");
+        AccountsList testAccountsList = new AccountsList();
+
+        //Act:
+        testAccountsList.createAndAddAccountToAccountsList("test account 1","account for test purposes");
+        testAccountsList.createAndAddAccountToAccountsList("test account 2","account for test purposes");
+        String result = testAccountsList.toString();
+
+        //Assert:
+        assertEquals("Accounts List: [TEST ACCOUNT 2, account for test purposes, 0.0€, TEST ACCOUNT 1, account for test purposes, 0.0€]",result);
+    }
 }
