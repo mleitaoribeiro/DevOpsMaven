@@ -372,7 +372,7 @@ public class Person {
      */
 
     public double getPersonalBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
-        return ledger.getBalanceInDateRange(initialDate,finalDate);
+        return ledger.getBalanceInDateRange(initialDate, finalDate);
     }
 
 
@@ -403,12 +403,27 @@ public class Person {
                                           Category category, Account accountFrom, Account accountTo, boolean type) {
         if (!accountFrom.equals(accountTo))
             return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
-                                                        category, accountFrom, accountTo, type);
+                    category, accountFrom, accountTo, type);
         else return false;
     }
 
     public int ledgerSize() {
         return ledger.getLedgerSize();
+    }
+
+
+    /**
+     * Get the user ledger movements in a given period from specific account (US010)
+     *
+     * @param account1
+     * @param initialDate
+     * @param finalDate
+     * @param person1
+     */
+    public List<Transaction> getOneAccountMovementsFromUser(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
+        List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
+        List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
+        return listOfTransactionsOfThatAccount;
     }
 }
 
