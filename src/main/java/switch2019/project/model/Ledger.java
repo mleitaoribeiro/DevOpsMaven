@@ -128,7 +128,7 @@ public class Ledger {
      * @param account1
      * @param listOfTransactions
      */
-    public List<Transaction> getMovementsFromOneAccount(Account account1, List<Transaction> listOfTransactions) {
+    public List<Transaction> getTransactionsFromOneAccount(Account account1, List<Transaction> listOfTransactions) {
         List<Transaction> listOfTransactionsFromOneAccount = new ArrayList<>();
         if (account1 != null) {
             for (Transaction transaction : listOfTransactions) {

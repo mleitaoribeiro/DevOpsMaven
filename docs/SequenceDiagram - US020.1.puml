@@ -13,29 +13,34 @@ participant "personalLedger:Ledger"
 
 == Act ==
 
-":Test" -> "controller:PersonalScheduleController" : scheduleTransaction=schedulePersonalTransaction\n(Person person, String periodicity, MonetaryValue amount, \nString description, LocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, boolean type)
+":Test" -> "controller:PersonalScheduleController" : scheduleTransaction = schedulePersonalTransaction\n(person, periodicity, amount, description, date, \ncategory, accountFrom, accountTo, type)
 activate "controller:PersonalScheduleController" #FFBBBB
-"controller:PersonalScheduleController" -> "person:Person" : scheduleNewTransaction(periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
+"controller:PersonalScheduleController" -> "person:Person" : scheduleNewTransaction\n(periodicity, amount, description, date, \ncategory, accountFrom, accountTo, type)
 activate "person:Person" #FFBBBB
-"person:Person" -> "scheduledTasksList:ScheduledTasksList" : addNewSchedule(this, \nperiodicity, amount, \ndescription, date,
+"person:Person" -> "scheduledTasksList:ScheduledTasksList" : addNewSchedule\n(this, periodicity, amount, \ndescription, date,
 activate "scheduledTasksList:ScheduledTasksList" #FFBBBB
 create "schedule:Schedule"
-"scheduledTasksList:ScheduledTasksList" -> "schedule:Schedule" : create(Person person, String periodicity, \nMonetaryValue amount, String description, \nLocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, \nboolean type)
+"scheduledTasksList:ScheduledTasksList" -> "schedule:Schedule" : create(person, periodicity, amount, \ndescription, date, category, \naccountFrom, accountTo, type)
 activate "schedule:Schedule" #FFBBBB
 create "scheduledTransactionTask:TransactionTask"
 deactivate "scheduledTasksList:ScheduledTasksList"
 "schedule:Schedule" -> "scheduledTransactionTask:TransactionTask" : create(person, amount, \ndescription, date, category, \naccountFrom, accountTo, type)
 deactivate "schedule:Schedule"
 activate "scheduledTransactionTask:TransactionTask" #FFBBBB
-"scheduledTransactionTask:TransactionTask" -> "person:Person" : createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, \nCategory category, Account accountFrom, Account accountTo, boolean type)
+"scheduledTransactionTask:TransactionTask" -> "person:Person" : createTransaction(amount, description, localDate, \ncategory, accountFrom, accountTo, type)
 deactivate "scheduledTransactionTask:TransactionTask"
+
+":Test" -> "controller:PersonalScheduleController" : ledgerSize = ledgerSize(person)
+"controller:PersonalScheduleController" -> "person:Person" : ledgerSize = ledgerSize()
+"person:Person" -> "personalLedger:Ledger" : ledgerSize = getLedgerSize()
+activate "personalLedger:Ledger" #FFBBBB
 deactivate "person:Person"
 deactivate "controller:PersonalScheduleController"
 deactivate "personalLedger:Ledger"
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(scheduleTransaction)
+":Test" -> ":Test" : assertTrue(scheduleTransaction && ledgerSize)
 
 
 @enduml

@@ -5,16 +5,19 @@ import java.util.Timer;
 
 public class Schedule {
 
+    // Private Task attributes
+    private int periodicity;
+
     /**
      * Personal Schedule Constructor
      */
     public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                Category category, Account accountFrom, Account accountTo, boolean type) {
-        int periodicityToMilliseconds = convertKeyWordIntoMilliseconds(periodicity);
+        this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
         Timer timer = new Timer();
         TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
                                                         description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledTransactionTask, 0, periodicityToMilliseconds);
+        timer.schedule(scheduledTransactionTask, 0, this.periodicity);
     }
 
     /*

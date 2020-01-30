@@ -10,9 +10,6 @@ create ":PersonalBalanceInDateRangeController"
 participant "person1:Person"
 
 participant "ledger:Ledger"
-create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, \ncat, accountFrom, accountTo, type)
-deactivate "ledger:Ledger" #FFBBBB
 
 
 == Act ==

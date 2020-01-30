@@ -13,7 +13,7 @@ participant "groupLedger:Ledger"
 
 == Act ==
 
-":Test" -> "controller:GroupScheduleController" : scheduleTransaction=scheduleGroupTransaction\n(GroupsList groupsList, String groupDescription, \nPerson person, String periodicity, MonetaryValue amount, \nString description, LocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, boolean type)
+":Test" -> "controller:GroupScheduleController" : scheduleTransaction = scheduleGroupTransaction\n(groupsList, groupDescription, person, periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
 activate "controller:GroupScheduleController" #FFBBBB
 "controller:GroupScheduleController" -> "group:Group" : scheduleNewTransaction(periodicity, amount, \ntransactionDescription, localDate, category, \naccountFrom, accountTo, type);
 activate "group:Group" #FFBBBB
@@ -30,12 +30,17 @@ activate "scheduledTransactionTask:TransactionTask" #FFBBBB
 "scheduledTransactionTask:TransactionTask" -> "group:Group" : createGroupTransaction(amount, description, date, category, accountFrom, accountTo, type)
 deactivate "scheduledTransactionTask:TransactionTask"
 
+":Test" -> "controller:GroupScheduleController" : ledgerSize = ledgerSize(group)
+"controller:GroupScheduleController" -> "group:Group" : ledgerSize = ledgerSize()
+"group:Group" -> "groupLedger:Ledger" : ledgerSize = getLedgerSize()
+activate "groupLedger:Ledger" #FFBBBB
 deactivate "controller:GroupScheduleController"
 deactivate "group:Group"
+deactivate "groupLedger:Ledger"
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(scheduleTransaction)
+":Test" -> ":Test" : assertTrue(scheduleTransaction && ledgerSize)
 
 
 @enduml

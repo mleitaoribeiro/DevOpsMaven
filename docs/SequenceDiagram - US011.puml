@@ -12,8 +12,6 @@ participant "person1:Person"
 
 participant "ledger:Ledger"
 
-participant "transaction:Transaction"
-
 
 == Act ==
 
