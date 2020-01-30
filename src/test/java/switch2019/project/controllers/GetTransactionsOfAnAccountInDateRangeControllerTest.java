@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
+public class GetTransactionsOfAnAccountInDateRangeControllerTest {
 
     /**
      * US010.1 Como utilizador, quero obter os movimentos de determinada conta num dado período.
@@ -25,7 +25,7 @@ public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
+        GetTransactionsOfAnAccountInDateRangeController controller= new GetTransactionsOfAnAccountInDateRangeController();
         LocalDateTime initialDate = LocalDateTime.of(2019, 12, 13, 13, 02);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 26, 13, 02);
 
@@ -70,7 +70,7 @@ public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
+        GetTransactionsOfAnAccountInDateRangeController controller= new GetTransactionsOfAnAccountInDateRangeController();
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 00, 00);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
 
@@ -114,7 +114,7 @@ public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        GetTheMovementsOfAnAccountInDateRangeController controller= new GetTheMovementsOfAnAccountInDateRangeController();
+        GetTransactionsOfAnAccountInDateRangeController controller= new GetTransactionsOfAnAccountInDateRangeController();
         LocalDateTime date1 = null;
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 23, 59);
 

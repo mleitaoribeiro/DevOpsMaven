@@ -6,20 +6,20 @@ create ":Test"
 
 ==Arrange==
 
-create ":GetTheMovementsOfAnAccountInDateRangeController"
-":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : new
+create ":GetTheTransactionsOfAnAccountInDateRangeController"
+":Test" -> ":GetTheTransactionsOfAnAccountInDateRangeController" : new
 
 participant "person1:Person"
 
 participant "ledger:Ledger"
 deactivate "person1:Person" #FFBBBB
-deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+deactivate ":GetTransactionsOfAnAccountInDateRangeController" #FFBBBB
 
 == Act ==
 
-":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate, person)
-activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
-":GetTheMovementsOfAnAccountInDateRangeController" -> "person1:Person" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate)
+":Test" -> ":GetTheTransactionsOfAnAccountInDateRangeController" : getOneAccountTransactionsFromUser\n(account, initialDate, finalDate, person)
+activate ":GetTheTransactionsOfAnAccountInDateRangeController" #FFBBBB
+":GetTheTransactionsOfAnAccountInDateRangeController" -> "person1:Person" : getOneAccountTransactionsFromUser\n(account, initialDate, finalDate)
 activate "person1:Person" #FFBBBB
 
 
@@ -27,13 +27,13 @@ activate "person1:Person" #FFBBBB
 activate "ledger:Ledger" #FFBBBB
 "ledger:Ledger" --> "person1:Person" : listOfTransactionsFromPeriod
 
-"person1:Person" -> "ledger:Ledger" : getMovementsFromOneAccount (account, listOfTransactionsFromPeriod)
+"person1:Person" -> "ledger:Ledger" : getTransactionsFromOneAccount (account, listOfTransactionsFromPeriod)
 "ledger:Ledger" --> "person1:Person" : listOfTransactions
 deactivate "ledger:Ledger" #FFBBBB
-"person1:Person" --> ":GetTheMovementsOfAnAccountInDateRangeController" : listOfTransactions
+"person1:Person" --> ":GetTheTransactionsOfAnAccountInDateRangeController" : listOfTransactions
 deactivate "person1:Person" #FFBBBB
-":GetTheMovementsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
-deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":GetTransactionsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
+deactivate ":GetTheTransactionsOfAnAccountInDateRangeController" #FFBBBB
 
 == Assert ==
 

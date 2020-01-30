@@ -7,7 +7,7 @@ import switch2019.project.model.Transaction;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class GetTheMovementsOfAnAccountInDateRangeController {
+public class GetTransactionsOfAnAccountInDateRangeController {
 
     /**
      * US010.1: As a person, I want to get my transactions from a account in a specific date range
