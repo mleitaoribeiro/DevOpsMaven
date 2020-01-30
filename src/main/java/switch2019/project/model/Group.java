@@ -221,10 +221,7 @@ public class Group {
      * @return true if is group admin, false if isn't
      */
     public boolean isGroupAdmin(Person isAdmin) {
-        if (this.admins.contains(isAdmin) && isAdmin != null) {
-            return true;
-        }
-        return false;
+        return this.admins.contains(isAdmin) && isAdmin != null;
     }
 
     /**
