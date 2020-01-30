@@ -231,12 +231,8 @@ public class Group {
      * @return
      */
     public boolean isGroupMember(Person isMember) {
-        if (this.members.contains(isMember) && isMember != null) {
-            return true;
-        }
-        return false;
+        return this.members.contains(isMember) && isMember != null;
     }
-
 
     /**
      * Add account to Group´s Account List

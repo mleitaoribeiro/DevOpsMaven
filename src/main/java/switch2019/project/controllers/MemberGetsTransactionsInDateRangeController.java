@@ -5,7 +5,6 @@ import switch2019.project.model.Person;
 import switch2019.project.model.Transaction;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MemberGetsTransactionsInDateRangeController {
