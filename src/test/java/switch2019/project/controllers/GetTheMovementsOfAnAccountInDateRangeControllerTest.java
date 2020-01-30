@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
+public class UserGetTransactionControllerTest {
 
     /**
      * US010.1 Como utilizador, quero obter os movimentos de determinada conta num dado período.
@@ -146,7 +146,7 @@ public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
 
         //Act
         try {
-            controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+            controller.getOneAccountTransactionsFromPerson(account5, date1, date2,person);
         }
 
         //Assert

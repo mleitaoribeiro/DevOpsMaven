@@ -50,7 +50,7 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Test for validating imput's name, name is not null before")
+    @DisplayName("Test for validating input's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
         Person person1 = new Person("João", LocalDate.of(1990, 12, 04), new Address(("Porto")), new Address("Rua X", "Porto", "4520-266"));
@@ -212,6 +212,38 @@ class PersonTest {
 
         //Act & Assert
         assertNotEquals(address1, person1);
+    }
+
+    @Test
+    @DisplayName("Test if two people are the same - False - Different BirthDate")
+    public void individualsAreNotTheSameDifferenteBirthDate() {
+        //Arrange
+        Person onePersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person person2 = new Person("Maria", LocalDate.of(1996, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        //Act
+        boolean validation = person1.equals(person2);
+
+        //Assert
+        assertFalse(validation);
+    }
+
+    @Test
+    @DisplayName("Test if two people are the same - False - Different birthDate")
+    public void individualsAreDifferent_BirthDate() {
+        //Arrange
+        Person onePersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+
+        //Act
+        try {
+            Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+            Person person2Mother = new Person("Maria", null, new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+
+        } catch (IllegalArgumentException description) {
+            assertEquals("Birth Date Can't be Null.", description.getMessage());
+        }
     }
 
 
@@ -1194,7 +1226,7 @@ class PersonTest {
 
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - success case - one transaction -  US011")
     void returnPersonLedgerInDateRangeSuccessCaseOneTransaction() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1218,15 +1250,15 @@ class PersonTest {
         expectedResult.add(transaction1);
 
         //Act
-        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
+        List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
-        assertEquals(personLedgerMovements, expectedResult);
+        assertEquals(personLedgerTransactions, expectedResult);
     }
 
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - success case - several transactions -  US011")
     void returnPersonLedgerInDateRangeSuccessCaseSeveralTransactions() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1268,14 +1300,14 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
 
         //Act
-        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
+        List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
-        assertEquals(personLedgerMovements, expectedResult);
+        assertEquals(personLedgerTransactions, expectedResult);
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - no transactions in that period -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - no transactions in that period -  US011")
     void returnPersonLedgerInDateRangeNoTransactions() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1300,14 +1332,14 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 10, 23, 0);
 
         //Act
-        ArrayList<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
+        ArrayList<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
-        assertEquals(personLedgerMovements, expectedResult);
+        assertEquals(personLedgerTransactions, expectedResult);
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - exchanged dates  -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - exchanged dates  -  US011")
     void returnPersonLedgerFromPeriodExchangedDates() {
         //Arrange
         Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1340,14 +1372,14 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 17, 00, 00);
 
         //Act
-        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(finalDate, initialDate);
+        List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(finalDate, initialDate);
 
         //Assert
-        assertEquals(personLedgerMovements, expectedResult);
+        assertEquals(personLedgerTransactions, expectedResult);
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - same day  -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - same day  -  US011")
     void returnPersonLedgerFromPeriodSameDay() {
         //Arrange
         Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1372,15 +1404,15 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 14, 23, 59);
 
         //Act
-        List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(finalDate, initialDate);
+        List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(finalDate, initialDate);
 
         //Assert
-        assertEquals(personLedgerMovements, expectedResult);
+        assertEquals(personLedgerTransactions, expectedResult);
     }
 
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - null date -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - null date -  US011")
     void returnPersonLedgerInDateRangeiodNullDate() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1405,7 +1437,7 @@ class PersonTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, null);
+            List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, null);
         }
 
         //Assert
@@ -1416,7 +1448,7 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - invalid date -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - invalid date -  US011")
     void returnPersonLedgerInDateRangeInvalidDate() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1442,7 +1474,7 @@ class PersonTest {
 
         //Act
         try {
-            List<Transaction> personLedgerMovements = person.returnPersonLedgerInDateRange(initialDate, finalDate);
+            List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
         }
 
         //Assert
@@ -1954,8 +1986,8 @@ class PersonTest {
      */
 
     @Test
-    @DisplayName("Obtain movements from an account - case of success")
-    void obtainMovementsFromAnAccount() {
+    @DisplayName("Obtain transactions from an account - case of success")
+    void obtainTransactionsFromAnAccount() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -1989,7 +2021,7 @@ class PersonTest {
         person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = person.getOneAccountMovementsFromUser(account5, date1, date2);
+        List<Transaction> listOfTransactions = person.getOneAccountTransactionsFromUser(account5, date1, date2);
 
 
         //Assert
@@ -1997,8 +2029,8 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - same day")
-    void obtainMovementsFromAnAccountSameDay() {
+    @DisplayName("Obtain transactions from an account - same day")
+    void obtainTransactionsFromAnAccountSameDay() {
 
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
@@ -2033,7 +2065,7 @@ class PersonTest {
         person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = person.getOneAccountMovementsFromUser(account5, date1, date2);
+        List<Transaction> listOfTransactions = person.getOneAccountTransactionsFromUser(account5, date1, date2);
 
 
         //Assert
@@ -2041,8 +2073,8 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - date null")
-    void obtainMovementsDateNull() {
+    @DisplayName("Obtain transactions from an account - date null")
+    void obtaintTransactionsDateNull() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -2077,7 +2109,7 @@ class PersonTest {
 
         //Act
         try {
-            person.getOneAccountMovementsFromUser(account5, date1, date2);
+            person.getOneAccountTransactionsFromUser(account5, date1, date2);
         }
 
         //Assert
@@ -2091,7 +2123,9 @@ class PersonTest {
     void descriptionConstructor() {
 
         //Arrange
-        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ));
+        Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person2Father= new Person("Mario", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ), person1Mother, person2Father);
         LocalDate expected = LocalDate.of(1995, 12,3);
 
         //Act
@@ -2105,7 +2139,9 @@ class PersonTest {
     @DisplayName("Test Constructor - BirthDate Null")
     void descriptionConstructorNull() {
         //Arrange
-        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ));
+        Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person2Father= new Person("Mario", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747"), person1Mother, person2Father);
 
         try {
             //Act

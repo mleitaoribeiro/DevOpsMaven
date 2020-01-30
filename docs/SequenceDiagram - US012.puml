@@ -7,20 +7,20 @@ create ":Test"
 
 ==Arrange==
 create "controller:MemberGetsTransactionsInDateRangeController"
-":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : new MemberGetsTheMovementsOfAnAccountInDateRangeController()
+":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : new MemberGetsTransactionsInDateRangeController()
 participant "group1:Group"
 participant "ledger1:Ledger"
 
 
 == Act ==
 
-":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : ListTransaction=returnGroupLedgerFromPeriod(inicialDate,finalDate,group1,person)
+":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : listOfTransactions=returnGroupLedgerInDateRange(initialDate,finalDate,group1,person1)
 activate "controller:MemberGetsTransactionsInDateRangeController"  #FFBBBB
 
-"controller:MemberGetsTransactionsInDateRangeController" -> "group1:Group" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate,person)
+"controller:MemberGetsTransactionsInDateRangeController" -> "group1:Group" : listOfTransactions=returnGroupLedgerInDateRange(initialDate,finalDate,person1)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger1:Ledger" : ListTransaction=getTransactionInDateRange(inicialDate,finalDate)
+"group1:Group" -> "ledger1:Ledger" : listOfTransactions=getTransactionInDateRange(initialDate,finalDate)
 activate "ledger1:Ledger"  #FFBBBB
 
 
@@ -30,6 +30,6 @@ deactivate "controller:MemberGetsTransactionsInDateRangeController"  #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedArrayListTransaction,ArrayListTransaction)
+":Test" -> ":Test" : assertEquals(expectedTransactions,listOfTransactions)
 
 @enduml

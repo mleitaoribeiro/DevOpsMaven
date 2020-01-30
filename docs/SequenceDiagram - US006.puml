@@ -1,5 +1,6 @@
 @startuml
 create ":Test"
+skinparam DefaultFontSize 20
 
 ==Arrange==
 

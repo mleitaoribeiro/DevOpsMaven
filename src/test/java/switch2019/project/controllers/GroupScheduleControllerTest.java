@@ -17,8 +17,12 @@ class GroupScheduleControllerTest {
         //Arrange
         GroupScheduleController groupScheduleController = new GroupScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -30,17 +34,17 @@ class GroupScheduleControllerTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        Group group = new Group("tarzan");
+        group.addMember(person);
 
         //Act
-        boolean result = groupScheduleController.scheduleGroupTransaction(groupsList, "tarzan", person,
+        boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "daily", amount, description, null, category, from, to, type);
-
         Thread.sleep(2400); // 250 x 10 = 2500
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 10;
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 10);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -48,8 +52,12 @@ class GroupScheduleControllerTest {
         //Arrange
         GroupScheduleController groupScheduleController = new GroupScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -61,17 +69,17 @@ class GroupScheduleControllerTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        Group group = new Group("tarzan");
+        group.addMember(person);
 
         //Act
-        boolean result = groupScheduleController.scheduleGroupTransaction(groupsList, "tarzan", person,
+        boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "working days", amount, description, null, category, from, to, type);
-
         Thread.sleep(1900); // 500 x 4 = 2000
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 4;
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -79,8 +87,12 @@ class GroupScheduleControllerTest {
         //Arrange
         GroupScheduleController groupScheduleController = new GroupScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -92,17 +104,17 @@ class GroupScheduleControllerTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        Group group = new Group("tarzan");
+        group.addMember(person);
 
         //Act
-        boolean result = groupScheduleController.scheduleGroupTransaction(groupsList, "tarzan", person,
+        boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "weekly", amount, description, null, category, from, to, type);
-
         Thread.sleep(2900); // 750 x 4 = 3000
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 4;
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -110,8 +122,12 @@ class GroupScheduleControllerTest {
         //Arrange
         GroupScheduleController groupScheduleController = new GroupScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -123,26 +139,30 @@ class GroupScheduleControllerTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        Group group = new Group("tarzan");
+        group.addMember(person);
 
         //Act
-        boolean result = groupScheduleController.scheduleGroupTransaction(groupsList, "tarzan", person,
+        boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "monthly", amount, description, null, category, from, to, type);
-
         Thread.sleep(2900); // 1000 x 3 = 3000
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 3;
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 3);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
-    void scheduleGroupTransactionNoGroupMatch() throws InterruptedException {
+    void scheduleGroupTransactionNoPeriodicityMatch() {
         //Arrange
         GroupScheduleController groupScheduleController = new GroupScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -154,14 +174,13 @@ class GroupScheduleControllerTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        Group group = new Group("tarzan");
+        group.addMember(person);
 
         try {
             //Act
-            groupScheduleController.scheduleGroupTransaction(groupsList, "tarzan", person,
-                    "monthly", amount, description, null, category, from, to, type);
-
+            groupScheduleController.scheduleGroupTransaction(group, person,
+                    "everyday", amount, description, null, category, from, to, type);
         }
 
         //Assert
@@ -171,16 +190,18 @@ class GroupScheduleControllerTest {
     }
 
     @Test
-    @DisplayName("Schedule a group transaction")
-    void scheduleGroupTransactionNotAMember() throws InterruptedException {
+    void scheduleGroupTransactionNotAMember() {
         //Arrange
         GroupScheduleController groupScheduleController = new GroupScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person personMember = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-
-        Person personNotAMember = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
+        Person personNotAMember = new Person("Joana", LocalDate.of(1996, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -192,19 +213,18 @@ class GroupScheduleControllerTest {
         personMember.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", personMember);
+        Group group = new Group("tarzan");
+        group.addMember(personMember);
 
         try {
             //Act
-            groupScheduleController.scheduleGroupTransaction(groupsList, "tarzan", personNotAMember,
-                    "daily", amount, description, null, category, from, to, type);
-
+            groupScheduleController.scheduleGroupTransaction(group, personNotAMember,
+                    "working days", amount, description, null, category, from, to, type);
         }
 
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("There're no groups found with that description.", result.getMessage());
+            assertEquals("You are not a member of that group.", result.getMessage());
         }
     }
 }
