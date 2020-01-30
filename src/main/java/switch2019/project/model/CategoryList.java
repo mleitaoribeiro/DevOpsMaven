@@ -74,7 +74,7 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public boolean addMultipleCategoriesToList(HashSet<String> categories) {
+    public boolean addMultipleCategoriesToList(Set<String> categories) {
         int sizeBefore = this.categories.size();
         for (String category : categories) {
             this.addCategoryToCategoryList(category);
@@ -88,7 +88,7 @@ public class CategoryList {
      * @param categories<Category> categories
      */
 
-    public boolean removeMultipleCategoriesToList(HashSet<String> categories) {
+    public boolean removeMultipleCategoriesToList(Set<String> categories) {
         for (String category : categories)
             this.removeCategoryFromList(category);
         return !this.categories.containsAll(categories);
@@ -110,7 +110,7 @@ public class CategoryList {
      * @param setOfCategories
      */
 
-    public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<String> setOfCategories) {
+    public boolean validateIfSetOfCategoriesIsInTheCategoryList(Set<String> setOfCategories) {
         Set<Category> list = new HashSet<>();
         for (String category : setOfCategories) {
             list.add(new Category(category));

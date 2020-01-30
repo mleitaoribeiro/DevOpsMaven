@@ -8,6 +8,10 @@ public class Ledger {
     //Private Ledger variables
     private List<Transaction> ledgerTransactions;
 
+    //String literals should not be duplicated
+    private static final String action = "One of the submitted dates is not valid.";
+    private static final String action2 = "The dates can´t be null";
+
     /**
      * Ledger Constructor
      */
@@ -99,10 +103,10 @@ public class Ledger {
     public List<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
 
         if (initialDate == null || finalDate == null)
-            throw new IllegalArgumentException("The dates can´t be null");
+            throw new IllegalArgumentException(action2);
 
         else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
-            throw new IllegalArgumentException("One of the submitted dates is not valid.");
+            throw new IllegalArgumentException(action);
 
             //Validate if Date is in the correct order
         else if (initialDate.isAfter(finalDate)) {
@@ -152,10 +156,10 @@ public class Ledger {
     public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         double balance = 0;
         if (initialDate == null || finalDate == null)
-            throw new IllegalArgumentException("One of the submitted dates is not valid.");
+            throw new IllegalArgumentException(action);
 
         else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
-            throw new IllegalArgumentException("One of the submitted dates is not valid.");
+            throw new IllegalArgumentException(action);
 
         else if (ledgerTransactions.isEmpty())
             throw new IllegalArgumentException("The ledger is Empty.");
@@ -169,9 +173,9 @@ public class Ledger {
         //Check if transaction is in that range
         for (Transaction transactions : ledgerTransactions) {
             if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) {
-                if (transactions.getType() == true) {
+                if (transactions.getType()) {
                     balance = balance + transactions.getAmount();
-                } else if (transactions.getType() == false) {
+                } else if (!transactions.getType()) {
                     balance = balance - transactions.getAmount();
                 }
             }

@@ -158,7 +158,7 @@ public class Person {
      * @param newSiblings
      */
 
-    public void addMultipleSiblings(HashSet<Person> newSiblings) {
+    public void addMultipleSiblings(Set<Person> newSiblings) {
         for (Person person : newSiblings) {
             addSibling(person);
         }
@@ -179,7 +179,7 @@ public class Person {
      *
      * @param toRemove HashSet of siblings that are going to be removed.
      */
-    public void removeMultipleSibling(HashSet<Person> toRemove) {
+    public void removeMultipleSibling(Set<Person> toRemove) {
         for (Person person : toRemove) {
             removeSibling(person);
         }
@@ -346,7 +346,7 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public boolean createAndAddMultipleCategoriesToList(HashSet<String> categories) {
+    public boolean createAndAddMultipleCategoriesToList(Set<String> categories) {
         return categoryList.addMultipleCategoriesToList(categories);
     }
 
@@ -355,7 +355,7 @@ public class Person {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategoriesToList(HashSet<String> categories) {
+    public boolean removeMultipleCategoriesToList(Set<String> categories) {
         return categoryList.removeMultipleCategoriesToList(categories);
     }
 
@@ -425,8 +425,7 @@ public class Person {
      */
     public List<Transaction> getOneAccountTransactionsFromUser(Account account1, LocalDateTime initialDate, LocalDateTime finalDate) {
         List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-        List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getTransactionsFromOneAccount(account1, listOfTransactionsFromPeriod);
-        return listOfTransactionsOfThatAccount;
+        return this.ledger.getTransactionsFromOneAccount(account1, listOfTransactionsFromPeriod);
     }
 }
 
