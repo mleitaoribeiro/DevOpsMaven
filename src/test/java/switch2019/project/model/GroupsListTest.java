@@ -473,6 +473,11 @@ class GroupsListTest {
         }
     }
 
+    /**
+     * Test method createScheduleOnSpecificGroup
+     * @throws InterruptedException
+     */
+
     @Test
     void scheduleNewTransactionDaily() throws InterruptedException {
 
@@ -667,7 +672,7 @@ class GroupsListTest {
         //Arrange
         Person personMember = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Person personNotMember = new Person("Jose", LocalDate.of(1995, 12, 13),
+        Person personNotMember = new Person("Julia", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -694,6 +699,11 @@ class GroupsListTest {
             assertEquals("You are not a member of that group.", result.getMessage());
         }
     }
+
+
+    /**
+     * Test method to create new transaction on specific group
+     */
 
     @Test
     @DisplayName("In case the person is not a member of that group")
