@@ -1,0 +1,50 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+create ":Test"
+
+==Arrange==
+
+create ":MemberGetsTheMovementsOfAnAccountInDateRangeController"
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : new
+
+participant "group1:Group"
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+activate "group1:Group" #FFBBBB
+
+participant "trans:Transaction"
+participant "ledger:Ledger"
+"group1:Group" -> "trans:Transaction" : new
+"group1:Group" -> "ledger:Ledger" : addTransactionToLedger\n(amount, description, date, category, accountFrom, accountTo, type)
+deactivate "group1:Group" #FFBBBB
+deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+
+== Act ==
+
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, group1, person)
+activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : getOneAccountMovementsFromGroup\n(account, initialDate, finalDate, person)
+activate "group1:Group" #FFBBBB
+
+"group1:Group" -> "group1:Group" : isGroupMember(person)
+
+"group1:Group" -> "ledger:Ledger" : getTransactionsInDateRange(initialDate, finalDate)
+activate "ledger:Ledger" #FFBBBB
+"ledger:Ledger" --> "group1:Group" : listOfTransactionsFromPeriod
+
+"group1:Group" -> "ledger:Ledger" : getMovementsFromOneAccount (account, listOfTransactionsFromPeriod)
+"ledger:Ledger" --> "group1:Group" : listOfTransactions
+deactivate "ledger:Ledger" #FFBBBB
+"group1:Group" --> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : listOfTransactions
+deactivate "group1:Group" #FFBBBB
+":MemberGetsTheMovementsOfAnAccountInDateRangeController" --> ":Test" : listOfTransactions
+deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(expectedTransactions, listOfTransactions)
+
+@enduml
