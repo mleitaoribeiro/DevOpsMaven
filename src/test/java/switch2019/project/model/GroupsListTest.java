@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import com.sun.tools.javac.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.controllers.GetPersonalAndGroupTransactionsController;
@@ -727,5 +728,174 @@ class GroupsListTest {
         catch (IllegalArgumentException result) {
             assertEquals("You are not a member of that group.", result.getMessage());
         }
+    }
+
+    /**
+     * returnTransactionsFromAllGroupsAPersonIsIn tests
+     */
+
+    @Test
+    @DisplayName("return transactions from two groups")
+    void areTransactionsFromPersonGroupsReturned() {
+
+        //ARRANGE:
+        Person groupMember = new Person("Tiago", LocalDate.of(1994,06,17),
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+
+        GroupsList testGroupsList = new GroupsList();
+
+            //Arrange two groups inside the GroupsList:
+        Group group1 = new Group("test group 1");
+        Group group2 = new Group("test group 2");
+        testGroupsList.addGroupToGroupList(group1);
+        testGroupsList.addGroupToGroupList(group2);
+
+            //groupMember is member of both groups:
+        group1.addMember(groupMember);
+        group2.addMember(groupMember);
+
+            //Arrange Transactions:
+            //Monetary Value:
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(50, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue4 = new MonetaryValue(150, Currency.getInstance("EUR"));
+
+            //Categories:
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("restaurants");
+            //Categories also added to Group:
+        group1.createAndAddCategoryToCategoryList("grocery",groupMember);
+        group1.createAndAddCategoryToCategoryList("restaurants",groupMember);
+        group2.createAndAddCategoryToCategoryList("grocery",groupMember);
+        group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
+
+            //Accounts:
+        Account account1 = new Account("Savings","Savings destined to food");
+        Account account2 = new Account("Pingo Doce","groceries on Pingo Doce");
+        Account account3 = new Account("Savings2","Savings destined to food");
+        Account account4 = new Account("Pingo Doce2","groceries on Pingo Doce");
+            //Accounts created in Group:
+        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
+        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
+        group2.addAccountToGroupAccountsList("Savings2","Savings destined to food");
+        group2.addAccountToGroupAccountsList("Pingo Doce2","groceries on Pingo Doce");
+
+            //Transactions arranged:
+            //Group1 transactions:
+        Transaction transaction1 = new Transaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , category1,account1,account2,true);
+        Transaction transaction2 = new Transaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , category2, account1,account2,true);
+            //Group2 transactions:
+        Transaction transaction3 = new Transaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
+                ,category1, account3, account4, true);
+        Transaction transaction4 = new Transaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
+                ,category2,account3,account4,true);
+
+            //Transactions arranged within the ledgers of the groups:
+        group1.createGroupTransaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , category1,account1,account2,true);
+        group1.createGroupTransaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , category2, account1,account2,true);
+        group2.createGroupTransaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
+                ,category1, account3, account4, true);
+        group2.createGroupTransaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
+                ,category2,account3,account4,true);
+
+        //ACT:
+            //expected:
+        ArrayList<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
+            //actual
+        ArrayList<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
+                LocalDateTime.of(2000,1,1,0,0),
+                LocalDateTime.of(2020,1,1,0,0));
+
+        //ASSERT:
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("return transactions from two groups - null daes")
+    void areTransactionsFromPersonGroupsReturnedNullDates() {
+
+        //ARRANGE:
+        Person groupMember = new Person("Tiago", LocalDate.of(1994,06,17),
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+
+        GroupsList testGroupsList = new GroupsList();
+
+        //Arrange two groups inside the GroupsList:
+        Group group1 = new Group("test group 1");
+        Group group2 = new Group("test group 2");
+        testGroupsList.addGroupToGroupList(group1);
+        testGroupsList.addGroupToGroupList(group2);
+
+        //groupMember is member of both groups:
+        group1.addMember(groupMember);
+        group2.addMember(groupMember);
+
+        //Arrange Transactions:
+        //Monetary Value:
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(50, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue4 = new MonetaryValue(150, Currency.getInstance("EUR"));
+
+        //Categories:
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("restaurants");
+        //Categories also added to Group:
+        group1.createAndAddCategoryToCategoryList("grocery",groupMember);
+        group1.createAndAddCategoryToCategoryList("restaurants",groupMember);
+        group2.createAndAddCategoryToCategoryList("grocery",groupMember);
+        group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
+
+        //Accounts:
+        Account account1 = new Account("Savings","Savings destined to food");
+        Account account2 = new Account("Pingo Doce","groceries on Pingo Doce");
+        Account account3 = new Account("Savings2","Savings destined to food");
+        Account account4 = new Account("Pingo Doce2","groceries on Pingo Doce");
+        //Accounts created in Group:
+        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
+        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
+        group2.addAccountToGroupAccountsList("Savings2","Savings destined to food");
+        group2.addAccountToGroupAccountsList("Pingo Doce2","groceries on Pingo Doce");
+
+        //Transactions arranged:
+        //Group1 transactions:
+        Transaction transaction1 = new Transaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , category1,account1,account2,true);
+        Transaction transaction2 = new Transaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , category2, account1,account2,true);
+        //Group2 transactions:
+        Transaction transaction3 = new Transaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
+                ,category1, account3, account4, true);
+        Transaction transaction4 = new Transaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
+                ,category2,account3,account4,true);
+
+        //Transactions arranged within the ledgers of the groups:
+        group1.createGroupTransaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , category1,account1,account2,true);
+        group1.createGroupTransaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , category2, account1,account2,true);
+        group2.createGroupTransaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
+                ,category1, account3, account4, true);
+        group2.createGroupTransaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
+                ,category2,account3,account4,true);
+
+        //ACT:
+        //expected:
+        ArrayList<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
+        //actual
+        try {
+            testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,null,null);
+        }
+
+        //ASSERT:
+        catch (IllegalArgumentException datesNull) {
+            assertEquals("The dates can´t be null", datesNull.getMessage());
+        }
+
     }
 }
