@@ -50,7 +50,7 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Test for validating imput's name, name is not null before")
+    @DisplayName("Test for validating input's name, name is not null before")
     public void validateNameNotNullBefore() {
         //Arrange
         Person person1 = new Person("João", LocalDate.of(1990, 12, 04), new Address(("Porto")), new Address("Rua X", "Porto", "4520-266"));
@@ -212,6 +212,38 @@ class PersonTest {
 
         //Act & Assert
         assertNotEquals(address1, person1);
+    }
+
+    @Test
+    @DisplayName("Test if two people are the same - False - Different BirthDate")
+    public void individualsAreNotTheSameDifferenteBirthDate() {
+        //Arrange
+        Person onePersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        Person person2 = new Person("Maria", LocalDate.of(1996, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+        //Act
+        boolean validation = person1.equals(person2);
+
+        //Assert
+        assertFalse(validation);
+    }
+
+    @Test
+    @DisplayName("Test if two people are the same - False - Different birthDate")
+    public void individualsAreDifferent_BirthDate() {
+        //Arrange
+        Person onePersonMother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+        Person onePersonFather = new Person("Artur", LocalDate.of(1995, 12, 13), new Address("Portugal"), new Address("Rua X", "Porto", "4520-266"));
+
+        //Act
+        try {
+            Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+            Person person2Mother = new Person("Maria", null, new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather);
+
+        } catch (IllegalArgumentException description) {
+            assertEquals("Birth Date Can't be Null.", description.getMessage());
+        }
     }
 
 
@@ -2091,7 +2123,9 @@ class PersonTest {
     void descriptionConstructor() {
 
         //Arrange
-        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ));
+        Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person2Father= new Person("Mario", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ), person1Mother, person2Father);
         LocalDate expected = LocalDate.of(1995, 12,3);
 
         //Act
@@ -2105,7 +2139,9 @@ class PersonTest {
     @DisplayName("Test Constructor - BirthDate Null")
     void descriptionConstructorNull() {
         //Arrange
-        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747" ));
+        Person person1Mother = new Person("Maria", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person2Father= new Person("Mario", LocalDate.of(1995, 12, 13), new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Marilia", LocalDate.of(1995,12,3), new Address("Porto"), new Address("Rua Requeixos","Vizela", "4620-747"), person1Mother, person2Father);
 
         try {
             //Act
