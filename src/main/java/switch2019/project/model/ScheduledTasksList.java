@@ -2,10 +2,11 @@ package switch2019.project.model;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Set;
 
 public class ScheduledTasksList {
 
-    private HashSet<Schedule> scheduledTransactions;
+    private Set<Schedule> scheduledTransactions;
 
     /**
      * ScheduledTasksList Constructor
@@ -17,6 +18,7 @@ public class ScheduledTasksList {
     /**
      * Method to add a new schedule do the scheduledTasksList
      */
+
     public boolean addNewSchedule(Person person, String periodicity, MonetaryValue amount, String descripiton, LocalDateTime date,
                                   Category category, Account accountFrom, Account accountTo, boolean type) {
 

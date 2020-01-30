@@ -96,7 +96,7 @@ public class Ledger {
      * @return ArrayList<Transaction> myTransactions
      */
 
-    public ArrayList<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public List<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
 
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException("The dates can´t be null");
@@ -111,7 +111,7 @@ public class Ledger {
             finalDate = aux;
         }
 
-        ArrayList<Transaction> myTransactions = new ArrayList<>();
+        List<Transaction> myTransactions = new ArrayList<>();
         for (Transaction transactions : ledgerTransactions) {
             if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) ||
                     (transactions.getDate().equals(initialDate) || transactions.getDate().equals(finalDate)))

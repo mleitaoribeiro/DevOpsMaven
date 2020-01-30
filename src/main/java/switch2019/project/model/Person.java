@@ -190,7 +190,7 @@ public class Person {
      *
      * @return siblingList
      */
-    public HashSet<Person> getSiblingList() {
+    public Set<Person> getSiblingList() {
         return new HashSet<>(siblingList);
     }
 
@@ -242,8 +242,8 @@ public class Person {
      * @param otherPerson
      */
     public boolean checkSameSiblings(Person otherPerson) {
-        HashSet<Person> list1 = this.getSiblingList();
-        HashSet<Person> list2 = otherPerson.getSiblingList();
+        Set<Person> list1 = this.getSiblingList();
+        Set<Person> list2 = otherPerson.getSiblingList();
         list1.remove(otherPerson);
         list2.remove(this);
         return list1.equals(list2);
@@ -385,7 +385,7 @@ public class Person {
      * @param finalDate
      */
 
-    public ArrayList<Transaction> returnPersonLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
+    public List<Transaction> returnPersonLedgerInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         return ledger.getTransactionsInDateRange(initialDate, finalDate);
     }
 
