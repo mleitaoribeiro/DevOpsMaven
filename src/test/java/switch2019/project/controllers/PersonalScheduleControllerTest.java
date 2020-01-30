@@ -17,8 +17,12 @@ class PersonalScheduleControllerTest {
         //Arrange
         PersonalScheduleController personalScheduleController = new PersonalScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -45,8 +49,12 @@ class PersonalScheduleControllerTest {
         //Arrange
         PersonalScheduleController personalScheduleController = new PersonalScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -73,8 +81,12 @@ class PersonalScheduleControllerTest {
         //Arrange
         PersonalScheduleController personalScheduleController = new PersonalScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -101,8 +113,12 @@ class PersonalScheduleControllerTest {
         //Arrange
         PersonalScheduleController personalScheduleController = new PersonalScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -129,8 +145,12 @@ class PersonalScheduleControllerTest {
         //Arrange
         PersonalScheduleController personalScheduleController = new PersonalScheduleController();
 
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), mom, dad);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";

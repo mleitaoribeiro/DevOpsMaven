@@ -10,7 +10,7 @@ create ":GetTheMovementsOfAnAccountInDateRangeController"
 ":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : new
 
 participant "person1:Person"
-":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : createTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
 activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 ":GetTheMovementsOfAnAccountInDateRangeController" -> "person1:Person" : createTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
 activate "person1:Person" #FFBBBB
