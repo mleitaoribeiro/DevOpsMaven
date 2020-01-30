@@ -1,18 +1,17 @@
 @startuml
 skinparam DefaultFontSize 20
 participant ":Test"
+
 == Arrange ==
 
 create "controller:GetPersonalAndGroupTransactionsInDateRangeController"
-":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : create()
+":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : new GetPersonalAndGroup\nTransactionsInDateRangeController
 
 participant "person:Person"
 participant "personalLedger:Ledger"
 participant "groupsList:GroupsList"
 participant "group:Group"
 participant "groupLedger:Ledger"
-participant "transaction:Transaction"
-
 == Act ==
 
 ":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : selectedTransactions = getPersonalAndGroupTransactions\n(person, initialDate, finalDate, groupsList)
@@ -22,9 +21,8 @@ activate "controller:GetPersonalAndGroupTransactionsInDateRangeController" #FFBB
 activate "person:Person" #FFBBBB
 "person:Person" -> "personalLedger:Ledger" : getTransactionsInDateRange\n(initialDate, finalDate)
 activate "personalLedger:Ledger" #FFBBBB
-"personalLedger:Ledger" --> "person:Person" : personalTransactions
+
 deactivate "personalLedger:Ledger" #FFBBBB
-"person:Person" --> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : personalTransactions
 deactivate "person:Person"
 
 "controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "groupsList:GroupsList" : returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate)
@@ -33,18 +31,16 @@ activate "groupsList:GroupsList" #FFBBBB
 activate "group:Group" #FFBBBB
 "group:Group" -> "groupLedger:Ledger" : getTransactionsInDateRange\n(initialDate, finalDate)
 activate "groupLedger:Ledger" #FFBBBB
-"groupLedger:Ledger" --> "group:Group" : groupTransactions
+
 deactivate "groupLedger:Ledger" #FFBBBB
-"group:Group" --> "groupsList:GroupsList" : groupTransactions
 deactivate "group:Group"
-"groupsList:GroupsList" --> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : groupTransactions
 deactivate "groupsList:GroupsList"
+
 "controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController": sort(Transaction::getDate)
-"controller:GetPersonalAndGroupTransactionsInDateRangeController" --> ":Test" : selectedTransactions
 deactivate "controller:GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedTransactions, \n                    selectedTransactions)
+":Test" -> ":Test" : assertEquals(expectedTransactions, selectedTransactions)
 
 @enduml

@@ -15,6 +15,9 @@ participant "groupLedger:Ledger"
 
 ":Test" -> "controller:GroupScheduleController" : scheduleTransaction = scheduleGroupTransaction\n(groupsList, groupDescription, person, periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
 activate "controller:GroupScheduleController" #FFBBBB
+"controller:GroupScheduleController" -> "group:Group" : isGroupMember = isGroupMember(person);
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
 "controller:GroupScheduleController" -> "group:Group" : scheduleNewTransaction(periodicity, amount, \ntransactionDescription, localDate, category, \naccountFrom, accountTo, type);
 activate "group:Group" #FFBBBB
 "group:Group" -> "scheduledTasksList:ScheduledTasksList" : addNewSchedule(this, periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
