@@ -1,7 +1,6 @@
 package switch2019.project.controllers;
 
 import switch2019.project.model.Person;
-import switch2019.project.model.Transaction;
 
 import java.time.LocalDateTime;
 

@@ -38,7 +38,7 @@ public class Ledger {
      */
 
     public List<Transaction> getLedgerTransactions() {
-        List<Transaction> newLedger = new ArrayList<Transaction>();
+        List<Transaction> newLedger = new ArrayList<>();
         newLedger.addAll(ledgerTransactions);
         return newLedger;
 }
