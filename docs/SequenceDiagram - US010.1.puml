@@ -10,21 +10,14 @@ create ":GetTheMovementsOfAnAccountInDateRangeController"
 ":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : new
 
 participant "person1:Person"
-":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : createTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
-activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
-":GetTheMovementsOfAnAccountInDateRangeController" -> "person1:Person" : createTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
-activate "person1:Person" #FFBBBB
 
-participant "trans:Transaction"
 participant "ledger:Ledger"
-"person1:Person" -> "trans:Transaction" : new
-"person1:Person" -> "ledger:Ledger" : addTransactionToLedger\n(amount, description, date, category, accountFrom, accountTo, type)
 deactivate "person1:Person" #FFBBBB
 deactivate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 
 == Act ==
 
-":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate, person1)
+":Test" -> ":GetTheMovementsOfAnAccountInDateRangeController" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate, person)
 activate ":GetTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 ":GetTheMovementsOfAnAccountInDateRangeController" -> "person1:Person" : getOneAccountMovementsFromUser\n(account, initialDate, finalDate)
 activate "person1:Person" #FFBBBB
