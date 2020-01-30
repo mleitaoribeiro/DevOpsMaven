@@ -1,0 +1,41 @@
+@startuml
+skinparam DefaultFontSize 20
+participant ":Test"
+
+== Arrange ==
+
+create "controller:GroupScheduleController"
+":Test" -> "controller:GroupScheduleController" : create()
+
+participant "group:Group"
+participant "scheduledTasksList:ScheduledTasksList"
+participant "groupLedger:Ledger"
+
+== Act ==
+
+":Test" -> "controller:GroupScheduleController" : scheduleGroupTransaction(GroupsList groupsList, \nString groupDescription, Person person, String periodicity, \nMonetaryValue amount, String description, LocalDateTime date, \nCategory category, Account accountFrom, Account accountTo, boolean type)
+activate "controller:GroupScheduleController" #FFBBBB
+"controller:GroupScheduleController" -> "group:Group" : scheduleNewTransaction(periodicity, amount, \ntransactionDescription, localDate, category, \naccountFrom, accountTo, type);
+activate "group:Group" #FFBBBB
+"group:Group" -> "scheduledTasksList:ScheduledTasksList" : addNewSchedule(this, periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
+activate "scheduledTasksList:ScheduledTasksList" #FFBBBB
+create "schedule:Schedule"
+"scheduledTasksList:ScheduledTasksList" -> "schedule:Schedule" : create(Person person, String periodicity, \nMonetaryValue amount, String description, \nLocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, \nboolean type)
+activate "schedule:Schedule" #FFBBBB
+create "scheduledTransactionTask:TransactionTask"
+deactivate "scheduledTasksList:ScheduledTasksList"
+"schedule:Schedule" -> "scheduledTransactionTask:TransactionTask" : create(person, amount, \ndescription, date, category, \naccountFrom, accountTo, type)
+deactivate "schedule:Schedule"
+activate "scheduledTransactionTask:TransactionTask" #FFBBBB
+"scheduledTransactionTask:TransactionTask" -> "group:Group" : createGroupTransaction(amount, description, date, category, accountFrom, accountTo, type)
+deactivate "scheduledTransactionTask:TransactionTask"
+
+deactivate "controller:GroupScheduleController"
+deactivate "group:Group"
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(expectedTransactions, \n                    selectedTransactions)
+
+
+@enduml
