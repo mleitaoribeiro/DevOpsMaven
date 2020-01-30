@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserGetTransactionControllerTest {
+public class GetTheMovementsOfAnAccountInDateRangeControllerTest {
 
     /**
      * US010.1 Como utilizador, quero obter os movimentos de determinada conta num dado período.
@@ -56,7 +56,7 @@ public class UserGetTransactionControllerTest {
         person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account, type2);
 
         //Act
-        List<Transaction> listOfTransactions = controller.getOneAccountMovementsFromPerson(account, initialDate, finalDate,person);
+        List<Transaction> listOfTransactions = controller.getOneAccountTransactionsFromPerson(account, initialDate, finalDate,person);
 
 
         //Assert
@@ -101,7 +101,7 @@ public class UserGetTransactionControllerTest {
         person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+        List<Transaction> listOfTransactions = controller.getOneAccountTransactionsFromPerson(account5, date1, date2,person);
 
 
         //Assert
