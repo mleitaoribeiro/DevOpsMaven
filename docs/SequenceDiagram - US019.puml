@@ -12,8 +12,6 @@ participant "personalLedger:Ledger"
 participant "groupsList:GroupsList"
 participant "group:Group"
 participant "groupLedger:Ledger"
-participant "transaction:Transaction"
-
 == Act ==
 
 ":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : selectedTransactions = getPersonalAndGroupTransactions\n(person, initialDate, finalDate, groupsList)
