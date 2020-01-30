@@ -324,8 +324,7 @@ public class Group {
     public List<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
         if (this.isGroupMember(person1)) {
             List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-            List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
-            return listOfTransactionsOfThatAccount;
+            return this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
         } else
             throw new IllegalArgumentException("You don't have access to that account.");
     }
