@@ -9,8 +9,8 @@ public class Ledger {
     private List<Transaction> ledgerTransactions;
 
     //String literals should not be duplicated
-    private static final String action = "One of the submitted dates is not valid.";
-    private static final String action2 = "The dates can´t be null";
+    private static final String DATE_NOT_VALID = "One of the submitted dates is not valid.";
+    private static final String DATE_CANT_NULL = "The dates can´t be null";
 
     /**
      * Ledger Constructor
@@ -103,10 +103,10 @@ public class Ledger {
     public List<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
 
         if (initialDate == null || finalDate == null)
-            throw new IllegalArgumentException(action2);
+            throw new IllegalArgumentException(DATE_CANT_NULL);
 
         else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
-            throw new IllegalArgumentException(action);
+            throw new IllegalArgumentException(DATE_NOT_VALID);
 
             //Validate if Date is in the correct order
         else if (initialDate.isAfter(finalDate)) {
@@ -156,10 +156,10 @@ public class Ledger {
     public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         double balance = 0;
         if (initialDate == null || finalDate == null)
-            throw new IllegalArgumentException(action);
+            throw new IllegalArgumentException(DATE_NOT_VALID);
 
         else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
-            throw new IllegalArgumentException(action);
+            throw new IllegalArgumentException(DATE_NOT_VALID);
 
         else if (ledgerTransactions.isEmpty())
             throw new IllegalArgumentException("The ledger is Empty.");

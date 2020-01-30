@@ -24,13 +24,13 @@ public class Schedule {
      * Group Schedule Constructor
      */
 
-    public Schedule(Group group, String periodicityString, MonetaryValue amount, String description, LocalDateTime date,
+    public Schedule(Group group, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
                     Category category, Account accountFrom, Account accountTo, boolean type) {
-        int periodicity = convertKeyWordIntoMilliseconds(periodicityString);
+        this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
         Timer timer = new Timer();
         TransactionTask scheduledGroupTransactionTask = new TransactionTask(group, amount,
                                                         description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledGroupTransactionTask, 0, periodicity);
+        timer.schedule(scheduledGroupTransactionTask, 0, this.periodicity);
     }
 
     /**
