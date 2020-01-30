@@ -1,9 +1,8 @@
 package switch2019.project.model;
 
-import com.sun.tools.javac.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.controllers.GetPersonalAndGroupTransactionsController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
