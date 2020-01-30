@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PersonalTransactionsInDateRangeControllerTest {
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - success case - one transaction -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - success case - one transaction -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -47,7 +47,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
 
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - success case - several transactions -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - success case - several transactions -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseSeveralTransactions() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -96,7 +96,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - exchanged dates  -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - exchanged dates  -  US011")
     void returnPersonLedgerFromPeriodExchangedDates() {
         //Arrange
         Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -137,7 +137,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - same day  -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - same day  -  US011")
     void returnPersonLedgerFromPeriodSameDay() {
         //Arrange
         Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -170,7 +170,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - emptyLedger -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - emptyLedger -  US011")
     void returnPersonLedgerFromPeriodEmptyLegder() {
         //Arrange
         Person person = new Person("Miguel", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -204,7 +204,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
 
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - null date -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - null date -  US011")
     void returnPersonLedgerFromPeriodNullDate() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
@@ -241,7 +241,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
     }
 
     @Test
-    @DisplayName("Test if a person get their movements in a given period - invalid date -  US011")
+    @DisplayName("Test if a person get their transactions in a given period - invalid date -  US011")
     void returnPersonLedgerFromPeriodInvalidDate() {
         //Arrange
         Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));

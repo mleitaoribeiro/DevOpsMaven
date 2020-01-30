@@ -40,11 +40,11 @@ class GroupScheduleControllerTest {
         //Act
         boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "daily", amount, description, null, category, from, to, type);
-
         Thread.sleep(2400); // 250 x 10 = 2500
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 10;
 
         //Assert
-        assertTrue(scheduleTransaction && group.ledgerSize() == 10);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -75,11 +75,11 @@ class GroupScheduleControllerTest {
         //Act
         boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "working days", amount, description, null, category, from, to, type);
-
         Thread.sleep(1900); // 500 x 4 = 2000
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 4;
 
         //Assert
-        assertTrue(scheduleTransaction && group.ledgerSize() == 4);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -110,11 +110,11 @@ class GroupScheduleControllerTest {
         //Act
         boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "weekly", amount, description, null, category, from, to, type);
-
         Thread.sleep(2900); // 750 x 4 = 3000
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 4;
 
         //Assert
-        assertTrue(scheduleTransaction && group.ledgerSize() == 4);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -145,11 +145,11 @@ class GroupScheduleControllerTest {
         //Act
         boolean scheduleTransaction = groupScheduleController.scheduleGroupTransaction(group, person,
                 "monthly", amount, description, null, category, from, to, type);
-
         Thread.sleep(2900); // 1000 x 3 = 3000
+        boolean ledgerSize = groupScheduleController.ledgerSize(group) == 3;
 
         //Assert
-        assertTrue(scheduleTransaction && group.ledgerSize() == 3);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -181,7 +181,6 @@ class GroupScheduleControllerTest {
             //Act
             groupScheduleController.scheduleGroupTransaction(group, person,
                     "everyday", amount, description, null, category, from, to, type);
-
         }
 
         //Assert
@@ -221,7 +220,6 @@ class GroupScheduleControllerTest {
             //Act
             groupScheduleController.scheduleGroupTransaction(group, personNotAMember,
                     "working days", amount, description, null, category, from, to, type);
-
         }
 
         //Assert

@@ -20,4 +20,8 @@ public class PersonalScheduleController {
 
         return person.scheduleNewTransaction(periodicity, amount, description, date, category, accountFrom, accountTo, type);
     }
+
+    public int ledgerSize(Person person) {
+        return person.ledgerSize();
+    }
 }

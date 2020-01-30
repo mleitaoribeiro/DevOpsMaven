@@ -7,19 +7,11 @@ create ":Test"
 ==Arrange==
 
 create ":MemberGetsTheMovementsOfAnAccountInDateRangeController"
-":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : new
+":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : new MemberGetsTheMovementsOfAnAccountInDateRangeController
 
 participant "group1:Group"
-":Test" -> ":MemberGetsTheMovementsOfAnAccountInDateRangeController" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
-activate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
-":MemberGetsTheMovementsOfAnAccountInDateRangeController" -> "group1:Group" : createGroupTransaction\n(amount, description, date, category, accountFrom, accountTo, type)
-activate "group1:Group" #FFBBBB
 
-participant "trans:Transaction"
 participant "ledger:Ledger"
-"group1:Group" -> "trans:Transaction" : new
-"group1:Group" -> "ledger:Ledger" : addTransactionToLedger\n(amount, description, date, category, accountFrom, accountTo, type)
-deactivate "group1:Group" #FFBBBB
 deactivate ":MemberGetsTheMovementsOfAnAccountInDateRangeController" #FFBBBB
 
 == Act ==

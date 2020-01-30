@@ -37,11 +37,11 @@ class PersonalScheduleControllerTest {
         //Act
         boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "daily",
                 amount, description, null, category, from, to, type);
-
         Thread.sleep(2400); // 250 x 10 = 2500
+        boolean ledgerSize = personalScheduleController.ledgerSize(person) == 10;
 
         //Assert
-        assertTrue(scheduleTransaction && person.ledgerSize() == 10);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -69,11 +69,11 @@ class PersonalScheduleControllerTest {
         //Act
         boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "working days",
                 amount, description, null, category, from, to, type);
-
         Thread.sleep(1900); // 500 x 4 = 2000
+        boolean ledgerSize = personalScheduleController.ledgerSize(person) == 4;
 
         //Assert
-        assertTrue(scheduleTransaction && person.ledgerSize() == 4);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -101,11 +101,11 @@ class PersonalScheduleControllerTest {
         //Act
         boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "weekly",
                 amount, description, null, category, from, to, type);
-
         Thread.sleep(2900); // 750 x 4 = 3000
+        boolean ledgerSize = personalScheduleController.ledgerSize(person) == 4;
 
         //Assert
-        assertTrue(scheduleTransaction && person.ledgerSize() == 4);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test
@@ -133,11 +133,11 @@ class PersonalScheduleControllerTest {
         //Act
         boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "monthly",
                 amount, description, null, category, from, to, type);
-
         Thread.sleep(2900); // 1000 x 3 = 3000
+        boolean ledgerSize = personalScheduleController.ledgerSize(person) == 3;
 
         //Assert
-        assertTrue(scheduleTransaction && person.ledgerSize() == 3);
+        assertTrue(scheduleTransaction && ledgerSize);
     }
 
     @Test

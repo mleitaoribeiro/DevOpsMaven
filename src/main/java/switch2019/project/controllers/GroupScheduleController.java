@@ -20,4 +20,8 @@ public class GroupScheduleController {
             return group.scheduleNewTransaction(periodicity, amount, description, date, category, accountFrom, accountTo, type);
         else throw new IllegalArgumentException("You are not a member of that group.");
     }
+
+    public int ledgerSize(Group group) {
+        return group.ledgerSize();
+    }
 }

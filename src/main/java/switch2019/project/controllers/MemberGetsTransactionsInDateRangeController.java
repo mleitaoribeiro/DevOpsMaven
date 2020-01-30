@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberGetsTheMovementsInDateRangeController {
+public class MemberGetsTransactionsInDateRangeController {
 
     /**
-     * Get the group's ledger movements in a given period (US012)
+     * Get the group's ledger transactions in a given period (US012)
      *
      * @param initialDate
      * @param finalDate

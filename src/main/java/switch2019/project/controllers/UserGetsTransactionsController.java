@@ -18,8 +18,8 @@ public class UserGetsTransactionsController {
      * @param member
      */
 
-    public List<Transaction> getOneAccountMovementsFromPerson(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Person member) {
-        return member.getOneAccountMovementsFromUser(account,initialDate,finalDate);
+    public List<Transaction> getOneAccountTransactionsFromPerson(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Person member) {
+        return member.getOneAccountTransactionsFromUser(account,initialDate,finalDate);
     }
 }
 
