@@ -35,13 +35,13 @@ class PersonalScheduleControllerTest {
         boolean type = false; //debit
 
         //Act
-        boolean result = personalScheduleController.schedulePersonalTransaction(person, "daily",
+        boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "daily",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 10);
+        assertTrue(scheduleTransaction && person.ledgerSize() == 10);
     }
 
     @Test
@@ -67,13 +67,13 @@ class PersonalScheduleControllerTest {
         boolean type = false; //debit
 
         //Act
-        boolean result = personalScheduleController.schedulePersonalTransaction(person, "working days",
+        boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "working days",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 4);
+        assertTrue(scheduleTransaction && person.ledgerSize() == 4);
     }
 
     @Test
@@ -99,13 +99,13 @@ class PersonalScheduleControllerTest {
         boolean type = false; //debit
 
         //Act
-        boolean result = personalScheduleController.schedulePersonalTransaction(person, "weekly",
+        boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "weekly",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 4);
+        assertTrue(scheduleTransaction && person.ledgerSize() == 4);
     }
 
     @Test
@@ -131,13 +131,13 @@ class PersonalScheduleControllerTest {
         boolean type = false; //debit
 
         //Act
-        boolean result = personalScheduleController.schedulePersonalTransaction(person, "monthly",
+        boolean scheduleTransaction = personalScheduleController.schedulePersonalTransaction(person, "monthly",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
         //Assert
-        assertTrue(result && person.ledgerSize() == 3);
+        assertTrue(scheduleTransaction && person.ledgerSize() == 3);
     }
 
     @Test
