@@ -7,8 +7,9 @@ public class GroupsList {
     // Private instance variables
     private Set<Group> groupsList;
 
-    String action = "You are not a member of that group.";
-    String action2 = "There're no groups found with that description.";
+    //String literals should not be duplicated
+    private static final String NOT_A_MEMBER = "You are not a member of that group.";
+    private static final String NO_GROUPS_FOUND = "There're no groups found with that description.";
 
     /**
      * Default Constructor for Group List
@@ -84,10 +85,10 @@ public class GroupsList {
             if (group.getDescription().equalsIgnoreCase(groupDescription)) {
                 if (group.isGroupMember(person))
                     return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
-                else throw new IllegalArgumentException(action);
+                else throw new IllegalArgumentException(NOT_A_MEMBER);
             }
         }
-        throw new IllegalArgumentException(action2);
+        throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -109,9 +110,9 @@ public class GroupsList {
             if (group.getDescription().equalsIgnoreCase(groupDescription)){
                 if(group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
-                else throw new IllegalArgumentException(action);
+                else throw new IllegalArgumentException(NOT_A_MEMBER);
             }
-        } throw new IllegalArgumentException(action2);
+        } throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -144,7 +145,7 @@ public class GroupsList {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
                 return group.isGroupAdmin(person);
         }
-        throw new IllegalArgumentException(action2);
+        throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -157,6 +158,6 @@ public class GroupsList {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize();
         }
-        throw new IllegalArgumentException(action2);
+        throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 }
