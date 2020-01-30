@@ -13,7 +13,7 @@ participant "groupLedger:Ledger"
 
 == Act ==
 
-":Test" -> "controller:GroupScheduleController" : scheduleGroupTransaction(GroupsList groupsList, \nString groupDescription, Person person, String periodicity, \nMonetaryValue amount, String description, LocalDateTime date, \nCategory category, Account accountFrom, Account accountTo, boolean type)
+":Test" -> "controller:GroupScheduleController" : scheduleTransaction=scheduleGroupTransaction\n(GroupsList groupsList, String groupDescription, \nPerson person, String periodicity, MonetaryValue amount, \nString description, LocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, boolean type)
 activate "controller:GroupScheduleController" #FFBBBB
 "controller:GroupScheduleController" -> "group:Group" : scheduleNewTransaction(periodicity, amount, \ntransactionDescription, localDate, category, \naccountFrom, accountTo, type);
 activate "group:Group" #FFBBBB
@@ -35,7 +35,7 @@ deactivate "group:Group"
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedTransactions, \n                    selectedTransactions)
+":Test" -> ":Test" : assertTrue(scheduleTransaction)
 
 
 @enduml
