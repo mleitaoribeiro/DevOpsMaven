@@ -379,7 +379,7 @@ public class Person {
 
 
     /**
-     * Get the person's ledger movements in a given period (US011)
+     * Get the person's ledger transactions in a given period (US011)
      *
      * @param initialDate
      * @param finalDate
@@ -417,15 +417,15 @@ public class Person {
 
 
     /**
-     * Get the user ledger movements in a given period from specific account (US010.2)
+     * Get the user ledger transactions in a given period from specific account (US010.2)
      *
      * @param account1
      * @param initialDate
      * @param finalDate
      */
-    public List<Transaction> getOneAccountMovementsFromUser(Account account1, LocalDateTime initialDate, LocalDateTime finalDate) {
+    public List<Transaction> getOneAccountTransactionsFromUser(Account account1, LocalDateTime initialDate, LocalDateTime finalDate) {
         List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-        List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
+        List<Transaction> listOfTransactionsOfThatAccount = this.ledger.getTransactionsFromOneAccount(account1, listOfTransactionsFromPeriod);
         return listOfTransactionsOfThatAccount;
     }
 }

@@ -2163,12 +2163,12 @@ class GroupTest {
 
 
     /**
-     * US010 Como utilizador/membro de grupo, quero obter os movimentos de determinada conta num dado período.
+     * US010 Como membro de grupo, quero obter os movimentos de determinada conta num dado período.
      */
 
     @Test
-    @DisplayName("Obtain movements from an account - case of success")
-    void obtainMovementsFromAnAccount() {
+    @DisplayName("Obtain transactions from an account - case of success")
+    void obtainTransactionsFromAnAccount() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -2205,7 +2205,7 @@ class GroupTest {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2213,8 +2213,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - dates change")
-    void obtainMovementsFromAnAccountDateChange() {
+    @DisplayName("Obtain transactions from an account - dates change")
+    void obtainTransactionsFromAnAccountDateChange() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
@@ -2250,7 +2250,7 @@ class GroupTest {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2258,8 +2258,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - same day")
-    void obtainMovementsFromAnAccountSameDay() {
+    @DisplayName("Obtain transactions from an account - same day")
+    void obtainTransactionsFromAnAccountSameDay() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 14, 00, 00);
@@ -2295,7 +2295,7 @@ class GroupTest {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2303,8 +2303,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - check before the creation of the ledger")
-    void obtainMovementsFromAnAccountBeforeLedger() {
+    @DisplayName("Obtain transactions from an account - check before the creation of the ledger")
+    void obtainTransactionsFromAnAccountBeforeLedger() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2017, 12, 13, 13, 02);
@@ -2342,7 +2342,7 @@ class GroupTest {
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2350,8 +2350,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - first date null")
-    void obtainMovementsFromAnAccountFirstDateNull() {
+    @DisplayName("Obtain transactions from an account - first date null")
+    void obtainTransactionsFromAnAccountFirstDateNull() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = null;
@@ -2390,7 +2390,7 @@ class GroupTest {
 
         //Act
         try {
-            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2400,8 +2400,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - second date null")
-    void obtainMovementsFromAnAccountSecondDateNull() {
+    @DisplayName("Obtain transactions from an account - second date null")
+    void obtainTransactionsFromAnAccountSecondDateNull() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
@@ -2439,7 +2439,7 @@ class GroupTest {
 
         //Act
         try {
-            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2449,8 +2449,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - first date is after now")
-    void obtainMovementsFromAnAccountFirstDateNotValide() {
+    @DisplayName("Obtain transactions from an account - first date is after now")
+    void obtainTransactionsFromAnAccountFirstDateNotValide() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
@@ -2488,7 +2488,7 @@ class GroupTest {
 
         //Act
         try {
-            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2498,8 +2498,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - final date is after now")
-    void obtainMovementsFromAnAccountFinalDateNotValide() {
+    @DisplayName("Obtain transactions from an account - final date is after now")
+    void obtainTransactionsFromAnAccountFinalDateNotValide() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
@@ -2537,7 +2537,7 @@ class GroupTest {
 
         //Act
         try {
-            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2547,8 +2547,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - empty ledger exception")
-    void obtainMovementsFromAnAccountEmptyLedger() {
+    @DisplayName("Obtain transactions from an account - empty ledger exception")
+    void obtainTransactionsFromAnAccountEmptyLedger() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
@@ -2564,7 +2564,7 @@ class GroupTest {
 
         //Act
         try {
-            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
         }
 
         //Assert
@@ -2574,8 +2574,8 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Obtain movements from an account - member is not a member")
-    void obtainMovementsFromAnAccountNotMember() {
+    @DisplayName("Obtain transactions from an account - member is not a member")
+    void obtainTransactionsFromAnAccountNotMember() {
         //Arrange
         Group group1 = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -2611,7 +2611,7 @@ class GroupTest {
 
         //Act:
         try {
-            group1.getOneAccountMovementsFromGroup(account5, date1, date2, person1);
+            group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
         }
         //Assert:
         catch (IllegalArgumentException result) {

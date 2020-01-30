@@ -672,7 +672,7 @@ class LedgerTest {
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2));
 
         //Act
-        List<Transaction> listOfTransactions = ledger.getMovementsFromOneAccount(account, allTransactions);
+        List<Transaction> listOfTransactions = ledger.getTransactionsFromOneAccount(account, allTransactions);
 
         //Assert
         assertEquals(expectedTransactions, listOfTransactions);
@@ -700,7 +700,7 @@ class LedgerTest {
 
         //Act
         try {
-            ledger.getMovementsFromOneAccount(account, allTransactions);
+            ledger.getTransactionsFromOneAccount(account, allTransactions);
         }
 
         //Assert
@@ -732,7 +732,7 @@ class LedgerTest {
         List<Transaction> expectedTransactions = new ArrayList<>();
 
         //Act
-        List<Transaction> listOfTransactions = ledger.getMovementsFromOneAccount(account, allTransactions);
+        List<Transaction> listOfTransactions = ledger.getTransactionsFromOneAccount(account, allTransactions);
 
         //Assert
         assertEquals(expectedTransactions, listOfTransactions);

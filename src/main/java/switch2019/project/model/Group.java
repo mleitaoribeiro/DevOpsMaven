@@ -314,24 +314,24 @@ public class Group {
 
 
     /**
-     * Get the group's ledger movements in a given period from specific account (US010)
+     * Get the group's ledger transactions in a given period from specific account (US010)
      *
      * @param account1
      * @param initialDate
      * @param finalDate
      * @param person1
      */
-    public List<Transaction> getOneAccountMovementsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
+    public List<Transaction> getOneAccountTransactionsFromGroup(Account account1, LocalDateTime initialDate, LocalDateTime finalDate, Person person1) {
         if (this.isGroupMember(person1)) {
             List<Transaction> listOfTransactionsFromPeriod = this.ledger.getTransactionsInDateRange(initialDate, finalDate);
-            return this.ledger.getMovementsFromOneAccount(account1, listOfTransactionsFromPeriod);
+            return this.ledger.getTransactionsFromOneAccount(account1, listOfTransactionsFromPeriod);
         } else
             throw new IllegalArgumentException("You don't have access to that account.");
     }
 
 
     /**
-     * Get the group's ledger movements in a given period (US012)
+     * Get the group's ledger transactions in a given period (US012)
      *
      * @param initialDate
      * @param finalDate

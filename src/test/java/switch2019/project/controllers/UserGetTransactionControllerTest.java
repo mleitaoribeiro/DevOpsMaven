@@ -56,7 +56,7 @@ public class UserGetTransactionControllerTest {
         person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+        List<Transaction> listOfTransactions = controller.getOneAccountTransactionsFromPerson(account5, date1, date2,person);
 
 
         //Assert
@@ -101,7 +101,7 @@ public class UserGetTransactionControllerTest {
         person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
         //Act
-        List<Transaction> listOfTransactions = controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+        List<Transaction> listOfTransactions = controller.getOneAccountTransactionsFromPerson(account5, date1, date2,person);
 
 
         //Assert
@@ -146,7 +146,7 @@ public class UserGetTransactionControllerTest {
 
         //Act
         try {
-            controller.getOneAccountMovementsFromPerson(account5, date1, date2,person);
+            controller.getOneAccountTransactionsFromPerson(account5, date1, date2,person);
         }
 
         //Assert

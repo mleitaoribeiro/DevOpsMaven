@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberGetsTheMovementsInDateRangeControllerTest {
+class MemberGetsTransactionsInDateRangeControllerTest {
 
     /**
      * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo num dado período.
@@ -21,7 +21,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriod() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -71,7 +71,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodEmptyLedger() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -96,7 +96,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodSameDay() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -145,7 +145,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
 
         //Arrange
 
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -187,7 +187,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodFalse() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -236,7 +236,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodInitialDateSuperiorActualDate() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -284,7 +284,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodFinalDateSuperiorActualDate() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -332,7 +332,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodInitialDateNull() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -380,7 +380,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodFinalDateNull() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
@@ -428,7 +428,7 @@ class MemberGetsTheMovementsInDateRangeControllerTest {
     void getLedgerTransactionsInPeriodPersonNotAdmin() {
 
         //Arrange
-        MemberGetsTheMovementsInDateRangeController controller = new MemberGetsTheMovementsInDateRangeController();
+        MemberGetsTransactionsInDateRangeController controller = new MemberGetsTransactionsInDateRangeController();
 
         Group oneGroup = new Group("XPTO");
 
