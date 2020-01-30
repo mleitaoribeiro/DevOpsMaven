@@ -116,9 +116,9 @@ public class GroupsList {
     public ArrayList<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
         ArrayList<Transaction> groupTransactions = new ArrayList<>();
         HashSet<Group> groups = new HashSet<>();
-        for (Group g : groupsList) {
-            if (g.isGroupMember(person))
-                groups.add(g);
+        for (Group group : groupsList) {
+            if (group.isGroupMember(person))
+                groups.add(group);
         } for (Group g : groups) {
             groupTransactions.addAll(g.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         } return groupTransactions;
