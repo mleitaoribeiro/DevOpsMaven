@@ -373,8 +373,8 @@ class LedgerTest {
         }
 
         //Assert
-        catch (IllegalArgumentException getTransactionsFromPeriod) {
-            assertEquals("One of the submitted dates is not valid.", getTransactionsFromPeriod.getMessage());
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("One of the submitted dates is not valid.", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -413,8 +413,8 @@ class LedgerTest {
         }
 
         //Assert
-        catch (IllegalArgumentException getTransactionsFromPeriod) {
-            assertEquals("One of the submitted dates is not valid.", getTransactionsFromPeriod.getMessage());
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("One of the submitted dates is not valid.", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -452,8 +452,8 @@ class LedgerTest {
         }
 
         //Assert
-        catch (IllegalArgumentException getTransactionsFromPeriod) {
-            assertEquals("The dates can´t be null", getTransactionsFromPeriod.getMessage());
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("The dates can´t be null", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -491,8 +491,8 @@ class LedgerTest {
         }
 
         //Assert
-        catch (IllegalArgumentException getTransactionsFromPeriod) {
-            assertEquals("The dates can´t be null", getTransactionsFromPeriod.getMessage());
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("The dates can´t be null", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -753,7 +753,7 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                true);
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
@@ -768,7 +768,7 @@ class LedgerTest {
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
 
-        double expectedPersonalBalanceFromDateRange = -95.4;
+        double expectedPersonalBalanceFromDateRange = -55.4;
 
         //Act
         double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
@@ -869,6 +869,77 @@ class LedgerTest {
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance transactions over invalid date range - inicial date null")
+    void getBalanceInDateRangeWithNotValidDateInitialDateNull() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = null;
+        LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
+
+        try {
+            //Act
+            double personalBalanceInDateRange = ledger.getBalanceInDateRange(initialDate, finalDate);
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Get the balance transactions over invalid date range - final date null")
+    void getBalanceInDateRangeWithNotValidDateFinalDateNull() {
+        //Arrange
+        Ledger ledger = new Ledger();
+        ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
+                LocalDateTime.of(2020, 1, 1, 13, 05),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
+                LocalDateTime.of(2020, 1, 1, 14, 11),
+                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
+                new Account("Continente", "Food Expenses"),
+                false);
+        ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
+                LocalDateTime.of(2020, 1, 5, 17, 23),
+                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
+                new Account("BP", "Gas"),
+                false);
+
+        LocalDateTime initialDate = LocalDateTime.of(2021, 1, 27, 00, 00);
+        LocalDateTime finalDate = null;
+
 
         try {
             //Act
