@@ -7,6 +7,7 @@ import switch2019.project.model.Transaction;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class GetPersonalAndGroupTransactionsController {
 
@@ -16,8 +17,8 @@ public class GetPersonalAndGroupTransactionsController {
      * from all the groups I'm a member of in a given date range
      */
 
-    public ArrayList<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
-        ArrayList<Transaction> selectedTransactions = new ArrayList<>();
+    public List<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
+           List<Transaction> selectedTransactions = new ArrayList<>();
 
         // add all the personal transactions
         selectedTransactions.addAll(person.returnPersonLedgerInDateRange(initialDate, finalDate));

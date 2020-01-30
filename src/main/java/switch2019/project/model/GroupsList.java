@@ -1,9 +1,7 @@
 package switch2019.project.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class GroupsList {
     // Private instance variables
@@ -26,13 +24,11 @@ public class GroupsList {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.addMember(groupCreator) && this.groupsList.add(group1));
-        }
-        return false;
+        } return false;
     }
 
     /**
      * method to add group to the list
-     *
      * @param group
      */
     public boolean addGroupToGroupList(Group group) {
@@ -55,8 +51,8 @@ public class GroupsList {
      *
      * @return groups that are all family
      */
-    public HashSet<Group> returnOnlyFamilies() {
-        HashSet<Group> groupsFamily = new HashSet<>();
+    public Set<Group> returnOnlyFamilies() {
+        Set<Group> groupsFamily = new HashSet<>();
         for (Group g : groupsList) {
             if (g.isFamily()) {
                 groupsFamily.add(g);
@@ -104,16 +100,15 @@ public class GroupsList {
      * @param type
      */
     public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, String periodicity, MonetaryValue amount, String transactionDescription,
-                                                 LocalDateTime localDate, Category category,
-                                                 Account accountFrom, Account accountTo, boolean type) {
+                                                    LocalDateTime localDate, Category category,
+                                                    Account accountFrom, Account accountTo, boolean type){
         for (Group group : groupsList) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription)) {
-                if (group.isGroupMember(person))
+            if (group.getDescription().equalsIgnoreCase(groupDescription)){
+                if(group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
                 else throw new IllegalArgumentException("You are not a member of that group.");
             }
-        }
-        throw new IllegalArgumentException("There're no groups found with that description.");
+        } throw new IllegalArgumentException("There're no groups found with that description.");
     }
 
     /**
@@ -123,15 +118,14 @@ public class GroupsList {
      * @param initialDate
      * @param finalDate
      */
-    public ArrayList<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate) {
+    public ArrayList<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
         ArrayList<Transaction> groupTransactions = new ArrayList<>();
-        HashSet<Group> groups = new HashSet<>();
-        for (Group g : groupsList) {
-            if (g.isGroupMember(person))
-                groups.add(g);
-        }
-        for (Group g : groups) {
-            groupTransactions.addAll(g.returnGroupLedgerInDateRange(initialDate, finalDate, person));
+        Set<Group> groups = new HashSet<>();
+        for (Group group : groupsList) {
+            if (group.isGroupMember(person))
+                groups.add(group);
+        } for (Group group : groups) {
+            groupTransactions.addAll(group.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         }
         return groupTransactions;
     }

@@ -111,7 +111,7 @@ public class CategoryList {
      */
 
     public boolean validateIfSetOfCategoriesIsInTheCategoryList(HashSet<String> setOfCategories) {
-        HashSet<Category> list = new HashSet<>();
+        Set<Category> list = new HashSet<>();
         for (String category : setOfCategories) {
             list.add(new Category(category));
         }

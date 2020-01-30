@@ -7,10 +7,7 @@ import switch2019.project.controllers.GetPersonalAndGroupTransactionsController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Currency;
-import java.util.HashSet;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -282,7 +279,7 @@ class GroupsListTest {
         globalGroupsList.addGroupToGroupList(bojackGang);
 
         //Act
-        HashSet<Group> realResult = globalGroupsList.returnOnlyFamilies();
+        Set<Group> realResult = globalGroupsList.returnOnlyFamilies();
         HashSet<Group> expectedResult = new HashSet<>(Arrays.asList(family, simpsons));
 
         //Assert
@@ -814,9 +811,9 @@ class GroupsListTest {
                 ,category2,account3,account4,true);
 
         //ACT:
-            //expected:
+        // expected:
         ArrayList<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
-            //actual
+        //actual
         ArrayList<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
                 LocalDateTime.of(2000,1,1,0,0),
                 LocalDateTime.of(2020,1,1,0,0));

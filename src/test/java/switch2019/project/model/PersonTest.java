@@ -1332,7 +1332,7 @@ class PersonTest {
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 10, 23, 0);
 
         //Act
-        ArrayList<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
+        List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
 
         //Assert
         assertEquals(personLedgerTransactions, expectedResult);

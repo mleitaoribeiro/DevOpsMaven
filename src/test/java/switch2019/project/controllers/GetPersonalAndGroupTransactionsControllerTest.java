@@ -5,10 +5,7 @@ import switch2019.project.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Currency;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -121,13 +118,13 @@ class GetPersonalAndGroupTransactionsControllerTest {
                 LocalDateTime.of(2020, 1, 15, 10, 07),
                 categoryFriends, accountTransporte, accountCinema, typeDebit);
 
-        ArrayList<Transaction> expectedTransaction = new ArrayList<Transaction>(Arrays.asList(transaction1, transaction2,
+        List<Transaction> expectedTransaction = new ArrayList<Transaction>(Arrays.asList(transaction1, transaction2,
                 transaction3, transaction4, transaction5, transaction6));
 
         GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
 
         // Act _______________________________________________________________________________________________________
-        ArrayList<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
+        List<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
                 (person, LocalDateTime.of(2020, 1, 1, 10, 10),
                 LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
 
@@ -243,12 +240,12 @@ class GetPersonalAndGroupTransactionsControllerTest {
                 LocalDateTime.of(2020, 1, 15, 10, 07),
                 categoryFriends, accountTransporte, accountCinema, typeDebit);
 
-        ArrayList<Transaction> expectedTransaction = new ArrayList<>(Collections.emptyList());
+        List<Transaction> expectedTransaction = new ArrayList<>(Collections.emptyList());
 
         GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
 
         // Act _______________________________________________________________________________________________________
-        ArrayList<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
+        List<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
                 (person, LocalDateTime.of(2020, 1, 15, 10, 10),
                         LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
 
@@ -268,10 +265,10 @@ class GetPersonalAndGroupTransactionsControllerTest {
         GroupsList groupsList = new GroupsList();
         GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
 
-        ArrayList<Transaction> expectedTransaction = new ArrayList<>(Collections.emptyList());
+        List<Transaction> expectedTransaction = new ArrayList<>(Collections.emptyList());
 
         // Act _______________________________________________________________________________________________________
-        ArrayList<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
+        List<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
                 (person, LocalDateTime.of(2020, 1, 1, 10, 10),
                         LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
 
