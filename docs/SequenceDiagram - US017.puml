@@ -14,19 +14,19 @@ participant "ledger:Ledger"
 
 == Act ==
 
-":Test" -> ":PersonalBalanceInDateRangeController" : personalBalanceInDateRange = getPersonalBalanceInDateRange(initialDate, finalDate,person)
+":Test" -> ":PersonalBalanceInDateRangeController" : personalBalanceInDateRange = getPersonalBalanceInDateRange\n(initialDate, finalDate,person)
 activate ":PersonalBalanceInDateRangeController"  #FFBBBB
 
-":PersonalBalanceInDateRangeController" -> "person1:Person" :getPersonalBalanceInDateRange(initialDate, finalDate,person)
+":PersonalBalanceInDateRangeController" -> "person1:Person" :getPersonalBalanceInDateRange\n(initialDate, finalDate,person)
 activate "person1:Person"  #FFBBBB
 
-"person1:Person" -> "ledger:Ledger": getBalanceInDateRange(initialDate, finalDate)
+"person1:Person" -> "ledger:Ledger": getBalanceInDateRange\n(initialDate, finalDate)
 deactivate "person1:Person"  #FFBBBB
 deactivate ":PersonalBalanceInDateRangeController"  #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertEquals(expectedPersonalBalanceFromDateRange, \n                personalBalanceInDateRange)
+":Test" -> ":Test" : assertEquals(expectedPersonalBalanceFromDateRange, \npersonalBalanceInDateRange)
 
 
 @enduml

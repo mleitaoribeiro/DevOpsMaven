@@ -23,7 +23,7 @@ activate "group1:Group"  #FFBBBB
 activate "ledger:Ledger"  #FFBBBB
 
 create "transaction:Transaction"
-"ledger:Ledger" -> "transaction:Transaction" : new Transaction\n(amount, description, date, category, accountFrom, accountTo, type)
+"ledger:Ledger" -> "transaction:Transaction" : new Transaction(amount, description, date,\n category, accountFrom, accountTo, type)
 
 "ledger:Ledger" -> "ledger:Ledger": add(Transaction)
 

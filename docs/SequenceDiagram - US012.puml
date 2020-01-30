@@ -14,17 +14,16 @@ participant "ledger1:Ledger"
 
 == Act ==
 
-":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : listOfTransactions=returnGroupLedgerInDateRange(initialDate,finalDate,group1,person1)
+":Test" -> "controller:MemberGetsTransactionsInDateRangeController" : listOfTransactions=returnGroupLedgerInDateRange\n(initialDate,finalDate,group1,person1)
 activate "controller:MemberGetsTransactionsInDateRangeController"  #FFBBBB
 
-"controller:MemberGetsTransactionsInDateRangeController" -> "group1:Group" : listOfTransactions=returnGroupLedgerInDateRange(initialDate,finalDate,person1)
+"controller:MemberGetsTransactionsInDateRangeController" -> "group1:Group" : listOfTransactions=returnGroupLedgerInDateRange\n(initialDate,finalDate,person1)
 activate "group1:Group"  #FFBBBB
 
-"group1:Group" -> "ledger1:Ledger" : listOfTransactions=getTransactionInDateRange(initialDate,finalDate)
+"group1:Group" -> "ledger1:Ledger" : listOfTransactions=getTransactionInDateRange\n(initialDate,finalDate)
 activate "ledger1:Ledger"  #FFBBBB
 
-
-
+deactivate "ledger1:Ledger"  #FFBBBB
 deactivate "group1:Group"  #FFBBBB
 deactivate "controller:MemberGetsTransactionsInDateRangeController"  #FFBBBB
 
