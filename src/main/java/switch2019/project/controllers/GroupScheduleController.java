@@ -12,11 +12,12 @@ public class GroupScheduleController {
      * so the transactions are automatically generated.
      */
 
-    public boolean scheduleGroupTransaction(GroupsList groupsList, String groupDescription, Person person, String periodicity,
+    public boolean scheduleGroupTransaction(Group group, Person person, String periodicity,
                                             MonetaryValue amount, String description, LocalDateTime date,
                                             Category category, Account accountFrom, Account accountTo, boolean type) {
 
-        return groupsList.createScheduleOnSpecificGroup(person, groupDescription, periodicity,
-                                            amount, description, date, category, accountFrom, accountTo, type);
+        if(group.isGroupMember(person))
+            return group.scheduleNewTransaction(periodicity, amount, description, date, category, accountFrom, accountTo, type);
+        else throw new IllegalArgumentException("You are not a member of that group.");
     }
 }

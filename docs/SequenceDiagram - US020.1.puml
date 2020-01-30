@@ -1,0 +1,41 @@
+@startuml
+skinparam DefaultFontSize 20
+participant ":Test"
+
+== Arrange ==
+
+create "controller:PersonalScheduleController"
+":Test" -> "controller:PersonalScheduleController" : create()
+
+participant "person:Person"
+participant "scheduledTasksList:ScheduledTasksList"
+participant "personalLedger:Ledger"
+
+== Act ==
+
+":Test" -> "controller:PersonalScheduleController" : scheduleTransaction=schedulePersonalTransaction\n(Person person, String periodicity, MonetaryValue amount, \nString description, LocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, boolean type)
+activate "controller:PersonalScheduleController" #FFBBBB
+"controller:PersonalScheduleController" -> "person:Person" : scheduleNewTransaction(periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
+activate "person:Person" #FFBBBB
+"person:Person" -> "scheduledTasksList:ScheduledTasksList" : addNewSchedule(this, \nperiodicity, amount, \ndescription, date,
+activate "scheduledTasksList:ScheduledTasksList" #FFBBBB
+create "schedule:Schedule"
+"scheduledTasksList:ScheduledTasksList" -> "schedule:Schedule" : create(Person person, String periodicity, \nMonetaryValue amount, String description, \nLocalDateTime date, Category category, \nAccount accountFrom, Account accountTo, \nboolean type)
+activate "schedule:Schedule" #FFBBBB
+create "scheduledTransactionTask:TransactionTask"
+deactivate "scheduledTasksList:ScheduledTasksList"
+"schedule:Schedule" -> "scheduledTransactionTask:TransactionTask" : create(person, amount, \ndescription, date, category, \naccountFrom, accountTo, type)
+deactivate "schedule:Schedule"
+activate "scheduledTransactionTask:TransactionTask" #FFBBBB
+"scheduledTransactionTask:TransactionTask" -> "person:Person" : createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, \nCategory category, Account accountFrom, Account accountTo, boolean type)
+deactivate "scheduledTransactionTask:TransactionTask"
+deactivate "person:Person"
+deactivate "controller:PersonalScheduleController"
+deactivate "personalLedger:Ledger"
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(scheduleTransaction)
+
+
+@enduml

@@ -61,6 +61,7 @@ public class Person {
         categoryList = new CategoryList();
         accountsList = new AccountsList();
         ledger = new Ledger();
+        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
