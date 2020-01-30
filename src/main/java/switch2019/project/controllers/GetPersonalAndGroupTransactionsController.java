@@ -19,13 +19,13 @@ public class GetPersonalAndGroupTransactionsController {
     public ArrayList<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
         ArrayList<Transaction> selectedTransactions = new ArrayList<>();
 
-        // add all the personal movements
+        // add all the personal transactions
         selectedTransactions.addAll(person.returnPersonLedgerInDateRange(initialDate, finalDate));
 
-        // add all the group movements
+        // add all the group transactions
         selectedTransactions.addAll(groupsList.returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate));
 
-        // sort the movements by date and return
+        // sort the transactions by date and return
         selectedTransactions.sort(Comparator.comparing(Transaction::getDate));
         return selectedTransactions;
     }

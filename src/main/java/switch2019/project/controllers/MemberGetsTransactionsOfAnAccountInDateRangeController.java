@@ -8,7 +8,7 @@ import switch2019.project.model.Transaction;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class MemberGetsTheMovementsOfAnAccountInDateRangeController {
+public class MemberGetsTransactionsOfAnAccountInDateRangeController {
 
     /**
      * US010.2: As a member of a Group, I want to get my transactions from a account in a specific date range
@@ -20,7 +20,7 @@ public class MemberGetsTheMovementsOfAnAccountInDateRangeController {
      * @param member
      */
 
-    public List<Transaction> getOneAccountMovementsFromGroup(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Group group1, Person member) {
-        return group1.getOneAccountMovementsFromGroup(account, initialDate, finalDate, member);
+    public List<Transaction> getOneAccountTransactionsFromGroup(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Group group1, Person member) {
+        return group1.getOneAccountTransactionsFromGroup(account, initialDate, finalDate, member);
     }
 }

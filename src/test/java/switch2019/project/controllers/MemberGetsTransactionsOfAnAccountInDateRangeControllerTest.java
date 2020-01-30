@@ -15,16 +15,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-    class MembersGestTheMovementsOfAnAccountInAGivenTimeController {
+    class MembersGestTheTransactionsOfAnAccountInAGivenTimeController {
         /**
          * US010.2 Como membro de grupo, quero obter os movimentos de determinada conta num dado período.
          */
 
         @Test
-        @DisplayName("Obtain movements from an account - case of success")
-        void obtainMovementsFromAnAccount() {
+        @DisplayName("Obtain transactions from an account - case of success")
+        void obtainTransactionsFromAnAccount() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
             LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
@@ -59,17 +59,17 @@ import static org.junit.jupiter.api.Assertions.*;
             group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
             //Act
-            List<Transaction> listOfTransactions = groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+            List<Transaction> listOfTransactions = groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
 
             //Assert
             assertEquals(expectedTransactions, listOfTransactions);
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - dates change")
-        void obtainMovementsFromAnAccountDateChange() {
+        @DisplayName("Obtain transactions from an account - dates change")
+        void obtainTransactionsFromAnAccountDateChange() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
             LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -104,7 +104,7 @@ import static org.junit.jupiter.api.Assertions.*;
             group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
             //Act
-            List<Transaction> listOfTransactions = groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+            List<Transaction> listOfTransactions = groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
 
 
             //Assert
@@ -112,10 +112,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - same day")
-        void obtainMovementsFromAnAccountSameDay() {
+        @DisplayName("Obtain transactions from an account - same day")
+        void obtainTransactionsFromAnAccountSameDay() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2020, 1, 14, 00, 00);
             LocalDateTime date2 = LocalDateTime.of(2020, 1, 14, 23, 59);
@@ -150,7 +150,7 @@ import static org.junit.jupiter.api.Assertions.*;
             group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
             //Act
-            List<Transaction> listOfTransactions = groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+            List<Transaction> listOfTransactions = groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
 
 
             //Assert
@@ -158,10 +158,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - check before the creation of the ledger")
-        void obtainMovementsFromAnAccountBeforeLedger() {
+        @DisplayName("Obtain transactions from an account - check before the creation of the ledger")
+        void obtainTransactionsFromAnAccountBeforeLedger() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2017, 12, 13, 13, 02);
             LocalDateTime date2 = LocalDateTime.of(2018, 1, 31, 13, 02);
@@ -197,7 +197,7 @@ import static org.junit.jupiter.api.Assertions.*;
             group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
 
             //Act
-            List<Transaction> listOfTransactions = groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+            List<Transaction> listOfTransactions = groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
 
 
             //Assert
@@ -205,10 +205,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - first date null")
-        void obtainMovementsFromAnAccountFirstDateNull() {
+        @DisplayName("Obtain transactions from an account - first date null")
+        void obtainTransactionsFromAnAccountFirstDateNull() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = null;
             LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -245,7 +245,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
             //Act
             try {
-                groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+                groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
             }
 
             //Assert
@@ -255,10 +255,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - second date null")
-        void obtainMovementsFromAnAccountSecondDateNull() {
+        @DisplayName("Obtain transactions from an account - second date null")
+        void obtainTransactionsFromAnAccountSecondDateNull() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
             LocalDateTime date2 = null;
@@ -295,7 +295,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
             //Act
             try {
-                groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+                groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
             }
 
             //Assert
@@ -305,10 +305,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - first date is after now")
-        void obtainMovementsFromAnAccountFirstDateNotValide() {
+        @DisplayName("Obtain transactions from an account - first date is after now")
+        void obtainTransactionsFromAnAccountFirstDateNotValide() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
             LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -345,7 +345,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
             //Act
             try {
-                groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+                groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
             }
 
             //Assert
@@ -355,10 +355,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - final date is after now")
-        void obtainMovementsFromAnAccountFinalDateNotValide() {
+        @DisplayName("Obtain transactions from an account - final date is after now")
+        void obtainTransactionsFromAnAccountFinalDateNotValide() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2020, 2, 13, 13, 02);
             LocalDateTime date2 = LocalDateTime.of(2020, 12, 13, 13, 02);
@@ -395,7 +395,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
             //Act
             try {
-                groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+                groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
             }
 
             //Assert
@@ -405,10 +405,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        @DisplayName("Obtain movements from an account - empty ledger exception")
-        void obtainMovementsFromAnAccountEmptyLedger() {
+        @DisplayName("Obtain transactions from an account - empty ledger exception")
+        void obtainTransactionsFromAnAccountEmptyLedger() {
             //Arrange
-            MemberGetsTheMovementsOfAnAccountInDateRangeController groupController = new MemberGetsTheMovementsOfAnAccountInDateRangeController();
+            MemberGetsTransactionsOfAnAccountInDateRangeController groupController = new MemberGetsTransactionsOfAnAccountInDateRangeController();
             Group group1 = new Group("Caloteiros");
             LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
             LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
@@ -423,7 +423,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
             //Act
             try {
-                groupController.getOneAccountMovementsFromGroup(account5, date1, date2, group1, person1);
+                groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
             }
 
             //Assert
