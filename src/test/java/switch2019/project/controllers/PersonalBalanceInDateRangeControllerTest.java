@@ -21,8 +21,12 @@ class PersonalBalanceInDateRangeControllerTest {
     void getPersonalBalanceInDateRange() {
         //Arrange
         //Initialize Person:
-        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"),mom,dad);
 
         //Initialize Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
@@ -61,8 +65,13 @@ class PersonalBalanceInDateRangeControllerTest {
     void getPersonalBalanceForJustOneDay() {
         //Arrange
         //Initialize Person
-        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"),mom,dad);
+
         //Initialize Transactions
         person1.createTransaction(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
                 LocalDateTime.of(2020, 1, 13, 13, 05),
@@ -100,8 +109,13 @@ class PersonalBalanceInDateRangeControllerTest {
     @DisplayName("Get the balance of my personal transactions over a valid date range but initial date and final date not in order.")
     void getPersonalBalanceInDateRangeWithDatesNotInOrder() {
         //Arrange
-        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"),mom,dad);
+
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
@@ -140,8 +154,13 @@ class PersonalBalanceInDateRangeControllerTest {
     void getPersonalBalanceInDateRangeWithInvalidDate() {
         //Arrange
         //Initialize Person
-        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"),mom,dad);
+
         //Initialize Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
@@ -178,9 +197,14 @@ class PersonalBalanceInDateRangeControllerTest {
     @Test
     @DisplayName("Get the balance a ledger that is empty. With any transactions,")
     void getPersonalBalanceInDateRangeEmptyBalance() {
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         //Arrange
         Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
-                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"),mom,dad);
+
         //No transactions
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
@@ -201,8 +225,13 @@ class PersonalBalanceInDateRangeControllerTest {
     @DisplayName("Get the balance of my transactions transactions over a period that has no transactions in the given date range")
     void getPersonalBalanceInDateRangeEmptyBalanceOverDateRange() {
         //Arrange
-        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Marta", LocalDate.of(1995, 12, 04), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"),mom,dad);
+
         //Initialize Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
