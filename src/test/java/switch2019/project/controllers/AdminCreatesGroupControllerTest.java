@@ -43,15 +43,14 @@ public class AdminCreatesGroupControllerTest {
         Person person1 = new Person("Francis", LocalDate.of(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
-        try {
-             controller.createGroup(null, person1, groupsList);
-        }
+
+             boolean ifWasCreated= controller.createGroup(null, person1, groupsList);
 
         //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("There're no groups found with that description.", description.getMessage());
+
+            assertFalse(ifWasCreated);
         }
-    }
+
 
 
     @Test
@@ -66,6 +65,7 @@ public class AdminCreatesGroupControllerTest {
 
         boolean wasGroupCreated = controller.createGroup("Grupo de Teste", person1, groupsList);
         boolean ifIsAdmin = groupsList.checkIfAPersonIsAdminInAGivenGroup("Grupo de Teste", person1);
+
         //Assert
         assertFalse(wasGroupCreated && ifIsAdmin);
     }
