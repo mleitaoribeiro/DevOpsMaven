@@ -5,7 +5,7 @@ import java.util.*;
 
 public class GroupsList {
     // Private instance variables
-    private Set<Group> groupsList;
+    private Set<Group> listOfGroups;
 
     //String literals should not be duplicated
     private static final String NOT_A_MEMBER = "You are not a member of that group.";
@@ -15,7 +15,7 @@ public class GroupsList {
      * Default Constructor for Group List
      */
     public GroupsList() {
-        groupsList = new HashSet<>();
+        listOfGroups = new HashSet<>();
     }
 
     /**
@@ -27,7 +27,7 @@ public class GroupsList {
     public boolean createGroup(String groupDescription, Person groupCreator) {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
-            return (group1.addMember(groupCreator) && this.groupsList.add(group1));
+            return (group1.addMember(groupCreator) && this.listOfGroups.add(group1));
         }
         return false;
     }
@@ -38,7 +38,7 @@ public class GroupsList {
      */
     public boolean addGroupToGroupList(Group group) {
         if (group != null) {
-            return groupsList.add(group);
+            return listOfGroups.add(group);
         } else return false;
     }
 
@@ -48,7 +48,7 @@ public class GroupsList {
      * @return size of the groupsList
      */
     public int howManyGroups() {
-        return groupsList.size();
+        return listOfGroups.size();
     }
 
     /**
@@ -58,7 +58,7 @@ public class GroupsList {
      */
     public Set<Group> returnOnlyFamilies() {
         Set<Group> groupsFamily = new HashSet<>();
-        for (Group g : groupsList) {
+        for (Group g : listOfGroups) {
             if (g.isFamily()) {
                 groupsFamily.add(g);
             }
@@ -82,7 +82,7 @@ public class GroupsList {
                                                     MonetaryValue amount, String transactionDescription,
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type) {
-        for (Group group : groupsList) {
+        for (Group group : listOfGroups) {
             if (group.getDescription().equalsIgnoreCase(groupDescription)) {
                 if (group.isGroupMember(person))
                     return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
@@ -107,7 +107,7 @@ public class GroupsList {
     public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, String periodicity, MonetaryValue amount, String transactionDescription,
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, boolean type){
-        for (Group group : groupsList) {
+        for (Group group : listOfGroups) {
             if (group.getDescription().equalsIgnoreCase(groupDescription)){
                 if(group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
@@ -126,7 +126,7 @@ public class GroupsList {
     public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
         List<Transaction> groupTransactions = new ArrayList<>();
         Set<Group> groups = new HashSet<>();
-        for (Group group : groupsList) {
+        for (Group group : listOfGroups) {
             if (group.isGroupMember(person))
                 groups.add(group);
         } for (Group group : groups) {
@@ -142,7 +142,7 @@ public class GroupsList {
      * @param person
      */
     public boolean checkIfAPersonIsAdminInAGivenGroup(String groupDescription, Person person) {
-        for (Group group : groupsList) {
+        for (Group group : listOfGroups) {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
                 return group.isGroupAdmin(person);
         }
@@ -155,7 +155,7 @@ public class GroupsList {
      * @param groupDescription
      */
     public int checkAGroupsLedgerSize(String groupDescription) {
-        for (Group group : groupsList) {
+        for (Group group : listOfGroups) {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize(); }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
