@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdminCreatesGroupControllerTest {
 
     /**
-     * As user , I Want to Creat a group and be admin (US002.1)
+     * US002.1 - As a user I want to create a group becoming a group administrator.
      */
 
     @Test
