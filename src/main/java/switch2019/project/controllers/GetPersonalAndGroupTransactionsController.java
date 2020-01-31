@@ -15,6 +15,12 @@ public class GetPersonalAndGroupTransactionsController {
      * US019
      * As a user, i want to obtain my personal transactions and the transactions
      * from all the groups I'm a member of in a given date range
+     *
+     * @param person
+     * @param initialDate
+     * @param finalDate
+     * @param groupsList
+     * @return personal and group transaction in date range
      */
 
     public List<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
