@@ -1020,7 +1020,9 @@ class GroupsListTest {
     void isLedgerSizeChecked(){
         //Arrange:
         GroupsList groupsList = new GroupsList();
-        Group group1 = new Group("Test Group");
+        Group group2 = new Group("test group 2");
+        Group group1 = new Group("Test Group Main");
+        groupsList.addGroupToGroupList(group2);
         groupsList.addGroupToGroupList(group1);
 
             //Arranging accounts:
@@ -1038,7 +1040,7 @@ class GroupsListTest {
                 , shoppingForFood, savingsAccount,pingDoceAccount,true);
 
         //Act:
-        int result = groupsList.checkAGroupsLedgerSize("test group");
+        int result = groupsList.checkAGroupsLedgerSize("test group main");
 
         //Assert:
         assertEquals(2,result);

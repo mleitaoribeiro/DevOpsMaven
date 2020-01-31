@@ -10,6 +10,12 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GetPersonalAndGroupTransactionsControllerTest {
+
+    /**
+     * US019
+     * As a user, i want to obtain my personal transactions and the transactions
+     * from all the groups I'm a member of in a given date range
+     */
     @Test
     void getPersonalAndGroupTransactionsSucess() {
         // Arrange ____________________________________________________________________________________________________
