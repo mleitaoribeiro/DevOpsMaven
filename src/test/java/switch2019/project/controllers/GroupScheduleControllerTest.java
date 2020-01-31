@@ -11,6 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroupScheduleControllerTest {
 
+    /**
+     * US020.2
+     * As a group member, i want to create a schedule with daily, working days, weekly and monthly periodicity,
+     * so the transactions are automatically generated.
+     *
+     * @throws InterruptedException
+     */
     @Test
     @DisplayName("Schedule a group transaction")
     void scheduleGroupTransactionDaily() throws InterruptedException {

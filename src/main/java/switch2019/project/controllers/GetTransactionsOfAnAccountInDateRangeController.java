@@ -10,12 +10,14 @@ import java.util.List;
 public class GetTransactionsOfAnAccountInDateRangeController {
 
     /**
-     * US010.1: As a person, I want to get my transactions from a account in a specific date range
+     * US010.1
+     * As a person, I want to get my transactions from a account in a specific date range
      *
      * @param account
      * @param initialDate
      * @param finalDate
      * @param member
+     * @return personal transactions in date range
      */
 
     public List<Transaction> getOneAccountTransactionsFromPerson(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Person member) {
