@@ -22,7 +22,12 @@ public class AdminCreatesGroupControllerTest {
         //Arrange
         GroupsList groupsList = new GroupsList();
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
-        Person person1 = new Person("John", LocalDate.of(2000, 12, 04), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("John", LocalDate.of(2000, 12, 04), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"),mom,dad);
 
         //Act
         boolean wasGroupCreated = controller.createGroup("familia", person1, groupsList);
@@ -40,7 +45,12 @@ public class AdminCreatesGroupControllerTest {
         //Arrange
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Francis", LocalDate.of(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Francis", LocalDate.of(2001, 04, 12), new Address("Dublin"),
+                new Address("Rua B", "Feira", "4520-233"),mom,dad);
 
         //Act
 
@@ -59,7 +69,12 @@ public class AdminCreatesGroupControllerTest {
         //Arrange
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
         GroupsList groupsList = new GroupsList();
-        Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"),
+                new Address("Rua B", "Gaia", "4520-233"),mom,dad);
         controller.createGroup("Grupo de Teste",person1,groupsList);
         //Act
 

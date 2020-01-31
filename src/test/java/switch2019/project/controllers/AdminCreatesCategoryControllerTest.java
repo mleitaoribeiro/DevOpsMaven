@@ -24,8 +24,12 @@ public class AdminCreatesCategoryControllerTest {
     void addCategoryToListMainScenario() {
         //Arrange
         Group group1 = new Group("Grupo dos amigos");
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"),mom,dad);
         AdminCreatesCategoryController controller = new AdminCreatesCategoryController();
 
         group1.addMember(person1);
@@ -44,10 +48,14 @@ public class AdminCreatesCategoryControllerTest {
         //Arrange
 
         Group group1 = new Group("Grupo dos amigos");
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"),mom,dad);
         Person person2 = new Person("Filipa", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"),mom,dad);
         AdminCreatesCategoryController controller = new AdminCreatesCategoryController();
 
         group1.addMember(person1);
@@ -65,8 +73,12 @@ public class AdminCreatesCategoryControllerTest {
         //Arrange
         //Initialize Group
         Group group1 = new Group("Grupo dos amigos");
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"),mom,dad);
         AdminCreatesCategoryController controller = new AdminCreatesCategoryController();
         group1.addMember(person1);
 
@@ -82,13 +94,15 @@ public class AdminCreatesCategoryControllerTest {
     @DisplayName("Check if the same Category is not added simultaneously by the admin")
     void addTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
         //Arrange
-
         Group group1 = new Group("Groupo dos amigos");
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"),mom,dad);
         group1.addMember(person1);
         AdminCreatesCategoryController controller = new AdminCreatesCategoryController();
-        //Categories to be included in Category List
 
         //Act
         boolean categoryAdded = controller.createCategory("Cinema", group1, person1);
@@ -105,8 +119,12 @@ public class AdminCreatesCategoryControllerTest {
     void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
         //Arrange
         Group group1 = new Group("Groupo dos amigos");
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person1 = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"),mom,dad);
         AdminCreatesCategoryController controller = new AdminCreatesCategoryController();
         group1.addMember(person1);
         //Categories to be included in Category List
