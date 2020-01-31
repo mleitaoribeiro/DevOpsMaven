@@ -6,6 +6,7 @@ import switch2019.project.model.Person;
 public class AdminCreatesCategoryController {
 
     /**
+     * US005.1 - As a Group Administrator, I want to create a category and add it to a group.
      *
      * @param nameOfCategory
      * @param oneGroup
