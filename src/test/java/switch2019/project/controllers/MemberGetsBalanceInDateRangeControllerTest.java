@@ -13,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberGetsBalanceInDateRangeControllerTest {
 
     /**
-     * Tests to evaluate getGroupBalanceInDateRange - US0018
+     * US018
+     * Tests to evaluate getGroupBalanceInDateRange
      */
 
     @Test
