@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AdminCreatesCategoryControllerTest {
     /**
-     * Check if a Admin createad and added Category to the groups Category list (US05.1)
+     * US005.1 - As a Group Administrator, I want to create a category and add it to a group.
+     *
+     * Check if a Admin createad and added Category to the groups Category list
      */
 
     @Test
