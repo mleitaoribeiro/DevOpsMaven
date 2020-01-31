@@ -21,8 +21,12 @@ class GetPersonalAndGroupTransactionsControllerTest {
         // Arrange ____________________________________________________________________________________________________
 
         // Person:
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"),mom,dad);
 
         //Categories:
         Category categoryGrocery = new Category("grocery");
@@ -143,8 +147,12 @@ class GetPersonalAndGroupTransactionsControllerTest {
         // Arrange ____________________________________________________________________________________________________
 
         // Person:
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"),mom,dad);
 
         //Categories:
         Category categoryGrocery = new Category("grocery");
@@ -265,8 +273,12 @@ class GetPersonalAndGroupTransactionsControllerTest {
         // Arrange ____________________________________________________________________________________________________
 
         // Person:
+        Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
+        Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
+                new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"),mom,dad);
 
         GroupsList groupsList = new GroupsList();
         GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
