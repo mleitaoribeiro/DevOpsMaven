@@ -28,7 +28,8 @@ public class GroupsList {
         if (groupDescription != null) {
             Group group1 = new Group(groupDescription);
             return (group1.addMember(groupCreator) && this.groupsList.add(group1));
-        } return false;
+        }
+        return false;
     }
 
     /**
@@ -122,8 +123,8 @@ public class GroupsList {
      * @param initialDate
      * @param finalDate
      */
-    public ArrayList<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
-        ArrayList<Transaction> groupTransactions = new ArrayList<>();
+    public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
+        List<Transaction> groupTransactions = new ArrayList<>();
         Set<Group> groups = new HashSet<>();
         for (Group group : groupsList) {
             if (group.isGroupMember(person))
@@ -153,11 +154,10 @@ public class GroupsList {
      *
      * @param groupDescription
      */
-    public int checkIfAGroupsLedgerSize(String groupDescription) {
+    public int checkAGroupsLedgerSize(String groupDescription) {
         for (Group group : groupsList) {
             if (group.getDescription().equalsIgnoreCase(groupDescription))
-                return group.ledgerSize();
-        }
+                return group.ledgerSize(); }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 }
