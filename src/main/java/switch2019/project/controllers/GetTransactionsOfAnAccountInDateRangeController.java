@@ -16,12 +16,12 @@ public class GetTransactionsOfAnAccountInDateRangeController {
      * @param account
      * @param initialDate
      * @param finalDate
-     * @param member
+     * @param person
      * @return personal transactions in date range
      */
 
-    public List<Transaction> getOneAccountTransactionsFromPerson(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Person member) {
-        return member.getOneAccountTransactionsFromUser(account,initialDate,finalDate);
+    public List<Transaction> getOneAccountTransactionsFromPerson(Account account, LocalDateTime initialDate, LocalDateTime finalDate, Person person) {
+        return person.getOneAccountTransactionsFromUser(account,initialDate,finalDate);
     }
 }
 
