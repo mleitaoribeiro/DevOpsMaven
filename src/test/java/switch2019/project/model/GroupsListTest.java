@@ -469,6 +469,35 @@ class GroupsListTest {
         }
     }
 
+    @Test
+    @DisplayName("Trying to create transaction that member is not contained. ")
+    void testIfATransactionCanBeCreatedIfPersonIsNotAMember() {
+        //Arrange:
+        GroupsList groupsList = new GroupsList();
+        Person person1 = new Person("Jose", LocalDate.of(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person notMember = new Person("Francisco", LocalDate.of(1993, 11, 13),
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+        groupsList.createGroup("TestGroup",person1);
+
+            //Transactions arrangement:
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        Category category1 = new Category("Test");
+        Account from = new Account("Wallet", "General expenses");
+        Account to = new Account("TransportAccount", "Transport expenses");
+
+        try {
+            //Act:
+            groupsList.createTransactionOnSpecificGroup(notMember, "TestGroup", amount, "test transaction",
+                    LocalDateTime.of(1995, 12, 4, 00, 00), category1, from, to, false);
+
+        }
+        //Assert:
+        catch (IllegalArgumentException result) {
+            assertEquals("You are not a member of that group.", result.getMessage());
+        }
+    }
+
     /**
      * Test method createScheduleOnSpecificGroup
      * @throws InterruptedException
@@ -501,7 +530,7 @@ class GroupsListTest {
         Thread.sleep(2400); // 250 x 10 = 2500
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 10);
+        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 10);
     }
 
 
@@ -532,7 +561,7 @@ class GroupsListTest {
         Thread.sleep(1900); // 500 x 4 = 2000
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 4);
     }
 
     @Test
@@ -562,7 +591,7 @@ class GroupsListTest {
         Thread.sleep(2900); // 750 x 4 = 3000
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 4);
     }
 
 
@@ -593,7 +622,7 @@ class GroupsListTest {
         Thread.sleep(2900); // 1000 x 3 = 3000
 
         //Assert
-        assertTrue(result && groupsList.checkIfAGroupsLedgerSize("tarzan") == 3);
+        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 3);
     }
 
     @Test
@@ -811,9 +840,9 @@ class GroupsListTest {
 
         //ACT:
         // expected:
-        ArrayList<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
+        List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
         //actual
-        ArrayList<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
+        List<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
                 LocalDateTime.of(2000,1,1,0,0),
                 LocalDateTime.of(2020,1,1,0,0));
 
@@ -892,7 +921,7 @@ class GroupsListTest {
 
         //ACT:
         //expected:
-        ArrayList<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
+        List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
         //actual
         try {
             testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,null,null);
@@ -902,6 +931,117 @@ class GroupsListTest {
         catch (IllegalArgumentException datesNull) {
             assertEquals("The dates can´t be null", datesNull.getMessage());
         }
-
     }
+    @Test
+    @DisplayName("return transactions from two groups - Not Member")
+    void areTransactionsFromNonMemberPersonGroupsReturned() {
+
+        //ARRANGE:
+        Person groupMember = new Person("João", LocalDate.of(1994,06,17),
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+        Person notGroupMember = new Person("Joana", LocalDate.of(1994,06,17),
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+
+        GroupsList testGroupsList = new GroupsList();
+
+        //Arrange two groups inside the GroupsList:
+        Group group1 = new Group("test group 1");
+        Group group2 = new Group("test group 2");
+        testGroupsList.addGroupToGroupList(group1);
+        testGroupsList.addGroupToGroupList(group2);
+
+        //groupMember is not added
+
+        //Arrange Transactions:
+        //Monetary Value:
+        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue3 = new MonetaryValue(50, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue4 = new MonetaryValue(150, Currency.getInstance("EUR"));
+
+        //Categories:
+        Category category1 = new Category("grocery");
+        Category category2 = new Category("restaurants");
+        //Categories also added to Group:
+        group1.createAndAddCategoryToCategoryList("grocery",groupMember);
+        group1.createAndAddCategoryToCategoryList("restaurants",groupMember);
+        group2.createAndAddCategoryToCategoryList("grocery",groupMember);
+        group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
+
+        //Accounts:
+        Account account1 = new Account("Savings","Savings destined to food");
+        Account account2 = new Account("Pingo Doce","groceries on Pingo Doce");
+        Account account3 = new Account("Savings2","Savings destined to food");
+        Account account4 = new Account("Pingo Doce2","groceries on Pingo Doce");
+        //Accounts created in Group:
+        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
+        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
+        group2.addAccountToGroupAccountsList("Savings2","Savings destined to food");
+        group2.addAccountToGroupAccountsList("Pingo Doce2","groceries on Pingo Doce");
+
+        //Transactions arranged:
+        //Group1 transactions:
+        Transaction transaction1 = new Transaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , category1,account1,account2,true);
+        Transaction transaction2 = new Transaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , category2, account1,account2,true);
+        //Group2 transactions:
+        Transaction transaction3 = new Transaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
+                ,category1, account3, account4, true);
+        Transaction transaction4 = new Transaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
+                ,category2,account3,account4,true);
+
+        //Transactions arranged within the ledgers of the groups:
+        group1.createGroupTransaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , category1,account1,account2,true);
+        group1.createGroupTransaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , category2, account1,account2,true);
+        group2.createGroupTransaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
+                ,category1, account3, account4, true);
+        group2.createGroupTransaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
+                ,category2,account3,account4,true);
+
+        //ACT:
+        // expected:
+        List<Transaction> expected = new ArrayList();
+        List<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(notGroupMember,
+                LocalDateTime.of(2000,1,1,0,0),
+                LocalDateTime.of(2020,1,1,0,0));
+
+        //ASSERT:
+        assertEquals(expected,actual);
+    }
+
+    /**
+     * checkAGroupsLedgerSize() method tested
+     */
+    @Test
+    @DisplayName("Ledger size checked - happy case - ignoring case")
+    void isLedgerSizeChecked(){
+        //Arrange:
+        GroupsList groupsList = new GroupsList();
+        Group group1 = new Group("Test Group");
+        groupsList.addGroupToGroupList(group1);
+
+            //Arranging accounts:
+        Account savingsAccount = new Account("Savings","Savings destined to food");
+        Account pingDoceAccount = new Account("Pingo Doce","groceries on Pingo Doce");
+        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
+        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
+        Category shoppingForFood = new Category("shopping for food");
+
+
+            //Arranging transactions inside group1's Ledger:
+        group1.createGroupTransaction(new MonetaryValue(200,Currency.getInstance("EUR")),"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
+                , shoppingForFood,savingsAccount,pingDoceAccount,true);
+        group1.createGroupTransaction(new MonetaryValue(220,Currency.getInstance("EUR")),"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
+                , shoppingForFood, savingsAccount,pingDoceAccount,true);
+
+        //Act:
+        int result = groupsList.checkAGroupsLedgerSize("test group");
+
+        //Assert:
+        assertEquals(2,result);
+    }
+
 }
