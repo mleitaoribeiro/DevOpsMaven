@@ -41,7 +41,7 @@ public class GetTransactionsOfAnAccountInDateRangeControllerTest {
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
-        
+
         boolean type1 = true; // credit (+)
         boolean type2 = false; // debit (-)
 
