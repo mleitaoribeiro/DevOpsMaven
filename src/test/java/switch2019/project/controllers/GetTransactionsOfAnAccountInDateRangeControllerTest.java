@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GetTransactionsOfAnAccountInDateRangeControllerTest {
 
     /**
-     * US010.1 Como utilizador, quero obter os movimentos de determinada conta num dado período.
+     * US010.1
+     * As a person, I want to get my transactions from a account in a specific date range
      */
 
     @Test
