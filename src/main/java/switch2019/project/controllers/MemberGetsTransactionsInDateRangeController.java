@@ -10,10 +10,12 @@ import java.util.List;
 public class MemberGetsTransactionsInDateRangeController {
 
     /**
-     * Get the group's ledger transactions in a given period (US012)
+     * US012
+     * Get the group's ledger transactions in a given period
      *
      * @param initialDate
      * @param finalDate
+     * @return list of group transactions
      */
 
     public List<Transaction> returnGroupLedgerFromPeriod(LocalDateTime initialDate, LocalDateTime finalDate, Group group, Person person) {

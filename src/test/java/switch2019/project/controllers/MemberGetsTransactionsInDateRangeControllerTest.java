@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberGetsTransactionsInDateRangeControllerTest {
 
     /**
-     * US012 - Como utilizador membro de grupo, quero obter os movimentos do grupo num dado período.
+     * US012 - As a member of a group, i want to get the group's ledger transactions in a given period
      */
 
     @Test
