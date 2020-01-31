@@ -211,65 +211,7 @@ class MemberGetsTransactionsOfAnAccountInDateRangeControllerTest {
         //Assert
         assertEquals(expectedTransactions, listOfTransactions);
     }
-
-    @Test
-    @DisplayName("Obtain transactions from an account - check before the creation of the ledger")
-    void obtainTransactionsFromAnAccountBeforeLedger() {
-        //Arrange
-        MemberGetsTransactionsOfAnAccountInDateRangeController groupController =
-                new MemberGetsTransactionsOfAnAccountInDateRangeController();
-
-        Person father = new Person("João", LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person mother = new Person("Francisca", LocalDate.of(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person1 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), mother, father);
-
-        Group group1 = new Group("Associação Amigos do Douro");
-
-        group1.addMember(person1);
-
-        LocalDateTime date1 = LocalDateTime.of(2017, 12, 13, 13, 02);
-        LocalDateTime date2 = LocalDateTime.of(2018, 1, 31, 13, 02);
-
-        MonetaryValue monetaryValue1 = new MonetaryValue(200, Currency.getInstance("EUR"));
-        MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
-        MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
-
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
-
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
-
-        //Type:
-        boolean type1 = true; //credit (+)
-        boolean type2 = false; //debit (-)
-
-        List<Transaction> expectedTransactions = new ArrayList<>(Collections.emptyList());
-
-        group1.createGroupTransaction(monetaryValue1, "payment",
-                LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment",
-                LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment",
-                LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
-
-        //Transactions between unchecked accounts
-        group1.createGroupTransaction(monetaryValue2, "payment",
-                LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account1, type2);
-        group1.createGroupTransaction(monetaryValue2, "payment",
-                LocalDateTime.of(2019, 12, 25, 12, 15), category2, account1, account2, type2);
-
-        //Act
-        List<Transaction> listOfTransactions = groupController.getOneAccountTransactionsFromGroup(account5, date1, date2, group1, person1);
-
-        //Assert
-        assertEquals(expectedTransactions, listOfTransactions);
-    }
-
+    
     @Test
     @DisplayName("Obtain transactions from an account - first date null")
     void obtainTransactionsFromAnAccountFirstDateNull() {
@@ -590,7 +532,7 @@ class MemberGetsTransactionsOfAnAccountInDateRangeControllerTest {
                 LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
         Transaction transaction3 = new Transaction(monetaryValue2, "payment",
                 LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
-        
+
         group1.createGroupTransaction(monetaryValue1, "payment",
                 LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
         group1.createGroupTransaction(monetaryValue7, "payment",
