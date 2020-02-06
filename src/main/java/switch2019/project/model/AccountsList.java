@@ -43,6 +43,8 @@ public class AccountsList {
 
     /**
      * Develop @override of toString()
+     *
+     * @return string
      */
 
     @Override

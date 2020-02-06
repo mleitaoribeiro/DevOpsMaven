@@ -43,7 +43,7 @@ public class Account {
     /**
      * override hascode of Account object
      *
-     * @return
+     * @return hashcode
      */
 
     @Override
@@ -147,7 +147,7 @@ public class Account {
     }
 
     /**
-     * Public get to acess a clone of Account
+     * Public get to access a clone of Account
      *
      * @return copy of Account
      */

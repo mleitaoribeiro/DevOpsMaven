@@ -10,6 +10,16 @@ public class Schedule {
 
     /**
      * Personal Schedule Constructor
+     *
+     * @param person
+     * @param periodicity
+     * @param amount
+     * @param description
+     * @param date
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
      */
     public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                Category category, Account accountFrom, Account accountTo, boolean type) {
@@ -20,8 +30,18 @@ public class Schedule {
         timer.schedule(scheduledTransactionTask, 0, this.periodicity);
     }
 
-    /*
+    /**
      * Group Schedule Constructor
+     *
+     * @param group
+     * @param periodicity
+     * @param amount
+     * @param description
+     * @param date
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
      */
 
     public Schedule(Group group, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
