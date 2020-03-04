@@ -1,6 +1,7 @@
 package switch2019.project.model;
 
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.valueobject.Address;
 
 import java.time.LocalDate;
