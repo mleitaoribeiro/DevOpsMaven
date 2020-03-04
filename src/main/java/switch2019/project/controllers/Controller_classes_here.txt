@@ -1,1 +1,0 @@
-Put controller classes here, as well as the sequence diagrams.

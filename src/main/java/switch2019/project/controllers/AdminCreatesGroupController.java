@@ -1,6 +1,6 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.GroupsList;
+import switch2019.project.repository.GroupsList;
 import switch2019.project.model.Person;
 
 public class AdminCreatesGroupController {

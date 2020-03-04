@@ -1,4 +1,7 @@
-package switch2019.project.model;
+package switch2019.project.repository;
+
+import switch2019.project.model.*;
+import switch2019.project.model.Legder.Transaction;
 
 import switch2019.project.model.category.Category;
 
@@ -131,7 +134,8 @@ public class GroupsList {
         for (Group group : listOfGroups) {
             if (group.isGroupMember(person))
                 groups.add(group);
-        } for (Group group : groups) {
+        }
+        for (Group group : groups) {
             groupTransactions.addAll(group.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         }
         return groupTransactions;

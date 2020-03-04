@@ -4,7 +4,9 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.Legder.Transaction;
 import switch2019.project.model.valueobject.Address;
+import switch2019.project.repository.GroupsList;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -1047,5 +1049,4 @@ class GroupsListTest {
         //Assert:
         assertEquals(2,result);
     }
-
 }

@@ -30,7 +30,7 @@ public class MemberCreatesGroupTransactionController {
         //Check if the Transaction Creator is a member of group1.
         if (group1.isGroupMember(transactionCreator)) {
 
-            // Add the transaction to the Group Ledger and verify if it is contained inside it afterwards:
+            // Add the transaction to the Group Ledger and verify if it is inside it afterwards:
             return group1.createGroupTransaction(amount,description,localDate,category,accountFrom,accountTo,type);
         }
         else return false;

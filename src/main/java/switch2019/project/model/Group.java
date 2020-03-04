@@ -2,6 +2,8 @@ package switch2019.project.model;
 
 import switch2019.project.model.category.Category;
 
+import switch2019.project.model.Legder.Transaction;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
