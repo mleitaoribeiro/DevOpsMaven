@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class CategoryList {
+public class CategoryRepository {
     // Private instance variables
     private Set<Category> categories;
 
@@ -14,7 +14,7 @@ public class CategoryList {
      * Constructor for Category List
      */
 
-    public CategoryList() {
+    public CategoryRepository() {
         categories = new HashSet<>();
     }
 
@@ -36,7 +36,7 @@ public class CategoryList {
         if (this == o) return true;
         if (o == null) return false;
         if (getClass() != o.getClass()) return false;
-        CategoryList categoriesList = (CategoryList) o;
+        CategoryRepository categoriesList = (CategoryRepository) o;
         return Objects.equals(categories, categoriesList.categories);
     }
 

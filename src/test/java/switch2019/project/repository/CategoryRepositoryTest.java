@@ -1,9 +1,9 @@
-package switch2019.project.model;
+package switch2019.project.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.category.Category;
-import switch2019.project.repository.CategoryList;
+import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.GroupsRepository;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CategoryListTest {
+class CategoryRepositoryTest {
 
     /**
      * Tests for the CategoryList method toString
@@ -20,7 +20,7 @@ class CategoryListTest {
     @DisplayName("Test if method toString returns the categories in the CategoryList")
     public void validateToString() {
         //Arrange:
-        CategoryList firstCategoryList = new CategoryList();
+        CategoryRepository firstCategoryList = new CategoryRepository();
         firstCategoryList.addCategoryToCategoryList("cinema");
         firstCategoryList.addCategoryToCategoryList("jantares");
         String expected = "CategoryList: [CINEMA, JANTARES]";
@@ -40,8 +40,8 @@ class CategoryListTest {
     public void compareTwoCategoryListsHashCode() {
 
         //Arrange:
-        CategoryList firstCategoryList = new CategoryList();
-        CategoryList secondCategoryList = new CategoryList();
+        CategoryRepository firstCategoryList = new CategoryRepository();
+        CategoryRepository secondCategoryList = new CategoryRepository();
 
         //Act:
         firstCategoryList.addCategoryToCategoryList("cinema");
@@ -58,8 +58,8 @@ class CategoryListTest {
     public void compareTwoCategoryListsHashCodeFalse() {
 
         //Arrange:
-        CategoryList firstCategoryList = new CategoryList();
-        CategoryList secondCategoryList = new CategoryList();
+        CategoryRepository firstCategoryList = new CategoryRepository();
+        CategoryRepository secondCategoryList = new CategoryRepository();
 
         //Act:
         firstCategoryList.addCategoryToCategoryList("cinema");
@@ -78,8 +78,8 @@ class CategoryListTest {
     public void compareTwoCategoryList() {
         //Arrange
 
-        CategoryList oneCategoryList = new CategoryList();
-        CategoryList otherCategoryList = new CategoryList();
+        CategoryRepository oneCategoryList = new CategoryRepository();
+        CategoryRepository otherCategoryList = new CategoryRepository();
 
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
 
@@ -98,8 +98,8 @@ class CategoryListTest {
     public void compareOneCategoryWithNull() {
         //Arrange
 
-        CategoryList oneCategoryList = new CategoryList();
-        CategoryList otherCategoryList = null;
+        CategoryRepository oneCategoryList = new CategoryRepository();
+        CategoryRepository otherCategoryList = null;
 
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
 
@@ -121,8 +121,8 @@ class CategoryListTest {
     public void compareTwoCategoryListNotTheSame() {
         //Arrange
 
-        CategoryList oneCategoryList = new CategoryList();
-        CategoryList otherCategoryList = new CategoryList();
+        CategoryRepository oneCategoryList = new CategoryRepository();
+        CategoryRepository otherCategoryList = new CategoryRepository();
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
         HashSet<String> anotherSetOfCategories = new HashSet<>(Arrays.asList("Education", "Gas"));
 
@@ -149,8 +149,8 @@ class CategoryListTest {
         String oneCategoryName = "xpto";
         String otherCategoryName = "xpto";
 
-        CategoryList oneCategoryList = new CategoryList();
-        CategoryList otherCategoryList = new CategoryList();
+        CategoryRepository oneCategoryList = new CategoryRepository();
+        CategoryRepository otherCategoryList = new CategoryRepository();
 
         //Act
         oneCategoryList.addCategoryToCategoryList(oneCategoryName);
@@ -168,7 +168,7 @@ class CategoryListTest {
     @DisplayName("test if two CategoriesList are the same when created from different classes")
     public void testIfTwoAccountListsAreTheSameDifferentClasses() {
         //Arrange
-        CategoryList oneCategoryList = new CategoryList();
+        CategoryRepository oneCategoryList = new CategoryRepository();
         GroupsRepository otherCategoryList = new GroupsRepository();
 
         //Assert
@@ -179,7 +179,7 @@ class CategoryListTest {
     @DisplayName("test if two CategoriesList are the same when null")
     public void testIfTwoAccountListsAreTheSameNull() {
         //Arrange
-        CategoryList oneCategoryList = null;
+        CategoryRepository oneCategoryList = null;
         GroupsRepository otherCategoryList = new GroupsRepository();
 
         //Assert
@@ -196,7 +196,7 @@ class CategoryListTest {
         //Arrange
         //Category to be included in Category List
         String oneCategory = "School expenses";
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
 
@@ -217,7 +217,7 @@ class CategoryListTest {
         //Category to be included in Category List
         String oneCategory = "School expenses";
         String otherCategory = "Health";
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
 
@@ -239,7 +239,7 @@ class CategoryListTest {
         //Arrange
         //Category to be included in Category List
         String otherCategory = null;
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
 
@@ -266,7 +266,7 @@ class CategoryListTest {
         String originalCategory = "Saude";
         String duplicateCategory = "saúde";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
         boolean realResult = newCategoryList.addCategoryToCategoryList(originalCategory)
@@ -290,7 +290,7 @@ class CategoryListTest {
         String otherCategory = "Health";
         String otherCategoryObject = "Health";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
@@ -312,7 +312,7 @@ class CategoryListTest {
         String otherCategory = "saúde";
         String otherCategoryObject = "saúde";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
@@ -329,7 +329,7 @@ class CategoryListTest {
     void removeCategoryThatIsNotInTheList() {
 
         //Arrange:
-        CategoryList testCategoryList = new CategoryList();
+        CategoryRepository testCategoryList = new CategoryRepository();
 
         //Act:
         boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema");
@@ -346,7 +346,7 @@ class CategoryListTest {
         String otherCategory = "null";
         String otherCategoryObject = null;
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
@@ -370,7 +370,7 @@ class CategoryListTest {
         String otherCategory = "Educação";
         String otherCategoryObject = "Educação";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
         newCategoryList.addCategoryToCategoryList(oneCategory);
@@ -398,7 +398,7 @@ class CategoryListTest {
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
 
@@ -417,7 +417,7 @@ class CategoryListTest {
         String categoryHealthDuplicated = "Health";
         String categoryBeauty = "Beauty";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
@@ -443,7 +443,7 @@ class CategoryListTest {
         String categoryHealthDuplicated = "heálth";
         String categoryBeauty = "Beauty";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
@@ -470,7 +470,7 @@ class CategoryListTest {
         String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //set of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
@@ -500,7 +500,7 @@ class CategoryListTest {
         String categoryNull = null;
         String categoryUniversity = "University";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         // Set of Categories to be added to Categories list
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
@@ -531,7 +531,7 @@ class CategoryListTest {
         String categoryGymSpecialCharacter = "Gým";
         String categoryBeautyUpperCase = "BEAUTY";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         // set of String to be added to Categories list
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
@@ -560,7 +560,7 @@ class CategoryListTest {
         String cats = "Cats";
         String transport = "Transport";
         Category catsObject = new Category("Cats");
-        CategoryList newCategories = new CategoryList();
+        CategoryRepository newCategories = new CategoryRepository();
 
         HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
 
@@ -581,7 +581,7 @@ class CategoryListTest {
         String house = "House";
         String cats = "Cats";
         String transport = "Transport";
-        CategoryList newCategories = new CategoryList();
+        CategoryRepository newCategories = new CategoryRepository();
 
         HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
 
@@ -598,7 +598,7 @@ class CategoryListTest {
     @DisplayName("Test to validate if set of categories is the the category list-true case for all")
     void validateIfSetOfCategoriesIsInTheCategoryList() {
         //Arrange
-        CategoryList categoryList1 = new CategoryList();
+        CategoryRepository categoryList1 = new CategoryRepository();
         HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
@@ -613,7 +613,7 @@ class CategoryListTest {
     @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
     void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {
         //Arrange
-        CategoryList categoryList1 = new CategoryList();
+        CategoryRepository categoryList1 = new CategoryRepository();
         HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
@@ -634,7 +634,7 @@ class CategoryListTest {
     void numberOfCategoryInTheCategoryListSuccessCase() {
 
         //Arrange
-        CategoryList categoryList = new CategoryList();
+        CategoryRepository categoryList = new CategoryRepository();
 
         //Act
         categoryList.addCategoryToCategoryList("Transports");
@@ -651,7 +651,7 @@ class CategoryListTest {
     void numberOfCategoryInTheCategoryListSuccessCaseEmptyCategoryList() {
 
         //Arrange
-        CategoryList categoryList = new CategoryList(); //empty Category List
+        CategoryRepository categoryList = new CategoryRepository(); //empty Category List
 
         //Act
         int actual = categoryList.numberOfCategoryInTheCategoryList();

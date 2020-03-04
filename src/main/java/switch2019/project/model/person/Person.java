@@ -6,7 +6,9 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.CategoryList;
+import switch2019.project.model.valueObject.MonetaryValue;
+import switch2019.project.repository.CategoryRepository;
+import switch2019.project.repository.AccountRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,8 +23,8 @@ public class Person {
     private Person father;
     private Address address;
     private Address birthPlace;
-    private CategoryList categoryList;
-    private AccountsList accountsList;
+    private AccountRepository accountsList;
+    private CategoryRepository categoryList;
     private Ledger ledger;
     private ScheduledTasksList scheduledTasksList;
 
@@ -40,8 +42,8 @@ public class Person {
         this.birthPlace = birthPlace;
         setBirthDate(birthDate);
         siblingList = new HashSet<>();
-        categoryList = new CategoryList();
-        accountsList = new AccountsList();
+        categoryList = new CategoryRepository();
+        accountsList = new AccountRepository();
         ledger = new Ledger();
         address = homeAddress;
         scheduledTasksList = new ScheduledTasksList();
@@ -66,8 +68,8 @@ public class Person {
         this.mother = mother;
         this.father = father;
         this.siblingList = new HashSet<>();
-        categoryList = new CategoryList();
-        accountsList = new AccountsList();
+        categoryList = new CategoryRepository();
+        accountsList = new AccountRepository();
         ledger = new Ledger();
         scheduledTasksList = new ScheduledTasksList();
     }
