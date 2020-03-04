@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import switch2019.project.model.valueobject.Address;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
