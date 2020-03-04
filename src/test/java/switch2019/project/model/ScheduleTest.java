@@ -2,6 +2,7 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Person;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.Legder.Schedule;
 import switch2019.project.model.valueobject.Address;
 
