@@ -41,7 +41,7 @@ public class Ledger {
         List<Transaction> newLedger = new ArrayList<>();
         newLedger.addAll(ledgerTransactions);
         return newLedger;
-}
+    }
 
     /**
      * Method that checks if a transaction is contained within a Ledger
