@@ -7,7 +7,7 @@ import switch2019.project.model.legder.Ledger;
 import switch2019.project.model.legder.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
-import switch2019.project.model.valueobject.Address;
+import switch2019.project.model.valueObject.Address;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

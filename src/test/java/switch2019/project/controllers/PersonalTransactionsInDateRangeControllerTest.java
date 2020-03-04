@@ -7,7 +7,7 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.legder.Transaction;
 import switch2019.project.model.category.Category;
-import switch2019.project.model.valueobject.Address;
+import switch2019.project.model.valueObject.Address;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
