@@ -13,7 +13,7 @@ participant "groupLedger:Ledger"
 
 == Act ==
 
-":Test" -> "controller:GroupScheduleController" : scheduleTransaction = scheduleGroupTransaction\n(groupsList, groupDescription, person, periodicity, \namount, description, date, category, \naccountFrom, accountTo, type)
+":Test" -> "controller:GroupScheduleController" : scheduleTransaction = scheduleGroupTransaction\n(group, person, periodicity, amount, description, \ndate, category, accountFrom, accountTo, type)
 activate "controller:GroupScheduleController" #FFBBBB
 "controller:GroupScheduleController" -> "group:Group" : isGroupMember = isGroupMember(person);
 activate "group:Group" #FFBBBB

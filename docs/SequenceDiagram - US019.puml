@@ -1,4 +1,4 @@
-@startuml
+ @startuml
 skinparam DefaultFontSize 20
 participant ":Test"
 
