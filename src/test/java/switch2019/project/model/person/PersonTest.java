@@ -9,7 +9,7 @@ import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.CategoryList;
+import switch2019.project.repository.CategoryRepository;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -1953,7 +1953,7 @@ class PersonTest {
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
 
@@ -1973,7 +1973,7 @@ class PersonTest {
         String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
 
-        CategoryList newCategoryList = new CategoryList();
+        CategoryRepository newCategoryList = new CategoryRepository();
 
         //set of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));

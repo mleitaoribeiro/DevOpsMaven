@@ -1,7 +1,7 @@
 package switch2019.project.model.group;
 
 import switch2019.project.model.AccountsList;
-import switch2019.project.repository.CategoryList;
+import switch2019.project.repository.CategoryRepository;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.ScheduledTasksList;
 import switch2019.project.model.account.Account;
@@ -21,7 +21,7 @@ public class Group {
     private Set<Person> members;
     private Set<Person> admins;
     private AccountsList groupAccountsList;
-    private CategoryList categoryList;
+    private CategoryRepository categoryList;
     private Ledger ledger;
     private ScheduledTasksList scheduledTasksList;
 
@@ -37,7 +37,7 @@ public class Group {
         members = new HashSet<>();
         admins = new HashSet<>();
         groupAccountsList = new AccountsList();
-        categoryList = new CategoryList();
+        categoryList = new CategoryRepository();
         ledger = new Ledger();
         scheduledTasksList = new ScheduledTasksList();
     }
