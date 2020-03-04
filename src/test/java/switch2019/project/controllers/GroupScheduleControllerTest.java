@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.*;
 import switch2019.project.model.person.Person;
+import switch2019.project.model.valueobject.Address;
 
 import java.time.LocalDate;
 import java.util.Currency;

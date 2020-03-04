@@ -3,6 +3,8 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Person;
+import switch2019.project.model.Legder.Transaction;
+import switch2019.project.model.valueobject.Address;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.Address;
 import switch2019.project.model.GroupsList;
 import switch2019.project.model.person.Person;
+import switch2019.project.model.valueobject.Address;
+import switch2019.project.repository.GroupsList;
+import switch2019.project.model.Person;
 
 import java.time.LocalDate;
 

@@ -2,10 +2,7 @@
 skinparam DefaultFontSize 20
 create ":Test"
 
-note left of ":Test" #powderblue
-	Arrange
-end note
-
+== Arrange ==
 create "group1:Group"
 ":Test" -> "group1:Group" : new Group (description)
 activate "group1:Group" #FFBBBB
@@ -14,9 +11,7 @@ create "accountList1:AccountsList"
 "group1:Group" -> "accountList1:AccountsList" : new AccountList
 deactivate "group1:Group" #FFBBBB
 
-note left of ":Test" #powderblue
-	Act
-end note
+== Act ==
 
 ":Test" -> "group1:Group" : createGroupAccount(denomination, description)
 activate "group1:Group" #FFBBBB
@@ -33,9 +28,7 @@ deactivate "accountList1:AccountsList" #FFBBBB
 "group1:Group" --> ":Test" : accountCreatedAndAdded
 deactivate "group1:Group" #FFBBBB
 
-note left of ":Test" #powderblue
-	Assert
-end note
+== Assert ==
 
 ":Test" -> ":Test" : assertTrue(accountCreatedAndAdded)
 

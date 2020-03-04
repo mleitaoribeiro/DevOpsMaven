@@ -1,4 +1,6 @@
-package switch2019.project.model;
+package switch2019.project.model.Legder;
+
+import switch2019.project.model.*;
 
 import switch2019.project.model.person.Person;
 
