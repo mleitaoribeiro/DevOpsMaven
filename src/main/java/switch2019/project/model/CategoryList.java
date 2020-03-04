@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import switch2019.project.model.category.Category;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

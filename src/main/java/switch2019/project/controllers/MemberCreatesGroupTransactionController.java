@@ -1,6 +1,8 @@
 package switch2019.project.controllers;
 
 import switch2019.project.model.*;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.category.Category;
 
 import java.time.LocalDateTime;
 
@@ -23,8 +25,8 @@ public class MemberCreatesGroupTransactionController {
      */
 
     public boolean memberCreatesAGroupTransaction (MonetaryValue amount, String description, LocalDateTime localDate,
-                                                          Category category, Account accountFrom, Account accountTo, boolean type,
-                                                          Group group1, Person transactionCreator) {
+                                                   Category category, Account accountFrom, Account accountTo, boolean type,
+                                                   Group group1, Person transactionCreator) {
 
         //Check if the Transaction Creator is a member of group1.
         if (group1.isGroupMember(transactionCreator)) {

@@ -1,7 +1,11 @@
 package switch2019.project.repository;
 
-import switch2019.project.model.*;
-import switch2019.project.model.Legder.Transaction;
+import switch2019.project.model.Account;
+import switch2019.project.model.MonetaryValue;
+import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.Group;
+import switch2019.project.model.category.Category;
 
 import java.time.LocalDateTime;
 import java.util.*;

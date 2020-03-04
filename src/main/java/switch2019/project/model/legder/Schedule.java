@@ -2,6 +2,10 @@ package switch2019.project.model.Legder;
 
 import switch2019.project.model.*;
 
+import switch2019.project.model.person.Person;
+
+import switch2019.project.model.category.Category;
+
 import java.time.LocalDateTime;
 import java.util.Timer;
 

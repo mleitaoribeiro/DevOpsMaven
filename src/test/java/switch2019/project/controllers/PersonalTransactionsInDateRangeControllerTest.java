@@ -3,7 +3,9 @@ package switch2019.project.controllers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.*;
-import switch2019.project.model.Legder.Transaction;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.valueobject.Address;
 
 import java.time.LocalDate;
@@ -18,18 +20,18 @@ public class PersonalTransactionsInDateRangeControllerTest {
     @DisplayName("Test if a person get their transactions in a given period - success case - one transaction -  US011")
     void returnPersonLedgerFromPeriodSuccessCaseOneTransaction() {
         //Arrange
-        Person person = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person("Jose", LocalDate.of(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+        person1.createCategoryAndAddToCategoryList("General");
         Account from = new Account("Wallet", "General expenses");
         Account to = new Account("TransportAccount", "Transport expenses");
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
+        person1.createAccount("Wallet", "General expenses");
+        person1.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
-        person.createTransaction(amount, "payment", dateTransaction1, category, from, to, type);
+        person1.createTransaction(amount, "payment", dateTransaction1, category, from, to, type);
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 23, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23, 00);
@@ -40,7 +42,7 @@ public class PersonalTransactionsInDateRangeControllerTest {
 
         //Act
         PersonalTransactionsInDateRangeController controller = new PersonalTransactionsInDateRangeController();
-        List<Transaction> listOfPersonalTransactions = controller.returnPersonLedgerInDateRange(initialDate, finalDate, person);
+        List<Transaction> listOfPersonalTransactions = controller.returnPersonLedgerInDateRange(initialDate, finalDate, person1);
 
         //Assert
         assertEquals(expectedListOfPersonalTransactions, listOfPersonalTransactions);
