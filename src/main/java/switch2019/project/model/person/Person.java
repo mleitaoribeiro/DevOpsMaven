@@ -1,4 +1,3 @@
-package switch2019.project.model;
 package switch2019.project.model.person;
 
 import switch2019.project.model.*;

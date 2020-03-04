@@ -1,7 +1,7 @@
 package switch2019.project.model.legder;
 
 import switch2019.project.model.Account;
-import switch2019.project.model.Category;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.MonetaryValue;
 
 import switch2019.project.model.category.Category;
