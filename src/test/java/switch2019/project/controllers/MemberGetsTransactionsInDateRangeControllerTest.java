@@ -3,6 +3,7 @@ package switch2019.project.controllers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.*;
+import switch2019.project.model.account.Account;
 import switch2019.project.model.legder.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;

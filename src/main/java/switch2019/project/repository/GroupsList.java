@@ -1,6 +1,6 @@
 package switch2019.project.repository;
 
-import switch2019.project.model.Account;
+import switch2019.project.model.account.Account;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.legder.Transaction;
 import switch2019.project.model.person.Person;

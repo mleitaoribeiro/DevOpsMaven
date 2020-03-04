@@ -1,5 +1,6 @@
 package switch2019.project.model;
 
+import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 
 import switch2019.project.model.category.Category;

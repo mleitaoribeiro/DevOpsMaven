@@ -1,6 +1,6 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.Account;
+import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.person.Person;
