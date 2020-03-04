@@ -844,7 +844,7 @@ class GroupsListTest {
 
         //ACT:
         // expected:
-        List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
+        List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction3,transaction4,transaction1,transaction2));
         //actual
         List<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
                 LocalDateTime.of(2000,1,1,0,0),
