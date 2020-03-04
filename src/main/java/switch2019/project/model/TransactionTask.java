@@ -1,5 +1,7 @@
 package switch2019.project.model;
 
+import switch2019.project.model.person.Person;
+
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 
