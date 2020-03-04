@@ -2,12 +2,12 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.valueobject.Address;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static switch2019.project.model.Address.isNumeric;
+import static switch2019.project.model.valueobject.Address.isNumeric;
 
 class AddressTest {
 
