@@ -2,7 +2,6 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.CategoryList;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.group.Group;
