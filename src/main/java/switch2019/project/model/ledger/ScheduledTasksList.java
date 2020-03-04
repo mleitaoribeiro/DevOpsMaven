@@ -1,14 +1,11 @@
 package switch2019.project.model.ledger;
 
-import switch2019.project.model.MonetaryValue;
+import switch2019.project.model.valueObject.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Person;
 
 import switch2019.project.model.category.Category;
-
-import switch2019.project.model.ledger.Schedule;
-import switch2019.project.model.valueObject.MonetaryValue;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
