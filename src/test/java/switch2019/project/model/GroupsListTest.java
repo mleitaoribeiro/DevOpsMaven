@@ -1045,5 +1045,4 @@ class GroupsListTest {
         //Assert:
         assertEquals(2,result);
     }
-
 }
