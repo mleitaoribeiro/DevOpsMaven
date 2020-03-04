@@ -1,5 +1,9 @@
-package switch2019.project.model;
+package switch2019.project.model.group;
 
+import switch2019.project.model.AccountsList;
+import switch2019.project.model.CategoryList;
+import switch2019.project.model.MonetaryValue;
+import switch2019.project.model.ScheduledTasksList;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.ledger.Transaction;
