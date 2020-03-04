@@ -1,4 +1,4 @@
-package switch2019.project.model.Legder;
+package switch2019.project.model.legder;
 
 import switch2019.project.model.Account;
 import switch2019.project.model.Category;
