@@ -7,7 +7,7 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDate;
 import java.util.Currency;
@@ -37,7 +37,7 @@ class MemberCreatesGroupTransactionControllerTest {
         Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
 
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
         group1.addMember(person4);
@@ -82,7 +82,7 @@ class MemberCreatesGroupTransactionControllerTest {
         Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
 
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
         group1.addMember(person4);
@@ -130,7 +130,7 @@ class MemberCreatesGroupTransactionControllerTest {
         Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
 
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
         group1.addMember(person4);
@@ -162,7 +162,7 @@ class MemberCreatesGroupTransactionControllerTest {
         Person person4 = new Person("Francisco", LocalDate.of(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua X", "Porto", "4520-266"), person2, person1);
 
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
         groupList1.createGroup("Test group", person3);
         Group group1 = new Group("Test group");
 

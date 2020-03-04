@@ -4,11 +4,11 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
-import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GroupsListTest {
+class GroupsRepositoryTest {
 
     /**
      * As user , I Want to Creat a group and be admin (US002.1)
@@ -26,11 +26,11 @@ class GroupsListTest {
     @DisplayName("Test if Group was Created")
     public void testIfGroupWasCreated() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("John", LocalDate.of(2000, 12, 04), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
-        boolean wasGroupCreated = groupsList.createGroup("Test Person", person1);
+        boolean wasGroupCreated = groupsRepository.createGroup("Test Person", person1);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -41,11 +41,11 @@ class GroupsListTest {
     @DisplayName("Test if Group is not created when its description is null")
     public void testIfGroupWasNotCreated() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("Francis", LocalDate.of(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
-        boolean wasGroupCreated = groupsList.createGroup(null, person1);
+        boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
 
         //Assert
         assertFalse(wasGroupCreated);
@@ -56,12 +56,12 @@ class GroupsListTest {
     @DisplayName("Test if group was not created when it is already contained within a groupsList - Same name and same Members")
     public void testIfGroupWasAlreadyInList() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
-        groupsList.createGroup("Grupo de Teste", person1);
-        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste", person1);
+        groupsRepository.createGroup("Grupo de Teste", person1);
+        boolean wasGroupCreated = groupsRepository.createGroup("Grupo de Teste", person1);
 
         //Assert
         assertFalse(wasGroupCreated);
@@ -72,14 +72,14 @@ class GroupsListTest {
     @DisplayName("Test if group is created even it has the same name but different members")
     public void createGroupWithSameDescriptionAndDifferentMembers() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
         Person person2 = new Person("Marshall", LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
-        groupsList.createGroup("Grupo de Teste", person1);
+        groupsRepository.createGroup("Grupo de Teste", person1);
 
-        boolean wasGroupCreated = groupsList.createGroup("Grupo de Teste", person2);
+        boolean wasGroupCreated = groupsRepository.createGroup("Grupo de Teste", person2);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -90,13 +90,13 @@ class GroupsListTest {
     @DisplayName("Test if group is created with different description but same person")
     public void createGroupWithDifferentDescriptionAndDifferentMembers() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("Amy", LocalDate.of(1999, 5, 13), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
-        groupsList.createGroup("Grupo de Teste", person1);
+        groupsRepository.createGroup("Grupo de Teste", person1);
 
-        boolean wasGroupCreated = groupsList.createGroup("Grupo Diferente", person1);
+        boolean wasGroupCreated = groupsRepository.createGroup("Grupo Diferente", person1);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -106,11 +106,11 @@ class GroupsListTest {
     @DisplayName("Test if group was not created when its null")
     public void testIfWasCreatedWhenNull() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = null;
 
         //Act
-        boolean wasGroupCreated = groupsList.createGroup(null, person1);
+        boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
 
         //Assert
         assertFalse(wasGroupCreated);
@@ -125,7 +125,7 @@ class GroupsListTest {
         //Arrange
         Group group1 = new Group("Amigos");
         Group group2 = new Group("Pokémons");
-        GroupsList groupList = new GroupsList();
+        GroupsRepository groupList = new GroupsRepository();
 
         //Act
         groupList.addGroupToGroupList(group1);
@@ -145,7 +145,7 @@ class GroupsListTest {
         //Arrange
         Group group1 = new Group("Switchieees");
         Group group2 = new Group("Clube da Costura");
-        GroupsList groupList = new GroupsList();
+        GroupsRepository groupList = new GroupsRepository();
 
         //Act
         boolean groupAdded = groupList.addGroupToGroupList(group1);
@@ -159,7 +159,7 @@ class GroupsListTest {
     public void testGroupIsNotInList() {
         //Arrange
         Group group1 = new Group(null);
-        GroupsList groupList = new GroupsList();
+        GroupsRepository groupList = new GroupsRepository();
 
         //Act
         boolean groupAdded = groupList.addGroupToGroupList(group1);
@@ -172,7 +172,7 @@ class GroupsListTest {
     @DisplayName("Test if a null group is not added to the list")
     public void testAddGroupIsNull() {
         //Arrange
-        GroupsList groupList = new GroupsList();
+        GroupsRepository groupList = new GroupsRepository();
 
         //Act
         boolean groupAdded = groupList.addGroupToGroupList(null);
@@ -189,7 +189,7 @@ class GroupsListTest {
         Group group2 = new Group("Clube da Costura");
         Group group3 = new Group("Clube dos Livros");
 
-        GroupsList groupList = new GroupsList();
+        GroupsRepository groupList = new GroupsRepository();
 
         //Act
         boolean group1added = groupList.addGroupToGroupList(group1);
@@ -210,7 +210,7 @@ class GroupsListTest {
 
         //Arrange
         // Global Groups List
-        GroupsList globalGroupsList = new GroupsList();
+        GroupsRepository globalGroupsRepository = new GroupsRepository();
 
         // 1 _________________________________________________________________________________________________________
         // First global group - All Family
@@ -225,7 +225,7 @@ class GroupsListTest {
         Group family = new Group("Family");
         family.addMember(manuelaMOM);
         family.addMultipleMembers(familyMembersToAdd);
-        globalGroupsList.addGroupToGroupList(family);
+        globalGroupsRepository.addGroupToGroupList(family);
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
@@ -240,7 +240,7 @@ class GroupsListTest {
         Group simpsons = new Group("Simpsons");
         simpsons.addMember(homer);
         simpsons.addMultipleMembers(simpsonsMembersToAdd);
-        globalGroupsList.addGroupToGroupList(simpsons);
+        globalGroupsRepository.addGroupToGroupList(simpsons);
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
@@ -254,7 +254,7 @@ class GroupsListTest {
         Group familyWithNoMom = new Group("Family with no Mom");
         familyWithNoMom.addMember(joaoDAD);
         familyWithNoMom.addMultipleMembers(noMomMembersToAdd);
-        globalGroupsList.addGroupToGroupList(familyWithNoMom);
+        globalGroupsRepository.addGroupToGroupList(familyWithNoMom);
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
@@ -267,7 +267,7 @@ class GroupsListTest {
         Group martaGroup = new Group("Marta's group");
         martaGroup.addMember(martaR);
         martaGroup.addMultipleMembers(martasGroupMembersToAdd);
-        globalGroupsList.addGroupToGroupList(martaGroup);
+        globalGroupsRepository.addGroupToGroupList(martaGroup);
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
@@ -281,10 +281,10 @@ class GroupsListTest {
         Group bojackGang = new Group("Bojack's Gang");
         bojackGang.addMember(bojack);
         bojackGang.addMultipleMembers(bojackGangMembersToAdd);
-        globalGroupsList.addGroupToGroupList(bojackGang);
+        globalGroupsRepository.addGroupToGroupList(bojackGang);
 
         //Act
-        Set<Group> realResult = globalGroupsList.returnOnlyFamilies();
+        Set<Group> realResult = globalGroupsRepository.returnOnlyFamilies();
         HashSet<Group> expectedResult = new HashSet<>(Arrays.asList(family, simpsons));
 
         //Assert
@@ -300,7 +300,7 @@ class GroupsListTest {
     void isPersonAdminOfAGivenGroupTrue() {
 
         //Arrange:
-        GroupsList testGroupList = new GroupsList();
+        GroupsRepository testGroupList = new GroupsRepository();
 
             //Arrange Groups:
         Group testGroup = new Group("test group");
@@ -323,7 +323,7 @@ class GroupsListTest {
     void isPersonAdminOfAGivenGroupFalse() {
 
         //Arrange:
-        GroupsList testGroupList = new GroupsList();
+        GroupsRepository testGroupList = new GroupsRepository();
 
         //Arrange Groups:
         Group testGroup = new Group("test group");
@@ -345,7 +345,7 @@ class GroupsListTest {
     void isPersonAdminOfAGivenGroupException() {
 
         //Arrange:
-        GroupsList testGroupList = new GroupsList();
+        GroupsRepository testGroupList = new GroupsRepository();
 
         //Arrange Groups:
         Group testGroup = new Group("test group");
@@ -385,11 +385,11 @@ class GroupsListTest {
         MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
 
         // Groups:
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Group spiceGirls = new Group("spice girls");
         Group work = new Group("work");
-        groupsList.createGroup("spice girls", person);
-        groupsList.createGroup("work", person);
+        groupsRepository.createGroup("spice girls", person);
+        groupsRepository.createGroup("work", person);
 
         // Group Accounts:
         Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
@@ -402,7 +402,7 @@ class GroupsListTest {
         work.createGroupAccount("dinner", "partilha de jantares");
 
         //Act
-        boolean result = groupsList.createTransactionOnSpecificGroup(person, "spice girls",
+        boolean result = groupsRepository.createTransactionOnSpecificGroup(person, "spice girls",
                 monetaryValue100, "payment", LocalDateTime.of(2019, 12, 25, 12, 15),
                 categoryFriends, accountCombustivel, accountGato, typeDebit);
 
@@ -427,11 +427,11 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("JUST4FUN", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("JUST4FUN", person);
         try {
             //Act
-            groupsList.createTransactionOnSpecificGroup(person, "Tarzan", amount, description,
+            groupsRepository.createTransactionOnSpecificGroup(person, "Tarzan", amount, description,
                     LocalDateTime.of(1995,12,4,00,00), category, from, to, false);
 
         }
@@ -461,11 +461,11 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("JUST4FUN", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("JUST4FUN", person);
         try {
             //Act
-            groupsList.createTransactionOnSpecificGroup(person1, "Tarzan", amount, description,
+            groupsRepository.createTransactionOnSpecificGroup(person1, "Tarzan", amount, description,
                     LocalDateTime.of(1995,12,4,00,00), category, from, to, false);
 
         }
@@ -479,12 +479,12 @@ class GroupsListTest {
     @DisplayName("Trying to create transaction that member is not contained. ")
     void testIfATransactionCanBeCreatedIfPersonIsNotAMember() {
         //Arrange:
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("Jose", LocalDate.of(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Person notMember = new Person("Francisco", LocalDate.of(1993, 11, 13),
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
-        groupsList.createGroup("TestGroup",person1);
+        groupsRepository.createGroup("TestGroup",person1);
 
             //Transactions arrangement:
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -494,7 +494,7 @@ class GroupsListTest {
 
         try {
             //Act:
-            groupsList.createTransactionOnSpecificGroup(notMember, "TestGroup", amount, "test transaction",
+            groupsRepository.createTransactionOnSpecificGroup(notMember, "TestGroup", amount, "test transaction",
                     LocalDateTime.of(1995, 12, 4, 00, 00), category1, from, to, false);
 
         }
@@ -526,17 +526,17 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("tarzan", person);
 
         //Act
-        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "daily",
+        boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "daily",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
         //Assert
-        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 10);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 10);
     }
 
 
@@ -557,17 +557,17 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("tarzan", person);
 
         //Act
-        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "working days",
+        boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "working days",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
         //Assert
-        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 4);
     }
 
     @Test
@@ -587,17 +587,17 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("tarzan", person);
 
         //Act
-        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "weekly",
+        boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "weekly",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
         //Assert
-        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 4);
     }
 
 
@@ -618,17 +618,17 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("tarzan", person);
 
         //Act
-        boolean result = groupsList.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
+        boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
                 amount, description, null, category, from, to, type);
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
         //Assert
-        assertTrue(result && groupsList.checkAGroupsLedgerSize("tarzan") == 3);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 3);
     }
 
     @Test
@@ -648,12 +648,12 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("tarzan", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("tarzan", person);
 
         try {
             //Act
-            groupsList.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
+            groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
                     amount, description, null, category, from, to, type);
 
         }
@@ -681,12 +681,12 @@ class GroupsListTest {
         person.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("JUST4FUN", person);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("JUST4FUN", person);
 
         try {
             //Act
-            groupsList.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
+            groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
                     amount, description, null, category, from, to, type);
 
         }
@@ -716,12 +716,12 @@ class GroupsListTest {
         personMember.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("JUST4FUN", personMember);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("JUST4FUN", personMember);
 
         try {
             //Act
-            groupsList.createScheduleOnSpecificGroup(personNotMember, "JUST4FUN", "monthly",
+            groupsRepository.createScheduleOnSpecificGroup(personNotMember, "JUST4FUN", "monthly",
                     amount, description, null, category, from, to, type);
 
         }
@@ -756,12 +756,12 @@ class GroupsListTest {
         personMember.createAccount("TransportAccount", "Transport expenses");
         boolean type = false; //debit
 
-        GroupsList groupsList = new GroupsList();
-        groupsList.createGroup("JUST4FUN", personMember);
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup("JUST4FUN", personMember);
 
         try {
             //Act
-            groupsList.createTransactionOnSpecificGroup(personNotMember, "JUST4FUN",
+            groupsRepository.createTransactionOnSpecificGroup(personNotMember, "JUST4FUN",
                     amount, description, null, category, from, to, type);
 
         }
@@ -783,13 +783,13 @@ class GroupsListTest {
         Person groupMember = new Person("Tiago", LocalDate.of(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
 
-        GroupsList testGroupsList = new GroupsList();
+        GroupsRepository testGroupsRepository = new GroupsRepository();
 
             //Arrange two groups inside the GroupsList:
         Group group1 = new Group("test group 1");
         Group group2 = new Group("test group 2");
-        testGroupsList.addGroupToGroupList(group1);
-        testGroupsList.addGroupToGroupList(group2);
+        testGroupsRepository.addGroupToGroupList(group1);
+        testGroupsRepository.addGroupToGroupList(group2);
 
             //groupMember is member of both groups:
         group1.addMember(groupMember);
@@ -848,7 +848,7 @@ class GroupsListTest {
         // expected:
         List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction3,transaction4,transaction1,transaction2));
         //actual
-        List<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
+        List<Transaction> actual = testGroupsRepository.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
                 LocalDateTime.of(2000,1,1,0,0),
                 LocalDateTime.of(2020,1,1,0,0));
 
@@ -864,13 +864,13 @@ class GroupsListTest {
         Person groupMember = new Person("Tiago", LocalDate.of(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
 
-        GroupsList testGroupsList = new GroupsList();
+        GroupsRepository testGroupsRepository = new GroupsRepository();
 
         //Arrange two groups inside the GroupsList:
         Group group1 = new Group("test group 1");
         Group group2 = new Group("test group 2");
-        testGroupsList.addGroupToGroupList(group1);
-        testGroupsList.addGroupToGroupList(group2);
+        testGroupsRepository.addGroupToGroupList(group1);
+        testGroupsRepository.addGroupToGroupList(group2);
 
         //groupMember is member of both groups:
         group1.addMember(groupMember);
@@ -930,7 +930,7 @@ class GroupsListTest {
         List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
         //actual
         try {
-            testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,null,null);
+            testGroupsRepository.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,null,null);
         }
 
         //ASSERT:
@@ -948,13 +948,13 @@ class GroupsListTest {
         Person notGroupMember = new Person("Joana", LocalDate.of(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
 
-        GroupsList testGroupsList = new GroupsList();
+        GroupsRepository testGroupsRepository = new GroupsRepository();
 
         //Arrange two groups inside the GroupsList:
         Group group1 = new Group("test group 1");
         Group group2 = new Group("test group 2");
-        testGroupsList.addGroupToGroupList(group1);
-        testGroupsList.addGroupToGroupList(group2);
+        testGroupsRepository.addGroupToGroupList(group1);
+        testGroupsRepository.addGroupToGroupList(group2);
 
         //groupMember is not added
 
@@ -1010,7 +1010,7 @@ class GroupsListTest {
         //ACT:
         // expected:
         List<Transaction> expected = new ArrayList();
-        List<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(notGroupMember,
+        List<Transaction> actual = testGroupsRepository.returnTransactionsFromAllGroupsAPersonIsIn(notGroupMember,
                 LocalDateTime.of(2000,1,1,0,0),
                 LocalDateTime.of(2020,1,1,0,0));
 
@@ -1025,11 +1025,11 @@ class GroupsListTest {
     @DisplayName("Ledger size checked - happy case - ignoring case")
     void isLedgerSizeChecked(){
         //Arrange:
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Group group2 = new Group("test group 2");
         Group group1 = new Group("Test Group Main");
-        groupsList.addGroupToGroupList(group2);
-        groupsList.addGroupToGroupList(group1);
+        groupsRepository.addGroupToGroupList(group2);
+        groupsRepository.addGroupToGroupList(group1);
 
             //Arranging accounts:
         Account savingsAccount = new Account("Savings","Savings destined to food");
@@ -1046,7 +1046,7 @@ class GroupsListTest {
                 , shoppingForFood, savingsAccount,pingDoceAccount,true);
 
         //Act:
-        int result = groupsList.checkAGroupsLedgerSize("test group main");
+        int result = groupsRepository.checkAGroupsLedgerSize("test group main");
 
         //Assert:
         assertEquals(2,result);

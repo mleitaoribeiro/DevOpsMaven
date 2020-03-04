@@ -2,7 +2,7 @@ package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.MonetaryValue;
-import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.Group;
 import switch2019.project.model.category.Category;
@@ -10,7 +10,7 @@ import switch2019.project.model.category.Category;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class GroupsList {
+public class GroupsRepository {
     // Private instance variables
     private Set<Group> listOfGroups;
 
@@ -21,7 +21,7 @@ public class GroupsList {
     /**
      * Default Constructor for Group List
      */
-    public GroupsList() {
+    public GroupsRepository() {
         listOfGroups = new HashSet<>();
     }
 

@@ -1,6 +1,6 @@
 package switch2019.project.controllers;
 
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 import switch2019.project.model.person.Person;
 
 public class AdminCreatesGroupController {
@@ -10,11 +10,11 @@ public class AdminCreatesGroupController {
      *
      * @param groupDescription
      * @param groupCreator
-     * @param groupsList
+     * @param groupsRepository
      * @return
      */
 
-    public boolean createGroup(String groupDescription, Person groupCreator, GroupsList groupsList) {
-        return groupsList.createGroup(groupDescription, groupCreator);
+    public boolean createGroup(String groupDescription, Person groupCreator, GroupsRepository groupsRepository) {
+        return groupsRepository.createGroup(groupDescription, groupCreator);
     }
 }

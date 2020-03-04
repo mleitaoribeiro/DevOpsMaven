@@ -11,7 +11,7 @@ create "groupList1:GroupsList"
 
 == Act ==
 
-":Test" -> "controller:AdminCreatesGroupController" : createGroup(groupDescription, groupCreator, groupsList)
+":Test" -> "controller:AdminCreatesGroupController" : createGroup(groupDescription, groupCreator, groupsRepository)
 activate "controller:AdminCreatesGroupController" #FFBBBB
 "controller:AdminCreatesGroupController" -> "groupList1:GroupsList" : createGroup(groupDescription, groupCreator)
 create "group1:Group"
