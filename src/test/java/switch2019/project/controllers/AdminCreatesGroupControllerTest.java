@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDate;
 
@@ -20,7 +20,7 @@ public class AdminCreatesGroupControllerTest {
     @DisplayName("Test if Group was Created by the admin-Main Scenario")
     public void testIfGroupWasCreated() {
         //Arrange
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
         Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
@@ -30,8 +30,8 @@ public class AdminCreatesGroupControllerTest {
                 new Address("Rua B", "Feira", "4520-233"),mom,dad);
 
         //Act
-        boolean wasGroupCreated = controller.createGroup("familia", person1, groupsList);
-        boolean ifIsAdmin = groupsList.checkIfAPersonIsAdminInAGivenGroup("familia", person1);
+        boolean wasGroupCreated = controller.createGroup("familia", person1, groupsRepository);
+        boolean ifIsAdmin = groupsRepository.checkIfAPersonIsAdminInAGivenGroup("familia", person1);
 
 
         //Assert
@@ -44,7 +44,7 @@ public class AdminCreatesGroupControllerTest {
     public void testIfGroupWasNotCreated() {
         //Arrange
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
@@ -54,7 +54,7 @@ public class AdminCreatesGroupControllerTest {
 
         //Act
 
-             boolean ifWasCreated= controller.createGroup(null, person1, groupsList);
+             boolean ifWasCreated= controller.createGroup(null, person1, groupsRepository);
 
         //Assert
 
@@ -68,18 +68,18 @@ public class AdminCreatesGroupControllerTest {
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         AdminCreatesGroupController controller = new AdminCreatesGroupController();
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Person dad = new Person("António", LocalDate.of(1970, 12, 23), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person mom = new Person("Margarida", LocalDate.of(1975, 10, 10), new Address("Porto"),
                 new Address("Avenida António Domingues Guimarães", "Porto", "4520-266"));
         Person person1 = new Person("Amy", LocalDate.of(1990, 12, 04), new Address("Boston"),
                 new Address("Rua B", "Gaia", "4520-233"),mom,dad);
-        controller.createGroup("Grupo de Teste",person1,groupsList);
+        controller.createGroup("Grupo de Teste",person1, groupsRepository);
         //Act
 
-        boolean wasGroupCreated = controller.createGroup("Grupo de Teste", person1, groupsList);
-        boolean ifIsAdmin = groupsList.checkIfAPersonIsAdminInAGivenGroup("Grupo de Teste", person1);
+        boolean wasGroupCreated = controller.createGroup("Grupo de Teste", person1, groupsRepository);
+        boolean ifIsAdmin = groupsRepository.checkIfAPersonIsAdminInAGivenGroup("Grupo de Teste", person1);
 
         //Assert
         assertFalse(wasGroupCreated && ifIsAdmin);

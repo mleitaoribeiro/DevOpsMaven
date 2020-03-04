@@ -5,7 +5,7 @@ import switch2019.project.model.person.Person;
 
 import switch2019.project.model.category.Category;
 
-import switch2019.project.model.legder.Schedule;
+import switch2019.project.model.ledger.Schedule;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

@@ -1,8 +1,8 @@
 package switch2019.project.controllers;
 
 import switch2019.project.model.person.Person;
-import switch2019.project.repository.GroupsList;
-import switch2019.project.model.legder.Transaction;
+import switch2019.project.repository.GroupsRepository;
+import switch2019.project.model.ledger.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,18 +19,18 @@ public class GetPersonalAndGroupTransactionsController {
      * @param person
      * @param initialDate
      * @param finalDate
-     * @param groupsList
+     * @param groupsRepository
      * @return personal and group transaction in date range
      */
 
-    public List<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsList groupsList) {
+    public List<Transaction> getPersonalAndGroupTransactions(Person person, LocalDateTime initialDate, LocalDateTime finalDate, GroupsRepository groupsRepository) {
            List<Transaction> selectedTransactions = new ArrayList<>();
 
         // add all the personal transactions
         selectedTransactions.addAll(person.returnPersonLedgerInDateRange(initialDate, finalDate));
 
         // add all the group transactions
-        selectedTransactions.addAll(groupsList.returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate));
+        selectedTransactions.addAll(groupsRepository.returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate));
 
         // sort the transactions by date and return
         selectedTransactions.sort(Comparator.comparing(Transaction::getDate));

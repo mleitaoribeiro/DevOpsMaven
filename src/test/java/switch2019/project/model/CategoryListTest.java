@@ -3,7 +3,7 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.category.Category;
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -168,7 +168,7 @@ class CategoryListTest {
     public void testIfTwoAccountListsAreTheSameDifferentClasses() {
         //Arrange
         CategoryList oneCategoryList = new CategoryList();
-        GroupsList otherCategoryList = new GroupsList();
+        GroupsRepository otherCategoryList = new GroupsRepository();
 
         //Assert
         assertNotEquals(oneCategoryList, otherCategoryList);
@@ -179,7 +179,7 @@ class CategoryListTest {
     public void testIfTwoAccountListsAreTheSameNull() {
         //Arrange
         CategoryList oneCategoryList = null;
-        GroupsList otherCategoryList = new GroupsList();
+        GroupsRepository otherCategoryList = new GroupsRepository();
 
         //Assert
         assertNotEquals(oneCategoryList, otherCategoryList);

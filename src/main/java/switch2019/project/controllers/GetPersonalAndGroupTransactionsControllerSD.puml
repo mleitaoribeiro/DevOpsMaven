@@ -9,12 +9,12 @@ create "controller:GetPersonalAndGroupTransactionsInDateRangeController"
 
 participant "person:Person"
 participant "personalLedger:Ledger"
-participant "groupsList:GroupsList"
+participant "groupsRepository:GroupsList"
 participant "group:Group"
 participant "groupLedger:Ledger"
 == Act ==
 
-":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : selectedTransactions = getPersonalAndGroupTransactions\n(person, initialDate, finalDate, groupsList)
+":Test" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController" : selectedTransactions = getPersonalAndGroupTransactions\n(person, initialDate, finalDate, groupsRepository)
 activate "controller:GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB
 
 "controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "person:Person" : returnPersonLedgerInDateRange\n(initialDate, finalDate)
@@ -25,16 +25,16 @@ activate "personalLedger:Ledger" #FFBBBB
 deactivate "personalLedger:Ledger" #FFBBBB
 deactivate "person:Person"
 
-"controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "groupsList:GroupsList" : returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate)
-activate "groupsList:GroupsList" #FFBBBB
-"groupsList:GroupsList" -> "group:Group" : returnGroupLedgerInDateRange\n(initialDate, finalDate, person)
+"controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "groupsRepository:GroupsList" : returnTransactionsFromAllGroupsAPersonIsIn(person, initialDate, finalDate)
+activate "groupsRepository:GroupsList" #FFBBBB
+"groupsRepository:GroupsList" -> "group:Group" : returnGroupLedgerInDateRange\n(initialDate, finalDate, person)
 activate "group:Group" #FFBBBB
 "group:Group" -> "groupLedger:Ledger" : getTransactionsInDateRange\n(initialDate, finalDate)
 activate "groupLedger:Ledger" #FFBBBB
 
 deactivate "groupLedger:Ledger" #FFBBBB
 deactivate "group:Group"
-deactivate "groupsList:GroupsList"
+deactivate "groupsRepository:GroupsList"
 
 "controller:GetPersonalAndGroupTransactionsInDateRangeController" -> "controller:GetPersonalAndGroupTransactionsInDateRangeController": sort(Transaction::getDate)
 deactivate "controller:GetPersonalAndGroupTransactionsInDateRangeController" #FFBBBB

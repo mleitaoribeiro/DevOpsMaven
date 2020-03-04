@@ -1,4 +1,4 @@
-package switch2019.project.model.legder;
+package switch2019.project.model.ledger;
 
 import switch2019.project.model.*;
 

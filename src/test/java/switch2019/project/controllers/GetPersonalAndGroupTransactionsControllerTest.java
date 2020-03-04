@@ -5,9 +5,9 @@ import switch2019.project.model.*;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
-import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -77,11 +77,11 @@ class GetPersonalAndGroupTransactionsControllerTest {
                 categoryGrocery, accountMercearia, accountCinema, typeCredit);
 
         // Groups:
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Group spiceGirls = new Group("spice girls");
         Group work = new Group("work");
-        groupsList.createGroup("spice girls", person);
-        groupsList.createGroup("work", person);
+        groupsRepository.createGroup("spice girls", person);
+        groupsRepository.createGroup("work", person);
 
         // Group Accounts:
         Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
@@ -97,20 +97,20 @@ class GetPersonalAndGroupTransactionsControllerTest {
         work.createGroupAccount("dinner", "partilha de jantares");
 
         // Group Transactions:
-        groupsList.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2019, 12, 25, 12, 15),
                 categoryFriends, accountCombustivel, accountGato, typeDebit);
-        groupsList.createTransactionOnSpecificGroup(person, "SPICE GIRLS", monetaryValue200, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "SPICE GIRLS", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountGato, accountDinner, typeCredit);
-        groupsList.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2020, 1, 2, 12, 15),
                 categoryFriends, accountDinner, accountCombustivel, typeDebit);
 
-        groupsList.createTransactionOnSpecificGroup(person, "WORK", monetaryValue200, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "WORK", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountSweets, accountFruta, typeCredit);
-        groupsList.createTransactionOnSpecificGroup(person, "work", monetaryValue30, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "work", monetaryValue30, "payment",
                 LocalDateTime.of(2020, 1, 1, 12, 05),
                 categoryFriends, accountFruta, accountSweets, typeCredit);
 
@@ -142,7 +142,7 @@ class GetPersonalAndGroupTransactionsControllerTest {
         // Act _______________________________________________________________________________________________________
         List<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
                 (person, LocalDateTime.of(2020, 1, 1, 10, 10),
-                LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
+                LocalDateTime.of(2020, 1, 20, 10, 10), groupsRepository);
 
         // Arrange ___________________________________________________________________________________________________
         assertEquals(expectedTransaction, selectedTransactions);
@@ -203,11 +203,11 @@ class GetPersonalAndGroupTransactionsControllerTest {
                 categoryGrocery, accountMercearia, accountCinema, typeCredit);
 
         // Groups:
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         Group spiceGirls = new Group("spice girls");
         Group work = new Group("work");
-        groupsList.createGroup("spice girls", person);
-        groupsList.createGroup("work", person);
+        groupsRepository.createGroup("spice girls", person);
+        groupsRepository.createGroup("work", person);
 
         // Group Accounts:
         Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
@@ -223,20 +223,20 @@ class GetPersonalAndGroupTransactionsControllerTest {
         work.createGroupAccount("dinner", "partilha de jantares");
 
         // Group Transactions:
-        groupsList.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2019, 12, 25, 12, 15),
                 categoryFriends, accountCombustivel, accountGato, typeDebit);
-        groupsList.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue200, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountGato, accountDinner, typeCredit);
-        groupsList.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "spice girls", monetaryValue100, "payment",
                 LocalDateTime.of(2020, 1, 2, 12, 15),
                 categoryFriends, accountDinner, accountCombustivel, typeDebit);
 
-        groupsList.createTransactionOnSpecificGroup(person, "work", monetaryValue200, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "work", monetaryValue200, "payment",
                 LocalDateTime.of(2019, 11, 15, 15, 04),
                 categoryGrocery, accountSweets, accountFruta, typeCredit);
-        groupsList.createTransactionOnSpecificGroup(person, "work", monetaryValue30, "payment",
+        groupsRepository.createTransactionOnSpecificGroup(person, "work", monetaryValue30, "payment",
                 LocalDateTime.of(2020, 1, 1, 12, 05),
                 categoryFriends, accountFruta, accountSweets, typeCredit);
 
@@ -267,7 +267,7 @@ class GetPersonalAndGroupTransactionsControllerTest {
         // Act _______________________________________________________________________________________________________
         List<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
                 (person, LocalDateTime.of(2020, 1, 15, 10, 10),
-                        LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
+                        LocalDateTime.of(2020, 1, 20, 10, 10), groupsRepository);
 
         // Arrange ___________________________________________________________________________________________________
         assertEquals(expectedTransaction, selectedTransactions);
@@ -286,7 +286,7 @@ class GetPersonalAndGroupTransactionsControllerTest {
         Person person = new Person("Marta", LocalDate.of(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"),mom,dad);
 
-        GroupsList groupsList = new GroupsList();
+        GroupsRepository groupsRepository = new GroupsRepository();
         GetPersonalAndGroupTransactionsController controller = new GetPersonalAndGroupTransactionsController();
 
         List<Transaction> expectedTransaction = new ArrayList<>(Collections.emptyList());
@@ -294,7 +294,7 @@ class GetPersonalAndGroupTransactionsControllerTest {
         // Act _______________________________________________________________________________________________________
         List<Transaction> selectedTransactions = controller.getPersonalAndGroupTransactions
                 (person, LocalDateTime.of(2020, 1, 1, 10, 10),
-                        LocalDateTime.of(2020, 1, 20, 10, 10), groupsList);
+                        LocalDateTime.of(2020, 1, 20, 10, 10), groupsRepository);
 
         // Assert ___________________________________________________________________________________________________
         assertEquals(expectedTransaction, selectedTransactions);

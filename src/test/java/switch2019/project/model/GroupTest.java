@@ -3,11 +3,11 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
-import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.valueObject.Address;
-import switch2019.project.repository.GroupsList;
+import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
+     *
      * Compare the same Group - Should be the Same
      */
 
@@ -204,7 +205,7 @@ class GroupTest {
         Person person2 = new Person("Frank", LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group group1 = new Group("Amigos");
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
 
         //Act
         group1.addMember(person1);
@@ -226,7 +227,7 @@ class GroupTest {
         Group group1 = new Group("Amigos");
 
         // Arrange Group List
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
 
         // Act
         boolean groupAdded = groupList1.addGroupToGroupList(group1);
@@ -247,7 +248,7 @@ class GroupTest {
         Group group2 = new Group("Amigos");
 
         // Arrange Group List
-        GroupsList groupList1 = new GroupsList();
+        GroupsRepository groupList1 = new GroupsRepository();
 
         // Act
         boolean group1Added = groupList1.addGroupToGroupList(group1);

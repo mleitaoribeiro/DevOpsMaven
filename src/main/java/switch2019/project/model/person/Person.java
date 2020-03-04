@@ -2,8 +2,8 @@ package switch2019.project.model.person;
 
 import switch2019.project.model.*;
 import switch2019.project.model.account.Account;
-import switch2019.project.model.legder.Transaction;
-import switch2019.project.model.legder.Ledger;
+import switch2019.project.model.ledger.Transaction;
+import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.valueObject.Address;
 
