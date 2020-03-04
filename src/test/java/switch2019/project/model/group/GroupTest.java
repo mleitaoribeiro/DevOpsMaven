@@ -1,7 +1,8 @@
-package switch2019.project.model;
+package switch2019.project.model.group;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.ledger.Transaction;
