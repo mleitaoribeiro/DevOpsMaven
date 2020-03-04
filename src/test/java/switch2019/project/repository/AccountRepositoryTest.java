@@ -1,4 +1,4 @@
-package switch2019.project.model;
+package switch2019.project.repository;
 
 
 import org.junit.jupiter.api.DisplayName;
@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.valueObject.Address;
+import switch2019.project.repository.AccountRepository;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountsListTest {
+class AccountRepositoryTest {
 
 
     /**
@@ -21,7 +22,7 @@ class AccountsListTest {
     @DisplayName("Test if more than one account was added to the list - True")
     public void testIfAccountsWereAddedToTheList_True() {
         //Arrange
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         boolean real = accountsList.createAndAddAccountToAccountsList("xpto", "one account")
@@ -36,7 +37,7 @@ class AccountsListTest {
     @DisplayName("Test if more than one account was added to the list - one Account Denomination Is Null")
     public void testIfAccountsWereAddedToTheList_False_oneAccountDenominationIsNull() {
         //Arrange
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         try {
@@ -54,7 +55,7 @@ class AccountsListTest {
     @DisplayName("Test if more than one account was added to the list - one Account Denomination Is Null")
     public void testIfAccountsWereAddedToTheList_False_oneAccountDescriptionIsNull() {
         //Arrange
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         try {
@@ -72,7 +73,7 @@ class AccountsListTest {
     @DisplayName("Test if the account was added to the list - the number of accounts on the list was increased")
     public void testIfAccountsListIncreased() {
         //Arrange
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         accountsList.createAndAddAccountToAccountsList("xpto", "one account");
@@ -91,7 +92,7 @@ class AccountsListTest {
         Account oneAccount = new Account("xpto", "cat acccount");
         Account otherAccount = new Account("xyz", "general");
 
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         accountsList.createAndAddAccountToAccountsList("xyz", "general");
@@ -111,7 +112,7 @@ class AccountsListTest {
         Account otherAccount = new Account("xyz", "general");
         Account anotherAccount = new Account("Millennium", "Millennium Account");
 
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         accountsList.createAndAddAccountToAccountsList("xpto", "cat acccount");
@@ -134,7 +135,7 @@ class AccountsListTest {
     public void testIfAccountsListContainAccount_true() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         accountsList.createAndAddAccountToAccountsList("xpto", "cat acccount");
@@ -150,7 +151,7 @@ class AccountsListTest {
     public void testIfAccountsListContainAccount_false() {
         //Arrange
         Account oneAccount = new Account("xpto", "cat acccount");
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
 
@@ -173,8 +174,8 @@ class AccountsListTest {
         String butcherDescription = "Talho do Amadeu";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = new AccountsList();
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -199,8 +200,8 @@ class AccountsListTest {
         String marketDescription = "Mercado do Amadeu";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = new AccountsList();
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -225,8 +226,8 @@ class AccountsListTest {
         String marketDescription = "Mercado do Amadeu";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = new AccountsList();
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
 
         //Act
         try {
@@ -251,8 +252,8 @@ class AccountsListTest {
         String marketDenomination = "Market";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = new AccountsList();
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
 
         //Act
         try {
@@ -275,8 +276,8 @@ class AccountsListTest {
         String butcherDescription = "Talho do Amadeu";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = null;
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = null;
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -295,7 +296,7 @@ class AccountsListTest {
         String butcherDescription = "Talho do Amadeu";
 
 
-        AccountsList september = new AccountsList();
+        AccountRepository september = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -314,7 +315,7 @@ class AccountsListTest {
         String butcherDescription = "Talho do Amadeu";
 
 
-        AccountsList september = new AccountsList();
+        AccountRepository september = new AccountRepository();
         Person onePerson = new Person("Maria", LocalDate.of(1990, 12, 04), new Address("Braga"), new Address("Rua das Flores", "Braga", "4432-045"));
 
         //Act
@@ -339,8 +340,8 @@ class AccountsListTest {
         String butcherDescription = "Talho do Amadeu";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = new AccountsList();
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -363,8 +364,8 @@ class AccountsListTest {
         String marketDescription = "Mercado do Amadeu";
 
 
-        AccountsList september = new AccountsList();
-        AccountsList aMonth = new AccountsList();
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
@@ -384,7 +385,7 @@ class AccountsListTest {
     @DisplayName("Test if an account was removed from an accounts list")
     public void testIfOneAccountWasRemoved() {
         Account butcher = new Account("Butcher", "Talho do Amadeu");
-        AccountsList september = new AccountsList();
+        AccountRepository september = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
@@ -402,7 +403,7 @@ class AccountsListTest {
     public void testIfOneAccountWasRemovedNotInTheList() {
         Account post = new Account("Post", "Correios do Amadeu");
 
-        AccountsList september = new AccountsList();
+        AccountRepository september = new AccountRepository();
 
         //Act
         september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
@@ -420,7 +421,7 @@ class AccountsListTest {
 
         //Arrange
         Account oneAccount = null;
-        AccountsList oneAccountsList = new AccountsList();
+        AccountRepository oneAccountsList = new AccountRepository();
 
         //Act
         oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
@@ -439,7 +440,7 @@ class AccountsListTest {
 
         //Arrange
         Account oneAccount = new Account("Post", "Correios do Amadeu");
-        AccountsList oneAccountsList = new AccountsList();
+        AccountRepository oneAccountsList = new AccountRepository();
 
         //Act
         oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
@@ -461,7 +462,7 @@ class AccountsListTest {
     void validateIfAccountIsInTheAccountsList() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto Account");
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         accountsList.createAndAddAccountToAccountsList("xpto", "xpto Account");
@@ -477,7 +478,7 @@ class AccountsListTest {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
-        AccountsList accountsList = new AccountsList();
+        AccountRepository accountsList = new AccountRepository();
 
         //Act
         accountsList.createAndAddAccountToAccountsList("xpto", "xpto Account");
@@ -497,7 +498,7 @@ class AccountsListTest {
         //Arrange:
         Account account1 = new Account("test account 1", "account for test purposes");
         Account account2 = new Account("test account 2", "account for test purposes");
-        AccountsList testAccountsList = new AccountsList();
+        AccountRepository testAccountsList = new AccountRepository();
 
         //Act:
         testAccountsList.createAndAddAccountToAccountsList("test account 1", "account for test purposes");

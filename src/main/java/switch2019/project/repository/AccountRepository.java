@@ -1,4 +1,4 @@
-package switch2019.project.model;
+package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
 
@@ -6,14 +6,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class AccountsList {
+public class AccountRepository {
     private Set<Account> accounts;
 
     /**
      * Construtor for Accounts List
      */
 
-    public AccountsList() {
+    public AccountRepository() {
         accounts = new HashSet<>();
     }
 
@@ -28,7 +28,7 @@ public class AccountsList {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccountsList accountsList = (AccountsList) o;
+        AccountRepository accountsList = (AccountRepository) o;
         return Objects.equals(this.accounts, accountsList.accounts);
     }
 

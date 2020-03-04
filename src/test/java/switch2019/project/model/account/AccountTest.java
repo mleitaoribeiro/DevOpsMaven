@@ -1,4 +1,4 @@
-package switch2019.project.model;
+package switch2019.project.model.account;
 
 
 import org.junit.jupiter.api.DisplayName;
