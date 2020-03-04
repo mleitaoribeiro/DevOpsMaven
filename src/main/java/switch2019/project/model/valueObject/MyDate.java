@@ -1,4 +1,4 @@
 package switch2019.project.model.valueObject;
 
-public class YearMonthDayTime {
+public class MyDate {
 }
