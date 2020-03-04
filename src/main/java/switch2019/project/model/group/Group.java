@@ -1,6 +1,6 @@
 package switch2019.project.model.group;
 
-import switch2019.project.model.AccountsList;
+import switch2019.project.repository.AccountRepository;
 import switch2019.project.repository.CategoryList;
 import switch2019.project.model.valueObject.MonetaryValue;
 import switch2019.project.model.ScheduledTasksList;
@@ -20,7 +20,7 @@ public class Group {
     private LocalDate startingDate;
     private Set<Person> members;
     private Set<Person> admins;
-    private AccountsList groupAccountsList;
+    private AccountRepository groupAccountsList;
     private CategoryList categoryList;
     private Ledger ledger;
     private ScheduledTasksList scheduledTasksList;
@@ -36,7 +36,7 @@ public class Group {
         startingDate = LocalDate.now();
         members = new HashSet<>();
         admins = new HashSet<>();
-        groupAccountsList = new AccountsList();
+        groupAccountsList = new AccountRepository();
         categoryList = new CategoryList();
         ledger = new Ledger();
         scheduledTasksList = new ScheduledTasksList();
