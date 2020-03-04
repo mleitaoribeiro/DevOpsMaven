@@ -1,5 +1,7 @@
 package switch2019.project.controllers;
 
+import switch2019.project.model.person.Person;
+import switch2019.project.model.Transaction;
 import switch2019.project.model.Person;
 import switch2019.project.model.legder.Transaction;
 
