@@ -3,7 +3,6 @@ package switch2019.project.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.Group;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.group.Group;
