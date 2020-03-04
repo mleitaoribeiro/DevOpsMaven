@@ -5,6 +5,8 @@ import switch2019.project.model.Category;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.Transaction;
 
+import switch2019.project.model.Legder.Transaction;
+
 import java.time.LocalDateTime;
 import java.util.*;
 

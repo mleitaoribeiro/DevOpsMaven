@@ -2,9 +2,7 @@
 skinparam DefaultFontSize 20
 create ":Test"
 
-note left of ":Test" #powderblue
-	Arrange
-end note
+== Arrange ==
 
 create "person1:Person"
 ":Test" -> "person1:Person" : new Person (name, birthDate, birthPlace, homeAddress, mother, father)
@@ -14,10 +12,7 @@ create "group1:Group"
 "group1:Group" <- "person1:Person" : new Group
 deactivate "person1:Person" #FFBBBB
 
-note left of ":Test" #powderblue
-	Act
-end note
-
+== Act ==
 "person1:Person" -> "group1:Group" : addMember(person1)
 activate "group1:Group" #FFBBBB
 activate "person1:Person" #FFBBBB
@@ -28,9 +23,7 @@ deactivate  "group1:Group" #FFBBBB
 "person1:Person" --> ":Test" : memberAdded
 deactivate  "person1:Person" #FFBBBB
 
-note left of ":Test" #powderblue
-	Assert
-end note
+== Assert ==
 
 ":Test" -> ":Test" : assertTrue(memberAdded)
 

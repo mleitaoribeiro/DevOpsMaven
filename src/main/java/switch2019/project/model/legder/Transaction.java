@@ -1,4 +1,8 @@
-package switch2019.project.model;
+package switch2019.project.model.Legder;
+
+import switch2019.project.model.Account;
+import switch2019.project.model.Category;
+import switch2019.project.model.MonetaryValue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,6 @@
-package switch2019.project.model;
+package switch2019.project.model.Legder;
+
+import switch2019.project.model.*;
 
 import java.time.LocalDateTime;
 import java.util.Timer;
@@ -22,7 +24,7 @@ public class Schedule {
      * @param type
      */
     public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                               Category category, Account accountFrom, Account accountTo, boolean type) {
+                    Category category, Account accountFrom, Account accountTo, boolean type) {
         this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
         Timer timer = new Timer();
         TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
