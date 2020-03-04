@@ -4,7 +4,9 @@ package switch2019.project.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.legder.Transaction;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.valueobject.Address;
+import switch2019.project.repository.GroupsList;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -842,7 +844,7 @@ class GroupsListTest {
 
         //ACT:
         // expected:
-        List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction1,transaction2,transaction3,transaction4));
+        List<Transaction> expected = new ArrayList<Transaction>(Arrays.asList(transaction3,transaction4,transaction1,transaction2));
         //actual
         List<Transaction> actual = testGroupsList.returnTransactionsFromAllGroupsAPersonIsIn(groupMember,
                 LocalDateTime.of(2000,1,1,0,0),

@@ -1,4 +1,4 @@
-package switch2019.project.model;
+package switch2019.project.model.category;
 
 import java.text.Normalizer;
 import java.util.Objects;
