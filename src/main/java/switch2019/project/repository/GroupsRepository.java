@@ -4,7 +4,7 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.MonetaryValue;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.Group;
+import switch2019.project.model.group.Group;
 import switch2019.project.model.category.Category;
 
 import java.time.LocalDateTime;
