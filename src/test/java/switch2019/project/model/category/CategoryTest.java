@@ -1,4 +1,4 @@
-package switch2019.project.model;
+package switch2019.project.model.category;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
