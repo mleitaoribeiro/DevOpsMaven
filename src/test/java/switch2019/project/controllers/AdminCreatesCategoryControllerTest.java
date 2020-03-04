@@ -2,7 +2,7 @@ package switch2019.project.controllers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.Address;
+import switch2019.project.model.valueobject.Address;
 import switch2019.project.model.Category;
 import switch2019.project.model.Group;
 import switch2019.project.model.Person;

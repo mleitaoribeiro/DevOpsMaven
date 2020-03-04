@@ -3,10 +3,9 @@ package switch2019.project.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.valueobject.Address;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
