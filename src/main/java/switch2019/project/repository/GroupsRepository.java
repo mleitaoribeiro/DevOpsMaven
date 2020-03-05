@@ -140,6 +140,7 @@ public class GroupsRepository {
         for (Group group : groups) {
             groupTransactions.addAll(group.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         }
+        groupTransactions.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
         return groupTransactions;
     }
 
