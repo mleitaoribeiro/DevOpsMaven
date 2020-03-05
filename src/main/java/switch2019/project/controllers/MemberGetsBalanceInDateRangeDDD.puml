@@ -1,0 +1,65 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+create ":Test"
+
+== Arrange ==
+
+create "balanceController:MemberGetsBalanceInDateRangeController"
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : new MemberGetsBalance\nInDateRangeController\n(initialDate, finalDate, groupID, \nPersonID,LedgerID,GroupRepository)
+
+participant ":GroupRepository"
+
+participant "group1:Group"
+
+participant ":LedgerRepository"
+
+participant "ledger:Ledger"
+
+participant "transaction1:Transaction"
+
+== Act  ==
+
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : getGroupBalanceInDateRange\n( initialDate,finalDate,groupID,personID,GroupRepository,LedgerRepository)
+activate "balanceController:MemberGetsBalanceInDateRangeController" #FFBBBB
+
+"balanceController:MemberGetsBalanceInDateRangeController" -> ":GroupRepository": findGroupByID\n(groupID)
+activate ":GroupRepository" #FFBBBB
+
+"balanceController:MemberGetsBalanceInDateRangeController" --> "group1:Group": getBalanceInDateRange\n(initialDate, finalDate,personID,LedgerRepository)
+activate "group1:Group" #FFBBBB
+
+"group1:Group" -> "group1:Group": isPersonMember\n(personID)
+
+"group1:Group" -> ":LedgerRepository": findMemberByID\n(LedgerID)
+activate ":LedgerRepository" #FFBBBB
+
+"group1:Group" -> "ledger:Ledger": getBalanceInDateRange\n(initialDate,finalDate)
+activate "ledger:Ledger" #FFBBBB
+
+
+"ledger:Ledger" -> "transaction1:Transaction": isTransactionInDateRange\n(initialDate,finalDate)
+activate "transaction1:Transaction" #FFBBBB
+
+
+"ledger:Ledger" -> "transaction1:Transaction": getAmountByType
+
+"transaction1:Transaction" -> ":OneDate":isDateInDateRange\n(initialDate,finalDate)
+
+"transaction1:Transaction" -> ":Type":getType
+
+"transaction1:Transaction" -> ":MonetaryValue":getAmount
+
+deactivate "transaction1:Transaction"
+deactivate ":LedgerRepository"
+deactivate ":GroupRepository"
+deactivate "ledger:Ledger"
+deactivate "group1:Group"
+deactivate "balanceController:MemberGetsBalanceInDateRangeController"
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(expectedGroupBalance, groupBalance)
+
+@enduml
