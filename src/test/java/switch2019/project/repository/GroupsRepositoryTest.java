@@ -28,7 +28,7 @@ class GroupsRepositoryTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("John", LocalDate.of(2000, 12, 04), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
+        Person person1 = new Person("John", LocalDate.of(2000, 12, 4), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
         boolean wasGroupCreated = groupsRepository.createGroup("Test Person", person1);
