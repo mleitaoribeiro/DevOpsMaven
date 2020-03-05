@@ -83,8 +83,7 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDateAscending() {
-        List<Transaction> newLedger = ledgerTransactions;
-        newLedger.sort(Comparator.comparing(Transaction::getDate));
+        ledgerTransactions.sort(Comparator.comparing(Transaction::getDate));
     }
 
     /**
@@ -92,8 +91,7 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDateDescending() {
-        List<Transaction> newLedger = ledgerTransactions;
-        newLedger.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
+        ledgerTransactions.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
     }
 
     /**
