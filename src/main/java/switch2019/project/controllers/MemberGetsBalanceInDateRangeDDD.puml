@@ -24,10 +24,10 @@ activate "balanceController:MemberGetsBalanceInDateRangeController" #FFBBBB
 activate "groupRep:GroupRepository" #FFBBBB
 deactivate "groupRep:GroupRepository"
 
-"balanceController:MemberGetsBalanceInDateRangeController" --> "group:Group": groupBalance = getBalanceInDateRange\n(initialDate, finalDate, personId, ledgerRep)
+"balanceController:MemberGetsBalanceInDateRangeController" --> "group:Group": groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, personId, ledgerRep)
 activate "group:Group" #FFBBBB
 
-"group:Group" -> "group:Group": validPerson =\nisPersonMember(personId)
+"group:Group" -> "group:Group": validPerson =\nisGroupMember(personId)
 "group:Group" -> "ledgerRep:LedgerRepository": ledger =\n findLedgerById(ledgerId)
 activate "ledgerRep:LedgerRepository" #FFBBBB
 deactivate "ledgerRep:LedgerRepository"
