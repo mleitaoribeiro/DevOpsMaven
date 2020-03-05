@@ -17,27 +17,27 @@ participant "transaction:Transaction"
 
 == Act  ==
 
-":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, groupID, personID, \nledgerID, groupRep, ledgerRep)
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, groupId, personId, \nledgerId, groupRep, ledgerRep)
 activate "balanceController:MemberGetsBalanceInDateRangeController" #FFBBBB
 
-"balanceController:MemberGetsBalanceInDateRangeController" -> "groupRep:GroupRepository": group = findGroupByID(groupID)
+"balanceController:MemberGetsBalanceInDateRangeController" -> "groupRep:GroupRepository": group = findGroupById(groupId)
 activate "groupRep:GroupRepository" #FFBBBB
 deactivate "groupRep:GroupRepository"
 
-"balanceController:MemberGetsBalanceInDateRangeController" --> "group:Group": groupBalance = getBalanceInDateRange\n(initialDate, finalDate, personID, ledgerRep)
+"balanceController:MemberGetsBalanceInDateRangeController" --> "group:Group": groupBalance = getBalanceInDateRange\n(initialDate, finalDate, personId, ledgerRep)
 activate "group:Group" #FFBBBB
 
-"group:Group" -> "group:Group": boolean =\nisPersonMember(personID)
-"group:Group" -> "ledgerRep:LedgerRepository": ledger =\n findMemberByID(ledgerID)
+"group:Group" -> "group:Group": validPerson =\nisPersonMember(personId)
+"group:Group" -> "ledgerRep:LedgerRepository": ledger =\n findLedgerById(ledgerId)
 activate "ledgerRep:LedgerRepository" #FFBBBB
 deactivate "ledgerRep:LedgerRepository"
 
 "group:Group" -> "ledger:Ledger": groupBalance =\n getBalanceInDateRange(initialDate,finalDate)
 activate "ledger:Ledger" #FFBBBB
 
-"ledger:Ledger" -> "transaction:Transaction": boolean = isTransactionInDateRange\n(initialDate,finalDate)
+"ledger:Ledger" -> "transaction:Transaction": validTransaction = isTransactionInDateRange\n(initialDate,finalDate)
 activate "transaction:Transaction" #FFBBBB
-"transaction:Transaction" -> "date:OneDate": boolean = isDateInDateRange\n(initialDate,finalDate)
+"transaction:Transaction" -> "date:OneDate": validDate = isDateInDateRange\n(initialDate,finalDate)
 activate "date:OneDate" #FFBBBB
 deactivate "date:OneDate"
 deactivate "transaction:Transaction"
