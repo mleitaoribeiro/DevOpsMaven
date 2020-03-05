@@ -7,55 +7,59 @@ create ":Test"
 == Arrange ==
 
 create "balanceController:MemberGetsBalanceInDateRangeController"
-":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : new MemberGetsBalance\nInDateRangeController\n(initialDate, finalDate, groupID, \nPersonID,LedgerID,GroupRepository)
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : new MemberGetsBalanceInDateRangeController()
 
-participant ":GroupRepository"
-
-participant "group1:Group"
-
-participant ":LedgerRepository"
-
+participant "groupRep:GroupRepository"
+participant "group:Group"
+participant "ledgerRep:LedgerRepository"
 participant "ledger:Ledger"
-
-participant "transaction1:Transaction"
+participant "transaction:Transaction"
 
 == Act  ==
 
-":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : getGroupBalanceInDateRange\n( initialDate,finalDate,groupID,personID,GroupRepository,LedgerRepository)
+":Test" -> "balanceController:MemberGetsBalanceInDateRangeController" : groupBalance = getGroupBalanceInDateRange\n(initialDate, finalDate, groupID, personID, \nledgerID, groupRep, ledgerRep)
 activate "balanceController:MemberGetsBalanceInDateRangeController" #FFBBBB
 
-"balanceController:MemberGetsBalanceInDateRangeController" -> ":GroupRepository": findGroupByID\n(groupID)
-activate ":GroupRepository" #FFBBBB
+"balanceController:MemberGetsBalanceInDateRangeController" -> "groupRep:GroupRepository": group = findGroupByID(groupID)
+activate "groupRep:GroupRepository" #FFBBBB
+deactivate "groupRep:GroupRepository"
 
-"balanceController:MemberGetsBalanceInDateRangeController" --> "group1:Group": getBalanceInDateRange\n(initialDate, finalDate,personID,LedgerRepository)
-activate "group1:Group" #FFBBBB
+"balanceController:MemberGetsBalanceInDateRangeController" --> "group:Group": groupBalance = getBalanceInDateRange\n(initialDate, finalDate, personID, ledgerRep)
+activate "group:Group" #FFBBBB
 
-"group1:Group" -> "group1:Group": isPersonMember\n(personID)
+"group:Group" -> "group:Group": boolean =\nisPersonMember(personID)
+"group:Group" -> "ledgerRep:LedgerRepository": ledger =\n findMemberByID(ledgerID)
+activate "ledgerRep:LedgerRepository" #FFBBBB
+deactivate "ledgerRep:LedgerRepository"
 
-"group1:Group" -> ":LedgerRepository": findMemberByID\n(LedgerID)
-activate ":LedgerRepository" #FFBBBB
-
-"group1:Group" -> "ledger:Ledger": getBalanceInDateRange\n(initialDate,finalDate)
+"group:Group" -> "ledger:Ledger": groupBalance =\n getBalanceInDateRange(initialDate,finalDate)
 activate "ledger:Ledger" #FFBBBB
 
+"ledger:Ledger" -> "transaction:Transaction": boolean = isTransactionInDateRange\n(initialDate,finalDate)
+activate "transaction:Transaction" #FFBBBB
+"transaction:Transaction" -> "date:OneDate": boolean = isDateInDateRange\n(initialDate,finalDate)
+activate "date:OneDate" #FFBBBB
+deactivate "date:OneDate"
+deactivate "transaction:Transaction"
 
-"ledger:Ledger" -> "transaction1:Transaction": isTransactionInDateRange\n(initialDate,finalDate)
-activate "transaction1:Transaction" #FFBBBB
+"ledger:Ledger" -> "transaction:Transaction": amountByType =\n getAmountByType
+activate "transaction:Transaction" #FFBBBB
 
+"transaction:Transaction" -> "type:Type": type = getType()
+activate "type:Type" #FFBBBB
+deactivate "type:Type"
 
-"ledger:Ledger" -> "transaction1:Transaction": getAmountByType
+"transaction:Transaction" -> "amount:MonetaryValue": amount = getAmount()
+activate "amount:MonetaryValue" #FFBBBB
+deactivate "amount:MonetaryValue"
 
-"transaction1:Transaction" -> ":OneDate":isDateInDateRange\n(initialDate,finalDate)
+"ledger:Ledger" -> "ledger:Ledger": groupBalance += amountByType
 
-"transaction1:Transaction" -> ":Type":getType
-
-"transaction1:Transaction" -> ":MonetaryValue":getAmount
-
-deactivate "transaction1:Transaction"
-deactivate ":LedgerRepository"
-deactivate ":GroupRepository"
+deactivate "transaction:Transaction"
+deactivate "ledgerRep:LedgerRepository"
+deactivate "groupRep:GroupRepository"
 deactivate "ledger:Ledger"
-deactivate "group1:Group"
+deactivate "group:Group"
 deactivate "balanceController:MemberGetsBalanceInDateRangeController"
 
 == Assert ==
