@@ -1052,4 +1052,20 @@ class GroupsRepositoryTest {
         //Assert:
         assertEquals(2,result);
     }
+
+    @Test
+    @DisplayName("Ledger size checked - exception case - no groups in repository")
+    void isLedgerSizeCheckedNoGroups(){
+        //Arrange:
+        GroupsRepository groupsRepository = new GroupsRepository();
+
+        //Act:
+        try {
+            groupsRepository.checkAGroupsLedgerSize("test group main");
+        }
+        //Assert:
+        catch (IllegalArgumentException e) {
+            assertEquals("There're no groups found with that description.", e.getMessage());
+        }
+    }
 }
