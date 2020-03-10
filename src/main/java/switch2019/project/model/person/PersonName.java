@@ -21,6 +21,15 @@ public class PersonName {
     }
 
     /**
+     * Get Person Name
+     * @return personName
+     */
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    /**
      * Capitalize all the first letters and remove all the extra spaces
      * @param personName
      */
@@ -32,20 +41,11 @@ public class PersonName {
     }
 
     /**
-     * Get Person Name
-     * @return personName
-     */
-
-    public String getPersonName() {
-        return personName;
-    }
-
-    /**
      * Remove all extra spaces of a string
      * @param personName
      */
 
-    private static String removeAllExtraSpaces(String personName) {
+    private String removeAllExtraSpaces(String personName) {
         return personName.trim().replaceAll(" +", " ");
     }
 
