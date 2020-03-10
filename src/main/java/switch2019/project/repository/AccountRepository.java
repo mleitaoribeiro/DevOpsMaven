@@ -1,6 +1,8 @@
 package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -72,7 +74,7 @@ public class AccountRepository {
      * @return boolean
      */
 
-    public boolean createAndAddAccountToAccountsList(String accountDenomination, String accountDescription) {
+    public boolean createAndAddAccountToAccountsList(Denomination accountDenomination, Description accountDescription) {
         Account oneAccount = new Account(accountDenomination, accountDescription);
         accounts.add(oneAccount);
         return accounts.contains(oneAccount);
