@@ -28,6 +28,8 @@ public class Category {
         return nameOfCategory.toString();
     }
 
+
+
     /**
      * Develop @override of equals for Category and @override of hashcode
      *
