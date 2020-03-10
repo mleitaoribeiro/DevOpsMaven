@@ -6,29 +6,29 @@ import java.util.Objects;
 public class Denomination {
 
     //Private instance of denomination
-    private String denomination;
+    private String denominationValue;
 
     //Denomination constructor
-    public Denomination(String denomination) {
-        setValidDenomination(denomination);
+    public Denomination(String denominationValue) {
+        setValidDenomination(denominationValue);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Denomination)) return false;
-        Denomination denomination = (Denomination) o;
-        return this.denomination.equals(denomination.denomination);
+        Denomination denominationValue = (Denomination) o;
+        return this.denominationValue.equals(denominationValue.denominationValue);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(denomination);
+        return Objects.hash(denominationValue);
     }
 
     @Override
     public String toString() {
-        return denomination;
+        return denominationValue;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Denomination {
 
         } else {
             newDenomination = removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
-            this.denomination = newDenomination;
+            this.denominationValue = newDenomination;
         }
     }
 
