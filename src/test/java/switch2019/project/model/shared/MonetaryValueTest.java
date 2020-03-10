@@ -10,26 +10,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class MonetaryValueTest {
 
     /**
-     * Validate if an amount is positive
+     * Tests to validate if an amount is positive
      */
     @Test
-    @DisplayName("Test for validating monetaryValue Positive-true")
-    void validateIfAmountIsPositive() {
+    @DisplayName("Test for validate if monetaryValue is positive - true")
+    void validateIfAmountIsPositiveTrue() {
         //Arrange
+
         MonetaryValue monetaryValue1 = new MonetaryValue(2.00, Currency.getInstance("EUR"));
         //Act
-        boolean validateIfAmountIsPostive = monetaryValue1.validateIfAmountIsPositive();
+        boolean validateIfAmountIsPositive = monetaryValue1.validateIfAmountIsPositive();
 
         //Assert
-        assertTrue(validateIfAmountIsPostive);
+        assertTrue(validateIfAmountIsPositive);
     }
 
-
     @Test
-    @DisplayName("Test for validating monetaryValue Negative-false")
-    void validateIfAmountIsNegative() {
+    @DisplayName("Test for validate if monetaryValue is positive - false")
+    void validateIfAmountIsPositiveFalse() {
         //Arrange
         MonetaryValue monetaryValue1 = new MonetaryValue(-2.00, Currency.getInstance("EUR"));
+
         //Act
         boolean validateIfAmountIsPositive = monetaryValue1.validateIfAmountIsPositive();
 
@@ -38,7 +39,7 @@ class MonetaryValueTest {
     }
 
     @Test
-    @DisplayName("Test for validating monetaryValue Positive-boundaryTest")
+    @DisplayName("Test for validate if monetaryValue is positive - boundary test")
     void validateIfAmountIsPositiveBoundary() {
         //Arrange
         MonetaryValue monetaryValue1 = new MonetaryValue(0.00, Currency.getInstance("EUR"));
@@ -50,4 +51,39 @@ class MonetaryValueTest {
         assertEquals(false, validateIfAmountIsPositive);
     }
 
+    /**
+     * Test to getAmount method
+     */
+
+    @Test
+    @DisplayName("Test for getAmount method")
+    void getAmount() {
+        //Arrange
+        MonetaryValue monetaryValue1 = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+
+        //Act
+        double amount = monetaryValue1.getAmount();
+
+        //Assert
+        assertEquals(5, amount);
+    }
+
+
+    /**
+     * Test to toString method
+     */
+
+    @Test
+    @DisplayName("Test for toString method")
+    void monetaryValueToString() {
+        //Arrange
+        MonetaryValue monetaryValue1 = new MonetaryValue(6.53, Currency.getInstance("EUR"));
+        String stringExpected = "6.53 EUR";
+
+        //Act
+        String monetaryValueString = monetaryValue1.toString();
+
+        //Assert
+        assertEquals(stringExpected, monetaryValueString);
+    }
 }
