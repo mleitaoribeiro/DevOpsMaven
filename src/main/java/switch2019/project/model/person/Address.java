@@ -155,6 +155,8 @@ public class Address {
      */
 
     private static boolean isNumeric(String city) {
+        if (city == null)
+            return true;
         for (char c : city.toCharArray()) {
             if (Character.isDigit(c))
                 return true;

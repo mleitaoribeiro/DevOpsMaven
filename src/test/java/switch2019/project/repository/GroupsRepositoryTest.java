@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.PersonName;
+import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Transaction;
@@ -29,7 +30,7 @@ class GroupsRepositoryTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person(new PersonName("John"), LocalDate.of(2000, 12, 4), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
+        Person person1 = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
         boolean wasGroupCreated = groupsRepository.createGroup("Test Person", person1);
@@ -44,7 +45,7 @@ class GroupsRepositoryTest {
     public void testIfGroupWasNotCreated() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person(new PersonName("Francis"), LocalDate.of(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
+        Person person1 = new Person("Francis", new DateAndTime(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
 
         //Act
         boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
@@ -59,7 +60,7 @@ class GroupsRepositoryTest {
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person(new PersonName("Amy"), LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person1 = new Person("Amy", new DateAndTime(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
         groupsRepository.createGroup("Grupo de Teste", person1);
@@ -75,8 +76,8 @@ class GroupsRepositoryTest {
     public void createGroupWithSameDescriptionAndDifferentMembers() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person(new PersonName("Amy"), LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
-        Person person2 = new Person(new PersonName("Marshall"), LocalDate.of(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person1 = new Person("Amy", new DateAndTime(1990, 12, 4), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person2 = new Person("Marshall", new DateAndTime(1990, 12, 4), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
         groupsRepository.createGroup("Grupo de Teste", person1);
@@ -93,7 +94,7 @@ class GroupsRepositoryTest {
     public void createGroupWithDifferentDescriptionAndDifferentMembers() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person(new PersonName("Amy"), LocalDate.of(1999, 5, 13), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person1 = new Person("Amy", new DateAndTime(1999, 5, 13), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
 
         //Act
         groupsRepository.createGroup("Grupo de Teste", person1);
@@ -202,11 +203,11 @@ class GroupsRepositoryTest {
 
         // 1 _________________________________________________________________________________________________________
         // First global group - All Family
-        Person manuelaMOM = new Person(new PersonName("Manuela"), LocalDate.of(1960, 10, 10), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
-        Person carlosDAD = new Person(new PersonName("Carlos"), LocalDate.of(1950, 12, 12), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
-        Person oscar = new Person(new PersonName("Oscar"), LocalDate.of(1990, 12, 04), new Address("Espinho"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
-        Person marta = new Person(new PersonName("Marta"), LocalDate.of(1995, 11, 05), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
-        Person joao = new Person(new PersonName("Joao"), LocalDate.of(2000, 01, 12), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
+        Person manuelaMOM = new Person("Manuela", new DateAndTime(1960, 10, 10), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
+        Person carlosDAD = new Person("Carlos", new DateAndTime(1950, 12, 12), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
+        Person oscar = new Person("Oscar", new DateAndTime(1990, 12, 4), new Address("Espinho"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
+        Person marta = new Person("Marta", new DateAndTime(1995, 11, 5), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
+        Person joao = new Person("Joao", new DateAndTime(2000, 1, 12), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
 
         // Group
         HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
@@ -217,11 +218,11 @@ class GroupsRepositoryTest {
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
-        Person homer = new Person(new PersonName("Homer"), LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
-        Person marge = new Person(new PersonName("Marge"), LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
-        Person bart = new Person(new PersonName("Bart"), LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
-        Person lisa = new Person(new PersonName("Lisa"), LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
-        Person maggie = new Person(new PersonName("Maggie"), LocalDate.of(1990, 12, 04), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
+        Person homer = new Person("Homer", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
+        Person marge = new Person("Marge",new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
+        Person bart = new Person("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
+        Person lisa = new Person("Lisa", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
+        Person maggie = new Person("Maggie", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
 
         // Group
         HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(marge, bart, lisa, maggie));
@@ -232,10 +233,10 @@ class GroupsRepositoryTest {
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
-        Person joaoDAD = new Person(new PersonName("Joao"), LocalDate.of(1990, 12, 04), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
-        Person diana = new Person(new PersonName("Diana"), LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
-        Person elsa = new Person(new PersonName("Elsa"), LocalDate.of(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
-        Person ines = new Person(new PersonName("Ines"), LocalDate.of(1990, 12, 04), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
+        Person joaoDAD = new Person("Joao", new DateAndTime(1990, 12, 4), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
+        Person diana = new Person("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
+        Person elsa = new Person("Elsa",new DateAndTime(1990, 12, 4), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
+        Person ines = new Person("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines));
@@ -246,9 +247,9 @@ class GroupsRepositoryTest {
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
-        Person martaR = new Person(new PersonName("Marta Ribeiro"), LocalDate.of(1990, 12, 04), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
-        Person martaC = new Person(new PersonName("Marta Cardoso"), LocalDate.of(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"));
-        Person martaP = new Person(new PersonName("Marta Pinheiro"), LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
+        Person martaR = new Person("Marta Ribeiro", new DateAndTime(1990, 12, 04), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
+        Person martaC = new Person("Marta Cardoso", new DateAndTime(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"));
+        Person martaP = new Person("Marta Pinheiro", new DateAndTime(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
 
         // Group
         HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaC, martaP));
@@ -259,10 +260,10 @@ class GroupsRepositoryTest {
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
-        Person bojack = new Person(new PersonName("Bojack"), LocalDate.of(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Porto", "4520-233"));
-        Person carolyn = new Person(new PersonName("Princess Carolyn"), LocalDate.of(1990, 12, 04), new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"));
-        Person todd = new Person(new PersonName("Todd Chavez"), LocalDate.of(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"));
-        Person diane = new Person(new PersonName("Diane Nguyen"), LocalDate.of(1990, 12, 04), new Address("Espinho"), new Address("Rua B", "Porto", "4520-233"));
+        Person bojack = new Person("Bojack", new DateAndTime(1990, 12, 4), new Address("Porto"), new Address("Rua B", "Porto", "4520-233"));
+        Person carolyn = new Person("Princess Carolyn", new DateAndTime(1990, 12, 4), new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"));
+        Person todd = new Person("Todd Chavez", new DateAndTime(1990, 12, 4), new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"));
+        Person diane = new Person("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"), new Address("Rua B", "Porto", "4520-233"));
 
         // Group
         HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(carolyn, todd, diane));
@@ -295,7 +296,7 @@ class GroupsRepositoryTest {
         testGroupList.addGroupToGroupList(testGroup);
 
             //Arrange Admin:
-        Person testGroupAdmin = new Person(new PersonName("Francisco"), LocalDate.of(1999, 7, 22),
+        Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         testGroup.addMember(testGroupAdmin);
 
@@ -318,7 +319,7 @@ class GroupsRepositoryTest {
         testGroupList.addGroupToGroupList(testGroup);
 
         //Arrange Admin:
-        Person testGroupAdmin = new Person(new PersonName("Francisco"), LocalDate.of(1999, 7, 22),
+        Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         //Act:
@@ -340,7 +341,7 @@ class GroupsRepositoryTest {
         testGroupList.addGroupToGroupList(testGroup);
 
         //Arrange Admin:
-        Person testGroupAdmin = new Person(new PersonName("Francisco"), LocalDate.of(1999, 7, 22),
+        Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         testGroup.addMember(testGroupAdmin);
 
@@ -357,7 +358,7 @@ class GroupsRepositoryTest {
         // Arrange ____________________________________________________________________________________________________
 
         // Person:
-        Person person = new Person(new PersonName("Marta"), LocalDate.of(1996, 4, 27),
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
 
         //Categories:
@@ -402,7 +403,7 @@ class GroupsRepositoryTest {
     @DisplayName("Create Transaction group description isn't contained in GroupList and person is a member")
     void testIfAGroupThatIsNotInTheListCanCreateTransaction() {
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -433,10 +434,10 @@ class GroupsRepositoryTest {
     @DisplayName("Trying to create transaction that member is not contained. ")
     void testIfATransactionCanBeCreatedIfMemberIsNotMember() {
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Person person1 = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person1 = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -468,9 +469,9 @@ class GroupsRepositoryTest {
     void testIfATransactionCanBeCreatedIfPersonIsNotAMember() {
         //Arrange:
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person1 = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Person notMember = new Person(new PersonName("Francisco"), LocalDate.of(1993, 11, 13),
+        Person notMember = new Person("Francisco", new DateAndTime(1993, 11, 13),
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
         groupsRepository.createGroup("TestGroup",person1);
 
@@ -501,7 +502,7 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionDaily() throws InterruptedException {
 
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -532,7 +533,7 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionWorkingDays() throws InterruptedException {
 
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -562,7 +563,7 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionWeekly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -593,7 +594,7 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionMonthly() throws InterruptedException {
 
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -623,7 +624,7 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionNoMatch() {
 
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -656,7 +657,7 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionWithGroupThatDoesNotExistsInGroupList()  {
 
         //Arrange
-        Person person = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -689,9 +690,9 @@ class GroupsRepositoryTest {
     void scheduleNewTransactionWherePersonIsNotAMember()  {
 
         //Arrange
-        Person personMember = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person personMember = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Person personNotMember = new Person(new PersonName("Julia"), LocalDate.of(1995, 12, 13),
+        Person personNotMember = new Person("Julia", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -729,9 +730,9 @@ class GroupsRepositoryTest {
     void createNewTransactionWherePersonIsNotAMember()  {
 
         //Arrange
-        Person personMember = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person personMember = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Person personNotMember = new Person(new PersonName("Jose"), LocalDate.of(1995, 12, 13),
+        Person personNotMember = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -768,7 +769,7 @@ class GroupsRepositoryTest {
     void areTransactionsFromPersonGroupsReturned() {
 
         //ARRANGE:
-        Person groupMember = new Person(new PersonName("Tiago"), LocalDate.of(1994,06,17),
+        Person groupMember = new Person("Tiago", new DateAndTime(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
 
         GroupsRepository testGroupsRepository = new GroupsRepository();
@@ -849,7 +850,7 @@ class GroupsRepositoryTest {
     void areTransactionsFromPersonGroupsReturnedNullDates() {
 
         //ARRANGE:
-        Person groupMember = new Person(new PersonName("Tiago"), LocalDate.of(1994,06,17),
+        Person groupMember = new Person("Tiago", new DateAndTime(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
 
         GroupsRepository testGroupsRepository = new GroupsRepository();
@@ -931,9 +932,9 @@ class GroupsRepositoryTest {
     void areTransactionsFromNonMemberPersonGroupsReturned() {
 
         //ARRANGE:
-        Person groupMember = new Person(new PersonName("João"), LocalDate.of(1994,06,17),
+        Person groupMember = new Person("João", new DateAndTime(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
-        Person notGroupMember = new Person(new PersonName("Joana"), LocalDate.of(1994,06,17),
+        Person notGroupMember = new Person("Joana", new DateAndTime(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
 
         GroupsRepository testGroupsRepository = new GroupsRepository();

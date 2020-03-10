@@ -2,6 +2,10 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.person.PersonName;
+import switch2019.project.model.shared.DateAndTime;
 
 import java.time.LocalDate;
 
@@ -90,7 +94,6 @@ class AddressTest {
         try {
             //Arrange And Act
             Address homeAddress = new Address("Rua dos Passarinhos", null, "4450-362");
-            fail();
         }
         //Assert
         catch (IllegalArgumentException city) {
@@ -298,7 +301,7 @@ class AddressTest {
     public void testEqualsSameAddressOtherObjectofDifferentClass() {
         //Arrange
         Address address1 = new Address("Rua da Belgica", "Gaia", "4050-262");
-        Person person1 = new Person(new PersonName("Miguel"), LocalDate.of(1990, 12,04), new Address("Porto"),new Address ("Rua das Flores","Porto","4450-230"));
+        Person person1 = new Person("Miguel", new DateAndTime(1990, 12,04), new Address("Porto"),new Address ("Rua das Flores","Porto","4450-230"));
 
         //Act
         boolean result = address1.equals(person1);

@@ -5,6 +5,7 @@ import switch2019.project.model.ledger.ScheduledTasksList;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
@@ -16,7 +17,7 @@ import java.util.*;
 public class Person {
     // Private Person variables
     private PersonName name;
-    private LocalDate birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
+    private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
     private Person mother;
     private Person father;
@@ -36,10 +37,10 @@ public class Person {
      * @param homeAddress
      */
 
-    public Person(PersonName name, LocalDate birthDate, Address birthPlace, Address homeAddress) {
-        this.name = name;
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress) {
+        this.name = new PersonName(name);
         this.birthPlace = birthPlace;
-        setBirthDate(birthDate);
+        this.birthDate = birthDate;
         siblingList = new HashSet<>();
         categoryList = new CategoryRepository();
         accountsList = new AccountRepository();
@@ -59,8 +60,8 @@ public class Person {
      * @param father
      */
 
-    public Person(PersonName name, LocalDate birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
-        this.name = name;
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
+        this.name = new PersonName(name);
         setBirthDate(birthDate);
         this.birthPlace = birthPlace;
         address = homeAddress;
@@ -100,19 +101,18 @@ public class Person {
     @Override
     public String toString() {
         return "Person: " + name.getPersonName() + ", currently lives in " + address.toString() +
-                ", was born in " + birthPlace.getBirthPlace() + ", on " + birthDate + ".";
+                ", was born in " + birthPlace.getBirthPlace() + ", on " + birthDate.getYearMonthDay() + ".";
     }
 
     /**
      * Set Person Birth Date: with input validation
      *
-     * @param birthDate
      */
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(DateAndTime birthDate) {
         if(birthDate == null)
             throw new IllegalArgumentException(("Birth Date Can't be Null."));
-        else if (birthDate.isAfter(LocalDate.now())) {
+        else if (birthDate.localDateIsAfter()) {
             throw new IllegalArgumentException("Birth Date Not Supported.");
         }
         else this.birthDate = birthDate;
@@ -124,8 +124,8 @@ public class Person {
      * @return birthDate
      */
 
-    public LocalDate getBirthDate() {
-        return this.birthDate;
+    public String getBirthDate() {
+        return this.birthDate.getYearMonthDay();
     }
 
     /**
@@ -134,8 +134,8 @@ public class Person {
      * @param newName
      */
 
-    public void setName(PersonName newName) {
-        this.name = newName;
+    public void setName(String newName) {
+        this.name = new PersonName(newName);
     }
 
     /**
@@ -144,8 +144,8 @@ public class Person {
      * @return Person's name
      */
 
-    public PersonName getName() {
-        return this.name;
+    public String getName() {
+        return this.name.getPersonName();
     }
 
     /**
