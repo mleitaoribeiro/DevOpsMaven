@@ -16,9 +16,9 @@ public class Denomination {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Denomination)) return false;
-        Denomination denominationValue = (Denomination) o;
-        return this.denominationValue.equals(denominationValue.denominationValue);
+        if (o == null || getClass() != o.getClass()) return false;
+        Denomination otherDenominationValue = (Denomination) o;
+        return this.denominationValue.equals(otherDenominationValue.denominationValue);
     }
 
     @Override
