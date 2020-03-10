@@ -56,4 +56,30 @@ class PersonNameTest {
         //Assert:
         assertEquals(expected, result);
     }
+
+    @Test
+    void personNameEqualsSameCase() {
+        //Arrange:
+        PersonName personName = new PersonName("Marta Gomes de Lemos Pinheiro");
+        PersonName personName2 = new PersonName("Marta Gomes de Lemos Pinheiro");
+
+        //Act:
+        boolean result = personName.equals(personName2);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    void personNameEqualsDifferentCase() {
+        //Arrange:
+        PersonName personName = new PersonName("marTA dA DE dO gomES dAS dOs lEMos pInhEIro");
+        PersonName personName2 = new PersonName("mArta DA de do gOmEs das DOs LeMoS PinheirO");
+
+        //Act:
+        boolean result = personName.equals(personName2);
+
+        //Assert:
+        assertTrue(result);
+    }
 }

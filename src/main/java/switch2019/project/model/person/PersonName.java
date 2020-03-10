@@ -2,6 +2,7 @@ package switch2019.project.model.person;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class PersonName {
 
@@ -75,5 +76,18 @@ public class PersonName {
             if(exceptions.contains(words[i]))
                 words[i] = words[i].toLowerCase();
         } return String.join(" ", words);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonName that = (PersonName) o;
+        return Objects.equals(personName, that.personName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personName);
     }
 }
