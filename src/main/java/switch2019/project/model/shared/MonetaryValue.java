@@ -7,10 +7,10 @@ public class MonetaryValue {
     private Currency currency;
 
     /**
-     * Monetary value constructor
+     * MonetaryValue constructor
      *
-     * @param amount   valor
-     * @param currency tipo de moeda
+     * @param amount amount of money
+     * @param currency currency type
      */
     public MonetaryValue(double amount, Currency currency) {
         this.amount = amount;
@@ -18,7 +18,7 @@ public class MonetaryValue {
     }
 
     /**
-     * Validate if amount is positive
+     * Method to validate if amount is positive
      *
      * @return true if amount is positive or false if it's not
      */
@@ -27,15 +27,18 @@ public class MonetaryValue {
     }
 
     /**
-     * Develop @override of toString()
+     * Override toString() method
      */
     @Override
     public String toString() {
         return amount + " " + currency;
     }
 
+
     /**
-     * Get Amount
+     * Method to get amount
+     *
+     * @return amount
      */
     public double getAmount() {
         return amount;
