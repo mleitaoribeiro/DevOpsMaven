@@ -3,67 +3,37 @@ package switch2019.project.model.shared;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public class DateAndTime {
 
     /**
      * Private Transaction variables
      */
-    private LocalDate birthDate;
-    private LocalDate startingGroupDate;
-    private LocalDateTime transactionDate;
-    private LocalDateTime scheduleDate;
+    private LocalDate yearMonthDay;
+    private LocalDateTime yearMonthDayHourMinute;
 
     /**
-     * Public constructor to startingDate
+     *Public constructor to yearMonthDay
+     *
+     * @param year
+     * @param month
+     * @param day
      */
-    public DateAndTime () {
-        this.startingGroupDate = LocalDate.now();
+    public DateAndTime(int year, int month, int day) {
+        setYearMonthDay(LocalDate.of(year, month, day));
     }
 
     /**
-     * Public constructor to birthDate
+     * Public constructor to yearMonthDayHourMinute
      *
-     * @param birthDate
+     * @param year
+     * @param month
+     * @param day
+     * @param hour
+     * @param minute
      */
-    public DateAndTime(LocalDate birthDate) {
-        setBirthDate(birthDate);
-    }
-
-    /**
-     * Public constructor to transactionDate and scheduleDate
-     *
-     * @param transactionDate
-     * @param scheduleDate
-     */
-    public DateAndTime(LocalDateTime transactionDate, LocalDateTime scheduleDate) {
-        setTransactionDate(transactionDate);
-        setScheduleDate(scheduleDate);
-    }
-
-    /**
-     * method to @override equals
-     *
-     * @param o
-     * @return true if equal
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DateAndTime that = (DateAndTime) o;
-        return Objects.equals(birthDate, that.birthDate) &&
-                Objects.equals(startingGroupDate, that.startingGroupDate);
-    }
-
-    /**
-     * method to @override hashcode
-     *
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(birthDate, startingGroupDate);
+    public DateAndTime(int year, int month, int day, int hour, int minute) {
+        setYearMonthDayHourMinute(LocalDateTime.of(year, month, day, hour, minute));
     }
 
     /**
@@ -83,71 +53,38 @@ public class DateAndTime {
     }
 
     /**
-     * Set birthDate
+     * Set yearMonthDay
      *
      * @param date
      */
-    public void setBirthDate(LocalDate date) {
-        if(birthDate == null)
-            throw new IllegalArgumentException(("Birth Date Can't be Null."));
-        else if (birthDate.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Birth Date Not Supported.");
-        }
-        else this.birthDate = date;
+    private void setYearMonthDay(LocalDate date) {
+        if(date == null)
+            throw new IllegalArgumentException("The Date Can't be Null.");
+        else this.yearMonthDay = date;
     }
 
     /**
-     * Set and format transactionDate
+     * Set yearMonthDayHourMinute
      *
      * @param date
      */
-    public void setTransactionDate(LocalDateTime date) {
-        if (date == null) {
-            LocalDateTime dateNow = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            this.transactionDate = LocalDateTime.parse(dateNow.format(formatter), formatter);
-        } else this.transactionDate = date;
+    private void setYearMonthDayHourMinute(LocalDateTime date) {
+        if(date == null)
+            throw new IllegalArgumentException("The Date Can't be Null.");
+        else this.yearMonthDayHourMinute = date;
     }
 
     /**
-     * Set scheduleDate
-     *
-     * @param date
+     * Get yearMonthDay
      */
-    public void setScheduleDate(LocalDateTime date) {
-        if(scheduleDate == null)
-            throw new IllegalArgumentException(("Schedule Date Can't be Null."));
-        else if (scheduleDate.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Schedule Date Not Supported.");
-        }
-        else this.scheduleDate = date;
+    public String getYearMonthDay() {
+        return dateToString(this.yearMonthDay);
     }
 
     /**
-     * Get getStartingGroupDate
+     * Get yearMonthDayHourMinute
      */
-    public String getStartingGroupDate() {
-        return dateToString(this.startingGroupDate);
-    }
-
-    /**
-     * Get getBirthDate
-     */
-    public String getBirthDate() {
-        return dateToString(this.birthDate);
-    }
-
-    /**
-     * Get transactionDate
-     */
-    public String getTransactionDate() {
-        return dateHourMinuteToString(this.transactionDate);
-    }
-
-    /**
-     * Get scheduleDate
-     */
-    public String getScheduleDate() {
-        return dateHourMinuteToString(this.scheduleDate);
+    public String getYearMonthDayHourMinute() {
+        return dateHourMinuteToString(this.yearMonthDayHourMinute);
     }
 }
