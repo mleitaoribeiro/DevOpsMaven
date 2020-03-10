@@ -6,11 +6,11 @@ import java.util.Objects;
 public class Denomination {
 
     //Private instance of denomination
-    private String denominationValue;
+    private final String denominationValue;
 
     //Denomination constructor
     public Denomination(String denominationValue) {
-        setValidDenomination(denominationValue);
+        this.denominationValue = setValidDenomination(denominationValue);
     }
 
     @Override
@@ -37,14 +37,14 @@ public class Denomination {
      * @param newDenomination
      */
 
-    private void setValidDenomination(String newDenomination) {
+    private String setValidDenomination(String newDenomination) {
 
         if (newDenomination == null || newDenomination.isEmpty()){
             throw new IllegalArgumentException("The denomination can´t be null or empty!");
 
         } else {
             newDenomination = removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
-            this.denominationValue = newDenomination;
+            return newDenomination;
         }
     }
 
