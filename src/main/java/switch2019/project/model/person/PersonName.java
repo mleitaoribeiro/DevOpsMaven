@@ -10,7 +10,7 @@ public class PersonName {
      * Private Instance Variable
      */
 
-    final private String name;
+    private final String name;
 
     /**
      * Constructor of PersonName
