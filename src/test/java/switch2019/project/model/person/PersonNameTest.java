@@ -1,6 +1,8 @@
 package switch2019.project.model.person;
 
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.shared.Denomination;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonNameTest {
@@ -16,6 +18,20 @@ class PersonNameTest {
 
         //Assert:
         assertEquals(expected, result);
+    }
+
+    @Test
+    void getPersonNameNullCase() {
+
+        //Arrange & Act
+        try {
+            new PersonName(null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("The name can't be null.", getTransactionsInDateRange.getMessage());
+        }
     }
 
     @Test
@@ -58,6 +74,19 @@ class PersonNameTest {
     }
 
     @Test
+    void getFirstAndLastName() {
+        //Arrange:
+        PersonName personName = new PersonName("marTA dA DE dO gomES dAS dOs lEMos pInhEIro");
+        String expected = "Marta Pinheiro";
+
+        //Act:
+        String result = personName.getFirstAndLastName();
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    @Test
     void personNameEqualsSameCase() {
         //Arrange:
         PersonName personName = new PersonName("Marta Gomes de Lemos Pinheiro");
@@ -82,4 +111,26 @@ class PersonNameTest {
         //Assert:
         assertTrue(result);
     }
+
+    @Test
+    void personNameEqualsDifferentObject() {
+        //Arrange:
+        PersonName personName = new PersonName("Marta Pinheiro");
+        Denomination denomination = new Denomination("Just Testing");
+        //Act:
+        boolean result = personName.equals(denomination);
+        //Assert:
+        assertFalse(result);
+    }
+    @Test
+    void personNameEqualsNullObject() {
+        //Arrange:
+        PersonName personName = new PersonName("Marta Pinheiro");
+        PersonName personName2 = null;
+        //Act:
+        boolean result = personName.equals(personName2);
+        //Assert:
+        assertFalse(result);
+    }
+
 }

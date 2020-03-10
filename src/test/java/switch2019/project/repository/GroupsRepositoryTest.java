@@ -155,7 +155,7 @@ class GroupsRepositoryTest {
         //Assert
         assertTrue(groupAdded);
     }
-    
+
     @Test
     @DisplayName("Test if a null group is not added to the list")
     public void testAddGroupIsNull() {

@@ -2,7 +2,6 @@ package switch2019.project.model.category;
 
 import switch2019.project.model.shared.Denomination;
 
-import java.text.Normalizer;
 import java.util.Objects;
 
 public class Category {

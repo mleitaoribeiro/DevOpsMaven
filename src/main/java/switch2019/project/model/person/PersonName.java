@@ -10,24 +10,34 @@ public class PersonName {
      * Private Instance Variable
      */
 
-    private String personName;
+    private String name;
 
     /**
      * Constructor of PersonName
-     * @param personName
+     * @param name
      */
 
-    public PersonName(String personName) {
-        this.personName = setPersonName(personName);
+    public PersonName(String name) {
+        this.name = setPersonName(name);
     }
 
     /**
-     * Get Person Name
+     * Get Full Person Name
      * @return personName
      */
 
     public String getPersonName() {
-        return personName;
+        return name;
+    }
+
+    /**
+     * Get First and Last Name
+     * @return personName
+     */
+
+    public String getFirstAndLastName() {
+        String[] words = name.split(" ");
+        return words[0] + " " + words[words.length - 1];
     }
 
     /**
@@ -36,9 +46,13 @@ public class PersonName {
      */
 
     private String setPersonName(String personName) {
-        personName = removeAllExtraSpaces(personName);
-        personName = capitalizeEachWords(personName);
-        return exceptionalCases(personName);
+        if(personName == null)
+            throw new IllegalArgumentException("The name can't be null.");
+        else {
+            personName = removeAllExtraSpaces(personName);
+            personName = capitalizeEachWord(personName);
+            return exceptionalCases(personName);
+        }
     }
 
     /**
@@ -55,11 +69,11 @@ public class PersonName {
      * @param personName
      */
 
-    private String capitalizeEachWords(String personName) {
+    private String capitalizeEachWord(String personName) {
         personName = personName.toLowerCase();
         personName = personName.substring(0, 1).toUpperCase() + personName.substring(1);
         String[] words = personName.split(" ");
-        for(int i = 1 ; i < words.length ; i++){
+        for(int i = 1 ; i < words.length ; i++) {
             words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1);
         } return String.join(" ", words);
     }
@@ -83,11 +97,11 @@ public class PersonName {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonName that = (PersonName) o;
-        return Objects.equals(personName, that.personName);
+        return Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personName);
+        return Objects.hash(name);
     }
 }

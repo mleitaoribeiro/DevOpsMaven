@@ -1,4 +1,4 @@
-package switch2019.project.model.shared;
+package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -146,10 +146,10 @@ class AddressTest {
     }
 
     @Test
-    @DisplayName("Validate home address - input for ZIP-CODE - without (-) ")
+    @DisplayName("Validate home address - input for postal code - without (-) ")
     public void validateHomeAddressPostalCodeNotStandard() {
         //Arrange
-        Address homeAddres = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
+        Address homeAddres = new Address("Rua da Vinha da Bouça", "Porto", "4430444");
         String expectedHomeAddress = "RUA DA VINHA DA BOUÇA, PORTO, 4430-444";
 
         //Act
@@ -161,8 +161,8 @@ class AddressTest {
 
 
     @Test
-    @DisplayName("Zip code not valid - test exception - Null")
-    public void validateHomeAddressValidateZipNullexception() {
+    @DisplayName("Postal code not valid - test exception - Null")
+    public void validateHomeAddressValidatePostalCodeNullexception() {
         //Arrange
         try {
             //Act
@@ -170,22 +170,36 @@ class AddressTest {
             fail();
         }
         //Assert
-        catch (IllegalArgumentException zipcode) {
-            assertEquals("Zip-Code can´t be null! (Correct Format: xxxx-xxx)", zipcode.getMessage());
+        catch (IllegalArgumentException postalCode) {
+            assertEquals("Postal Code can´t be null! (Correct Format: xxxx-xxx)", postalCode.getMessage());
         }
     }
 
     @Test
-    @DisplayName("Zip code not valide - test exception")
-    public void setZipException() {
+    @DisplayName("Postal code not valid - postal code with more than 7 char - test exception")
+    public void postalCodeWithLenghtHigherThanSeven() {
         try {
             //Arrange And Act
             Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "44300945");
             fail();
         }
         //Assert
-        catch (IllegalArgumentException zipcode) {
-            assertEquals("Zip-Code is not in the correct format! (xxxx-xxx)", zipcode.getMessage());
+        catch (IllegalArgumentException postalCode) {
+            assertEquals("Postal Code is not in the correct format! (xxxx-xxx)", postalCode.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Postal code not valid - emptyCase")
+    public void postalCodeEmptyException() {
+        try {
+            //Arrange And Act
+            Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "");
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException postalCode) {
+            assertEquals("Postal Code can´t be null! (Correct Format: xxxx-xxx)", postalCode.getMessage());
         }
     }
 
