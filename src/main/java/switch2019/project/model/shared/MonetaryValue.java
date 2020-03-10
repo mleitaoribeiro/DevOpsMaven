@@ -3,6 +3,8 @@ package switch2019.project.model.shared;
 import java.util.Currency;
 
 public class MonetaryValue {
+
+    //Private MonetaryValue instance Variables
     private double amount;
     private Currency currency;
 
@@ -12,6 +14,7 @@ public class MonetaryValue {
      * @param amount amount of money
      * @param currency currency type
      */
+
     public MonetaryValue(double amount, Currency currency) {
         this.amount = amount;
         this.currency = currency;

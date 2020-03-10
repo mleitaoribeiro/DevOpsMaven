@@ -1,4 +1,4 @@
-package switch2019.project.model.shared;
+package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

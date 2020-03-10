@@ -10,7 +10,7 @@ public class Denomination {
 
     //Denomination constructor
     public Denomination(String denomination) {
-        validateDenomination(denomination);
+        setValidDenomination(denomination);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Denomination {
      * @param newDenomination
      */
 
-    private void validateDenomination(String newDenomination) {
+    private void setValidDenomination(String newDenomination) {
 
         if (newDenomination == null || newDenomination.isEmpty()){
             throw new IllegalArgumentException("The denomination can´t be null or empty!");
