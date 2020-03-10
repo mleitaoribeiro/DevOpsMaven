@@ -27,7 +27,7 @@ public class Account {
     public Account(Denomination accountDenomination, Description accountDescription) {
         this.denomination = accountDenomination;
         this.description= accountDescription;
-        this.balance = new MonetaryValue(0.0);
+        this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
     }
 
     /**
