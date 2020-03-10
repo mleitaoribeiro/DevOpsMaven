@@ -2,9 +2,7 @@ package switch2019.project.repository;
 
 import switch2019.project.model.category.Category;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class CategoryRepository {
     // Private instance variables
@@ -25,7 +23,11 @@ public class CategoryRepository {
      */
     @Override
     public String toString() {
-        return "CategoryList: " + categories;
+        List<String> categoriesToString = new ArrayList();
+        for (Category category : categories) {
+            categoriesToString.add(category.getNameOfCategory());
+        }
+        return "CategoryList: " + categoriesToString;
     }
 
     /**
