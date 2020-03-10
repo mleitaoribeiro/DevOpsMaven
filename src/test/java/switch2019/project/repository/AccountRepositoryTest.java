@@ -7,6 +7,7 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.PersonName;
+import switch2019.project.model.shared.DateAndTime;
 
 import java.time.LocalDate;
 
@@ -316,7 +317,7 @@ class AccountRepositoryTest {
 
 
         AccountRepository september = new AccountRepository();
-        Person onePerson = new Person(new PersonName("Maria"), LocalDate.of(1990, 12, 04), new Address("Braga"), new Address("Rua das Flores", "Braga", "4432-045"));
+        Person onePerson = new Person("Maria", new DateAndTime(1990, 12, 04), new Address("Braga"), new Address("Rua das Flores", "Braga", "4432-045"));
 
         //Act
         september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);

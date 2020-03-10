@@ -7,28 +7,31 @@ import java.util.regex.Pattern;
 public class Address {
 
     // The private Address variables
-    private String street;
-    private String city;
-    private String postalCode;
-    private String birthPlace;
+    private final String street;
+    private final String city;
+    private final String postalCode;
+    private final String birthPlace;
 
     //BirthDate Constructor
     public Address(String birthPlace) {
-        setValidBirthPlace(birthPlace);
+        this.birthPlace = setValidBirthPlace(birthPlace);
+        this.street = null;
+        this.city = null;
+        this.postalCode = null;
     }
 
     /**
      * Address constructor for home Address
-     *
      * @param street
      * @param city
      * @param postalCode
      */
 
     public Address(String street, String city, String postalCode) {
-        setValidStreet(street);
-        setValidCity(city);
-        setValidPostalCode(postalCode);
+       this.street = setValidStreet(street);
+       this.city = setValidCity(city);
+       this.postalCode = setValidPostalCode(postalCode);
+       this.birthPlace = null;
     }
 
     @Override
@@ -63,13 +66,14 @@ public class Address {
 
     /**
      * Private Set for BirthPlace: Validade if birth place is not a number, null or it's missing
+     *
      * @param birthPlace
      */
-    private void setValidBirthPlace(String birthPlace) {
+    private String setValidBirthPlace(String birthPlace) {
         if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
-            this.birthPlace= birthPlace.toUpperCase();
+           return birthPlace.toUpperCase();
         }
     }
 
@@ -79,37 +83,39 @@ public class Address {
      * @param city
      */
 
-    private void setValidCity(String city) {
+    private String setValidCity(String city) {
         if (isNumeric(city) || city == null || city.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
-            this.city = city.toUpperCase();
+            return city.toUpperCase();
         }
     }
 
     /**
      * Private set for Street: Validate if Street is not a number, null or it's missing
+     *
      * @param street
      */
 
 
-    public void setValidStreet(String street) {
+    public String setValidStreet(String street) {
         if (street == null || street.isEmpty()) {
             throw new IllegalArgumentException("The street format in your Address is not valid or it's missing. Please try again");
-        } else this.street = street.toUpperCase();
+        } else return street.toUpperCase();
     }
 
 
-    private void setValidPostalCode(String postalCode) {
+    private String setValidPostalCode(String postalCode) {
         if (postalCode == null || postalCode.isEmpty())
             throw new IllegalArgumentException("Postal Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
             if (postalCode.length() == 7) {
                 postalCode = addHyphenToPostalCode(postalCode);
+                return postalCode;
             }
             //Validates if the zip code is in the correct format (4620-580) - PT Format
             if (postalCodeIsInCorrectFormat(postalCode)) {
-                this.postalCode = postalCode;
+                return postalCode;
             } else {
                 throw new IllegalArgumentException("Postal Code is not in the correct format! (xxxx-xxx)");
             }
@@ -143,18 +149,17 @@ public class Address {
 
     /**
      * Validate if City is not Numeric
+     *
      * @param city
      * @return
      */
 
     private static boolean isNumeric(String city) {
-        if (city != null) {
-            for (char c : city.toCharArray()) {
-                if (!Character.isDigit(c))
-                    return false;
-            }
+        if (city == null)
             return true;
-        }
-        return false;
+        for (char c : city.toCharArray()) {
+            if (Character.isDigit(c))
+                return true;
+        } return false;
     }
 }

@@ -3,6 +3,7 @@ package switch2019.project.model.shared;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class DateAndTime {
 
@@ -36,6 +37,25 @@ public class DateAndTime {
         this.yearMonthDayHourMinute = LocalDateTime.of(year, month, day, hour, minute);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DateAndTime that = (DateAndTime) o;
+        return Objects.equals(yearMonthDay, that.yearMonthDay) &&
+                Objects.equals(yearMonthDayHourMinute, that.yearMonthDayHourMinute);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(yearMonthDay, yearMonthDayHourMinute);
+    }
+
+
+    public boolean localDateIsAfter () {
+        return yearMonthDay.isAfter(LocalDate.now());
+    }
+
     /**
      * Methood toString() of yearMonthDay
      */
@@ -65,4 +85,6 @@ public class DateAndTime {
     public String getYearMonthDayHourMinute() {
         return dateHourMinuteToString(this.yearMonthDayHourMinute);
     }
+
+
 }

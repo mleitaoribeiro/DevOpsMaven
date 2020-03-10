@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.PersonName;
+import switch2019.project.model.shared.DateAndTime;
 
 import java.time.LocalDate;
 
@@ -95,7 +96,7 @@ class AccountTest {
     public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
-        Person onePerson = new Person(new PersonName("Alexandre"), LocalDate.of(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
+        Person onePerson = new Person("Alexandre", new DateAndTime(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
 
         //Act
         boolean result = oneAccount.equals(onePerson);
@@ -303,4 +304,18 @@ class AccountTest {
         assertEquals(expected, real);
     }
 
+    @Test
+    @DisplayName("Test toString")
+    public void testToString() {
+
+        //Arrange
+        Account supermarket = new Account("Supermarket", "Weekly spends");
+        String expected = "SUPERMARKET, Weekly spends, 0.0€";
+
+        //Act
+        String result = supermarket.toString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
 }

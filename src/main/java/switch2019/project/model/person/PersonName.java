@@ -10,7 +10,7 @@ public class PersonName {
      * Private Instance Variable
      */
 
-    private String name;
+    private final String name;
 
     /**
      * Constructor of PersonName
@@ -18,7 +18,7 @@ public class PersonName {
      */
 
     public PersonName(String name) {
-        this.name = setPersonName(name);
+        this.name = standardPersonName(name);
     }
 
     /**
@@ -45,7 +45,7 @@ public class PersonName {
      * @param personName
      */
 
-    private String setPersonName(String personName) {
+    private String standardPersonName(String personName) {
         if(personName == null)
             throw new IllegalArgumentException("The name can't be null.");
         else {
