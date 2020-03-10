@@ -1,5 +1,7 @@
 package switch2019.project.model.group;
 
+import sun.security.krb5.internal.crypto.Des;
+import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
@@ -251,7 +253,7 @@ public class Group {
      * @param accountDescription
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
-    public boolean addAccountToGroupAccountsList(String accountDenomination, String accountDescription) {
+    public boolean addAccountToGroupAccountsList(Denomination accountDenomination, Description accountDescription) {
         return this.groupAccountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
     }
 
@@ -265,7 +267,8 @@ public class Group {
      */
     public boolean createGroupAccount(String accountDenomination, String accountDescription) {
         if (accountDenomination != null && accountDescription != null && this.description != null) {
-            return this.addAccountToGroupAccountsList(accountDenomination, accountDescription);
+            return this.addAccountToGroupAccountsList(new Denomination(accountDenomination),
+                    new Description(accountDescription));
         }
         return false;
     }

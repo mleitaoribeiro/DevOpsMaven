@@ -5,6 +5,8 @@ import switch2019.project.model.ledger.ScheduledTasksList;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
@@ -326,7 +328,8 @@ public class Person {
      * @param accountDescription
      */
     public boolean createAccount(String accountDenomination, String accountDescription) {
-        return accountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
+        return accountsList.createAndAddAccountToAccountsList(new Denomination(accountDenomination),
+                new Description(accountDescription));
     }
 
     /**
