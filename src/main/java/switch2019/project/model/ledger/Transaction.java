@@ -18,7 +18,7 @@ public class Transaction {
     private final Category category;
     private final Account accountFrom;
     private final Account accountTo;
-    private final boolean type;
+    private final Type type;
 
     /**
      * Default Transaction constructor
@@ -32,7 +32,7 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
             this.amount = setValidMonetaryValue(amount);
             this.description = setValidDescription(description);
             this.category = setValidCategory(category);
