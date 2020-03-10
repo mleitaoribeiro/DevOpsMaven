@@ -105,10 +105,10 @@ public class Address {
             throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
             if (postalCode.length() == 7) {
-                postalCode = addHyphenToZipCode(postalCode);
+                postalCode = addHyphenToPostalCode(postalCode);
             }
             //Validates if the zip code is in the correct format (4620-580) - PT Format
-            if (validateIfZipCodeIsInCorrectFormat(postalCode)) {
+            if (postalCodeIsInCorrectFormat(postalCode)) {
                 this.postalCode = postalCode;
             } else {
                 throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
@@ -123,7 +123,7 @@ public class Address {
      * @return
      */
 
-    private boolean validateIfZipCodeIsInCorrectFormat(String postalCode) {
+    private boolean postalCodeIsInCorrectFormat(String postalCode) {
         String regex = "^[0-9]{4}-[0-9]{3}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(postalCode);
@@ -133,12 +133,12 @@ public class Address {
     /**
      * Auxiliary method to Add '-' in case user forget to add it
      *
-     * @param zip
+     * @param postalCode
      * @return
      */
 
-    private static String addHyphenToZipCode(String zip) {
-        return zip.substring(0, 4) + "-" + zip.substring(4, zip.length());
+    private static String addHyphenToPostalCode(String postalCode) {
+        return postalCode.substring(0, 4) + "-" + postalCode.substring(4, postalCode.length());
     }
 
     /**

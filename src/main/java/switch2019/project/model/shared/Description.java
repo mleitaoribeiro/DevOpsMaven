@@ -3,6 +3,7 @@ package switch2019.project.model.shared;
 import java.util.Objects;
 
 public class Description {
+    //Private Description instance variable
     private String description;
 
     /**
@@ -10,20 +11,20 @@ public class Description {
      * @param description
      */
 
-
     public Description(String description){
-        setDescription(description);
+        setValidDescription(description);
     }
     /**
      * setter Description
      *
      * @param description
      */
-    private void setDescription(String description) {
-        if (description == null || description.length()==0){
+
+    private void setValidDescription(String description) {
+        if (description == null || description.isEmpty()){
             throw new IllegalArgumentException("The description can't be null or empty. ");
         }
-        else{
+        else {
             this.description = description.toUpperCase();
         }
     }
