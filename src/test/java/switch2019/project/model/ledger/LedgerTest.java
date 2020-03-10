@@ -23,12 +23,12 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
-        boolean result = ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        boolean result = ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
 
         //Assert
         assertTrue(result);
@@ -46,13 +46,13 @@ class LedgerTest {
         Account account2 = new Account("transporte", "transporte Metro");
         Category category1 = new Category("grossery");
         Category category2 = new Category("transport");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
-        boolean addedTransaction1 = ledger.addTransactionToLedger(monetaryValue, "payment", null, category1, account1, account2, type);
-        boolean addedTransaction2 = ledger.addTransactionToLedger(monetaryValue, "payment", null, category2, account1, account2, type);
+        boolean addedTransaction1 = ledger.addTransactionToLedger(monetaryValue, "payment", null, category1, account1, account2, new Type(true));
+        boolean addedTransaction2 = ledger.addTransactionToLedger(monetaryValue, "payment", null, category2, account1, account2, new Type(true));
 
         //Assert
         assertTrue(addedTransaction1 && addedTransaction2);
@@ -70,12 +70,12 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        boolean type = true;
+
         Ledger ledger = new Ledger();
 
         //Act
         try {
-            ledger.addTransactionToLedger(null, "payment", null, category, account1, account2, type);
+            ledger.addTransactionToLedger(null, "payment", null, category, account1, account2, new Type(true));
         }
 
         //Assert
@@ -96,13 +96,13 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
         try {
-            ledger.addTransactionToLedger(monetaryValue, null, null, category, account1, account2, type);
+            ledger.addTransactionToLedger(monetaryValue, null, null, category, account1, account2, new Type(true));
         }
 
         //Assert
@@ -122,13 +122,13 @@ class LedgerTest {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
         try {
-            ledger.addTransactionToLedger(monetaryValue, "payment", null, null, account1, account2, type);
+            ledger.addTransactionToLedger(monetaryValue, "payment", null, null, account1, account2, new Type(true));
         }
 
         //Assert
@@ -149,13 +149,13 @@ class LedgerTest {
         //Arrange
         Account account1 = new Account("mercearia", "mercearia Continente");
         Category category = new Category("grocery");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
         try {
-            ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, null, type);
+            ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, null, new Type(true));
         }
 
         //Assert
@@ -179,8 +179,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -192,13 +191,13 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
 
         List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
@@ -235,8 +234,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -248,12 +246,12 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
 
         List<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
@@ -274,8 +272,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -287,9 +284,9 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
         List<Transaction> expected = new ArrayList<>();
@@ -311,8 +308,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -324,13 +320,13 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
 
         List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
@@ -352,8 +348,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -365,9 +360,9 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -392,8 +387,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -405,9 +399,9 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -432,8 +426,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -445,9 +438,9 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -471,8 +464,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -484,9 +476,9 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -512,9 +504,9 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category1 = new Category("grocery");
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
 
-        ledgerToCheck.addTransactionToLedger(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
+        ledgerToCheck.addTransactionToLedger(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
 
         //Act:
         boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
@@ -536,9 +528,9 @@ class LedgerTest {
         Category category1 = new Category("grocery");
 
 
-        Transaction transaction1 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
+        Transaction transaction1 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
 
-        ledgerToCheck.addTransactionToLedger(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, true);
+        ledgerToCheck.addTransactionToLedger(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
 
         //Act:
         boolean isTransactionInsideLedger = ledgerToCheck.isTransactionInLedger(transaction1);
@@ -558,8 +550,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -571,14 +562,14 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        Transaction expectedTransaction3 = new Transaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        Transaction expectedTransaction3 = new Transaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction3, expectedTransaction1, expectedTransaction2));
         //Act
@@ -598,8 +589,7 @@ class LedgerTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -611,14 +601,14 @@ class LedgerTest {
         Ledger ledger = new Ledger();
 
         //Add Transactions to Ledger
-        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        ledger.addTransactionToLedger(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        ledger.addTransactionToLedger(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        ledger.addTransactionToLedger(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        Transaction expectedTransaction3 = new Transaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        Transaction expectedTransaction3 = new Transaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         ArrayList<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1, expectedTransaction3));
         //Act
@@ -640,36 +630,36 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
 
         //Arrange-Transaction2
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
                 new Category("grocery"), new Account("BNI", "General"),
                 new Account("Millenium", "Only for Groceries"),
-                false);
+                new Type(false));
         Transaction transaction2 = new Transaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
                 new Category("grocery"), new Account("BNI", "General"),
                 new Account("Millenium", "Only for Groceries"),
-                false);
+                new Type(false));
 
         //Arrange-Transaction3
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
         Transaction transaction3 = new Transaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2));
@@ -692,12 +682,12 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
 
@@ -724,12 +714,12 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
         List<Transaction> expectedTransactions = new ArrayList<>();
@@ -756,17 +746,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                true);
+                new Type(true));
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
@@ -790,17 +780,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 13, 13, 05),
                 new Category("grocery"), new Account("Revolut", "For trips expenses"),
                 new Account("Friends & Company", "Holidays"),
-                true);
+                new Type(true));
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13, 23, 59);
@@ -825,17 +815,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
         LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31, 00, 00);
@@ -858,17 +848,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -893,17 +883,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = null;
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -928,17 +918,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2021, 1, 27, 00, 00);
         LocalDateTime finalDate = null;
@@ -985,17 +975,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -1041,17 +1031,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 00, 00);
@@ -1074,13 +1064,13 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
         int sizeBefore = ledger.getLedgerSize();
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
         int sizeAfter = ledger.getLedgerSize();
 
         //Assert
@@ -1098,11 +1088,11 @@ class LedgerTest {
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
         LocalDateTime date = LocalDateTime.of(2019, 10, 27, 00, 00);
-        ledger.addTransactionToLedger(monetaryValue, "payment", date, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", date, category, account1, account2, new Type(true));
 
         String expected = "Ledger:[2019-10-27 00:00 | 200.0 EUR CREDIT | MERCEARIA -> TRANSPORTE | Description: \"payment\"  | GROCERY].";
         //Act
@@ -1126,17 +1116,17 @@ class LedgerTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         //Act
         int ledgerSize = ledger.getLedgerSize();

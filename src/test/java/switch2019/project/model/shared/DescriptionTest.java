@@ -90,10 +90,10 @@ class DescriptionTest {
     @DisplayName("Test if is the same object - false")
     public void sameObjectFalse() {
         Description firstDescription = new Description("Mercearia");
-        Category categoty = new Category("Talho");
+        Category category = new Category("Talho");
 
 
-        boolean result= firstDescription.equals(categoty);
+        boolean result= firstDescription.equals(category);
 
         assertFalse(result);
     }

@@ -2,6 +2,7 @@ package switch2019.project.model.ledger;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 
 import java.time.LocalDateTime;
@@ -11,13 +12,13 @@ import java.util.Objects;
 public class Transaction {
 
     // Private Transaction variables
-    private MonetaryValue amount;
-    private String description;
-    private LocalDateTime date;
-    private Category category;
-    private Account accountFrom;
-    private Account accountTo;
-    private boolean type;
+    private final MonetaryValue amount;
+    private final String description; //we need to change this
+    private final LocalDateTime date;
+    private final Category category;
+    private final Account accountFrom;
+    private final Account accountTo;
+    private final Type type;
 
     /**
      * Default Transaction constructor
@@ -31,17 +32,15 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
-            this.amount = amount;
-            this.description = description;
-            this.category = category;
-            this.accountFrom = accountFrom;
-            this.accountTo = accountTo;
+    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
+            this.amount = setValidMonetaryValue(amount);
+            this.description = setValidDescription(description);
+            this.category = setValidCategory(category);
+            this.accountFrom = setValidAccount(accountFrom);
+            this.accountTo = setValidAccount(accountTo);
             this.type = type;
-            setDate(date);
+            this.date = setDate(date);
         }
-    }
 
 
     /**
@@ -55,7 +54,7 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return type == that.type &&
+        return Objects.equals(type,that.type) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(date, that.date) &&
@@ -73,12 +72,11 @@ public class Transaction {
      * toString() of type
      */
     private String typeToString() {
-        if (type) return "CREDIT";
-        else return "DEBIT";
+        return type.typeToString();
     }
 
     /**
-     * Methood toString() of date
+     * Method toString() of date
      */
     public String dateToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -100,29 +98,44 @@ public class Transaction {
      *
      * @return true if all parameters are valid
      */
-    public boolean isAValidTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
-        if (amount == null || !amount.validateIfAmountIsPositive())
-            throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
-        else if (description == null)
-            throw new IllegalArgumentException("The description can´t be null. Please try again.");
-        else if (category == null)
-            throw new IllegalArgumentException("The category can´t be null. Please try again.");
-        else if (accountFrom == null || accountTo == null)
-            throw new IllegalArgumentException("The accounts can´t be null. Please try again.");
-        else return true;
+
+    public MonetaryValue setValidMonetaryValue(MonetaryValue newAmount) {
+        if (newAmount == null || !newAmount.validateIfAmountIsPositive())
+        throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
+        else return newAmount;
     }
+
+    public String setValidDescription(String newDescription) {
+        if (newDescription == null)
+            throw new IllegalArgumentException("The description can´t be null. Please try again.");
+        else return newDescription;
+    }
+
+    public Category setValidCategory(Category newCategory) {
+        if (newCategory == null)
+            throw new IllegalArgumentException("The category can´t be null. Please try again.");
+        else return newCategory;
+    }
+
+    public Account setValidAccount(Account newAccount) {
+        if (newAccount == null)
+            throw new IllegalArgumentException("The accounts can´t be null. Please try again.");
+        else return newAccount;
+    }
+
 
     /**
      * Set and format date
      *
      * @param date
      */
-    public void setDate(LocalDateTime date) {
+    public LocalDateTime setDate(LocalDateTime date) {
         if (date == null) {
             LocalDateTime dateNow = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            this.date = LocalDateTime.parse(dateNow.format(formatter), formatter);
-        } else this.date = date;
+            date = LocalDateTime.parse(dateNow.format(formatter), formatter);
+            return date;
+        } else return date;
     }
 
     /**
@@ -136,7 +149,7 @@ public class Transaction {
      * Get Type
      */
     public boolean getType() {
-        return type;
+        return type.getType();
     }
 
     /**

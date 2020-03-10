@@ -21,13 +21,13 @@ public class TransactionTask extends TimerTask {
     private Category category;
     private Account accountFrom;
     private Account accountTo;
-    private boolean type;
+    private Type type;
 
     /**
      * TransactionTask Constructor
      */
     public TransactionTask(Person person, MonetaryValue amount, String description, LocalDateTime date,
-                           Category category, Account accountFrom, Account accountTo, boolean type) {
+                           Category category, Account accountFrom, Account accountTo, Type type) {
         this.person = person;
         this.amount = amount;
         this.description = description;
@@ -39,7 +39,7 @@ public class TransactionTask extends TimerTask {
     }
 
     public TransactionTask(Group group, MonetaryValue amount, String description, LocalDateTime date,
-                           Category category, Account accountFrom, Account accountTo, boolean type) {
+                           Category category, Account accountFrom, Account accountTo, Type type) {
         this.group = group;
         this.amount = amount;
         this.description = description;

@@ -9,6 +9,7 @@ import switch2019.project.model.person.Address;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
+import switch2019.project.model.shared.DateAndTime;
 
 import java.time.LocalDate;
 
@@ -103,6 +104,7 @@ class AccountTest {
     @DisplayName("Test if two accounts are the same - diferent objects")
     public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
+
         Account oneAccount = new Account(new Denomination("xpto"),new Description("xpto account"));
         Person onePerson = new Person(new PersonName("Alexandre"), LocalDate.of(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
 
