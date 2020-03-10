@@ -69,7 +69,7 @@ public class PersonName {
      */
 
     private String exceptionalCases(String personName) {
-        ArrayList exceptions = new ArrayList<>(Arrays.asList("De", "Da", "Do", "Das", "Dos"));
+        ArrayList<String> exceptions = new ArrayList<>(Arrays.asList("De", "Da", "Do", "Das", "Dos"));
         String[] words = personName.split(" ");
         for(int i = 0; i < words.length; i++) {
             if(exceptions.contains(words[i]))
