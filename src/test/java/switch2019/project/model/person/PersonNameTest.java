@@ -12,7 +12,7 @@ class PersonNameTest {
         String expected = "Marta Gomes de Lemos Pinheiro";
 
         //Act:
-        String result = personName.getPersonName();
+        String result = personName.getFullPersonName();
 
         //Assert:
         assertEquals(expected, result);
@@ -25,7 +25,7 @@ class PersonNameTest {
         String expected = "Marta Gomes de Lemos Pinheiro";
 
         //Act:
-        String result = personName.getPersonName();
+        String result = personName.getFullPersonName();
 
         //Assert:
         assertEquals(expected, result);
@@ -38,7 +38,7 @@ class PersonNameTest {
         String expected = "Marta Gomes Lemos Pinheiro";
 
         //Act:
-        String result = personName.getPersonName();
+        String result = personName.getFullPersonName();
 
         //Assert:
         assertEquals(expected, result);
@@ -51,7 +51,20 @@ class PersonNameTest {
         String expected = "Marta da de do Gomes das dos Lemos Pinheiro";
 
         //Act:
-        String result = personName.getPersonName();
+        String result = personName.getFullPersonName();
+
+        //Assert:
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getFirstAndLastName() {
+        //Arrange:
+        PersonName personName = new PersonName("marTA dA DE dO gomES dAS dOs lEMos pInhEIro");
+        String expected = "Marta Pinheiro";
+
+        //Act:
+        String result = personName.getFirstAndLastName();
 
         //Assert:
         assertEquals(expected, result);

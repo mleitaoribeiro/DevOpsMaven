@@ -22,12 +22,22 @@ public class PersonName {
     }
 
     /**
-     * Get Person Name
+     * Get Full Person Name
      * @return personName
      */
 
-    public String getPersonName() {
+    public String getFullPersonName() {
         return personName;
+    }
+
+    /**
+     * Get First and Last Name
+     * @return personName
+     */
+
+    public String getFirstAndLastName() {
+        String[] words = personName.split(" ");
+        return words[0] + " " + words[words.length - 1];
     }
 
     /**
@@ -37,7 +47,7 @@ public class PersonName {
 
     private String setPersonName(String personName) {
         personName = removeAllExtraSpaces(personName);
-        personName = capitalizeEachWords(personName);
+        personName = capitalizeEachWord(personName);
         return exceptionalCases(personName);
     }
 
@@ -55,11 +65,11 @@ public class PersonName {
      * @param personName
      */
 
-    private String capitalizeEachWords(String personName) {
+    private String capitalizeEachWord(String personName) {
         personName = personName.toLowerCase();
         personName = personName.substring(0, 1).toUpperCase() + personName.substring(1);
         String[] words = personName.split(" ");
-        for(int i = 1 ; i < words.length ; i++){
+        for(int i = 1 ; i < words.length ; i++) {
             words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1);
         } return String.join(" ", words);
     }
