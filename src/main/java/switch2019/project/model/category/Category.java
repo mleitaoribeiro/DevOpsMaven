@@ -19,12 +19,14 @@ public class Category {
     }
 
     public void setNameOfCategory(String nameOfCategory) {
-        this.nameOfCategory = new Denomination(nameOfCategory);
+        if (nameOfCategory != null) {
+            this.nameOfCategory = new Denomination(nameOfCategory);
+        } else throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
     }
 
-    //public String getNameOfCategory() {
-    //    return nameOfCategory.;
-    //}
+    public String getNameOfCategory() {
+        return nameOfCategory.toString();
+    }
 
     /**
      * Develop @override of equals for Category and @override of hashcode
