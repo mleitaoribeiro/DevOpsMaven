@@ -1,4 +1,4 @@
-package switch2019.project.model.valueObject;
+package switch2019.project.model.shared;
 
 import java.util.Currency;
 

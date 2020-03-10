@@ -1,8 +1,7 @@
-package switch2019.project.model.valueObject;
+package switch2019.project.model.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.valueObject.MonetaryValue;
 
 import java.util.Currency;
 

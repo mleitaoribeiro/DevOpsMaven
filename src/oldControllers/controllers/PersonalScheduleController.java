@@ -2,7 +2,7 @@ package switch2019.project.controllers;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
-import switch2019.project.model.valueObject.MonetaryValue;
+import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.person.Person;
 
 import java.time.LocalDateTime;

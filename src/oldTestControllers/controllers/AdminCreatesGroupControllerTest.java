@@ -3,7 +3,7 @@ package switch2019.project.controllers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.valueObject.Address;
+import switch2019.project.model.shared.Address;
 import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDate;

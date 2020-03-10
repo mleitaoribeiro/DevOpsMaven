@@ -2,7 +2,7 @@ package switch2019.project.model.group;
 
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
-import switch2019.project.model.valueObject.MonetaryValue;
+import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.ledger.ScheduledTasksList;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Ledger;

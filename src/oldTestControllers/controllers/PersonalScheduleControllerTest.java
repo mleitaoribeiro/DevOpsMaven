@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
-import switch2019.project.model.valueObject.Address;
-import switch2019.project.model.valueObject.MonetaryValue;
+import switch2019.project.model.shared.Address;
+import switch2019.project.model.shared.MonetaryValue;
 
 import java.time.LocalDate;
 import java.util.Currency;

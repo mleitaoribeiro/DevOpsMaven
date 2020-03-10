@@ -1,4 +1,4 @@
-package switch2019.project.model.valueObject;
+package switch2019.project.model.person;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

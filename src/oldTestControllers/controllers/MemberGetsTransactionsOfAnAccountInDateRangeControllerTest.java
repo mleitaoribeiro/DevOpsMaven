@@ -8,8 +8,8 @@ import switch2019.project.model.group.Group;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
-import switch2019.project.model.valueObject.Address;
-import switch2019.project.model.valueObject.MonetaryValue;
+import switch2019.project.model.shared.Address;
+import switch2019.project.model.shared.MonetaryValue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
