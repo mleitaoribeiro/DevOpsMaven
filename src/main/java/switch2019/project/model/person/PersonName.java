@@ -10,15 +10,15 @@ public class PersonName {
      * Private Instance Variable
      */
 
-    private String personName;
+    private String name;
 
     /**
      * Constructor of PersonName
-     * @param personName
+     * @param name
      */
 
-    public PersonName(String personName) {
-        this.personName = setPersonName(personName);
+    public PersonName(String name) {
+        this.name = setPersonName(name);
     }
 
     /**
@@ -27,7 +27,7 @@ public class PersonName {
      */
 
     public String getPersonName() {
-        return personName;
+        return name;
     }
 
     /**
@@ -36,7 +36,7 @@ public class PersonName {
      */
 
     public String getFirstAndLastName() {
-        String[] words = personName.split(" ");
+        String[] words = name.split(" ");
         return words[0] + " " + words[words.length - 1];
     }
 
@@ -97,11 +97,11 @@ public class PersonName {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonName that = (PersonName) o;
-        return Objects.equals(personName, that.personName);
+        return Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personName);
+        return Objects.hash(name);
     }
 }
