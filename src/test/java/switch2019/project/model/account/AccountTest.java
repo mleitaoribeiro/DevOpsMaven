@@ -303,4 +303,18 @@ class AccountTest {
         assertEquals(expected, real);
     }
 
+    @Test
+    @DisplayName("Test toString")
+    public void testToString() {
+
+        //Arrange
+        Account supermarket = new Account("Supermarket", "Weekly spends");
+        String expected = "SUPERMARKET, Weekly spends, 0.0€";
+
+        //Act
+        String result = supermarket.toString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
 }
