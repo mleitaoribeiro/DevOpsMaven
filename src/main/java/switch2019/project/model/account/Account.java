@@ -1,6 +1,11 @@
 package switch2019.project.model.account;
 
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
+import switch2019.project.model.shared.MonetaryValue;
+
 import java.text.Normalizer;
+import java.util.Currency;
 import java.util.Objects;
 
 public class Account {
@@ -8,9 +13,9 @@ public class Account {
      * Private Instance Variables
      */
 
-    private String denomination;
-    private String description;
-    private double balance;
+    private Denomination denomination;
+    private Description description;
+    private MonetaryValue balance;
 
     /**
      * Constructor of Account
@@ -19,10 +24,10 @@ public class Account {
      * @param accountDescription
      */
 
-    public Account(String accountDenomination, String accountDescription) {
-        setDenomination(accountDenomination);
-        setDescription(accountDescription);
-        balance = 0;
+    public Account(Denomination accountDenomination, Description accountDescription) {
+        this.denomination = accountDenomination;
+        this.description= accountDescription;
+        this.balance = new MonetaryValue(0.0);
     }
 
     /**
@@ -57,7 +62,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return denomination + ", " + description + ", " + balance + "€";
+        return denomination.toString() + ", " + description.toString() + ", " + balance + "€";
     }
 
     /**
@@ -67,7 +72,7 @@ public class Account {
      */
 
     public String denominationToString() {
-        return denomination;
+        return denomination.toString();
     }
 
     /**
@@ -82,44 +87,8 @@ public class Account {
             throw new IllegalArgumentException("The denomination can´t be null or empty!");
 
         } else {
-            newDenomination = removeWordAccents(newDenomination);
-            newDenomination = removeSpecialCharacters(newDenomination);
-            this.denomination = newDenomination.toUpperCase();
+            this.denomination = new Denomination(newDenomination);
         }
-    }
-
-    /**
-     * Auxiliary method to remove special Characters
-     *
-     * @param sentence
-     * @return
-     */
-
-    private static String removeSpecialCharacters(String sentence) {
-
-        String[] str = sentence.split("[, &´#!%()`>?+.<@;-]+");
-        StringBuilder buildNewStringArray = new StringBuilder();
-
-        for (String element : str) {
-            buildNewStringArray.append(" ").append(element);
-        }
-
-        return buildNewStringArray.toString().replaceFirst(" ", "");
-    }
-
-    /**
-     * Auxiliary method to remove word accents
-     *
-     * @param sentence
-     * @return sentence
-     */
-
-    private static String removeWordAccents(String sentence) {
-
-        sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
-        sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-
-        return sentence;
     }
 
     /**
@@ -127,9 +96,8 @@ public class Account {
      *
      * @return descritpion
      */
-
     public String getDescription() {
-        return this.description;
+        return description.getDescription();
     }
 
     /**
@@ -142,7 +110,7 @@ public class Account {
         if (description == null || description.length() == 0) {
             throw new IllegalArgumentException("The description can´t be null or empty!");
         } else {
-            this.description = description;
+            this.description = new Description(description);
         }
     }
 
@@ -153,6 +121,6 @@ public class Account {
      */
 
     public Account getCopyOfAccount() {
-        return new Account(denomination, description);
+        return new Account(this.denomination, this.description);
     }
 }
