@@ -5,8 +5,8 @@ import java.util.Currency;
 public class MonetaryValue {
 
     //Private MonetaryValue instance Variables
-    private double amount;
-    private Currency currency;
+    private final double amount;
+    private final Currency currency;
 
     /**
      * MonetaryValue constructor
