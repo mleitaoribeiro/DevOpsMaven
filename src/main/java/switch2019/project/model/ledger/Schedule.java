@@ -29,7 +29,7 @@ public class Schedule {
      * @param type
      */
     public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                    Category category, Account accountFrom, Account accountTo, boolean type) {
+                    Category category, Account accountFrom, Account accountTo, Type type) {
         this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
         Timer timer = new Timer();
         TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
@@ -52,7 +52,7 @@ public class Schedule {
      */
 
     public Schedule(Group group, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                    Category category, Account accountFrom, Account accountTo, boolean type) {
+                    Category category, Account accountFrom, Account accountTo, Type type) {
         this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
         Timer timer = new Timer();
         TransactionTask scheduledGroupTransactionTask = new TransactionTask(group, amount,

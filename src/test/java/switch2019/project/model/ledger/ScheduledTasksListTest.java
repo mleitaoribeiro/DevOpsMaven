@@ -34,11 +34,11 @@ class ScheduledTasksListTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         //Act
         boolean result = scheduledTasksList.addNewSchedule(person, "daily", amount,
-                description, null, category, from, to, type);
+                description, null, category, from, to, new Type(false));
 
         //Assert
         assertTrue(result);

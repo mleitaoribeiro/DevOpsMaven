@@ -17,7 +17,7 @@ public class Transaction {
     private Category category;
     private Account accountFrom;
     private Account accountTo;
-    private boolean type;
+    private Type type;
 
     /**
      * Default Transaction constructor
@@ -31,7 +31,7 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
         if (isAValidTransaction(amount, description, category, accountFrom, accountTo, type)) {
             this.amount = amount;
             this.description = description;
@@ -55,7 +55,7 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return type == that.type &&
+        return Objects.equals(type,that.type) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(date, that.date) &&
@@ -73,8 +73,7 @@ public class Transaction {
      * toString() of type
      */
     private String typeToString() {
-        if (type) return "CREDIT";
-        else return "DEBIT";
+        return type.typeToString();
     }
 
     /**
@@ -100,7 +99,7 @@ public class Transaction {
      *
      * @return true if all parameters are valid
      */
-    public boolean isAValidTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public boolean isAValidTransaction(MonetaryValue amount, String description, Category category, Account accountFrom, Account accountTo, Type type) {
         if (amount == null || !amount.validateIfAmountIsPositive())
             throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
         else if (description == null)
@@ -136,7 +135,7 @@ public class Transaction {
      * Get Type
      */
     public boolean getType() {
-        return type;
+        return type.getType();
     }
 
     /**

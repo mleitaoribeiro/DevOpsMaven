@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Transaction;
+import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Address;
@@ -1729,14 +1730,14 @@ class GroupTest {
         // Arrange Transaction:
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
-        boolean oneType = true; //Credit
+
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
         Category category1 = new Category("ASD");
-        Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, oneType);
+        Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
         //Act:
-        group1.createGroupTransaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, oneType);
+        group1.createGroupTransaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
         boolean result = group1.isTransactionInsideTheGroupLedger(transaction1);
 
         //Assert:
@@ -1753,15 +1754,14 @@ class GroupTest {
         // Arrange Transaction:
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
-        boolean creditType = true; //Credit
-        boolean debitType = false; //Debit
+
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
         Category category1 = new Category("ASD");
-        Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, creditType);
+        Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
         //Act:
-        group1.createGroupTransaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, debitType);
+        group1.createGroupTransaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(false));
         boolean result = group1.isTransactionInsideTheGroupLedger(transaction1);
 
         //Assert:
@@ -1778,17 +1778,16 @@ class GroupTest {
         // Arrange Transaction:
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
-        boolean creditType = true; //Credit
-        boolean debitType = false; //Debit
+
         Account oneAccount = new Account("myxpto", "xpto Account");
         Account otherAccount = new Account("xyz", "xyz Account");
         Category category1 = new Category("ASD");
-        Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, debitType);
-        Transaction transaction2 = new Transaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, creditType);
+        Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(false));
+        Transaction transaction2 = new Transaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, new Type(true));
 
         //Act:
-        group1.createGroupTransaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, debitType);
-        group1.createGroupTransaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, creditType);
+        group1.createGroupTransaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(false));
+        group1.createGroupTransaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, new Type(true));
 
         boolean result = group1.isTransactionInsideTheGroupLedger(transaction1)
                 && group1.isTransactionInsideTheGroupLedger(transaction2);
@@ -1818,14 +1817,14 @@ class GroupTest {
         Account account2 = new Account("groceries", "mercearia Pingo Doce");
 
         //Transactions added to Group Ledger:
-        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
-        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
-        testGroup.createGroupTransaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, new Type(false));
+        testGroup.createGroupTransaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, new Type(true));
 
         //Transactions to check:
-        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
-        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
-        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, new Type(false));
+        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, new Type(true));
 
         Set transactionsToCheck = new HashSet<Transaction>();
         transactionsToCheck.add(testTransaction1);
@@ -1856,13 +1855,13 @@ class GroupTest {
         Account account2 = new Account("groceries", "mercearia Pingo Doce");
 
         //Transactions added to Group Ledger:
-        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
-        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
-        testGroup.createGroupTransaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, new Type(false));
+        testGroup.createGroupTransaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, new Type(true));
 
         //Transactions to check:
-        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
-        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, new Type(false));
         Transaction testTransaction3 = null;
 
         Set transactionsToCheck = new HashSet<Transaction>();
@@ -1897,13 +1896,13 @@ class GroupTest {
         Account account2 = new Account("groceries", "mercearia Pingo Doce");
 
         //Transactions added to Group Ledger:
-        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
-        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
+        testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
+        testGroup.createGroupTransaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, new Type(false));
 
         //Transactions to check:
-        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, true);
-        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, false);
-        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, true);
+        Transaction testTransaction1 = new Transaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
+        Transaction testTransaction2 = new Transaction(monetaryValue2, "testTransaction2", null, category1, account2, account1, new Type(false));
+        Transaction testTransaction3 = new Transaction(monetaryValue3, "testTransaction3", null, category1, account1, account2, new Type(true));
 
         Set transactionsToCheck = new HashSet<Transaction>();
         transactionsToCheck.add(testTransaction1);
@@ -2156,21 +2155,20 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
@@ -2205,17 +2203,17 @@ class GroupTest {
         boolean type1 = true;
         boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
@@ -2246,21 +2244,19 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
@@ -2292,22 +2288,20 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList());
 
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
@@ -2339,22 +2333,20 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         try {
@@ -2389,21 +2381,19 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         try {
@@ -2438,21 +2428,19 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         try {
@@ -2487,21 +2475,19 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         try {
@@ -2563,19 +2549,17 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"));
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act:
         try {
@@ -2621,12 +2605,12 @@ class GroupTest {
         Category category = new Category("General");
         person4.createCategoryAndAddToCategoryList("General");
 
-        boolean type = false; //debit
+
 
         //Act
         boolean transactionCreated = false;
         if (group1.isGroupMember(person4)) {
-            transactionCreated = group1.createGroupTransaction(amount, description, null, category, from, to, type);
+            transactionCreated = group1.createGroupTransaction(amount, description, null, category, from, to, new Type(false));
         }
 
         //Assert
@@ -2663,12 +2647,12 @@ class GroupTest {
         Category category = new Category("General");
         person4.createCategoryAndAddToCategoryList("General");
 
-        boolean type = false; //debit
+
 
         //Act
         try {
             if (group1.isGroupMember(person4)) {
-                group1.createGroupTransaction(amountNegative, description1, null, category, from, to, type);
+                group1.createGroupTransaction(amountNegative, description1, null, category, from, to, new Type(false));
             }
         }
 
@@ -2708,12 +2692,12 @@ class GroupTest {
         Category category = new Category("General");
         person4.createCategoryAndAddToCategoryList("General");
 
-        boolean type = false; //debit
+
 
         //Act
         boolean transactionCreated = false;
         if (group1.isGroupMember(person4)) {
-            transactionCreated = group1.createGroupTransaction(amount, description, null, category, from, to, type);
+            transactionCreated = group1.createGroupTransaction(amount, description, null, category, from, to, new Type(false));
         }
 
         //Assert
@@ -2744,8 +2728,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -2755,13 +2738,13 @@ class GroupTest {
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
         //Add Transactions to Group Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
 
         List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
@@ -2811,8 +2794,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -2822,12 +2804,12 @@ class GroupTest {
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
 
         List<Transaction> expected = new ArrayList<>(Collections.singletonList(expectedTransaction1));
         //Act
@@ -2855,8 +2837,7 @@ class GroupTest {
 
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -2865,8 +2846,8 @@ class GroupTest {
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
         List<Transaction> expected = new ArrayList<>();
@@ -2896,8 +2877,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -2907,13 +2887,13 @@ class GroupTest {
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Expected Transactions
-        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
+        Transaction expectedTransaction1 = new Transaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
 
         List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
@@ -2943,8 +2923,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -2954,9 +2933,9 @@ class GroupTest {
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -2989,8 +2968,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -3000,9 +2978,9 @@ class GroupTest {
         LocalDateTime anotherLocalDate = LocalDateTime.of(2015, 10, 2, 10, 40);
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -3035,8 +3013,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -3047,9 +3024,9 @@ class GroupTest {
 
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -3081,8 +3058,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -3093,9 +3069,9 @@ class GroupTest {
 
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -3125,8 +3101,7 @@ class GroupTest {
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
 
-        boolean oneType = true; //Credit
-        boolean otherType = false; //Debit
+
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -3137,9 +3112,9 @@ class GroupTest {
 
 
         //Add Transactions to Ledger
-        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, oneType);
-        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, otherType);
-        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, oneType);
+        oneGroup.createGroupTransaction(oneMonetaryValue, "payment", oneLocalDate, oneCategory, oneAccount, otherAccount, new Type(true));
+        oneGroup.createGroupTransaction(otherMonetaryValue, "xpto", otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
+        oneGroup.createGroupTransaction(oneMonetaryValue, "abc", anotherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(true));
 
         //Act
         try {
@@ -3177,19 +3152,18 @@ class GroupTest {
         Account accountOne = new Account("myxpto", "xpto Account");
         Account accountTwo = new Account("xyz", "xyz Account");
 
-        boolean typeOne = true;  // Credit
-        boolean typeTwo = false; // Debit
+
 
         //Group instanced:
         Group group1 = new Group("Test Group");
 
         //Add the Transactions to Group:
         group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
-                accountTwo, accountOne, typeTwo);
+                accountTwo, accountOne, new Type(false));
 
         //Act:
         double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2018, 01, 01, 0, 0),
@@ -3221,19 +3195,18 @@ class GroupTest {
         Account accountOne = new Account("myxpto", "xpto Account");
         Account accountTwo = new Account("xyz", "xyz Account");
 
-        boolean typeOne = true;  // Credit
-        boolean typeTwo = false; // Debit
+
 
         //Group instanced:
         Group group1 = new Group("Test Group");
 
         //Add the Transactions to Group:
         group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
-                accountTwo, accountOne, typeTwo);
+                accountTwo, accountOne, new Type(false));
 
         //Act:
         double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2019, 01, 01, 0, 0),
@@ -3266,19 +3239,18 @@ class GroupTest {
         Account accountOne = new Account("myxpto", "xpto Account");
         Account accountTwo = new Account("xyz", "xyz Account");
 
-        boolean typeOne = true;  // Credit
-        boolean typeTwo = false; // Debit
+
 
         //Group instanced:
         Group group1 = new Group("Test Group");
 
         //Add the Transactions to Group:
         group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
-                accountTwo, accountOne, typeTwo);
+                accountTwo, accountOne, new Type(false));
 
         //Act:
         double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2018, 10, 23, 9, 0),
@@ -3310,19 +3282,18 @@ class GroupTest {
         Account accountOne = new Account("myxpto", "xpto Account");
         Account accountTwo = new Account("xyz", "xyz Account");
 
-        boolean typeOne = true;  // Credit
-        boolean typeTwo = false; // Debit
+
 
         //Group instanced:
         Group group1 = new Group("Test Group");
 
         //Add the Transactions to Group:
         group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
-                accountTwo, accountOne, typeTwo);
+                accountTwo, accountOne, new Type(false));
 
         String expected = "One of the submitted dates is not valid.";
 
@@ -3358,19 +3329,18 @@ class GroupTest {
         Account accountOne = new Account("myxpto", "xpto Account");
         Account accountTwo = new Account("xyz", "xyz Account");
 
-        boolean typeOne = true;  // Credit
-        boolean typeTwo = false; // Debit
+
 
         //Group instanced:
         Group group1 = new Group("Test Group");
 
         //Add the Transactions to Group:
         group1.createGroupTransaction(monetaryValueOne, "test transaction 1", localDateOne, categoryOne,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueTwo, "test transaction 2", localDateTwo, categoryTwo,
-                accountOne, accountTwo, typeOne);
+                accountOne, accountTwo, new Type(true));
         group1.createGroupTransaction(monetaryValueThree, "test transaction 3", localDateThree, categoryThree,
-                accountTwo, accountOne, typeTwo);
+                accountTwo, accountOne, new Type(false));
 
         //Act:
         double result = group1.getGroupBalanceInDateRange(LocalDateTime.of(2019, 10, 23, 9, 0),
@@ -3416,12 +3386,12 @@ class GroupTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
+        boolean result = group.scheduleNewTransaction("daily", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
@@ -3445,12 +3415,12 @@ class GroupTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
+        boolean result = group.scheduleNewTransaction("working days", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
@@ -3473,12 +3443,12 @@ class GroupTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
+        boolean result = group.scheduleNewTransaction("weekly", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
@@ -3502,12 +3472,12 @@ class GroupTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
+        boolean result = group.scheduleNewTransaction("monthly", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
@@ -3530,13 +3500,13 @@ class GroupTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         Group group = new Group("tarzan");
 
         try {
             //Act
-            group.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, type);
+            group.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, new Type(false));
         }
         //Assert
         catch (IllegalArgumentException result) {

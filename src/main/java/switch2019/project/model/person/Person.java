@@ -6,6 +6,7 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Ledger;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
@@ -313,7 +314,7 @@ public class Person {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
         if (!accountFrom.equals(accountTo))
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         else return false;
@@ -409,7 +410,7 @@ public class Person {
      */
 
     public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+                                          Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
     }

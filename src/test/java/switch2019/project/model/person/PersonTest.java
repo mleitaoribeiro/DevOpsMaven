@@ -2,6 +2,7 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
@@ -830,10 +831,10 @@ class PersonTest {
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
-        boolean type = false; //debit
+
 
         //Act
-        boolean result = person.createTransaction(amount, description, null, category, from, to, type);
+        boolean result = person.createTransaction(amount, description, null, category, from, to, new Type(false));
 
         //Assert
         assertTrue(result);
@@ -856,11 +857,11 @@ class PersonTest {
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");
 
-        boolean type = false; //debit
+
 
         //Act
         try {
-            person.createTransaction(amountNegative, description1, null, category, accountWallet, accountTransport, type);
+            person.createTransaction(amountNegative, description1, null, category, accountWallet, accountTransport, new Type(false));
         }
 
         //Assert
@@ -883,10 +884,10 @@ class PersonTest {
         Account accountWallet = new Account("Wallet", "General expenses");
         person.createAccount("Wallet", "General expenses");
 
-        boolean type = false; //debit
+
 
         //Act
-        boolean result = person.createTransaction(amount, description, null, category, accountWallet, accountWallet, type);
+        boolean result = person.createTransaction(amount, description, null, category, accountWallet, accountWallet, new Type(false));
 
         //Assert
         assertFalse(result);
@@ -1225,13 +1226,13 @@ class PersonTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
-        person.createTransaction(amount, "payment", dateTransaction1, category, from, to, type);
+
+        person.createTransaction(amount, "payment", dateTransaction1, category, from, to, new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 23, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 20, 23, 00);
 
-        Transaction transaction1 = new Transaction(amount, "payment", dateTransaction1, category, from, to, type);
+        Transaction transaction1 = new Transaction(amount, "payment", dateTransaction1, category, from, to, new Type(false));
         List<Transaction> expectedResult = new ArrayList<>();
         expectedResult.add(transaction1);
 
@@ -1259,24 +1260,24 @@ class PersonTest {
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
-        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
         //Arrange - Transaction2//
         LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category2 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, false);
-        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
+        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
 
         //Arrange - Transaction3//
         LocalDateTime dateTransaction3 = LocalDateTime.of(2020, 1, 16, 13, 00);
         MonetaryValue amount3 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category3 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount3, "payment", dateTransaction3, category3, from, to, false);
-        Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, false);
+        person.createTransaction(amount3, "payment", dateTransaction3, category3, from, to, new Type(false));
+        Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, new Type(false));
 
         //Arrange - ExpectedResult//
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction3, transaction2, transaction1));
@@ -1308,8 +1309,8 @@ class PersonTest {
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
-        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
         //Arrange - ExpectedResult//
         ArrayList<Transaction> expectedResult = new ArrayList<>();
@@ -1340,16 +1341,16 @@ class PersonTest {
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
-        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
         //Arrange - Transaction2//
         LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category2 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, false);
-        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, false);
+        person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
+        Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
 
         //Arrange - ExpectedResult//
         ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1, transaction2));
@@ -1380,8 +1381,8 @@ class PersonTest {
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
-        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
         //Arrange - ExpectedResult//
         ArrayList<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
@@ -1413,8 +1414,8 @@ class PersonTest {
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
-        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
         //Arrange - ExpectedResult//
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
@@ -1449,8 +1450,8 @@ class PersonTest {
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, false);
-        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, false);
+        person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
+        Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
         //Arrange - ExpectedResult//
         List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
@@ -1486,17 +1487,17 @@ class PersonTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
@@ -1521,17 +1522,17 @@ class PersonTest {
                 LocalDateTime.of(2020, 1, 13, 13, 05),
                 new Category("grocery"), new Account("Revolut", "For trips expenses"),
                 new Account("Friends & Company", "Holidays"),
-                true);
+                new Type(true));
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 13, 23, 59);
@@ -1557,17 +1558,17 @@ class PersonTest {
                 LocalDateTime.of(2020, 1, 1, 13, 05),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
         LocalDateTime initialDate = LocalDateTime.of(2019, 12, 31, 00, 00);
@@ -1592,17 +1593,17 @@ class PersonTest {
                 LocalDateTime.of(2020, 1, 1, 13, 5),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -1629,17 +1630,17 @@ class PersonTest {
                 LocalDateTime.of(2020, 1, 1, 13, 5),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = null;
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -1687,17 +1688,17 @@ class PersonTest {
                 LocalDateTime.of(2020, 1, 1, 13, 5),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account("Millenium", "Only for Groceries"),
                 new Account("Continente", "Food Expenses"),
-                false);
+                new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
                 new Account("BP", "Gas"),
-                false);
+                new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 0, 0);
         LocalDateTime finalDate = LocalDateTime.of(2019, 9, 20, 0, 0);
@@ -1725,10 +1726,10 @@ class PersonTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         //Act
-        boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, type);
+        boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
@@ -1752,10 +1753,10 @@ class PersonTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         //Act
-        boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, type);
+        boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
@@ -1778,10 +1779,10 @@ class PersonTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         //Act
-        boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, type);
+        boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
@@ -1805,10 +1806,10 @@ class PersonTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         //Act
-        boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, type);
+        boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
@@ -1831,11 +1832,11 @@ class PersonTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         try {
             //Act
-            person.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, type);
+            person.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, new Type(false));
 
             Thread.sleep(1600);
         }
@@ -1862,15 +1863,15 @@ class PersonTest {
         person.createAccount("transporte", "transporte Metro");
         person.createCategoryAndAddToCategoryList("grocery");
         Category category = new Category("grocery");
-        boolean type = true;
+
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
 
         //Act
         int sizeBefore = ledger.getLedgerSize();
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, type);
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
+        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
         int sizeAfter = ledger.getLedgerSize();
 
         //Assert
@@ -1992,19 +1993,17 @@ class PersonTest {
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
 
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         List<Transaction> listOfTransactions = person.getOneAccountTransactionsFromUser(account5, date1, date2);
@@ -2036,19 +2035,17 @@ class PersonTest {
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
 
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         List<Transaction> listOfTransactions = person.getOneAccountTransactionsFromUser(account5, date1, date2);
@@ -2079,19 +2076,17 @@ class PersonTest {
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
 
-        //Type:
-        boolean type1 = true;
-        boolean type2 = false;
 
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+
+        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, type1);
-        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, type1);
-        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, type2);
+        person.createTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        person.createTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        person.createTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
         try {

@@ -1,5 +1,6 @@
 package switch2019.project.model.group;
 
+import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.Description;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
@@ -311,7 +312,7 @@ public class Group {
      * @return true if transaction was created and added to Ledger
      */
 
-    public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public boolean createGroupTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
         Transaction newGroupTransaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         this.ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
 
@@ -413,7 +414,7 @@ public class Group {
      */
 
     public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+                                          Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
     }

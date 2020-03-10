@@ -71,7 +71,7 @@ public class Ledger {
      * @return
      */
 
-    public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         boolean transactionAdded = ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();

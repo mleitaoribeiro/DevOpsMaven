@@ -4,6 +4,7 @@ package switch2019.project.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.group.Group;
+import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
@@ -367,8 +368,7 @@ class GroupsRepositoryTest {
         Category categoryFriends = new Category("friends");
         person.createCategoryAndAddToCategoryList("friends");
 
-        //Type:
-        boolean typeDebit = false; // debit
+
 
         //Monetary Value:
         MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
@@ -393,7 +393,7 @@ class GroupsRepositoryTest {
         //Act
         boolean result = groupsRepository.createTransactionOnSpecificGroup(person, "spice girls",
                 monetaryValue100, "payment", LocalDateTime.of(2019, 12, 25, 12, 15),
-                categoryFriends, accountCombustivel, accountGato, typeDebit);
+                categoryFriends, accountCombustivel, accountGato, new Type(false));
 
         // Arrange ___________________________________________________________________________________________________
         assertTrue(result);
@@ -414,14 +414,14 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", person);
         try {
             //Act
             groupsRepository.createTransactionOnSpecificGroup(person, "Tarzan", amount, description,
-                    LocalDateTime.of(1995,12,4,00,00), category, from, to, false);
+                    LocalDateTime.of(1995,12,4,00,00), category, from, to, new Type(false));
 
         }
         //Assert
@@ -448,14 +448,14 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", person);
         try {
             //Act
             groupsRepository.createTransactionOnSpecificGroup(person1, "Tarzan", amount, description,
-                    LocalDateTime.of(1995,12,4,00,00), category, from, to, false);
+                    LocalDateTime.of(1995,12,4,00,00), category, from, to, new Type(false));
 
         }
         //Assert
@@ -484,7 +484,7 @@ class GroupsRepositoryTest {
         try {
             //Act:
             groupsRepository.createTransactionOnSpecificGroup(notMember, "TestGroup", amount, "test transaction",
-                    LocalDateTime.of(1995, 12, 4, 00, 00), category1, from, to, false);
+                    LocalDateTime.of(1995, 12, 4, 00, 00), category1, from, to, new Type(false));
 
         }
         //Assert:
@@ -513,14 +513,14 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "daily",
-                amount, description, null, category, from, to, type);
+                amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
@@ -544,14 +544,14 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "working days",
-                amount, description, null, category, from, to, type);
+                amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
@@ -574,14 +574,14 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "weekly",
-                amount, description, null, category, from, to, type);
+                amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
@@ -605,14 +605,14 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
-                amount, description, null, category, from, to, type);
+                amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
@@ -635,7 +635,7 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
@@ -643,7 +643,7 @@ class GroupsRepositoryTest {
         try {
             //Act
             groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
-                    amount, description, null, category, from, to, type);
+                    amount, description, null, category, from, to, new Type(false));
 
         }
         //Assert
@@ -668,7 +668,7 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", person);
@@ -676,7 +676,7 @@ class GroupsRepositoryTest {
         try {
             //Act
             groupsRepository.createScheduleOnSpecificGroup(person, "tarzan", "monthly",
-                    amount, description, null, category, from, to, type);
+                    amount, description, null, category, from, to, new Type(false));
 
         }
         //Assert
@@ -703,7 +703,7 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         personMember.createAccount("Wallet", "General expenses");
         personMember.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", personMember);
@@ -711,7 +711,7 @@ class GroupsRepositoryTest {
         try {
             //Act
             groupsRepository.createScheduleOnSpecificGroup(personNotMember, "JUST4FUN", "monthly",
-                    amount, description, null, category, from, to, type);
+                    amount, description, null, category, from, to, new Type(false));
 
         }
         //Assert
@@ -743,7 +743,7 @@ class GroupsRepositoryTest {
         Account to = new Account("TransportAccount", "Transport expenses");
         personMember.createAccount("Wallet", "General expenses");
         personMember.createAccount("TransportAccount", "Transport expenses");
-        boolean type = false; //debit
+
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", personMember);
@@ -751,7 +751,7 @@ class GroupsRepositoryTest {
         try {
             //Act
             groupsRepository.createTransactionOnSpecificGroup(personNotMember, "JUST4FUN",
-                    amount, description, null, category, from, to, type);
+                    amount, description, null, category, from, to, new Type(false));
 
         }
         //Assert
@@ -814,24 +814,24 @@ class GroupsRepositoryTest {
             //Transactions arranged:
             //Group1 transactions:
         Transaction transaction1 = new Transaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , category1,account1,account2,true);
+                , category1,account1,account2,new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , category2, account1,account2,true);
+                , category2, account1,account2,new Type(true));
             //Group2 transactions:
         Transaction transaction3 = new Transaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
-                ,category1, account3, account4, true);
+                ,category1, account3, account4, new Type(true));
         Transaction transaction4 = new Transaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
-                ,category2,account3,account4,true);
+                ,category2,account3,account4,new Type(true));
 
             //Transactions arranged within the ledgers of the groups:
         group1.createGroupTransaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , category1,account1,account2,true);
+                , category1,account1,account2,new Type(true));
         group1.createGroupTransaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , category2, account1,account2,true);
+                , category2, account1,account2,new Type(true));
         group2.createGroupTransaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
-                ,category1, account3, account4, true);
+                ,category1, account3, account4, new Type(true));
         group2.createGroupTransaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
-                ,category2,account3,account4,true);
+                ,category2,account3,account4,new Type(true));
 
         //ACT:
         // expected:
@@ -895,24 +895,24 @@ class GroupsRepositoryTest {
         //Transactions arranged:
         //Group1 transactions:
         Transaction transaction1 = new Transaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , category1,account1,account2,true);
+                , category1,account1,account2,new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , category2, account1,account2,true);
+                , category2, account1,account2,new Type(true));
         //Group2 transactions:
         Transaction transaction3 = new Transaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
-                ,category1, account3, account4, true);
+                ,category1, account3, account4, new Type(true));
         Transaction transaction4 = new Transaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
-                ,category2,account3,account4,true);
+                ,category2,account3,account4,new Type(true));
 
         //Transactions arranged within the ledgers of the groups:
         group1.createGroupTransaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , category1,account1,account2,true);
+                , category1,account1,account2,new Type(true));
         group1.createGroupTransaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , category2, account1,account2,true);
+                , category2, account1,account2,new Type(true));
         group2.createGroupTransaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
-                ,category1, account3, account4, true);
+                ,category1, account3, account4, new Type(true));
         group2.createGroupTransaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
-                ,category2,account3,account4,true);
+                ,category2,account3,account4,new Type(true));
 
         //ACT:
         //expected:
@@ -977,24 +977,24 @@ class GroupsRepositoryTest {
         //Transactions arranged:
         //Group1 transactions:
         Transaction transaction1 = new Transaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , category1,account1,account2,true);
+                , category1,account1,account2,new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , category2, account1,account2,true);
+                , category2, account1,account2,new Type(true));
         //Group2 transactions:
         Transaction transaction3 = new Transaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
-                ,category1, account3, account4, true);
+                ,category1, account3, account4, new Type(true));
         Transaction transaction4 = new Transaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
-                ,category2,account3,account4,true);
+                ,category2,account3,account4,new Type(true));
 
         //Transactions arranged within the ledgers of the groups:
         group1.createGroupTransaction(monetaryValue1,"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , category1,account1,account2,true);
+                , category1,account1,account2,new Type(true));
         group1.createGroupTransaction(monetaryValue2,"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , category2, account1,account2,true);
+                , category2, account1,account2,new Type(true));
         group2.createGroupTransaction(monetaryValue3,"grocery",LocalDateTime.of(2019, 1, 2, 12, 15)
-                ,category1, account3, account4, true);
+                ,category1, account3, account4, new Type(true));
         group2.createGroupTransaction(monetaryValue4,"restaurant with friends",LocalDateTime.of(2018, 5, 3, 12, 15)
-                ,category2,account3,account4,true);
+                ,category2,account3,account4,new Type(true));
 
         //ACT:
         // expected:
@@ -1030,9 +1030,9 @@ class GroupsRepositoryTest {
 
             //Arranging transactions inside group1's Ledger:
         group1.createGroupTransaction(new MonetaryValue(200,Currency.getInstance("EUR")),"grocery",LocalDateTime.of(2018, 1, 2, 12, 15)
-                , shoppingForFood,savingsAccount,pingDoceAccount,true);
+                , shoppingForFood,savingsAccount,pingDoceAccount,new Type(true));
         group1.createGroupTransaction(new MonetaryValue(220,Currency.getInstance("EUR")),"restaurant with family",LocalDateTime.of(2010, 1, 2, 17, 30)
-                , shoppingForFood, savingsAccount,pingDoceAccount,true);
+                , shoppingForFood, savingsAccount,pingDoceAccount,new Type(true));
 
         //Act:
         int result = groupsRepository.checkAGroupsLedgerSize("test group main");

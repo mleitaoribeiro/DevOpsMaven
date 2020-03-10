@@ -27,7 +27,7 @@ public class ScheduledTasksList {
      */
 
     public boolean addNewSchedule(Person person, String periodicity, MonetaryValue amount, String descripiton, LocalDateTime date,
-                                  Category category, Account accountFrom, Account accountTo, boolean type) {
+                                  Category category, Account accountFrom, Account accountTo, Type type) {
 
         Schedule newSchedule = new Schedule(person, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
         scheduledTransactions.add(newSchedule);
@@ -35,7 +35,7 @@ public class ScheduledTasksList {
     }
 
     public boolean addNewSchedule(Group group, String periodicity, MonetaryValue amount, String descripiton, LocalDateTime date,
-                                  Category category, Account accountFrom, Account accountTo, boolean type) {
+                                  Category category, Account accountFrom, Account accountTo, Type type) {
 
         Schedule newSchedule = new Schedule(group, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
         scheduledTransactions.add(newSchedule);

@@ -32,7 +32,7 @@ class ScheduleTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
         String periodicity = "daily";
-        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, true );
+        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, new Type(true) );
 
         //Act
         int x = oneSchedule.convertKeyWordIntoMilliseconds("daily");
@@ -51,7 +51,7 @@ class ScheduleTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
         String periodicity = "daily";
-        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, true );
+        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, new Type(true) );
 
         //Act
         int x = oneSchedule.convertKeyWordIntoMilliseconds("weekly");
@@ -70,7 +70,7 @@ class ScheduleTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
         String periodicity = "daily";
-        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, true );
+        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, new Type(true) );
 
         //Act
         int x = oneSchedule.convertKeyWordIntoMilliseconds("working days");
@@ -89,7 +89,7 @@ class ScheduleTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 2);
         String periodicity = "daily";
-        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, true );
+        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, new Type(true) );
 
         //Act
         int x = oneSchedule.convertKeyWordIntoMilliseconds("monthly");
@@ -108,7 +108,7 @@ class ScheduleTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
         String periodicity = "daily";
-        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, true );
+        Schedule oneSchedule = new Schedule(person1, periodicity, monetaryValue, "agendamento", date, category, account1, account2, new Type(true) );
 
         //Act
         try {
