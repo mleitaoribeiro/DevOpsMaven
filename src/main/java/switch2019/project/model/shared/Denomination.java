@@ -1,6 +1,7 @@
 package switch2019.project.model.shared;
 
 import java.text.Normalizer;
+import java.util.Objects;
 
 public class Denomination {
 
@@ -9,33 +10,41 @@ public class Denomination {
 
     //Denomination constructor
     public Denomination(String denomination) {
-        setDenomination(denomination);
+        validateDenomination(denomination);
     }
 
-    /**
-     * Override toString
-     * @return
-     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Denomination)) return false;
+        Denomination denomination = (Denomination) o;
+        return this.denomination.equals(denomination.denomination);
+    }
 
-    public String ToString() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(denomination);
+    }
+
+    @Override
+    public String toString() {
         return denomination;
     }
 
     /**
-     * Public set for denomination: Can't not be null.
+     * Public set for denomination: Can't not be null or empty
      *
      * @param newDenomination
      */
 
-    private void setDenomination(String newDenomination) {
+    private void validateDenomination(String newDenomination) {
 
-        if (newDenomination == null || newDenomination.length() == 0) {
+        if (newDenomination == null || newDenomination.isEmpty()){
             throw new IllegalArgumentException("The denomination can´t be null or empty!");
 
         } else {
-            newDenomination = removeWordAccents(newDenomination);
-            newDenomination = removeSpecialCharacters(newDenomination);
-            this.denomination = newDenomination.toUpperCase();
+            newDenomination = removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
+            this.denomination = newDenomination;
         }
     }
 
