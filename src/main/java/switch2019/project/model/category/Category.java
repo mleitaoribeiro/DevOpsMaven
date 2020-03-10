@@ -14,10 +14,18 @@ public class Category {
      *
      * @param category
      */
-    public Category(Denomination category) {
-        nameOfCategory = category;
+    public Category(String category) {
+        setNameOfCategory(category);
     }
-    
+
+    public void setNameOfCategory(String nameOfCategory) {
+        this.nameOfCategory = new Denomination(nameOfCategory);
+    }
+
+    //public String getNameOfCategory() {
+    //    return nameOfCategory.;
+    //}
+
     /**
      * Develop @override of equals for Category and @override of hashcode
      *
