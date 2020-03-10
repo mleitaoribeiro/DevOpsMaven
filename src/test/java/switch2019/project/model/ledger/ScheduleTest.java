@@ -1,6 +1,7 @@
 package switch2019.project.model.ledger;
 
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
@@ -23,7 +24,7 @@ class ScheduleTest {
     void convertKeyWordIntoMillisecondsDaily() {
 
         //Arrange
-        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person(new PersonName("Alex"), LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
@@ -42,7 +43,7 @@ class ScheduleTest {
     @Test
     void convertKeyWordIntoMillisecondsWeekly() {
         //Arrange
-        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person(new PersonName("Alex"), LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
@@ -61,7 +62,7 @@ class ScheduleTest {
     @Test
     void convertKeyWordIntoMillisecondsWorkingDays() {
         //Arrange
-        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person(new PersonName("Alex"), LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
@@ -80,7 +81,7 @@ class ScheduleTest {
     @Test
     void convertKeyWordIntoMillisecondsMonthly() {
         //Arrange
-        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person(new PersonName("Alex"), LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");
@@ -99,7 +100,7 @@ class ScheduleTest {
     @Test
     void convertKeyWordIntoMillisecondsNoMatch() {
         //Arrange
-        Person person1 = new Person("Alex", LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+        Person person1 = new Person(new PersonName("Alex"), LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
         Account account1 = new Account("mercearia", "mercearia Continente");
         Account account2 = new Account("transporte", "transporte Metro");
         Category category = new Category("grocery");

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.PersonName;
 
 import java.time.LocalDate;
 
@@ -94,7 +95,7 @@ class AccountTest {
     public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
         Account oneAccount = new Account("xpto", "xpto account");
-        Person onePerson = new Person("Alexandre", LocalDate.of(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
+        Person onePerson = new Person(new PersonName("Alexandre"), LocalDate.of(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
 
         //Act
         boolean result = oneAccount.equals(onePerson);

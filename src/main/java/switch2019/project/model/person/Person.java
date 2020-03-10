@@ -15,7 +15,7 @@ import java.util.*;
 
 public class Person {
     // Private Person variables
-    private String name;
+    private PersonName name;
     private LocalDate birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
     private Person mother;
@@ -36,7 +36,7 @@ public class Person {
      * @param homeAddress
      */
 
-    public Person(String name, LocalDate birthDate, Address birthPlace, Address homeAddress) {
+    public Person(PersonName name, LocalDate birthDate, Address birthPlace, Address homeAddress) {
         this.name = name;
         this.birthPlace = birthPlace;
         setBirthDate(birthDate);
@@ -59,7 +59,7 @@ public class Person {
      * @param father
      */
 
-    public Person(String name, LocalDate birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
+    public Person(PersonName name, LocalDate birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
         this.name = name;
         setBirthDate(birthDate);
         this.birthPlace = birthPlace;
@@ -99,7 +99,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person: " + name + ", currently lives in " + address.homeAddressToString() +
+        return "Person: " + name.getPersonName() + ", currently lives in " + address.homeAddressToString() +
                 ", was born in " + birthPlace.birthplaceToString() +
                 ", on " + birthDate +
                 ".";
@@ -136,7 +136,7 @@ public class Person {
      * @param newName
      */
 
-    public void setName(String newName) {
+    public void setName(PersonName newName) {
         this.name = newName;
     }
 
@@ -146,7 +146,7 @@ public class Person {
      * @return Person's name
      */
 
-    public String getName() {
+    public PersonName getName() {
         return this.name;
     }
 

@@ -2,6 +2,7 @@ package switch2019.project.model.ledger;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
@@ -303,7 +304,7 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, false);
-        Person person1 = new Person("António", LocalDate.of(1995, 12, 4), new Address("Porto"), new Address("Rua 2", "Porto", "4620-580"));
+        Person person1 = new Person(new PersonName("António"), LocalDate.of(1995, 12, 4), new Address("Porto"), new Address("Rua 2", "Porto", "4620-580"));
 
 
         //Act
