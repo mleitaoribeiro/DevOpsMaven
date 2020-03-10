@@ -200,8 +200,8 @@ class AccountTest {
             fail();
         }
         //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("The denomination can´t be null or empty!", description.getMessage());
+        catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
         }
     }
 

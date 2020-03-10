@@ -1,11 +1,13 @@
 package switch2019.project.model.category;
 
+import switch2019.project.model.shared.Denomination;
+
 import java.text.Normalizer;
 import java.util.Objects;
 
 public class Category {
     //Private instance variables
-    private String nameOfCategory;
+    private Denomination nameOfCategory;
 
     /**
      * Category constructor
@@ -16,53 +18,15 @@ public class Category {
         setNameOfCategory(category);
     }
 
-    /**
-     * toString method for Category
-     */
-    @Override
-    public String toString() {
-        return nameOfCategory;
+    public void setNameOfCategory(String nameOfCategory) {
+        if (nameOfCategory != null) {
+            this.nameOfCategory = new Denomination(nameOfCategory);
+        } else throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
     }
-
-    /**
-     * setter for Category Name -> with input validation
-     *
-     * @param newCategory
-     */
-
-    public void setNameOfCategory(String newCategory) {
-        if (newCategory == null) {
-            throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
-        } else {
-            newCategory = removeAccents(newCategory);
-            nameOfCategory = newCategory.toUpperCase();
-        }
-    }
-
-
-    /**
-     * Develop method to remove accents from categories
-     *
-     * @param text
-     * @return text without accents
-     */
-    private String removeAccents(String text) {
-        text = Normalizer.normalize(text, Normalizer.Form.NFD);
-        text = text.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-
-        return text;
-    }
-
-    /**
-     * Get Category name
-     *
-     * @return category Clone
-     */
 
     public String getNameOfCategory() {
-        return this.nameOfCategory;
+        return nameOfCategory.toString();
     }
-
 
     /**
      * Develop @override of equals for Category and @override of hashcode

@@ -18,12 +18,15 @@ public class Description {
      * @param description
      */
     private void setDescription(String description) {
-        if (description != null || description.length()>0){
-            this.description = description.toUpperCase();
+        if (description == null || description.length()==0){
+            throw new IllegalArgumentException("The description can't be null or empty. ");
         }
         else{
-            throw new IllegalArgumentException("The description can't be null or empty. ");
+            this.description = description.toUpperCase();
         }
     }
 
+    public String getDescription() {
+        return description;
+    }
 }
