@@ -1,6 +1,8 @@
 package switch2019.project.model.person;
 
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.shared.Denomination;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonNameTest {
@@ -12,10 +14,24 @@ class PersonNameTest {
         String expected = "Marta Gomes de Lemos Pinheiro";
 
         //Act:
-        String result = personName.getFullPersonName();
+        String result = personName.getPersonName();
 
         //Assert:
         assertEquals(expected, result);
+    }
+
+    @Test
+    void getPersonNameNullCase() {
+
+        //Arrange & Act
+        try {
+            new PersonName(null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("The name can't be null.", getTransactionsInDateRange.getMessage());
+        }
     }
 
     @Test
@@ -25,7 +41,7 @@ class PersonNameTest {
         String expected = "Marta Gomes de Lemos Pinheiro";
 
         //Act:
-        String result = personName.getFullPersonName();
+        String result = personName.getPersonName();
 
         //Assert:
         assertEquals(expected, result);
@@ -38,7 +54,7 @@ class PersonNameTest {
         String expected = "Marta Gomes Lemos Pinheiro";
 
         //Act:
-        String result = personName.getFullPersonName();
+        String result = personName.getPersonName();
 
         //Assert:
         assertEquals(expected, result);
@@ -51,7 +67,7 @@ class PersonNameTest {
         String expected = "Marta da de do Gomes das dos Lemos Pinheiro";
 
         //Act:
-        String result = personName.getFullPersonName();
+        String result = personName.getPersonName();
 
         //Assert:
         assertEquals(expected, result);
@@ -94,5 +110,26 @@ class PersonNameTest {
 
         //Assert:
         assertTrue(result);
+    }
+
+    @Test
+    void personNameEqualsDifferentObject() {
+        //Arrange:
+        PersonName personName = new PersonName("Marta Pinheiro");
+        Denomination denomination = new Denomination("Just Testing");
+        //Act:
+        boolean result = personName.equals(denomination);
+        //Assert:
+        assertFalse(result);
+    }
+    @Test
+    void personNameEqualsNullObject() {
+        //Arrange:
+        PersonName personName = new PersonName("Marta Pinheiro");
+        PersonName personName2 = null;
+        //Act:
+        boolean result = personName.equals(personName2);
+        //Assert:
+        assertFalse(result);
     }
 }

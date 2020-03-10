@@ -26,7 +26,7 @@ public class PersonName {
      * @return personName
      */
 
-    public String getFullPersonName() {
+    public String getPersonName() {
         return personName;
     }
 
@@ -46,9 +46,13 @@ public class PersonName {
      */
 
     private String setPersonName(String personName) {
-        personName = removeAllExtraSpaces(personName);
-        personName = capitalizeEachWord(personName);
-        return exceptionalCases(personName);
+        if(personName == null)
+            throw new IllegalArgumentException("The name can't be null.");
+        else {
+            personName = removeAllExtraSpaces(personName);
+            personName = capitalizeEachWord(personName);
+            return exceptionalCases(personName);
+        }
     }
 
     /**
