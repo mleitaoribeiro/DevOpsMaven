@@ -3542,6 +3542,19 @@ class GroupTest {
             assertEquals("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.", result.getMessage());
         }
     }
+
+    @Test
+    void getGroupDescription() {
+
+        Group group = new Group("tarzan");
+        String expected = "TARZAN";
+
+        //Act
+        String result = group.getDescription();
+
+        //Assert
+        assertEquals(expected, result);
+    }
 }
 
 

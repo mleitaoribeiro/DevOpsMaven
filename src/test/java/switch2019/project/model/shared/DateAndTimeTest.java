@@ -82,4 +82,17 @@ class DateAndTimeTest {
         }
     }
 
+    @Test
+    @DisplayName("Test for validating date and time input => invalid hour")
+    public void validateDateWhenHourIsInvalid() {
+        //Arrange and Act
+        try {
+            new DateAndTime(2025, 10, 03, -23, -05);
+        }
+        //Assert
+        catch (DateTimeException description) {
+            assertEquals("Invalid value for HourOfDay (valid values 0 - 23): -23", description.getMessage());
+        }
+    }
+
 }
