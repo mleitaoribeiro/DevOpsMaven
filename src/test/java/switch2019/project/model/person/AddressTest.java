@@ -2,9 +2,6 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.person.Address;
-import switch2019.project.model.person.Person;
-import switch2019.project.model.person.PersonName;
 
 import java.time.LocalDate;
 
