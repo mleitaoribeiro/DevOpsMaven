@@ -29,7 +29,7 @@ class PersonTest {
         //Arrange:
         Person person1 = new Person(new PersonName("Alex"), LocalDate.of(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        String expected = "Person: Alex, currently lives in RUA X, PORTO, 4520-266, was born in Lisboa, on 1995-12-04.";
+        String expected = "Person: Alex, currently lives in RUA X, PORTO, 4520-266, was born in LISBOA, on 1995-12-04.";
 
         //Act:
         String result = person1.toString();

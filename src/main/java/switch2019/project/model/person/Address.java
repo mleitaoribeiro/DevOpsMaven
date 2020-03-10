@@ -5,72 +5,82 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Address {
+
     // The private Address variables
     private String street;
     private String city;
-    private String zipCode;
+    private String postalCode;
     private String birthPlace;
 
-    /**
-     * Address constructor
-     *
-     * @param birthPlace
-     */
-
+    //BirthDate Constructor
     public Address(String birthPlace) {
-        this.birthPlace = birthPlace;
+        validateBirthPlace(birthPlace);
     }
 
     /**
-     * Address constructor
+     * Address constructor for home Address
      *
      * @param street
      * @param city
-     * @param zipCode
+     * @param postalCode
      */
 
-    public Address(String street, String city, String zipCode) {
-        setStreet(street);
-        setCity(city);
-        setZipCode(zipCode);
+    public Address(String street, String city, String postalCode) {
+        validateStreet(street);
+        validateCity(city);
+        validatePostalCode(postalCode);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(street, address.street) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(postalCode, address.postalCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, city, postalCode);
+    }
+
+    @Override
+    public String toString() {
+        return this.street + ", " + this.city + ", " + this.postalCode;
     }
 
     /**
-     * Public get for City
+     * Return birthPlace as a String
      *
-     * @return city
+     * @return String
      */
 
-    public String getCity() {
-        return this.city;
+    public String getBirthPlace() {
+        return this.birthPlace;
     }
 
     /**
-     * Auxiliar method to check if String is numeric
-     *
-     * @param city
-     * @return
+     * Private Set for BirthPlace: Validade if birth place is not a number, null or it's missing
+     * @param birthPlace
      */
-
-    public static boolean isNumeric(String city) {
-        if (city != null) {
-            for (char c : city.toCharArray()) {
-                if (!Character.isDigit(c))
-                    return false;
-            }
-            return true;
+    private void validateBirthPlace(String birthPlace) {
+        if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
+            throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
+        } else {
+            this.birthPlace= birthPlace.toUpperCase();
         }
-        return false;
     }
 
     /**
-     * Public set for City: Validate if City Name is not a number.
+     * Private set for City: Validate if City Name is not a number, null or it's missing
      *
      * @param city
      */
 
-    public void setCity(String city) {
-        if (isNumeric(city) || city == null) {
+    private void validateCity(String city) {
+        if (isNumeric(city) || city == null || city.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
             this.city = city.toUpperCase();
@@ -78,53 +88,28 @@ public class Address {
     }
 
     /**
-     * Public get for Street
-     *
-     * @return street
+     * Private set for Street: Validate if Street is not a number, null or it's missing
+     * @param street
      */
 
-    public String getStreet() {
-        return street;
-    }
 
-    /**
-     * Public set for Street : no validation
-     *
-     * @return street
-     */
-
-    public void setStreet(String street) {
-        if (isNumeric(street) || street == null) {
+    public void validateStreet(String street) {
+        if (street == null || street.isEmpty()) {
             throw new IllegalArgumentException("The street format in your Address is not valid or it's missing. Please try again");
         } else this.street = street.toUpperCase();
     }
 
-    /**
-     * Public get for Zip-Code: with input validation
-     *
-     * @return zipCode
-     */
 
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    /**
-     * Public set for Zip-Code: with input validation
-     *
-     * @param zip
-     */
-
-    public void setZipCode(String zip) {
-        if (zip == null)
+    private void validatePostalCode(String postalCode) {
+        if (postalCode == null || postalCode.isEmpty())
             throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
-            if (zip.length() == 7) {
-                zip = addHyphenToZipCode(zip);
+            if (postalCode.length() == 7) {
+                postalCode = addHyphenToZipCode(postalCode);
             }
             //Validates if the zip code is in the correct format (4620-580) - PT Format
-            if (validateIfZipCodeIsInCorrectFormate(zip)) {
-                this.zipCode = zip;
+            if (validateIfZipCodeIsInCorrectFormat(postalCode)) {
+                this.postalCode = postalCode;
             } else {
                 throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
             }
@@ -132,16 +117,16 @@ public class Address {
     }
 
     /**
-     * Auxiliary method to Validate if the zip code is in the correct format (4620-580) - Validation for PT users
+     * Auxiliary method to Validate if the postal code is in the correct format (4620-580) - Validation for PT users
      *
-     * @param zip
+     * @param postalCode
      * @return
      */
 
-    private boolean validateIfZipCodeIsInCorrectFormate(String zip) {
+    private boolean validateIfZipCodeIsInCorrectFormat(String postalCode) {
         String regex = "^[0-9]{4}-[0-9]{3}$";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(zip);
+        Matcher matcher = pattern.matcher(postalCode);
         return matcher.matches();
     }
 
@@ -157,51 +142,19 @@ public class Address {
     }
 
     /**
-     * Override method equals
-     *
-     * @param o
-     * @return boolean
-     */
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
-        return Objects.equals(street, address.street) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(zipCode, address.zipCode);
-    }
-
-    /**
-     * Override method hashcode
-     *
+     * Validate if City is not Numeric
+     * @param city
      * @return
      */
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(street, city, zipCode);
-    }
-
-    /**
-     * Return homeAdress as a String
-     *
-     * @return String
-     */
-
-    public String homeAddressToString() {
-        return street + ", " + city + ", " + zipCode;
-    }
-
-    /**
-     * Return birthPlace as a String
-     *
-     * @return String
-     */
-
-    public String birthplaceToString() {
-        return birthPlace;
+    private static boolean isNumeric(String city) {
+        if (city != null) {
+            for (char c : city.toCharArray()) {
+                if (!Character.isDigit(c))
+                    return false;
+            }
+            return true;
+        }
+        return false;
     }
 }
-

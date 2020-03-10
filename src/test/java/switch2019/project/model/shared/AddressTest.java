@@ -9,7 +9,7 @@ import switch2019.project.model.person.PersonName;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static switch2019.project.model.person.Address.isNumeric;
+
 
 class AddressTest {
 
@@ -18,217 +18,155 @@ class AddressTest {
      */
 
     @Test
-    @DisplayName("validate input for street - happy case")
-    void setStreetHappyCase() {
+    @DisplayName("Validate Home Address - Happy Case")
+    void validateHomeAddress() {
         //Arrange
-        Address house = new Address("Rua das Flores", "Porto", "4450-632");
+        Address homeAddress = new Address("Rua das Flores", "Porto", "4450-632");
+        String expectedHomeAddress = "RUA DAS FLORES, PORTO, 4450-632";
 
         //Act
-        house.setStreet("Rua das Flores");
-        String actual = house.getStreet();
+        String realHomeAddress = homeAddress.toString();
 
         //Assert
-        assertEquals("RUA DAS FLORES", actual);
+        assertEquals(expectedHomeAddress, realHomeAddress);
 
     }
 
+
     @Test
-    @DisplayName("validate input for street - null")
-    void setStreetHull() {
-        //Arrange
-        Address house = new Address("Rua 1", "Porto", "4450-362");
-        String street = null;
-        try {
-            //Act
-            house.setStreet(street);
+    @DisplayName("Validate home Address - null Street Case")
+    void validateHomeAddressNullStreet() {
+        try { //Act and Arrange
+            Address homeAddress = new Address(null, "Porto", "4450-362");
             fail();
         }
         //Assert
-        catch (IllegalArgumentException zipcode) {
-            assertEquals("The street format in your Address is not valid or it's missing. Please try again", zipcode.getMessage());
+        catch (IllegalArgumentException street) {
+            assertEquals("The street format in your Address is not valid or it's missing. Please try again", street.getMessage());
         }
     }
-
     @Test
-    @DisplayName("validate input for street - numeric")
-    void setStreetNumeric() {
-        //Arrange
-        Address house = new Address("Rua 1", "Porto", "4450-362");
-        String street = "162723";
+    @DisplayName("Validate home Address - empty Street Case")
+    void validateHomeAddressEmptyStreet() {
         try {
-            //Act
-            house.setStreet(street);
+            //Act and Arrange
+            Address homeAddress = new Address("", "Porto", "4450-362");
             fail();
         }
         //Assert
-        catch (IllegalArgumentException zipcode) {
-            assertEquals("The street format in your Address is not valid or it's missing. Please try again", zipcode.getMessage());
+        catch (IllegalArgumentException street) {
+            assertEquals("The street format in your Address is not valid or it's missing. Please try again", street.getMessage());
         }
     }
 
     @Test
-    @DisplayName("validate input for street - not sensitive Case")
-    void setStreetSensitiveCase() {
+    @DisplayName("Validate Home Address - Street Case Insensitive")
+    void validateHomeAddressStreetCaseInsensitive() {
         //Arrange
-        Address house = new Address("RUA DAS FLORES", "Porto", "4450-852");
+        Address homeAddress = new Address("rua de miragaia", "Porto", "4450-632");
+        String expectedHomeAdress ="RUA DE MIRAGAIA, PORTO, 4450-632";
 
         //Act
-        house.setStreet("Rua das Flores");
-        String actual = house.getStreet();
+        String realHomeAddress = homeAddress.toString();
 
         //Assert
-        assertEquals("RUA DAS FLORES", actual);
+        assertEquals(expectedHomeAdress, realHomeAddress);
 
+    }
+    @Test
+    @DisplayName("Validate home Address - City Numeric Case")
+    void validateHomeAddressWithNumeric() {
+        try {
+            //Arrange And Act
+            Address homeAddress = new Address("Rua dos Passarinhos", "124", "4450-362");
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException street) {
+            assertEquals("The city in your Address is not valid or it's missing. Please try again.", street.getMessage());
+        }
     }
 
     @Test
-    @DisplayName("validate input for street - ChangeStreet")
-    void setStreetChangeStreet() {
-        //Arrange
-        Address house = new Address("Rua das Flores", "Porto", "4450-562");
-
-        //Act
-        house.setStreet("Rua das Camelias");
-        String actual = house.getStreet();
-
+    @DisplayName("Validate Home Address - City null")
+    void validateHomeAddressCityNull() {
+        try {
+            //Arrange And Act
+            Address homeAddress = new Address("Rua dos Passarinhos", null, "4450-362");
+            fail();
+        }
         //Assert
-        assertEquals("RUA DAS CAMELIAS", actual);
+        catch (IllegalArgumentException city) {
+            assertEquals("The city in your Address is not valid or it's missing. Please try again.", city.getMessage());
+        }
     }
 
+    @Test
+    @DisplayName("Validate Home Address - City null")
+    void validateHomeAddressCityEmpty() {
+        try {
+            //Arrange And Act
+            Address homeAddress = new Address("Rua dos Passarinhos", "", "4450-362");
+            fail();
+        }
+        //Assert
+        catch (IllegalArgumentException city) {
+            assertEquals("The city in your Address is not valid or it's missing. Please try again.", city.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Validate Home Address - City case insensitive")
+    void validateHomeAddresCityCaseInsensitive() {
+        //Arrange
+        Address homeAddress = new Address("Avenida da República", "porto", "4430-444");
+        String expected = "AVENIDA DA REPÚBLICA, PORTO, 4430-444";
+        //Act
+       String real = homeAddress.toString();
+        //Assert
+        assertEquals(expected, real);
+    }
 
     /**
-     * Test - Validate input for City
+     * Test - Validate input for Postal-Code
      */
 
     @Test
-    @DisplayName("validate input for city - happy case")
-    void setCityHappycase() {
+    @DisplayName("validate input for Postal-Code - with(-) ")
+    public void validateHomeAddressPostalCodeFormatt() {
         //Arrange
-        Address address1 = new Address("Avenida da República", "Gaia", "4430-444");
-        String expected = "PORTO";
-        //Act
-        address1.setCity("Porto");
-        //Assert
-        assertEquals(expected, address1.getCity());
-    }
-
-    @Test
-    @DisplayName("validate input for city - null")
-    void setCityNullInput() {
-        //Arrange
-        Address address1 = new Address("Beco do Paniceiro", "Gaia", "4430-444");
-        String city = null;
-        try {
-            //Act
-            address1.setCity(city);
-            fail();
-        }
-        //Assert
-        catch (IllegalArgumentException zipcode) {
-            assertEquals("The city in your Address is not valid or it's missing. Please try again.", zipcode.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("validate input for city - numeric")
-    void setCityNumericInput() {
-        //Arrange
-        Address address1 = new Address("Beco do Paniceiro", "Gaia", "4430-444");
-        String city = "1234";
-        try {
-            //Act
-            address1.setCity(city);
-            fail();
-        }
-        //Assert
-        catch (IllegalArgumentException zipcode) {
-            assertEquals("The city in your Address is not valid or it's missing. Please try again.", zipcode.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("validate input for city - not case sensitive")
-    void setCityNotCaseSensitive() {
-        //Arrange
-        Address address1 = new Address("Avenida dos Condenados", "Gaia", "4430-444");
-        String expected = "PORTO";
-        //Act
-        address1.setCity("Porto");
-        //Assert
-        assertEquals(expected, address1.getCity());
-    }
-
-
-    /**
-     * Test - Validate input for ZIP-CODE
-     */
-    @Test
-    @DisplayName("validate input for ZIP-CODE - with(-) ")
-    public void setZIPStandard() {
-        //Arrange
-        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
-        String zip = "4430-094";
+        Address homeAddress = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
+        String expectedHomeAddress = "RUA DA VINHA DA BOUÇA, PORTO, 4430-444";
 
         //Act
-        address1.setZipCode("4430-094");
+        String realHomeAddress = homeAddress.toString();
 
         //Assert
-        assertEquals(zip, address1.getZipCode());
+        assertEquals(expectedHomeAddress, realHomeAddress);
     }
 
     @Test
-    @DisplayName("validate input for ZIP-CODE - without (-) ")
-    public void setZIPNotStandard() {
+    @DisplayName("Validate home address - input for ZIP-CODE - without (-) ")
+    public void validateHomeAddressPostalCodeNotStandard() {
         //Arrange
-        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
-        String zip = "4430-094";
+        Address homeAddres = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
+        String expectedHomeAddress = "RUA DA VINHA DA BOUÇA, PORTO, 4430-444";
 
         //Act
-        address1.setZipCode("4430094");
+        String realHomeAddress = homeAddres.toString();
 
         //Assert
-        assertEquals(zip, address1.getZipCode());
+        assertEquals(expectedHomeAddress, realHomeAddress);
     }
 
-    @Test
-    @DisplayName("validate input for ZIP-CODE - validate Length")
-    public void setZipLengthStandard() {
-        //Arrange
-        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
-        String zip = "4430-094";
-
-        //Act
-        address1.setZipCode(zip);
-        int result = zip.length();
-
-        //Assert
-        assertEquals(8, result);
-    }
-
-    @Test
-    @DisplayName("validate input for ZIP-CODE - validate Length with no (-)")
-    public void setZipLength() {
-        //Arrange
-        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
-        String zip = "4430094";
-
-        //Act
-        address1.setZipCode(zip);
-        int result = address1.getZipCode().length();
-
-        //Assert
-        assertEquals(8, result);
-    }
 
     @Test
     @DisplayName("Zip code not valid - test exception - Null")
-    public void setZipNullexception() {
+    public void validateHomeAddressValidateZipNullexception() {
         //Arrange
-        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
-        String zip = null;
         try {
             //Act
-            address1.setZipCode(zip);
+            Address address1 = new Address("Rua da Vinha da Bouça", "Porto", null);
             fail();
         }
         //Assert
@@ -240,12 +178,9 @@ class AddressTest {
     @Test
     @DisplayName("Zip code not valide - test exception")
     public void setZipException() {
-        //Arrange
-        Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "4430-444");
-        String zip = "44300945";
         try {
-            //Act
-            address1.setZipCode(zip);
+            //Arrange And Act
+            Address address1 = new Address("Rua da Vinha da Bouça", "Porto", "44300945");
             fail();
         }
         //Assert
@@ -314,48 +249,7 @@ class AddressTest {
         assertTrue(address1.equals(address2));
     }
 
-    /**
-     * Test to validate if string city is numeric
-     */
 
-    @Test
-    @DisplayName("Test to validate if a string city is numeric - True Case")
-    void isNumericTrue() {
-        //Arrange
-        String city = "PORTO";
-
-        //Act
-        boolean expected = isNumeric (city);
-
-        //Assert
-        assertEquals(false, expected);
-    }
-
-    @Test
-    @DisplayName("Test to validate if a string city is numeric - False Case")
-    void isNumericFalse() {
-        //Arrange
-        String city = "4245";
-
-        //Act
-        boolean expected = isNumeric (city);
-
-        //Assert
-        assertEquals(true, expected);
-    }
-
-    @Test
-    @DisplayName("Test to validate if a string city is numeric - Null Case")
-    void isNumericNullString() {
-        //Arrange
-        String city = null;
-
-        //Act
-        boolean expected = isNumeric (city);
-
-        //Assert
-        assertEquals(false, expected);
-    }
 
     /**
      * Test is to address are the same -  Equals method
@@ -456,24 +350,24 @@ class AddressTest {
 
         //Arrange
         Address birthPlace = new Address("Matosinhos");
-        String expected="Matosinhos";
+        String expected= "MATOSINHOS";
 
         //Act
-        String real=birthPlace.birthplaceToString();
+        String real = birthPlace.getBirthPlace();
 
         //Assert
         assertEquals(expected,real);
     }
 
     @Test
-    @DisplayName("homeAdressToString tested - Success")
+    @DisplayName("to String tested - Success")
     void homeAddressToStringTest() {
 
         //Arrange:
         Address addressOne = new Address("Rua das Flores", "Porto", "4430-098");
 
         //Act:
-        String homeAddressInString = addressOne.homeAddressToString();
+        String homeAddressInString = addressOne.toString();
         String expected = "RUA DAS FLORES, PORTO, 4430-098";
 
         //Assert:
@@ -492,8 +386,8 @@ class AddressTest {
         Address addressOne = new Address("Porto");
 
         //Act:
-        String birthplaceInString = addressOne.birthplaceToString();
-        String expected = "Porto";
+        String birthplaceInString = addressOne.getBirthPlace();
+        String expected = "PORTO";
 
         //Assert:
         assertEquals(expected, birthplaceInString);

@@ -99,10 +99,8 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person: " + name.getPersonName() + ", currently lives in " + address.homeAddressToString() +
-                ", was born in " + birthPlace.birthplaceToString() +
-                ", on " + birthDate +
-                ".";
+        return "Person: " + name.getPersonName() + ", currently lives in " + address.toString() +
+                ", was born in " + birthPlace.getBirthPlace() + ", on " + birthDate + ".";
     }
 
     /**
