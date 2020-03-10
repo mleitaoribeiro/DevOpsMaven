@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Description {
     //Private Description instance variable
-    private String description;
+    private final String description;
 
     /**
      * Constructor
@@ -12,20 +12,21 @@ public class Description {
      */
 
     public Description(String description){
-        setValidDescription(description);
+        this.description = setValidDescription(description);
     }
+
     /**
      * setter Description
      *
      * @param description
      */
 
-    private void setValidDescription(String description) {
+    private String setValidDescription(String description) {
         if (description == null || description.isEmpty()){
             throw new IllegalArgumentException("The description can't be null or empty. ");
         }
         else {
-            this.description = description.toUpperCase();
+            return description.toUpperCase();
         }
     }
 

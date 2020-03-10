@@ -18,7 +18,7 @@ import java.util.*;
 public class Group {
 
     private Description description;
-    private LocalDate startingDate;
+    private final LocalDate startingDate;
     private Set<Person> members;
     private Set<Person> admins;
     private CategoryRepository categoryList;
