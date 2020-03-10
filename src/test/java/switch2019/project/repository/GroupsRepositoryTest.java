@@ -155,21 +155,7 @@ class GroupsRepositoryTest {
         //Assert
         assertTrue(groupAdded);
     }
-
-    @Test
-    @DisplayName("Test if a null group is not added to the list")
-    public void testGroupIsNotInList() {
-        //Arrange
-        Group group1 = new Group(null);
-        GroupsRepository groupList = new GroupsRepository();
-
-        //Act
-        boolean groupAdded = groupList.addGroupToGroupList(group1);
-
-        //Assert
-        assertTrue(groupAdded);
-    }
-
+    
     @Test
     @DisplayName("Test if a null group is not added to the list")
     public void testAddGroupIsNull() {

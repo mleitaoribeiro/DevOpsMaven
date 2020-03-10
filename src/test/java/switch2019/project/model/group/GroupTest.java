@@ -122,31 +122,6 @@ class GroupTest {
         assertFalse(result);
     }
 
-    /**
-     * Compare two groups - same members but one with null description
-     */
-
-    @Test
-    @DisplayName("Compare two groups - same members but one with null description")
-    public void compareGroupsSameMembersButOneWithNullDescription() {
-        //Arrange
-        Person person1 = new Person(new PersonName("John"), LocalDate.of(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
-        Person person2 = new Person(new PersonName("Frank"), LocalDate.of(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group group1 = new Group("Mary's Gift");
-        group1.addMember(person1);
-        group1.addMember(person2);
-        Group group2 = new Group(null);
-        group2.addMember(person1);
-        group2.addMember(person2);
-
-        //Act
-        boolean result = group1.equals(group2);
-
-        //Assert
-        assertFalse(result);
-    }
 
     /**
      * Compare two groups with same members and same description
@@ -1663,23 +1638,6 @@ class GroupTest {
 
         //Assert
         assertFalse(canARegularMemberAddGroupAccount);
-    }
-
-    @Test
-    @DisplayName("Test if method works while the group description is null")
-    void createGroupAccountOnNullGroup() {
-
-        //Arrange:
-        Person person1 = new Person(new PersonName("João"), LocalDate.of(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
-        Group group1 = new Group(null);
-
-        //Act:
-        boolean canAnAccountBeAddedToNullGroup = group1.addMember(person1)
-                && group1.createGroupAccount("Account1", "Test");
-
-        //Assert:
-        assertFalse(canAnAccountBeAddedToNullGroup);
     }
 
     @Test

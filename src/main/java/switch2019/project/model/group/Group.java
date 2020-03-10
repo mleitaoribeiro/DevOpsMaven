@@ -1,5 +1,6 @@
 package switch2019.project.model.group;
 
+import switch2019.project.model.shared.Description;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.model.shared.MonetaryValue;
@@ -16,7 +17,7 @@ import java.util.*;
 
 public class Group {
 
-    private String description;
+    private Description description;
     private LocalDate startingDate;
     private Set<Person> members;
     private Set<Person> admins;
@@ -48,10 +49,9 @@ public class Group {
      * @param description
      */
     public void setDescription(String description) {
-        if (description != null) {
-            this.description = description.toUpperCase();
+            this.description = new Description(description);
         }
-    }
+
 
     /**
      * Override of equals for Group
@@ -397,7 +397,7 @@ public class Group {
      * @return description
      */
     public String getDescription() {
-        return description;
+        return description.getDescription();
     }
 
     /**
