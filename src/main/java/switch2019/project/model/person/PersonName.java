@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PersonName {
+
     /**
      * Private Instance Variable
      */
@@ -24,10 +25,19 @@ public class PersonName {
      * @param personName
      */
 
-    private static String setPersonName(String personName) {
+    private String setPersonName(String personName) {
         personName = removeAllExtraSpaces(personName);
         personName = capitalizeEachWords(personName);
         return exceptionalCases(personName);
+    }
+
+    /**
+     * Get Person Name
+     * @return personName
+     */
+
+    public String getPersonName() {
+        return personName;
     }
 
     /**
@@ -44,7 +54,7 @@ public class PersonName {
      * @param personName
      */
 
-    private static String capitalizeEachWords(String personName) {
+    private String capitalizeEachWords(String personName) {
         personName = personName.toLowerCase();
         personName = personName.substring(0, 1).toUpperCase() + personName.substring(1);
         String[] words = personName.split(" ");
@@ -58,7 +68,7 @@ public class PersonName {
      * @param personName
      */
 
-    private static String exceptionalCases(String personName) {
+    private String exceptionalCases(String personName) {
         ArrayList exceptions = new ArrayList<>(Arrays.asList("De", "Da", "Do", "Das", "Dos"));
         String[] words = personName.split(" ");
         for(int i = 0; i < words.length; i++) {
