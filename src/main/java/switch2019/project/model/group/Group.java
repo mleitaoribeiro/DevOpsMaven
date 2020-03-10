@@ -1,6 +1,7 @@
 package switch2019.project.model.group;
 
 import switch2019.project.model.ledger.Type;
+import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Description;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
@@ -19,7 +20,7 @@ import java.util.*;
 public class Group {
 
     private Description description;
-    private final LocalDate startingDate;
+    private final DateAndTime startingDate;
     private Set<Person> members;
     private Set<Person> admins;
     private CategoryRepository categoryList;
@@ -35,7 +36,7 @@ public class Group {
 
     public Group(String description) {
         setDescription(description);
-        startingDate = LocalDate.now();
+        startingDate = new DateAndTime();
         members = new HashSet<>();
         admins = new HashSet<>();
         groupAccountsList = new AccountRepository();

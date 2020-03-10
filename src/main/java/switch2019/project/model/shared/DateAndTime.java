@@ -37,6 +37,15 @@ public class DateAndTime {
         this.yearMonthDayHourMinute = LocalDateTime.of(year, month, day, hour, minute);
     }
 
+    /**
+     * Public construtor empty
+     *
+     * @return localDateTimeNow
+     */
+    public DateAndTime(){
+        yearMonthDayHourMinute=LocalDateTime.now();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
