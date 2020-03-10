@@ -20,7 +20,7 @@ public class DateAndTime {
      * @param day
      */
     public DateAndTime(int year, int month, int day) {
-        setYearMonthDay(LocalDate.of(year, month, day));
+        this.yearMonthDay = LocalDate.of(year, month, day);
     }
 
     /**
@@ -33,7 +33,7 @@ public class DateAndTime {
      * @param minute
      */
     public DateAndTime(int year, int month, int day, int hour, int minute) {
-        setYearMonthDayHourMinute(LocalDateTime.of(year, month, day, hour, minute));
+        this.yearMonthDayHourMinute = LocalDateTime.of(year, month, day, hour, minute);
     }
 
     /**
@@ -50,28 +50,6 @@ public class DateAndTime {
     public String dateHourMinuteToString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return date.format(formatter);
-    }
-
-    /**
-     * Set yearMonthDay
-     *
-     * @param date
-     */
-    private void setYearMonthDay(LocalDate date) {
-        if(date == null)
-            throw new IllegalArgumentException("The Date Can't be Null.");
-        else this.yearMonthDay = date;
-    }
-
-    /**
-     * Set yearMonthDayHourMinute
-     *
-     * @param date
-     */
-    private void setYearMonthDayHourMinute(LocalDateTime date) {
-        if(date == null)
-            throw new IllegalArgumentException("The Date Can't be Null.");
-        else this.yearMonthDayHourMinute = date;
     }
 
     /**
