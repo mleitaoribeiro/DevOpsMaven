@@ -14,7 +14,7 @@ public class Address {
 
     //BirthDate Constructor
     public Address(String birthPlace) {
-        validateBirthPlace(birthPlace);
+        setValidBirthPlace(birthPlace);
     }
 
     /**
@@ -26,9 +26,9 @@ public class Address {
      */
 
     public Address(String street, String city, String postalCode) {
-        validateStreet(street);
-        validateCity(city);
-        validatePostalCode(postalCode);
+        setValidStreet(street);
+        setValidCity(city);
+        setValidPostalCode(postalCode);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Address {
      * Private Set for BirthPlace: Validade if birth place is not a number, null or it's missing
      * @param birthPlace
      */
-    private void validateBirthPlace(String birthPlace) {
+    private void setValidBirthPlace(String birthPlace) {
         if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
@@ -79,7 +79,7 @@ public class Address {
      * @param city
      */
 
-    private void validateCity(String city) {
+    private void setValidCity(String city) {
         if (isNumeric(city) || city == null || city.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
@@ -93,14 +93,14 @@ public class Address {
      */
 
 
-    public void validateStreet(String street) {
+    public void setValidStreet(String street) {
         if (street == null || street.isEmpty()) {
             throw new IllegalArgumentException("The street format in your Address is not valid or it's missing. Please try again");
         } else this.street = street.toUpperCase();
     }
 
 
-    private void validatePostalCode(String postalCode) {
+    private void setValidPostalCode(String postalCode) {
         if (postalCode == null || postalCode.isEmpty())
             throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
