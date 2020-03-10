@@ -92,7 +92,7 @@ public class Transaction {
     public String toString() {
         return dateToString() + " | " + amount + " " + typeToString() + " | " +
                 accountFrom.denominationToString() + " -> " + accountTo.denominationToString()
-                + " | Description: \"" + description + "\" " + " | " + category;
+                + " | Description: \"" + description + "\" " + " | " + category.getNameOfCategory();
     }
 
     /**
