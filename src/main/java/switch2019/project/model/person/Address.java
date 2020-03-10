@@ -102,7 +102,7 @@ public class Address {
 
     private void setValidPostalCode(String postalCode) {
         if (postalCode == null || postalCode.isEmpty())
-            throw new IllegalArgumentException("Zip-Code can´t be null! (Correct Format: xxxx-xxx)");
+            throw new IllegalArgumentException("Postal Code can´t be null! (Correct Format: xxxx-xxx)");
         else {
             if (postalCode.length() == 7) {
                 postalCode = addHyphenToPostalCode(postalCode);
@@ -111,7 +111,7 @@ public class Address {
             if (postalCodeIsInCorrectFormat(postalCode)) {
                 this.postalCode = postalCode;
             } else {
-                throw new IllegalArgumentException("Zip-Code is not in the correct format! (xxxx-xxx)");
+                throw new IllegalArgumentException("Postal Code is not in the correct format! (xxxx-xxx)");
             }
         }
     }
