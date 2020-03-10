@@ -63,13 +63,14 @@ public class Address {
 
     /**
      * Private Set for BirthPlace: Validade if birth place is not a number, null or it's missing
+     *
      * @param birthPlace
      */
     private void setValidBirthPlace(String birthPlace) {
         if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
-            this.birthPlace= birthPlace.toUpperCase();
+            this.birthPlace = birthPlace.toUpperCase();
         }
     }
 
@@ -80,7 +81,7 @@ public class Address {
      */
 
     private void setValidCity(String city) {
-        if (isNumeric(city) || city == null || city.isEmpty()) {
+        if (city == null || isNumeric(city) || city.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
             this.city = city.toUpperCase();
@@ -89,6 +90,7 @@ public class Address {
 
     /**
      * Private set for Street: Validate if Street is not a number, null or it's missing
+     *
      * @param street
      */
 
@@ -143,18 +145,15 @@ public class Address {
 
     /**
      * Validate if City is not Numeric
+     *
      * @param city
      * @return
      */
 
     private static boolean isNumeric(String city) {
-        if (city != null) {
-            for (char c : city.toCharArray()) {
-                if (!Character.isDigit(c))
-                    return false;
-            }
-            return true;
-        }
-        return false;
+        for (char c : city.toCharArray()) {
+            if (Character.isDigit(c))
+                return true;
+        } return false;
     }
 }
