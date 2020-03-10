@@ -12,23 +12,28 @@ public class DateAndTime {
     private LocalDate yearMonthDay;
     private LocalDateTime yearMonthDayHourMinute;
 
-
     /**
-     * Public constructor to yearMonthDay
+     *Public constructor to yearMonthDay
      *
-     * @param date
+     * @param year
+     * @param month
+     * @param day
      */
-    public DateAndTime(LocalDate date) {
-        setYearMonthDay(date);
+    public DateAndTime(int year, int month, int day) {
+        setYearMonthDay(LocalDate.of(year, month, day));
     }
 
     /**
      * Public constructor to yearMonthDayHourMinute
      *
-     * @param date
+     * @param year
+     * @param month
+     * @param day
+     * @param hour
+     * @param minute
      */
-    public DateAndTime(LocalDateTime date) {
-        setYearMonthDayHourMinute(date);
+    public DateAndTime(int year, int month, int day, int hour, int minute) {
+        setYearMonthDayHourMinute(LocalDateTime.of(year, month, day, hour, minute));
     }
 
     /**
