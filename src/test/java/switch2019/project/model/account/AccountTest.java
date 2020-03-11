@@ -3,15 +3,11 @@ package switch2019.project.model.account;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.crypto.Des;
-import switch2019.project.model.person.Person;
 import switch2019.project.model.person.Address;
-import switch2019.project.model.person.PersonName;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.DateAndTime;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 // Account equals not working properly - Gabriel (Work in Progress)
