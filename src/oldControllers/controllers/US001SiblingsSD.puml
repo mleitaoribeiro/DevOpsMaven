@@ -1,0 +1,44 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+create ":SiblingsController"
+":Test" -> ":SiblingsController" : new Controller
+
+participant "serv:Service"
+participant "personRep:PersonRepository"
+participant "p1:Person"
+
+== Act ==
+
+":Test" -> ":SiblingsController" : validateIfTwoPeopleAreSiblings\n(serv, attributesP1, attributesP2)
+activate ":SiblingsController"  #FFBBBB
+
+":SiblingsController" -> "serv:Service" : validateIfTwoPeopleAreSiblings\n(attributesP1, attributesP2)
+activate "serv:Service"  #FFBBBB
+
+"serv:Service" -> "personRep:PersonRepository" : p1: findPersonByAttributes\n(attributesP1)
+activate "personRep:PersonRepository" #FFBBBB
+
+"serv:Service" -> "personRep:PersonRepository" : p2: findPersonByAttributes\n(attributesP2)
+deactivate "personRep:PersonRepository" #FFBBBB
+
+"serv:Service" -> "p1:Person" : isSibling(p2)
+activate "p1:Person"  #FFBBBB
+
+"p1:Person" -> "p1:Person" : personExistsOnSiblingsList (p2)\ncheckSameFather(p2)\ncheckSameMother(p2)
+
+"p1:Person" --> "serv:Service" : result
+deactivate "p1:Person"
+
+"serv:Service"--> ":SiblingsController" : result
+deactivate "serv:Service"
+
+":SiblingsController" --> ":Test" : result
+deactivate ":SiblingsController"
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(result)
+
+@enduml
