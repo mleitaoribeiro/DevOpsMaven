@@ -1,0 +1,14 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+== Arrange ==
+
+
+== Act ==
+
+
+== Assert ==
+
+
+@enduml
