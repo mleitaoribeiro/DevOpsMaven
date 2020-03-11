@@ -1,5 +1,5 @@
 package switch2019.project.repository;
 
 
-public class PersonRepository {
+public class PersonRepository implements Repository{
 }

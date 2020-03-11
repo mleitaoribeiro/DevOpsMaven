@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class AccountRepository {
+public class AccountRepository implements Repository {
     private Set<Account> accounts;
 
     /**
