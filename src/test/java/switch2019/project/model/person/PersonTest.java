@@ -2,6 +2,7 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
@@ -1729,7 +1730,8 @@ class PersonTest {
 
 
         //Act
-        boolean result = person.scheduleNewTransaction("daily", amount, description, null, category, from, to, new Type(false));
+        boolean result = person.scheduleNewTransaction(new Periodicity("daily"), amount, description,
+                null, category, from, to, new Type(false));
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
@@ -1756,7 +1758,8 @@ class PersonTest {
 
 
         //Act
-        boolean result = person.scheduleNewTransaction("working days", amount, description, null, category, from, to, new Type(false));
+        boolean result = person.scheduleNewTransaction(new Periodicity("working days"), amount, description,
+                null, category, from, to, new Type(false));
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
@@ -1782,7 +1785,8 @@ class PersonTest {
 
 
         //Act
-        boolean result = person.scheduleNewTransaction("weekly", amount, description, null, category, from, to, new Type(false));
+        boolean result = person.scheduleNewTransaction(new Periodicity("weekly"), amount, description,
+                null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
@@ -1809,7 +1813,8 @@ class PersonTest {
 
 
         //Act
-        boolean result = person.scheduleNewTransaction("monthly", amount, description, null, category, from, to, new Type(false));
+        boolean result = person.scheduleNewTransaction(new Periodicity("monthly"), amount, description,
+                null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
@@ -1836,7 +1841,8 @@ class PersonTest {
 
         try {
             //Act
-            person.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, new Type(false));
+            person.scheduleNewTransaction(new Periodicity("tomorrow"), amount, description,
+                    null, category, from, to, new Type(false));
 
             Thread.sleep(1600);
         }

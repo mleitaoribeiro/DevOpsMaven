@@ -10,8 +10,8 @@ public class DateAndTime {
     /**
      * Private Transaction variables
      */
-    private LocalDate yearMonthDay;
-    private LocalDateTime yearMonthDayHourMinute;
+    private final LocalDate yearMonthDay;
+    private final LocalDateTime yearMonthDayHourMinute;
 
     /**
      *Public constructor to yearMonthDay
@@ -21,7 +21,8 @@ public class DateAndTime {
      * @param day
      */
     public DateAndTime(int year, int month, int day) {
-        this.yearMonthDay = LocalDate.of(year, month, day);
+        yearMonthDay = LocalDate.of(year, month, day);
+        yearMonthDayHourMinute = null;
     }
 
     /**
@@ -34,7 +35,8 @@ public class DateAndTime {
      * @param minute
      */
     public DateAndTime(int year, int month, int day, int hour, int minute) {
-        this.yearMonthDayHourMinute = LocalDateTime.of(year, month, day, hour, minute);
+        yearMonthDayHourMinute = LocalDateTime.of(year, month, day, hour, minute);
+        yearMonthDay = null;
     }
 
     /**
@@ -43,7 +45,8 @@ public class DateAndTime {
      * @return localDateTimeNow
      */
     public DateAndTime(){
-        yearMonthDayHourMinute=LocalDateTime.now();
+        yearMonthDay = LocalDate.now();
+        yearMonthDayHourMinute = null;
     }
 
     @Override

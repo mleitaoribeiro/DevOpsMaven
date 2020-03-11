@@ -1,6 +1,7 @@
 package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
+import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.ledger.Transaction;
@@ -112,9 +113,9 @@ public class GroupsRepository {
      * @param accountTo
      * @param type
      */
-    public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, String periodicity, MonetaryValue amount, String transactionDescription,
-                                                    LocalDateTime localDate, Category category,
-                                                    Account accountFrom, Account accountTo, Type type){
+    public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, Periodicity periodicity, MonetaryValue amount, String transactionDescription,
+                                                 LocalDateTime localDate, Category category,
+                                                 Account accountFrom, Account accountTo, Type type){
         for (Group group : listOfGroups) {
             if (group.getDescription().equalsIgnoreCase(groupDescription)){
                 if(group.isGroupMember(person))

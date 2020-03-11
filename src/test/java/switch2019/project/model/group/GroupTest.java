@@ -3,6 +3,7 @@ package switch2019.project.model.group;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
+import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Person;
@@ -2027,6 +2028,7 @@ class GroupTest {
         //Act
         int g1 = group1.hashCode();
         int g2 = group2.hashCode();
+        boolean x = group1.equals(group2);
 
 
         //Assert
@@ -3391,7 +3393,7 @@ class GroupTest {
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("daily", amount, description, null, category, from, to, new Type(false));
+        boolean result = group.scheduleNewTransaction(new Periodicity("daily"), amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2400); // 250 x 10 = 2500
 
@@ -3420,7 +3422,7 @@ class GroupTest {
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("working days", amount, description, null, category, from, to, new Type(false));
+        boolean result = group.scheduleNewTransaction(new Periodicity("working days"), amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(1900); // 500 x 4 = 2000
 
@@ -3448,7 +3450,7 @@ class GroupTest {
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("weekly", amount, description, null, category, from, to, new Type(false));
+        boolean result = group.scheduleNewTransaction(new Periodicity("weekly"), amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 750 x 4 = 3000
 
@@ -3477,7 +3479,7 @@ class GroupTest {
         Group group = new Group("tarzan");
 
         //Act
-        boolean result = group.scheduleNewTransaction("monthly", amount, description, null, category, from, to, new Type(false));
+        boolean result = group.scheduleNewTransaction(new Periodicity("monthly"), amount, description, null, category, from, to, new Type(false));
 
         Thread.sleep(2900); // 1000 x 3 = 3000
 
@@ -3506,7 +3508,7 @@ class GroupTest {
 
         try {
             //Act
-            group.scheduleNewTransaction("tomorrow", amount, description, null, category, from, to, new Type(false));
+            group.scheduleNewTransaction(new Periodicity("tomorrow"), amount, description, null, category, from, to, new Type(false));
         }
         //Assert
         catch (IllegalArgumentException result) {
