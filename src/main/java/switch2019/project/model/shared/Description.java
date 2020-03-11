@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Description {
     //Private Description instance variable
-    private final String description;
+    private final String descriptionValue;
 
     /**
      * Constructor
-     * @param description
+     * @param descriptionValue
      */
 
-    public Description(String description){
-        this.description = setValidDescription(description);
+    public Description(String descriptionValue){
+        this.descriptionValue = setValidDescription(descriptionValue);
     }
 
     /**
      * toString Method for Description
      */
     public String toString() {
-        return this.description;
+        return this.descriptionValue;
     }
 
     /**
@@ -36,8 +36,8 @@ public class Description {
         }
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionValue() {
+        return descriptionValue;
     }
 
     @Override
@@ -45,11 +45,11 @@ public class Description {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Description that = (Description) o;
-        return Objects.equals(description, that.description);
+        return Objects.equals(descriptionValue, that.descriptionValue);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description);
+        return Objects.hash(descriptionValue);
     }
 }

@@ -15,10 +15,10 @@ class DescriptionTest {
         Description description = new Description("Mercearia");
 
         //Act
-        description.getDescription();
+        description.getDescriptionValue();
 
         //Assert
-        assertEquals("MERCEARIA", description.getDescription());
+        assertEquals("MERCEARIA", description.getDescriptionValue());
     }
 
 
