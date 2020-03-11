@@ -147,16 +147,36 @@ class DateAndTimeTest {
     }
 
     /**
-     * Equals Null Object
+     * Equals hashcode True
      */
     @Test
     @DisplayName("Test hashcode")
-    public void validateHashcode() {
-        //Arrange & Act
+    public void validateHashcodeOnlyDate() {
+        //Arrange
         DateAndTime birthDate = new DateAndTime(1996, 4, 27);
         DateAndTime birthDateCopy = new DateAndTime(1996, 4, 27);
 
+        //Act
+        boolean result = birthDate.hashCode() == (birthDateCopy.hashCode());
+
         //Assert
-        assertEquals(birthDate.hashCode(), birthDateCopy.hashCode());
+        assertTrue(result);
+    }
+
+    /**
+     * Equals hashcode False
+     */
+    @Test
+    @DisplayName("Test hashcode")
+    public void validateHashcodeDateAndTime() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27, 10, 10);
+        DateAndTime birthDateCopy = new DateAndTime(2000, 1, 10, 10, 10);
+
+        //Act
+        boolean result = birthDate.hashCode() == (birthDateCopy.hashCode());
+
+        //Assert
+        assertFalse(result);
     }
 }
