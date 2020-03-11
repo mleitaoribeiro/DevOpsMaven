@@ -3,20 +3,20 @@ package switch2019.project.model.ledger;
 import java.util.Objects;
 
 public class Type {
-    private boolean type;
+    private final boolean typeValue;
 
     /**
      * Constructor
-     * @param type
+     * @param typeValue
      */
 
-    public Type (boolean type){
-        this.type=type;
+    public Type (boolean typeValue){
+        this.typeValue = typeValue;
     }
 
     @Override
     public String toString() {
-        if (type) return "CREDIT";
+        if (typeValue) return "CREDIT";
         else return "DEBIT";
     }
 
@@ -24,7 +24,7 @@ public class Type {
      * Get Type
      */
     public boolean getType() {
-        return type;
+        return typeValue;
     }
 
     @Override
@@ -32,12 +32,12 @@ public class Type {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Type type1 = (Type) o;
-        return type == type1.type;
+        return typeValue == type1.typeValue;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type);
+        return Objects.hash(typeValue);
     }
 }
 
