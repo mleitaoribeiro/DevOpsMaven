@@ -2,7 +2,6 @@ package switch2019.project.model.person;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 class Email {
 

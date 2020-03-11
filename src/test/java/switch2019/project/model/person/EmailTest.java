@@ -2,11 +2,135 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.repository.CategoryRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmailTest {
+
+    /**
+     * Test Same Email
+     */
+
+    @Test
+    @DisplayName("Test Same Email - Different Objects")
+    public void sameEmail() {
+
+        //Arrange:
+        Email oneEmail = new Email("email@gmail.com");
+        Email otherEmail = new Email("email@gmail.com");
+
+        //Act:
+        boolean result = oneEmail.equals(otherEmail);
+
+        //Assert:
+        assertTrue(result);
+
+    }
+
+    /**
+     * Test Same Email
+     */
+
+    @Test
+    @DisplayName("Test Same Email - Different Objects")
+    public void sameObject() {
+
+        //Arrange:
+        Email oneEmail = new Email("email@gmail.com");
+
+        //Act:
+        boolean result = oneEmail.equals(oneEmail);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    /**
+     * Test Same Email
+     */
+
+    @Test
+    @DisplayName("Test Same Email - Different email")
+    public void differentEmail() {
+
+        //Arrange:
+        Email oneEmail = new Email("email@gmail.com");
+        Email otherEmail = new Email("email1@gmail.com");
+
+        //Act:
+        boolean result = oneEmail.equals(otherEmail);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    /**
+     * Test Same Email
+     */
+
+    @Test
+    @DisplayName("Test Same Email - Different Class")
+    public void otherObjectOfDifferentClass() {
+
+        //Arrange:
+        Email oneEmail = new Email("email@gmail.com");
+        PersonName onePerson = new PersonName("João Cardoso");
+
+        //Act:
+        boolean result = oneEmail.equals(onePerson);
+
+        //Assert:
+        assertFalse(result);
+
+    }
+
+    @Test
+    @DisplayName("Test Same Email - Null")
+    public void emailNull() {
+
+        //Arrange
+        Email oneEmail = new Email("email@gmail.com");
+        Email otherEmail = null;
+
+        //Act:
+        boolean result = oneEmail.equals(otherEmail);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    /**
+     * Test if two emails have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test Same Email - Null")
+    public void sameHashCode () {
+
+        //Arrange & Act:
+        Email oneEmail = new Email("email@gmail.com");
+        Email otherEmail = new Email("email@gmail.com");
+
+        //Assert:
+        assertEquals(oneEmail.hashCode(), otherEmail.hashCode());
+    }
+
+    /**
+     * Test if two emails have the same Hashcode
+     */
+
+    @Test
+    @DisplayName("Test Same Email - Null")
+    public void differentHashCode () {
+
+        //Arrange & Act:
+        Email oneEmail = new Email("email@gmail.com");
+        Email otherEmail = new Email("email1@gmail.com");
+
+        //Assert:
+        assertNotEquals(oneEmail.hashCode(), otherEmail.hashCode());
+    }
+
 
     /**
      * Test valid email input
@@ -15,6 +139,7 @@ class EmailTest {
     @Test
     @DisplayName("Test Valid email input")
     public void validEmailInput() {
+
         //Arrange:
         Email oneEmail = new Email("email@gmail.com");
         String expected = "email@gmail.com";
@@ -35,7 +160,7 @@ class EmailTest {
     @DisplayName("Test Invalid email input - No @")
     public void invalidEmailInput() {
 
-            ///Arrange & Act:
+            //Arrange & Act:
             try {
                 Email oneEmail = new Email("emailgmail.com");
             }
@@ -55,7 +180,7 @@ class EmailTest {
     @DisplayName("Test Invalid email input - No Dot")
     public void invalidEmailInput_noDot() {
 
-        ///Arrange & Act:
+        //Arrange & Act:
         try {
             Email oneEmail = new Email("email@gmailcom");
         }
@@ -76,7 +201,7 @@ class EmailTest {
     @DisplayName("Test Invalid email input")
     public void invalidEmailInput_null() {
 
-        ///Arrange & Act:
+        //Arrange & Act:
         try {
             Email oneEmail = new Email(null);
         }
