@@ -2028,6 +2028,7 @@ class GroupTest {
         //Act
         int g1 = group1.hashCode();
         int g2 = group2.hashCode();
+        boolean x = group1.equals(group2);
 
 
         //Assert
