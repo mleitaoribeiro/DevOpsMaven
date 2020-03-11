@@ -2,9 +2,7 @@ package switch2019.project.model.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.time.DateTimeException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DateAndTimeTest {
@@ -147,11 +145,11 @@ class DateAndTimeTest {
     }
 
     /**
-     * Equals hashcode True
+     * Equals hashcode LocalDate True
      */
     @Test
-    @DisplayName("Test hashcode")
-    public void validateHashcodeOnlyDate() {
+    @DisplayName("Test hashcode LocalDate True")
+    public void validateHashcodeOnlyDateTrue() {
         //Arrange
         DateAndTime birthDate = new DateAndTime(1996, 4, 27);
         DateAndTime birthDateCopy = new DateAndTime(1996, 4, 27);
@@ -164,11 +162,45 @@ class DateAndTimeTest {
     }
 
     /**
-     * Equals hashcode False
+     * Equals hashcode LocalDate False
      */
     @Test
-    @DisplayName("Test hashcode")
-    public void validateHashcodeDateAndTime() {
+    @DisplayName("Test hashcode LocalDate False")
+    public void validateHashcodeOnlyDateFalse() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+        DateAndTime birthDateCopy = new DateAndTime(2000, 10, 10);
+
+        //Act
+        boolean result = birthDate.hashCode() == (birthDateCopy.hashCode());
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Equals hashcode LocalDateTime True
+     */
+    @Test
+    @DisplayName("Test hashcode LocalDateTime True")
+    public void validateHashcodeDateAndTimeTrue() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27, 10, 10);
+        DateAndTime birthDateCopy = new DateAndTime(1996, 4, 27, 10, 10);
+
+        //Act
+        boolean result = birthDate.hashCode() == (birthDateCopy.hashCode());
+
+        //Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Equals hashcode LocalDateTime False
+     */
+    @Test
+    @DisplayName("Test hashcode LocalDateTime False")
+    public void validateHashcodeDateAndTimeFalse() {
         //Arrange
         DateAndTime birthDate = new DateAndTime(1996, 4, 27, 10, 10);
         DateAndTime birthDateCopy = new DateAndTime(2000, 1, 10, 10, 10);
@@ -178,5 +210,22 @@ class DateAndTimeTest {
 
         //Assert
         assertFalse(result);
+    }
+
+    /**
+     * Equals hashcode empty constructor
+     */
+    @Test
+    @DisplayName("Test hashcode empty Constructor")
+    public void validateHashcodeEmptyConstructor() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime();
+        DateAndTime birthDateCopy = new DateAndTime();
+
+        //Act
+        boolean result = birthDate.hashCode() == (birthDateCopy.hashCode());
+
+        //Assert
+        assertTrue(result);
     }
 }
