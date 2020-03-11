@@ -145,7 +145,7 @@ class EmailTest {
         String expected = "email@gmail.com";
 
         //Act:
-        String real = oneEmail.getEmail();
+        String real = oneEmail.getEmailAddress();
 
         //Assert:
         assertEquals(expected, real);

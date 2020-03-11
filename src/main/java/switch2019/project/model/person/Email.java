@@ -5,12 +5,12 @@ import java.util.regex.Pattern;
 
 class Email {
 
-    private final String email;
+    private final String emailAddress;
 
     private static final String EMAIL_NOT_VALID = "The email it´s not valid";
 
-    public Email(String email) {
-        this.email = setValidEmail(email);
+    public Email(String emailAddress) {
+        this.emailAddress = setValidEmail(emailAddress);
     }
 
     @Override
@@ -18,12 +18,12 @@ class Email {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Email email1 = (Email) o;
-        return email.equals(email1.email);
+        return emailAddress.equals(email1.emailAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email);
+        return Objects.hash(emailAddress);
     }
 
     /**
@@ -59,7 +59,7 @@ class Email {
      * Get email
      * @return
      */
-    public String getEmail() {
-        return email;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 }
