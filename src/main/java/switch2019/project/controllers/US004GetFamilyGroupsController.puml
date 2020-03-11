@@ -3,18 +3,25 @@ skinparam DefaultFontSize 20
 participant ":Test"
 participant ":US004GetFamilyGroupsController"
 
-":Test" -> ":US004GetFamilyGroupsController" : getFamilyGroups(service)
+":Test" -> ":US004GetFamilyGroupsController" : groups = getFamilyGroups(service)
+activate ":US004GetFamilyGroupsController" #FFBBBB
 
-participant "service:Service"
-":US004GetFamilyGroupsController" -> "service:Service" : getFamilyGroups()
+participant "service:US004GetFamilyGroupsService"
+":US004GetFamilyGroupsController" -> "service:US004GetFamilyGroupsService" : groups = getFamilyGroups()
+activate "service:US004GetFamilyGroupsService" #FFBBBB
 
 participant ":GroupRepository"
-"service:Service" -> ":GroupRepository" : returnOnlyFamilies()
+"service:US004GetFamilyGroupsService" -> ":GroupRepository" : families = returnOnlyFamilies()
+activate ":GroupRepository" #FFBBBB
 
 participant ":Group"
-":GroupRepository" -> ":Group" : isFamily()
+":GroupRepository" -> ":Group" : family = isFamily()
+deactivate ":US004GetFamilyGroupsController"
+deactivate "service:US004GetFamilyGroupsService"
+deactivate ":GroupRepository"
 
-":Test" -> ":Test" : Assert
+
+":Test" -> ":Test" : assertEquals(expected, groups)
 
 
 @enduml
