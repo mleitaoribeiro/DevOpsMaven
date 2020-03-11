@@ -3,11 +3,14 @@ package switch2019.project.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 
 import java.time.LocalDate;
 
@@ -26,9 +29,12 @@ class AccountRepositoryTest {
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        boolean real = accountsList.createAndAddAccountToAccountsList("xpto", "one account")
-                && accountsList.createAndAddAccountToAccountsList("xyz", "general")
-                && accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
+        boolean real = accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"),
+                new Description("one account"))
+                && accountsList.createAndAddAccountToAccountsList(new Denomination("xyz"),
+                new Description("general"))
+                && accountsList.createAndAddAccountToAccountsList(new Denomination("Millennium"),
+                new Description("Millennium Account"));
 
         //Assert
         assertTrue(real);
@@ -42,9 +48,11 @@ class AccountRepositoryTest {
 
         //Act
         try {
-            accountsList.createAndAddAccountToAccountsList(null, "XOPT");
-            accountsList.createAndAddAccountToAccountsList("xyz", "general");
-            accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
+            accountsList.createAndAddAccountToAccountsList(null, new Description("XOPT"));
+            accountsList.createAndAddAccountToAccountsList(new Denomination("xyz"),
+                    new Description("general"));
+            accountsList.createAndAddAccountToAccountsList(new Denomination("Millennium"),
+                    new Description("Millennium Account"));
         }
         //Assert
         catch (IllegalArgumentException denomination) {
@@ -60,9 +68,11 @@ class AccountRepositoryTest {
 
         //Act
         try {
-            accountsList.createAndAddAccountToAccountsList("xpto", null);
-            accountsList.createAndAddAccountToAccountsList("xyz", "general");
-            accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
+            accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"), null);
+            accountsList.createAndAddAccountToAccountsList(new Denomination("xyz"),
+                    new Description("general"));
+            accountsList.createAndAddAccountToAccountsList(new Denomination("Millennium"),
+                    new Description("Millennium Account"));
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -77,8 +87,10 @@ class AccountRepositoryTest {
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        accountsList.createAndAddAccountToAccountsList("xpto", "one account");
-        accountsList.createAndAddAccountToAccountsList("xyz", "other Account");
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"),
+                new Description("one account"));
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xyz"),
+                new Description("other Account"));
         int result = accountsList.numberOfAccountsInTheAccountsList();
 
         //Assert
@@ -90,13 +102,16 @@ class AccountRepositoryTest {
     @DisplayName("Test if the account was added to the list - only one account added - oneAccount is not contained")
     public void testAccountsAreInList_Not() {
         //Arrange
-        Account oneAccount = new Account("xpto", "cat acccount");
-        Account otherAccount = new Account("xyz", "general");
+        Account oneAccount = new Account(new Denomination("xpto"),
+                new Description("cat acccount"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("general"));
 
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        accountsList.createAndAddAccountToAccountsList("xyz", "general");
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xyz"),
+                new Description("general"));
 
         boolean real = !accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
                 && accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
@@ -109,16 +124,22 @@ class AccountRepositoryTest {
     @DisplayName("Test if more than one account was added to the list - all accounts are in the list")
     public void testIfAccountsAreInList_MoreThanOne() {
         //Arrange
-        Account oneAccount = new Account("xpto", "cat acccount");
-        Account otherAccount = new Account("xyz", "general");
-        Account anotherAccount = new Account("Millennium", "Millennium Account");
+        Account oneAccount = new Account(new Denomination("xpto"),
+                new Description("cat acccount"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("general"));
+        Account anotherAccount = new Account(new Denomination("Millennium"),
+                new Description("Millennium Account"));
 
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        accountsList.createAndAddAccountToAccountsList("xpto", "cat acccount");
-        accountsList.createAndAddAccountToAccountsList("xyz", "general");
-        accountsList.createAndAddAccountToAccountsList("Millennium", "Millennium Account");
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"),
+                new Description("cat acccount"));
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xyz"),
+                new Description("general"));
+        accountsList.createAndAddAccountToAccountsList(new Denomination("Millennium"),
+                new Description("Millennium Account"));
 
         boolean real = accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
                 && accountsList.validateIfAccountIsInTheAccountsList(otherAccount)
@@ -135,11 +156,12 @@ class AccountRepositoryTest {
     @DisplayName("Test if one account is contained in the accounts list | True")
     public void testIfAccountsListContainAccount_true() {
         //Arrange
-        Account oneAccount = new Account("xpto", "cat acccount");
+        Account oneAccount = new Account(new Denomination("xpto"), new Description("cat acccount"));
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        accountsList.createAndAddAccountToAccountsList("xpto", "cat acccount");
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"),
+                new Description("cat acccount"));
 
         boolean expected = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
 
@@ -151,7 +173,8 @@ class AccountRepositoryTest {
     @DisplayName("Test if one account is contained in the accounts list | False")
     public void testIfAccountsListContainAccount_false() {
         //Arrange
-        Account oneAccount = new Account("xpto", "cat acccount");
+        Account oneAccount = new Account(new Denomination("xpto"),
+                new Description("cat acccount"));
         AccountRepository accountsList = new AccountRepository();
 
         //Act
@@ -179,8 +202,10 @@ class AccountRepositoryTest {
         AccountRepository aMonth = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
+        aMonth.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
 
         boolean result = september.equals(aMonth);
 
@@ -205,8 +230,10 @@ class AccountRepositoryTest {
         AccountRepository aMonth = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.createAndAddAccountToAccountsList(marketDenomination, marketDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
+        aMonth.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
 
         boolean result = september.equals(aMonth);
 
@@ -232,8 +259,9 @@ class AccountRepositoryTest {
 
         //Act
         try {
-            september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-            aMonth.createAndAddAccountToAccountsList(null, marketDescription);
+            september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                    new Description(butcherDescription));
+            aMonth.createAndAddAccountToAccountsList(null, new Description(butcherDescription));
         }
 
         //Assert
@@ -258,8 +286,9 @@ class AccountRepositoryTest {
 
         //Act
         try {
-            september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-            aMonth.createAndAddAccountToAccountsList(marketDenomination, null);
+            september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                    new Description(butcherDescription));
+            aMonth.createAndAddAccountToAccountsList(new Denomination(butcherDenomination), null);
         }
 
         //Assert
@@ -281,7 +310,8 @@ class AccountRepositoryTest {
         AccountRepository aMonth = null;
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
 
         boolean result = september.equals(aMonth);
 
@@ -300,7 +330,8 @@ class AccountRepositoryTest {
         AccountRepository september = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
 
         boolean result = september.equals(september);
 
@@ -320,7 +351,8 @@ class AccountRepositoryTest {
         Person onePerson = new Person("Maria", new DateAndTime(1990, 12, 04), new Address("Braga"), new Address("Rua das Flores", "Braga", "4432-045"));
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
         boolean result = september.equals(onePerson);
 
         //Assert
@@ -345,8 +377,10 @@ class AccountRepositoryTest {
         AccountRepository aMonth = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
+        aMonth.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
 
 
         //Assert
@@ -369,8 +403,10 @@ class AccountRepositoryTest {
         AccountRepository aMonth = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList(butcherDenomination, butcherDescription);
-        aMonth.createAndAddAccountToAccountsList(marketDenomination, marketDescription);
+        september.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
+        aMonth.createAndAddAccountToAccountsList(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
 
 
         //Assert
@@ -385,13 +421,17 @@ class AccountRepositoryTest {
     @Test
     @DisplayName("Test if an account was removed from an accounts list")
     public void testIfOneAccountWasRemoved() {
-        Account butcher = new Account("Butcher", "Talho do Amadeu");
+        Account butcher = new Account(new Denomination("Butcher"),
+                new Description("Talho do Amadeu"));
         AccountRepository september = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
-        september.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
-        september.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
+        september.createAndAddAccountToAccountsList(new Denomination("Butcher"),
+                new Description("Talho do Amadeu"));
+        september.createAndAddAccountToAccountsList(new Denomination("Market"),
+                new Description("Mercado do Amadeu"));
+        september.createAndAddAccountToAccountsList(new Denomination("Post"),
+                new Description("Correios do Amadeu"));
         september.removeOneAccountFromAList(butcher);
 
         //Assert
@@ -402,13 +442,15 @@ class AccountRepositoryTest {
     @Test
     @DisplayName("Test if an account was removed from an accounts list - not in the list")
     public void testIfOneAccountWasRemovedNotInTheList() {
-        Account post = new Account("Post", "Correios do Amadeu");
+        Account post = new Account(new Denomination("Post"), new Description("Correios do Amadeu"));
 
         AccountRepository september = new AccountRepository();
 
         //Act
-        september.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
-        september.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
+        september.createAndAddAccountToAccountsList(new Denomination("Butcher"),
+                new Description("Talho do Amadeu"));
+        september.createAndAddAccountToAccountsList(new Denomination("Market"),
+                new Description("Mercado do Amadeu"));
         september.removeOneAccountFromAList(post);
 
         //Assert
@@ -425,9 +467,12 @@ class AccountRepositoryTest {
         AccountRepository oneAccountsList = new AccountRepository();
 
         //Act
-        oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
-        oneAccountsList.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
-        oneAccountsList.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList(new Denomination("Butcher"),
+                new Description("Talho do Amadeu"));
+        oneAccountsList.createAndAddAccountToAccountsList(new Denomination("Market"),
+                new Description("Mercado do Amadeu"));
+        oneAccountsList.createAndAddAccountToAccountsList(new Denomination("Post"),
+                new Description("Correios do Amadeu"));
         boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
 
         //Assert
@@ -440,13 +485,17 @@ class AccountRepositoryTest {
     public void testIfOneAccountWasRemovedTrue() {
 
         //Arrange
-        Account oneAccount = new Account("Post", "Correios do Amadeu");
+        Account oneAccount = new Account(new Denomination("Post"),
+                new Description("Correios do Amadeu"));
         AccountRepository oneAccountsList = new AccountRepository();
 
         //Act
-        oneAccountsList.createAndAddAccountToAccountsList("Butcher", "Talho do Amadeu");
-        oneAccountsList.createAndAddAccountToAccountsList("Market", "Mercado do Amadeu");
-        oneAccountsList.createAndAddAccountToAccountsList("Post", "Correios do Amadeu");
+        oneAccountsList.createAndAddAccountToAccountsList(new Denomination("Butcher"),
+                new Description("Talho do Amadeu"));
+        oneAccountsList.createAndAddAccountToAccountsList(new Denomination("Market"),
+                new Description("Mercado do Amadeu"));
+        oneAccountsList.createAndAddAccountToAccountsList(new Denomination("Post"),
+                new Description("Correios do Amadeu"));
         boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
 
         //Assert
@@ -462,11 +511,12 @@ class AccountRepositoryTest {
     @DisplayName("Test if account is in the List-True")
     void validateIfAccountIsInTheAccountsList() {
         //Arrange
-        Account oneAccount = new Account("xpto", "xpto Account");
+        Account oneAccount = new Account(new Denomination("xpto"), new Description("xpto Account"));
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        accountsList.createAndAddAccountToAccountsList("xpto", "xpto Account");
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"),
+                new Description("xpto Account"));
         boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
 
         //Arrange
@@ -477,12 +527,15 @@ class AccountRepositoryTest {
     @DisplayName("Test if account is in the List-False")
     void validateIfAccountIsInTheAccountsList_False() {
         //Arrange
-        Account oneAccount = new Account("xpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
+        Account oneAccount = new Account(new Denomination("xpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
         AccountRepository accountsList = new AccountRepository();
 
         //Act
-        accountsList.createAndAddAccountToAccountsList("xpto", "xpto Account");
+        accountsList.createAndAddAccountToAccountsList(new Denomination("xpto"),
+                new Description("xpto Account"));
         boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
 
         //Arrange
@@ -497,13 +550,17 @@ class AccountRepositoryTest {
     void toStringOfAccountsListTest() {
 
         //Arrange:
-        Account account1 = new Account("test account 1", "account for test purposes");
-        Account account2 = new Account("test account 2", "account for test purposes");
+        Account account1 = new Account(new Denomination("test account 1"),
+                new Description("account for test purposes"));
+        Account account2 = new Account(new Denomination("test account 2"),
+                new Description("account for test purposes"));
         AccountRepository testAccountsList = new AccountRepository();
 
         //Act:
-        testAccountsList.createAndAddAccountToAccountsList("test account 1", "account for test purposes");
-        testAccountsList.createAndAddAccountToAccountsList("test account 2", "account for test purposes");
+        testAccountsList.createAndAddAccountToAccountsList(new Denomination("test account 1"),
+                new Description("account for test purposes"));
+        testAccountsList.createAndAddAccountToAccountsList(new Denomination("test account 2"),
+                new Description("account for test purposes"));
         String result = testAccountsList.toString();
 
         //Assert:

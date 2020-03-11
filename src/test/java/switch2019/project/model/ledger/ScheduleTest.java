@@ -3,6 +3,8 @@ package switch2019.project.model.ledger;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
@@ -26,8 +28,10 @@ class ScheduleTest {
 
         //Arrange
         Person person1 = new Person("Alex", new DateAndTime(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -45,8 +49,10 @@ class ScheduleTest {
     void convertKeyWordIntoMillisecondsWeekly() {
         //Arrange
         Person person1 = new Person("Alex", new DateAndTime(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -64,8 +70,10 @@ class ScheduleTest {
     void convertKeyWordIntoMillisecondsWorkingDays() {
         //Arrange
         Person person1 = new Person("Alex", new DateAndTime(1995, 12, 04), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -83,8 +91,10 @@ class ScheduleTest {
     void convertKeyWordIntoMillisecondsMonthly() {
         //Arrange
         Person person1 = new Person("Alex", new DateAndTime(1995, 12, 4), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 2);
@@ -102,8 +112,10 @@ class ScheduleTest {
     void convertKeyWordIntoMillisecondsNoMatch() {
         //Arrange
         Person person1 = new Person("Alex", new DateAndTime(1995, 12, 4), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);

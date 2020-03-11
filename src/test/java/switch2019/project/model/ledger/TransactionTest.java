@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
@@ -28,8 +30,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - true")
     public void testIfTwoTransactionsAreEqualsTrue() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -51,8 +55,10 @@ class TransactionTest {
 
     public void testIfDatesAreTheSameWithToString() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13,13,02);
@@ -75,8 +81,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the same - true")
     public void testIfTwoTransactionsAreTheSame() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -97,9 +105,12 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - different account to")
     public void testIfTwoTransactionsAreEqualsDifferentAccountTo() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account3 = new Account("bowling", "bowling NorteShopping");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account3 = new Account(new Denomination("bowling"),
+                new Description("bowling NorteShopping"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -120,9 +131,13 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different account from")
     public void testIfTwoTransactionsAreEqualsFalseDifferentAccountFrom() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account3 = new Account("bowling", "bowling NorteShopping");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account3 = new Account(new Denomination("bowling"),
+                new Description("bowling NorteShopping"));
+
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -143,8 +158,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different category")
     public void testIfTwoTransactionsAreEqualsFalseDifferentCategory() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         Category category2 = new Category("transport");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -166,8 +183,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different monetary value")
     public void testIfTwoTransactionsAreEqualsFalseDifferentMonetaryValue() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue2 = new MonetaryValue(30, Currency.getInstance("EUR"));
@@ -189,8 +208,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different description")
     public void testIfTwoTransactionsAreEqualsFalseDifferentDescription() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -212,8 +233,10 @@ class TransactionTest {
     public void testIfTwoTransactionsAreEqualsFalseDifferentDate() {
 
         //Arrange
-        Account account1 = new Account("Health", "Health Maria");
-        Account account2 = new Account("Transport", "Metro");
+        Account account1 = new Account(new Denomination("Health"),
+                new Description("Health Maria"));
+        Account account2 = new Account(new Denomination("Transport"),
+                new Description("Metro"));
         Category category = new Category("House");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -233,8 +256,11 @@ class TransactionTest {
     public void testIfTwoTransactionsAreEqualsDifferentTypes() {
 
         //Arrange
-        Account account1 = new Account("Health", "Health Maria");
-        Account account2 = new Account("Transport", "Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+
         Category category = new Category("House");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -254,8 +280,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - True - system date")
     public void testIfTwoTransactionsAreEqualsTrueSystemDate() {
         //Arrange
-        Account account1 = new Account("Health", "Health Maria");
-        Account account2 = new Account("Transport", "Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("House");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime dateNow = LocalDateTime.now();
@@ -276,8 +304,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - one is null")
     public void testIfTwoTransactionsAreEqualsOneIsNull() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
 
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -298,8 +328,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - different objects")
     public void testIfTwoTransactionsAreEqualsDifferentObjects() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
 
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -320,9 +352,13 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false")
     public void testIfTwoTransactionsAreEqualsFalse() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account3 = new Account("bowling", "bowling NorteShopping");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account3 = new Account(new Denomination("bowling"),
+                new Description("bowling NorteShopping"));
+
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -346,8 +382,11 @@ class TransactionTest {
     @DisplayName("Test if method toString returns String Transaction")
     public void validateToString() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -367,8 +406,11 @@ class TransactionTest {
     @DisplayName("Test if method toString returns String Transaction for Credit")
     public void validateToStringCredit() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -391,8 +433,11 @@ class TransactionTest {
     @DisplayName("Test if two transactions have the same hashcode - true")
     public void testIfTwoTransactionsHaveTheSameHashcode() {
         //Arrange & Act
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -410,9 +455,12 @@ class TransactionTest {
     @DisplayName("Test if two transactions have the same hashcode - not the same")
     public void testIfTwoTransactionsHaveTheSameHashcodeNo() {
         //Arrange & Act
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account3 = new Account("bowling", "bowling NorteShopping");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account3 = new Account(new Denomination("bowling"),
+                new Description("bowling NorteShopping"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
@@ -437,8 +485,10 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Category category = new Category("grocery");
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30);
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
 
 
         //Act
@@ -455,8 +505,10 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Category category = new Category("grocery");
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
@@ -474,8 +526,10 @@ class TransactionTest {
         //Arrange
         Category category = new Category("grocery");
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
 
 
         //Act
@@ -495,8 +549,10 @@ class TransactionTest {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
 
 
         //Act
@@ -517,7 +573,8 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
         Category category = new Category("grocery");
-        Account account2 = new Account("mercearia", "mercearia Continente");
+        Account account2 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
 
 
         //Act
@@ -538,7 +595,8 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
         Category category = new Category("grocery");
-        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
 
 
         //Act
@@ -557,8 +615,10 @@ class TransactionTest {
     void isAValidTransactionFalseNullType() {
         //Arrange
         LocalDateTime localDateTime = LocalDateTime.of(2010, Month.JULY, 10, 20, 30, 40);
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
