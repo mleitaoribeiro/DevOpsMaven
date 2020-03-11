@@ -2,6 +2,7 @@ package switch2019.project.model.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.time.DateTimeException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,4 +96,67 @@ class DateAndTimeTest {
         }
     }
 
+    /**
+     * Equals Same Object
+     */
+    @Test
+    @DisplayName("Test equals for the same object")
+    public void equalsSameObject() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+
+        //Act
+        boolean result = birthDate.equals(birthDate);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    /**
+     * Equals Different Object Type
+     */
+    @Test
+    @DisplayName("Test equals for different object type")
+    public void equalsDifferentObjectType() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+        Denomination denomination = new Denomination("example");
+
+        //Act
+        boolean result = birthDate.equals(denomination);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Equals Null Object
+     */
+    @Test
+    @DisplayName("Test equals for null object")
+    public void equalsForNullObject() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+        DateAndTime nullDate = null;
+
+        //Act
+        boolean result = birthDate.equals(nullDate);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    /**
+     * Equals Null Object
+     */
+    @Test
+    @DisplayName("Test hashcode")
+    public void validateHashcode() {
+        //Arrange & Act
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+        DateAndTime birthDateCopy = new DateAndTime(1996, 4, 27);
+
+        //Assert
+        assertEquals(birthDate.hashCode(), birthDateCopy.hashCode());
+    }
 }
