@@ -41,7 +41,7 @@ class ScheduledTasksListTest {
 
 
         //Act
-        boolean result = scheduledTasksList.addNewSchedule(person, "daily", amount,
+        boolean result = scheduledTasksList.addNewSchedule(person, new Periodicity("daily"), amount,
                 description, null, category, from, to, new Type(false));
 
         //Assert

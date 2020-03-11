@@ -3,15 +3,13 @@ package switch2019.project.model.group;
 import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.ledger.Type;
+import switch2019.project.model.ledger.*;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Description;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.model.shared.MonetaryValue;
-import switch2019.project.model.ledger.ScheduledTasksList;
 import switch2019.project.model.account.Account;
-import switch2019.project.model.ledger.Ledger;
-import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Person;
 
@@ -420,7 +418,7 @@ public class Group {
     public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                           Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
-                category, accountFrom, accountTo,type);
+                category, accountFrom, accountTo, type);
     }
 
     /**

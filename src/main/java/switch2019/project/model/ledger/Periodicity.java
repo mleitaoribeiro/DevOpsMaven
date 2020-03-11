@@ -17,7 +17,7 @@ public class Periodicity {
     /**
      * Get Periodicity
      */
-    public int getPeriodicity() {
+    public int getPeriodicityInMilliseconds() {
         return periodicityMs;
     }
 
