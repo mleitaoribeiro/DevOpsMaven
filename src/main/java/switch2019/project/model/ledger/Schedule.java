@@ -13,7 +13,7 @@ import java.util.Timer;
 public class Schedule {
 
     // Private Task attributes
-    private int periodicity;
+    private Periodicity periodicity;
 
     /**
      * Personal Schedule Constructor
@@ -28,13 +28,13 @@ public class Schedule {
      * @param accountTo
      * @param type
      */
-    public Schedule(Person person, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    public Schedule(Person person, Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                     Category category, Account accountFrom, Account accountTo, Type type) {
-        this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
+        this.periodicity = periodicity;
         Timer timer = new Timer();
         TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
                                                         description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledTransactionTask, 0, this.periodicity);
+        timer.schedule(scheduledTransactionTask, 0, this.periodicity.getPeriodicityInMilliseconds());
     }
 
     /**
@@ -51,31 +51,12 @@ public class Schedule {
      * @param type
      */
 
-    public Schedule(Group group, String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    public Schedule(Group group, Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                     Category category, Account accountFrom, Account accountTo, Type type) {
-        this.periodicity = convertKeyWordIntoMilliseconds(periodicity);
+        this.periodicity = periodicity;
         Timer timer = new Timer();
         TransactionTask scheduledGroupTransactionTask = new TransactionTask(group, amount,
                                                         description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledGroupTransactionTask, 0, this.periodicity);
+        timer.schedule(scheduledGroupTransactionTask, 0, this.periodicity.getPeriodicityInMilliseconds());
     }
-
-    /**
-     * Method to convert key word into milliseconds
-     */
-    public int convertKeyWordIntoMilliseconds(String periodicity) {
-        switch (periodicity) {
-            case "daily":
-                return 250;
-            case "working days":
-                return 500;
-            case "weekly":
-                return 750;
-            case "monthly":
-                return 1000;
-            default:
-                throw new IllegalArgumentException("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.");
-        }
-    }
-
 }
