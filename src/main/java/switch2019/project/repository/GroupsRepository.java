@@ -12,7 +12,7 @@ import switch2019.project.model.category.Category;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class GroupsRepository {
+public class GroupsRepository implements Repository{
     // Private instance variables
     private Set<Group> listOfGroups;
 
