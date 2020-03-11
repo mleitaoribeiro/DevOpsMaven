@@ -16,11 +16,17 @@ public class Description {
     }
 
     /**
+     * toString Method for Description
+     */
+    public String toString() {
+        return this.description;
+    }
+
+    /**
      * setter Description
      *
      * @param description
      */
-
     private String setValidDescription(String description) {
         if (description == null || description.isEmpty()){
             throw new IllegalArgumentException("The description can't be null or empty. ");

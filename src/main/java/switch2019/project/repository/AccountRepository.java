@@ -76,8 +76,8 @@ public class AccountRepository {
 
     public boolean createAndAddAccountToAccountsList(Denomination accountDenomination, Description accountDescription) {
         Account oneAccount = new Account(accountDenomination, accountDescription);
-        accounts.add(oneAccount);
-        return accounts.contains(oneAccount);
+        this.accounts.add(oneAccount);
+        return this.accounts.contains(oneAccount);
     }
 
     /**

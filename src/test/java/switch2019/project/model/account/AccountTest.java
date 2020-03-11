@@ -79,7 +79,7 @@ class AccountTest {
         String one = oneAccount.toString();
 
         //Act
-        boolean result = one != null && one.equals("SUPERMARKET, Weekly spends, 0.0€");
+        boolean result =(one != null && one.equals("SUPERMARKET, WEEKLY SPENDS, 0.0€"));
 
         //Assert
         assertTrue(result);
@@ -318,7 +318,7 @@ class AccountTest {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("xyz"));
-        String expected = "xyz";
+        String expected = "XYZ";
 
         //Act
         String real = oneAccount.getDescription();
@@ -334,7 +334,7 @@ class AccountTest {
         //Arrange
         Account supermarket = new Account(new Denomination("Supermarket")
                 ,new Description("Weekly spends"));
-        String expected = "SUPERMARKET, Weekly spends, 0.0€";
+        String expected = "SUPERMARKET, WEEKLY SPENDS, 0.0 EUR€";
 
         //Act
         String result = supermarket.toString();

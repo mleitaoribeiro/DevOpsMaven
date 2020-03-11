@@ -103,7 +103,7 @@ class AccountRepositoryTest {
     public void testAccountsAreInList_Not() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("cat acccount"));
+                new Description("cat account"));
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("general"));
 
