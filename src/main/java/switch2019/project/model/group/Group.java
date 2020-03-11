@@ -415,7 +415,7 @@ public class Group {
      * @param type
      */
 
-    public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                           Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
