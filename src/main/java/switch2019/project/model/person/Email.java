@@ -8,6 +8,7 @@ class Email {
     private final String emailAddress;
 
     private static final String EMAIL_NOT_VALID = "The email it´s not valid";
+    private static final String EMAIL_NULL = "The email can´t be null!";
 
     public Email(String emailAddress) {
         this.emailAddress = setValidEmail(emailAddress);
@@ -32,11 +33,13 @@ class Email {
      * @return
      */
     private String setValidEmail (String email) {
-        if (isValid(email))
-             return email;
-        else {
+        if (email == null)
+            throw new IllegalArgumentException(EMAIL_NULL);
+        else if (isValid(email))
+            return email;
+        else
             throw new IllegalArgumentException(EMAIL_NOT_VALID);
-        }
+
     }
 
     /**
@@ -45,14 +48,12 @@ class Email {
      * @return
      */
    private static boolean isValid(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
-        return pat.matcher(email).matches();
+           String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+                   "[a-zA-Z0-9_+&*-]+)*@" +
+                   "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                   "A-Z]{2,7}$";
+           Pattern pat = Pattern.compile(emailRegex);
+           return pat.matcher(email).matches();
     }
 
     /**

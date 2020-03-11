@@ -208,7 +208,7 @@ class EmailTest {
 
         //Assert
         catch (IllegalArgumentException invalidEmail) {
-            assertEquals("The email it´s not valid", invalidEmail.getMessage());
+            assertEquals("The email can´t be null!", invalidEmail.getMessage());
         }
 
     }
