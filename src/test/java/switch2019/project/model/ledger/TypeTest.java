@@ -82,6 +82,18 @@ class TypeTest {
     }
 
     @Test
+    @DisplayName("Test if two Types equals - same object")
+    void testEqualsSameObject() {
+        //Arrange
+        Type type = new Type(true);;
+
+        //Act
+        boolean result = type.equals(type);
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Test if two Types equals - null case")
     void testEqualsNull() {
         //Arrange

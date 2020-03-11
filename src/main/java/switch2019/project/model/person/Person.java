@@ -1,18 +1,20 @@
 package switch2019.project.model.person;
 
 import switch2019.project.model.account.Account;
-import switch2019.project.model.ledger.*;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.ledger.*;
+import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
-import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
+import switch2019.project.repository.CategoryRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Person {
     // Private Person variables
