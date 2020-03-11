@@ -1,6 +1,5 @@
 package switch2019.project.model.group;
 
-import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.ledger.*;
@@ -13,7 +12,6 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Person;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -400,7 +398,7 @@ public class Group {
      * @return description
      */
     public String getDescription() {
-        return description.getDescription();
+        return description.getDescriptionValue();
     }
 
     /**

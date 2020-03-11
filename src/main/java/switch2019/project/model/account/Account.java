@@ -4,7 +4,6 @@ import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 
-import java.text.Normalizer;
 import java.util.Currency;
 import java.util.Objects;
 
@@ -97,7 +96,7 @@ public class Account {
      * @return descritpion
      */
     public String getDescription() {
-        return description.getDescription();
+        return description.getDescriptionValue();
     }
 
     /**

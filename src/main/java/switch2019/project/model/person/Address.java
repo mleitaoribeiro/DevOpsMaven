@@ -1,5 +1,7 @@
 package switch2019.project.model.person;
 
+import org.graalvm.compiler.api.replacements.Snippet;
+
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -155,8 +157,7 @@ public class Address {
      */
 
     private static boolean isNumeric(String city) {
-        if (city == null)
-            return false;
+        if(city !=null)
         for (char c : city.toCharArray()) {
             if (Character.isDigit(c))
                 return true;
