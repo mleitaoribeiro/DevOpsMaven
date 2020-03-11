@@ -106,7 +106,7 @@ class AccountTest {
         //Arrange
 
         Account oneAccount = new Account(new Denomination("xpto"),new Description("xpto account"));
-        Person onePerson = new Person(new PersonName("Alexandre"), LocalDate.of(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
+        Person onePerson = new Person ("Alexandre", new DateAndTime(1994, 02, 10), new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-585"));
 
         //Act
         boolean result = oneAccount.equals(onePerson);

@@ -10,6 +10,8 @@ import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.repository.GroupsRepository;
 
@@ -159,7 +161,8 @@ class GroupTest {
     public void compareGroupToAnotherObject() {
         //Arrange
         Group group1 = new Group("Mary's Gift");
-        Account group2 = new Account("Mary", "Mary Gift");
+        Account group2 = new Account(new Denomination("Mary"),
+                new Description("Mary Gift"));
 
         //Act
         boolean result = group1.equals(group2);
@@ -1519,7 +1522,8 @@ class GroupTest {
         Group group1 = new Group("Test Group");
 
         //Act
-        boolean result = group1.addAccountToGroupAccountsList("Group Account Test", "group account");
+        boolean result = group1.addAccountToGroupAccountsList(new Denomination("Group Account Test"),
+                new Description("group account"));
 
         //Assert
         assertTrue(result);
@@ -1533,8 +1537,10 @@ class GroupTest {
         Group group1 = new Group("Test Group");
 
         //Act
-        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList("Group Account Test", "group account");
-        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList("Group Account Test 2", "group account");
+        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList(new Denomination("Group Account Test"),
+                new Description("group account"));
+        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList(new Denomination("Group Account Test 2"),
+                new Description("group account"));
 
         //Assert
         assertTrue(addAccountToGroupList1 && addAccountToGroupList2);
@@ -1731,8 +1737,10 @@ class GroupTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
         Category category1 = new Category("ASD");
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
@@ -1755,8 +1763,10 @@ class GroupTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
         Category category1 = new Category("ASD");
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
@@ -1779,8 +1789,10 @@ class GroupTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
         Category category1 = new Category("ASD");
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(false));
         Transaction transaction2 = new Transaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, new Type(true));
@@ -1813,8 +1825,10 @@ class GroupTest {
 
         Category category1 = new Category("grocery");
 
-        Account account1 = new Account("groceries", "mercearia Continente");
-        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+        Account account1 = new Account(new Denomination("groceries"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("groceries"),
+                new Description("mercearia Pingo Doce"));
 
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
@@ -1851,8 +1865,10 @@ class GroupTest {
 
         Category category1 = new Category("grocery");
 
-        Account account1 = new Account("groceries", "mercearia Continente");
-        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+        Account account1 = new Account(new Denomination("groceries"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("groceries"),
+                new Description("mercearia Pingo Doce"));
 
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
@@ -1892,8 +1908,10 @@ class GroupTest {
 
         Category category1 = new Category("grocery");
 
-        Account account1 = new Account("groceries", "mercearia Continente");
-        Account account2 = new Account("groceries", "mercearia Pingo Doce");
+        Account account1 = new Account(new Denomination("groceries"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("groceries"),
+                new Description("mercearia Pingo Doce"));
 
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
@@ -2146,9 +2164,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2190,9 +2211,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2235,9 +2259,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2279,9 +2306,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2324,9 +2354,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2372,9 +2405,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2419,9 +2455,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2466,9 +2505,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2508,7 +2550,8 @@ class GroupTest {
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
 
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
@@ -2540,9 +2583,12 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2590,8 +2636,10 @@ class GroupTest {
         group1.addMember(person3);
         group1.addMember(person4);
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
 
         if (group1.isGroupAdmin(person3)) {
             group1.createGroupAccount("Wallet", "General expenses");
@@ -2633,8 +2681,10 @@ class GroupTest {
         group1.addMember(person3);
         group1.addMember(person4);
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
 
         if (group1.isGroupAdmin(person3)) {
             group1.createGroupAccount("Wallet", "General expenses");
@@ -2677,8 +2727,10 @@ class GroupTest {
         Group group1 = new Group("Test group");
         group1.addMember(person3);
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
 
         if (group1.isGroupAdmin(person3)) {
             group1.createGroupAccount("Wallet", "General expenses");
@@ -2721,9 +2773,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2787,9 +2842,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2831,8 +2889,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
 
         Category otherCategory = new Category("QWERTY");
@@ -2870,9 +2932,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2916,9 +2981,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2961,9 +3029,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -3006,9 +3077,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -3051,9 +3125,12 @@ class GroupTest {
 
         oneGroup.setAdmin(onePerson);
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -3094,9 +3171,12 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -3149,10 +3229,10 @@ class GroupTest {
         Category categoryTwo = new Category("movie");
         Category categoryThree = new Category("groceries");
 
-        Account accountOne = new Account("myxpto", "xpto Account");
-        Account accountTwo = new Account("xyz", "xyz Account");
-
-
+        Account accountOne = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account accountTwo = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
 
         //Group instanced:
         Group group1 = new Group("Test Group");
@@ -3192,10 +3272,10 @@ class GroupTest {
         Category categoryTwo = new Category("movie");
         Category categoryThree = new Category("groceries");
 
-        Account accountOne = new Account("myxpto", "xpto Account");
-        Account accountTwo = new Account("xyz", "xyz Account");
-
-
+        Account accountOne = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account accountTwo = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
 
         //Group instanced:
         Group group1 = new Group("Test Group");
@@ -3236,8 +3316,10 @@ class GroupTest {
         Category categoryTwo = new Category("movie");
         Category categoryThree = new Category("groceries");
 
-        Account accountOne = new Account("myxpto", "xpto Account");
-        Account accountTwo = new Account("xyz", "xyz Account");
+        Account accountOne = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account accountTwo = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
 
 
 
@@ -3279,8 +3361,10 @@ class GroupTest {
         Category categoryTwo = new Category("movie");
         Category categoryThree = new Category("groceries");
 
-        Account accountOne = new Account("myxpto", "xpto Account");
-        Account accountTwo = new Account("xyz", "xyz Account");
+        Account accountOne = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account accountTwo = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
 
 
 
@@ -3326,10 +3410,10 @@ class GroupTest {
         Category categoryTwo = new Category("movie");
         Category categoryThree = new Category("groceries");
 
-        Account accountOne = new Account("myxpto", "xpto Account");
-        Account accountTwo = new Account("xyz", "xyz Account");
-
-
+        Account accountOne = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account accountTwo = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
 
         //Group instanced:
         Group group1 = new Group("Test Group");
@@ -3382,8 +3466,10 @@ class GroupTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -3411,8 +3497,10 @@ class GroupTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -3439,8 +3527,10 @@ class GroupTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -3468,8 +3558,10 @@ class GroupTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -3496,8 +3588,10 @@ class GroupTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 

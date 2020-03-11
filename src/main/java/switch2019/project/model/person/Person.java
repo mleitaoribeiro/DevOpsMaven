@@ -317,7 +317,7 @@ public class Person {
      * @param type
      */
 
-    public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, boolean type) {
+    public boolean createTransaction(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
         if (!accountFrom.equals(accountTo))
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         else return false;
@@ -330,7 +330,8 @@ public class Person {
      * @param accountDescription
      */
     public boolean createAccount(String accountDenomination, String accountDescription) {
-        return accountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
+        return accountsList.createAndAddAccountToAccountsList(new Denomination(accountDenomination),
+                new Description(accountDescription));
     }
 
     /**
@@ -413,7 +414,7 @@ public class Person {
      */
 
     public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+                                          Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
     }

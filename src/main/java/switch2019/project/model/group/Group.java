@@ -418,9 +418,9 @@ public class Group {
      */
 
     public boolean scheduleNewTransaction(String periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                                          Category category, Account accountFrom, Account accountTo, boolean type) {
+                                          Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
-                category, accountFrom, accountTo, type);
+                category, accountFrom, accountTo,type);
     }
 
     /**

@@ -2,10 +2,13 @@ package switch2019.project.model.ledger;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 
+import java.security.IdentityScope;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -20,8 +23,10 @@ class LedgerTest {
     @DisplayName("Test for validating add a new transaction")
     void addTransactionToLedgerOneTransaction() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -42,8 +47,10 @@ class LedgerTest {
     @DisplayName("Test for validating for several new transactions")
     void addTransactionToLedgerTwoTransaction() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category1 = new Category("grossery");
         Category category2 = new Category("transport");
 
@@ -67,8 +74,10 @@ class LedgerTest {
     @DisplayName("Test for validating ledger not adding invalid transactions - null monetaryValue")
     void addTransactionToLedgerTransactionNullMonetaryValue() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
 
         Ledger ledger = new Ledger();
@@ -93,8 +102,10 @@ class LedgerTest {
     @DisplayName("Test for validating ledger not adding invalid transactions - null description")
     void addTransactionToLedgerTransactionNullDescription() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -120,8 +131,10 @@ class LedgerTest {
     @DisplayName("Test for validating ledger not adding invalid transactions - null category")
     void addTransactionToLedgerTransactionNullCategory() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
@@ -147,7 +160,8 @@ class LedgerTest {
     void addTransactionToLedgerTransactionNullAccount() {
 
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
         Category category = new Category("grocery");
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -172,9 +186,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Success Case")
     void getLedgerTransactionsInPeriod() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -227,9 +244,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Same date")
     void getLedgerTransactionsInPeriodSameDay() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -265,9 +285,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - No transactions on the given date")
     void getLedgerTransactionsInPeriodNoTransactions() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -301,9 +324,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Initital Date > Final Date")
     void getLedgerTransactionsInPeriodFalse() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -341,9 +367,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Initital Date > Actual Date")
     void getLedgerTransactionsInPeriodInitialDateSuperiorActualDate() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -380,9 +409,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Final  Date > Actual Date")
     void getLedgerTransactionsInPeriodFinalDateSuperiorActualDate() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -419,9 +451,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Initial Date null")
     void getLedgerTransactionsInPeriodInitialDateNull() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -457,9 +492,12 @@ class LedgerTest {
     @DisplayName("Get Ledger Transactions in a given period - Final Date null")
     void getLedgerTransactionsInPeriodFinalDateNull() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -501,8 +539,10 @@ class LedgerTest {
 
         Ledger ledgerToCheck = new Ledger();
         MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category1 = new Category("grocery");
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
 
@@ -523,8 +563,10 @@ class LedgerTest {
         Ledger ledgerToCheck = new Ledger();
         MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue2 = new MonetaryValue(225, Currency.getInstance("EUR"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category1 = new Category("grocery");
 
 
@@ -543,9 +585,12 @@ class LedgerTest {
     @DisplayName("Sort Transactions in ASC by date")
     void sortTransactionsInAscendingOrderByDate() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -582,9 +627,12 @@ class LedgerTest {
     @DisplayName("Sort Transactions in DESC by date")
     void sortTransactionsInDescendingOrderByDate() {
         //Arrange
-        Account oneAccount = new Account("myxpto", "xpto Account");
-        Account otherAccount = new Account("xyz", "xyz Account");
-        Account anotherAccount = new Account("abc", "abc Account");
+        Account oneAccount = new Account(new Denomination("myxpto"),
+                new Description("xpto Account"));
+        Account otherAccount = new Account(new Denomination("xyz"),
+                new Description("xyz Account"));
+        Account anotherAccount = new Account(new Denomination("abc"),
+                new Description("abc Account"));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -623,42 +671,55 @@ class LedgerTest {
     void getMovementsFromOneAccountSuccessCase() {
         //Arrange
         Ledger ledger = new Ledger();
-        Account account = new Account("Millenium", "Only for Groceries");
+        Account account = new Account(new Denomination("Millenium"),
+                new Description("Only for Groceries"));
 
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
 
         //Arrange-Transaction2
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
-                new Category("grocery"), new Account("BNI", "General"),
-                new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account(new Denomination("BNI"),
+                        new Description("General")),
+                new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
                 new Type(false));
         Transaction transaction2 = new Transaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
-                new Category("grocery"), new Account("BNI", "General"),
-                new Account("Millenium", "Only for Groceries"),
+                new Category("grocery"), new Account(new Denomination("BNI"),
+                new Description("General")),
+                new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
                 new Type(false));
 
         //Arrange-Transaction3
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
         Transaction transaction3 = new Transaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
@@ -680,13 +741,17 @@ class LedgerTest {
 
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
@@ -707,18 +772,23 @@ class LedgerTest {
     void getMovementsFromOneAccountAccountWithoutMovements() {
         //Arrange
         Ledger ledger = new Ledger();
-        Account account = new Account("CaixaGeral", "General");
+        Account account = new Account(new Denomination("CaixaGeral"),
+                new Description("General"));
 
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
@@ -744,18 +814,24 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(true));
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
@@ -778,18 +854,22 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
                 LocalDateTime.of(2020, 1, 13, 13, 05),
-                new Category("grocery"), new Account("Revolut", "For trips expenses"),
-                new Account("Friends & Company", "Holidays"),
+                new Category("grocery"), new Account(new Denomination("Revolut"),
+                        new Description("For trips expenses")),
+                new Account(new Denomination("Friends & Company"), new Description("Holidays")),
                 new Type(true));
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"), new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
@@ -813,18 +893,24 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
@@ -846,18 +932,24 @@ class LedgerTest {
         Ledger ledger = new Ledger();
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
@@ -881,18 +973,23 @@ class LedgerTest {
         Ledger ledger = new Ledger();
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"), new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = null;
@@ -916,18 +1013,24 @@ class LedgerTest {
         Ledger ledger = new Ledger();
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -973,18 +1076,24 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
@@ -1029,18 +1138,24 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
@@ -1061,8 +1176,10 @@ class LedgerTest {
     @DisplayName("Test for validating add a new transaction")
     void addTransactionToLedgerChangeSize() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -1085,8 +1202,10 @@ class LedgerTest {
     @DisplayName("Test toString() Method")
     void testToStringMethod() {
         //Arrange
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         Category category = new Category("grocery");
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -1114,18 +1233,24 @@ class LedgerTest {
         //Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         //Act
