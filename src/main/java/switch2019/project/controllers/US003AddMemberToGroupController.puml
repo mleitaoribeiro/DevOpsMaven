@@ -1,0 +1,40 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+== Arrange ==
+
+create "controller:US003AddMemberToGroupController"
+":Test" -> "controller:US003AddMemberToGroupController" : new US003AddMemberToGroupController ()
+
+== Act ==
+
+":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (service, memberEmail, groupDescription, groupStartingDate)
+activate "controller:US003AddMemberToGroupController" #FFBBBB
+
+participant "service:Service"
+"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup (memberEmail, \n    groupDescription, groupStartingDate)
+activate "service:Service" #FFBBBB
+
+participant ":PersonsRepository"
+"service:Service" -> ":PersonsRepository" : person = findPersonByEmail (personEmail)
+activate ":PersonsRepository" #FFBBBB
+deactivate ":PersonsRepository" #FFBBBB
+
+participant ":GroupsRepository"
+"service:Service" -> ":GroupsRepository" : group = findGroupByAttributes (groupDescription, groupStartingDate)
+activate ":GroupsRepository" #FFBBBB
+deactivate ":GroupsRepository" #FFBBBB
+
+participant "group:Group"
+"service:Service" -> "group:Group" : memberAdded = addMemberToGroup (person)
+activate "group:Group" #FFBBBB
+deactivate "group:Group" #FFBBBB
+deactivate "controller:US003AddMemberToGroupController" #FFBBBB
+deactivate "service:Service" #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(memberAdded)
+
+@enduml
