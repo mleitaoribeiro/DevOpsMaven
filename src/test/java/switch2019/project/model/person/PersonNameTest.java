@@ -113,6 +113,18 @@ class PersonNameTest {
     }
 
     @Test
+    void personNameEqualsSameObject() {
+        //Arrange:
+        PersonName personName = new PersonName("Marta Gomes de Lemos Pinheiro");
+
+        //Act:
+        boolean result = personName.equals(personName);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
     void personNameEqualsDifferentObject() {
         //Arrange:
         PersonName personName = new PersonName("Marta Pinheiro");
