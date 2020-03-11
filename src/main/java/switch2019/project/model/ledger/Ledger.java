@@ -11,6 +11,7 @@ public class Ledger {
 
     //Private Ledger variables
     private List<Transaction> ledgerTransactions;
+    private ScheduledTasksList scheduledTasksList;
 
     //String literals should not be duplicated
     private static final String DATE_NOT_VALID = "One of the submitted dates is not valid.";
@@ -22,6 +23,7 @@ public class Ledger {
 
     public Ledger() {
         ledgerTransactions = new ArrayList<>();
+        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
@@ -76,6 +78,25 @@ public class Ledger {
         boolean transactionAdded = ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();
         return transactionAdded;
+    }
+
+    /**
+     *  Develop method to create a new schedule (USER STORY)
+     *
+     * @param amount
+     * @param description
+     * @param date
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     * @return
+     */
+
+    public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
+                                          Category category, Account accountFrom, Account accountTo, Type type) {
+        return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
+                category, accountFrom, accountTo, type);
     }
 
     /**

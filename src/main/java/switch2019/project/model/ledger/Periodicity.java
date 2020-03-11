@@ -5,7 +5,7 @@ public class Periodicity {
     /**
      * Private Periodicity attribute
      */
-    final private int periodicityMs;
+    private final int periodicityMs;
 
     /**
      * Periodicity constructor

@@ -13,12 +13,12 @@ import java.util.Timer;
 public class Schedule {
 
     // Private Task attributes
-    private Periodicity periodicity;
+    private final Periodicity periodicity;
 
     /**
-     * Personal Schedule Constructor
+     *  Schedule Constructor
      *
-     * @param person
+     * @param ledger
      * @param periodicity
      * @param amount
      * @param description
@@ -28,35 +28,12 @@ public class Schedule {
      * @param accountTo
      * @param type
      */
-    public Schedule(Person person, Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    public Schedule(Ledger ledger, Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                     Category category, Account accountFrom, Account accountTo, Type type) {
         this.periodicity = periodicity;
         Timer timer = new Timer();
-        TransactionTask scheduledTransactionTask = new TransactionTask(person, amount,
+        TransactionTask scheduledTransactionTask = new TransactionTask(ledger, amount,
                                                         description, date, category, accountFrom, accountTo, type);
         timer.schedule(scheduledTransactionTask, 0, this.periodicity.getPeriodicityInMilliseconds());
-    }
-
-    /**
-     * Group Schedule Constructor
-     *
-     * @param group
-     * @param periodicity
-     * @param amount
-     * @param description
-     * @param date
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-
-    public Schedule(Group group, Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
-                    Category category, Account accountFrom, Account accountTo, Type type) {
-        this.periodicity = periodicity;
-        Timer timer = new Timer();
-        TransactionTask scheduledGroupTransactionTask = new TransactionTask(group, amount,
-                                                        description, date, category, accountFrom, accountTo, type);
-        timer.schedule(scheduledGroupTransactionTask, 0, this.periodicity.getPeriodicityInMilliseconds());
     }
 }

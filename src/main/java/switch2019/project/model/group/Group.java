@@ -24,7 +24,6 @@ public class Group {
     private CategoryRepository categoryList;
     private AccountRepository groupAccountsList;
     private Ledger ledger;
-    private ScheduledTasksList scheduledTasksList;
 
     /**
      * Default Group constructor
@@ -40,7 +39,6 @@ public class Group {
         groupAccountsList = new AccountRepository();
         categoryList = new CategoryRepository();
         ledger = new Ledger();
-        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
@@ -415,8 +413,7 @@ public class Group {
 
     public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                           Category category, Account accountFrom, Account accountTo, Type type) {
-        return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
-                category, accountFrom, accountTo, type);
+        return ledger.scheduleNewTransaction(periodicity, amount, description, date, category, accountFrom, accountTo, type);
     }
 
     /**

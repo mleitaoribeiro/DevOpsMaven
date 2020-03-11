@@ -23,23 +23,18 @@ class ScheduledTasksListTest {
 
         //Arrange
         ScheduledTasksList scheduledTasksList = new ScheduledTasksList();
-        Person person = new Person("Jose", new DateAndTime(1995,12,13),
-                new Address("Lisboa"),new Address ("Rua X", "Porto", "4520-266"));
+        Ledger ledger = new Ledger();
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         //Act
-        boolean result = scheduledTasksList.addNewSchedule(person, new Periodicity("daily"), amount,
+        boolean result = scheduledTasksList.addNewSchedule(ledger, new Periodicity("daily"), amount,
                 description, null, category, from, to, new Type(false));
 
         //Assert

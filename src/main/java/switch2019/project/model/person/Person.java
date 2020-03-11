@@ -28,7 +28,6 @@ public class Person {
     private AccountRepository accountsList;
     private CategoryRepository categoryList;
     private Ledger ledger;
-    private ScheduledTasksList scheduledTasksList;
 
     /**
      * Default Person constructor
@@ -48,7 +47,6 @@ public class Person {
         accountsList = new AccountRepository();
         ledger = new Ledger();
         address = homeAddress;
-        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
@@ -73,7 +71,6 @@ public class Person {
         categoryList = new CategoryRepository();
         accountsList = new AccountRepository();
         ledger = new Ledger();
-        scheduledTasksList = new ScheduledTasksList();
     }
 
     /**
@@ -414,8 +411,7 @@ public class Person {
 
     public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                           Category category, Account accountFrom, Account accountTo, Type type) {
-        return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
-                category, accountFrom, accountTo, type);
+        return ledger.scheduleNewTransaction(periodicity, amount, description, date, category, accountFrom, accountTo, type);
     }
 
     /**

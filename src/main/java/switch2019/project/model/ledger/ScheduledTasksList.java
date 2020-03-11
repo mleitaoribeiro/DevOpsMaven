@@ -26,20 +26,11 @@ public class ScheduledTasksList {
      * Method to add a new schedule do the scheduledTasksList
      */
 
-    public boolean addNewSchedule(Person person, Periodicity periodicity, MonetaryValue amount, String descripiton, LocalDateTime date,
+    public boolean addNewSchedule(Ledger ledger, Periodicity periodicity, MonetaryValue amount, String descripiton, LocalDateTime date,
                                   Category category, Account accountFrom, Account accountTo, Type type) {
 
-        Schedule newSchedule = new Schedule(person, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
+        Schedule newSchedule = new Schedule(ledger, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
         scheduledTransactions.add(newSchedule);
         return scheduledTransactions.contains(newSchedule);
     }
-
-    public boolean addNewSchedule(Group group, Periodicity periodicity, MonetaryValue amount, String descripiton, LocalDateTime date,
-                                  Category category, Account accountFrom, Account accountTo, Type type) {
-
-        Schedule newSchedule = new Schedule(group, periodicity, amount, descripiton, date, category, accountFrom, accountTo, type);
-        scheduledTransactions.add(newSchedule);
-        return scheduledTransactions.contains(newSchedule);
-    }
-
 }

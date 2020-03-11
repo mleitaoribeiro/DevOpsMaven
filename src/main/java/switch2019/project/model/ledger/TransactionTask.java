@@ -13,34 +13,21 @@ import java.util.TimerTask;
 public class TransactionTask extends TimerTask {
 
     // Private Task attributes
-    private Person person;
-    private Group group;
-    private MonetaryValue amount;
-    private String description;
-    private LocalDateTime date;
-    private Category category;
-    private Account accountFrom;
-    private Account accountTo;
-    private Type type;
+    private final Ledger ledger;
+    private final MonetaryValue amount;
+    private final String description;
+    private final LocalDateTime date;
+    private final Category category;
+    private final Account accountFrom;
+    private final Account accountTo;
+    private final Type type;
 
     /**
      * TransactionTask Constructor
      */
-    public TransactionTask(Person person, MonetaryValue amount, String description, LocalDateTime date,
+    public TransactionTask(Ledger ledger, MonetaryValue amount, String description, LocalDateTime date,
                            Category category, Account accountFrom, Account accountTo, Type type) {
-        this.person = person;
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.category = category;
-        this.accountFrom = accountFrom;
-        this.accountTo = accountTo;
-        this.type = type;
-    }
-
-    public TransactionTask(Group group, MonetaryValue amount, String description, LocalDateTime date,
-                           Category category, Account accountFrom, Account accountTo, Type type) {
-        this.group = group;
+        this.ledger = ledger;
         this.amount = amount;
         this.description = description;
         this.date = date;
@@ -51,8 +38,6 @@ public class TransactionTask extends TimerTask {
     }
 
     public void run() {
-        if(person != null)
-            person.createTransaction(amount, description, date, category, accountFrom, accountTo, type);
-        else group.createGroupTransaction(amount, description, date, category, accountFrom, accountTo, type);
+        ledger.addTransactionToLedger(amount, description, date, category, accountFrom, accountTo, type);
     }
 }
