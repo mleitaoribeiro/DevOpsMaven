@@ -1,0 +1,46 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+== Arrange ==
+
+create "controller:US 5.0 MemberAddCategoryToCategoryListController"
+":Test" -> "controller:US 5.0 MemberAddCategoryToCategoryListController" : new MemberAddCategoryToCategoryListController()
+
+== Act ==
+":Test" -> "controller:US 5.0 MemberAddCategoryToCategoryListController" :isCategoryCreated=createGroupCategory\n(service, groupAtribbutes, personAttributes, categoryDescription)
+activate "controller:US 5.0 MemberAddCategoryToCategoryListController" #FFBBBB
+
+"controller:US 5.0 MemberAddCategoryToCategoryListController"-> "service:US 5.0 MemberAddCategoryToCategoryListService":isCategoryCreated=createGroupCategory\n(service, groupAtribbutes, personAttributes, categoryDescription)
+activate "service:US 5.0 MemberAddCategoryToCategoryListService" #FFBBBB
+
+"service:US 5.0 MemberAddCategoryToCategoryListService"->":GroupRep":group= findGroupByAttribute\n(groupAtribbutes)
+activate ":GroupRep" #FFBBBB
+deactivate ":GroupRep"
+
+"service:US 5.0 MemberAddCategoryToCategoryListService"->":PersonRep": person=findPersonByAttribute\n(personAttributes)
+activate ":PersonRep" #FFBBBB
+deactivate ":PersonRep"
+
+"service:US 5.0 MemberAddCategoryToCategoryListService"->"g1:Group": validateAdmin=isAdmin(person1)
+activate "g1:Group" #FFBBBB
+deactivate "g1:Group"
+
+"service:US 5.0 MemberAddCategoryToCategoryListService"->"g1:Group": gID=getGroupID()
+activate "g1:Group" #FFBBBB
+deactivate "g1:Group"
+
+"service:US 5.0 MemberAddCategoryToCategoryListService"->":CatRep":isCategoryCreated=createCategory\n(gID,categoryDescription)
+activate ":CatRep" #FFBBBB
+
+create ":Category"
+":CatRep"->":Category":newCategory\n(categoryDescription,gID)
+
+deactivate ":CatRep"
+deactivate "service:US 5.0 MemberAddCategoryToCategoryListService"
+deactivate "controller:US 5.0 MemberAddCategoryToCategoryListController"
+
+
+== Assert ==
+":Test" -> ":Test" : assertTrue( categoryCreated)
+@enduml
