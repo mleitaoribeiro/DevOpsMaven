@@ -1,6 +1,0 @@
-@startuml
-skinparam DefaultFontSize 20
-create ":Test"
-create ":GetFamilyGroupsController"
-
-@enduml

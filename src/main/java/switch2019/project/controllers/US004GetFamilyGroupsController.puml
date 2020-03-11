@@ -1,0 +1,20 @@
+@startuml
+skinparam DefaultFontSize 20
+participant ":Test"
+participant ":US004GetFamilyGroupsController"
+
+":Test" -> ":US004GetFamilyGroupsController" : getFamilyGroups(service)
+
+participant "service:Service"
+":US004GetFamilyGroupsController" -> "service:Service" : getFamilyGroups()
+
+participant ":GroupRepository"
+"service:Service" -> ":GroupRepository" : returnOnlyFamilies()
+
+participant ":Group"
+":GroupRepository" -> ":Group" : isFamily()
+
+":Test" -> ":Test" : Assert
+
+
+@enduml
