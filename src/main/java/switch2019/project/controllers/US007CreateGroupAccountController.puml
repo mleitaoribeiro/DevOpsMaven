@@ -1,0 +1,50 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+== Arrange ==
+create ":US007CreateGroupAccountController"
+":Test" -> ":US007CreateGroupAccountController" : new US007Create\nGroupAccountController ()
+
+== Act ==
+
+":Test" -> ":US007CreateGroupAccountController" : account = createGroupAccount\n(service, personAttributes, groupAttributes, \ndenomination, description)
+activate ":US007CreateGroupAccountController"  #FFBBBB
+
+":US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : account = createGroupAccount\n(personAttributes, groupAttributes, \ndenomination, description)
+activate "service:US007CreateGroupAccountService"  #FFBBBB
+
+"service:US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByAttributes(groupAttributes)
+activate ":GroupsRepository"  #FFBBBB
+deactivate ":GroupsRepository"  #FFBBBB
+
+"service:US007CreateGroupAccountService" -> ":PersonRepository" : person = findPersonByAttributes(personAttributes)
+activate ":PersonRepository" #FFBBBB
+deactivate ":PersonRepository" #FFBBBB
+
+"service:US007CreateGroupAccountService" -> ":Group" : valid = isAdmin(person)
+activate ":Group" #FFBBBB
+deactivate ":Group" #FFBBBB
+
+"service:US007CreateGroupAccountService" -> ":Group" : groupId = getGroupId(group)
+activate ":Group" #FFBBBB
+deactivate ":Group" #FFBBBB
+
+"service:US007CreateGroupAccountService" -> ":AccountsRepository" : newAccount = createAccount(groupId, \ndenomination,description)
+activate ":AccountsRepository" #FFBBBB
+
+create ":Account"
+":AccountsRepository" -> ":Account" : new Account(groupId, \ndenomination,description)
+
+deactivate ":AccountsRepository" #FFBBBB
+deactivate ":Group" #FFBBBB
+deactivate ":PersonRepository" #FFBBBB
+deactivate ":GroupsRepository" #FFBBBB
+deactivate "service:US007CreateGroupAccountService"  #FFBBBB
+deactivate ":US007CreateGroupAccountController" #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(account)
+
+@enduml
