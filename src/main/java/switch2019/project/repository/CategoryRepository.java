@@ -4,7 +4,7 @@ import switch2019.project.model.category.Category;
 
 import java.util.*;
 
-public class CategoryRepository {
+public class CategoryRepository implements Repository{
     // Private instance variables
     private Set<Category> categories;
 

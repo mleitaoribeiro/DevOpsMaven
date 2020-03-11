@@ -3,6 +3,8 @@ package switch2019.project.model.person;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.*;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.repository.CategoryRepository;
@@ -105,6 +107,7 @@ public class Person {
     /**
      * Set Person Birth Date: with input validation
      *
+     * @param birthDate
      */
 
     public void setBirthDate(DateAndTime birthDate) {
@@ -324,7 +327,8 @@ public class Person {
      * @param accountDescription
      */
     public boolean createAccount(String accountDenomination, String accountDescription) {
-        return accountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
+        return accountsList.createAndAddAccountToAccountsList(new Denomination(accountDenomination),
+                new Description(accountDescription));
     }
 
     /**

@@ -2,9 +2,12 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.group.Group;
@@ -827,8 +830,10 @@ class PersonTest {
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -853,8 +858,10 @@ class PersonTest {
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
 
-        Account accountWallet = new Account("Wallet", "General expenses");
-        Account accountTransport = new Account("Transport", "Transport expenses");
+        Account accountWallet = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account accountTransport = new Account(new Denomination("Transport"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("Transport", "Transport expenses");
 
@@ -882,7 +889,8 @@ class PersonTest {
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
 
-        Account accountWallet = new Account("Wallet", "General expenses");
+        Account accountWallet = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
         person.createAccount("Wallet", "General expenses");
 
 
@@ -1223,8 +1231,10 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1251,8 +1261,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1300,8 +1312,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1332,8 +1346,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Miguel", new DateAndTime(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account from = new Account("Account1", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account from = new Account(new Denomination("Account1"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("Account2"),
+                new Description("Transport expenses"));
         person.createAccount("Account1", "General expenses");
         person.createAccount("Account2", "Transport expenses");
 
@@ -1372,8 +1388,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Miguel", new DateAndTime(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account from = new Account("Account1", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account from = new Account(new Denomination("Account1"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("Account2"),
+                new Description("Transport expenses"));
         person.createAccount("Account1", "General expenses");
         person.createAccount("Account2", "Transport expenses");
 
@@ -1405,8 +1423,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("Account2"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1441,8 +1461,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
 
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("Account2", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("Account2"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1486,18 +1508,24 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
@@ -1521,18 +1549,24 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
                 LocalDateTime.of(2020, 1, 13, 13, 05),
-                new Category("grocery"), new Account("Revolut", "For trips expenses"),
-                new Account("Friends & Company", "Holidays"),
+                new Category("grocery"), new Account(new Denomination("Revolut"),
+                        new Description("For trips expenses")),
+                new Account(new Denomination("Friends & Company"),
+                        new Description("Holidays")),
                 new Type(true));
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
@@ -1557,18 +1591,24 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
@@ -1592,18 +1632,24 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
@@ -1629,18 +1675,24 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = null;
@@ -1687,18 +1739,24 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account("Millenium", "Only for Groceries"),
-                new Account("Continente", "Food Expenses"),
+                new Category("grocery"), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries")),
+                new Account(new Denomination("Continente"),
+                        new Description("Food Expenses")),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account("CGD", "Only Gas Expenses"),
-                new Account("BP", "Gas"),
+                new Category("grocery"), new Account(new Denomination("CGD"),
+                        new Description("Only Gas Expenses")),
+                new Account(new Denomination("BP"),
+                        new Description("Gas")),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 0, 0);
@@ -1723,8 +1781,10 @@ class PersonTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1751,8 +1811,10 @@ class PersonTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1778,8 +1840,10 @@ class PersonTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1806,8 +1870,10 @@ class PersonTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1833,8 +1899,10 @@ class PersonTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -1863,8 +1931,10 @@ class PersonTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
         person.createAccount("mercearia", "mercearia Continente");
         person.createAccount("transporte", "transporte Metro");
         person.createCategoryAndAddToCategoryList("grocery");
@@ -1992,9 +2062,12 @@ class PersonTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2034,9 +2107,12 @@ class PersonTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -2075,9 +2151,12 @@ class PersonTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(100, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
-        Account account1 = new Account("mercearia", "mercearia Continente");
-        Account account2 = new Account("transporte", "transporte Metro");
-        Account account5 = new Account("comida de gato", "comida para a gatinha");
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"));
+        Account account5 = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");

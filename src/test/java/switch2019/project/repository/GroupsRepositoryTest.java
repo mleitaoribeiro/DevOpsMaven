@@ -3,11 +3,14 @@ package switch2019.project.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Transaction;
@@ -382,9 +385,11 @@ class GroupsRepositoryTest {
         groupsRepository.createGroup("work", person);
 
         // Group Accounts:
-        Account accountCombustivel = new Account("combustivel", "gastos de combustivél");
+        Account accountCombustivel = new Account(new Denomination("combustivel"),
+                new Description("gastos de combustivél"));
         spiceGirls.createGroupAccount("combustivel", "gastos de combustivél");
-        Account accountGato = new Account("comida de gato", "comida para a gatinha");
+        Account accountGato = new Account(new Denomination("comida de gato"),
+                new Description("comida para a gatinha"));
         spiceGirls.createGroupAccount("comida de gato", "comida para a gatinha");
         spiceGirls.createGroupAccount("dinner", "partilha de jantares");
 
@@ -411,8 +416,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -445,8 +452,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -479,8 +488,10 @@ class GroupsRepositoryTest {
             //Transactions arrangement:
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("Test");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
 
         try {
             //Act:
@@ -510,8 +521,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -542,8 +555,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -573,8 +588,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -605,8 +622,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -636,8 +655,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -670,8 +691,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
@@ -706,8 +729,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         personMember.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         personMember.createAccount("Wallet", "General expenses");
         personMember.createAccount("TransportAccount", "Transport expenses");
 
@@ -747,8 +772,10 @@ class GroupsRepositoryTest {
         String description = "payment";
         Category category = new Category("General");
         personMember.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         personMember.createAccount("Wallet", "General expenses");
         personMember.createAccount("TransportAccount", "Transport expenses");
 
@@ -809,15 +836,23 @@ class GroupsRepositoryTest {
         group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
 
             //Accounts:
-        Account account1 = new Account("Savings","Savings destined to food");
-        Account account2 = new Account("Pingo Doce","groceries on Pingo Doce");
-        Account account3 = new Account("Savings2","Savings destined to food");
-        Account account4 = new Account("Pingo Doce2","groceries on Pingo Doce");
+        Account account1 = new Account(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        Account account2 = new Account(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        Account account3 = new Account(new Denomination("Savings2"),
+                new Description("Savings destined to food"));
+        Account account4 = new Account(new Denomination("Pingo Doce2"),
+                new Description("groceries on Pingo Doce"));
             //Accounts created in Group:
-        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
-        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
-        group2.addAccountToGroupAccountsList("Savings2","Savings destined to food");
-        group2.addAccountToGroupAccountsList("Pingo Doce2","groceries on Pingo Doce");
+        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        group2.addAccountToGroupAccountsList(new Denomination("Savings2"),
+                new Description("Savings destined to food"));
+        group2.addAccountToGroupAccountsList(new Denomination("Pingo Doce2"),
+                new Description("groceries on Pingo Doce"));
 
             //Transactions arranged:
             //Group1 transactions:
@@ -890,15 +925,23 @@ class GroupsRepositoryTest {
         group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
 
         //Accounts:
-        Account account1 = new Account("Savings","Savings destined to food");
-        Account account2 = new Account("Pingo Doce","groceries on Pingo Doce");
-        Account account3 = new Account("Savings2","Savings destined to food");
-        Account account4 = new Account("Pingo Doce2","groceries on Pingo Doce");
+        Account account1 = new Account(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        Account account2 = new Account(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        Account account3 = new Account(new Denomination("Savings2"),
+                new Description("Savings destined to food"));
+        Account account4 = new Account(new Denomination("Pingo Doce2"),
+                new Description("groceries on Pingo Doce"));
         //Accounts created in Group:
-        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
-        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
-        group2.addAccountToGroupAccountsList("Savings2","Savings destined to food");
-        group2.addAccountToGroupAccountsList("Pingo Doce2","groceries on Pingo Doce");
+        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        group2.addAccountToGroupAccountsList(new Denomination("Savings2"),
+                new Description("Savings destined to food"));
+        group2.addAccountToGroupAccountsList(new Denomination("Pingo Doce2"),
+                new Description("groceries on Pingo Doce"));
 
         //Transactions arranged:
         //Group1 transactions:
@@ -972,15 +1015,23 @@ class GroupsRepositoryTest {
         group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
 
         //Accounts:
-        Account account1 = new Account("Savings","Savings destined to food");
-        Account account2 = new Account("Pingo Doce","groceries on Pingo Doce");
-        Account account3 = new Account("Savings2","Savings destined to food");
-        Account account4 = new Account("Pingo Doce2","groceries on Pingo Doce");
+        Account account1 = new Account(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        Account account2 = new Account(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        Account account3 = new Account(new Denomination("Savings2"),
+                new Description("Savings destined to food"));
+        Account account4 = new Account(new Denomination("Pingo Doce2"),
+                new Description("groceries on Pingo Doce"));
         //Accounts created in Group:
-        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
-        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
-        group2.addAccountToGroupAccountsList("Savings2","Savings destined to food");
-        group2.addAccountToGroupAccountsList("Pingo Doce2","groceries on Pingo Doce");
+        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        group2.addAccountToGroupAccountsList(new Denomination("Savings2"),
+                new Description("Savings destined to food"));
+        group2.addAccountToGroupAccountsList(new Denomination("Pingo Doce2"),
+                new Description("groceries on Pingo Doce"));
 
         //Transactions arranged:
         //Group1 transactions:
@@ -1029,10 +1080,14 @@ class GroupsRepositoryTest {
         groupsRepository.addGroupToGroupList(group1);
 
             //Arranging accounts:
-        Account savingsAccount = new Account("Savings","Savings destined to food");
-        Account pingDoceAccount = new Account("Pingo Doce","groceries on Pingo Doce");
-        group1.addAccountToGroupAccountsList("Savings","Savings destined to food");
-        group1.addAccountToGroupAccountsList("Pingo Doce","groceries on Pingo Doce");
+        Account savingsAccount = new Account(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        Account pingDoceAccount = new Account(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
+        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
+                new Description("Savings destined to food"));
+        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
+                new Description("groceries on Pingo Doce"));
         Category shoppingForFood = new Category("shopping for food");
 
 

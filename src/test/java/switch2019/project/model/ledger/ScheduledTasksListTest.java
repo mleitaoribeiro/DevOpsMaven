@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Person;
@@ -30,8 +32,10 @@ class ScheduledTasksListTest {
         String description = "payment";
         Category category = new Category("General");
         person.createCategoryAndAddToCategoryList("General");
-        Account from = new Account("Wallet", "General expenses");
-        Account to = new Account("TransportAccount", "Transport expenses");
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"));
         person.createAccount("Wallet", "General expenses");
         person.createAccount("TransportAccount", "Transport expenses");
 
