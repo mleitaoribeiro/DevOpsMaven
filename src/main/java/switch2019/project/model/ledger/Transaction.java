@@ -72,7 +72,7 @@ public class Transaction {
      * toString() of type
      */
     private String typeToString() {
-        return type.typeToString();
+        return type.toString();
     }
 
     /**

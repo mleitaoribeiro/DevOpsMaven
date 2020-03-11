@@ -14,10 +14,8 @@ public class Type {
         this.type=type;
     }
 
-    /**
-     * toString() of type
-     */
-    public String typeToString() {
+    @Override
+    public String toString() {
         if (type) return "CREDIT";
         else return "DEBIT";
     }
