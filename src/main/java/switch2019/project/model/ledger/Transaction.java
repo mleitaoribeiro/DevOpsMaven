@@ -100,7 +100,7 @@ public class Transaction {
 
     public MonetaryValue setValidMonetaryValue(MonetaryValue newAmount) {
         if (newAmount == null || !newAmount.validateIfAmountIsPositive())
-        throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
+            throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
         else return newAmount;
     }
 
