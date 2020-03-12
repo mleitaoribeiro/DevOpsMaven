@@ -1,8 +1,9 @@
 @startuml
 skinparam DefaultFontSize 20
 participant ":Test"
-participant ":US004GetFamilyGroupsController"
+create ":US004GetFamilyGroupsController"
 
+":Test" -> ":US004GetFamilyGroupsController" : new US004GetFamilyGroupsController()
 ":Test" -> ":US004GetFamilyGroupsController" : groups = getFamilyGroups(service)
 activate ":US004GetFamilyGroupsController" #FFBBBB
 
