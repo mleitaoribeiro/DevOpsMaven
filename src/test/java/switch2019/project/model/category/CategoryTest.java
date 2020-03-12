@@ -2,7 +2,6 @@ package switch2019.project.model.category;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.category.Category;
 import switch2019.project.model.group.Group;
 
 import static org.junit.jupiter.api.Assertions.*;

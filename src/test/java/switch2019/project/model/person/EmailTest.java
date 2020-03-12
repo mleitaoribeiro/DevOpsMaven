@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmailTest {
 
     /**
-     * Test Same Email
+     * Test Equals - Different Objects
      */
 
     @Test
@@ -28,11 +28,11 @@ class EmailTest {
     }
 
     /**
-     * Test Same Email
+     * Test Equals - Same Object
      */
 
     @Test
-    @DisplayName("Test Same Email - Different Objects")
+    @DisplayName("Test Same Email - Same object")
     public void sameObject() {
 
         //Arrange:
@@ -46,7 +46,7 @@ class EmailTest {
     }
 
     /**
-     * Test Same Email
+     * Test Equals - Different Email
      */
 
     @Test
@@ -65,7 +65,7 @@ class EmailTest {
     }
 
     /**
-     * Test Same Email
+     * Test Equals - Different Class object
      */
 
     @Test
@@ -83,6 +83,10 @@ class EmailTest {
         assertFalse(result);
 
     }
+
+    /**
+     * Test Equals - Null
+     */
 
     @Test
     @DisplayName("Test Same Email - Null")
@@ -104,7 +108,7 @@ class EmailTest {
      */
 
     @Test
-    @DisplayName("Test Same Email - Null")
+    @DisplayName("Test Same Hashcode")
     public void sameHashCode () {
 
         //Arrange & Act:
@@ -120,12 +124,12 @@ class EmailTest {
      */
 
     @Test
-    @DisplayName("Test Same Email - Null")
+    @DisplayName("Test Different Hashcode")
     public void differentHashCode () {
 
         //Arrange & Act:
         Email oneEmail = new Email("email@gmail.com");
-        Email otherEmail = new Email("email1@gmail.com");
+        Email otherEmail = new Email("email.s@gmail.com");
 
         //Assert:
         assertNotEquals(oneEmail.hashCode(), otherEmail.hashCode());
@@ -153,7 +157,64 @@ class EmailTest {
     }
 
     /**
-     * Tests  invalid email input - - No @
+     * Test valid email input - only numbers
+     */
+
+    @Test
+    @DisplayName("Test Valid email input - numbers")
+    public void validEmailInput_numbers() {
+
+        //Arrange:
+        Email oneEmail = new Email("1110203@gmail.com");
+        String expected = "1110203@gmail.com";
+
+        //Act:
+        String real = oneEmail.getEmailAddress();
+
+        //Assert:
+        assertEquals(expected, real);
+
+    }
+
+    /**
+     * Test valid email input
+     */
+
+    @Test
+    @DisplayName("Test Valid email input ")
+    public void validEmailInput_1() {
+
+        //Arrange:
+        Email oneEmail = new Email("12345678@isep.ipp.pt");
+        String expected = "12345678@isep.ipp.pt";
+
+        //Act:
+        String real = oneEmail.getEmailAddress();
+
+        //Assert:
+        assertEquals(expected, real);
+
+    }
+
+    @Test
+    @DisplayName("Test Valid email input ")
+    public void validEmailInput_2() {
+
+        //Arrange:
+        Email oneEmail = new Email("joo_a3sd.12@live.com.au");
+        String expected = "joo_a3sd.12@live.com.au";
+
+        //Act:
+        String real = oneEmail.getEmailAddress();
+
+        //Assert:
+        assertEquals(expected, real);
+
+    }
+
+
+    /**
+     * Tests  invalid email input - No @
      */
 
     @Test
@@ -212,5 +273,87 @@ class EmailTest {
         }
 
     }
+
+    /**
+     * Tests  invalid email input - two dots
+     */
+
+    @Test
+    @DisplayName("Test Invalid email input - Two Dots")
+    public void invalidEmailInput_TwoDots() {
+
+        //Arrange & Act:
+        try {
+            Email oneEmail = new Email("email@gmail..com");
+        }
+
+        //Assert
+        catch (IllegalArgumentException invalidEmail) {
+            assertEquals("The email it´s not valid", invalidEmail.getMessage());
+        }
+
+    }
+
+    /**
+     * Tests  invalid email input - two "at sign"
+     */
+
+    @Test
+    @DisplayName("Test Invalid email input - Two at sign")
+    public void invalidEmailInput_TwoAtSign() {
+
+        //Arrange & Act:
+        try {
+            Email oneEmail = new Email("email@@gmail.pt");
+        }
+
+        //Assert
+        catch (IllegalArgumentException invalidEmail) {
+            assertEquals("The email it´s not valid", invalidEmail.getMessage());
+        }
+
+    }
+
+    /**
+     * Tests  invalid email input - two "at sign"
+     */
+
+    @Test
+    @DisplayName("Test Invalid email input - Two at sign - Different Places")
+    public void invalidEmailInput_TwoAtSign_differentPlaces() {
+
+        //Arrange & Act:
+        try {
+            Email oneEmail = new Email("email@123@gmail.pt");
+        }
+
+        //Assert
+        catch (IllegalArgumentException invalidEmail) {
+            assertEquals("The email it´s not valid", invalidEmail.getMessage());
+        }
+
+    }
+
+
+    /**
+     * Tests  invalid email input - No "@" | No "." "
+     */
+
+    @Test
+    @DisplayName("Test Invalid email input - Two at sign")
+    public void invalidEmailInput_NoAtSign_NoDot() {
+
+        //Arrange & Act:
+        try {
+            Email oneEmail = new Email("emailgmailcom");
+        }
+
+        //Assert
+        catch (IllegalArgumentException invalidEmail) {
+            assertEquals("The email it´s not valid", invalidEmail.getMessage());
+        }
+
+    }
+
 
 }

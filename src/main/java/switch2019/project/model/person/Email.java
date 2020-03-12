@@ -3,23 +3,23 @@ package switch2019.project.model.person;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-class Email {
+public class Email {
 
     private final String emailAddress;
 
     private static final String EMAIL_NOT_VALID = "The email it´s not valid";
     private static final String EMAIL_NULL = "The email can´t be null!";
 
-    public Email(String emailAddress) {
-        this.emailAddress = setValidEmail(emailAddress);
+    public Email (String email) {
+        this.emailAddress = setValidEmail(email);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Email email1 = (Email) o;
-        return emailAddress.equals(email1.emailAddress);
+        Email email = (Email) o;
+        return emailAddress.equals(email.emailAddress);
     }
 
     @Override
@@ -43,11 +43,11 @@ class Email {
     }
 
     /**
-     * Auxiliary method to verify if email it´s valid
+     * Auxiliary method to verify if email it´s valid (xxxx@xxxx.xx)
      * @param email
      * @return
      */
-   private static boolean isValid(String email) {
+   private boolean isValid(String email) {
            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                    "[a-zA-Z0-9_+&*-]+)*@" +
                    "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
