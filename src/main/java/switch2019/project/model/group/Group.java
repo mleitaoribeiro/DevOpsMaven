@@ -1,13 +1,10 @@
 package switch2019.project.model.group;
 
-import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.*;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.ledger.*;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Description;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.AccountRepository;
-import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Person;
@@ -17,7 +14,7 @@ import java.util.*;
 
 public class Group {
 
-    private Description description;
+    private GroupID groupID;
     private final DateAndTime startingDate;
     private Set<Person> members;
     private Set<Person> admins;
@@ -32,7 +29,7 @@ public class Group {
      */
 
     public Group(String description) {
-        setDescription(description);
+        setGroupID(description);
         startingDate = new DateAndTime();
         members = new HashSet<>();
         admins = new HashSet<>();
@@ -41,13 +38,13 @@ public class Group {
         ledger = new Ledger();
     }
 
+
     /**
-     * setter Description
-     *
-     * @param description
+     * Method to Set GroupID
+     * @param groupID
      */
-    public void setDescription(String description) {
-            this.description = new Description(description);
+    public void setGroupID(String groupID) {
+            this.groupID = new GroupID(new Description(groupID));
         }
 
 
@@ -61,14 +58,14 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return Objects.equals(description, group.description) &&
+        return Objects.equals(groupID, group.groupID) &&
                 Objects.equals(startingDate, group.startingDate) &&
                 Objects.equals(members, group.members);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, startingDate, members);
+        return Objects.hash(groupID, startingDate, members);
     }
 
     /**
@@ -262,7 +259,7 @@ public class Group {
      * @return true if group account was created, false if it wasn't
      */
     public boolean createGroupAccount(String accountDenomination, String accountDescription) {
-        if (accountDenomination != null && accountDescription != null && this.description != null) {
+        if (accountDenomination != null && accountDescription != null && this.groupID != null) {
             return this.addAccountToGroupAccountsList(new Denomination(accountDenomination),
                     new Description(accountDescription));
         }
@@ -395,8 +392,8 @@ public class Group {
      *
      * @return description
      */
-    public String getDescription() {
-        return description.getDescriptionValue();
+    public String getGroupID() {
+        return groupID.getDescription();
     }
 
     /**

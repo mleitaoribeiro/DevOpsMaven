@@ -92,7 +92,7 @@ public class GroupsRepository implements Repository{
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, Type type) {
         for (Group group : listOfGroups) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription)) {
+            if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
                 if (group.isGroupMember(person))
                     return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
                 else throw new IllegalArgumentException(NOT_A_MEMBER);
@@ -117,7 +117,7 @@ public class GroupsRepository implements Repository{
                                                  LocalDateTime localDate, Category category,
                                                  Account accountFrom, Account accountTo, Type type){
         for (Group group : listOfGroups) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription)){
+            if (group.getGroupID().equalsIgnoreCase(groupDescription)){
                 if(group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
                 else throw new IllegalArgumentException(NOT_A_MEMBER);
@@ -154,7 +154,7 @@ public class GroupsRepository implements Repository{
      */
     public boolean checkIfAPersonIsAdminInAGivenGroup(String groupDescription, Person person) {
         for (Group group : listOfGroups) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription))
+            if (group.getGroupID().equalsIgnoreCase(groupDescription))
                 return group.isGroupAdmin(person);
         }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
@@ -167,7 +167,7 @@ public class GroupsRepository implements Repository{
      */
     public int checkAGroupsLedgerSize(String groupDescription) {
         for (Group group : listOfGroups) {
-            if (group.getDescription().equalsIgnoreCase(groupDescription))
+            if (group.getGroupID().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize(); }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
