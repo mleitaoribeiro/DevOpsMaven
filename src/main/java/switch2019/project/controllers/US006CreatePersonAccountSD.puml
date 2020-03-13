@@ -1,0 +1,39 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+== Arrange ==
+create ":US006CreatePersonAccountController"
+":Test" -> ":US006CreatePersonAccountController" : new US006CreatePersonAccountController ()
+
+== Act ==
+
+":Test" -> ":US006CreatePersonAccountController" : accountCreated = createPersonAccount (service, personAttributes, \n                                     accountDenomination, accountDescription)
+activate ":US006CreatePersonAccountController"  #FFBBBB
+
+":US006CreatePersonAccountController" -> "service:US006CreatePersonAccountService" : accountCreated = createPersonAccount\n(personAttributes, accountDenomination,\n accountDescription)
+activate "service:US006CreatePersonAccountService"  #FFBBBB
+
+"service:US006CreatePersonAccountService" -> ":personRepository" : onePerson = findPersonByAttributes(personAttributes)
+activate ":personRepository"  #FFBBBB
+deactivate ":personRepository"  #FFBBBB
+
+"service:US006CreatePersonAccountService" -> "onePerson:Person" : personID = getPersonID()
+activate "onePerson:Person"  #FFBBBB
+deactivate "onePerson:Person"  #FFBBBB
+
+"service:US006CreatePersonAccountService"  -> ":AccountsRepository" : accountCreated  = createPersonAccount(personID, \naccountDenomination,accountDescription)
+activate ":AccountsRepository" #FFBBBB
+
+create ":Account"
+":AccountsRepository" -> ":Account" : new Account (personID, \n accountDenomination,\n accountDescription)
+
+deactivate ":AccountsRepository" #FFBBBB
+deactivate "service:US006CreatePersonAccountService"  #FFBBBB
+deactivate ":US006CreatePersonAccountController"  #FFBBBB
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(accountCreated)
+
+@enduml

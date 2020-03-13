@@ -9,15 +9,15 @@ create "controller:US003AddMemberToGroupController"
 
 == Act ==
 
-":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (service, memberEmail, groupDescription, groupStartingDate)
+":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (service, personAttributes, groupDescription, groupStartingDate)
 activate "controller:US003AddMemberToGroupController" #FFBBBB
 
 participant "service:Service"
-"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup (memberEmail, \n    groupDescription, groupStartingDate)
+"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup (personAttributes, \n    groupDescription, groupStartingDate)
 activate "service:Service" #FFBBBB
 
 participant ":PersonsRepository"
-"service:Service" -> ":PersonsRepository" : person = findPersonByEmail (personEmail)
+"service:Service" -> ":PersonsRepository" : person = findPersonByAttributes (personAttributes)
 activate ":PersonsRepository" #FFBBBB
 deactivate ":PersonsRepository" #FFBBBB
 
