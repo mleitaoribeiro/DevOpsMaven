@@ -11,7 +11,7 @@ public interface Owner {
      * @param accountDescription
      */
     //este método vai ser alterado posteriormente quando existirem os IDS
-    public boolean createAccount(String accountDenomination, String accountDescription);
+    boolean createAccount(String accountDenomination, String accountDescription);
 
     /**
      * method to create a new Category
@@ -20,5 +20,11 @@ public interface Owner {
      * @param categoryCreator
      */
     //este método vai ser alterado posteriormente quando existirem os IDS
-    public boolean createCategory(String nameOfCategory, Person categoryCreator);
+    boolean createCategory(String nameOfCategory, Person categoryCreator);
+
+    /**
+     * method to get the Owner ID
+     * @return owner's ID
+     */
+    ID getID();
 }

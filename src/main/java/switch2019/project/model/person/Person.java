@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Person implements Owner {
+
     // Private Person variables
     private PersonID personID;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()

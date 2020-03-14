@@ -1,10 +1,12 @@
 package switch2019.project.model.shared;
 
+import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.person.PersonName;
 import java.util.Objects;
 
-public class PersonID {
+public class PersonID implements ID {
 
+    // Private PersonID attributes
     private PersonName personName;
 
     /**

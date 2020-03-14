@@ -70,6 +70,15 @@ public class Group implements Owner {
     }
 
     /**
+     * Method to get Group ID
+     * @return groupID
+     */
+
+    public GroupID getID() {
+        return groupID;
+    }
+
+    /**
      * Add a new person to a group
      *
      * @param person

@@ -1,8 +1,10 @@
 package switch2019.project.model.shared;
 
+import switch2019.project.model.frameworks.ID;
+
 import java.util.Objects;
 
-public class GroupID {
+public class GroupID implements ID {
 
     private Description description;
 
