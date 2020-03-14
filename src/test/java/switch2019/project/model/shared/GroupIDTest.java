@@ -74,5 +74,20 @@ class GroupIDTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Test if two groupID are the same - same object")
+    void testEqualsGroupIDSameObject() {
+        //Arrange:
+        Description groupID1description = new Description("Linkin Park Fans");
+        GroupID groupID1 = new GroupID(groupID1description);
+        GroupID groupID2 = groupID1;
+
+        //Act:
+        boolean result = groupID1.equals(groupID2);
+
+        //Assert:
+        assertTrue(result);
+    }
+
 
 }
