@@ -9,10 +9,7 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.MonetaryValue;
+import switch2019.project.model.shared.*;
 import switch2019.project.repository.GroupsRepository;
 
 import java.time.LocalDateTime;
@@ -3619,6 +3616,20 @@ class GroupTest {
 
         //Assert
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Test method getID from Group ")
+    void getID() {
+        Group group1 = new Group ("Gym Buddies");
+        GroupID expected = new GroupID(new Description("Gym Buddies"));
+
+        //Act
+        GroupID result = group1.getID();
+
+        //Assert
+        assertEquals(expected, result);
+
     }
 }
 
