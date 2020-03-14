@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.MonetaryValue;
+import switch2019.project.model.shared.*;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.ledger.Ledger;
@@ -2201,4 +2198,18 @@ class PersonTest {
         assertEquals(expected, real);
     }
 
+    @Test
+    void getPersonID() {
+        //Arrange:
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+
+        PersonID expected = new PersonID("Marta");
+
+        //Act:
+        PersonID result = person.getPersonID();
+
+        //Assert:
+        assertEquals(expected, result);
+    }
 }
