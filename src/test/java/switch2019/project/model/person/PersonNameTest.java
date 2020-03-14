@@ -30,7 +30,21 @@ class PersonNameTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsInDateRange) {
-            assertEquals("The name can't be null.", getTransactionsInDateRange.getMessage());
+            assertEquals("The name can't be empty or null.", getTransactionsInDateRange.getMessage());
+        }
+    }
+
+    @Test
+    void getPersonNameEmptyCase() {
+
+        //Arrange & Act
+        try {
+            new PersonName("");
+        }
+
+        //Assert
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("The name can't be empty or null.", getTransactionsInDateRange.getMessage());
         }
     }
 

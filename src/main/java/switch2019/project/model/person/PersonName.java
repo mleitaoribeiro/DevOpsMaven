@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-class PersonName {
+public class PersonName {
 
     /**
      * Private Instance Variable
@@ -46,8 +46,8 @@ class PersonName {
      */
 
     private String standardPersonName(String personName) {
-        if(personName == null)
-            throw new IllegalArgumentException("The name can't be null.");
+        if(personName == null || personName.isEmpty())
+            throw new IllegalArgumentException("The name can't be empty or null.");
         else {
             personName = removeAllExtraSpaces(personName);
             personName = capitalizeEachWord(personName);

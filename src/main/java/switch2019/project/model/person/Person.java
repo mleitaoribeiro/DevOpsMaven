@@ -4,10 +4,7 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.ledger.*;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.MonetaryValue;
+import switch2019.project.model.shared.*;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.repository.CategoryRepository;
 
@@ -19,7 +16,7 @@ import java.util.Set;
 
 public class Person implements Owner {
     // Private Person variables
-    private PersonName name;
+    private PersonID personID;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
     private Person mother;
@@ -40,7 +37,7 @@ public class Person implements Owner {
      */
 
     public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress) {
-        this.name = new PersonName(name);
+        personID = new PersonID(name);
         this.birthPlace = birthPlace;
         this.birthDate = birthDate;
         siblingList = new HashSet<>();
@@ -62,7 +59,7 @@ public class Person implements Owner {
      */
 
     public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
-        this.name = new PersonName(name);
+        personID = new PersonID(name);
         setBirthDate(birthDate);
         this.birthPlace = birthPlace;
         address = homeAddress;
@@ -85,7 +82,7 @@ public class Person implements Owner {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(name, person.name) &&
+        return Objects.equals(personID, person.personID) &&
                 Objects.equals(birthDate, person.birthDate) &&
                 Objects.equals(birthPlace, person.birthPlace) &&
                 Objects.equals(address, person.address) &&
@@ -95,13 +92,22 @@ public class Person implements Owner {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, birthDate, birthPlace, address);
+        return Objects.hash(personID, birthDate, birthPlace, address);
     }
 
     @Override
     public String toString() {
-        return "Person: " + name.getPersonName() + ", currently lives in " + address.toString() +
+        return "Person: " + personID.getPersonName() + ", currently lives in " + address.toString() +
                 ", was born in " + birthPlace.getBirthPlace() + ", on " + birthDate.getYearMonthDay() + ".";
+    }
+
+    /**
+     * Method to get Person ID
+     * @return personID
+     */
+
+    public PersonID getPersonID() {
+        return personID;
     }
 
     /**
@@ -136,7 +142,7 @@ public class Person implements Owner {
      */
 
     public void setName(String newName) {
-        this.name = new PersonName(newName);
+        personID = new PersonID(newName);
     }
 
     /**
@@ -146,7 +152,7 @@ public class Person implements Owner {
      */
 
     public String getName() {
-        return this.name.getPersonName();
+        return personID.getPersonName();
     }
 
     /**
