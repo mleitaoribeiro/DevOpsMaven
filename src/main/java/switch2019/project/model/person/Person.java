@@ -2,6 +2,7 @@ package switch2019.project.model.person;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.ledger.*;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class Person {
+public class Person implements Owner {
     // Private Person variables
     private PersonName name;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
@@ -325,6 +326,8 @@ public class Person {
      * @param accountDenomination
      * @param accountDescription
      */
+
+    //alterar para depois por o ID
     public boolean createAccount(String accountDenomination, String accountDescription) {
         return accountsList.createAndAddAccountToAccountsList(new Denomination(accountDenomination),
                 new Description(accountDescription));
@@ -335,6 +338,11 @@ public class Person {
      *
      * @param nameOfCategory
      */
+
+    //quem fizer esta user Storie tem de adaptar o outro metodo a este e com o ID
+    public boolean createCategory(String nameOfCategory, Person categoryCreator) {
+        return false;
+    }
 
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
         return categoryList.addCategoryToCategoryList(nameOfCategory);

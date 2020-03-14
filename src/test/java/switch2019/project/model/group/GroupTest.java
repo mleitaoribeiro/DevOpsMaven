@@ -1563,7 +1563,7 @@ class GroupTest {
         //Act
         boolean result = false;
         if (group1.isGroupAdmin(person1)) {
-            result = group1.createGroupAccount("Account1", "Test");
+            result = group1.createAccount("Account1", "Test");
         }
 
         //Assert :
@@ -1585,9 +1585,9 @@ class GroupTest {
         boolean addGroupAccount2 = false;
         boolean addGroupAccount3 = false;
         if (group1.isGroupAdmin(person1)) {
-            addGroupAccount1 = group1.createGroupAccount("Account1", "Test");
-            addGroupAccount2 = group1.createGroupAccount("Account2", "Test");
-            addGroupAccount3 = group1.createGroupAccount("Account3", "Test");
+            addGroupAccount1 = group1.createAccount("Account1", "Test");
+            addGroupAccount2 = group1.createAccount("Account2", "Test");
+            addGroupAccount3 = group1.createAccount("Account3", "Test");
         }
 
         //Assert
@@ -1613,7 +1613,7 @@ class GroupTest {
         //Act :
         boolean addGroupAccount = false;
         if (group1.isGroupAdmin(person4)) {
-            addGroupAccount = group1.createGroupAccount("Account1", "Test");
+            addGroupAccount = group1.createAccount("Account1", "Test");
         }
 
         //Assert:
@@ -1640,7 +1640,7 @@ class GroupTest {
         //Act
         boolean canARegularMemberAddGroupAccount = false;
         if (group1.isGroupAdmin(person4)) {
-            canARegularMemberAddGroupAccount = group1.createGroupAccount("Account1", "Test");
+            canARegularMemberAddGroupAccount = group1.createAccount("Account1", "Test");
         }
 
         //Assert
@@ -1658,7 +1658,7 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        boolean canNullAccountBeAdded = group1.createGroupAccount(null, "User Story 7");
+        boolean canNullAccountBeAdded = group1.createAccount(null, "User Story 7");
 
         //Assert:
         assertFalse(canNullAccountBeAdded);
@@ -1675,8 +1675,8 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Account1", "Test");
-        boolean addGroupAccountRepeated = group1.createGroupAccount("Account1", "Test");
+        group1.createAccount("Account1", "Test");
+        boolean addGroupAccountRepeated = group1.createAccount("Account1", "Test");
 
         //Assert
         //assertFalse(addGroupAccountRepeated);
@@ -1692,8 +1692,8 @@ class GroupTest {
 
         //Act:
         group1.addMember(person1);
-        group1.createGroupAccount("Account1", "Test");
-        boolean addGroupAccountRepeated = group1.createGroupAccount("AcCouNT1", "Test");
+        group1.createAccount("Account1", "Test");
+        boolean addGroupAccountRepeated = group1.createAccount("AcCouNT1", "Test");
 
         //Assert:
         //assertFalse(addGroupAccountRepeated);
@@ -1714,9 +1714,9 @@ class GroupTest {
         group1.addMember(person1);
         group2.addMember(person1);
         group3.addMember(person1);
-        boolean isGroup1AccountCreated = group1.createGroupAccount("Account1", "User Story 7");
-        boolean isGroup2AccountCreated = group2.createGroupAccount("Account2", "User Story 7");
-        boolean isGroup3AccountCreated = group3.createGroupAccount("Account3", "User Story 7");
+        boolean isGroup1AccountCreated = group1.createAccount("Account1", "User Story 7");
+        boolean isGroup2AccountCreated = group2.createAccount("Account2", "User Story 7");
+        boolean isGroup3AccountCreated = group3.createAccount("Account3", "User Story 7");
 
         //Assert
         assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
@@ -1948,7 +1948,7 @@ class GroupTest {
 
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses", person1);
+        boolean realResult = group1.createCategory("School expenses", person1);
 
         //Assert
         assertTrue(realResult);
@@ -1968,7 +1968,7 @@ class GroupTest {
         group1.addMember(person1);
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses", person2);
+        boolean realResult = group1.createCategory("School expenses", person2);
 
         //Assert
         assertFalse(realResult);
@@ -1985,7 +1985,7 @@ class GroupTest {
         group1.addMember(person1);
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList(null, person1);
+        boolean realResult = group1.createCategory(null, person1);
 
         //Assert
         assertFalse(realResult);
@@ -2004,8 +2004,8 @@ class GroupTest {
         //Categories to be included in Category List
 
         //Act
-        boolean categoryAdded = group1.createAndAddCategoryToCategoryList("Cinema", person1);
-        boolean sameCategoryAdded = group1.createAndAddCategoryToCategoryList("Cinema", person1);
+        boolean categoryAdded = group1.createCategory("Cinema", person1);
+        boolean sameCategoryAdded = group1.createCategory("Cinema", person1);
         boolean isSameCategoryAdded = categoryAdded && sameCategoryAdded;
 
         //Assert
@@ -2026,7 +2026,7 @@ class GroupTest {
         Category category2 = new Category("SCHOóL expenses");
 
         //Act
-        boolean realResult = group1.createAndAddCategoryToCategoryList("School expenses", person1) && !group1.createAndAddCategoryToCategoryList("SCHOóL expenses", person1);
+        boolean realResult = group1.createCategory("School expenses", person1) && !group1.createCategory("SCHOóL expenses", person1);
 
         //Assert
         assertTrue(realResult);
@@ -2081,7 +2081,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
-        testGroup.createAndAddCategoryToCategoryList("groceries", groupAdmin);
+        testGroup.createCategory("groceries", groupAdmin);
 
         //Act:
         boolean result = testGroup.removeCategoryFromList("groceries", groupAdmin);
@@ -2102,7 +2102,7 @@ class GroupTest {
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
         testGroup.addMember(groupMember);
-        testGroup.createAndAddCategoryToCategoryList("groceries", groupAdmin);
+        testGroup.createCategory("groceries", groupAdmin);
 
         //Act:
         boolean result = testGroup.removeCategoryFromList("groceries", groupMember);
@@ -2119,7 +2119,7 @@ class GroupTest {
         Person groupAdmin = null;
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
-        testGroup.createAndAddCategoryToCategoryList("groceries", groupAdmin);
+        testGroup.createCategory("groceries", groupAdmin);
 
         //Act:
         boolean result = testGroup.removeCategoryFromList("groceries", groupAdmin);
@@ -2137,7 +2137,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"));
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
-        testGroup.createAndAddCategoryToCategoryList(null, groupAdmin);
+        testGroup.createCategory(null, groupAdmin);
 
         //Act:
         boolean result = testGroup.removeCategoryFromList(null, groupAdmin);
@@ -2642,8 +2642,8 @@ class GroupTest {
                 new Description("Transport expenses"));
 
         if (group1.isGroupAdmin(person3)) {
-            group1.createGroupAccount("Wallet", "General expenses");
-            group1.createGroupAccount("TransportAccount", "Transport expenses");
+            group1.createAccount("Wallet", "General expenses");
+            group1.createAccount("TransportAccount", "Transport expenses");
         }
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -2687,8 +2687,8 @@ class GroupTest {
                 new Description("Transport expenses"));
 
         if (group1.isGroupAdmin(person3)) {
-            group1.createGroupAccount("Wallet", "General expenses");
-            group1.createGroupAccount("TransportAccount", "Transport expenses");
+            group1.createAccount("Wallet", "General expenses");
+            group1.createAccount("TransportAccount", "Transport expenses");
         }
 
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
@@ -2733,8 +2733,8 @@ class GroupTest {
                 new Description("Transport expenses"));
 
         if (group1.isGroupAdmin(person3)) {
-            group1.createGroupAccount("Wallet", "General expenses");
-            group1.createGroupAccount("TransportAccount", "Transport expenses");
+            group1.createAccount("Wallet", "General expenses");
+            group1.createAccount("TransportAccount", "Transport expenses");
         }
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));

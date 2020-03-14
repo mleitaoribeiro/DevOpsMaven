@@ -1,5 +1,6 @@
 package switch2019.project.model.group;
 
+import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.shared.*;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.ledger.*;
@@ -12,7 +13,7 @@ import switch2019.project.model.person.Person;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class Group {
+public class Group implements Owner {
 
     private GroupID groupID;
     private final DateAndTime startingDate;
@@ -258,7 +259,9 @@ public class Group {
      * @param accountDescription
      * @return true if group account was created, false if it wasn't
      */
-    public boolean createGroupAccount(String accountDenomination, String accountDescription) {
+
+    //alterar para depois por o ID
+    public boolean createAccount(String accountDenomination, String accountDescription) {
         if (accountDenomination != null && accountDescription != null && this.groupID != null) {
             return this.addAccountToGroupAccountsList(new Denomination(accountDenomination),
                     new Description(accountDescription));
@@ -274,7 +277,8 @@ public class Group {
      * @return true if category was added to group's Category List, false if it wasn't
      */
 
-    public boolean createAndAddCategoryToCategoryList(String nameOfCategory, Person categoryCreator) {
+    //alterar para depois por o ID
+    public boolean createCategory(String nameOfCategory, Person categoryCreator) {
         if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
             return categoryList.addCategoryToCategoryList(nameOfCategory);
         } else return false;

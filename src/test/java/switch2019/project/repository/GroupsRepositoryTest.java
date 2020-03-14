@@ -384,14 +384,14 @@ class GroupsRepositoryTest {
         // Group Accounts:
         Account accountCombustivel = new Account(new Denomination("combustivel"),
                 new Description("gastos de combustivél"));
-        spiceGirls.createGroupAccount("combustivel", "gastos de combustivél");
+        spiceGirls.createAccount("combustivel", "gastos de combustivél");
         Account accountGato = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"));
-        spiceGirls.createGroupAccount("comida de gato", "comida para a gatinha");
-        spiceGirls.createGroupAccount("dinner", "partilha de jantares");
+        spiceGirls.createAccount("comida de gato", "comida para a gatinha");
+        spiceGirls.createAccount("dinner", "partilha de jantares");
 
-        work.createGroupAccount("comida de gato", "comida para a gatinha");
-        work.createGroupAccount("dinner", "partilha de jantares");
+        work.createAccount("comida de gato", "comida para a gatinha");
+        work.createAccount("dinner", "partilha de jantares");
 
         //Act
         boolean result = groupsRepository.createTransactionOnSpecificGroup(person, "spice girls",
@@ -827,10 +827,10 @@ class GroupsRepositoryTest {
         Category category1 = new Category("grocery");
         Category category2 = new Category("restaurants");
             //Categories also added to Group:
-        group1.createAndAddCategoryToCategoryList("grocery",groupMember);
-        group1.createAndAddCategoryToCategoryList("restaurants",groupMember);
-        group2.createAndAddCategoryToCategoryList("grocery",groupMember);
-        group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
+        group1.createCategory("grocery",groupMember);
+        group1.createCategory("restaurants",groupMember);
+        group2.createCategory("grocery",groupMember);
+        group2.createCategory("restaurants",groupMember);
 
             //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -916,10 +916,10 @@ class GroupsRepositoryTest {
         Category category1 = new Category("grocery");
         Category category2 = new Category("restaurants");
         //Categories also added to Group:
-        group1.createAndAddCategoryToCategoryList("grocery",groupMember);
-        group1.createAndAddCategoryToCategoryList("restaurants",groupMember);
-        group2.createAndAddCategoryToCategoryList("grocery",groupMember);
-        group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
+        group1.createCategory("grocery",groupMember);
+        group1.createCategory("restaurants",groupMember);
+        group2.createCategory("grocery",groupMember);
+        group2.createCategory("restaurants",groupMember);
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -1006,10 +1006,10 @@ class GroupsRepositoryTest {
         Category category1 = new Category("grocery");
         Category category2 = new Category("restaurants");
         //Categories also added to Group:
-        group1.createAndAddCategoryToCategoryList("grocery",groupMember);
-        group1.createAndAddCategoryToCategoryList("restaurants",groupMember);
-        group2.createAndAddCategoryToCategoryList("grocery",groupMember);
-        group2.createAndAddCategoryToCategoryList("restaurants",groupMember);
+        group1.createCategory("grocery",groupMember);
+        group1.createCategory("restaurants",groupMember);
+        group2.createCategory("grocery",groupMember);
+        group2.createCategory("restaurants",groupMember);
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
