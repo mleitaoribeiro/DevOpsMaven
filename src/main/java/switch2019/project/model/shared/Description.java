@@ -29,7 +29,7 @@ public class Description {
      */
     private String setValidDescription(String description) {
         if (description == null || description.isEmpty()){
-            throw new IllegalArgumentException("The description can't be null or empty. ");
+            throw new IllegalArgumentException("The description can't be null or empty.");
         }
         else {
             return description.toUpperCase();

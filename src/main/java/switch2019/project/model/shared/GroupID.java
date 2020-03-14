@@ -34,7 +34,7 @@ public class GroupID {
     }
 
     /**
-     * Override to equals method
+     * Override to hashCode
      *
      */
     @Override

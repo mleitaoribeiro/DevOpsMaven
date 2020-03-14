@@ -28,7 +28,7 @@ class DescriptionTest {
         try {
             new Description(null);
         } catch (IllegalArgumentException description) {
-            assertEquals("The description can't be null or empty. ", description.getMessage());
+            assertEquals("The description can't be null or empty.", description.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ class DescriptionTest {
         try {
             new Description("");
         } catch (IllegalArgumentException description) {
-            assertEquals("The description can't be null or empty. ", description.getMessage());
+            assertEquals("The description can't be null or empty.", description.getMessage());
         }
     }
 
