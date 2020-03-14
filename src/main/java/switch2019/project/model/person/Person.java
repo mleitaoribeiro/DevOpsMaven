@@ -106,7 +106,7 @@ public class Person implements Owner {
      * @return personID
      */
 
-    public PersonID getPersonID() {
+    public PersonID getID() {
         return personID;
     }
 
@@ -151,7 +151,7 @@ public class Person implements Owner {
      * @return Person's name
      */
 
-    public String getName() {
+    public String getPersonName() {
         return personID.getPersonName();
     }
 

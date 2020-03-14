@@ -2,7 +2,6 @@ package switch2019.project.model.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.shared.*;
@@ -53,10 +52,10 @@ class PersonTest {
 
         //Act
         person1.setName("Mario");
-        String expected =  person1.getName();
+        String expected =  person1.getPersonName();
 
         //Assert
-        assertEquals(expected, person1.getName());
+        assertEquals(expected, person1.getPersonName());
     }
 
     @Test
@@ -70,7 +69,7 @@ class PersonTest {
         String expected ="Alex";
 
         //Assert
-        assertEquals(expected, person1.getName());
+        assertEquals(expected, person1.getPersonName());
     }
 
 
@@ -2207,7 +2206,7 @@ class PersonTest {
         PersonID expected = new PersonID("Marta");
 
         //Act:
-        PersonID result = person.getPersonID();
+        PersonID result = person.getID();
 
         //Assert:
         assertEquals(expected, result);
