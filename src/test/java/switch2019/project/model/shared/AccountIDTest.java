@@ -13,7 +13,7 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         String expected = "SWITCH";
 
         //Act:
@@ -28,7 +28,7 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
 
         //Act:
         boolean result = accountID.equals(accountID);
@@ -42,8 +42,8 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
-        AccountID accountID2 = new AccountID(new Denomination("switch"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
+        AccountID accountID2 = new AccountID(new Denomination("switch"), person.getID());
 
         //Act:
         boolean result = accountID.equals(accountID2);
@@ -57,8 +57,8 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
-        AccountID accountID2 = new AccountID(new Denomination("games"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
+        AccountID accountID2 = new AccountID(new Denomination("games"), person.getID());
 
         //Act:
         boolean result = accountID.equals(accountID2);
@@ -72,7 +72,7 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         AccountID accountID2 = null;
 
         //Act:
@@ -87,7 +87,7 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         PersonID personID = new PersonID("Marta");
 
         //Act:
@@ -102,8 +102,8 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
-        AccountID accountID2 = new AccountID(new Denomination("switch"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
+        AccountID accountID2 = new AccountID(new Denomination("switch"), person.getID());
 
         //Act & Assert:
         assertEquals(accountID.hashCode(), accountID2.hashCode());
@@ -114,8 +114,8 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
-        AccountID accountID = new AccountID(new Denomination("switch"), person);
-        AccountID accountID2 = new AccountID(new Denomination("games"), person);
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
+        AccountID accountID2 = new AccountID(new Denomination("games"), person.getID());
 
         //Act & Assert:
         assertNotEquals(accountID.hashCode(), accountID2.hashCode());

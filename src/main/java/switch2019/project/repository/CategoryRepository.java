@@ -2,7 +2,7 @@ package switch2019.project.repository;
 
 import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.ID;
-import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 
 import java.util.*;
 
@@ -17,11 +17,6 @@ public class CategoryRepository implements Repository{
 
     public CategoryRepository() {
         categories = new HashSet<>();
-
-        // Repository personRepository = new PersonRepository();
-        /// Repository groupRepository = new GroupsRepository();
-
-        // categories.add("n", personRepository.findByID())
     }
 
     /**
@@ -84,8 +79,8 @@ public class CategoryRepository implements Repository{
      * @param nameOfCategory
      */
 
-    public boolean createCategory(String nameOfCategory, Owner owner) {
-        Category newCategory = new Category(nameOfCategory, owner);
+    public boolean createCategory(String nameOfCategory, OwnerID ownerID) {
+        Category newCategory = new Category(nameOfCategory, ownerID);
         return categories.add(newCategory);
     }
 

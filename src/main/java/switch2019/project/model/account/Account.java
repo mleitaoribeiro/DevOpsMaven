@@ -2,7 +2,7 @@ package switch2019.project.model.account;
 
 import switch2019.project.model.frameworks.Entity;
 import switch2019.project.model.frameworks.ID;
-import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
@@ -39,11 +39,11 @@ public class Account implements Entity {
      *
      * @param accountDenomination
      * @param accountDescription
-     * @param owner
+     * @param ownerID
      */
 
-    public Account(Denomination accountDenomination, Description accountDescription, Owner owner) {
-        accountID = new AccountID(accountDenomination, owner);
+    public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
+        accountID = new AccountID(accountDenomination, ownerID);
         this.description = accountDescription;
         this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
     }

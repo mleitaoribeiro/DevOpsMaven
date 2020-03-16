@@ -1,21 +1,21 @@
 package switch2019.project.model.shared;
 
 import switch2019.project.model.frameworks.ID;
-import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 
 import java.util.Objects;
 
 public class CategoryID implements ID {
 
     private Denomination denomination;
-    private ID id;
+    private OwnerID ownerID;
 
     /**
      * CategoryID constructor
      */
-    public CategoryID(Denomination denomination, Owner owner) {
+    public CategoryID(Denomination denomination, OwnerID ownerID) {
         this.denomination = denomination;
-        id = owner.getID();
+        this.ownerID = ownerID;
     }
 
     /**
@@ -36,7 +36,7 @@ public class CategoryID implements ID {
         if (o == null || getClass() != o.getClass()) return false;
         CategoryID that = (CategoryID) o;
         return Objects.equals(denomination, that.denomination) &&
-                Objects.equals(id, that.id);
+                Objects.equals(ownerID, that.ownerID);
     }
 
     /**
@@ -44,7 +44,7 @@ public class CategoryID implements ID {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(denomination, id);
+        return Objects.hash(denomination, ownerID);
     }
 
 }

@@ -16,8 +16,8 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
-        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
+        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act:
         boolean result = categoryID1.equals(categoryID2);
@@ -32,7 +32,7 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         CategoryID categoryID2 = categoryID1;
 
         //Act:
@@ -48,8 +48,8 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Food"), person1);
-        CategoryID categoryID2 = new CategoryID(new Denomination("House"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Food"), person1.getID());
+        CategoryID categoryID2 = new CategoryID(new Denomination("House"), person1.getID());
 
         //Act:
         boolean result = categoryID1.equals(categoryID2);
@@ -65,8 +65,8 @@ public class CategoryIDTest {
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
         Group group1 = new Group("The Ones");
-        CategoryID categoryID1 = new CategoryID(new Denomination("House"), person1);
-        CategoryID categoryID2 = new CategoryID(new Denomination("House"), group1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("House"), person1.getID());
+        CategoryID categoryID2 = new CategoryID(new Denomination("House"), group1.getID());
 
         //Act:
         boolean result = categoryID1.equals(categoryID2);
@@ -82,7 +82,7 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         Category category1 = new Category("Food");
 
         //Act:
@@ -98,7 +98,7 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act:
         boolean result = categoryID1.equals(null);
@@ -113,8 +113,8 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
-        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
+        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act & Assert:
         assertEquals(categoryID1.hashCode(),categoryID2.hashCode());
@@ -127,8 +127,8 @@ public class CategoryIDTest {
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
         Group group1 = new Group ("The ones");
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
-        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), group1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
+        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), group1.getID());
 
         //Act & Assert:
         assertNotEquals(categoryID1.hashCode(),categoryID2.hashCode());
@@ -141,7 +141,7 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act:
         String result = categoryID1.getDenomination();

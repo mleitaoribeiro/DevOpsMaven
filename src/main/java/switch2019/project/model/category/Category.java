@@ -3,6 +3,7 @@ package switch2019.project.model.category;
 import switch2019.project.model.frameworks.Entity;
 import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.Denomination;
 
@@ -24,10 +25,10 @@ public class Category implements Entity {
     /**
      * 2nd Category constructor
      * @param category
-     * @param owner
+     * @param ownerID
      */
-    public Category(String category, Owner owner) {
-        categoryID = new CategoryID(new Denomination(category), owner);
+    public Category(String category, OwnerID ownerID) {
+        categoryID = new CategoryID(new Denomination(category), ownerID);
     }
 
     /**

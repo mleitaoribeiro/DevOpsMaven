@@ -1,7 +1,7 @@
 package switch2019.project.model.shared;
 
 import switch2019.project.model.frameworks.ID;
-import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 
 import java.util.Objects;
 
@@ -9,14 +9,14 @@ public class AccountID implements ID {
 
     // Private AccountID attributes
     private Denomination denomination;
-    private ID id;
+    private OwnerID ownerID;
 
     /**
      * AccountID constructor
      */
-    public AccountID(Denomination denomination, Owner owner) {
+    public AccountID(Denomination denomination, OwnerID ownerID) {
         this.denomination = denomination;
-        id = owner.getID();
+        this.ownerID = ownerID;
     }
 
     /**
@@ -36,7 +36,7 @@ public class AccountID implements ID {
         if (o == null || getClass() != o.getClass()) return false;
         AccountID accountID = (AccountID) o;
         return Objects.equals(denomination, accountID.denomination) &&
-                Objects.equals(id, accountID.id);
+                Objects.equals(ownerID, accountID.ownerID);
     }
 
     /**
@@ -44,6 +44,6 @@ public class AccountID implements ID {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(denomination, id);
+        return Objects.hash(denomination, ownerID);
     }
 }
