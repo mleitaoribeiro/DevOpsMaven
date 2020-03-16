@@ -82,7 +82,6 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
-        Group group1 = new Group("The Ones");
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
         Category category1 = new Category("Food");
 
@@ -91,6 +90,64 @@ public class CategoryIDTest {
 
         //Assert:
         assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test if two categoryID are the same - one categoryID is null")
+    void testEqualsGroupIDNullCase() {
+        //Arrange:
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+
+        //Act:
+        boolean result = categoryID1.equals(null);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test if two categoryID have the same hashcode - True")
+    void testHashCodeTrue() {
+        //Arrange:
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1);
+
+        //Act & Assert:
+        assertEquals(categoryID1.hashCode(),categoryID2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test if two categoryID have the same hashcode - False")
+    void testHashCodeFalse() {
+        //Arrange:
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+        Group group1 = new Group ("The ones");
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+        CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), group1);
+
+        //Act & Assert:
+        assertNotEquals(categoryID1.hashCode(),categoryID2.hashCode());
+    }
+
+
+    @Test
+    @DisplayName("Test to getDenomination method")
+    void getDenomination() {
+        //Arrange:
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+        CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1);
+
+        //Act:
+        String result = categoryID1.getDenomination();
+
+        //Assert:
+        assertEquals(result,"GYM");
     }
 
 }
