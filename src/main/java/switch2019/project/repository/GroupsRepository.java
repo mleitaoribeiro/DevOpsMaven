@@ -8,6 +8,7 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.shared.GroupID;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -25,7 +26,6 @@ public class GroupsRepository implements Repository{
      */
     public GroupsRepository() {
         listOfGroups = new HashSet<>();
-        //createGroup("Bashtards", );
     }
 
     /**
@@ -171,5 +171,15 @@ public class GroupsRepository implements Repository{
             if (group.getGroupID().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize(); }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
+    }
+
+    /**
+     * Method used to find a specific group by its Description
+     */
+    public Group findGroupByDescription (String groupDescription) {
+        for(Group group : listOfGroups) {
+            if(group.getID().getDescription().equals(groupDescription))
+                return group;
+        } throw new IllegalArgumentException("No group was found with the given description");
     }
 }

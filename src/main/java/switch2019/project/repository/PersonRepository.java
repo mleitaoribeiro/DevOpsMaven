@@ -19,12 +19,23 @@ public class PersonRepository implements Repository{
      */
     public PersonRepository() {
         listOfPersons = new HashSet<>();
-        createPerson("Nome", new DateAndTime(2000, 1, 1),
+        createPerson("Francisco", new DateAndTime(2000, 1, 1),
                 new Address("Porto"), new Address("Rua de S Tomés", "Porto", "4000-001"));
-        createPerson("OutroNome", new DateAndTime(2001, 2, 3),
+        createPerson("Joana", new DateAndTime(2001, 2, 3),
                 new Address("Lisboa"), new Address("Rua de S Tomé", "Portimao", "4001-001"));
-        createPerson("MaisOutroNome", new DateAndTime(2003, 11, 30),
+        createPerson("Maria", new DateAndTime(2003, 11, 30),
                 new Address("Maia"), new Address("Rua de S Tomé", "Porto", "4000-100"));
+            //FAMILY:
+        createPerson("Homer", new DateAndTime(1990, 12, 4),
+                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
+        createPerson("Marge",new DateAndTime(1990, 12, 4),
+                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
+        createPersonWithParents("Bart", new DateAndTime(1990, 12, 4),
+                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"),
+                findPersonByAttributes("Marge"), findPersonByAttributes("Homer"));
+        createPersonWithParents("Lisa", new DateAndTime(1990, 12, 4),
+                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"),
+                findPersonByAttributes("Marge"), findPersonByAttributes("Homer"));
     }
 
     /**
@@ -37,6 +48,14 @@ public class PersonRepository implements Repository{
      */
     public boolean createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress) {
         return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress));
+    }
+
+    /**
+     * Alterneate constructor for people with mother and father
+     *
+     */
+    public boolean createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
+        return listOfPersons.add(new Person(name,birthDate,birthPlace,homeAddress,mother,father));
     }
 
     /**
