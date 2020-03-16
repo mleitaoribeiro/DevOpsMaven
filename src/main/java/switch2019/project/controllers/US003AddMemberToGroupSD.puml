@@ -1,4 +1,4 @@
-@startuml
+.@startuml
 skinparam DefaultFontSize 20
 create ":Test"
 
@@ -9,20 +9,20 @@ create "controller:US003AddMemberToGroupController"
 
 == Act ==
 
-":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (service, personAttributes, groupDescription, groupStartingDate)
+":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (service, personID, groupID)
 activate "controller:US003AddMemberToGroupController" #FFBBBB
 
 participant "service:Service"
-"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup (personAttributes, \n    groupDescription, groupStartingDate)
+"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup\n (personID, groupID)
 activate "service:Service" #FFBBBB
 
 participant ":PersonsRepository"
-"service:Service" -> ":PersonsRepository" : person = findPersonByAttributes (personAttributes)
+"service:Service" -> ":PersonsRepository" : person = findPersonByID (personID)
 activate ":PersonsRepository" #FFBBBB
 deactivate ":PersonsRepository" #FFBBBB
 
 participant ":GroupsRepository"
-"service:Service" -> ":GroupsRepository" : group = findGroupByAttributes (groupDescription, groupStartingDate)
+"service:Service" -> ":GroupsRepository" : group = findGroupByID (groupID)
 activate ":GroupsRepository" #FFBBBB
 deactivate ":GroupsRepository" #FFBBBB
 
