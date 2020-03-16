@@ -1,5 +1,9 @@
 package switch2019.project.model.account;
 
+import switch2019.project.model.frameworks.Entity;
+import switch2019.project.model.frameworks.ID;
+import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
@@ -7,17 +11,18 @@ import switch2019.project.model.shared.MonetaryValue;
 import java.util.Currency;
 import java.util.Objects;
 
-public class Account {
+public class Account implements Entity {
     /**
      * Private Instance Variables
      */
 
+    private AccountID accountID;
     private Denomination denomination;
     private Description description;
     private MonetaryValue balance;
 
     /**
-     * Constructor of Account
+     * Constructor of Account (to delete later)
      *
      * @param accountDenomination
      * @param accountDescription
@@ -25,7 +30,21 @@ public class Account {
 
     public Account(Denomination accountDenomination, Description accountDescription) {
         this.denomination = accountDenomination;
-        this.description= accountDescription;
+        this.description = accountDescription;
+        this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
+    }
+
+    /**
+     * 2nd Constructor of Account
+     *
+     * @param accountDenomination
+     * @param accountDescription
+     * @param owner
+     */
+
+    public Account(Denomination accountDenomination, Description accountDescription, Owner owner) {
+        accountID = new AccountID(accountDenomination, owner);
+        this.description = accountDescription;
         this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
     }
 
@@ -62,6 +81,13 @@ public class Account {
     @Override
     public String toString() {
         return denomination.toString() + ", " + description.toString() + ", " + balance + "€";
+    }
+
+    /**
+     * Get account by ID
+     */
+    public ID getID() {
+        return accountID;
     }
 
     /**

@@ -19,8 +19,8 @@ class CategoryRepositoryTest {
     public void validateToString() {
         //Arrange:
         CategoryRepository firstCategoryList = new CategoryRepository();
-        firstCategoryList.addCategoryToCategoryList("cinema");
-        firstCategoryList.addCategoryToCategoryList("jantares");
+        firstCategoryList.createCategory("cinema");
+        firstCategoryList.createCategory("jantares");
         String expected = "CategoryList: [CINEMA, JANTARES]";
 
         //Act:
@@ -42,10 +42,10 @@ class CategoryRepositoryTest {
         CategoryRepository secondCategoryList = new CategoryRepository();
 
         //Act:
-        firstCategoryList.addCategoryToCategoryList("cinema");
-        firstCategoryList.addCategoryToCategoryList("jantares");
-        secondCategoryList.addCategoryToCategoryList("cinema");
-        secondCategoryList.addCategoryToCategoryList("jantares");
+        firstCategoryList.createCategory("cinema");
+        firstCategoryList.createCategory("jantares");
+        secondCategoryList.createCategory("cinema");
+        secondCategoryList.createCategory("jantares");
 
         //Assert:
         assertEquals(firstCategoryList.hashCode(), secondCategoryList.hashCode());
@@ -60,8 +60,8 @@ class CategoryRepositoryTest {
         CategoryRepository secondCategoryList = new CategoryRepository();
 
         //Act:
-        firstCategoryList.addCategoryToCategoryList("cinema");
-        secondCategoryList.addCategoryToCategoryList("jantares");
+        firstCategoryList.createCategory("cinema");
+        secondCategoryList.createCategory("jantares");
 
         //Assert:
         assertNotEquals(firstCategoryList.hashCode(), secondCategoryList.hashCode());
@@ -151,8 +151,8 @@ class CategoryRepositoryTest {
         CategoryRepository otherCategoryList = new CategoryRepository();
 
         //Act
-        oneCategoryList.addCategoryToCategoryList(oneCategoryName);
-        otherCategoryList.addCategoryToCategoryList(otherCategoryName);
+        oneCategoryList.createCategory(oneCategoryName);
+        otherCategoryList.createCategory(otherCategoryName);
 
 
         //Assert
@@ -198,7 +198,7 @@ class CategoryRepositoryTest {
 
         //Act
 
-        boolean realResult = newCategoryList.addCategoryToCategoryList(oneCategory);
+        boolean realResult = newCategoryList.createCategory(oneCategory);
 
         //Assert
         assertEquals(true, realResult);
@@ -219,8 +219,8 @@ class CategoryRepositoryTest {
 
         //Act
 
-        boolean realResult = newCategoryList.addCategoryToCategoryList(oneCategory)
-                && newCategoryList.addCategoryToCategoryList(otherCategory);
+        boolean realResult = newCategoryList.createCategory(oneCategory)
+                && newCategoryList.createCategory(otherCategory);
 
         //Assert
         assertTrue(realResult);
@@ -242,7 +242,7 @@ class CategoryRepositoryTest {
         //Act
 
         try {
-            newCategoryList.addCategoryToCategoryList(otherCategory);
+            newCategoryList.createCategory(otherCategory);
         }
 
         //Assert
@@ -267,8 +267,8 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
-        boolean realResult = newCategoryList.addCategoryToCategoryList(originalCategory)
-                && newCategoryList.addCategoryToCategoryList(duplicateCategory);
+        boolean realResult = newCategoryList.createCategory(originalCategory)
+                && newCategoryList.createCategory(duplicateCategory);
 
         //Assert
 
@@ -291,8 +291,8 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
-        newCategoryList.addCategoryToCategoryList(oneCategory);
-        newCategoryList.addCategoryToCategoryList(otherCategory);
+        newCategoryList.createCategory(oneCategory);
+        newCategoryList.createCategory(otherCategory);
 
         //Remove one Category
 
@@ -313,8 +313,8 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
-        newCategoryList.addCategoryToCategoryList(oneCategory);
-        newCategoryList.addCategoryToCategoryList(otherCategory);
+        newCategoryList.createCategory(oneCategory);
+        newCategoryList.createCategory(otherCategory);
         //Remove one Category
         boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
 
@@ -347,8 +347,8 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
-        newCategoryList.addCategoryToCategoryList(oneCategory);
-        newCategoryList.addCategoryToCategoryList(otherCategory);
+        newCategoryList.createCategory(oneCategory);
+        newCategoryList.createCategory(otherCategory);
         //Remove one Category
         try {
             boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject);
@@ -371,7 +371,7 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryList = new CategoryRepository();
 
         //Act
-        newCategoryList.addCategoryToCategoryList(oneCategory);
+        newCategoryList.createCategory(oneCategory);
 
         //Remove the otherCategory (the list doesn't contain this)
 
@@ -615,8 +615,8 @@ class CategoryRepositoryTest {
         HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
-        categoryList1.addCategoryToCategoryList("category1");
-        categoryList1.addCategoryToCategoryList("category2");
+        categoryList1.createCategory("category1");
+        categoryList1.createCategory("category2");
 
         boolean result = categoryList1.validateIfSetOfCategoriesIsInTheCategoryList(myCategories);
         //Assert
@@ -635,8 +635,8 @@ class CategoryRepositoryTest {
         CategoryRepository categoryList = new CategoryRepository();
 
         //Act
-        categoryList.addCategoryToCategoryList("Transports");
-        categoryList.addCategoryToCategoryList("House");
+        categoryList.createCategory("Transports");
+        categoryList.createCategory("House");
 
         int actual = categoryList.numberOfCategoryInTheCategoryList();
         //Assert

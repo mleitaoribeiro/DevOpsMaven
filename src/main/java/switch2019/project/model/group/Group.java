@@ -257,7 +257,7 @@ public class Group implements Owner {
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
     public boolean addAccountToGroupAccountsList(Denomination accountDenomination, Description accountDescription) {
-        return this.groupAccountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
+        return this.groupAccountsList.createAccount(accountDenomination, accountDescription);
     }
 
 
@@ -289,7 +289,7 @@ public class Group implements Owner {
     //alterar para depois por o ID
     public boolean createCategory(String nameOfCategory, Person categoryCreator) {
         if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
-            return categoryList.addCategoryToCategoryList(nameOfCategory);
+            return categoryList.createCategory(nameOfCategory);
         } else return false;
     }
 
@@ -435,6 +435,9 @@ public class Group implements Owner {
     }
 
 
+    public String getGroupDescription() {
+        return groupID.getDescription();
+    }
 }
 
 

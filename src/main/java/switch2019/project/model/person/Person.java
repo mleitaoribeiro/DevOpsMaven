@@ -336,7 +336,7 @@ public class Person implements Owner {
 
     //alterar para depois por o ID
     public boolean createAccount(String accountDenomination, String accountDescription) {
-        return accountsList.createAndAddAccountToAccountsList(new Denomination(accountDenomination),
+        return accountsList.createAccount(new Denomination(accountDenomination),
                 new Description(accountDescription));
     }
 
@@ -352,7 +352,7 @@ public class Person implements Owner {
     }
 
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
-        return categoryList.addCategoryToCategoryList(nameOfCategory);
+        return categoryList.createCategory(nameOfCategory);
     }
 
     /**
