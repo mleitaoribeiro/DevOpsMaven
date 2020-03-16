@@ -10,7 +10,7 @@ import java.util.List;
 public class US004GetFamilyGroupsController {
 
     //ALTERAR
-    public List<Group> getFamilyGroups(Object service , Description groupName, Person creator) {
+    public List<Group> getFamilyGroups(Object service) {
         return new ArrayList<>();
     }
 
