@@ -1128,6 +1128,9 @@ class GroupsRepositoryTest {
         GroupsRepository groupsRepository = new GroupsRepository();
         PersonRepository personRepository = new PersonRepository();
 
+        personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
+                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"));
+
         groupsRepository.createGroup("BLA BLA",personRepository.findPersonByAttributes("Homer"));
         Group Blabla = new Group("BLA BLA");
         Blabla.addMember(personRepository.findPersonByAttributes("Homer"));
@@ -1145,6 +1148,10 @@ class GroupsRepositoryTest {
         //Arrange:
         GroupsRepository groupsRepository = new GroupsRepository();
         PersonRepository personRepository = new PersonRepository();
+
+        personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
+                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"));
+
 
         groupsRepository.createGroup("BLA BLA",personRepository.findPersonByAttributes("Homer"));
 
