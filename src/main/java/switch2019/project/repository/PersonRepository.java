@@ -1,5 +1,6 @@
 package switch2019.project.repository;
 
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
@@ -18,6 +19,12 @@ public class PersonRepository implements Repository{
      */
     public PersonRepository() {
         listOfPersons = new HashSet<>();
+        createPerson("Nome", new DateAndTime(2000, 1, 1),
+                new Address("Porto"), new Address("Rua de S Tomés", "Porto", "4000-001"));
+        createPerson("OutroNome", new DateAndTime(2001, 2, 3),
+                new Address("Lisboa"), new Address("Rua de S Tomé", "Portimao", "4001-001"));
+        createPerson("MaisOutroNome", new DateAndTime(2003, 11, 30),
+                new Address("Maia"), new Address("Rua de S Tomé", "Porto", "4000-100"));
     }
 
     /**
