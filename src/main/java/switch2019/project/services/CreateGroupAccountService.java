@@ -3,17 +3,14 @@ package switch2019.project.services;
 
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.person.PersonName;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
-
 import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
-public class createGroupAccountService {
+public class CreateGroupAccountService {
 
     public boolean createGroupAccount (String personName, String groupDescription, Denomination accountDenomination, Description accountDescription ) {
 
@@ -29,7 +26,7 @@ public class createGroupAccountService {
         boolean personIsGroupAdmin = oneGroup.isGroupAdmin(onePerson);
 
         if (personIsGroupAdmin) {
-            return accountRepository.createAndAddAccountToAccountsList(accountDenomination,accountDescription);
+            return accountRepository.createAccount(accountDenomination,accountDescription);
         }
         return false;
     }

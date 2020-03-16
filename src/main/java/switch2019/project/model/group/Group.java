@@ -257,7 +257,7 @@ public class Group implements Owner {
      * @return true if account was added to GroupAccountsList, false if it wasn't
      */
     public boolean addAccountToGroupAccountsList(Denomination accountDenomination, Description accountDescription) {
-        return this.groupAccountsList.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
+        return this.groupAccountsList.createAccount(accountDenomination, accountDescription);
     }
 
 

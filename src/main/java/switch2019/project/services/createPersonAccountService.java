@@ -21,6 +21,6 @@ public class createPersonAccountService {
         //Initialiaze AccountRepository
         AccountRepository accountsRepository = new AccountRepository();
         //Create an Account for OnePerson - Needs an ID
-        return accountsRepository.createAndAddAccountToAccountsList(accountDenomination, accountDescription);
+        return accountsRepository.createAccount(accountDenomination, accountDescription);
     }
 }
