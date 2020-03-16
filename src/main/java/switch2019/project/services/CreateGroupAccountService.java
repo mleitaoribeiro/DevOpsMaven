@@ -20,7 +20,7 @@ public class CreateGroupAccountService {
 
         Person onePerson = personRepository.findPersonByAttributes(personName);
 
-        Group oneGroup = groupsRepository.findGroupByAttributes(groupDescription);
+        Group oneGroup = groupsRepository.findGroupByDescription(groupDescription);
         GroupID oneGroupID = oneGroup.getID();
 
         boolean personIsGroupAdmin = oneGroup.isGroupAdmin(onePerson);

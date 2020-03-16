@@ -1116,4 +1116,48 @@ class GroupsRepositoryTest {
             assertEquals("There're no groups found with that description.", e.getMessage());
         }
     }
+
+    /**
+     * Test method used to find a Group by its Description
+     */
+
+    @Test
+    @DisplayName("getting group by its description")
+    void getGroupByDescriptionTest(){
+        //Arrange:
+        GroupsRepository groupsRepository = new GroupsRepository();
+        PersonRepository personRepository = new PersonRepository();
+
+        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByAttributes("Homer"));
+        Group Blabla = new Group("BLA BLA");
+        Blabla.addMember(personRepository.findPersonByAttributes("Homer"));
+
+        //Act:
+        boolean result = groupsRepository.findGroupByDescription("BLA BLA").equals(Blabla);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("getting group by its description")
+    void getGroupByDescriptionTestException(){
+        //Arrange:
+        GroupsRepository groupsRepository = new GroupsRepository();
+        PersonRepository personRepository = new PersonRepository();
+
+        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByAttributes("Homer"));
+
+
+        //Act:
+        try {
+            groupsRepository.findGroupByDescription("BLA BLA");
+        }
+
+        //Assert:
+        catch (IllegalArgumentException error){
+            assertEquals("No group was found with the given description", error.getMessage());
+        }
+    }
+
 }
