@@ -1,10 +1,12 @@
 package switch2019.project.repository;
 
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.PersonID;
 
+import javax.lang.model.util.ElementScanner7;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,16 +28,17 @@ public class PersonRepository implements Repository{
      * @param birthPlace
      * @param homeAddress
      */
-    public boolean createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress) {
-        return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress));
+    public boolean createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
+        return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress,email));
     }
 
     /**
      * Alterneate constructor for people with mother and father
      *
      */
-    public boolean createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
-        return listOfPersons.add(new Person(name,birthDate,birthPlace,homeAddress,mother,father));
+    public boolean createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
+                                           Person mother, Person father, Email email) {
+        return listOfPersons.add(new Person(name,birthDate,birthPlace,homeAddress,mother,father,email));
     }
 
     /**

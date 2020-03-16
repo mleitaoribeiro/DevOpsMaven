@@ -10,6 +10,7 @@ import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
@@ -32,7 +33,8 @@ class GroupsRepositoryTest {
     public void testIfGroupWasCreated() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"), new Address("Rua B", "Feira", "4520-233"));
+        Person person1 = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
         boolean wasGroupCreated = groupsRepository.createGroup("Test Person", person1);
@@ -47,7 +49,8 @@ class GroupsRepositoryTest {
     public void testIfGroupWasNotCreated() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("Francis", new DateAndTime(2001, 04, 12), new Address("Dublin"), new Address("Rua B", "Feira", "4520-233"));
+        Person person1 = new Person("Francis", new DateAndTime(2001, 04, 12), new Address("Dublin"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
         boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
@@ -62,7 +65,8 @@ class GroupsRepositoryTest {
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("Amy", new DateAndTime(1990, 12, 04), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person1 = new Person("Amy", new DateAndTime(1990, 12, 04), new Address("Boston"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
         groupsRepository.createGroup("Grupo de Teste", person1);
@@ -78,8 +82,10 @@ class GroupsRepositoryTest {
     public void createGroupWithSameDescriptionAndDifferentMembers() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("Amy", new DateAndTime(1990, 12, 4), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
-        Person person2 = new Person("Marshall", new DateAndTime(1990, 12, 4), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person1 = new Person("Amy", new DateAndTime(1990, 12, 4), new Address("Boston"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
+        Person person2 = new Person("Marshall", new DateAndTime(1990, 12, 4), new Address("Boston"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("123@isep.pt"));
 
         //Act
         groupsRepository.createGroup("Grupo de Teste", person1);
@@ -96,7 +102,8 @@ class GroupsRepositoryTest {
     public void createGroupWithDifferentDescriptionAndDifferentMembers() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("Amy", new DateAndTime(1999, 5, 13), new Address("Boston"), new Address("Rua B", "Gaia", "4520-233"));
+        Person person1 = new Person("Amy", new DateAndTime(1999, 5, 13), new Address("Boston"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
         groupsRepository.createGroup("Grupo de Teste", person1);
@@ -205,11 +212,16 @@ class GroupsRepositoryTest {
 
         // 1 _________________________________________________________________________________________________________
         // First global group - All Family
-        Person manuelaMOM = new Person("Manuela", new DateAndTime(1960, 10, 10), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
-        Person carlosDAD = new Person("Carlos", new DateAndTime(1950, 12, 12), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
-        Person oscar = new Person("Oscar", new DateAndTime(1990, 12, 4), new Address("Espinho"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
-        Person marta = new Person("Marta", new DateAndTime(1995, 11, 5), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
-        Person joao = new Person("Joao", new DateAndTime(2000, 1, 12), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD);
+        Person manuelaMOM = new Person("Manuela", new DateAndTime(1960, 10, 10), new Address("Miragaia"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
+        Person carlosDAD = new Person("Carlos", new DateAndTime(1950, 12, 12), new Address("Porto"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("123@isep.pt"));
+        Person oscar = new Person("Oscar", new DateAndTime(1990, 12, 4), new Address("Espinho"),
+                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("12@isep.pt"));
+        Person marta = new Person("Marta", new DateAndTime(1995, 11, 5), new Address("Paranhos"),
+                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("1@isep.pt"));
+        Person joao = new Person("Joao", new DateAndTime(2000, 1, 12), new Address("Matosinhos"),
+                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("12345@isep.pt"));
 
         // Group
         HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
@@ -220,11 +232,16 @@ class GroupsRepositoryTest {
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
-        Person homer = new Person("Homer", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
-        Person marge = new Person("Marge",new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
-        Person bart = new Person("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
-        Person lisa = new Person("Lisa", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
-        Person maggie = new Person("Maggie", new DateAndTime(1990, 12, 4), new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"), marge, homer);
+        Person homer = new Person("Homer", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+                new Address("Rua B", "Porto", "4520-233"), new Email("novoMail@isep.pt"));
+        Person marge = new Person("Marge",new DateAndTime(1990, 12, 4), new Address("Springfield"),
+                new Address("Rua B", "Porto", "4520-233"), new Email("novoMail2@isep.pt"));
+        Person bart = new Person("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+                new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail3@isep.pt"));
+        Person lisa = new Person("Lisa", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+                new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail4@isep.pt"));
+        Person maggie = new Person("Maggie", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+                new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail5@isep.pt"));
 
         // Group
         HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(marge, bart, lisa, maggie));
@@ -235,10 +252,14 @@ class GroupsRepositoryTest {
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
-        Person joaoDAD = new Person("Joao", new DateAndTime(1990, 12, 4), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
-        Person diana = new Person("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
-        Person elsa = new Person("Elsa",new DateAndTime(1990, 12, 4), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
-        Person ines = new Person("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"), new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD);
+        Person joaoDAD = new Person("Joao", new DateAndTime(1990, 12, 4), new Address("Miragaia"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("email@isep.pt"));
+        Person diana = new Person("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"),
+                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email2@isep.pt"));
+        Person elsa = new Person("Elsa",new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
+                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email3@isep.pt"));
+        Person ines = new Person("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"),
+                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email4@isep.pt"));
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines));
@@ -249,9 +270,12 @@ class GroupsRepositoryTest {
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
-        Person martaR = new Person("Marta Ribeiro", new DateAndTime(1990, 12, 04), new Address("Miragaia"), new Address("Rua B", "Gaia", "4520-233"));
-        Person martaC = new Person("Marta Cardoso", new DateAndTime(1990, 12, 04), new Address("Matosinhos"), new Address("Rua B", "Gaia", "4520-233"));
-        Person martaP = new Person("Marta Pinheiro", new DateAndTime(1990, 12, 04), new Address("Porto"), new Address("Rua B", "Gaia", "4520-233"));
+        Person martaR = new Person("Marta Ribeiro", new DateAndTime(1990, 12, 04), new Address("Miragaia"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("newMail@isep.pt"));
+        Person martaC = new Person("Marta Cardoso", new DateAndTime(1990, 12, 04), new Address("Matosinhos"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("newMail2@isep.pt"));
+        Person martaP = new Person("Marta Pinheiro", new DateAndTime(1990, 12, 04), new Address("Porto"),
+                new Address("Rua B", "Gaia", "4520-233"), new Email("newMail3@isep.pt"));
 
         // Group
         HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaC, martaP));
@@ -262,10 +286,14 @@ class GroupsRepositoryTest {
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
-        Person bojack = new Person("Bojack", new DateAndTime(1990, 12, 4), new Address("Porto"), new Address("Rua B", "Porto", "4520-233"));
-        Person carolyn = new Person("Princess Carolyn", new DateAndTime(1990, 12, 4), new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"));
-        Person todd = new Person("Todd Chavez", new DateAndTime(1990, 12, 4), new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"));
-        Person diane = new Person("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"), new Address("Rua B", "Porto", "4520-233"));
+        Person bojack = new Person("Bojack", new DateAndTime(1990, 12, 4), new Address("Porto"),
+                new Address("Rua B", "Porto", "4520-233"), new Email("new@isep.pt"));
+        Person carolyn = new Person("Princess Carolyn", new DateAndTime(1990, 12, 4),
+                new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"), new Email("new2@isep.pt"));
+        Person todd = new Person("Todd Chavez", new DateAndTime(1990, 12, 4),
+                new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"), new Email("new3@isep.pt"));
+        Person diane = new Person("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"),
+                new Address("Rua B", "Porto", "4520-233"), new Email("new4@isep.pt"));
 
         // Group
         HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(carolyn, todd, diane));
@@ -299,7 +327,7 @@ class GroupsRepositoryTest {
 
             //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         testGroup.addMember(testGroupAdmin);
 
         //Act:
@@ -322,7 +350,7 @@ class GroupsRepositoryTest {
 
         //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Act:
         boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
@@ -344,7 +372,7 @@ class GroupsRepositoryTest {
 
         //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         testGroup.addMember(testGroupAdmin);
 
         //Act:
@@ -361,7 +389,7 @@ class GroupsRepositoryTest {
 
         // Person:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Categories:
 
@@ -407,7 +435,7 @@ class GroupsRepositoryTest {
     void testIfAGroupThatIsNotInTheListCanCreateTransaction() {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -440,10 +468,10 @@ class GroupsRepositoryTest {
     void testIfATransactionCanBeCreatedIfMemberIsNotMember() {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Person person1 = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -477,9 +505,9 @@ class GroupsRepositoryTest {
         //Arrange:
         GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person notMember = new Person("Francisco", new DateAndTime(1993, 11, 13),
-                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         groupsRepository.createGroup("TestGroup",person1);
 
             //Transactions arrangement:
@@ -512,7 +540,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -546,7 +574,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -579,7 +607,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -613,7 +641,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -646,7 +674,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -682,7 +710,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -718,9 +746,9 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person personMember = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person personNotMember = new Person("Julia", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -761,9 +789,9 @@ class GroupsRepositoryTest {
 
         //Arrange
         Person personMember = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person personNotMember = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -802,7 +830,7 @@ class GroupsRepositoryTest {
 
         //ARRANGE:
         Person groupMember = new Person("Tiago", new DateAndTime(1994,06,17),
-                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"), new Email("1234@isep.pt"));
 
         GroupsRepository testGroupsRepository = new GroupsRepository();
 
@@ -891,7 +919,7 @@ class GroupsRepositoryTest {
 
         //ARRANGE:
         Person groupMember = new Person("Tiago", new DateAndTime(1994,06,17),
-                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"), new Email("1234@isep.pt"));
 
         GroupsRepository testGroupsRepository = new GroupsRepository();
 
@@ -981,9 +1009,9 @@ class GroupsRepositoryTest {
 
         //ARRANGE:
         Person groupMember = new Person("João", new DateAndTime(1994,06,17),
-                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"), new Email("1234@isep.pt"));
         Person notGroupMember = new Person("Joana", new DateAndTime(1994,06,17),
-                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"));
+                new Address("Porto"),new Address("Rua xpto","Porto","4450-010"), new Email("1234@isep.pt"));
 
         GroupsRepository testGroupsRepository = new GroupsRepository();
 
@@ -1129,7 +1157,7 @@ class GroupsRepositoryTest {
         PersonRepository personRepository = new PersonRepository();
 
         personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"));
+                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
         groupsRepository.createGroup("BLA BLA",personRepository.findPersonByAttributes("Homer"));
         Group Blabla = new Group("BLA BLA");
@@ -1150,7 +1178,7 @@ class GroupsRepositoryTest {
         PersonRepository personRepository = new PersonRepository();
 
         personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"));
+                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
 
         groupsRepository.createGroup("BLA BLA",personRepository.findPersonByAttributes("Homer"));

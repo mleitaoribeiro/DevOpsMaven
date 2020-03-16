@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,7 @@ public class CategoryIDTest {
     void testEqualCategoryIDTrueCase() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1.getID());
 
@@ -31,7 +32,7 @@ public class CategoryIDTest {
     void testEqualsCategoryIDSameObject() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         CategoryID categoryID2 = categoryID1;
 
@@ -47,7 +48,7 @@ public class CategoryIDTest {
     void testEqualsCategoryIDSameOwnerDifferentDenomination() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Food"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("House"), person1.getID());
 
@@ -63,7 +64,7 @@ public class CategoryIDTest {
     void testEqualsCategoryIDDifferentOwnerSameDenomination() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         Group group1 = new Group("The Ones");
         CategoryID categoryID1 = new CategoryID(new Denomination("House"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("House"), group1.getID());
@@ -81,7 +82,7 @@ public class CategoryIDTest {
     void testEqualsCategoryIDDifferentType() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         Category category1 = new Category("Food");
 
@@ -97,7 +98,7 @@ public class CategoryIDTest {
     void testEqualsGroupIDNullCase() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act:
@@ -112,7 +113,7 @@ public class CategoryIDTest {
     void testHashCodeTrue() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), person1.getID());
 
@@ -125,7 +126,7 @@ public class CategoryIDTest {
     void testHashCodeFalse() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         Group group1 = new Group ("The ones");
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), group1.getID());
@@ -140,7 +141,7 @@ public class CategoryIDTest {
     void getDenomination() {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"));
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act:

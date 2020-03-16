@@ -1,6 +1,7 @@
 package switch2019.project.model.shared;
 
 import switch2019.project.model.frameworks.ID;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.person.PersonName;
@@ -9,21 +10,21 @@ import java.util.Objects;
 public class PersonID implements OwnerID {
 
     // Private PersonID attributes
-    private PersonName personName;
+    private Email email;
 
     /**
      * PersonID constructor
      */
-    public PersonID(String personName) {
-        this.personName = new PersonName(personName);
+    public PersonID(Email email) {
+        this.email = email;
     }
 
     /**
      * Method to return Person Name
      * @return personName
      */
-    public String getPersonName() {
-        return personName.getPersonName();
+    public Email getEmail() {
+        return email;
     }
 
     /**
@@ -34,7 +35,7 @@ public class PersonID implements OwnerID {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonID personID = (PersonID) o;
-        return Objects.equals(personName, personID.personName);
+        return Objects.equals(email, personID.email);
     }
 
     /**
@@ -42,6 +43,6 @@ public class PersonID implements OwnerID {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(personName);
+        return Objects.hash(email);
     }
 }

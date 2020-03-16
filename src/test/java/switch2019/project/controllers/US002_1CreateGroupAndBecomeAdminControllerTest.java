@@ -2,6 +2,7 @@ package switch2019.project.controllers;
 
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.PersonID;
@@ -21,12 +22,12 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         US002_1createGroupAndBecomeAdminService us002_1S = new US002_1createGroupAndBecomeAdminService();
 
         Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID("Alexandre");
+        PersonID personID = new PersonID(new Email("1234@isep.pt"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         PersonRepository personRepository = new PersonRepository();
         personRepository.createPerson("Alexandre", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"));
+                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
         //Act
         boolean result = us002_1C.createGroupAndBecomeAdmin(groupsRepository, personRepository, us002_1S, groupDescription, personID);

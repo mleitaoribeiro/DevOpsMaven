@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
@@ -335,7 +336,8 @@ class TransactionTest {
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
-        Person person1 = new Person("António", new DateAndTime(1995, 12, 4), new Address("Porto"), new Address("Rua 2", "Porto", "4620-580"));
+        Person person1 = new Person("António", new DateAndTime(1995, 12, 4), new Address("Porto"),
+                new Address("Rua 2", "Porto", "4620-580"), new Email("1234@isep.pt"));
 
 
         //Act

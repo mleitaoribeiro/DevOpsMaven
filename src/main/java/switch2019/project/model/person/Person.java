@@ -18,6 +18,7 @@ public class Person implements Owner {
 
     // Private Person variables
     private PersonID personID;
+    private PersonName name;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
     private Person mother;
@@ -37,8 +38,9 @@ public class Person implements Owner {
      * @param homeAddress
      */
 
-    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress) {
-        personID = new PersonID(name);
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
+        personID = new PersonID(email);
+        this.name = new PersonName(name);
         this.birthPlace = birthPlace;
         this.birthDate = birthDate;
         siblingList = new HashSet<>();
@@ -59,8 +61,10 @@ public class Person implements Owner {
      * @param father
      */
 
-    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father) {
-        personID = new PersonID(name);
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father,
+                  Email email) {
+        personID = new PersonID(email);
+        this.name = new PersonName(name);
         setBirthDate(birthDate);
         this.birthPlace = birthPlace;
         address = homeAddress;
@@ -83,22 +87,18 @@ public class Person implements Owner {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(personID, person.personID) &&
-                Objects.equals(birthDate, person.birthDate) &&
-                Objects.equals(birthPlace, person.birthPlace) &&
-                Objects.equals(address, person.address) &&
-                Objects.equals(father, person.father) &&
-                Objects.equals(mother, person.mother);
+        return Objects.equals(personID, person.personID);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personID, birthDate, birthPlace, address);
+        return Objects.hash(personID);
     }
 
     @Override
     public String toString() {
-        return "Person: " + personID.getPersonName() + ", currently lives in " + address.toString() +
+        return "Email: " + personID.getEmail() + ", Person "  + name.getPersonName() + ", currently lives in " + address.toString() +
                 ", was born in " + birthPlace.getBirthPlace() + ", on " + birthDate.getYearMonthDay() + ".";
     }
 
@@ -143,7 +143,7 @@ public class Person implements Owner {
      */
 
     public void setName(String newName) {
-        personID = new PersonID(newName);
+        name = new PersonName(newName);
     }
 
     /**
@@ -153,7 +153,7 @@ public class Person implements Owner {
      */
 
     public String getPersonName() {
-        return personID.getPersonName();
+        return name.getPersonName();
     }
 
     /**

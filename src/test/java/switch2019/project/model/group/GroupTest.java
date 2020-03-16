@@ -8,6 +8,7 @@ import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.*;
 import switch2019.project.repository.GroupsRepository;
@@ -30,9 +31,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
         group1.addMember(person2);
@@ -53,9 +54,9 @@ class GroupTest {
     public void equalsWithNullGroup() {
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
         group1.addMember(person2);
@@ -76,13 +77,13 @@ class GroupTest {
     public void compareGroupsWithSameDescriptionAndDifferentMembers() {
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank",new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Mary", new DateAndTime(1995, 12, 13), new Address("Detroit"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person4 = new Person("Vasylia", new DateAndTime(1995, 12, 13), new Address("California"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
         Group group1 = new Group("Amigos");
         group1.addMember(person1);
         group1.addMember(person2);
@@ -105,9 +106,9 @@ class GroupTest {
     public void compareGroupsWithSameMembersButDifferentDescription() {
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
         group1.addMember(person2);
@@ -132,9 +133,9 @@ class GroupTest {
     public void compareGroupsWithSameMembersAndSameDescription() {
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Mary's Gift");
         group1.addMember(person1);
         group1.addMember(person2);
@@ -179,9 +180,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Amigos");
         GroupsRepository groupList1 = new GroupsRepository();
 
@@ -246,9 +247,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Mariana", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
 
         HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person1, person2));
 
@@ -287,7 +288,7 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Group with no members");
 
         //Act
@@ -303,9 +304,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Pablo", new DateAndTime(1995, 12, 13), new Address("Madrid"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group group1 = new Group("Group with no members");
 
         //Act
@@ -328,11 +329,11 @@ class GroupTest {
         Group group1 = new Group("MNation");
 
         Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Mariana", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Marisa", new DateAndTime(1995, 12, 13), new Address("Leiria"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
 
@@ -355,9 +356,9 @@ class GroupTest {
         Group group1 = new Group("Maria's Group");
 
         Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         //Act
         group1.addMember(person1);
@@ -376,7 +377,7 @@ class GroupTest {
         Group group1 = new Group("Grupo das M'Nation");
 
         Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = null;
 
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
@@ -400,11 +401,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
         Person personAdmin = new Person("António", new DateAndTime(1995, 12, 13), new Address("Guimarães"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
         group1.setAdmin(personAdmin);
@@ -427,11 +428,11 @@ class GroupTest {
         Group group1 = new Group("Grupo a ser submetido aos testes");
 
         Person personAdmin = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = null;
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
         group1.setAdmin(personAdmin);
@@ -458,9 +459,9 @@ class GroupTest {
         Group group1 = new Group("OS FIXES");
 
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Diana", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         //Act
         group1.addMember(person1); //Admin
@@ -484,11 +485,11 @@ class GroupTest {
         Group group1 = new Group("OS FIXES");
 
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Mariana", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Diana", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
         //Act
         group1.addMember(person1); //Admin
@@ -508,11 +509,11 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
         Person personAdmin = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("João",new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         group1.setAdmin(personAdmin);
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
 
@@ -533,11 +534,11 @@ class GroupTest {
         Group group1 = new Group("Grupo a ser submetido aos testes");
 
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person2, person1));
 
@@ -559,13 +560,13 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo a ser submetido aos testes");
         Person personAdmin = new Person("Catarina", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
         group1.setAdmin(personAdmin);
@@ -587,11 +588,11 @@ class GroupTest {
         Group group1 = new Group("123 são os primeiros três números inteiros");
 
         Person person1 = new Person("João",new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
         group1.addMember(person1);
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person3, person2));
@@ -614,13 +615,13 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
         Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person4 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
 
         //Act
         group1.addMember(person1);
@@ -644,13 +645,13 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("grupo dos amiguinhos");
         Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person4 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
 
         //Act
         group1.addMember(person1);
@@ -674,13 +675,13 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Gabriel",new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person4 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
 
         group1.addMember(person1);
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
@@ -705,11 +706,11 @@ class GroupTest {
         //Arrange:
         Group group1 = new Group("Grupo ainda mais fixe que o outro");
         Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
         //Act:
         boolean areMembersBeingAddedAndRemoved = (
@@ -735,15 +736,15 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
         Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5));
 
         person1.setMother(person4);
@@ -768,17 +769,17 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Oscar",new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person6 = new Person("Diana", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5, person6));
 
         person1.setMother(person4);
@@ -803,15 +804,15 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
 
         Group group1 = new Group("Family");
@@ -830,15 +831,15 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
 
         person1.setFather(person5);
@@ -883,9 +884,9 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Braga"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person groupAdmin = new Person("João", new DateAndTime(1995, 12, 13), new Address("Braga"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -902,7 +903,7 @@ class GroupTest {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Braga"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = null;
         Group group1 = new Group("Test Group");
 
@@ -920,9 +921,9 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Braga"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person groupAdmin = new Person("João", new DateAndTime(1995, 12, 13), new Address("Braga"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -943,9 +944,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -965,11 +966,11 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Albert", new DateAndTime(1995, 12, 13), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -988,9 +989,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Francis",new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -1010,9 +1011,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -1034,13 +1035,13 @@ class GroupTest {
 
         //Arrange
         Person personAdmin = new Person("Marta",new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         Group group1 = new Group("Francis Group");
         group1.setAdmin(personAdmin);
@@ -1061,15 +1062,15 @@ class GroupTest {
 
         //Arrange
         Person personAdmin = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person4 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         Group group1 = new Group("Francis Group");
         group1.setAdmin(personAdmin);
@@ -1097,9 +1098,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -1118,9 +1119,9 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -1138,9 +1139,9 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act:
@@ -1158,11 +1159,11 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques",new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Vladimir", new DateAndTime(1995, 12, 13), new Address("Moscow"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act:
@@ -1184,9 +1185,9 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group group1 = new Group("Test Group 1");
         Group group2 = new Group("Test Group 2");
         Group group3 = new Group("Test Group 3");
@@ -1215,9 +1216,9 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -1240,13 +1241,13 @@ class GroupTest {
 
         // Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques",new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("John", new DateAndTime(1995, 12, 13), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person4 = new Person("Susan", new DateAndTime(1995, 12, 13), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
         Group group1 = new Group("Test Group");
 
         // Act:
@@ -1269,13 +1270,13 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("John", new DateAndTime(2000, 12, 12), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person4 = new Person("Susan", new DateAndTime(2000, 12, 12), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -1299,13 +1300,13 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("John", new DateAndTime(2000, 12, 12), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person4 = new Person("Susan", new DateAndTime(2000, 12, 12), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -1330,7 +1331,7 @@ class GroupTest {
     void memberAndGroupAdminSimultaneously() {
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -1345,7 +1346,7 @@ class GroupTest {
     void memberAndGroupAdminSimultaneouslyFalse() {
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Francis Group");
 
         //Act
@@ -1361,15 +1362,15 @@ class GroupTest {
     void memberAndGroupAdminSimultaneouslyWhileThereAreOtherGroupMembers() {
         //Arrange
         Person personAdmin = new Person("Marta", new DateAndTime(2000, 12, 12), new Address("Guimarães"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person2 = new Person("Jaques",new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person3 = new Person("Pedro", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
         Person person4 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
 
         Group group1 = new Group("Francis Group");
         group1.setAdmin(personAdmin);
@@ -1394,11 +1395,11 @@ class GroupTest {
     void isGroupAdmin() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
 
@@ -1414,13 +1415,13 @@ class GroupTest {
     void isGroupAdminFalse() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3);
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3, new Email("1@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
         group1.addMember(person4);
@@ -1455,11 +1456,11 @@ class GroupTest {
     void isGroupMember() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
 
@@ -1475,13 +1476,13 @@ class GroupTest {
     void isGroupMemberFalse() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3);
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3, new Email("1@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
 
@@ -1553,7 +1554,7 @@ class GroupTest {
 
         //Arrange :
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person1);
 
@@ -1573,7 +1574,7 @@ class GroupTest {
 
         //Arrange
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person1);
 
@@ -1597,13 +1598,13 @@ class GroupTest {
 
         //Arrange :
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
         Person person4 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person3);
 
@@ -1623,13 +1624,13 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("João",new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person1, person2);
+                new Address("Rua X", "Porto", "4520-266"), person1, person2, new Email("12@isep.pt"));
         Person person4 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("1@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person3);
         group1.addMember(person4);
@@ -1650,7 +1651,7 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test Group");
 
         //Act:
@@ -1667,7 +1668,7 @@ class GroupTest {
 
         //Arrange :
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("test group");
 
         //Act:
@@ -1684,7 +1685,7 @@ class GroupTest {
     void createGroupAccountSameDescriptionIgnoreCasing() {
         //Arrange:
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test group");
 
         //Act:
@@ -1702,7 +1703,7 @@ class GroupTest {
 
         //Arrange:
         Person person1 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group group1 = new Group("Test Group");
         Group group2 = new Group("Test Group 2");
         Group group3 = new Group("Test Group 3");
@@ -1940,7 +1941,7 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Grupo dos amigos");
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         group1.addMember(person1);
 
 
@@ -1958,9 +1959,9 @@ class GroupTest {
 
         Group group1 = new Group("Grupo dos amigos");
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Filipa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
 
         group1.addMember(person1);
 
@@ -1978,7 +1979,7 @@ class GroupTest {
         //Initialize Group
         Group group1 = new Group("Grupo dos amigos");
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         group1.addMember(person1);
 
         //Act
@@ -1996,7 +1997,7 @@ class GroupTest {
 
         Group group1 = new Group("Groupo dos amigos");
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         group1.addMember(person1);
         //Categories to be included in Category List
 
@@ -2016,7 +2017,7 @@ class GroupTest {
         //Arrange
         Group group1 = new Group("Groupo dos amigos");
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         group1.addMember(person1);
         //Categories to be included in Category List
         Category category1 = new Category("School expenses");
@@ -2075,7 +2076,7 @@ class GroupTest {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
         testGroup.createCategory("groceries", groupAdmin);
@@ -2093,9 +2094,9 @@ class GroupTest {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person groupMember = new Person("João", new DateAndTime(1991, 12, 11), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
         testGroup.addMember(groupMember);
@@ -2131,7 +2132,7 @@ class GroupTest {
 
         //Arrange:
         Person groupAdmin = new Person("Francisco", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Group testGroup = new Group("Test group");
         testGroup.addMember(groupAdmin);
         testGroup.createCategory(null, groupAdmin);
@@ -2172,7 +2173,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
 
@@ -2219,7 +2220,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
         //Type:
         boolean type1 = true;
         boolean type2 = false;
@@ -2267,7 +2268,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2314,7 +2315,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2362,7 +2363,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2413,7 +2414,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2463,7 +2464,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2513,7 +2514,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2552,7 +2553,7 @@ class GroupTest {
 
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
         group1.addMember(person1);
 
 
@@ -2591,7 +2592,7 @@ class GroupTest {
         Category category2 = new Category("friends");
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
-                new Address("Rua das Flores", "Porto", "4455-987"));
+                new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2622,13 +2623,13 @@ class GroupTest {
     void createGroupTransactionSuccessCase() {
         //Arrange
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Person person4 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person3);
         group1.addMember(person4);
@@ -2667,13 +2668,13 @@ class GroupTest {
     void createGroupTransactionAccountNegativeMonetaryValue() {
         //Arrange
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Person person4 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person3);
         group1.addMember(person4);
@@ -2714,13 +2715,13 @@ class GroupTest {
     void createGroupTransactionNotMember() {
         //Arrange
         Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
         Person person4 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1);
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1@isep.pt"));
         Group group1 = new Group("Test group");
         group1.addMember(person3);
 
@@ -2765,7 +2766,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
 
         oneGroup.setAdmin(onePerson);
@@ -2814,7 +2815,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -2835,7 +2836,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -2882,7 +2883,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -2925,7 +2926,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -2974,7 +2975,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -3022,7 +3023,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -3070,7 +3071,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -3118,7 +3119,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         oneGroup.setAdmin(onePerson);
 
@@ -3166,7 +3167,7 @@ class GroupTest {
         Group oneGroup = new Group("XPTO");
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -3457,7 +3458,7 @@ class GroupTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -3488,7 +3489,7 @@ class GroupTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -3518,7 +3519,7 @@ class GroupTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -3549,7 +3550,7 @@ class GroupTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
@@ -3579,7 +3580,7 @@ class GroupTest {
 
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"));
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";

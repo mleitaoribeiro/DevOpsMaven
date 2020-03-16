@@ -2,6 +2,7 @@ package switch2019.project.model.shared;
 
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +13,8 @@ class AccountIDTest {
     void getDenomination() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         String expected = "SWITCH";
 
@@ -27,7 +29,8 @@ class AccountIDTest {
     void testEqualsSameObject() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
 
         //Act:
@@ -41,7 +44,8 @@ class AccountIDTest {
     void testEqualsDifferentObjectTrue() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         AccountID accountID2 = new AccountID(new Denomination("switch"), person.getID());
 
@@ -56,7 +60,8 @@ class AccountIDTest {
     void testEqualsDifferentObjectFalse() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         AccountID accountID2 = new AccountID(new Denomination("games"), person.getID());
 
@@ -71,7 +76,8 @@ class AccountIDTest {
     void testEqualsNull() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         AccountID accountID2 = null;
 
@@ -86,9 +92,10 @@ class AccountIDTest {
     void testEqualsDifferentClass() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
+        PersonID personID = new PersonID(new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
-        PersonID personID = new PersonID("Marta");
 
         //Act:
         boolean result = accountID.equals(personID);
@@ -101,7 +108,7 @@ class AccountIDTest {
     void testHashCodeTrue() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         AccountID accountID2 = new AccountID(new Denomination("switch"), person.getID());
 
@@ -113,7 +120,8 @@ class AccountIDTest {
     void testHashCodeFalse() {
         //Arrange:
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("1234@isep.pt"));
         AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
         AccountID accountID2 = new AccountID(new Denomination("games"), person.getID());
 

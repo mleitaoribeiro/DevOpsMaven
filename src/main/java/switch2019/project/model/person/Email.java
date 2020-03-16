@@ -3,7 +3,7 @@ package switch2019.project.model.person;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-class Email {
+public class Email {
 
     private final String emailAddress;
 
