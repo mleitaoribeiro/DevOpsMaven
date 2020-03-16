@@ -1,9 +1,13 @@
 package switch2019.project.repository;
 
 import switch2019.project.model.category.Category;
+import switch2019.project.model.frameworks.ID;
+import switch2019.project.model.frameworks.Owner;
+
 import java.util.*;
 
 public class CategoryRepository implements Repository{
+
     // Private instance variables
     private Set<Category> categories;
 
@@ -13,6 +17,11 @@ public class CategoryRepository implements Repository{
 
     public CategoryRepository() {
         categories = new HashSet<>();
+
+        Repository personRepository = new PersonRepository();
+        Repository groupRepository = new GroupsRepository();
+
+        // categories.add("n", personRepository.findByID())
     }
 
     /**
@@ -25,8 +34,7 @@ public class CategoryRepository implements Repository{
         List<String> categoriesToString = new ArrayList();
         for (Category category : categories) {
             categoriesToString.add(category.getNameOfCategory());
-        }
-        return "CategoryList: " + categoriesToString;
+        } return "CategoryList: " + categoriesToString;
     }
 
     /**
@@ -47,15 +55,40 @@ public class CategoryRepository implements Repository{
     }
 
     /**
+     * Find category by ID
+     * @param accountID
+     * @return account
+     */
+
+    public Category findByID(ID accountID){
+        for(Category category: categories) {
+            if(category.getID().equals(accountID))
+                return category;
+        } throw new IllegalArgumentException("No category found with that ID.");
+    }
+
+    /**
      * Add a new category to CategoryList
      *
      * @param nameOfCategory
      */
 
-    public boolean addCategoryToCategoryList(String nameOfCategory) {
+    public boolean createCategory(String nameOfCategory) {
         Category newCategory = new Category(nameOfCategory);
         return categories.add(newCategory);
     }
+
+    /**
+     * 2nd Add a new category to CategoryList
+     *
+     * @param nameOfCategory
+     */
+
+    public boolean createCategory(String nameOfCategory, Owner owner) {
+        Category newCategory = new Category(nameOfCategory);
+        return categories.add(newCategory);
+    }
+
 
     /**
      * Remove a category from CategoryList
@@ -80,7 +113,7 @@ public class CategoryRepository implements Repository{
     public boolean addMultipleCategoriesToList(Set<String> categories) {
         int sizeBefore = this.categories.size();
         for (String category : categories) {
-            this.addCategoryToCategoryList(category);
+            this.createCategory(category);
         }
         return this.categories.size() == sizeBefore + categories.size();
     }

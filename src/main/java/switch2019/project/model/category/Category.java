@@ -1,12 +1,14 @@
 package switch2019.project.model.category;
 
+import switch2019.project.model.frameworks.Entity;
+import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.Denomination;
 
 import java.util.Objects;
 
-public class Category {
+public class Category implements Entity {
     //Private instance variables
     private CategoryID categoryID;
     private Denomination nameOfCategory;
@@ -26,6 +28,13 @@ public class Category {
      */
     public Category(String category, Owner owner) {
         categoryID = new CategoryID(new Denomination(category), owner);
+    }
+
+    /**
+     * Get account by ID
+     */
+    public ID getID() {
+        return categoryID;
     }
 
     public void setNameOfCategory(String nameOfCategory) {

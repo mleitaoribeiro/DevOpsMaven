@@ -1,6 +1,7 @@
 package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
+import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 
@@ -43,6 +44,19 @@ public class AccountRepository implements Repository {
     @Override
     public int hashCode() {
         return Objects.hash(accounts);
+    }
+
+    /**
+     * Find account by ID
+     * @param accountID
+     * @return account
+     */
+
+    public Account findByID(ID accountID){
+        for(Account account: accounts) {
+            if(account.getID().equals(accountID))
+                return account;
+        } throw new IllegalArgumentException("No account found with that ID.");
     }
 
     /**

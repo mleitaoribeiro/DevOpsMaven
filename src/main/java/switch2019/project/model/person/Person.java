@@ -352,7 +352,7 @@ public class Person implements Owner {
     }
 
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
-        return categoryList.addCategoryToCategoryList(nameOfCategory);
+        return categoryList.createCategory(nameOfCategory);
     }
 
     /**

@@ -289,7 +289,7 @@ public class Group implements Owner {
     //alterar para depois por o ID
     public boolean createCategory(String nameOfCategory, Person categoryCreator) {
         if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
-            return categoryList.addCategoryToCategoryList(nameOfCategory);
+            return categoryList.createCategory(nameOfCategory);
         } else return false;
     }
 

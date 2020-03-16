@@ -1,5 +1,7 @@
 package switch2019.project.model.account;
 
+import switch2019.project.model.frameworks.Entity;
+import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;
@@ -9,7 +11,7 @@ import switch2019.project.model.shared.MonetaryValue;
 import java.util.Currency;
 import java.util.Objects;
 
-public class Account {
+public class Account implements Entity {
     /**
      * Private Instance Variables
      */
@@ -79,6 +81,13 @@ public class Account {
     @Override
     public String toString() {
         return denomination.toString() + ", " + description.toString() + ", " + balance + "€";
+    }
+
+    /**
+     * Get account by ID
+     */
+    public ID getID() {
+        return accountID;
     }
 
     /**
