@@ -435,6 +435,9 @@ public class Group implements Owner {
     }
 
 
+    public String getGroupDescription() {
+        return groupID.getDescription();
+    }
 }
 
 
