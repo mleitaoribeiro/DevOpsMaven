@@ -3,6 +3,7 @@ package switch2019.project.repository;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
@@ -171,5 +172,16 @@ public class GroupsRepository implements Repository{
             if (group.getGroupID().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize(); }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
+    }
+
+    /**
+     * @param groupDescription
+     * @return
+     */
+    public Group findGroupByAttributes(String groupDescription) {
+        for(Group group : listOfGroups) {
+            if(group.getGroupDescription().equals(groupDescription))
+                return group;
+        } throw new IllegalArgumentException("No person found with that attributes.");
     }
 }
