@@ -25,6 +25,7 @@ public class GroupsRepository implements Repository{
      */
     public GroupsRepository() {
         listOfGroups = new HashSet<>();
+        //createGroup("Bashtards", );
     }
 
     /**
