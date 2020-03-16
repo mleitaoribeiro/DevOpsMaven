@@ -194,7 +194,7 @@ public class GroupsRepository implements Repository {
      *
      * @param groupID
      */
-    public Group findPGroupByID(GroupID groupID) {
+    public Group findGroupByID(GroupID groupID) {
         for (Group group : listOfGroups) {
             if (group.getID().equals(groupID))
                 return group;
