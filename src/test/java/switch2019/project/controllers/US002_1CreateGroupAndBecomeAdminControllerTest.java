@@ -16,7 +16,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController();
         US002_1createGroupAndBecomeAdminService us002_1S = new US002_1createGroupAndBecomeAdminService();
         Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID("Nome");
+        PersonID personID = new PersonID("Francisco");
 
         //Act
         boolean result = us002_1C.createGroupAndBecomeAdmin(us002_1S, groupDescription, personID);

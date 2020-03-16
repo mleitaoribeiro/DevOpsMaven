@@ -34,7 +34,7 @@ class AccountTest {
     }
 
     @Test
-    @DisplayName("Test if two accounts are the same - false")
+    @DisplayName("Test if two accounts are the same - different description")
     public void testIfTwoAccountsAreTheSameNoBeing() {
 
         //Arrange
