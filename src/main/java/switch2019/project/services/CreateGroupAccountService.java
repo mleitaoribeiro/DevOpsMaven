@@ -12,13 +12,11 @@ import switch2019.project.repository.PersonRepository;
 
 public class CreateGroupAccountService {
 
-    public boolean createGroupAccount (String personName, String groupDescription, Denomination accountDenomination, Description accountDescription ) {
+    public boolean createGroupAccount (PersonRepository personRepository, GroupsRepository groupsRepository,
+                                       AccountRepository accountRepository, String personEmail, String groupDescription,
+                                       Denomination accountDenomination, Description accountDescription ) {
 
-        PersonRepository personRepository = new PersonRepository();
-        GroupsRepository groupsRepository = new GroupsRepository();
-        AccountRepository accountRepository = new AccountRepository();
-
-        Person onePerson = personRepository.findPersonByAttributes(personName);
+        Person onePerson = personRepository.findPersonByAttributes(personEmail);
 
         Group oneGroup = groupsRepository.findGroupByDescription(groupDescription);
         GroupID oneGroupID = oneGroup.getID();
