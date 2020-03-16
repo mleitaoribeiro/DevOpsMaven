@@ -59,9 +59,7 @@ public class Group implements Owner {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return Objects.equals(groupID, group.groupID) &&
-                Objects.equals(startingDate, group.startingDate) &&
-                Objects.equals(members, group.members);
+        return Objects.equals(groupID, group.groupID);
     }
 
     @Override

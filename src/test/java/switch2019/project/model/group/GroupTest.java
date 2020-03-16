@@ -95,7 +95,7 @@ class GroupTest {
         boolean result = group1.equals(group2);
 
         //Assert
-        assertFalse(result);
+        assertTrue(result);
     }
 
     /**

@@ -12,10 +12,7 @@ import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.MonetaryValue;
+import switch2019.project.model.shared.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -1195,4 +1192,22 @@ class GroupsRepositoryTest {
         }
     }
 
+    @Test
+    void findGroupByID() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupsRepository groupsRepository= new GroupsRepository();
+        groupsRepository.createGroup("Familia", person);
+        Group expected= new Group("Familia");
+
+        //Act
+        Group actual=groupsRepository.findGroupByID(new GroupID(new Description("Familia")));
+
+        //Assert
+        assertEquals(expected, actual);
+
+
+    }
 }
