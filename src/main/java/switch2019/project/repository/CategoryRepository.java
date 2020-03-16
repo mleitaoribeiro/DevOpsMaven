@@ -18,8 +18,8 @@ public class CategoryRepository implements Repository{
     public CategoryRepository() {
         categories = new HashSet<>();
 
-        Repository personRepository = new PersonRepository();
-        Repository groupRepository = new GroupsRepository();
+        // Repository personRepository = new PersonRepository();
+        /// Repository groupRepository = new GroupsRepository();
 
         // categories.add("n", personRepository.findByID())
     }
@@ -85,7 +85,7 @@ public class CategoryRepository implements Repository{
      */
 
     public boolean createCategory(String nameOfCategory, Owner owner) {
-        Category newCategory = new Category(nameOfCategory);
+        Category newCategory = new Category(nameOfCategory, owner);
         return categories.add(newCategory);
     }
 
