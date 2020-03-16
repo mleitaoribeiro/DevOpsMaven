@@ -1,20 +1,31 @@
 package switch2019.project.model.category;
 
+import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.Denomination;
 
 import java.util.Objects;
 
 public class Category {
     //Private instance variables
+    private CategoryID categoryID;
     private Denomination nameOfCategory;
 
     /**
-     * Category constructor
-     *
+     * Category constructor (to delete later)
      * @param category
      */
     public Category(String category) {
         setNameOfCategory(category);
+    }
+
+    /**
+     * 2nd Category constructor
+     * @param category
+     * @param owner
+     */
+    public Category(String category, Owner owner) {
+        categoryID = new CategoryID(new Denomination(category), owner);
     }
 
     public void setNameOfCategory(String nameOfCategory) {
