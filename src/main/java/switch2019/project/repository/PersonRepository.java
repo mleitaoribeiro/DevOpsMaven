@@ -16,26 +16,7 @@ public class PersonRepository implements Repository{
     /**
      * Default Constructor for Person Repository
      */
-    public PersonRepository() {
-        listOfPersons = new HashSet<>();
-        createPerson("Francisco", new DateAndTime(2000, 1, 1),
-                new Address("Porto"), new Address("Rua de S Tomés", "Porto", "4000-001"));
-        createPerson("Joana", new DateAndTime(2001, 2, 3),
-                new Address("Lisboa"), new Address("Rua de S Tomé", "Portimao", "4001-001"));
-        createPerson("Maria", new DateAndTime(2003, 11, 30),
-                new Address("Maia"), new Address("Rua de S Tomé", "Porto", "4000-100"));
-            //FAMILY:
-        createPerson("Homer", new DateAndTime(1990, 12, 4),
-                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
-        createPerson("Marge",new DateAndTime(1990, 12, 4),
-                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"));
-        createPersonWithParents("Bart", new DateAndTime(1990, 12, 4),
-                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"),
-                findPersonByAttributes("Marge"), findPersonByAttributes("Homer"));
-        createPersonWithParents("Lisa", new DateAndTime(1990, 12, 4),
-                new Address("Springfield"), new Address("Rua B", "Porto", "4520-233"),
-                findPersonByAttributes("Marge"), findPersonByAttributes("Homer"));
-    }
+    public PersonRepository() { listOfPersons = new HashSet<>(); }
 
     /**
      * This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
