@@ -10,11 +10,12 @@ import switch2019.project.model.person.Person;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.shared.GroupID;
+import switch2019.project.model.shared.PersonID;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class GroupsRepository implements Repository{
+public class GroupsRepository implements Repository {
     // Private instance variables
     private Set<Group> listOfGroups;
 
@@ -45,6 +46,7 @@ public class GroupsRepository implements Repository{
 
     /**
      * method to add group to the list
+     *
      * @param group
      */
     public boolean addGroupToGroupList(Group group) {
@@ -117,14 +119,15 @@ public class GroupsRepository implements Repository{
      */
     public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, Periodicity periodicity, MonetaryValue amount, String transactionDescription,
                                                  LocalDateTime localDate, Category category,
-                                                 Account accountFrom, Account accountTo, Type type){
+                                                 Account accountFrom, Account accountTo, Type type) {
         for (Group group : listOfGroups) {
-            if (group.getGroupID().equalsIgnoreCase(groupDescription)){
-                if(group.isGroupMember(person))
+            if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
+                if (group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
                 else throw new IllegalArgumentException(NOT_A_MEMBER);
             }
-        } throw new IllegalArgumentException(NO_GROUPS_FOUND);
+        }
+        throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -134,7 +137,7 @@ public class GroupsRepository implements Repository{
      * @param initialDate
      * @param finalDate
      */
-    public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate){
+    public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate) {
         List<Transaction> groupTransactions = new ArrayList<>();
         Set<Group> groups = new HashSet<>();
         for (Group group : listOfGroups) {
@@ -170,17 +173,32 @@ public class GroupsRepository implements Repository{
     public int checkAGroupsLedgerSize(String groupDescription) {
         for (Group group : listOfGroups) {
             if (group.getGroupID().equalsIgnoreCase(groupDescription))
-                return group.ledgerSize(); }
+                return group.ledgerSize();
+        }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 
     /**
      * Method used to find a specific group by its Description
      */
-    public Group findGroupByDescription (String groupDescription) {
-        for(Group group : listOfGroups) {
-            if(group.getID().getDescription().equals(groupDescription))
+    public Group findGroupByDescription(String groupDescription) {
+        for (Group group : listOfGroups) {
+            if (group.getID().getDescription().equals(groupDescription))
                 return group;
-        } throw new IllegalArgumentException("No group was found with the given description");
+        }
+        throw new IllegalArgumentException("No group was found with the given description");
+    }
+
+    /**
+     * Method to return the group corespondent to the given GroupID
+     *
+     * @param groupID
+     */
+    public Group findPGroupByID(GroupID groupID) {
+        for (Group group : listOfGroups) {
+            if (group.getID().equals(groupID))
+                return group;
+        }
+        throw new IllegalArgumentException("No group found with that ID.");
     }
 }
