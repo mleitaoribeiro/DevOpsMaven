@@ -11,16 +11,16 @@ participant "person1:Person"
 
 == Act ==
 
-":Test" -> ":US001AreSiblingsController" : siblings = AreSiblings(service, personRep,\n emailPerson1, emailPerson2)
+":Test" -> ":US001AreSiblingsController" : siblings = AreSiblings(personId1, personId2)
 activate ":US001AreSiblingsController"  #FFBBBB
 
-":US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings(personRep,\n emailPerson1, emailPerson2)
+":US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings\n(personId1, personId2)
 activate "service:US001AreSiblingsService"  #FFBBBB
 
-"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person1: findPersonByEmail (emailPerson1)
+"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person1: findPersonByID(personId1)
 activate "personRep:PersonRepository" #FFBBBB
 
-"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person2: findPersonByEmail (emailPerson2)
+"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person2: findPersonByID(personId2)
 
 deactivate "personRep:PersonRepository" #FFBBBB
 
