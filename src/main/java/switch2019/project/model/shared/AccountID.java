@@ -56,9 +56,4 @@ public class AccountID implements ID {
         return Objects.hash(denomination, ownerID);
     }
 
-    /**
-     * Get ownerID
-     * @return
-     */
-    public OwnerID getOwnerID() { return ownerID; }
 }
