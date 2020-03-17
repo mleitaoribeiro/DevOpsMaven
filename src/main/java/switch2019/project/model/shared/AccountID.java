@@ -15,12 +15,16 @@ public class AccountID implements ID {
      * AccountID constructor
      */
     public AccountID(Denomination denomination, OwnerID ownerID) {
-        this.denomination = denomination;
-        this.ownerID = ownerID;
+        if (denomination != null & ownerID != null){
+            this.denomination = denomination;
+            this.ownerID = ownerID;
+        }
+        else throw new IllegalArgumentException("The denomination and ownerID can't be null.");
     }
 
     /**
      * Method to return Denomination
+     *
      * @return denomination
      */
     public String getDenomination() {
@@ -29,6 +33,7 @@ public class AccountID implements ID {
 
     /**
      * Method to return ownerID
+     *
      * @return ownerID
      */
     public OwnerID getOwnerID() {
@@ -56,9 +61,4 @@ public class AccountID implements ID {
         return Objects.hash(denomination, ownerID);
     }
 
-    /**
-     * Get ownerID
-     * @return
-     */
-    public OwnerID getOwnerID() { return ownerID; }
 }

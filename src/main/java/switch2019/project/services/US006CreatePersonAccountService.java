@@ -11,17 +11,14 @@ import switch2019.project.repository.PersonRepository;
 
 public class US006CreatePersonAccountService {
 
-    public boolean createPersonAccount(Email personEmail,
-                                       Denomination accountDenomination, Description accountDescription) {
-        // Initialize PersonRepository
-        PersonRepository personRepository = new PersonRepository();
-        //Find Person by main attributes
+    public boolean createPersonAccount(PersonRepository personRepository,
+                                     AccountRepository accountRepository, Email personEmail, Denomination accountDenomination,
+                                     Description accountDescription) {
+        //Find Person by ID attribute
         Person onePerson = personRepository.findPersonByEmail(personEmail);
         //Get that person ID
-        PersonID onePersonID= onePerson.getID();
-        //Initialiaze AccountRepository
-        AccountRepository accountsRepository = new AccountRepository();
-        //Create an Account for OnePerson - Needs an ID
-        return accountsRepository.createAccount(accountDenomination, accountDescription);
+        PersonID onePersonID = onePerson.getID();
+        //Create an Account for OnePerson
+        return accountRepository.createAccount(accountDenomination, accountDescription, onePersonID);
     }
 }

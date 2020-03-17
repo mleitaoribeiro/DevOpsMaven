@@ -11,7 +11,8 @@ public class GroupID implements OwnerID {
      * GroupID constructor
      */
     public GroupID(Description description) {
-        this.description = description;
+        if(description != null) this.description = description;
+        else throw new IllegalArgumentException("The description can't be null.");
     }
 
     /**
