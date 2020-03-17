@@ -18,8 +18,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     void createGroupAndBecomeAdmin() {
 
         //Arrange
-        US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController();
-        US002_1CreateGroupAndBecomeAdminService us002_1S = new US002_1CreateGroupAndBecomeAdminService();
+
 
         Description groupDescription = new Description("Bashtards");
         PersonID personID = new PersonID(new Email("1234@isep.pt"));
@@ -27,10 +26,15 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         GroupsRepository groupsRepository = new GroupsRepository();
         PersonRepository personRepository = new PersonRepository();
         personRepository.createPerson("Alexandre", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
+                new Address("Porto"), new Address("Porto",
+                        "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
+
+        US002_1CreateGroupAndBecomeAdminService us002_1S = new US002_1CreateGroupAndBecomeAdminService(groupsRepository, personRepository);
+        US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController(us002_1S);
+
 
         //Act
-        boolean result = us002_1C.createGroupAndBecomeAdmin(groupsRepository, personRepository, us002_1S, groupDescription, personID);
+        boolean result = us002_1C.createGroupAndBecomeAdmin(groupDescription, personID);
 
         //Assert
         assertTrue(result);
@@ -40,8 +44,6 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     void createGroupAndBecomeAdminNoPersonID() {
 
         //Arrange
-        US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController();
-        US002_1CreateGroupAndBecomeAdminService us002_1S = new US002_1CreateGroupAndBecomeAdminService();
 
         Description groupDescription = new Description("Bashtards");
         PersonID personID = new PersonID(new Email("12345@isep.pt"));
@@ -52,9 +54,12 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
                 new Address("Porto"), new Address("Porto", "Rua de Santana",
                         "4465-740"), new Email("1234@isep.pt"));
 
+        US002_1CreateGroupAndBecomeAdminService us002_1S = new US002_1CreateGroupAndBecomeAdminService(groupsRepository, personRepository);
+        US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController(us002_1S);
+
         //Act
         try {
-            us002_1C.createGroupAndBecomeAdmin(groupsRepository, personRepository, us002_1S, groupDescription, personID);
+            us002_1C.createGroupAndBecomeAdmin(groupDescription, personID);
         }
 
         //Assert
@@ -64,27 +69,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
     }
 
-    @Test
-    void createGroupAndBecomeAdminNoGroupRepo() {
 
-        //Arrange
-        US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController();
-        US002_1CreateGroupAndBecomeAdminService us002_1S = new US002_1CreateGroupAndBecomeAdminService();
-
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("1234@isep.pt"));
-
-
-        PersonRepository personRepository = new PersonRepository();
-        personRepository.createPerson("Alexandre", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
-
-        //Act
-        boolean result = us002_1C.createGroupAndBecomeAdmin(null, personRepository, us002_1S, groupDescription, personID);
-
-        //Assert
-        assertFalse(result);
-    }
 
     @Test
     void createGroupAndBecomeAdminNoGroupDescription() {
