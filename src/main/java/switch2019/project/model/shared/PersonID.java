@@ -1,10 +1,8 @@
 package switch2019.project.model.shared;
 
-import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.person.Email;
-import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.frameworks.OwnerID;
-import switch2019.project.model.person.PersonName;
+
 import java.util.Objects;
 
 public class PersonID implements OwnerID {

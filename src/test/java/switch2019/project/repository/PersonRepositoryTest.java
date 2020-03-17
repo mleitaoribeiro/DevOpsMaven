@@ -51,7 +51,7 @@ class PersonRepositoryTest {
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
         //Act:
-        Person actual = personRepository.findPersonByAttributes("Marta");
+        Person actual = personRepository.findPersonByEmail(new Email("Marta"));
 
         //Assert:
         assertEquals(expected, actual);

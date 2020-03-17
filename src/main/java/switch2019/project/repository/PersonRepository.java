@@ -55,12 +55,12 @@ public class PersonRepository implements Repository{
     /**
      * Method to return the person corespondent to the given attributes
      * This is to be updated later but for now, the only attribute being used is the name
-     * @param personName
+     * @param personEmail
      */
-    public Person findPersonByAttributes(String personName) {
+    public Person findPersonByEmail(Email personEmail) {
         for(Person person : listOfPersons) {
-            if(person.getPersonName().equals(personName))
+            if(person.getID().getEmail().equals(personEmail))
                 return person;
-        } throw new IllegalArgumentException("No person found with that attributes.");
+        } throw new IllegalArgumentException("No person found with that email.");
     }
 }

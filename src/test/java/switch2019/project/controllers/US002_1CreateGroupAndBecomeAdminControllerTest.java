@@ -8,7 +8,7 @@ import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
-import switch2019.project.services.US002_1createGroupAndBecomeAdminService;
+import switch2019.project.services.US002_1CreateGroupAndBecomeAdminService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +19,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Arrange
         US002_1CreateGroupAndBecomeAdminController us002_1C = new US002_1CreateGroupAndBecomeAdminController();
-        US002_1createGroupAndBecomeAdminService us002_1S = new US002_1createGroupAndBecomeAdminService();
+        US002_1CreateGroupAndBecomeAdminService us002_1S = new US002_1CreateGroupAndBecomeAdminService();
 
         Description groupDescription = new Description("Bashtards");
         PersonID personID = new PersonID(new Email("1234@isep.pt"));
