@@ -1156,9 +1156,9 @@ class GroupsRepositoryTest {
         personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
                 new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
-        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByEmail(new Email ("Homer")));
+        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByEmail(new Email ("1234@isep.pt")));
         Group Blabla = new Group("BLA BLA");
-        Blabla.addMember(personRepository.findPersonByEmail(new Email("Homer")));
+        Blabla.addMember(personRepository.findPersonByEmail(new Email("1234@isep.pt")));
 
         //Act:
         boolean result = groupsRepository.findGroupByDescription("BLA BLA").equals(Blabla);
@@ -1178,7 +1178,7 @@ class GroupsRepositoryTest {
                 new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
 
-        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByEmail(new Email("Homer")));
+        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByEmail(new Email("1234@isep.pt")));
 
 
         //Act:
