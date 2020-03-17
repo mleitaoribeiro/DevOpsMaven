@@ -143,6 +143,58 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
+    @DisplayName("Test If group Account is created - Main Scenario - Happy Case - NumberOfAccounts ")
+    void testIfGroupAccountWasCreated_CompareSize() {
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
+        GroupID groupFamilyID  = new GroupID(new Description("Familia"));
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        int numberOfExpectedAccountsInTheRepository = 1;
+
+        //Act
+        boolean accountCreated = controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+
+        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        assertTrue(accountCreated && numberOfExpectedAccountsInTheRepository == realNumberOfAccountsInTheRepository);
+    }
+
+    @Test
+    @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created - NumberOfAccounts")
+    void testIfSeveralGroupAccountsWereCreated_CompareSize() {
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
+        GroupID groupFamilyID  = new GroupID(new Description("Familia"));
+
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        Denomination accountDenomination1 = new Denomination("Revolut");
+        Description accountDescription1 = new Description("Revolut Account");
+
+        Denomination accountDenomination2 = new Denomination("Netflix");
+        Description accountDescription2 = new Description("Netflix Account");
+
+        int numberOfExpectedAccountsInTheRepository = 3;
+
+        //Act
+        boolean accountsCreated = controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription)
+                && service.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1)
+                && service.createGroupAccount(creatorID, groupFamilyID, accountDenomination2, accountDescription2);
+
+        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        assertTrue(accountsCreated && numberOfExpectedAccountsInTheRepository == realNumberOfAccountsInTheRepository);
+    }
+
+
+    @Test
     @DisplayName("Test If group Account is created - False - Account already exists")
     void testIfGroupAccountWasCreated_AccountAlreadyExists() {
 
@@ -183,6 +235,57 @@ class US007CreateGroupAccountControllerTest {
         //Assert
         assertFalse(accountsCreated);
     }
+
+    @Test
+    @DisplayName("Test If group Account is created - False - NumberOfAccounts")
+    void testIfGroupAccountsWasCreated_FalseCompareSize() {
+
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
+        GroupID groupFamilyID  = new GroupID(new Description("Familia"));
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        int numberOfExpectedAccountsInTheRepository = 1;
+
+        //Act
+        controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+        controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+
+        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
+    }
+
+    @Test
+    @DisplayName("Test If group Account is created - Several Accounts - Number Of Accounts Expected")
+    void testIfSeveralGroupAccountsWereCreated_NumberOfAccounts() {
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
+        GroupID groupFamilyID  = new GroupID(new Description("Familia"));
+
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        Denomination accountDenomination1 = new Denomination("Revolut");
+        Description accountDescription1 = new Description("Revolut Account");
+
+        int numberOfExpectedAccountsInTheRepository = 2;
+
+        //Act
+        controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+        controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
+        controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
+
+        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
+    }
+
 
     @Test
     @DisplayName("Test If group Account is created - Person it´s Member but not Admin")
