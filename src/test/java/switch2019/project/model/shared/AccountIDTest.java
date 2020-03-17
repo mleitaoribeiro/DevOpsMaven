@@ -1,6 +1,9 @@
 package switch2019.project.model.shared;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.frameworks.OwnerID;
+import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
@@ -127,5 +130,34 @@ class AccountIDTest {
 
         //Act & Assert:
         assertNotEquals(accountID.hashCode(), accountID2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Get Owner ID from accountID - PersonID")
+    void testIfGetOwnerID() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+        AccountID accountID = new AccountID(new Denomination("switch"), person.getID());
+
+        OwnerID realOwnerID = accountID.getOwnerID();
+        PersonID expectedOwnerID = person.getID();
+
+        //Assert
+        assertEquals(expectedOwnerID, realOwnerID);
+    }
+
+    @Test
+    @DisplayName("Get Owner ID from accountID - GroupID")
+    void testIfGetOwnerIDGroup() {
+        //Arrange
+        Group group = new Group("Friends with Benefits");
+        AccountID accountID = new AccountID(new Denomination("switch"), group.getID());
+
+        OwnerID realOwnerID = accountID.getOwnerID();
+        GroupID expectedOwnerID = group.getID();
+
+        //Assert
+        assertEquals(expectedOwnerID, realOwnerID);
     }
 }

@@ -91,6 +91,22 @@ public class Account implements Entity {
     }
 
     /**
+     * Get account by Owner ID
+     */
+
+    /**
+     * Get accountID
+     */
+    public AccountID getAccountID() {
+        return accountID;
+    }
+
+    /**
+     * Get account by Owner ID
+     */
+
+    public OwnerID getOwnerID() { return this.accountID.getOwnerID(); }
+    /**
      * Public get for denomination
      *
      * @return denomination
