@@ -3465,8 +3465,6 @@ class GroupTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
 
         Group group = new Group("tarzan");
@@ -3496,8 +3494,6 @@ class GroupTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
 
         Group group = new Group("tarzan");
@@ -3526,8 +3522,6 @@ class GroupTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
 
         Group group = new Group("tarzan");
@@ -3557,9 +3551,6 @@ class GroupTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         Group group = new Group("tarzan");
 
@@ -3587,9 +3578,6 @@ class GroupTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         Group group = new Group("tarzan");
 

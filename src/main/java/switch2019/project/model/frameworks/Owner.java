@@ -5,15 +5,6 @@ import switch2019.project.model.person.Person;
 public interface Owner {
 
     /**
-     * method to create a new Account
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     */
-    //este método vai ser alterado posteriormente quando existirem os IDS
-    boolean createAccount(String accountDenomination, String accountDescription);
-
-    /**
      * method to create a new Category
      *
      * @param nameOfCategory

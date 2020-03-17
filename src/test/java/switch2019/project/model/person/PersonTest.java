@@ -856,8 +856,6 @@ class PersonTest {
                 new Description("General expenses"), person.getID());
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), person.getID());
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
         //Act
         boolean result = person.createTransaction(amount, description, null, category, from, to, new Type(false));
@@ -883,9 +881,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account accountTransport = new Account(new Denomination("Transport"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("Transport", "Transport expenses");
-
 
 
         //Act
@@ -913,8 +908,6 @@ class PersonTest {
 
         Account accountWallet = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
-        person.createAccount("Wallet", "General expenses");
-
 
 
         //Act
@@ -924,28 +917,6 @@ class PersonTest {
         assertFalse(result);
     }
 
-
-    /**
-     * Test if an Account was created
-     */
-
-    @Test
-    @DisplayName("Test if an Account was created - success case")
-    void createAccountSuccessCase() {
-        // Arrange
-
-        Person onePerson = new Person("João", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        String accountDenomination = "Wallet";
-        String accountDescription = "General expenses";
-
-        //Act
-        boolean real = onePerson.createAccount(accountDenomination, accountDescription);
-
-        // assert
-        assertTrue(real);
-    }
 
     /**
      * * Tests to validate if a category was added to Category List
@@ -1027,42 +998,7 @@ class PersonTest {
         assertTrue(realResult);
     }
 
-    /**
-     * * Tests to validate if two persons are equal with only the birthdate different
-     */
-    @Test
-    @DisplayName("Check if two persons are the same if they have different ages")
-    void checkEqualsSameAttributesButDifferentAge() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Alexandre", new DateAndTime(1995, 12, 14), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
 
-        //Act
-        boolean realResult = person1.equals(person2);
-
-        //Assert
-        assertFalse(realResult);
-    }
-
-    @Test
-    @DisplayName("Check if two persons have the same birthdate - 2nd constructor")
-    void checkIfTwoPeopleHaveTheSameBirthdate() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Pai do Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person person3 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        //Act
-        boolean realResult = person3.getBirthDate().equals(person1.getBirthDate());
-
-        //Assert
-        assertTrue(realResult);
-    }
 
     /**
      * * Tests to validate if a person is another person's mother
@@ -1291,8 +1227,6 @@ class PersonTest {
                 new Description("General expenses"), person.getID());
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), person.getID());
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
         person.createTransaction(amount, "payment", dateTransaction1, category, from, to, new Type(false));
 
@@ -1322,8 +1256,6 @@ class PersonTest {
                 new Description("General expenses"), person.getID());
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), person.getID());
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 10, 13, 00);
@@ -1374,8 +1306,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
@@ -1409,8 +1339,7 @@ class PersonTest {
                 new Description("General expenses"), person.getID());
         Account to = new Account(new Denomination("Account2"),
                 new Description("Transport expenses"), person.getID());
-        person.createAccount("Account1", "General expenses");
-        person.createAccount("Account2", "Transport expenses");
+
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
@@ -1452,8 +1381,6 @@ class PersonTest {
                 new Description("General expenses"), person.getID());
         Account to = new Account(new Denomination("Account2"),
                 new Description("Transport expenses"), person.getID());
-        person.createAccount("Account1", "General expenses");
-        person.createAccount("Account2", "Transport expenses");
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
@@ -1488,8 +1415,7 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("Account2"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
+
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
@@ -1527,8 +1453,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("Account2"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
@@ -1847,8 +1771,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
 
 
         //Act
@@ -1877,9 +1799,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         //Act
         boolean result = person.scheduleNewTransaction(new Periodicity("working days"), amount, description,
@@ -1906,9 +1825,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         //Act
         boolean result = person.scheduleNewTransaction(new Periodicity("weekly"), amount, description,
@@ -1936,9 +1852,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         //Act
         boolean result = person.scheduleNewTransaction(new Periodicity("monthly"), amount, description,
@@ -1965,9 +1878,6 @@ class PersonTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         try {
             //Act
@@ -1997,8 +1907,7 @@ class PersonTest {
                 new Description("mercearia Continente"));
         Account account2 = new Account(new Denomination("transporte"),
                 new Description("transporte Metro"));
-        person.createAccount("mercearia", "mercearia Continente");
-        person.createAccount("transporte", "transporte Metro");
+
         person.createCategoryAndAddToCategoryList("grocery");
         Category category = new Category("grocery");
 
@@ -2240,26 +2149,6 @@ class PersonTest {
         catch (IllegalArgumentException initialDate) {
             assertEquals("The dates can´t be null", initialDate.getMessage());
         }
-    }
-
-    @Test
-    @DisplayName("Test Constructor - BirthDate")
-    void descriptionConstructor() {
-
-        //Arrange
-        Person person1Mother = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person person2Father= new Person("Mario", new DateAndTime(1995, 12, 13),
-                new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person person1 = new Person("Marilia",new DateAndTime(1995,12,3), new Address("Porto"),
-                new Address("Rua Requeixos","Vizela", "4620-747" ), person1Mother, person2Father, new Email("1234@isep.pt"));
-        String expected = LocalDate.of(1995, 12,3).toString();
-
-        //Act
-        String real = person1.getBirthDate();
-
-        //Assert
-        assertEquals(expected, real);
     }
 
     @Test

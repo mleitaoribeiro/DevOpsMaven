@@ -112,26 +112,6 @@ public class Person implements Owner {
         return personID;
     }
 
-
-    /**
-     * Get BirthDate
-     *
-     * @return birthDate
-     */
-
-    public String getBirthDate() {
-        return this.birthDate.getYearMonthDay();
-    }
-
-    /**
-     * Get PersonName
-     * @return
-     */
-
-    public String getPersonName() {
-        return name.getPersonName();
-    }
-
     /**
      * Add a new Sibling to siblingList
      *
@@ -303,18 +283,6 @@ public class Person implements Owner {
         else return false;
     }
 
-    /**
-     * Develop method to create a new Account: US6 - As a user, I want to create an account for myself.
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     */
-
-    //alterar para depois por o ID
-    public boolean createAccount(String accountDenomination, String accountDescription) {
-        return accountsList.createAccount(new Denomination(accountDenomination),
-                new Description(accountDescription));
-    }
 
     /**
      * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.

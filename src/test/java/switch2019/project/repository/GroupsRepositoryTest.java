@@ -442,9 +442,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", person);
@@ -478,9 +475,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", person);
@@ -547,9 +541,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
@@ -581,9 +572,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
@@ -614,9 +602,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
@@ -648,9 +633,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
@@ -681,9 +663,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("tarzan", person);
@@ -717,9 +696,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        person.createAccount("Wallet", "General expenses");
-        person.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", person);
@@ -755,9 +731,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        personMember.createAccount("Wallet", "General expenses");
-        personMember.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", personMember);
@@ -798,9 +771,6 @@ class GroupsRepositoryTest {
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
-        personMember.createAccount("Wallet", "General expenses");
-        personMember.createAccount("TransportAccount", "Transport expenses");
-
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup("JUST4FUN", personMember);
