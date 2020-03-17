@@ -1,6 +1,5 @@
 package switch2019.project.controllers;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -162,6 +161,30 @@ class US007CreateGroupAccountControllerTest {
     }
 
     @Test
+    @DisplayName("Test If group Account is created - Several Accounts - One Account already exists")
+    void testIfSeveralGroupAccountsWereCreated_OneAccountAlreadyExists() {
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
+        GroupID groupFamilyID  = new GroupID(new Description("Familia"));
+
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        Denomination accountDenomination1 = new Denomination("Revolut");
+        Description accountDescription1 = new Description("Revolut Account");
+
+
+        //Act
+        boolean accountsCreated = controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription)
+                && controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1)
+                && controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
+
+        //Assert
+        assertFalse(accountsCreated);
+    }
+
+    @Test
     @DisplayName("Test If group Account is created - Person it´s Member but not Admin")
     void testIfGroupAccountWasCreated_NotAdmin() {
 
@@ -195,29 +218,27 @@ class US007CreateGroupAccountControllerTest {
         assertFalse(accountCreated);
     }
 
+
     @Test
-    @DisplayName("Test If group Account is created - Several Accounts - One Account already exists")
-    void testIfSeveralGroupAccountsWereCreated_OneAccountAlreadyExists() {
+    @DisplayName("Test If group Account is created - Several Accounts - Group Do Not Exists")
+    void testIfSeveralGroupAccountsWereCreated_groupDoNotExists() {
 
         //Arrange
         PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
-        GroupID groupFamilyID  = new GroupID(new Description("Familia"));
-
+        GroupID oneGroupID  = new GroupID(new Description("xpto"));
         Denomination accountDenomination = new Denomination("Online");
         Description accountDescription = new Description("Online Shopping");
 
-        Denomination accountDenomination1 = new Denomination("Revolut");
-        Description accountDescription1 = new Description("Revolut Account");
 
 
-        //Act
-        boolean accountsCreated = controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription)
-                && controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1)
-                && controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
-
-        //Assert
-        assertFalse(accountsCreated);
+        try {
+            controller.createGroupAccount(creatorID, oneGroupID, accountDenomination, accountDescription);
+        } catch (IllegalArgumentException invalid) {
+            //Assert
+            assertEquals("No group found with that ID.", invalid.getMessage());
+        }
     }
+
 
     @Test
     @DisplayName("Test If group Account is created - Person do not Exists")
