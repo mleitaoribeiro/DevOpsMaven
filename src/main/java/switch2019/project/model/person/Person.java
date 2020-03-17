@@ -3,6 +3,7 @@ package switch2019.project.model.person;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.ledger.*;
 import switch2019.project.model.shared.*;
 import switch2019.project.repository.AccountRepository;
@@ -65,7 +66,7 @@ public class Person implements Owner {
                   Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
-        setBirthDate(birthDate);
+        this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         address = homeAddress;
         this.mother = mother;
@@ -111,20 +112,6 @@ public class Person implements Owner {
         return personID;
     }
 
-    /**
-     * Set Person Birth Date: with input validation
-     *
-     * @param birthDate
-     */
-
-    public void setBirthDate(DateAndTime birthDate) {
-        if(birthDate == null)
-            throw new IllegalArgumentException(("Birth Date Can't be Null."));
-        else if (birthDate.localDateIsAfter()) {
-            throw new IllegalArgumentException("Birth Date Not Supported.");
-        }
-        else this.birthDate = birthDate;
-    }
 
     /**
      * Get BirthDate
@@ -137,19 +124,8 @@ public class Person implements Owner {
     }
 
     /**
-     * Set Person Name: No input Validation
-     *
-     * @param newName
-     */
-
-    public void setName(String newName) {
-        name = new PersonName(newName);
-    }
-
-    /**
-     * Get Person Name
-     *
-     * @return Person's name
+     * Get PersonName
+     * @return
      */
 
     public String getPersonName() {
@@ -352,7 +328,7 @@ public class Person implements Owner {
     }
 
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
-        return categoryList.createCategory(nameOfCategory);
+        return categoryList.createCategory(nameOfCategory, this.personID);
     }
 
     /**
@@ -361,7 +337,7 @@ public class Person implements Owner {
      * @param nameOfcategory
      */
     public boolean removeCategoryFromList(String nameOfcategory) {
-        return categoryList.removeCategoryFromList(nameOfcategory);
+        return categoryList.removeCategoryFromList(nameOfcategory, this.personID);
     }
 
     /**
@@ -369,8 +345,8 @@ public class Person implements Owner {
      *
      * @param categories<Category> categories
      */
-    public boolean createAndAddMultipleCategoriesToList(Set<String> categories) {
-        return categoryList.addMultipleCategoriesToList(categories);
+    public boolean createAndAddMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
+        return categoryList.addMultipleCategoriesToList(categories, ownerID);
     }
 
     /**
@@ -378,8 +354,8 @@ public class Person implements Owner {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategoriesToList(Set<String> categories) {
-        return categoryList.removeMultipleCategoriesToList(categories);
+    public boolean removeMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
+        return categoryList.removeMultipleCategoriesToList(categories, ownerID);
     }
 
     /**

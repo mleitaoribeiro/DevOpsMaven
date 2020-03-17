@@ -2,7 +2,14 @@ package switch2019.project.model.category;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.group.Group;
+import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.PersonID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -90,8 +97,10 @@ class CategoryTest {
     @DisplayName("Verfiy if two categories are the same - ignore case - Main Scenario")
     void twoCategoriesAreEqualsIgnoreCase() {
         //Arrange
-        Category categoryDescription = new Category("Health");
-        Category otherCategoryDescription = new Category("HEALTH");
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
+        Category categoryDescription = new Category("Health", person1.getID());
+        Category otherCategoryDescription = new Category("HEALTH", person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -101,11 +110,13 @@ class CategoryTest {
     }
 
     @Test
-    @DisplayName("Verfiy if two categories are the same - ignore special Character - Main Scenario")
+    @DisplayName("Verify if two categories are the same - ignore special Character - Main Scenario")
     void twoCategoriesAreEqualsIgnoreSpecialCharacter() {
         //Arrange
-        Category categoryDescription = new Category("saúde");
-        Category otherCategoryDescription = new Category("saude");
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
+        Category categoryDescription = new Category("saúde", person1.getID());
+        Category otherCategoryDescription = new Category("saude", person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -115,11 +126,13 @@ class CategoryTest {
     }
 
     @Test
-    @DisplayName("Verfiy if two categories are the same - numeric characters - Main Scenario")
+    @DisplayName("Verify if two categories are the same - numeric characters - Main Scenario")
     void twoCategoriesAreEqualsNumericCategories() {
         //Arrange
-        Category categoryDescription = new Category("123");
-        Category otherCategoryDescription = new Category("123");
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
+        Category categoryDescription = new Category("123", person1.getID());
+        Category otherCategoryDescription = new Category("123", person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -129,11 +142,13 @@ class CategoryTest {
     }
 
     @Test
-    @DisplayName("Verfiy if two categories are the same - Not the same")
+    @DisplayName("Verify if two categories are the same - Not the same")
     void twoCategoriesAreNotTheSame() {
         //Arrange
-        Category categoryDescription = new Category("Health");
-        Category otherCategoryDescription = new Category("Education");
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
+        Category categoryDescription = new Category("Health",person1.getID());
+        Category otherCategoryDescription = new Category("Education",person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -143,7 +158,7 @@ class CategoryTest {
     }
 
     @Test
-    @DisplayName("Verfiy if two categories are the same - same object")
+    @DisplayName("Verify if two categories are the same - same object")
     void twoCategoriesAreEqualsSame() {
         //Arrange
         Category categoryDescription = new Category("Health");
@@ -185,10 +200,12 @@ class CategoryTest {
     @Test
     @DisplayName("Test if two categories are the same - not the same HashCode")
     public void testIfTwoCategoriesHaveTheSameHashCodeNotSame() {
-
-        //Arrange & Act
-        Category category1 = new Category("Health");
-        Category category2 = new Category("Education");
+        //Arrange
+        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
+                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
+        // Act
+        Category category1 = new Category("Health",person1.getID());
+        Category category2 = new Category("Education",person1.getID());
 
         //Assert
         assertNotEquals(category1.hashCode(), category2.hashCode());

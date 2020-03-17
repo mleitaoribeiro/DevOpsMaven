@@ -1,6 +1,7 @@
 package switch2019.project.model.group;
 
 import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.*;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.ledger.*;
@@ -298,7 +299,7 @@ public class Group implements Owner {
     //alterar para depois por o ID
     public boolean createCategory(String nameOfCategory, Person categoryCreator) {
         if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
-            return categoryList.createCategory(nameOfCategory);
+            return categoryList.createCategory(nameOfCategory, categoryCreator.getID());
         } else return false;
     }
 
@@ -313,7 +314,7 @@ public class Group implements Owner {
         if (nameOfcategory == null || !this.isGroupAdmin(groupAdmin)) {
             return false;
         }
-        return this.categoryList.removeCategoryFromList(nameOfcategory);
+        return this.categoryList.removeCategoryFromList(nameOfcategory, groupAdmin.getID());
     }
 
     /**

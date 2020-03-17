@@ -61,11 +61,11 @@ public class Category implements Entity {
         if (this == o) return true;
         if (!(o instanceof Category)) return false;
         Category category1 = (Category) o;
-        return nameOfCategory.equals(category1.nameOfCategory);
+        return categoryID.equals(category1.categoryID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nameOfCategory);
+        return Objects.hash(categoryID);
     }
 }
