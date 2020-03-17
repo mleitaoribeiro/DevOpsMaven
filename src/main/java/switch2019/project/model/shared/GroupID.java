@@ -20,7 +20,7 @@ public class GroupID implements OwnerID {
      * @return description
      */
     public String getDescription() {
-        return description.getDescriptionValue();
+        return description.getDescription();
     }
 
     /**
