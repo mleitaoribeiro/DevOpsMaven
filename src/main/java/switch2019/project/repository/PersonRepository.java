@@ -14,28 +14,18 @@ public class PersonRepository implements Repository {
     // Private instance variable
     private Set<Person> listOfPersons;
 
-    /**
-     * Default Constructor for Person Repository
-     */
+    //1st Constructor
     public PersonRepository() {
         listOfPersons = new HashSet<>();
     }
 
-    /**
-     * This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
-     *
-     * @param name
-     * @param birthDate
-     * @param birthPlace
-     * @param homeAddress
-     */
+    //2nd Constructor
+    //This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
     public boolean createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
     }
 
-    /**
-     * Alterneate constructor for people with mother and father
-     */
+    //3rd constructor - Alternative constructor for people with mother and father
     public boolean createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                            Person mother, Person father, Email email) {
         return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, mother, father, email));

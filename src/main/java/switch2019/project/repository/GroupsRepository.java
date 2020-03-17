@@ -21,9 +21,7 @@ public class GroupsRepository implements Repository {
     private static final String NOT_A_MEMBER = "You are not a member of that group.";
     private static final String NO_GROUPS_FOUND = "There're no groups found with that description.";
 
-    /**
-     * Default Constructor for Group List
-     */
+    //Constructor
     public GroupsRepository() {
         listOfGroups = new HashSet<>();
     }
