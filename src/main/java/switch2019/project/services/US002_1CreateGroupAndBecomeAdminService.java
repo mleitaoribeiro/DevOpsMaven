@@ -7,7 +7,7 @@ import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
-public class US002_1createGroupAndBecomeAdminService {
+public class US002_1CreateGroupAndBecomeAdminService {
 
     public boolean createGroupAndBecomeAdmin(GroupsRepository groupsRepository, PersonRepository personRepository,
                                              Description groupDescription, PersonID personID) {

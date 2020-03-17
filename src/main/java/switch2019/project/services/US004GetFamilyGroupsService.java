@@ -10,7 +10,7 @@ import switch2019.project.repository.PersonRepository;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class US004getFamilyGroupsService {
+public class US004GetFamilyGroupsService {
     public Set<Group> getFamilyGroups (){
         GroupsRepository groupsRepository =new GroupsRepository();
         return groupsRepository.returnOnlyFamilies() ;

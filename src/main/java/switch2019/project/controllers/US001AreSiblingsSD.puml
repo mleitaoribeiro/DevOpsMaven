@@ -1,0 +1,47 @@
+@startuml
+skinparam DefaultFontSize 20
+create ":Test"
+
+create ":US001AreSiblingsController"
+":Test" -> ":US001AreSiblingsController" : new US001AreSiblingsController
+
+participant "service:US001AreSiblingsService"
+participant "personRep:PersonRepository"
+participant "person1:Person"
+
+== Act ==
+
+":Test" -> ":US001AreSiblingsController" : siblings = AreSiblings(service, personRep,\n EmailPerson1, EmailPerson2)
+activate ":US001AreSiblingsController"  #FFBBBB
+
+":US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings(personRep,\n EmailPerson1, EmailPerson2)
+activate "service:US001AreSiblingsService"  #FFBBBB
+
+"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person1: findPersonByAttributes (EmailPerson1)
+activate "personRep:PersonRepository" #FFBBBB
+
+"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person2: findPersonByAttributes (EmailPerson2)
+
+deactivate "personRep:PersonRepository" #FFBBBB
+
+"service:US001AreSiblingsService" -> "person1:Person" : validSibling = isSibling(person2)
+activate "person1:Person"  #FFBBBB
+
+"person1:Person" -> "person1:Person" :  personExistsOnSiblingsList (person2)
+"person1:Person" -> "person1:Person" :  checkSameFather(person2)
+"person1:Person" -> "person1:Person" :  checkSameMother(person2)
+
+"person1:Person" --> "service:US001AreSiblingsService" : validSibling
+deactivate "person1:Person"
+
+"service:US001AreSiblingsService"--> ":US001AreSiblingsController" : siblings
+deactivate "service:US001AreSiblingsService"
+
+":US001AreSiblingsController" --> ":Test" : siblings
+deactivate ":US001AreSiblingsController"
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(siblings)
+
+@enduml
