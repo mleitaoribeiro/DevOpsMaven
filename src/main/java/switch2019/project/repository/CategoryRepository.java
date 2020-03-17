@@ -130,7 +130,6 @@ public class CategoryRepository implements Repository{
      *
      * @param category<Category> category to test
      */
-
     public boolean validateIfCategoryIsInTheCategoryList(Category category) {
         return categories.contains(category);
     }
