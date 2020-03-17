@@ -65,7 +65,7 @@ public class Person implements Owner {
                   Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
-        setBirthDate(birthDate);
+        this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         address = homeAddress;
         this.mother = mother;
@@ -111,20 +111,6 @@ public class Person implements Owner {
         return personID;
     }
 
-    /**
-     * Set Person Birth Date: with input validation
-     *
-     * @param birthDate
-     */
-
-    public void setBirthDate(DateAndTime birthDate) {
-        if(birthDate == null)
-            throw new IllegalArgumentException(("Birth Date Can't be Null."));
-        else if (birthDate.localDateIsAfter()) {
-            throw new IllegalArgumentException("Birth Date Not Supported.");
-        }
-        else this.birthDate = birthDate;
-    }
 
     /**
      * Get BirthDate
@@ -137,19 +123,8 @@ public class Person implements Owner {
     }
 
     /**
-     * Set Person Name: No input Validation
-     *
-     * @param newName
-     */
-
-    public void setName(String newName) {
-        name = new PersonName(newName);
-    }
-
-    /**
-     * Get Person Name
-     *
-     * @return Person's name
+     * Get PersonName
+     * @return
      */
 
     public String getPersonName() {
