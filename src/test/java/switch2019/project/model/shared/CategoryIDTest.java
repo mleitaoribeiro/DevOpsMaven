@@ -148,7 +148,7 @@ public class CategoryIDTest {
         String result = categoryID1.getDenomination();
 
         //Assert:
-        assertEquals(result,"GYM");
+        assertEquals("GYM",result);
     }
 
     /**

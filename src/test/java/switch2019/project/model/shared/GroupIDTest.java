@@ -99,7 +99,7 @@ class GroupIDTest {
         String result = groupID1.getDescription();
 
         //Assert:
-        assertEquals(result, "LINKIN PARK FANS");
+        assertEquals("LINKIN PARK FANS", result);
     }
 
     @Test
