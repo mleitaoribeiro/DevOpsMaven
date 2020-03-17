@@ -192,4 +192,17 @@ class AccountIDTest {
             assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("Test to Constructor - Null Owner & Denomination")
+    void testAccountIDNullOwnerAndDenomination() {
+        //Act:
+        try {
+            AccountID accountID = new AccountID(null, null);
+        }
+        //Assert:
+        catch (IllegalArgumentException accountID) {
+            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
+        }
+    }
 }

@@ -183,4 +183,17 @@ public class CategoryIDTest {
         }
     }
 
+    @Test
+    @DisplayName("Test to Constructor - Null Owner & Null Denomination")
+    void testCategoryIDNullOwnerAndDenomination() {
+        //Act:
+        try {
+            CategoryID categoryID1 = new CategoryID(null, null);
+        }
+        //Assert:
+        catch (IllegalArgumentException categoryID) {
+            assertEquals("The denomination and ownerID can't be null.", categoryID.getMessage());
+        }
+    }
+
 }
