@@ -35,7 +35,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         Person admin = personRepository.findPersonByID(personID);
 
         //verify if person is a group admin in order to continue with the method:
-        if (group.isGroupMember(admin) && group.isGroupAdmin(admin) == true) {
+        if (group.isGroupMember(personID) && group.isGroupAdmin(personID) == true) {
 
             //create category and associate it with the group:
             categoryRepository.createCategory(categoryDescription, groupID);
