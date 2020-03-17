@@ -146,7 +146,7 @@ class AccountRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The description can´t be null or empty!", description.getMessage());
+            assertEquals("Account Description can't be null.", description.getMessage());
         }
     }
 
