@@ -44,4 +44,9 @@ public class PersonID implements OwnerID {
     public int hashCode() {
         return Objects.hash(email);
     }
+
+    @Override
+    public String toString() {
+        return email.toString();
+    }
 }

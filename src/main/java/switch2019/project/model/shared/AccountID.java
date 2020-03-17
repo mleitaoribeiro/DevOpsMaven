@@ -15,11 +15,12 @@ public class AccountID implements ID {
      * AccountID constructor
      */
     public AccountID(Denomination denomination, OwnerID ownerID) {
-        if (denomination != null & ownerID != null){
+        if (denomination == null || ownerID == null) {
+            throw new IllegalArgumentException("The denomination and ownerID can't be null.");
+        } else {
             this.denomination = denomination;
             this.ownerID = ownerID;
         }
-        else throw new IllegalArgumentException("The denomination and ownerID can't be null.");
     }
 
     /**
@@ -60,5 +61,8 @@ public class AccountID implements ID {
     public int hashCode() {
         return Objects.hash(denomination, ownerID);
     }
+
+    @Override
+    public String toString() { return  denomination.toString() + ", " + ownerID.toString(); }
 
 }

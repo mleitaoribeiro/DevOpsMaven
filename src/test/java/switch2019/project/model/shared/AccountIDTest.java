@@ -161,6 +161,10 @@ class AccountIDTest {
         assertEquals(expectedOwnerID, realOwnerID);
     }
 
+    /**
+     * Tests to constructor method
+     */
+
     @Test
     @DisplayName("Test to Constructor - Null Denomination")
     void testAccountIDNullDenomination() {
@@ -171,8 +175,8 @@ class AccountIDTest {
             AccountID accountID = new AccountID(null, group.getID());
         }
         //Assert:
-        catch (IllegalArgumentException description) {
-            assertEquals("The denomination and ownerID can't be null.", description.getMessage());
+        catch (IllegalArgumentException accountID) {
+            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
         }
     }
 
@@ -184,8 +188,21 @@ class AccountIDTest {
             AccountID accountID = new AccountID(new Denomination("Trail&Run"), null);
         }
         //Assert:
-        catch (IllegalArgumentException description) {
-            assertEquals("The denomination and ownerID can't be null.", description.getMessage());
+        catch (IllegalArgumentException accountID) {
+            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test to Constructor - Null Owner & Denomination")
+    void testAccountIDNullOwnerAndDenomination() {
+        //Act:
+        try {
+            AccountID accountID = new AccountID(null, null);
+        }
+        //Assert:
+        catch (IllegalArgumentException accountID) {
+            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
         }
     }
 }

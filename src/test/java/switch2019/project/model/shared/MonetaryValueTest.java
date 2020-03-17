@@ -86,4 +86,21 @@ class MonetaryValueTest {
         //Assert
         assertEquals(stringExpected, monetaryValueString);
     }
+
+    /**
+     * Test to constructor method
+     */
+
+    @Test
+    @DisplayName("Test to constructor - Null currency")
+    void testCategoryIDNullOwner() {
+        //Act:
+        try {
+            MonetaryValue monetaryValue1 = new MonetaryValue(25, null);
+        }
+        //Assert:
+        catch (IllegalArgumentException currency) {
+            assertEquals("The currency can't be null.", currency.getMessage());
+        }
+    }
 }

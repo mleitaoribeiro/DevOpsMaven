@@ -12,9 +12,8 @@ import java.util.Currency;
 import java.util.Objects;
 
 public class Account implements Entity {
-    /**
-     * Private Instance Variables
-     */
+
+    // Private Instance Variables
 
     private AccountID accountID;
     private Denomination denomination;
@@ -48,13 +47,6 @@ public class Account implements Entity {
         this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
     }
 
-    /**
-     * override equals method of Acccount object
-     *
-     * @param o
-     * @return
-     */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,24 +55,14 @@ public class Account implements Entity {
         return Objects.equals(accountID, oneAccount.accountID);
     }
 
-    /**
-     * override hascode of Account object
-     *
-     * @return hashcode
-     */
-
     @Override
     public int hashCode() {
         return Objects.hash(accountID);
     }
 
-    /**
-     * Develop @override of toString()
-     */
-
     @Override
     public String toString() {
-        return denomination.toString() + ", " + description.toString() + ", " + balance + "€";
+        return  description.toString() + ", " + balance.toString() + "€" + ", " + accountID.toString();
     }
 
     /**
@@ -106,6 +88,7 @@ public class Account implements Entity {
      */
 
     public OwnerID getOwnerID() { return this.accountID.getOwnerID(); }
+
     /**
      * Public get for denomination
      *
