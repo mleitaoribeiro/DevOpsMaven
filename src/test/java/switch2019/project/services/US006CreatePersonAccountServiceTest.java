@@ -3,7 +3,6 @@ package switch2019.project.services;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sun.security.x509.EDIPartyName;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
