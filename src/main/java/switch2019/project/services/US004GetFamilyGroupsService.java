@@ -6,8 +6,7 @@ import switch2019.project.repository.GroupsRepository;
 import java.util.Set;
 
 public class US004GetFamilyGroupsService {
-    public Set<Group> getFamilyGroups (){
-        GroupsRepository groupsRepository =new GroupsRepository();
+    public Set<Group> getFamilyGroups (GroupsRepository groupsRepository){
         return groupsRepository.returnOnlyFamilies() ;
     }
 }
