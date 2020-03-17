@@ -127,7 +127,7 @@ class AccountRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException denomination) {
-            assertEquals("The denomination can´t be null or empty!", denomination.getMessage());
+            assertEquals("The denomination and ownerID can't be null.", denomination.getMessage());
         }
     }
 
