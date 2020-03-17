@@ -13,8 +13,18 @@ import switch2019.project.repository.PersonRepository;
 
 public class US007CreateGroupAccountService {
 
-    public boolean createGroupAccount (PersonRepository personRepository, GroupsRepository groupsRepository,
-                                       AccountRepository accountRepository, Email personEmail, String groupDescription,
+    private PersonRepository personRepository;
+    private GroupsRepository groupsRepository;
+    private AccountRepository accountRepository;
+
+    public US007CreateGroupAccountService (PersonRepository personRepository, GroupsRepository groupsRepository, AccountRepository accountRepository) {
+        this.personRepository = personRepository;
+        this.groupsRepository = groupsRepository;
+        this.accountRepository = accountRepository;
+    }
+
+
+    public boolean createGroupAccount (Email personEmail, String groupDescription,
                                        Denomination accountDenomination, Description accountDescription ) {
 
         Person onePerson = personRepository.findPersonByEmail(personEmail);
