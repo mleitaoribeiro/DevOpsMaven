@@ -3,6 +3,7 @@ package switch2019.project.repository;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
@@ -179,9 +180,9 @@ public class GroupsRepository implements Repository {
     /**
      * Method used to find a specific group by its Description
      */
-    public Group findGroupByDescription(String groupDescription) {
+    public Group findGroupByDescription(Description groupDescription) {
         for (Group group : listOfGroups) {
-            if (group.getID().getDescription().equals(groupDescription))
+            if (group.getID().getDescription().equals(groupDescription.getDescription()))
                 return group;
         }
         throw new IllegalArgumentException("No group was found with the given description");
