@@ -12,7 +12,8 @@ import switch2019.project.repository.PersonRepository;
 public class US005_1AdminAddsCategoryToCategoryListService {
 
     /**
-     * User Story 5.1 .- As a group admin i want to associate a category to my group.
+     * User Story 5.1 .- As a group admin i want to associate a category with my group.
+     *
      * @param groupID
      * @param personID
      * @param categoryRepository
@@ -28,10 +29,10 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         Group group = groupsRepository.findGroupByID(groupID);
         Person admin = personRepository.findPersonByID(personID);
 
-        //verify if person is a group admin in order to continue with the method
+        //verify if person is a group admin in order to continue with the method:
         if (group.isGroupMember(admin) && group.isGroupAdmin(admin) == true) {
 
-            //To change after OwnerID is complete, To substitute with categoryRepository method.
+            //create category and associate it with the group:
             return categoryRepository.createCategory(categoryDescription, groupID);
         }
         else return false;
