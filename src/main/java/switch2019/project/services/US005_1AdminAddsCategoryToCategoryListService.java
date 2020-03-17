@@ -25,6 +25,11 @@ public class US005_1AdminAddsCategoryToCategoryListService {
     public boolean addCategoryToGroup(GroupID groupID, PersonID personID, CategoryRepository categoryRepository, String categoryDescription,
                                       GroupsRepository groupsRepository, PersonRepository personRepository) {
 
+        //Validation for non-null parameters:
+        if(categoryDescription == null || groupID == null || personID == null){
+            throw new IllegalArgumentException("Category could not be added to group because a null object was given as parameter");
+        }
+
         //finding the right group and the person who is trying to add the new category:
         Group group = groupsRepository.findGroupByID(groupID);
         Person admin = personRepository.findPersonByID(personID);

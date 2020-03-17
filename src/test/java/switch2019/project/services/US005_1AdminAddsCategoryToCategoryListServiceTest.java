@@ -15,8 +15,7 @@ import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
@@ -151,5 +150,73 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Assert:
         assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Happy Case- more than one category is added to Group categories by more than one admin")
+    void adminAddsCategoryToCategoryListTwoAdmins() {
+
+        //Arrange:
+        //Arrangement of the Service:
+        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
+
+        //Arrangement of the repositories:
+        GroupsRepository groupsRepository = new GroupsRepository();
+        PersonRepository personRepository = new PersonRepository();
+        CategoryRepository categoryRepository = new CategoryRepository();
+
+        //Arrangement of the Person:
+        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
+
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        personRepository.createPerson("João", new DateAndTime(1994, 04, 16), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
+        PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        GroupID groupID = new GroupID(new Description("FRIENDS"));
+        groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
+
+        //Act:
+        boolean result = (service.addCategoryToGroup(groupID, franciscoID, categoryRepository, "compras", groupsRepository, personRepository)
+                && (service.addCategoryToGroup(groupID,joaoID,categoryRepository,"supermarket", groupsRepository,personRepository)));
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Illegal exception caused by null parameter")
+    void adminAddsCategoryToCategoryListNullParameter() {
+
+        //Arrange:
+        //Arrangement of the Service:
+        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
+
+        //Arrangement of the repositories:
+        GroupsRepository groupsRepository = new GroupsRepository();
+        PersonRepository personRepository = new PersonRepository();
+        CategoryRepository categoryRepository = new CategoryRepository();
+
+        //Arrangement of the Person:
+        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
+
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        GroupID groupID = new GroupID(new Description("FRIENDS"));
+
+        //Act:
+        try {service.addCategoryToGroup(groupID, franciscoID, categoryRepository, null, groupsRepository, personRepository);}
+
+        //Assert:
+        catch(IllegalArgumentException nullParameter) {
+            assertEquals("Category could not be added to group because a null object was given as parameter", nullParameter.getMessage());
+        }
     }
 }
