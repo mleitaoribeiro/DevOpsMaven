@@ -33,8 +33,10 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         if (group.isGroupMember(admin) && group.isGroupAdmin(admin) == true) {
 
             //create category and associate it with the group:
-            return categoryRepository.createCategory(categoryDescription, groupID);
-        }
-        else return false;
+            categoryRepository.createCategory(categoryDescription, groupID);
+
+            //verify if category was added to the repository
+            return categoryRepository.validateIfCategoryIsInTheCategoryList(categoryRepository.findByID(new Category(categoryDescription, groupID).getID()));
+        } else return false;
     }
 }
