@@ -24,7 +24,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         //verify if person is a group admin in order to continue with the method
         if (group.isGroupMember(admin) && group.isGroupAdmin(admin) == true) {
 
-            //To change after OwnerID is complete:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //To change after OwnerID is complete, To substitute with categoryRepository method.
             return group.createCategory(categoryDescription, admin);
         }
         else return false;
