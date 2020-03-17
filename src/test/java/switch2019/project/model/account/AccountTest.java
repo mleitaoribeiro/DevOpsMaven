@@ -71,11 +71,11 @@ class AccountTest {
 
         //Arrange
         Account oneAccount = new Account(new Denomination("Supermarket"),
-                new Description("Weekly spends"));
+                new Description("Weekly spends"), new PersonID(new Email("maria@gmail.com")));
         String one = oneAccount.toString();
 
         //Act
-        boolean result =(one != null && one.equals("SUPERMARKET, WEEKLY SPENDS, 0.0€"));
+        boolean result =(one != null && one.equals("WEEKLY SPENDS, 0.0€, SUPERMARKET, maria@gmail.com"));
 
         //Assert
         //assertTrue(result);
@@ -334,8 +334,8 @@ class AccountTest {
 
         //Arrange
         Account supermarket = new Account(new Denomination("Supermarket")
-                ,new Description("Weekly spends"));
-        String expected = "SUPERMARKET, WEEKLY SPENDS, 0.0 EUR€";
+                ,new Description("Weekly spends"), new PersonID(new Email("marco@gmail.com")));
+        String expected = "WEEKLY SPENDS, 0.0 EUR€, SUPERMARKET, marco@gmail.com";
 
         //Act
         String result = supermarket.toString();

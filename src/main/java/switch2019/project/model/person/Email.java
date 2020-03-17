@@ -27,6 +27,11 @@ public class Email {
         return Objects.hash(emailAddress);
     }
 
+    @Override
+    public String toString() {
+        return emailAddress;
+    }
+
     /**
      * Method to set a valid email
      * @param email
