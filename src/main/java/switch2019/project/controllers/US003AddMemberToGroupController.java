@@ -14,8 +14,20 @@ import java.time.LocalDateTime;
 
 public class US003AddMemberToGroupController {
 
-    public boolean addMemberToGroup(GroupsRepository groupsRepository, PersonRepository personRepository, US003AddMemberToGroupService service, PersonID personID,
+    private US003AddMemberToGroupService service;
+
+    public US003AddMemberToGroupController(US003AddMemberToGroupService service ){
+        this.service=service;
+    }
+
+    /***
+     * Add member to Group
+     * @param personID
+     * @param groupID
+     * @return
+     */
+    public boolean addMemberToGroup( PersonID personID,
                                     GroupID groupID) {
-        return service.addMemberToGroup(groupID, personID, groupsRepository, personRepository);
+        return service.addMemberToGroup(groupID, personID);
     }
 }
