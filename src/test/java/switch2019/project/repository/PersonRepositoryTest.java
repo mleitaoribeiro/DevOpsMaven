@@ -16,13 +16,15 @@ class PersonRepositoryTest {
     void createPerson() {
         //Arrange:
         PersonRepository personRepository = new PersonRepository();
+        Person expected = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
         //Act:
-        boolean result = personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
+        Person marta = personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
         //Assert:
-        assertTrue(result);
+        assertEquals(expected, marta);
     }
 
     @Test
