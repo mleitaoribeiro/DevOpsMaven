@@ -176,7 +176,7 @@ class AccountIDTest {
         }
         //Assert:
         catch (IllegalArgumentException accountID) {
-            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", accountID.getMessage());
         }
     }
 
@@ -189,7 +189,7 @@ class AccountIDTest {
         }
         //Assert:
         catch (IllegalArgumentException accountID) {
-            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", accountID.getMessage());
         }
     }
 
@@ -202,7 +202,7 @@ class AccountIDTest {
         }
         //Assert:
         catch (IllegalArgumentException accountID) {
-            assertEquals("The denomination and ownerID can't be null.", accountID.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", accountID.getMessage());
         }
     }
 }
