@@ -9,7 +9,7 @@ import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
-public class US005_1MemberAddsCategoryToCategoryListService {
+public class US005_1AdminAddsCategoryToCategoryListService {
     /**
      * User Story 5.1 .- As a group admin i want to associate a category to said group.
      */
