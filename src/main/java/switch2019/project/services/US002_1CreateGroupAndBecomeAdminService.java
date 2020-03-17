@@ -9,13 +9,19 @@ import switch2019.project.repository.PersonRepository;
 
 public class US002_1CreateGroupAndBecomeAdminService {
 
-    public boolean createGroupAndBecomeAdmin(GroupsRepository groupsRepository, PersonRepository personRepository,
-                                             Description groupDescription, PersonID personID) {
+    private GroupsRepository groupsRepository;
+    private PersonRepository personRepository;
 
-        if (groupsRepository != null && personRepository != null && groupDescription != null && personID != null) {
+    public US002_1CreateGroupAndBecomeAdminService(GroupsRepository groupsRepository, PersonRepository personRepository) {
+        this.groupsRepository = groupsRepository;
+        this.personRepository = personRepository;
+    }
+
+    public boolean createGroupAndBecomeAdmin(Description groupDescription, PersonID personID) {
+
+        if (groupDescription != null && personID != null) {
             Person person = personRepository.findPersonByID(personID);
             return groupsRepository.createGroup(groupDescription.toString(), person);
         } else return false;
-
     }
 }

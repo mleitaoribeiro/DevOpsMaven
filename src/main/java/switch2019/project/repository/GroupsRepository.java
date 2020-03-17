@@ -36,8 +36,8 @@ public class GroupsRepository implements Repository {
      */
     public boolean createGroup(String groupDescription, Person groupCreator) {
         if (groupDescription != null && groupCreator != null) {
-            Group group1 = new Group(groupDescription);
-            return (group1.addMember(groupCreator) && this.listOfGroups.add(group1));
+            Group group1 = new Group(groupDescription, groupCreator);
+            return this.listOfGroups.add(group1);
         }
         return false;
     }

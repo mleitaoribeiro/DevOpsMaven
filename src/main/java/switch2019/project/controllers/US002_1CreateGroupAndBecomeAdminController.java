@@ -8,10 +8,14 @@ import switch2019.project.services.US002_1CreateGroupAndBecomeAdminService;
 
 public class US002_1CreateGroupAndBecomeAdminController {
 
-    public boolean createGroupAndBecomeAdmin(GroupsRepository groupsRepository, PersonRepository personRepository,
-                                             US002_1CreateGroupAndBecomeAdminService service,
-                                             Description groupDescription, PersonID personID) {
-        return service.createGroupAndBecomeAdmin(groupsRepository, personRepository, groupDescription, personID);
+    private US002_1CreateGroupAndBecomeAdminService service;
+
+    public US002_1CreateGroupAndBecomeAdminController(US002_1CreateGroupAndBecomeAdminService service) {
+        this.service = service;
+    }
+
+    public boolean createGroupAndBecomeAdmin(Description groupDescription, PersonID personID) {
+        return service.createGroupAndBecomeAdmin(groupDescription, personID);
     }
 
 
