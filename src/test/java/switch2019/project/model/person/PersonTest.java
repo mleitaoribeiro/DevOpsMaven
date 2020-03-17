@@ -1090,7 +1090,7 @@ class PersonTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The category description is not valid or it's missing. Please try again.", description.getMessage());
+            assertEquals("The denomination can´t be null or empty!", description.getMessage());
         }
     }
 
@@ -1107,7 +1107,8 @@ class PersonTest {
         String category2 = "School expenses";
 
         //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) &&
+                !person1.createCategoryAndAddToCategoryList(category2);
 
         //Assert
         assertTrue(realResult);
@@ -1126,7 +1127,8 @@ class PersonTest {
         String category2 = "SCHOóL expenses";
 
         //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) && !person1.createCategoryAndAddToCategoryList(category2);
+        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) &&
+                !person1.createCategoryAndAddToCategoryList(category2);
 
         //Assert
         assertTrue(realResult);
@@ -1351,7 +1353,7 @@ class PersonTest {
         person1.createCategoryAndAddToCategoryList("drinks");
 
         //Act
-        boolean result = person1.removeMultipleCategoriesToList(new HashSet<>(Arrays.asList("dog", "school", "drinks")));
+        boolean result = person1.removeMultipleCategoriesToList(new HashSet<>(Arrays.asList("dog", "school", "drinks")),person1.getID());
 
         //Assert
         assertTrue(result);
@@ -1371,7 +1373,7 @@ class PersonTest {
         String categoryDescriptionTwo = "Saude";
         String categoryDescriptionThree = "paz";
         HashSet<String> categoriesList = new HashSet<>(Arrays.asList(categoryDescriptionOne, categoryDescriptionTwo, categoryDescriptionThree));
-        person1.createAndAddMultipleCategoriesToList(categoriesList);
+        person1.createAndAddMultipleCategoriesToList(categoriesList, person1.getID());
 
         //Act
         int result = person1.numberOfCategoryInTheCategoryList();
@@ -2180,7 +2182,7 @@ class PersonTest {
 
         //Act
 
-        boolean validateIfTheSetOfCategoriesWasAdded = person1.createAndAddMultipleCategoriesToList(setOfCategories);
+        boolean validateIfTheSetOfCategoriesWasAdded = person1.createAndAddMultipleCategoriesToList(setOfCategories, person1.getID());
 
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
@@ -2201,14 +2203,14 @@ class PersonTest {
 
         //set of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategoriesToList(setOfCategories);
+        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
 
         //set of Categories to be removed from Categories List
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
 
         //Act
         //Remove the set of categories with the method under test
-        boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove);
+        boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove, person1.getID());
 
         assertTrue(realResult);
     }

@@ -159,12 +159,14 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different category")
     public void testIfTwoTransactionsAreEqualsFalseDifferentCategory() {
         //Arrange
+        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Account account1 = new Account(new Denomination("mercearia"),
                 new Description("mercearia Continente"));
         Account account2 = new Account(new Denomination("transporte"),
                 new Description("transporte Metro"));
-        Category category = new Category("grocery");
-        Category category2 = new Category("transport");
+        Category category = new Category("grocery",person1.getID());
+        Category category2 = new Category("transport",person1.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));

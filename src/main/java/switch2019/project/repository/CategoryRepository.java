@@ -51,13 +51,13 @@ public class CategoryRepository implements Repository{
 
     /**
      * Find category by ID
-     * @param accountID
+     * @param CategoryID
      * @return account
      */
 
-    public Category findByID(ID accountID){
+    public Category findByID(ID CategoryID){
         for(Category category: categories) {
-            if(category.getID().equals(accountID))
+            if(category.getID().equals(CategoryID))
                 return category;
         } throw new IllegalArgumentException("No category found with that ID.");
     }
@@ -91,8 +91,8 @@ public class CategoryRepository implements Repository{
      * @param categoryToRemove
      */
 
-    public boolean removeCategoryFromList(String categoryToRemove) {
-        Category category = new Category(categoryToRemove);
+    public boolean removeCategoryFromList(String categoryToRemove, OwnerID ownerID) {
+        Category category = new Category(categoryToRemove, ownerID);
         if (this.categories.contains(category)) {
             return categories.remove(category);
         }
@@ -105,10 +105,10 @@ public class CategoryRepository implements Repository{
      * @param categories<Category> categories
      */
 
-    public boolean addMultipleCategoriesToList(Set<String> categories) {
+    public boolean addMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
         int sizeBefore = this.categories.size();
         for (String category : categories) {
-            this.createCategory(category);
+            this.createCategory(category, ownerID);
         }
         return this.categories.size() == sizeBefore + categories.size();
     }
@@ -119,9 +119,9 @@ public class CategoryRepository implements Repository{
      * @param categories<Category> categories
      */
 
-    public boolean removeMultipleCategoriesToList(Set<String> categories) {
+    public boolean removeMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
         for (String category : categories)
-            this.removeCategoryFromList(category);
+            this.removeCategoryFromList(category, ownerID);
         return !this.categories.containsAll(categories);
     }
 
@@ -140,10 +140,10 @@ public class CategoryRepository implements Repository{
      * @param setOfCategories
      */
 
-    public boolean validateIfSetOfCategoriesIsInTheCategoryList(Set<String> setOfCategories) {
+    public boolean validateIfSetOfCategoriesIsInTheCategoryList(Set<String> setOfCategories, OwnerID ownerID) {
         Set<Category> list = new HashSet<>();
         for (String category : setOfCategories) {
-            list.add(new Category(category));
+            list.add(new Category(category, ownerID));
         }
         return this.categories.containsAll(list);
     }
