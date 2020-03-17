@@ -121,7 +121,7 @@ public class Account implements Entity {
      * @return descritpion
      */
     public String getDescription() {
-        return description.getDescriptionValue();
+        return description.getDescription();
     }
 
     /**
