@@ -74,10 +74,6 @@ public class Account implements Entity {
     }
 
     /**
-     * Get account by Owner ID
-     */
-
-    /**
      * Get accountID
      */
     public AccountID getAccountID() {

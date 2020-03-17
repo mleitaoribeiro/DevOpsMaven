@@ -197,47 +197,6 @@ class GroupTest {
     }
 
     /**
-     * Method to check if a Group was created inside a GroupList
-     */
-    @Test
-    public void isGroupInListCompare() {
-
-        // Arrange Groups
-        Group group1 = new Group("Amigos");
-
-        // Arrange Group List
-        GroupsRepository groupList1 = new GroupsRepository();
-
-        // Act
-        boolean groupAdded = groupList1.addGroupToGroupList(group1);
-
-        //Assert
-        assertTrue(groupAdded);
-    }
-
-    /**
-     * Method to check if Muliple Groups were created inside a GroupList
-     */
-
-    @Test
-    public void areGroupsInListCompare() {
-
-        // Arrange Groups
-        Group group1 = new Group("Programadores");
-        Group group2 = new Group("Amigos");
-
-        // Arrange Group List
-        GroupsRepository groupList1 = new GroupsRepository();
-
-        // Act
-        boolean group1Added = groupList1.addGroupToGroupList(group1);
-        boolean group2Added = groupList1.addGroupToGroupList(group2);
-
-        // Assert
-        assertTrue(group1Added && group2Added);
-    }
-
-    /**
      * US003 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
@@ -1508,217 +1467,6 @@ class GroupTest {
         assertFalse(isMember);
     }
 
-    /**
-     * Check if Account was added to the groups account list
-     * Testing getGroupAccountList() to see if account was added to the group´s list
-     */
-    @DisplayName("Added 1 Account")
-    @Test
-    void addAccountToGroupListTestContains() {
-        //Arrange:
-        Group group1 = new Group("Test Group");
-
-        //Act
-        boolean result = group1.addAccountToGroupAccountsList(new Denomination("Group Account Test"),
-                new Description("group account"));
-
-        //Assert
-        assertTrue(result);
-    }
-
-
-    @DisplayName("Added 2 Accounts")
-    @Test
-    void addAccountToGroupListTestSize() {
-        //Arrange
-        Group group1 = new Group("Test Group");
-
-        //Act
-        boolean addAccountToGroupList1 = group1.addAccountToGroupAccountsList(new Denomination("Group Account Test"),
-                new Description("group account"));
-        boolean addAccountToGroupList2 = group1.addAccountToGroupAccountsList(new Denomination("Group Account Test 2"),
-                new Description("group account"));
-
-        //Assert
-        assertTrue(addAccountToGroupList1 && addAccountToGroupList2);
-    }
-
-    /**
-     * Test if a person can create a group account (must be a group admin).
-     * User Stories 7: createGroupAccount
-     */
-
-    @Test
-    @DisplayName("Test if a group admin can create a group account - TRUE")
-    void createGroupAccountTest() {
-
-        //Arrange :
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group("Test group");
-        group1.addMember(person1);
-
-        //Act
-        boolean result = false;
-        if (group1.isGroupAdmin(person1)) {
-            result = group1.createAccount("Account1", "Test");
-        }
-
-        //Assert :
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Test if a group can create multiple group accounts - TRUE")
-    void createGroupAccountsTest() {
-
-        //Arrange
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group("Test group");
-        group1.addMember(person1);
-
-        //Act
-        boolean addGroupAccount1 = false;
-        boolean addGroupAccount2 = false;
-        boolean addGroupAccount3 = false;
-        if (group1.isGroupAdmin(person1)) {
-            addGroupAccount1 = group1.createAccount("Account1", "Test");
-            addGroupAccount2 = group1.createAccount("Account2", "Test");
-            addGroupAccount3 = group1.createAccount("Account3", "Test");
-        }
-
-        //Assert
-        assertTrue(addGroupAccount1 && addGroupAccount2 && addGroupAccount3);
-    }
-
-    @Test
-    @DisplayName("Test if a person that is not in a group can create a group account - False")
-    void createGroupAccountFalse() {
-
-        //Arrange :
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
-        Person person4 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1@isep.pt"));
-        Group group1 = new Group("Test group");
-        group1.addMember(person3);
-
-        //Act :
-        boolean addGroupAccount = false;
-        if (group1.isGroupAdmin(person4)) {
-            addGroupAccount = group1.createAccount("Account1", "Test");
-        }
-
-        //Assert:
-        assertFalse(addGroupAccount);
-    }
-
-    @Test
-    @DisplayName("Test if a regular member can add a Group Account")
-    void createGroupAccountRegularMemberFalse() {
-
-        //Arrange:
-        Person person1 = new Person("João",new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person1, person2, new Email("12@isep.pt"));
-        Person person4 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1@isep.pt"));
-        Group group1 = new Group("Test group");
-        group1.addMember(person3);
-        group1.addMember(person4);
-
-        //Act
-        boolean canARegularMemberAddGroupAccount = false;
-        if (group1.isGroupAdmin(person4)) {
-            canARegularMemberAddGroupAccount = group1.createAccount("Account1", "Test");
-        }
-
-        //Assert
-        assertFalse(canARegularMemberAddGroupAccount);
-    }
-
-    @Test
-    @DisplayName("Create Account with null Denomination")
-    void canAccountWithNullDescriptionBeCreated() {
-
-        //Arrange:
-        Person person1 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group("Test Group");
-
-        //Act:
-        group1.addMember(person1);
-        boolean canNullAccountBeAdded = group1.createAccount(null, "User Story 7");
-
-        //Assert:
-        assertFalse(canNullAccountBeAdded);
-    }
-
-    @Test
-    @DisplayName("Test if an Account with the same Account Denomination is added to the list")
-    void createGroupAccountSameDescriptionFalse() {
-
-        //Arrange :
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group("test group");
-
-        //Act:
-        group1.addMember(person1);
-        group1.createAccount("Account1", "Test");
-        boolean addGroupAccountRepeated = group1.createAccount("Account1", "Test");
-
-        //Assert
-        //assertFalse(addGroupAccountRepeated);
-    }
-
-    @Test
-    @DisplayName("Test if Method cant create two accounts with the same Account Denomination, but different letter casing.")
-    void createGroupAccountSameDescriptionIgnoreCasing() {
-        //Arrange:
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group("Test group");
-
-        //Act:
-        group1.addMember(person1);
-        group1.createAccount("Account1", "Test");
-        boolean addGroupAccountRepeated = group1.createAccount("AcCouNT1", "Test");
-
-        //Assert:
-        //assertFalse(addGroupAccountRepeated);
-    }
-
-    @Test
-    @DisplayName("Test if an admin of many groups can add an account to all of them")
-    void createGroupAccountsOnMultipleGroups() {
-
-        //Arrange:
-        Person person1 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group("Test Group");
-        Group group2 = new Group("Test Group 2");
-        Group group3 = new Group("Test Group 3");
-
-        //Act:
-        group1.addMember(person1);
-        group2.addMember(person1);
-        group3.addMember(person1);
-        boolean isGroup1AccountCreated = group1.createAccount("Account1", "User Story 7");
-        boolean isGroup2AccountCreated = group2.createAccount("Account2", "User Story 7");
-        boolean isGroup3AccountCreated = group3.createAccount("Account3", "User Story 7");
-
-        //Assert
-        assertTrue(isGroup1AccountCreated && isGroup2AccountCreated && isGroup3AccountCreated);
-    }
 
     /**
      * Check if a transaction is inside a groups Ledger
@@ -2636,11 +2384,6 @@ class GroupTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
 
-        if (group1.isGroupAdmin(person3)) {
-            group1.createAccount("Wallet", "General expenses");
-            group1.createAccount("TransportAccount", "Transport expenses");
-        }
-
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
 
         String description = "payment";
@@ -2681,10 +2424,6 @@ class GroupTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
 
-        if (group1.isGroupAdmin(person3)) {
-            group1.createAccount("Wallet", "General expenses");
-            group1.createAccount("TransportAccount", "Transport expenses");
-        }
 
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description1 = "payment";
@@ -2727,10 +2466,6 @@ class GroupTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"));
 
-        if (group1.isGroupAdmin(person3)) {
-            group1.createAccount("Wallet", "General expenses");
-            group1.createAccount("TransportAccount", "Transport expenses");
-        }
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
 

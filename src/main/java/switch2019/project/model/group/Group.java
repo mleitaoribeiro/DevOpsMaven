@@ -273,34 +273,6 @@ public class Group implements Owner {
         return false;
     }
 
-    /**
-     * Add account to Group´s Account List
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @return true if account was added to GroupAccountsList, false if it wasn't
-     */
-    public boolean addAccountToGroupAccountsList(Denomination accountDenomination, Description accountDescription) {
-        return this.groupAccountsList.createAccount(accountDenomination, accountDescription);
-    }
-
-
-    /**
-     * Develop method to create a new Account to the group: US7 - As a groupAdmin, I want to create a group account
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @return true if group account was created, false if it wasn't
-     */
-
-    //alterar para depois por o ID
-    public boolean createAccount(String accountDenomination, String accountDescription) {
-        if (accountDenomination != null && accountDescription != null && this.groupID != null) {
-            return this.addAccountToGroupAccountsList(new Denomination(accountDenomination),
-                    new Description(accountDescription));
-        }
-        return false;
-    }
 
     /**
      * As a admin i want to develop method add one category to group's Category List(US005.1)

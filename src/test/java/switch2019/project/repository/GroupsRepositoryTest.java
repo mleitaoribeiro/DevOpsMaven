@@ -409,14 +409,10 @@ class GroupsRepositoryTest {
         // Group Accounts:
         Account accountCombustivel = new Account(new Denomination("combustivel"),
                 new Description("gastos de combustivél"));
-        spiceGirls.createAccount("combustivel", "gastos de combustivél");
+
         Account accountGato = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"));
-        spiceGirls.createAccount("comida de gato", "comida para a gatinha");
-        spiceGirls.createAccount("dinner", "partilha de jantares");
 
-        work.createAccount("comida de gato", "comida para a gatinha");
-        work.createAccount("dinner", "partilha de jantares");
 
         //Act
         boolean result = groupsRepository.createTransactionOnSpecificGroup(person, "spice girls",
@@ -836,15 +832,6 @@ class GroupsRepositoryTest {
                 new Description("Savings destined to food"));
         Account account4 = new Account(new Denomination("Pingo Doce2"),
                 new Description("groceries on Pingo Doce"));
-            //Accounts created in Group:
-        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
-                new Description("Savings destined to food"));
-        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
-        group2.addAccountToGroupAccountsList(new Denomination("Savings2"),
-                new Description("Savings destined to food"));
-        group2.addAccountToGroupAccountsList(new Denomination("Pingo Doce2"),
-                new Description("groceries on Pingo Doce"));
 
             //Transactions arranged:
             //Group1 transactions:
@@ -924,15 +911,6 @@ class GroupsRepositoryTest {
         Account account3 = new Account(new Denomination("Savings2"),
                 new Description("Savings destined to food"));
         Account account4 = new Account(new Denomination("Pingo Doce2"),
-                new Description("groceries on Pingo Doce"));
-        //Accounts created in Group:
-        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
-                new Description("Savings destined to food"));
-        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
-        group2.addAccountToGroupAccountsList(new Denomination("Savings2"),
-                new Description("Savings destined to food"));
-        group2.addAccountToGroupAccountsList(new Denomination("Pingo Doce2"),
                 new Description("groceries on Pingo Doce"));
 
         //Transactions arranged:
@@ -1015,15 +993,6 @@ class GroupsRepositoryTest {
                 new Description("Savings destined to food"));
         Account account4 = new Account(new Denomination("Pingo Doce2"),
                 new Description("groceries on Pingo Doce"));
-        //Accounts created in Group:
-        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
-                new Description("Savings destined to food"));
-        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
-        group2.addAccountToGroupAccountsList(new Denomination("Savings2"),
-                new Description("Savings destined to food"));
-        group2.addAccountToGroupAccountsList(new Denomination("Pingo Doce2"),
-                new Description("groceries on Pingo Doce"));
 
         //Transactions arranged:
         //Group1 transactions:
@@ -1075,10 +1044,6 @@ class GroupsRepositoryTest {
         Account savingsAccount = new Account(new Denomination("Savings"),
                 new Description("Savings destined to food"));
         Account pingDoceAccount = new Account(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
-        group1.addAccountToGroupAccountsList(new Denomination("Savings"),
-                new Description("Savings destined to food"));
-        group1.addAccountToGroupAccountsList(new Denomination("Pingo Doce"),
                 new Description("groceries on Pingo Doce"));
         Category shoppingForFood = new Category("shopping for food");
 
