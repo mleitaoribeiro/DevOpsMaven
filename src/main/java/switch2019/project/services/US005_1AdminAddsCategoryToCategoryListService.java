@@ -32,7 +32,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         if (group.isGroupMember(admin) && group.isGroupAdmin(admin) == true) {
 
             //To change after OwnerID is complete, To substitute with categoryRepository method.
-            return categoryRepository.createCategory(categoryDescription, personID);
+            return categoryRepository.createCategory(categoryDescription, groupID);
         }
         else return false;
     }
