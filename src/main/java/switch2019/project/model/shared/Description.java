@@ -6,18 +6,24 @@ public class Description {
     //Private Description instance variable
     private final String descriptionValue;
 
-    /**
-     * Constructor
-     * @param descriptionValue
-     */
-
     public Description(String descriptionValue){
         this.descriptionValue = setValidDescription(descriptionValue);
     }
 
-    /**
-     * toString Method for Description
-     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Description that = (Description) o;
+        return Objects.equals(descriptionValue, that.descriptionValue);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(descriptionValue);
+    }
+
+   @Override
     public String toString() {
         return this.descriptionValue;
     }
@@ -36,20 +42,13 @@ public class Description {
         }
     }
 
+    /**
+     * getter for Description
+     * @return
+     */
     public String getDescription() {
         return descriptionValue;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Description that = (Description) o;
-        return Objects.equals(descriptionValue, that.descriptionValue);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(descriptionValue);
-    }
 }

@@ -7,9 +7,6 @@ import java.util.Objects;
 
 public class DateAndTime {
 
-    /**
-     * Private Transaction variables
-     */
     private final LocalDate yearMonthDay;
     private final LocalDateTime yearMonthDayHourMinute;
 

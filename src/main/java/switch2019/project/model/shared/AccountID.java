@@ -8,12 +8,9 @@ import java.util.Objects;
 public class AccountID implements ID {
 
     // Private AccountID attributes
-    private Denomination denomination;
-    private OwnerID ownerID;
+    private final Denomination denomination;
+    private final OwnerID ownerID;
 
-    /**
-     * AccountID constructor
-     */
     public AccountID(Denomination denomination, OwnerID ownerID) {
         if (denomination == null || ownerID == null) {
             throw new IllegalArgumentException("Neither the Denomination nor OwnerID can be null.");
@@ -22,6 +19,22 @@ public class AccountID implements ID {
             this.ownerID = ownerID;
         }
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountID accountID = (AccountID) o;
+        return Objects.equals(denomination, accountID.denomination) &&
+                Objects.equals(ownerID, accountID.ownerID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(denomination, ownerID);
+    }
+
+    @Override
+    public String toString() { return  denomination.toString() + ", " + ownerID.toString(); }
 
     /**
      * Method to return Denomination
@@ -42,27 +55,5 @@ public class AccountID implements ID {
     }
 
 
-    /**
-     * Override to equals method
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccountID accountID = (AccountID) o;
-        return Objects.equals(denomination, accountID.denomination) &&
-                Objects.equals(ownerID, accountID.ownerID);
-    }
-
-    /**
-     * Override to hashCode
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(denomination, ownerID);
-    }
-
-    @Override
-    public String toString() { return  denomination.toString() + ", " + ownerID.toString(); }
 
 }

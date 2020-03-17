@@ -37,6 +37,7 @@ public class Email {
      * @param email
      * @return
      */
+
     private String setValidEmail (String email) {
         if (email == null)
             throw new IllegalArgumentException(EMAIL_NULL);
@@ -52,6 +53,7 @@ public class Email {
      * @param email
      * @return
      */
+
    private boolean isValid(String email) {
            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                    "[a-zA-Z0-9_+&*-]+)*@" +
@@ -65,6 +67,7 @@ public class Email {
      * Get email
      * @return
      */
+
     public String getEmailAddress() {
         return emailAddress;
     }
