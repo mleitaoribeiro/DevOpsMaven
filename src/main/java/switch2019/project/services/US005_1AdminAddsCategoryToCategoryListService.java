@@ -10,10 +10,17 @@ import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
 public class US005_1AdminAddsCategoryToCategoryListService {
-    /**
-     * User Story 5.1 .- As a group admin i want to associate a category to said group.
-     */
 
+    /**
+     * User Story 5.1 .- As a group admin i want to associate a category to my group.
+     * @param groupID
+     * @param personID
+     * @param categoryRepository
+     * @param categoryDescription
+     * @param groupsRepository
+     * @param personRepository
+     * @return
+     */
     public boolean addCategoryToGroup(GroupID groupID, PersonID personID, CategoryRepository categoryRepository, String categoryDescription,
                                       GroupsRepository groupsRepository, PersonRepository personRepository) {
 
@@ -25,7 +32,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         if (group.isGroupMember(admin) && group.isGroupAdmin(admin) == true) {
 
             //To change after OwnerID is complete, To substitute with categoryRepository method.
-            return group.createCategory(categoryDescription, admin);
+            return categoryRepository.createCategory(categoryDescription, personID);
         }
         else return false;
     }
