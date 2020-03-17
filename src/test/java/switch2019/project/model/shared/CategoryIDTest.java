@@ -151,4 +151,32 @@ public class CategoryIDTest {
         assertEquals(result,"GYM");
     }
 
+    @Test
+    @DisplayName("Test to Constructor - Null Denomination")
+    void testCategoryIDNullDenomination() {
+        //Arrange:
+        Group group = new Group("Running Team");
+        //Act:
+        try {
+            CategoryID categoryID1 = new CategoryID(null,group.getID());
+        }
+        //Assert:
+        catch (IllegalArgumentException description) {
+            assertEquals("The denomination and ownerID can't be null.", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test to Constructor - Null Owner")
+    void testCategoryIDNullOwner() {
+        //Act:
+        try {
+            CategoryID categoryID1 = new CategoryID(new Denomination("Car expenses"), null);
+        }
+        //Assert:
+        catch (IllegalArgumentException description) {
+            assertEquals("The denomination and ownerID can't be null.", description.getMessage());
+        }
+    }
+
 }

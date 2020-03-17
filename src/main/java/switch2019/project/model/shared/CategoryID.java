@@ -14,8 +14,11 @@ public class CategoryID implements ID {
      * CategoryID constructor
      */
     public CategoryID(Denomination denomination, OwnerID ownerID) {
-        this.denomination = denomination;
-        this.ownerID = ownerID;
+        if (denomination != null & ownerID != null){
+            this.denomination = denomination;
+            this.ownerID = ownerID;
+        }
+        else throw new IllegalArgumentException("The denomination and ownerID can't be null.");
     }
 
     /**
