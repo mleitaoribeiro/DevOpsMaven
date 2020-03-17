@@ -1,5 +1,6 @@
 package switch2019.project.repository;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
@@ -7,8 +8,7 @@ import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.PersonID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PersonRepositoryTest {
 
@@ -55,5 +55,75 @@ class PersonRepositoryTest {
 
         //Assert:
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Verify If Person ID exists On Person Repository - Main Scenario")
+    void verifyIfPersonIDExistsOnPersonRepository() {
+        //Arrange
+        PersonRepository personRepository = new PersonRepository();
+
+        Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        //Act
+        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        boolean personIDExists = personRepository.isPersonIDOnRepository(personJose.getID());
+
+        //Assert
+        assertTrue(personIDExists);
+    }
+
+    @Test
+    @DisplayName("Verify If Person ID exists On Person Repository -False Case")
+    void verifyIfPersonIDExistsOnPersonRepositoryFalse() {
+        //Arrange
+        PersonRepository personRepository = new PersonRepository();
+
+        //Act
+        Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        //Assert
+        assertFalse(personRepository.isPersonIDOnRepository(new PersonID(new Email("fake@sofake.com"))));
+    }
+
+    @Test
+    @DisplayName("Verify If Person ID exists On Person Repository - Main Scenario")
+    void verifyIfPersonEmailExistsOnPersonRepository() {
+        //Arrange
+        PersonRepository personRepository = new PersonRepository();
+
+        Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        //Act
+        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        boolean personEmailExists = personRepository.isPersonEmailOnRepository(new Email(personJose.getID().getEmail()));
+
+        //Assert
+        assertTrue(personEmailExists);
+    }
+
+    @Test
+    @DisplayName("Verify If Person Email exists On Person Repository - False Case")
+    void verifyIfPersonEmailExistsOnPersonRepositoryFalse() {
+        //Arrange
+        PersonRepository personRepository = new PersonRepository();
+
+        //Act
+        Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        //Assert
+        assertFalse(personRepository.isPersonEmailOnRepository(new Email("fake@sofake.com")));
     }
 }
