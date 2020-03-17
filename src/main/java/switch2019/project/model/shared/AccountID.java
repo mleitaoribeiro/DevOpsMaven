@@ -62,4 +62,7 @@ public class AccountID implements ID {
         return Objects.hash(denomination, ownerID);
     }
 
+    @Override
+    public String toString() { return  denomination.toString() + ", " + ownerID.toString(); }
+
 }

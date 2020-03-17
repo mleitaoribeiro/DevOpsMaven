@@ -44,4 +44,9 @@ public class GroupID implements OwnerID {
         return Objects.hash(description);
     }
 
+    @Override
+    public String toString() {
+        return description.toString();
+    }
+
 }

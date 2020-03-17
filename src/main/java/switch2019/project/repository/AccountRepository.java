@@ -17,6 +17,11 @@ public class AccountRepository implements Repository {
         accounts = new HashSet<>();
     }
 
+    @Override
+    public String toString() {
+        return "Accounts Repository: " + accounts.toString();
+    }
+
     /**
      * Find account by ID
      * @param accountID
@@ -35,6 +40,7 @@ public class AccountRepository implements Repository {
      * @param ownerID
      * @return
      */
+
     public Set<Account> returnAccountsByOwnerID(OwnerID ownerID){
         Set<Account> listOfAccountsByOwnerID = new HashSet<>();
         if(ownerID != null) {
