@@ -1,9 +1,8 @@
-package switch2019.project.services;
+package switch2019.project.controllers;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sun.security.x509.EDIPartyName;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
@@ -13,13 +12,15 @@ import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.repository.PersonRepository;
+import switch2019.project.services.US006CreatePersonAccountService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US006CreatePersonAccountServiceTest {
+class US006CreatePersonAccountControllerTest {
 
     private static PersonRepository personRepo;
     private static AccountRepository accountRepo;
+    private static US006CreatePersonAccountController controller;
     private static US006CreatePersonAccountService service;
 
     @BeforeAll
@@ -27,6 +28,7 @@ class US006CreatePersonAccountServiceTest {
         personRepo = new PersonRepository();
         accountRepo = new AccountRepository();
         service = new US006CreatePersonAccountService(personRepo, accountRepo);
+        controller = new US006CreatePersonAccountController(service);
 
         //Add people to Repository
         personRepo.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
@@ -45,7 +47,7 @@ class US006CreatePersonAccountServiceTest {
         PersonID onePersonID = onePerson.getID();
 
         //Act
-        boolean accountCreated =service.createPersonAccount(onePersonID, new Denomination("Revolut"),
+        boolean accountCreated = controller.createPersonAccount(onePersonID, new Denomination("Revolut"),
                 new Description("Online Shopping"));
 
         //Assert
@@ -60,7 +62,7 @@ class US006CreatePersonAccountServiceTest {
         PersonID onePersonID = onePerson.getID();
 
         //Act
-        boolean accountsCreated = service.createPersonAccount( onePersonID, new Denomination("Revolut"),
+        boolean accountsCreated = controller.createPersonAccount(onePersonID, new Denomination("Revolut"),
                 new Description("OnlineShopping"))
                 && service.createPersonAccount(onePersonID, new Denomination("MbWay"),
                 new Description("For sharing expenses"))
@@ -79,14 +81,14 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(newPersonID, new Denomination("Revolut"),
+            controller.createPersonAccount(newPersonID, new Denomination("Revolut"),
                     new Description("OnlineShopping"));
         }
 
         //Assert
-         catch (IllegalArgumentException invalid) {
-                assertEquals("This Person ID doesn't exist or it's null.", invalid.getMessage());
-            }
+        catch (IllegalArgumentException invalid) {
+            assertEquals("This Person ID doesn't exist or it's null.", invalid.getMessage());
+        }
     }
 
     @Test
@@ -97,7 +99,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(nullID, new Denomination("Revolut"),
+            controller.createPersonAccount(nullID, new Denomination("Revolut"),
                     new Description("Online Shopping"));
         }
 
@@ -114,7 +116,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(new PersonID(new Email("")), new Denomination("Revolut"),
+            controller.createPersonAccount(new PersonID(new Email("")), new Denomination("Revolut"),
                     new Description("Online Shopping"));
         }
 
@@ -134,7 +136,7 @@ class US006CreatePersonAccountServiceTest {
         Denomination nullDenomination = null;
         //Act
         try {
-            service.createPersonAccount(onePersonID, null,
+            controller.createPersonAccount(onePersonID, null,
                     new Description("Online Shopping"));
         }
         //Assert
@@ -149,4 +151,3 @@ class US006CreatePersonAccountServiceTest {
         //missing
     }
 }
-
