@@ -16,8 +16,11 @@ public class MonetaryValue {
      */
 
     public MonetaryValue(double amount, Currency currency) {
-        this.amount = amount;
-        this.currency = currency;
+        if (currency!= null){
+            this.amount = amount;
+            this.currency = currency;
+        }
+        else throw new IllegalArgumentException("The currency can't be null.");
     }
 
     /**
@@ -46,4 +49,5 @@ public class MonetaryValue {
     public double getAmount() {
         return amount;
     }
+
 }

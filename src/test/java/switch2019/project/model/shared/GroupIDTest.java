@@ -126,12 +126,19 @@ class GroupIDTest {
         assertNotEquals(groupID1.hashCode(), groupID2.hashCode());
     }
 
+    /**
+     * Test to constructor method
+     */
+
     @Test
     @DisplayName("Test to Constructor - Null Description")
     void testGroupID() {
+        //Act:
         try {
             GroupID groupID1 = new GroupID(null);
-        } catch (IllegalArgumentException description) {
+        }
+        //Assert:
+        catch (IllegalArgumentException description) {
             assertEquals("The description can't be null.", description.getMessage());
         }
     }
