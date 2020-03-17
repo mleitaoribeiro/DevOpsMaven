@@ -21,14 +21,16 @@ public class PersonRepository implements Repository {
 
     //2nd Constructor
     //This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
-    public boolean createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
-        return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
+    public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
+        listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
+        return this.findPersonByID(new PersonID(email));
     }
 
     //3rd constructor - Alternative constructor for people with mother and father
-    public boolean createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
+    public Person createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                            Person mother, Person father, Email email) {
-        return listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, mother, father, email));
+        listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, mother, father, email));
+        return this.findPersonByID(new PersonID(email));
     }
 
     /**
