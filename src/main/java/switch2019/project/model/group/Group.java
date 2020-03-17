@@ -249,6 +249,13 @@ public class Group implements Owner {
         return this.admins.contains(isAdmin) && isAdmin != null;
     }
 
+    public boolean isGroupAdmin(PersonID personID) {
+        for (Person person : admins)
+            if (person.getID().equals(personID))
+                return true;
+        return false;
+    }
+
     /**
      * Validate if a person is a Group Admin
      *
@@ -257,6 +264,13 @@ public class Group implements Owner {
      */
     public boolean isGroupMember(Person isMember) {
         return this.members.contains(isMember) && isMember != null;
+    }
+
+    public boolean isGroupMember (PersonID personID) {
+        for (Person person : members)
+            if (person.getID().equals(personID))
+                return true;
+        return false;
     }
 
     /**

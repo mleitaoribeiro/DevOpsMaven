@@ -42,7 +42,7 @@ public class Email {
         if (email == null)
             throw new IllegalArgumentException(EMAIL_NULL);
         else if (isValid(email))
-            return email;
+            return email.toLowerCase();
         else
             throw new IllegalArgumentException(EMAIL_NOT_VALID);
 

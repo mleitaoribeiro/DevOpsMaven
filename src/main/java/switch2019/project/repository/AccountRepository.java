@@ -64,8 +64,7 @@ public class AccountRepository implements Repository {
 
     public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
         Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
-        this.accounts.add(oneAccount);
-        return this.accounts.contains(oneAccount);
+        return this.accounts.add(oneAccount);
     }
 
     /**

@@ -2,11 +2,10 @@ package switch2019.project.services;
 
 
 import switch2019.project.model.group.Group;
-import switch2019.project.model.person.Email;
-import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.GroupID;
+import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
@@ -24,20 +23,24 @@ public class US007CreateGroupAccountService {
     }
 
 
-    public boolean createGroupAccount (Email personEmail, Description groupDescription,
+    public boolean createGroupAccount (PersonID onePersonID, GroupID oneGroupID,
                                        Denomination accountDenomination, Description accountDescription ) {
 
-        Person onePerson = personRepository.findPersonByEmail(personEmail);
+        boolean personIDExistsInRepository = personRepository.isPersonIDOnRepository(onePersonID);
 
-        Group oneGroup = groupsRepository.findGroupByDescription(groupDescription);
-        GroupID oneGroupID = oneGroup.getID();
+        if (personIDExistsInRepository) {
 
-        boolean personIsGroupAdmin = oneGroup.isGroupAdmin(onePerson);
+            Group oneGroup = groupsRepository.findGroupByID(oneGroupID);
 
-        if (personIsGroupAdmin) {
-            return accountRepository.createAccount(accountDenomination,accountDescription, oneGroupID);
+            boolean personIsGroupAdmin = oneGroup.isGroupAdmin(onePersonID);
+
+            if (personIsGroupAdmin) {
+                return accountRepository.createAccount(accountDenomination, accountDescription, oneGroupID);
+            }
+            return false;
         }
-        return false;
+
+        throw new  IllegalArgumentException("The Person ID doesn't exist!");
     }
 
 }
