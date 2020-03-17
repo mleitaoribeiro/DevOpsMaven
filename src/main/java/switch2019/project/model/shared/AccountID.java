@@ -16,7 +16,7 @@ public class AccountID implements ID {
      */
     public AccountID(Denomination denomination, OwnerID ownerID) {
         if (denomination == null || ownerID == null) {
-            throw new IllegalArgumentException("The denomination and ownerID can't be null.");
+            throw new IllegalArgumentException("Neither the Denomination nor OwnerID can be null.");
         } else {
             this.denomination = denomination;
             this.ownerID = ownerID;
