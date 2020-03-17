@@ -12,7 +12,7 @@ public class US002_1CreateGroupAndBecomeAdminService {
     public boolean createGroupAndBecomeAdmin(GroupsRepository groupsRepository, PersonRepository personRepository,
                                              Description groupDescription, PersonID personID) {
 
-        if (groupDescription != null && personID != null) {
+        if (groupsRepository != null && personRepository != null && groupDescription != null && personID != null) {
             Person person = personRepository.findPersonByID(personID);
             return groupsRepository.createGroup(groupDescription.toString(), person);
         } else return false;
