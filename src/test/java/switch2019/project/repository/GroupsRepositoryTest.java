@@ -1161,7 +1161,7 @@ class GroupsRepositoryTest {
         Blabla.addMember(personRepository.findPersonByEmail(new Email("1234@isep.pt")));
 
         //Act:
-        boolean result = groupsRepository.findGroupByDescription("BLA BLA").equals(Blabla);
+        boolean result = groupsRepository.findGroupByDescription(new Description ("BLA BLA")).equals(Blabla);
 
         //Assert:
         assertTrue(result);
@@ -1183,7 +1183,7 @@ class GroupsRepositoryTest {
 
         //Act:
         try {
-            groupsRepository.findGroupByDescription("BLA BLA");
+            groupsRepository.findGroupByDescription(new Description("BLA BLA"));
         }
 
         //Assert:

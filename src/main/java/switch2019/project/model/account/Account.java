@@ -43,8 +43,9 @@ public class Account implements Entity {
 
     public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
         accountID = new AccountID(accountDenomination, ownerID);
-        this.description = accountDescription;
         this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
+        if(accountDescription != null) this.description = accountDescription;
+        else throw new IllegalArgumentException("Account Description can't be null.");
     }
 
     @Override
@@ -100,43 +101,14 @@ public class Account implements Entity {
     }
 
     /**
-     * Public set for denomination: Can not be Null.
-     *
-     * @param newDenomination
-     */
-
-    public void setDenomination(String newDenomination) {
-
-        if (newDenomination == null || newDenomination.length() == 0) {
-            throw new IllegalArgumentException("The denomination can´t be null or empty!");
-
-        } else {
-            this.denomination = new Denomination(newDenomination);
-        }
-    }
-
-    /**
      * Public get for description
      *
      * @return descritpion
      */
     public String getDescription() {
-        return description.getDescriptionValue();
+        return description.getDescription();
     }
 
-    /**
-     * Public set for description: Can not be Null.
-     *
-     * @param description
-     */
-
-    public void setDescription(String description) {
-        if (description == null || description.length() == 0) {
-            throw new IllegalArgumentException("The description can´t be null or empty!");
-        } else {
-            this.description = new Description(description);
-        }
-    }
 
     /**
      * Public get to access a clone of Account

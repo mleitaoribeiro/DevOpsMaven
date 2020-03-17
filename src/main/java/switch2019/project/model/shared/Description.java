@@ -36,7 +36,7 @@ public class Description {
         }
     }
 
-    public String getDescriptionValue() {
+    public String getDescription() {
         return descriptionValue;
     }
 

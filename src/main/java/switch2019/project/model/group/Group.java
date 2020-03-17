@@ -40,6 +40,17 @@ public class Group implements Owner {
         ledger = new Ledger();
     }
 
+    public Group(String description, Person groupCreator){
+        setGroupID(description);
+        startingDate = new DateAndTime();
+        members = new HashSet<>();
+        admins = new HashSet<>();
+        groupAccountsList = new AccountRepository();
+        categoryList = new CategoryRepository();
+        ledger = new Ledger();
+        this.addMember(groupCreator);
+    }
+
 
     /**
      * Method to Set GroupID

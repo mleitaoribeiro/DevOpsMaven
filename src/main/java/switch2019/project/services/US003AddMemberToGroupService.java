@@ -10,7 +10,22 @@ import switch2019.project.repository.PersonRepository;
 
 public class US003AddMemberToGroupService {
 
-    public boolean addMemberToGroup(GroupID groupID, PersonID personID, GroupsRepository groupsRepository, PersonRepository personRepository) {
+    private PersonRepository personRepository;
+    private GroupsRepository groupsRepository;
+
+    public US003AddMemberToGroupService(PersonRepository personRepository, GroupsRepository groupsRepository) {
+        this.personRepository = personRepository;
+        this.groupsRepository = groupsRepository;
+    }
+
+    /**
+     * Add Member To Group
+     *
+     * @param groupID
+     * @param personID
+     * @return
+     */
+    public boolean addMemberToGroup(GroupID groupID, PersonID personID) {
 
         Person person = personRepository.findPersonByID(personID);
         Group group = groupsRepository.findGroupByID(groupID);

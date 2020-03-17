@@ -24,7 +24,7 @@ public class US007CreateGroupAccountService {
     }
 
 
-    public boolean createGroupAccount (Email personEmail, String groupDescription,
+    public boolean createGroupAccount (Email personEmail, Description groupDescription,
                                        Denomination accountDenomination, Description accountDescription ) {
 
         Person onePerson = personRepository.findPersonByEmail(personEmail);
@@ -35,7 +35,7 @@ public class US007CreateGroupAccountService {
         boolean personIsGroupAdmin = oneGroup.isGroupAdmin(onePerson);
 
         if (personIsGroupAdmin) {
-            return accountRepository.createAccount(accountDenomination,accountDescription);
+            return accountRepository.createAccount(accountDenomination,accountDescription, oneGroupID);
         }
         return false;
     }
