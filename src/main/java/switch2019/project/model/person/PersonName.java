@@ -6,19 +6,24 @@ import java.util.Objects;
 
 public class PersonName {
 
-    /**
-     * Private Instance Variable
-     */
-
     private final String name;
-
-    /**
-     * Constructor of PersonName
-     * @param name
-     */
 
     public PersonName(String name) {
         this.name = standardPersonName(name);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonName that = (PersonName) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     /**
@@ -92,16 +97,5 @@ public class PersonName {
         } return String.join(" ", words);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonName that = (PersonName) o;
-        return Objects.equals(name, that.name);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
 }

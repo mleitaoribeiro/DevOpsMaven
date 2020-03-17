@@ -20,13 +20,6 @@ public class Address {
         this.postalCode = null;
     }
 
-    /**
-     * Address constructor for home Address
-     * @param street
-     * @param city
-     * @param postalCode
-     */
-
     public Address(String street, String city, String postalCode) {
        this.street = setValidStreet(street);
        this.city = setValidCity(city);

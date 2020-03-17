@@ -7,12 +7,9 @@ import java.util.Objects;
 
 public class CategoryID implements ID {
 
-    private Denomination denomination;
-    private OwnerID ownerID;
+    private final Denomination denomination;
+    private final OwnerID ownerID;
 
-    /**
-     * CategoryID constructor
-     */
     public CategoryID(Denomination denomination, OwnerID ownerID) {
         if (denomination == null || ownerID == null) {
             throw new IllegalArgumentException("The denomination and ownerID can't be null.");
@@ -22,18 +19,6 @@ public class CategoryID implements ID {
         }
     }
 
-    /**
-     * Method to return Denomination
-     *
-     * @return denomination
-     */
-    public String getDenomination() {
-        return denomination.toString();
-    }
-
-    /**
-     * Override to Equals method
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,12 +28,19 @@ public class CategoryID implements ID {
                 Objects.equals(ownerID, that.ownerID);
     }
 
-    /**
-     * Override to hashCode
-     */
     @Override
     public int hashCode() {
         return Objects.hash(denomination, ownerID);
+    }
+
+    /**
+     * Method to return Denomination
+     *
+     * @return denomination
+     */
+
+    public String getDenomination() {
+        return denomination.toString();
     }
 
 }

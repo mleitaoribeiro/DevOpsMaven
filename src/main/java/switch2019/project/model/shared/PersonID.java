@@ -8,27 +8,13 @@ import java.util.Objects;
 public class PersonID implements OwnerID {
 
     // Private PersonID attributes
-    private Email email;
+    private final Email email;
 
-    /**
-     * PersonID constructor
-     */
     public PersonID(Email email) {
         if(email != null) this.email = email;
         else throw new IllegalArgumentException("email can't be null.");
     }
 
-    /**
-     * Method to return Person Name
-     * @return personName
-     */
-    public String getEmail() {
-        return email.getEmailAddress();
-    }
-
-    /**
-     * Override to equals method
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,9 +23,6 @@ public class PersonID implements OwnerID {
         return Objects.equals(email, personID.email);
     }
 
-    /**
-     * Override to hashCode
-     */
     @Override
     public int hashCode() {
         return Objects.hash(email);
@@ -48,5 +31,13 @@ public class PersonID implements OwnerID {
     @Override
     public String toString() {
         return email.toString();
+    }
+
+    /**
+     * Method to return Person Name
+     * @return personName
+     */
+    public String getEmail() {
+        return email.getEmailAddress();
     }
 }

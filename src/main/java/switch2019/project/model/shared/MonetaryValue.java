@@ -8,19 +8,17 @@ public class MonetaryValue {
     private final double amount;
     private final Currency currency;
 
-    /**
-     * MonetaryValue constructor
-     *
-     * @param amount amount of money
-     * @param currency currency type
-     */
-
     public MonetaryValue(double amount, Currency currency) {
         if (currency!= null){
             this.amount = amount;
             this.currency = currency;
         }
         else throw new IllegalArgumentException("The currency can't be null.");
+    }
+
+    @Override
+    public String toString() {
+        return amount + " " + currency;
     }
 
     /**
@@ -31,15 +29,6 @@ public class MonetaryValue {
     public boolean validateIfAmountIsPositive() {
         return this.amount > 0;
     }
-
-    /**
-     * Override toString() method
-     */
-    @Override
-    public String toString() {
-        return amount + " " + currency;
-    }
-
 
     /**
      * Method to get amount
