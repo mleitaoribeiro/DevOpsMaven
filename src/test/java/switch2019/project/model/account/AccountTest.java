@@ -3,12 +3,11 @@ package switch2019.project.model.account;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
+import switch2019.project.model.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 // Account equals not working properly - Gabriel (Work in Progress)
@@ -343,5 +342,41 @@ class AccountTest {
 
         //Assert
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Test get Owner ID - Person ID")
+    public void testGetOwnerID() {
+
+        //Arrange
+        Account supermarket = new Account(new Denomination("Supermarket")
+                ,new Description("Weekly spends"), new PersonID(new Email("martacarda@hotmail.com")));
+
+        PersonID personID = new PersonID(new Email("martacarda@hotmail.com"));
+        AccountID accountID = supermarket.getAccountID();
+
+        //Act
+        OwnerID accountOwnerID = accountID.getOwnerID();
+
+        //Assert
+        assertEquals( personID, accountOwnerID);
+    }
+
+    @Test
+    @DisplayName("Test get Owner ID - Group ID")
+    public void testGetOwnerIDGroup() {
+
+        //Arrange
+        Account supermarket = new Account(new Denomination("Supermarket")
+                ,new Description("Weekly spends"), new GroupID(new Description("Friends")));
+
+        GroupID groupID = new GroupID(new Description("Friends"));
+        AccountID accountID = supermarket.getAccountID();
+
+        //Act
+        OwnerID accountOwnerID = accountID.getOwnerID();
+
+        //Assert
+        assertEquals( groupID, accountOwnerID);
     }
 }

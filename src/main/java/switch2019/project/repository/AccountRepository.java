@@ -2,48 +2,19 @@ package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.frameworks.ID;
+import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class AccountRepository implements Repository {
+    //Private instance variables
     private Set<Account> accounts;
-
-    /**
-     * Construtor for Accounts List
-     */
 
     public AccountRepository() {
         accounts = new HashSet<>();
-    }
-
-    /**
-     * Develop @override of equals for Accounts List and @override of hashcode
-     *
-     * @param o
-     * @return boolean
-     */
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccountRepository accountsList = (AccountRepository) o;
-        return Objects.equals(this.accounts, accountsList.accounts);
-    }
-
-    /**
-     * Develop  @override of hashcode
-     *
-     * @return
-     */
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accounts);
     }
 
     /**
@@ -60,23 +31,44 @@ public class AccountRepository implements Repository {
     }
 
     /**
-     * Develop @override of toString()
-     *
-     * @return string
+     * Get list of Accounts By Owner ID - not validated
+     * @param ownerID
+     * @return
+     */
+    public Set<Account> returnAccountsByOwnerID(OwnerID ownerID){
+        Set<Account> listOfAccountsByOwnerID = new HashSet<>();
+        if(ownerID != null) {
+            for (Account account : accounts) {
+                if (account.getOwnerID().equals(ownerID)) {
+                    listOfAccountsByOwnerID.add(account);
+                }
+            }
+            return listOfAccountsByOwnerID;
+        } else throw new IllegalArgumentException("No account found with that ID.");
+    }
+
+
+    /**
+     * method to add one account to the repository with an owner
+     * @param accountDenomination
+     * @param accountDescription
+     * @param ownerID
+     * @return
      */
 
-    @Override
-    public String toString() {
-        return "Accounts List: " + accounts;
+    public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
+        Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
+        this.accounts.add(oneAccount);
+        return this.accounts.contains(oneAccount);
     }
 
     /**
-     * Method to get the numbers of Accounts in the Accounts List
+     * Method to get the numbers of Accounts in the Repository
      *
      * @return int
      */
 
-    public int numberOfAccountsInTheAccountsList() {
+    public int numberOfAccountsInTheAccountsRepository() {
         return this.accounts.size();
     }
 
@@ -94,14 +86,15 @@ public class AccountRepository implements Repository {
         return this.accounts.contains(oneAccount);
     }
 
+
     /**
-     * method to remove one account from a list
+     * method to remove one account from the Repository
      *
      * @param accountToBeRemoved
      * @return boolean
      */
 
-    public boolean removeOneAccountFromAList(Account accountToBeRemoved) {
+    public boolean removeOneAccountFromRepository(Account accountToBeRemoved) {
         if (accountToBeRemoved != null) {
             return accounts.remove(accountToBeRemoved);
         } else
@@ -109,13 +102,13 @@ public class AccountRepository implements Repository {
     }
 
     /**
-     * method to validate if the account is in the accounts list
+     * method to validate if the account is in the accounts Repository
      *
      * @param accountToValidate
      * @return boolean
      */
 
-    public boolean validateIfAccountIsInTheAccountsList(Account accountToValidate) {
+    public boolean validateIfAccountIsInTheAccountsRepository(Account accountToValidate) {
         return this.accounts.contains(accountToValidate);
     }
 }

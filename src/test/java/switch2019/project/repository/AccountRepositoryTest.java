@@ -7,49 +7,120 @@ import switch2019.project.model.account.Account;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
+import switch2019.project.model.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountRepositoryTest {
 
-//FALTA CORRIGIR OS TESTES QUE DEPENDEM DO EQUALS DA ACCOUNT - Gabriel (work in progress)
     /**
-     * Test if account was added to the list
+     * Test if accounts was added to the list
      */
+
     @Test
-    @DisplayName("Test if more than one account was added to the list - True")
-    public void testIfAccountsWereAddedToTheList_True() {
+    @DisplayName("Test if  one account was added to the repository with Person ID - Main Scenario")
+    public void testIfAccountsWasAddedToTheRepositoryWithPersonID() {
         //Arrange
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
-        boolean real = accountsList.createAccount(new Denomination("xpto"),
-                new Description("one account"))
-                && accountsList.createAccount(new Denomination("xyz"),
-                new Description("general"))
-                && accountsList.createAccount(new Denomination("Millennium"),
-                new Description("Millennium Account"));
+        boolean real = accountRepository.createAccount(new Denomination("Revolut"),
+                new Description("Online Expenses"), new PersonID(new Email("martacarda@hotmail.com")));
 
         //Assert
         assertTrue(real);
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list - one Account Denomination Is Null")
-    public void testIfAccountsWereAddedToTheList_False_oneAccountDenominationIsNull() {
+    @DisplayName("Test if  one account was added to the repository with null Person ID")
+    public void testIfAccountsWasAddedToTheRepositoryWithNullPersonID() {
         //Arrange
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
+
+        //Act
+        boolean real = accountRepository.createAccount(new Denomination("Revolut"),
+                new Description("Online Expenses"), new PersonID(null));
+
+        //Assert
+        assertTrue(real);
+    }
+
+    @Test
+    @DisplayName("Test if more than one account was added to the repository with Person ID ")
+    public void testIfAccountsWereAddedToTheRepositoryWithPersonID() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
+
+        //Act
+        boolean real = accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")))
+                && accountRepository.createAccount(new Denomination("xyz"),
+                new Description("general"),  new PersonID(new Email("mariasousa@gmail.com")))
+                && accountRepository.createAccount(new Denomination("Millennium"),
+                new Description("Millennium Account"), new PersonID(new Email("antoniomagalhaes@isep.ipp.pt")));
+
+        //Assert
+        assertTrue(real);
+    }
+
+
+    @Test
+    @DisplayName("Test if  one account was added to the repository with Group ID - Main Scenario")
+    public void testIfAccountsWasAddedToTheRepositoryWithGroupID() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
+
+        //Act
+        boolean real = accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new GroupID(new Description("Random Group")));
+
+        //Assert
+        assertTrue(real);
+    }
+
+    @Test
+    @DisplayName("Test if  one account was added to the repository with null Group ID")
+    public void testIfAccountsWasAddedToTheRepositoryWithNullGroupID() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
+
+        //Act
+        boolean real = accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new GroupID(new Description("Random Group")));
+
+        //Assert
+        assertTrue(real);
+    }
+
+
+    @Test
+    @DisplayName("Test if more than one account was added to the list with Group ID")
+    public void testIfAccountsWereAddedToTheRepositoryGroupID() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
+
+        //Act
+        boolean real = accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new GroupID(new Description("Friends")))
+                && accountRepository.createAccount(new Denomination("xyz"),
+                new Description("general"),  new GroupID(new Description("Business")))
+                && accountRepository.createAccount(new Denomination("Millennium"),
+                new Description("Millennium Account"), new GroupID(new Description("Working Group")));
+
+        //Assert
+        assertTrue(real);
+    }
+
+    @Test
+    @DisplayName("Test if more than one account was added to the repository with PersonID - one Account Denomination Is Null")
+    public void testIfAccountsWereAddedToTheRepositoryOneAccountDenominationIsNull() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
         try {
-            accountsList.createAccount(null, new Description("XOPT"));
-            accountsList.createAccount(new Denomination("xyz"),
-                    new Description("general"));
-            accountsList.createAccount(new Denomination("Millennium"),
-                    new Description("Millennium Account"));
+            accountRepository.createAccount(null, new Description("XPTO"), new PersonID(new Email("12345@isep.ipp.pt")));
+
         }
         //Assert
         catch (IllegalArgumentException denomination) {
@@ -58,18 +129,15 @@ class AccountRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list - one Account Denomination Is Null")
-    public void testIfAccountsWereAddedToTheList_False_oneAccountDescriptionIsNull() {
+    @DisplayName("Test if more than one account was added to the repository PersonID - one Account Denomination Is Null")
+    public void testIfAccountIsAddedToTheRepositoryOneAccountDescriptionIsNull() {
         //Arrange
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
         try {
-            accountsList.createAccount(new Denomination("xpto"), null);
-            accountsList.createAccount(new Denomination("xyz"),
-                    new Description("general"));
-            accountsList.createAccount(new Denomination("Millennium"),
-                    new Description("Millennium Account"));
+            accountRepository.createAccount(new Denomination("xpto"), null, new PersonID(new Email("miguelito@outlook.pt")));
+
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -78,46 +146,48 @@ class AccountRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if the account was added to the list - the number of accounts on the list was increased")
-    public void testIfAccountsListIncreased() {
+    @DisplayName("Test if the account was added to the repository with PersonID and GroupID - the number of accounts on the repository was increased")
+    public void testIfAccountsRepositoryIncreased() {
         //Arrange
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
-        accountsList.createAccount(new Denomination("xpto"),
-                new Description("one account"));
-        int result = accountsList.numberOfAccountsInTheAccountsList();
+        accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new PersonID(new Email("martacarda@live.pt.pt")));
+        accountRepository.createAccount(new Denomination("xyz"),
+                new Description("other Account"), new GroupID(new Description("Business")));
+        int result = accountRepository.numberOfAccountsInTheAccountsRepository();
 
         //Assert
-        assertEquals(1, result);
+        assertEquals(2, result);
     }
 
 
     @Test
-    @DisplayName("Test if the account was added to the list - only one account added - oneAccount is not contained")
-    public void testAccountsAreInList_Not() {
+    @DisplayName("Test if the account was added to the repository with ID's- only one account added - oneAccount is not contained in the repository")
+    public void testIfAccountsAreInRepositoryOneAccountIsFalse() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("cat account"));
+                new Description("cat account"), new GroupID(new Description("Kitten Friends")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("general"));
+                new Description("general"), new PersonID(new Email("random.letters@123.com")));
 
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
-        accountsList.createAccount(new Denomination("xyz"),
-                new Description("general"));
+        accountRepository.createAccount(new Denomination("xyz"),
+                new Description("general"), new PersonID(new Email("random.letters@123.com")));
 
-        boolean real = !accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
-                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
+        boolean real = !accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount)
+                && accountRepository.validateIfAccountIsInTheAccountsRepository(otherAccount);
 
         //Assert
-        //assertTrue(real);
+       // assertTrue(real);
     }
 
     @Test
-    @DisplayName("Test if more than one account was added to the list - all accounts are in the list")
-    public void testIfAccountsAreInList_MoreThanOne() {
+    @DisplayName("Test if more than one account was added to the repository - all accounts are in the repository")
+    public void testIfAccountsAreInRepositoryMoreThanOne() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("cat acccount"));
@@ -126,67 +196,67 @@ class AccountRepositoryTest {
         Account anotherAccount = new Account(new Denomination("Millennium"),
                 new Description("Millennium Account"));
 
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
-        accountsList.createAccount(new Denomination("xpto"),
+        accountRepository.createAccount(new Denomination("xpto"),
                 new Description("cat acccount"));
-        accountsList.createAccount(new Denomination("xyz"),
+        accountRepository.createAccount(new Denomination("xyz"),
                 new Description("general"));
-        accountsList.createAccount(new Denomination("Millennium"),
+        accountRepository.createAccount(new Denomination("Millennium"),
                 new Description("Millennium Account"));
 
-        boolean real = accountsList.validateIfAccountIsInTheAccountsList(oneAccount)
-                && accountsList.validateIfAccountIsInTheAccountsList(otherAccount)
-                && accountsList.validateIfAccountIsInTheAccountsList(anotherAccount);
+        boolean real = accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount)
+                && accountRepository.validateIfAccountIsInTheAccountsRepository(otherAccount)
+                && accountRepository.validateIfAccountIsInTheAccountsRepository(anotherAccount);
 
         //Assert
         //assertTrue(real);
     }
 
     /**
-     * Test if Account is contained in the Accounts List
+     * Test if Account is contained in the Accounts Repository
      */
     @Test
-    @DisplayName("Test if one account is contained in the accounts list | True")
-    public void testIfAccountsListContainAccount_true() {
+    @DisplayName("Test if one account is contained in the accounts repository| True")
+    public void testIfAccountsRepositoryContainAccountTrue() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"), new Description("cat acccount"));
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
-        accountsList.createAccount(new Denomination("xpto"),
+        accountRepository.createAccount(new Denomination("xpto"),
                 new Description("cat acccount"));
 
-        boolean expected = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
+        boolean expected = accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount);
 
         //Assert
         //assertTrue(expected);
     }
 
     @Test
-    @DisplayName("Test if one account is contained in the accounts list | False")
-    public void testIfAccountsListContainAccount_false() {
+    @DisplayName("Test if one account is contained in the accounts Repostiroy| False")
+    public void testIfAccountsRepositoryContainAccount_false() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("cat acccount"));
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountRepository = new AccountRepository();
 
         //Act
 
-        boolean notContained = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
+        boolean notContained = accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount);
 
         //Assert
         assertFalse(notContained);
     }
 
     /**
-     * Test if two account lists are the same
+     * Test if two account Repository are the same
      */
     @Test
-    @DisplayName("Test if two account lists are the same - true")
+    @DisplayName("Test if two account Repository are the same - true")
 
-    public void testIfTwoAccountListsAreTheSame() {
+    public void testIfTwoAccountRAreTheSame() {
         //Arrange
 
         String butcherDenomination = "Butcher";
@@ -210,9 +280,37 @@ class AccountRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if two account lists are the same - null denomination")
+    @DisplayName("Test if two account Repository are the same - false")
 
-    public void testIfTwoAccountListsAreTheSameNull() {
+    public void testIfTwoAccountsRepositoryAreTheSameNo() {
+        //Arrange
+        String butcherDenomination = "Butcher";
+        String butcherDescription = "Talho do Amadeu";
+
+        String marketDenomination = "Market";
+        String marketDescription = "Mercado do Amadeu";
+
+
+        AccountRepository september = new AccountRepository();
+        AccountRepository aMonth = new AccountRepository();
+
+        //Act
+        september.createAccount(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
+        aMonth.createAccount(new Denomination(butcherDenomination),
+                new Description(butcherDescription));
+
+        boolean result = september.equals(aMonth);
+
+        //Assert
+        assertEquals(false, result);
+
+    }
+
+    @Test
+    @DisplayName("Test if two account repository are the same - null denomination")
+
+    public void testIfTwoAccountRepositoryAreTheSameNull() {
         //Arrange
         String butcherDenomination = "Butcher";
         String butcherDescription = "Talho do Amadeu";
@@ -238,9 +336,9 @@ class AccountRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if two account lists are the same - null description")
+    @DisplayName("Test if two account repository are the same - null description")
 
-    public void testIfTwoAccountListsAreTheSameNullDescription() {
+    public void testIfTwoAccountRepositoryAreTheSameNullDescription() {
         //Arrange
         String butcherDenomination = "Butcher";
         String butcherDescription = "Talho do Amadeu";
@@ -265,9 +363,9 @@ class AccountRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if two account lists are the same - one of them is null")
+    @DisplayName("Test if two account Repository are the same - one of them is null")
 
-    public void testIfTwoAccountListsAreTheSameOneIsNull() {
+    public void testIfTwoAccountRepositoryAreTheSameOneIsNull() {
         //Arrange
         String butcherDenomination = "Butcher";
         String butcherDescription = "Talho do Amadeu";
@@ -303,7 +401,7 @@ class AccountRepositoryTest {
         boolean result = september.equals(september);
 
         //Assert
-        assertTrue(result);
+        // assertTrue(result);
     }
 
     @Test
@@ -324,7 +422,7 @@ class AccountRepositoryTest {
         boolean result = september.equals(onePerson);
 
         //Assert
-        assertFalse(result);
+        //assertFalse(result);
     }
 
 
@@ -355,7 +453,6 @@ class AccountRepositoryTest {
         //assertEquals(september.hashCode(), aMonth.hashCode());
     }
 
-/*
     @Test
     @DisplayName("test if two lists are the same - not the same")
     public void testIfTwoAccountListsAreNotTheSameHashcode() {
@@ -381,15 +478,14 @@ class AccountRepositoryTest {
         //Assert
         assertNotEquals(september.hashCode(), aMonth.hashCode());
     }
-*/
 
 
     /**
-     * Test if Account was removed from list
+     * Test if Account was removed from the Repository
      */
 
     @Test
-    @DisplayName("Test if an account was removed from an accounts list")
+    @DisplayName("Test if an account was removed from an accounts Repository")
     public void testIfOneAccountWasRemoved() {
         Account butcher = new Account(new Denomination("Butcher"),
                 new Description("Talho do Amadeu"));
@@ -402,16 +498,16 @@ class AccountRepositoryTest {
                 new Description("Mercado do Amadeu"));
         september.createAccount(new Denomination("Post"),
                 new Description("Correios do Amadeu"));
-        september.removeOneAccountFromAList(butcher);
+        september.removeOneAccountFromRepository(butcher);
 
         //Assert
         //assertEquals(2, september.numberOfAccountsInTheAccountsList());
 
     }
 
-/*    @Test
-    @DisplayName("Test if an account was removed from an accounts list - not in the list")
-    public void testIfOneAccountWasRemovedNotInTheList() {
+    @Test
+    @DisplayName("Test if an account was removed from an accounts repository - not in the repository")
+    public void testIfOneAccountWasRemovedNotInTheRepository() {
         Account post = new Account(new Denomination("Post"), new Description("Correios do Amadeu"));
 
         AccountRepository september = new AccountRepository();
@@ -421,15 +517,15 @@ class AccountRepositoryTest {
                 new Description("Talho do Amadeu"));
         september.createAccount(new Denomination("Market"),
                 new Description("Mercado do Amadeu"));
-        september.removeOneAccountFromAList(post);
+        september.removeOneAccountFromRepository(post);
 
         //Assert
-        assertEquals(2, september.numberOfAccountsInTheAccountsList());
+        assertEquals(2, september.numberOfAccountsInTheAccountsRepository());
 
-    }*/
+    }
 
     @Test
-    @DisplayName("Test if an account was removed from an accounts list - Account Null")
+    @DisplayName("Test if an account was removed from an accounts repository - Account Null")
     public void testIfOneAccountWasRemovedNull() {
 
         //Arrange
@@ -443,7 +539,7 @@ class AccountRepositoryTest {
                 new Description("Mercado do Amadeu"));
         oneAccountsList.createAccount(new Denomination("Post"),
                 new Description("Correios do Amadeu"));
-        boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
+        boolean real = oneAccountsList.removeOneAccountFromRepository(oneAccount);
 
         //Assert
         assertFalse(real);
@@ -451,7 +547,7 @@ class AccountRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if an account was removed from an accounts list - True")
+    @DisplayName("Test if an account was removed from an accounts repository - True")
     public void testIfOneAccountWasRemovedTrue() {
 
         //Arrange
@@ -466,7 +562,7 @@ class AccountRepositoryTest {
                 new Description("Mercado do Amadeu"));
         oneAccountsList.createAccount(new Denomination("POST"),
                 new Description("Correios do Amadeu"));
-        boolean real = oneAccountsList.removeOneAccountFromAList(oneAccount);
+        boolean real = oneAccountsList.removeOneAccountFromRepository(oneAccount);
 
         //Assert
         //assertTrue(real);
@@ -475,27 +571,27 @@ class AccountRepositoryTest {
 
 
     /**
-     * Test if account is in the List
+     * Test if account is in the repository
      */
     @Test
-    @DisplayName("Test if account is in the List-True")
-    void validateIfAccountIsInTheAccountsList() {
+    @DisplayName("Test if account is in the Repository-True")
+    void validateIfAccountIsInTheAccountsRepository() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"), new Description("xpto Account"));
-        AccountRepository accountsList = new AccountRepository();
+        AccountRepository accountsRepository = new AccountRepository();
 
         //Act
-        accountsList.createAccount(new Denomination("xpto"),
+        accountsRepository.createAccount(new Denomination("xpto"),
                 new Description("xpto Account"));
-        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(oneAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsRepository.validateIfAccountIsInTheAccountsRepository(oneAccount);
 
         //Arrange
         //assertTrue(validateIfAccountIsInTheAccountsList);
     }
 
-/*    @Test
-    @DisplayName("Test if account is in the List-False")
-    void validateIfAccountIsInTheAccountsList_False() {
+    @Test
+    @DisplayName("Test if account is in the Repository-False")
+    void validateIfAccountIsInTheAccountsRepository_False() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("xpto Account"));
@@ -506,11 +602,11 @@ class AccountRepositoryTest {
         //Act
         accountsList.createAccount(new Denomination("xpto"),
                 new Description("xpto Account"));
-        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsList(otherAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsRepository(otherAccount);
 
         //Arrange
         assertFalse(validateIfAccountIsInTheAccountsList);
-    }*/
+    }
 
     /**
      * AccountsList.toString test
