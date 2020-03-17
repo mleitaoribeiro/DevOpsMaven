@@ -41,18 +41,13 @@ public class Denomination {
 
         if (newDenomination == null || newDenomination.isEmpty()){
             throw new IllegalArgumentException("The denomination can´t be null or empty!");
-
-        } else {
-            newDenomination = removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
-            return newDenomination;
-        }
+        } else return removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
     }
 
     /**
      * Auxiliary method to remove special Characters
      *
      * @param sentence
-     * @return
      */
 
     private static String removeSpecialCharacters(String sentence) {
@@ -62,9 +57,7 @@ public class Denomination {
 
         for (String element : str) {
             buildNewStringArray.append(" ").append(element);
-        }
-
-        return buildNewStringArray.toString().replaceFirst(" ", "");
+        } return buildNewStringArray.toString().replaceFirst(" ", "");
     }
 
     /**
@@ -75,12 +68,7 @@ public class Denomination {
      */
 
     private static String removeWordAccents(String sentence) {
-
         sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
-        sentence = sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-
-        return sentence;
+        return sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
     }
-
-
 }

@@ -3,14 +3,12 @@ package switch2019.project.repository;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.ledger.Periodicity;
 import switch2019.project.model.ledger.Type;
-import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
 
 import java.time.LocalDateTime;
 import java.util.*;

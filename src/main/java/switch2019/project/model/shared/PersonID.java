@@ -14,15 +14,16 @@ public class PersonID implements OwnerID {
      * PersonID constructor
      */
     public PersonID(Email email) {
-        this.email = email;
+        if(email != null) this.email = email;
+        else throw new IllegalArgumentException("email can't be null.");
     }
 
     /**
      * Method to return Person Name
      * @return personName
      */
-    public Email getEmail() {
-        return email;
+    public String getEmail() {
+        return email.getEmailAddress();
     }
 
     /**

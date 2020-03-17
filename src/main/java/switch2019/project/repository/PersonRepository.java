@@ -6,7 +6,6 @@ import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.PersonID;
 
-import javax.lang.model.util.ElementScanner7;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,7 +58,7 @@ public class PersonRepository implements Repository{
      */
     public Person findPersonByEmail(Email personEmail) {
         for(Person person : listOfPersons) {
-            if(person.getID().getEmail().equals(personEmail))
+            if(person.getID().getEmail().equals(personEmail.getEmailAddress()))
                 return person;
         } throw new IllegalArgumentException("No person found with that email.");
     }

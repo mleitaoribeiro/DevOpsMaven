@@ -35,7 +35,7 @@ public class Account implements Entity {
     }
 
     /**
-     * 2nd Constructor of Account
+     * Constructor of Account
      *
      * @param accountDenomination
      * @param accountDescription
@@ -60,7 +60,7 @@ public class Account implements Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account oneAccount = (Account) o;
-        return Objects.equals(this.denomination, oneAccount.denomination);
+        return Objects.equals(accountID, oneAccount.accountID);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Account implements Entity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(denomination, description, balance);
+        return Objects.hash(accountID);
     }
 
     /**
@@ -146,6 +146,6 @@ public class Account implements Entity {
      */
 
     public Account getCopyOfAccount() {
-        return new Account(this.denomination, this.description);
+        return new Account(new Denomination(accountID.getDenomination()), description, accountID.getOwnerID());
     }
 }

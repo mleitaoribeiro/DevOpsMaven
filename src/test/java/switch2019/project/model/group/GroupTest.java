@@ -2153,7 +2153,7 @@ class GroupTest {
     @DisplayName("Obtain transactions from an account - case of success")
     void obtainTransactionsFromAnAccount() {
         //Arrange
-        Group group1 = new Group("Caloteiros");
+        Group group = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2019, 12, 13, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 26, 13, 02);
 
@@ -2163,35 +2163,32 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), group.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), group.getID());
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), group.getID());
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category("grocery", group.getID());
+        Category category2 = new Category("friends", group.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
-
-
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
         Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
-        group1.addMember(person1);
+        group.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
+        group.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
-
+        List<Transaction> listOfTransactions = group.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
         //Assert
         assertEquals(expectedTransactions,listOfTransactions);
@@ -2201,7 +2198,7 @@ class GroupTest {
     @DisplayName("Obtain transactions from an account - dates change")
     void obtainTransactionsFromAnAccountDateChange() {
         //Arrange
-        Group group1 = new Group("Caloteiros");
+        Group group = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 26, 13, 02);
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
 
@@ -2210,14 +2207,14 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), group.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), group.getID());
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), group.getID());
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category("grocery", group.getID());
+        Category category2 = new Category("friends", group.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -2229,16 +2226,16 @@ class GroupTest {
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
         Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
-        group1.addMember(person1);
+        group.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction2, transaction1, transaction3));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
+        group.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2249,7 +2246,7 @@ class GroupTest {
     @DisplayName("Obtain transactions from an account - same day")
     void obtainTransactionsFromAnAccountSameDay() {
         //Arrange
-        Group group1 = new Group("Caloteiros");
+        Group group = new Group("Caloteiros");
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 14, 00, 00);
         LocalDateTime date2 = LocalDateTime.of(2020, 1, 14, 23, 59);
 
@@ -2258,14 +2255,14 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), group.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), group.getID());
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), group.getID());
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category("grocery", group.getID());
+        Category category2 = new Category("friends", group.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -2275,16 +2272,16 @@ class GroupTest {
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
         Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
-        group1.addMember(person1);
+        group.addMember(person1);
 
         List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1));
 
-        group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
-        group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
-        group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
+        group.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
+        group.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
+        group.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         //Act
-        List<Transaction> listOfTransactions = group1.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
+        List<Transaction> listOfTransactions = group.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
 
         //Assert
@@ -2454,14 +2451,14 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), group1.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), group1.getID());
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), group1.getID());
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category("grocery", group1.getID());
+        Category category2 = new Category("friends", group1.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));

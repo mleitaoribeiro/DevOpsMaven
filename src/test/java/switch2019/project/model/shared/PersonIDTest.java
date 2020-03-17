@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PersonIDTest {
 
-    //@Test
+    @Test
     void getPersonName() {
         //Arrange:
         PersonID personID = new PersonID(new Email("1234@isep.pt"));
         String expected = "1234@isep.pt";
 
         //Act:
-        Email result = personID.getEmail();
+        String result = personID.getEmail();
 
         //Assert:
         assertEquals(expected, result);

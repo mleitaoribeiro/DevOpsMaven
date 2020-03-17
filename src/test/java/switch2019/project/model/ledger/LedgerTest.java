@@ -2,13 +2,16 @@ package switch2019.project.model.ledger;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.person.Address;
+import switch2019.project.model.person.Email;
+import switch2019.project.model.person.Person;
+import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.MonetaryValue;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 
-import java.security.IdentityScope;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -670,56 +673,58 @@ class LedgerTest {
     @DisplayName("Get movements from one account - Success Case")
     void getMovementsFromOneAccountSuccessCase() {
         //Arrange
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Ledger ledger = new Ledger();
         Account account = new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries"));
+                new Description("Only for Groceries"), person.getID());
 
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries")),
+                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
-                        new Description("Food Expenses")),
+                        new Description("Food Expenses"), person.getID()),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries")),
+                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
-                        new Description("Food Expenses")),
+                        new Description("Food Expenses"), person.getID()),
                 new Type(false));
 
         //Arrange-Transaction2
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
-                new Category("grocery"), new Account(new Denomination("BNI"),
-                        new Description("General")),
+                new Category("grocery", person.getID()), new Account(new Denomination("BNI"),
+                        new Description("General"), person.getID()),
                 new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries")),
+                        new Description("Only for Groceries"), person.getID()),
                 new Type(false));
         Transaction transaction2 = new Transaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
                 new Category("grocery"), new Account(new Denomination("BNI"),
-                new Description("General")),
+                new Description("General"), person.getID()),
                 new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries")),
+                        new Description("Only for Groceries"), person.getID()),
                 new Type(false));
 
         //Arrange-Transaction3
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses")),
+                        new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
-                        new Description("Gas")),
+                        new Description("Gas"), person.getID()),
                 new Type(false));
         Transaction transaction3 = new Transaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account(new Denomination("CGD"),
-                new Description("Only Gas Expenses")),
+                new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
-                        new Description("Gas")),
+                        new Description("Gas"), person.getID()),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1,transaction2,transaction3));
@@ -771,24 +776,26 @@ class LedgerTest {
     @DisplayName("Get movements from one account - Account without movements")
     void getMovementsFromOneAccountAccountWithoutMovements() {
         //Arrange
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Ledger ledger = new Ledger();
         Account account = new Account(new Denomination("CaixaGeral"),
-                new Description("General"));
+                new Description("General"), person.getID());
 
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries")),
+                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                        new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
-                        new Description("Food Expenses")),
+                        new Description("Food Expenses"), person.getID()),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery"), new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries")),
+                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
-                        new Description("Food Expenses")),
+                        new Description("Food Expenses"), person.getID()),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));

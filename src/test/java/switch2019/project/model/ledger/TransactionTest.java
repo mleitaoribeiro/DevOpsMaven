@@ -104,21 +104,21 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - different account to")
     public void testIfTwoTransactionsAreEqualsDifferentAccountTo() {
         //Arrange
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), person.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), person.getID());
         Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"));
-        Category category = new Category("grocery");
+                new Description("bowling NorteShopping"), person.getID());
+        Category category = new Category("grocery", person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, "payment", null, category, account1, account3, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -130,14 +130,16 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different account from")
     public void testIfTwoTransactionsAreEqualsFalseDifferentAccountFrom() {
         //Arrange
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), person.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), person.getID());
         Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"));
+                new Description("bowling NorteShopping"), person.getID());
 
-        Category category = new Category("grocery");
+        Category category = new Category("grocery", person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
@@ -352,22 +354,22 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false")
     public void testIfTwoTransactionsAreEqualsFalse() {
         //Arrange
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), person.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), person.getID());
         Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"));
+                new Description("bowling NorteShopping"), person.getID());
 
-        Category category = new Category("grocery");
+        Category category = new Category("grocery", person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, "payment", null, category, account1, account3, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -455,13 +457,15 @@ class TransactionTest {
     @DisplayName("Test if two transactions have the same hashcode - not the same")
     public void testIfTwoTransactionsHaveTheSameHashcodeNo() {
         //Arrange & Act
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), person.getID());
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), person.getID());
         Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"));
-        Category category = new Category("grocery");
+                new Description("bowling NorteShopping"), person.getID());
+        Category category = new Category("grocery", person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
 

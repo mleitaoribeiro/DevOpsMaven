@@ -28,6 +28,15 @@ public class AccountID implements ID {
     }
 
     /**
+     * Method to return ownerID
+     * @return ownerID
+     */
+    public OwnerID getOwnerID() {
+        return ownerID;
+    }
+
+
+    /**
      * Override to equals method
      */
     @Override

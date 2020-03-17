@@ -136,10 +136,14 @@ class AccountTest {
     public void testIfTwoAccountsDontHaveTheSameHashCode() {
 
         //Arrange & Act
+        Person person = new Person("Alex", new DateAndTime(1995, 12, 04), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"),new Email("1234@isep.pt"));
+        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 04), new Address("Lisboa"),
+                new Address("Rua X", "Porto", "4520-266"),new Email("zzzzzz@isep.pt"));
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("xpto account"));
+                new Description("xpto account"), person.getID());
         Account otherAccount = new Account(new Denomination("xpto"),
-                new Description("xyz account"));
+                new Description("xyz account"), person2.getID());
 
         //Assert
         assertNotEquals(oneAccount.hashCode(), otherAccount.hashCode());
