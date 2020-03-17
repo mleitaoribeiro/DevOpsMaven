@@ -4,11 +4,11 @@ participant ":Test"
 create ":US004GetFamilyGroupsController"
 
 ":Test" -> ":US004GetFamilyGroupsController" : new US004GetFamilyGroupsController()
-":Test" -> ":US004GetFamilyGroupsController" : groups = getFamilyGroups(service)
+":Test" -> ":US004GetFamilyGroupsController" : groups = getFamilyGroups(service, groupsRepository)
 activate ":US004GetFamilyGroupsController" #FFBBBB
 
 participant "service:US004GetFamilyGroupsService"
-":US004GetFamilyGroupsController" -> "service:US004GetFamilyGroupsService" : groups = getFamilyGroups()
+":US004GetFamilyGroupsController" -> "service:US004GetFamilyGroupsService" : groups = getFamilyGroups(groupsRepository)
 activate "service:US004GetFamilyGroupsService" #FFBBBB
 
 participant ":GroupRepository"
