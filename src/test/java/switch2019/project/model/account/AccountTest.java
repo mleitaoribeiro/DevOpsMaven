@@ -248,4 +248,52 @@ class AccountTest {
         //Assert
         assertEquals( groupID, accountOwnerID);
     }
+
+    /**
+     * Test Method get ownerID.
+     */
+
+    @Test
+    @DisplayName("Test Get owner ID - Group Creator - Success")
+    void testGetownerID_GroupCreator() {
+
+        //Arrange:
+        Denomination accountDenomination = new Denomination("Revo");
+        Description accountDescription = new Description("xpto");
+        GroupID groupID = new GroupID(new Description("Policias"));
+
+        Account oneAccount = new Account(accountDenomination, accountDescription, groupID);
+
+        OwnerID expected = groupID;
+
+
+        //Act:
+        OwnerID real = oneAccount.getOwnerID();
+
+        //Assert:
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Test Get owner ID - Person Creator - Success")
+    void testGetOwnerID_PersonCreator() {
+
+        //Arrange:
+        Denomination accountDenomination = new Denomination("Revo");
+        Description accountDescription = new Description("xpto");
+        PersonID personID = new PersonID(new Email("qwerty.1@gmail.com"));
+
+        Account oneAccount = new Account(accountDenomination, accountDescription, personID);
+
+        OwnerID expected = personID;
+
+
+        //Act:
+        OwnerID real = oneAccount.getOwnerID();
+
+        //Assert:
+        assertEquals(expected, real);
+    }
+
+
 }
