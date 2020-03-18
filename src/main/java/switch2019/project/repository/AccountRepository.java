@@ -65,15 +65,15 @@ public class AccountRepository implements Repository {
     public Set<Account> returnAccountsByOwnerID(OwnerID ownerID) {
         Set<Account> listOfAccountsByOwnerID = new HashSet<>();
         if (ownerID != null) {
-            for (Account account : accounts) {
-                if (account.getOwnerID().equals(ownerID)) {
+            for (Account account : accounts)
+                if (account.getOwnerID().equals(ownerID))
                     listOfAccountsByOwnerID.add(account);
-                }
-            }
-            return listOfAccountsByOwnerID;
-        } else throw new IllegalArgumentException("No account found with that ID.");
+            if (!listOfAccountsByOwnerID.isEmpty())
+                return listOfAccountsByOwnerID;
+            else throw new IllegalArgumentException("Any Account found with that ID.");
+        }
+        throw new IllegalArgumentException("Owner ID can't be null.");
     }
-
 
     /**
      * Method to get the numbers of Accounts in the Repository
