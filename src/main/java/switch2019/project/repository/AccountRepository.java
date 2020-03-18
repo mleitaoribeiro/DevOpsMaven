@@ -3,6 +3,7 @@ package switch2019.project.repository;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.frameworks.OwnerID;
+import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 
@@ -73,8 +74,7 @@ public class AccountRepository implements Repository {
      * @return int
      */
 
-    public int numberOfAccountsInTheAccountsRepository() {
-        return this.accounts.size();
+    public int numberOfAccountsInTheAccountsRepository() { return this.accounts.size();
     }
 
     /**
@@ -90,7 +90,6 @@ public class AccountRepository implements Repository {
         this.accounts.add(oneAccount);
         return this.accounts.contains(oneAccount);
     }
-
 
     /**
      * method to remove one account from the Repository
@@ -109,11 +108,14 @@ public class AccountRepository implements Repository {
     /**
      * method to validate if the account is in the accounts Repository
      *
-     * @param accountToValidate
+     * @param accountID
      * @return boolean
      */
 
-    public boolean validateIfAccountIsInTheAccountsRepository(Account accountToValidate) {
-        return this.accounts.contains(accountToValidate);
+    public boolean isAccountIDOnRepository(AccountID accountID) {
+        for(Account accounts : accounts)
+            if(accounts.getID().equals(accountID))
+                return true;
+        return false;
     }
 }

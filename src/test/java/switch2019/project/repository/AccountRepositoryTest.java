@@ -4,9 +4,7 @@ package switch2019.project.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
-import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
-import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -183,8 +181,8 @@ class AccountRepositoryTest {
         accountRepository.createAccount(new Denomination("xyz"),
                 new Description("general"), new PersonID(new Email("random.letters@123.com")));
 
-        boolean real = !accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount)
-                && accountRepository.validateIfAccountIsInTheAccountsRepository(otherAccount);
+        boolean real = !accountRepository.isAccountIDOnRepository(oneAccount.getAccountID())
+                && accountRepository.isAccountIDOnRepository(otherAccount.getAccountID());
 
         //Assert
        assertTrue(real);
@@ -211,9 +209,9 @@ class AccountRepositoryTest {
         accountRepository.createAccount(new Denomination("Millennium"),
                 new Description("Millennium Account"), new PersonID(new Email("millenum@isep.pt")));
 
-        boolean real = accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount)
-                && accountRepository.validateIfAccountIsInTheAccountsRepository(otherAccount)
-                && accountRepository.validateIfAccountIsInTheAccountsRepository(anotherAccount);
+        boolean real = accountRepository.isAccountIDOnRepository(oneAccount.getAccountID())
+                && accountRepository.isAccountIDOnRepository(otherAccount.getAccountID())
+                && accountRepository.isAccountIDOnRepository(anotherAccount.getAccountID());
 
         //Assert
         assertTrue(real);
@@ -235,7 +233,7 @@ class AccountRepositoryTest {
         accountRepository.createAccount(new Denomination("xpto"),
                 new Description("cat acccount"), new PersonID( new Email("mocho@gmail.com")));
 
-        boolean expected = accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount);
+        boolean expected = accountRepository.isAccountIDOnRepository(oneAccount.getAccountID());
 
         //Assert
         assertTrue(expected);
@@ -251,7 +249,7 @@ class AccountRepositoryTest {
 
         //Act
 
-        boolean notContained = accountRepository.validateIfAccountIsInTheAccountsRepository(oneAccount);
+        boolean notContained = accountRepository.isAccountIDOnRepository(oneAccount.getAccountID());
 
         //Assert
         assertFalse(notContained);
@@ -362,7 +360,7 @@ class AccountRepositoryTest {
         //Act
         accountsRepository.createAccount(new Denomination("xpto"),
                 new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
-        boolean validateIfAccountIsInTheAccountsList = accountsRepository.validateIfAccountIsInTheAccountsRepository(oneAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsRepository.isAccountIDOnRepository(oneAccount.getAccountID());
 
         //Arrange
         assertTrue(validateIfAccountIsInTheAccountsList);
@@ -381,7 +379,7 @@ class AccountRepositoryTest {
         //Act
         accountsList.createAccount(new Denomination("xpto"),
                 new Description("xpto Account"), new PersonID(new Email("xpto@gmail.com")));
-        boolean validateIfAccountIsInTheAccountsList = accountsList.validateIfAccountIsInTheAccountsRepository(otherAccount);
+        boolean validateIfAccountIsInTheAccountsList = accountsList.isAccountIDOnRepository(otherAccount.getAccountID());
 
         //Arrange
          assertFalse(validateIfAccountIsInTheAccountsList);
