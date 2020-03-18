@@ -8,29 +8,22 @@ create ":US007CreateGroupAccountController"
 
 == Act ==
 
-":Test" -> ":US007CreateGroupAccountController" : account = createGroupAccount\n(service, personAttributes, groupAttributes, \ndenomination, description)
+":Test" -> ":US007CreateGroupAccountController" : accountCreated = createGroupAccount\n( personID, groupID, denomination, description)
 activate ":US007CreateGroupAccountController"  #FFBBBB
 
-":US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : account = createGroupAccount\n(personAttributes, groupAttributes, \ndenomination, description)
+":US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personID, groupID, denomination, description)
 activate "service:US007CreateGroupAccountService"  #FFBBBB
 
-"service:US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByAttributes(groupAttributes)
+"service:US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByID(groupID)
 activate ":GroupsRepository"  #FFBBBB
 deactivate ":GroupsRepository"  #FFBBBB
 
-"service:US007CreateGroupAccountService" -> ":PersonRepository" : person = findPersonByAttributes(personAttributes)
-activate ":PersonRepository" #FFBBBB
-deactivate ":PersonRepository" #FFBBBB
-
-"service:US007CreateGroupAccountService" -> ":Group" : valid = isAdmin(person)
+"service:US007CreateGroupAccountService" -> ":Group" : valid = isGroupAdmin(personID)
 activate ":Group" #FFBBBB
 deactivate ":Group" #FFBBBB
 
-"service:US007CreateGroupAccountService" -> ":Group" : groupId = getGroupId(group)
-activate ":Group" #FFBBBB
-deactivate ":Group" #FFBBBB
 
-"service:US007CreateGroupAccountService" -> ":AccountsRepository" : newAccount = createAccount(groupId, \ndenomination,description)
+"service:US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(groupID, \ndenomination,description)
 activate ":AccountsRepository" #FFBBBB
 
 create ":Account"

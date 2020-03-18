@@ -23,12 +23,17 @@ public class US007CreateGroupAccountService {
     }
 
 
+    /**
+     *US007 - As a group Admin, I want to create a group account
+     *
+     * @param onePersonID
+     * @param oneGroupID
+     * @param accountDenomination
+     * @param accountDescription
+     * @return
+     */
     public boolean createGroupAccount (PersonID onePersonID, GroupID oneGroupID,
                                        Denomination accountDenomination, Description accountDescription ) {
-
-        boolean personIDExistsInRepository = personRepository.isPersonIDOnRepository(onePersonID);
-
-        if (personIDExistsInRepository) {
 
             Group oneGroup = groupsRepository.findGroupByID(oneGroupID);
 
@@ -38,9 +43,7 @@ public class US007CreateGroupAccountService {
                 return accountRepository.createAccount(accountDenomination, accountDescription, oneGroupID);
             }
             return false;
-        }
 
-        throw new  IllegalArgumentException("The Person ID doesn't exist!");
     }
 
 }

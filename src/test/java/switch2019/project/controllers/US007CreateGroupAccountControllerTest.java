@@ -97,6 +97,12 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
+    /**
+     *
+     * Test If group Account is created - Happy Cases
+     *
+     */
+
     @Test
     @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreated_HappyCase() {
@@ -184,14 +190,21 @@ class US007CreateGroupAccountControllerTest {
 
         //Act
         boolean accountsCreated = controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription)
-                && service.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1)
-                && service.createGroupAccount(creatorID, groupFamilyID, accountDenomination2, accountDescription2);
+                && controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1)
+                && controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination2, accountDescription2);
 
         int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
         //Assert
         assertTrue(accountsCreated && numberOfExpectedAccountsInTheRepository == realNumberOfAccountsInTheRepository);
     }
+
+
+    /**
+     *
+     * Test If group Account is created - Fail
+     *
+     */
 
 
     @Test
@@ -232,7 +245,7 @@ class US007CreateGroupAccountControllerTest {
         try {
             controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
         } catch (IllegalArgumentException ex) {
-
+            //Assert
             assertEquals("This Account already exists for that ID.", ex.getMessage());
         }
     }
@@ -250,13 +263,17 @@ class US007CreateGroupAccountControllerTest {
         int numberOfExpectedAccountsInTheRepository = 1;
 
         //Act
-        controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
-       // controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+        try {
+            controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+            controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+        }
+        catch (IllegalArgumentException ex) {
+            //Assert
+            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            assertEquals("This Account already exists for that ID.", ex.getMessage());
+            assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
+        }
 
-        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
-
-        //Assert
-        //assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
     }
 
     @Test
@@ -274,16 +291,21 @@ class US007CreateGroupAccountControllerTest {
         Description accountDescription1 = new Description("Revolut Account");
 
         int numberOfExpectedAccountsInTheRepository = 2;
+
+
+        //Act
         controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
         controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
+
         int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
         try {
             controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination1, accountDescription1);
         }
         catch(IllegalArgumentException invalid) {
+            //Assert
             assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
             assertEquals("This Account already exists for that ID.", invalid.getMessage());
-
         }
     }
 
@@ -306,6 +328,27 @@ class US007CreateGroupAccountControllerTest {
     }
 
     @Test
+    @DisplayName("Test If group Account is created - Person it´s Member but not Admin - Verify number of accounts")
+    void testIfGroupAccountWasCreated_NotAdminNumberOfAccounts() {
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("joao.cardoso_12@hotmail.com"));
+        GroupID groupFriendsID  = new GroupID(new Description("Friends"));
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        int numberOfExpectedAccountsInTheRepository = 0;
+
+        //Act
+        boolean accountCreated =  controller.createGroupAccount(creatorID, groupFriendsID, accountDenomination, accountDescription);
+        int realNumberOfAccountsInTheRepository = 0;
+
+        //Assert
+        assertFalse(accountCreated);
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
+    }
+
+    @Test
     @DisplayName("Test If group Account is created - Person it´s not a Member")
     void testIfGroupAccountWasCreated_NotGroupMember() {
 
@@ -320,6 +363,30 @@ class US007CreateGroupAccountControllerTest {
 
         //Assert
         assertFalse(accountCreated);
+
+    }
+
+    @Test
+    @DisplayName("Test If group Account is created - Person it´s not a Member - Verify number of accounts ")
+    void testIfGroupAccountWasCreated_NotGroupMemberNumberOfAccounts() {
+
+        //Arrange
+        PersonID creatorID = new PersonID (new Email("roberto_a.0@gmail.com"));
+        GroupID groupIsepID  = new GroupID(new Description("Isep"));
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        int numberOfExpectedAccountsInTheRepository = 0;
+
+        //Act
+
+        boolean accountCreated =  controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
+
+        int realNumberOfAccountsInTheRepository = 0;
+
+        //Assert
+        assertFalse(accountCreated);
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
     }
 
 
@@ -355,13 +422,39 @@ class US007CreateGroupAccountControllerTest {
         Description accountDescription = new Description("Online Shopping");
 
         //Act
-        try {
-            controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
-        } catch (IllegalArgumentException invalid) {
-            //Assert
-            assertEquals("The Person ID doesn't exist!", invalid.getMessage());
-        }
+
+        boolean accountCreated = controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
+
+        //Assert
+        assertFalse(accountCreated);
+
     }
+
+
+    @Test
+    @DisplayName("Test If group Account is created - Person do not Exists - Verify number of accounts")
+    void testIfGroupAccountWasCreated_PersonNotExistsNumberOfAccounts() {
+
+        //Arrange
+        PersonID creatorID = new PersonID(new Email("miguel@gmail.com"));
+        GroupID groupIsepID = new GroupID(new Description("Isep"));
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        int numberOfExpectedAccountsInTheRepository = 0;
+
+        //Act
+
+        boolean accountCreated = controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
+
+        int realNumberOfAccountsInTheRepository = 0;
+
+        //Assert
+        assertFalse(accountCreated);
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
+
+    }
+
 
     @Test
     @DisplayName("Test If group Account is created - Person ID null")
@@ -374,12 +467,34 @@ class US007CreateGroupAccountControllerTest {
         Description accountDescription = new Description("Online Shopping");
 
         //Act
-        try {
-            controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
-        } catch (IllegalArgumentException invalid) {
-            //Assert
-            assertEquals("The Person ID doesn't exist!", invalid.getMessage());
-        }
+
+        boolean accountCreated = controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
+
+        //Assert
+        assertFalse(accountCreated);
+    }
+
+    @Test
+    @DisplayName("Test If group Account is created - Person ID null - Verify number of accounts ")
+    void testIfGroupAccountWasCreated_PersonIDNullNumberOfAccounts() {
+
+        //Arrange
+        PersonID creatorID = null;
+        GroupID groupIsepID = new GroupID(new Description("Isep"));
+        Denomination accountDenomination = new Denomination("Online");
+        Description accountDescription = new Description("Online Shopping");
+
+        int numberOfExpectedAccountsInTheRepository = 0;
+
+        //Act
+
+        boolean accountCreated = controller.createGroupAccount(creatorID, groupIsepID, accountDenomination, accountDescription);
+
+        int realNumberOfAccountsInTheRepository = 0;
+
+        //Assert
+        assertFalse(accountCreated);
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
     }
 
     @Test
