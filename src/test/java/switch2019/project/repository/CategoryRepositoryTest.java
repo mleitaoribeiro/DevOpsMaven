@@ -294,10 +294,10 @@ class CategoryRepositoryTest {
         //Add several categories simultaneously to Category Repository with method under test
         newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheRepository = newCategoryRepository.numberOfCategoryInRepository();
+        int realNumberOfCategoriesOfTheList = newCategoryRepository.numberOfCategoriesInRepository();
 
         //Assert
-        assertEquals(2, realNumberOfCategoriesOfTheRepository);
+        assertEquals(2, realNumberOfCategoriesOfTheList);
 
     }
 
@@ -321,9 +321,9 @@ class CategoryRepositoryTest {
         //Add everal categories simultaneously to Category Repository with method under test
         newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheRepository = newCategoryRepository.numberOfCategoryInRepository();
+        int realNumberOfCategoriesOfTheList = newCategoryRepository.numberOfCategoriesInRepository();
 
-        assertEquals(2, realNumberOfCategoriesOfTheRepository);
+        assertEquals(2, realNumberOfCategoriesOfTheList);
     }
 
 
@@ -499,7 +499,7 @@ class CategoryRepositoryTest {
         categoryRepository.createCategory(new Denomination("Transports"), person1.getID());
         categoryRepository.createCategory(new Denomination("House"), person1.getID());
 
-        int actual = categoryRepository.numberOfCategoryInRepository();
+        int actual = categoryRepository.numberOfCategoriesInRepository();
         //Assert
         assertEquals(2, actual);
     }
@@ -513,7 +513,7 @@ class CategoryRepositoryTest {
         CategoryRepository categoryRepository = new CategoryRepository(); //empty Category Repository
 
         //Act
-        int actual = categoryRepository.numberOfCategoryInRepository();
+        int actual = categoryRepository.numberOfCategoriesInRepository();
 
         //Assert
         assertEquals(0, actual);

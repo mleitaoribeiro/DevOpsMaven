@@ -43,4 +43,15 @@ public class CategoryID implements ID {
         return denomination.toString();
     }
 
+
+    /**
+     * Override
+     * @return denomination toString
+     */
+    @Override
+    public String toString() {
+        return denomination.toString() + ", " + ownerID.toString();
+    }
+
+
 }

@@ -126,8 +126,9 @@ public class CategoryRepository implements Repository {
 
     /**
      * Method to get the numbers of Categories in the Category List
+     * @return category
      */
-    public int numberOfCategoryInRepository() {
+    public int numberOfCategoriesInRepository() {
         return this.categories.size();
     }
 }
