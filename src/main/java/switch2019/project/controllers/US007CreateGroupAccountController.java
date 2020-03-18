@@ -1,6 +1,5 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.GroupID;
@@ -17,9 +16,12 @@ public class US007CreateGroupAccountController {
         this.service = service;
     }
 
+
     /**
      * US007 - As a group Admin, I want to create a group account
      *
+     * @param onePersonID
+     * @param oneGroupID
      * @param accountDenomination
      * @param accountDescription
      * @return
