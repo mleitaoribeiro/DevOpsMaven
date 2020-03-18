@@ -65,6 +65,20 @@ public class US003AddMemberToGroupServiceTest {
     }
 
     @Test
+    @DisplayName("Test if a member was added to group-Same Person")
+    void addMemberToGroupAlreadyIn() {
+        //Arrange
+        PersonID personID = new PersonID(new Email("jose.cardoso@hotmail.com"));
+        GroupID groupID = new GroupID(new Description("familia"));
+
+        //Act
+
+        boolean memberAdded = service.addMemberToGroup(personID, groupID);
+
+        //Assert
+        assertFalse(memberAdded);
+    }
+    @Test
     @DisplayName("Test if a member was added to group-Invalid Person ID")
     void addMemberToGroupInvalidPersonID() {
         //Arrange
