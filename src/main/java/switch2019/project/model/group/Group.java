@@ -280,8 +280,6 @@ public class Group implements Owner {
      * @param categoryCreator
      * @return true if category was added to group's Category List, false if it wasn't
      */
-
-    //alterar para depois por o ID
     public boolean createCategory(String nameOfCategory, Person categoryCreator) {
         if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
             return categoryList.createCategory(nameOfCategory, categoryCreator.getID());
