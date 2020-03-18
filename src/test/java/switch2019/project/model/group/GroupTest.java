@@ -367,7 +367,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
         //Act
         group1.addMultipleMembers(putMembers);
 
@@ -394,7 +394,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person3 = null;
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
         group1.addMultipleMembers(putMembers);
 
         //Act
@@ -452,6 +452,7 @@ class GroupTest {
 
         //Act
         group1.addMember(person1); //Admin
+        group1.addMember(person2);
         group1.setAdmin(person2); //Admin
         group1.addMember(person3);
 
@@ -473,7 +474,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
@@ -528,7 +529,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
         group1.addMultipleMembers(putMembers);
 
         //Act
@@ -714,7 +715,7 @@ class GroupTest {
         person3.setFather(person5);
 
         Group group1 = new Group("Family");
-        group1.setAdmin(person4);
+        group1.addMember(person4);
         // Act
         group1.addMultipleMembers(familyList);
 
@@ -749,7 +750,7 @@ class GroupTest {
         person3.setFather(person5);
 
         Group group1 = new Group("Family");
-        group1.setAdmin(person1);
+        group1.addMember(person1);
         // Act
         group1.addMultipleMembers(familyList);
 
@@ -775,7 +776,7 @@ class GroupTest {
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
 
         Group group1 = new Group("Family");
-        group1.setAdmin(person1);
+        group1.addMember(person1);
 
         // Act
         group1.addMultipleMembers(familyList);
@@ -806,7 +807,7 @@ class GroupTest {
         person3.setFather(person5);
 
         Group group1 = new Group("Family");
-        group1.setAdmin(person1);
+        group1.addMember(person1);
 
         // Act
         group1.addMultipleMembers(familyList);
@@ -853,7 +854,7 @@ class GroupTest {
         boolean result = group1.setAdmin(person1);
 
         //Assert:
-        assertTrue(result);
+        assertFalse(result);
     }
 
     @Test
@@ -1003,7 +1004,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         Group group1 = new Group("Francis Group");
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
 
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
         boolean addedMultipleMembers = group1.addMultipleMembers(setOfPeopleToAddToGroup);
@@ -1032,7 +1033,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         Group group1 = new Group("Francis Group");
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
 
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
         HashSet<Person> setOfPeopleToBeAdmin = new HashSet<>(Arrays.asList(person1, person2));
@@ -1286,8 +1287,8 @@ class GroupTest {
      * Check if a person was promoted to member and group administrator simultaneously
      */
     @Test
-    @DisplayName("Promote person to member and group admin simultaneously")
-    void memberAndGroupAdminSimultaneously() {
+    @DisplayName("Promote person to group admin - False - person not member")
+    void promoteNotMemberToAdmin() {
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
@@ -1297,7 +1298,7 @@ class GroupTest {
         boolean isMemberAddedAsAdmin = group1.setAdmin(person1);
 
         //Assert
-        assertTrue(isMemberAddedAsAdmin);
+        assertFalse(isMemberAddedAsAdmin);
     }
 
     @Test
@@ -1318,7 +1319,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Promote person to member and group admin simultaneously while there are more than members that are not admins")
-    void memberAndGroupAdminSimultaneouslyWhileThereAreOtherGroupMembers() {
+    void promoteNotMembertoAdminWhileThereAreOtherGroupMembers_False() {
         //Arrange
         Person personAdmin = new Person("Marta", new DateAndTime(2000, 12, 12), new Address("Guimarães"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
@@ -1332,33 +1333,32 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
 
         Group group1 = new Group("Francis Group");
-        group1.setAdmin(personAdmin);
+        group1.addMember(personAdmin);
 
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
-        boolean areMultipleMembersAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
+        group1.addMultipleMembers(setOfPeopleToAddToGroup);
 
         //Act
         boolean isAdminPromoted = group1.setAdmin(person1);
 
-        boolean wasPromoted = areMultipleMembersAdded && isAdminPromoted;
+        boolean wasPromoted = isAdminPromoted;
 
         //Assert
-        assertTrue(wasPromoted);
+        assertFalse(wasPromoted);
     }
 
     /**
      * Test if a person is a Group Admin
      */
     @DisplayName("Check if a person is in the Group Admin List")
-    @Test
-    void isGroupAdmin() {
+    @Test void isGroupAdmin() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("asd@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), new Email("qwerty@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("321@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
 
@@ -1370,8 +1370,7 @@ class GroupTest {
     }
 
     @DisplayName("Check if a person is not in the Group Admin List")
-    @Test
-    void isGroupAdminFalse() {
+    @Test void isGroupAdminFalse() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
@@ -1391,6 +1390,85 @@ class GroupTest {
         //Assert
         assertFalse(isAdmin);
     }
+
+
+    /**
+     * Test if a person is a Group Admin - check PersonID
+     */
+    @Test
+    @DisplayName("Check if a person is in the Group Admin List - True ")
+    void isGroupAdmin_True () {
+
+        //Arrange
+        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
+        Group oneGroup = new Group("XPTO");
+
+        oneGroup.addMember(person2);
+        oneGroup.addMember(person3);
+
+        //Act
+        boolean isgroupAdmin = oneGroup.isGroupAdmin(person2.getID());
+
+        //Assert
+        assertTrue(isgroupAdmin);
+
+    }
+
+    @Test
+    @DisplayName("Check if a person is in the Group Admin List - False - Person member but not admin")
+    void isGroupAdmin_False () {
+
+        //Arrange
+        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("ada@isep.pt"));
+        Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("dasdas@isep.pt"));
+
+        Group oneGroup = new Group("XPTO");
+
+        oneGroup.addMember(person2);
+        oneGroup.addMember(person3);
+
+        //Act
+        boolean isgroupAdmin = oneGroup.isGroupAdmin(person3.getID());
+
+        //Assert
+        assertFalse(isgroupAdmin);
+
+    }
+
+    @Test
+    @DisplayName("Check if a person is in the Group Admin List - False - Person not member")
+    void isGroupAdmin_False_PersonNotMember () {
+
+        //Arrange
+        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("alexandre@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("elsa@isep.pt"));
+        Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("sd@isep.pt"));
+
+        Group oneGroup = new Group("XPTO");
+        oneGroup.addMember(person2);
+        oneGroup.addMember(person3);
+
+        //Act
+        boolean isgroupAdmin = oneGroup.isGroupAdmin(person1.getID());
+
+        //Assert
+        assertFalse(isgroupAdmin);
+
+    }
+
+
 
     @DisplayName("Check if a person null can be a Group Admin")
     @Test
@@ -2501,7 +2579,7 @@ class GroupTest {
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2549,7 +2627,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         ArrayList<Transaction> expected = new ArrayList<>();
 
@@ -2570,7 +2648,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2617,7 +2695,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2660,7 +2738,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2709,7 +2787,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2757,7 +2835,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2805,7 +2883,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));
@@ -2853,7 +2931,7 @@ class GroupTest {
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
-        oneGroup.setAdmin(onePerson);
+        oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"));

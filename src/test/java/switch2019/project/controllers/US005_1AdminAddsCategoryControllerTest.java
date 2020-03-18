@@ -184,18 +184,19 @@ public class US005_1AdminAddsCategoryControllerTest {
         CategoryRepository categoryRepository = new CategoryRepository();
 
         //Arrangement of the Person:
-        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
+        personRepository.createPerson("Francisco", new DateAndTime(1994, 4, 16), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
 
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
-        personRepository.createPerson("João", new DateAndTime(1994, 04, 16), new Address("Porto"),
+        personRepository.createPerson("João", new DateAndTime(1994, 4, 16), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
             //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
+        groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
 
         //Act:

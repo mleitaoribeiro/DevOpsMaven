@@ -178,8 +178,8 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
+        groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
-
         //Act:
         boolean result = (service.addCategoryToGroup(groupID, franciscoID, categoryRepository, "compras", groupsRepository, personRepository)
                 && (service.addCategoryToGroup(groupID,joaoID,categoryRepository,"supermarket", groupsRepository,personRepository)));

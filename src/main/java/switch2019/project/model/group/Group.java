@@ -1,18 +1,22 @@
 package switch2019.project.model.group;
 
-import switch2019.project.model.frameworks.Owner;
-import switch2019.project.model.frameworks.OwnerID;
-import switch2019.project.model.shared.*;
-import switch2019.project.model.ledger.Type;
-import switch2019.project.model.ledger.*;
-import switch2019.project.repository.CategoryRepository;
-import switch2019.project.repository.AccountRepository;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.frameworks.Owner;
+import switch2019.project.model.ledger.Ledger;
+import switch2019.project.model.ledger.Periodicity;
+import switch2019.project.model.ledger.Transaction;
+import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Person;
+import switch2019.project.model.shared.*;
+import switch2019.project.repository.AccountRepository;
+import switch2019.project.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Group implements Owner {
 
@@ -51,21 +55,6 @@ public class Group implements Owner {
         this.addMember(groupCreator);
     }
 
-
-    /**
-     * Method to Set GroupID
-     * @param groupID
-     */
-    public void setGroupID(String groupID) {
-            this.groupID = new GroupID(new Description(groupID));
-        }
-
-
-    /**
-     * Override of equals for Group
-     *
-     * @param o
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,6 +67,21 @@ public class Group implements Owner {
     public int hashCode() {
         return Objects.hash(groupID, startingDate, members);
     }
+
+    @Override
+    public String toString() {
+        return groupID.toString();
+    }
+
+    /**
+     * Method to Set GroupID
+     * @param groupID
+     */
+    public void setGroupID(String groupID) {
+        this.groupID = new GroupID(new Description(groupID));
+    }
+
+
 
     /**
      * Method to get Group ID
@@ -95,13 +99,29 @@ public class Group implements Owner {
      * @return true if member was added, false if it wasn't
      */
     public boolean addMember(Person person) {
-        if (!this.members.isEmpty() && person != null) {
-            return members.add(person);
-        } else if (person != null) {
+        if (person != null && this.members.isEmpty()) {
+            members.add(person);
             return setAdmin(person);
+        } else if (person != null) {
+            return members.add(person);
         } else
             return false;
     }
+
+    /**
+     * Setter function to promote a person directly to group administrator
+     *
+     * @param person
+     * @return true if person was promoted, false if it wasn't
+     */
+    public boolean setAdmin(Person person) {
+        if (person != null && isGroupMember(person.getID())) {
+            return this.admins.add(person);
+        }
+        return false;
+    }
+
+
 
     /**
      * Remove one member from a group
@@ -177,23 +197,6 @@ public class Group implements Owner {
             }
         }
         return true;
-    }
-
-    /**
-     * Setter function to promote a person directly to group administrator
-     *
-     * @param person
-     * @return true if person was promoted, false if it wasn't
-     */
-    public boolean setAdmin(Person person) {
-        if (person != null && !this.admins.contains(person)) {
-            this.members.add(person);
-            this.admins.add(person);
-            if (this.admins.contains(person) && this.members.contains(person)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -431,9 +434,7 @@ public class Group implements Owner {
     }
 
 
-    public String getGroupDescription() {
-        return groupID.getDescription();
-    }
+
 }
 
 
