@@ -28,6 +28,6 @@ public class US003AddMemberToGroupController {
      */
     public boolean addMemberToGroup( PersonID personID,
                                     GroupID groupID) {
-        return service.addMemberToGroup(groupID, personID);
+        return service.addMemberToGroup(personID, groupID);
     }
 }
