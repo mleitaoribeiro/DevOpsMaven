@@ -3,6 +3,7 @@ package switch2019.project.repository;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.frameworks.OwnerID;
+import switch2019.project.model.shared.Denomination;
 
 import java.util.*;
 
@@ -55,7 +56,7 @@ public class CategoryRepository implements Repository {
      *
      * @param nameOfCategory
      */
-    public boolean createCategory(String nameOfCategory, OwnerID ownerID) {
+    public boolean createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         Category newCategory = new Category(nameOfCategory, ownerID);
         return categories.add(newCategory);
     }
@@ -65,7 +66,7 @@ public class CategoryRepository implements Repository {
      *
      * @param categoryToRemove
      */
-    public boolean removeCategory(String categoryToRemove, OwnerID ownerID) {
+    public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
         Category category = new Category(categoryToRemove, ownerID);
         if (this.categories.contains(category)) {
             return categories.remove(category);
@@ -78,9 +79,9 @@ public class CategoryRepository implements Repository {
      *
      * @param categories<Category> categories
      */
-    public boolean addMultipleCategories(Set<String> categories, OwnerID ownerID) {
+    public boolean addMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         int sizeBefore = this.categories.size();
-        for (String category : categories) {
+        for (Denomination category : categories) {
             this.createCategory(category, ownerID);
         }
         return this.categories.size() == sizeBefore + categories.size();
@@ -91,8 +92,8 @@ public class CategoryRepository implements Repository {
      *
      * @param categories<Category> categories
      */
-    public boolean removeMultipleCategories(Set<String> categories, OwnerID ownerID) {
-        for (String category : categories)
+    public boolean removeMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
+        for (Denomination category : categories)
             this.removeCategory(category, ownerID);
         return !this.categories.containsAll(categories);
     }
@@ -115,9 +116,9 @@ public class CategoryRepository implements Repository {
      *
      * @param setOfCategories
      */
-    public boolean isSetOfCategoriesValid(Set<String> setOfCategories, OwnerID ownerID) {
+    public boolean isSetOfCategoriesValid(Set<Denomination> setOfCategories, OwnerID ownerID) {
         Set<Category> list = new HashSet<>();
-        for (String category : setOfCategories) {
+        for (Denomination category : setOfCategories) {
             list.add(new Category(category, ownerID));
         }
         return this.categories.containsAll(list);

@@ -2,6 +2,7 @@ package switch2019.project.services;
 
 import switch2019.project.model.category.Category;
 import switch2019.project.model.group.Group;
+import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.GroupID;
 import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.CategoryRepository;
@@ -29,7 +30,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
      * @param categoryDescription
      * @return
      */
-    public boolean addCategoryToGroup(GroupID groupID, PersonID personID, String categoryDescription) {
+    public boolean addCategoryToGroup(GroupID groupID, PersonID personID, Denomination categoryDescription) {
 
         //Validation for non-null parameters:
         if(categoryDescription == null || groupID == null || personID == null){
@@ -40,7 +41,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         Group group = groupsRepository.findGroupByID(groupID);
 
         //verify if person is a group admin in order to continue with the method:
-        if (group.isGroupAdmin(personID) == true) {
+        if (group.isGroupAdmin(personID)) {
 
             //create category and associate it with the group:
             categoryRepository.createCategory(categoryDescription, groupID);

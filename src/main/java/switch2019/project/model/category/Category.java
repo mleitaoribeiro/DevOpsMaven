@@ -27,8 +27,8 @@ public class Category implements Entity {
      * @param category
      * @param ownerID
      */
-    public Category(String category, OwnerID ownerID) {
-        categoryID = new CategoryID(new Denomination(category), ownerID);
+    public Category(Denomination category, OwnerID ownerID) {
+        categoryID = new CategoryID(category, ownerID);
     }
 
     /**

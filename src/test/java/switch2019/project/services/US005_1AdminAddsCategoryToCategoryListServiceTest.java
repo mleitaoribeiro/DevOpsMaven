@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
+import switch2019.project.model.shared.*;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
@@ -58,7 +55,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = service.addCategoryToGroup(groupID, franciscoID, "compras");
+        boolean result = service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));
 
         //Assert:
         assertTrue(result);
@@ -78,7 +75,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = service.addCategoryToGroup(groupID, joaoID, "compras");
+        boolean result = service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
 
         //Assert:
         assertFalse(result);
@@ -100,7 +97,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
 
         //Act:
-        boolean result = service.addCategoryToGroup(groupID, joaoID, "compras");
+        boolean result = service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
 
         //Assert:
         assertFalse(result);
@@ -117,8 +114,8 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
 
         //Act:
-        boolean result = (service.addCategoryToGroup(groupID, franciscoID, "compras")
-                && (service.addCategoryToGroup(groupID,franciscoID,"supermarket")));
+        boolean result = (service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"))
+                && (service.addCategoryToGroup(groupID,franciscoID,new Denomination("supermarket"))));
 
         //Assert:
         assertTrue(result);
@@ -138,8 +135,8 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
         //Act:
-        boolean result = (service.addCategoryToGroup(groupID, franciscoID, "compras")
-                && (service.addCategoryToGroup(groupID,joaoID,"supermarket")));
+        boolean result = (service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"))
+                && (service.addCategoryToGroup(groupID,joaoID,new Denomination("supermarket"))));
 
         //Assert:
         assertTrue(result);

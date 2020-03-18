@@ -1,5 +1,6 @@
 package switch2019.project.controllers;
 
+import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.GroupID;
 import switch2019.project.model.shared.PersonID;
 import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService;
@@ -21,7 +22,7 @@ public class US005_1AdminAddsCategoryController {
      * @param categoryDescription
      * @return
      */
-    public boolean addCategoryToGroupController(GroupID groupID, PersonID personID, String categoryDescription) {
+    public boolean addCategoryToGroupController(GroupID groupID, PersonID personID, Denomination categoryDescription) {
 
         return service.addCategoryToGroup(groupID, personID, categoryDescription);
     }

@@ -1823,8 +1823,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), group.getID());
 
-        Category category1 = new Category("grocery", group.getID());
-        Category category2 = new Category("friends", group.getID());
+        Category category1 = new Category(new Denomination("grocery"), group.getID());
+        Category category2 = new Category(new Denomination("friends"), group.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1867,8 +1867,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), group.getID());
 
-        Category category1 = new Category("grocery", group.getID());
-        Category category2 = new Category("friends", group.getID());
+        Category category1 = new Category(new Denomination("grocery"), group.getID());
+        Category category2 = new Category(new Denomination("friends"), group.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1915,8 +1915,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), group.getID());
 
-        Category category1 = new Category("grocery", group.getID());
-        Category category2 = new Category("friends", group.getID());
+        Category category1 = new Category(new Denomination("grocery"), group.getID());
+        Category category2 = new Category(new Denomination("friends"), group.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -2111,20 +2111,13 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), group1.getID());
 
-        Category category1 = new Category("grocery", group1.getID());
-        Category category2 = new Category("friends", group1.getID());
+        Category category1 = new Category(new Denomination("grocery"), group1.getID());
+        Category category2 = new Category(new Denomination("friends"), group1.getID());
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
-
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
-
         group1.addMember(person1);
-
-        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
@@ -2173,8 +2166,6 @@ class GroupTest {
         Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
 
         group1.addMember(person1);
-
-        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
@@ -2249,8 +2240,6 @@ class GroupTest {
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
         Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
-
-        List<Transaction> expectedTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));

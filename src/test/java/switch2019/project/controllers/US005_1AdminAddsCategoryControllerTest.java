@@ -6,10 +6,7 @@ import switch2019.project.model.category.Category;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
+import switch2019.project.model.shared.*;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
@@ -65,7 +62,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, franciscoID, "compras");
+        boolean result = controller.addCategoryToGroupController(groupID, franciscoID, new Denomination("compras"));
 
         //Assert:
         assertTrue(result);
@@ -85,7 +82,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, joaoID, "compras");
+        boolean result = controller.addCategoryToGroupController(groupID, joaoID, new Denomination("compras"));
 
         //Assert:
         assertFalse(result);
@@ -107,7 +104,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, joaoID, "compras");
+        boolean result = controller.addCategoryToGroupController(groupID, joaoID, new Denomination("compras"));
 
         //Assert:
         assertFalse(result);
@@ -124,8 +121,8 @@ public class US005_1AdminAddsCategoryControllerTest {
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
 
         //Act:
-        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, "compras")
-                && (controller.addCategoryToGroupController(groupID,franciscoID,"supermarket")));
+        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, new Denomination("compras"))
+                && (controller.addCategoryToGroupController(groupID,franciscoID,new Denomination("supermarket"))));
 
         //Assert:
         assertTrue(result);
@@ -145,8 +142,8 @@ public class US005_1AdminAddsCategoryControllerTest {
         groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
         //Act:
-        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, "compras")
-                && (controller.addCategoryToGroupController(groupID,joaoID,"supermarket")));
+        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, new Denomination("compras"))
+                && (controller.addCategoryToGroupController(groupID,joaoID,new Denomination("supermarket"))));
 
         //Assert:
         assertTrue(result);
