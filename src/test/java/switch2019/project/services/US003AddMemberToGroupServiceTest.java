@@ -58,7 +58,7 @@ public class US003AddMemberToGroupServiceTest {
 
         //Act
 
-        boolean result = service.addMemberToGroup(groupID, personID);
+        boolean result = service.addMemberToGroup(personID, groupID);
 
         //Assert
         assertTrue(result);
@@ -73,7 +73,7 @@ public class US003AddMemberToGroupServiceTest {
 
         //Act
         try {
-            service.addMemberToGroup(groupID, personID);
+            service.addMemberToGroup(personID,groupID);
         }
 
         //Assert
