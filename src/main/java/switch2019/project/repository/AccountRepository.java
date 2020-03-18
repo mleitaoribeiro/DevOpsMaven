@@ -2,6 +2,7 @@ package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.frameworks.ID;
+import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;
@@ -25,19 +26,22 @@ public class AccountRepository implements Repository {
 
     /**
      * Find account by ID
+     *
      * @param accountID
      * @return account
      */
 
-    public Account findByID(ID accountID){
-        for(Account account: accounts) {
-            if(account.getID().equals(accountID))
+    public Account findByID(ID accountID) {
+        for (Account account : accounts) {
+            if (account.getID().equals(accountID))
                 return account;
-        } throw new IllegalArgumentException("No account found with that ID.");
+        }
+        throw new IllegalArgumentException("No account found with that ID.");
     }
 
     /**
      * method to add one account to the repository with an Owner
+     *
      * @param accountDenomination
      * @param accountDescription
      * @param ownerID
@@ -46,18 +50,21 @@ public class AccountRepository implements Repository {
 
     public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
         Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
-        return this.accounts.add(oneAccount);
+        if (!isAccountIDOnRepository(new AccountID(accountDenomination, ownerID)))
+            return this.accounts.add(oneAccount);
+        else throw new IllegalArgumentException("This Account already exists for that ID.");
     }
 
     /**
      * Get list of Accounts By Owner ID - not validated
+     *
      * @param ownerID
      * @return
      */
 
-    public Set<Account> returnAccountsByOwnerID(OwnerID ownerID){
+    public Set<Account> returnAccountsByOwnerID(OwnerID ownerID) {
         Set<Account> listOfAccountsByOwnerID = new HashSet<>();
-        if(ownerID != null) {
+        if (ownerID != null) {
             for (Account account : accounts) {
                 if (account.getOwnerID().equals(ownerID)) {
                     listOfAccountsByOwnerID.add(account);
@@ -74,7 +81,8 @@ public class AccountRepository implements Repository {
      * @return int
      */
 
-    public int numberOfAccountsInTheAccountsRepository() { return this.accounts.size();
+    public int numberOfAccountsInTheAccountsRepository() {
+        return this.accounts.size();
     }
 
 
@@ -100,8 +108,8 @@ public class AccountRepository implements Repository {
      */
 
     public boolean isAccountIDOnRepository(AccountID accountID) {
-        for(Account accounts : accounts)
-            if(accounts.getID().equals(accountID))
+        for (Account accounts : accounts)
+            if (accounts.getID().equals(accountID))
                 return true;
         return false;
     }
