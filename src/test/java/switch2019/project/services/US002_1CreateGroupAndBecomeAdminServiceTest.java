@@ -83,11 +83,12 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
         service.createGroupAndBecomeAdmin(groupDescription, personID);
 
         //Act
-        boolean result = service.createGroupAndBecomeAdmin(groupDescription, personID);
-
-        //Assert
-        assertFalse(result);
-
+        try {
+            service.createGroupAndBecomeAdmin(groupDescription, personID);
+        }
+        catch (IllegalArgumentException ex) {
+            assertEquals("This Group Description already exists.", ex.getMessage());
+        }
     }
 
     @Test

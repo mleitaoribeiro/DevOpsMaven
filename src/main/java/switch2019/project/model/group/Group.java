@@ -78,7 +78,8 @@ public class Group implements Owner {
      * @param groupID
      */
     public void setGroupID(Description groupID) {
-        this.groupID = new GroupID(groupID);
+        if(groupID != null) this.groupID = new GroupID(groupID);
+        else throw new IllegalArgumentException("GroupID can't be null");
     }
 
     /**

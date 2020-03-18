@@ -89,13 +89,12 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         Description groupDescription = new Description("Bashtards");
         PersonID personID = new PersonID(new Email("1234@isep.pt"));
         controller.createGroupAndBecomeAdmin(groupDescription, personID);
-
         //Act
-        boolean result = controller.createGroupAndBecomeAdmin(groupDescription, personID);
-
-        //Assert
-        assertFalse(result);
-
+        try {
+           controller.createGroupAndBecomeAdmin(groupDescription, personID);
+        }
+        catch (IllegalArgumentException ex) {
+            assertEquals("This Group Description already exists.", ex.getMessage());
+        }
     }
-
 }
