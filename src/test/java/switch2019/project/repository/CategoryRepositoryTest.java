@@ -29,8 +29,8 @@ class CategoryRepositoryTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         CategoryRepository firstCategoryRepository = new CategoryRepository();
 
-        firstCategoryRepository.createCategory("cinema", person1.getID());
-        firstCategoryRepository.createCategory("jantares", person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("cinema"), person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("jantar"), person1.getID());
 
         String expected = "CategoryRepository: [CINEMA, JANTARES]";
 
@@ -77,7 +77,7 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        boolean realResult = newCategoryRepository.createCategory(oneCategory,person1.getID())
+        boolean realResult = newCategoryRepository.createCategory(oneCategory, person1.getID())
                 && newCategoryRepository.createCategory(otherCategory, person1.getID());
 
         //Assert
@@ -128,7 +128,7 @@ class CategoryRepositoryTest {
 
         //Act
         boolean realResult = newCategoryRepository.createCategory(originalCategory, person1.getID())
-                && newCategoryRepository.createCategory(duplicateCategory,person1.getID());
+                && newCategoryRepository.createCategory(duplicateCategory, person1.getID());
 
         //Assert
 
@@ -177,10 +177,10 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        newCategoryRepository.createCategory(new Denomination(oneCategory),person1.getID());
-        newCategoryRepository.createCategory(new Denomination(otherCategory),person1.getID());
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
         //Remove one Category
-        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject),person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -214,8 +214,8 @@ class CategoryRepositoryTest {
 
         CategoryRepository newCategoryRepository = new CategoryRepository();
 
-        newCategoryRepository.createCategory(new Denomination(oneCategory),person1.getID());
-        newCategoryRepository.createCategory(new Denomination(otherCategory),person1.getID());
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
 
         //Act
         try {
@@ -239,10 +239,10 @@ class CategoryRepositoryTest {
         String otherCategoryObject = "Educação";
 
         CategoryRepository newCategoryRepository = new CategoryRepository();
-        newCategoryRepository.createCategory(new Denomination(oneCategory),person1.getID());
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
 
         //Act
-        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject),person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
 
         //Assert
         assertFalse(realResult);
@@ -265,10 +265,10 @@ class CategoryRepositoryTest {
 
         //A collection of categories to be added
         HashSet<Denomination> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-        CategoryRepository newCategoryRepository= new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryRepository.addMultipleCategories(setOfCategories,person1.getID());
+        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
@@ -346,7 +346,7 @@ class CategoryRepositoryTest {
 
         //set of categories to be added
         HashSet<Denomination> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
         //set of Categories to be removed from Categories List
         HashSet<Denomination> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
@@ -376,7 +376,7 @@ class CategoryRepositoryTest {
 
         // set of String to be added to Categories list
         HashSet<Denomination> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
         //set of Categories to be removed from Categories List
         HashSet<Denomination> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
@@ -404,7 +404,7 @@ class CategoryRepositoryTest {
         Denomination cats = new Denomination("Cats");
         Denomination transport = new Denomination("Transport");
 
-        ID catsObject = new CategoryID(new Denomination("Cats"),person1.getID());
+        ID catsObject = new CategoryID(new Denomination("Cats"), person1.getID());
         CategoryRepository newCategories = new CategoryRepository();
 
         HashSet<Denomination> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
@@ -445,7 +445,7 @@ class CategoryRepositoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository categoryList1 = new CategoryRepository();
+        CategoryRepository categoryRepository1 = new CategoryRepository();
         Denomination house = new Denomination("House");
         Denomination cats = new Denomination("Cats");
         Denomination transport = new Denomination("Transport");
@@ -454,7 +454,7 @@ class CategoryRepositoryTest {
         //Act
         categoryRepository1.addMultipleCategories(myCategories, person1.getID());
 
-        boolean result = categoryRepository1.isSetOfCategoriesValid(myCategories,person1.getID());
+        boolean result = categoryRepository1.isSetOfCategoriesValid(myCategories, person1.getID());
         //Assert
         assertTrue(result);
     }
@@ -465,7 +465,7 @@ class CategoryRepositoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository categoryList1 = new CategoryRepository();
+        CategoryRepository categoryRepository1 = new CategoryRepository();
 
         Denomination house = new Denomination("House");
         Denomination cats = new Denomination("Cats");
@@ -474,10 +474,10 @@ class CategoryRepositoryTest {
         HashSet<Denomination> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
 
         //Act
-        categoryList1.createCategory(new Denomination("House"), person1.getID());
-        categoryList1.createCategory(new Denomination("Cats"), person1.getID());
+        categoryRepository1.createCategory(new Denomination("House"), person1.getID());
+        categoryRepository1.createCategory(new Denomination("Cats"), person1.getID());
 
-        boolean result = categoryRepository1.isSetOfCategoriesValid(myCategories,person1.getID());
+        boolean result = categoryRepository1.isSetOfCategoriesValid(myCategories, person1.getID());
         //Assert
         assertFalse(result);
     }
@@ -496,8 +496,8 @@ class CategoryRepositoryTest {
         CategoryRepository categoryRepository = new CategoryRepository();
 
         //Act
-        categoryList.createCategory(new Denomination("Transports"), person1.getID());
-        categoryList.createCategory(new Denomination("House"), person1.getID());
+        categoryRepository.createCategory(new Denomination("Transports"), person1.getID());
+        categoryRepository.createCategory(new Denomination("House"), person1.getID());
 
         int actual = categoryRepository.numberOfCategoryInRepository();
         //Assert

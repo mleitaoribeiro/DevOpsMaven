@@ -19,7 +19,7 @@ public class CategoryRepository implements Repository {
 
     @Override
     public String toString() {
-        List<String> categoriesToString = new ArrayList();
+        Set<String> categoriesToString = new HashSet<>();
         for (Category category : categories) {
             categoriesToString.add(category.getNameOfCategory());
         }
