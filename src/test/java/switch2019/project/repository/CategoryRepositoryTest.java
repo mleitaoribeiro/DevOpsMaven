@@ -335,45 +335,45 @@ class CategoryRepositoryTest {
 
 
     /**
-     * Test to remove a set of categories from user category list
+     * Test to remove a set of categories from user category Repository
      */
 
     @Test
-    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
-    void removeMultipleCategoriesToListMainScenario() {
+    @DisplayName("Remove a Set of Categories from user Category Repository - Main Scenario")
+    void removeMultipleCategoriesTRepositoryMainScenario() {
         // Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
+        // Categories to be included in Category Repository
         String categoryHealth = "Health";
         String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //set of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        //set of Categories to be removed from Categories List
+        //set of Categories to be removed from Categories Repository
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
 
         //Act
         //Remove the set of categories with the method under test
-        boolean realResult = newCategoryList.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
+        boolean realResult = newCategoryRepository.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
 
         assertTrue(realResult);
     }
 
 
     @Test
-    @DisplayName("Remove a Set of Categories from user Category List - try to remove a set of Categories that doesnt exist " +
+    @DisplayName("Remove a Set of Categories from user Category Repository - try to remove a set of Categories that doesnt exist " +
             "or null")
-    void removeMultipleCategoriesToListExceptionCase() {
+    void removeMultipleCategoriesToRepositoryExceptionCase() {
         // Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
+        // Categories to be included in Category Repository
         String categoryHealth = "Health";
         String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
@@ -381,18 +381,18 @@ class CategoryRepositoryTest {
         String categoryNull = null;
         String categoryUniversity = "University";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
-        // Set of Categories to be added to Categories list
+        // Set of Categories to be added to Categories Repository
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
         //Act
-        //set of Categories to be removed from Categories List
+        //set of Categories to be removed from Categories Repository
         try {
 
-            newCategoryList.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
+            newCategoryRepository.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
         }
         //Assert
         catch (IllegalArgumentException setterEx) {
@@ -401,12 +401,12 @@ class CategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Remove a Set of Categories from user Category List - Ignore letter capitalization and special characters")
-    void removeMultipleCategoriesToListIgnoreLettersFormatAndSpecialCase() {
+    @DisplayName("Remove a Set of Categories from user Category Repository - Ignore letter capitalization and special characters")
+    void removeMultipleCategoriesToRepositoryIgnoreLettersFormatAndSpecialCase() {
         // Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
+        // Categories to be included in Category Repository
         String categoryHealth = "Health";
         String categoryGym = "Gym";
         String categoryBeauty = "Beauty";
@@ -414,30 +414,30 @@ class CategoryRepositoryTest {
         String categoryGymSpecialCharacter = "Gým";
         String categoryBeautyUpperCase = "BEAUTY";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
-        // set of String to be added to Categories list
+        // set of String to be added to Categories Repository
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        //set of Categories to be removed from Categories List
+        //set of Categories to be removed from Categories Repository
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
         // Remove the previous categories with the method under test
 
         //Act
-        boolean realResult = newCategoryList.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
+        boolean realResult = newCategoryRepository.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
 
         //Assert
         assertTrue(realResult);
     }
 
     /**
-     * Test to validate if a category is in the list
+     * Test to validate if a category is in the Repository
      */
 
     @Test
-    @DisplayName("Test if a category is in the category list - true case")
-    void testValidateIfCategoryIsInTheCategoryListTrueCase() {
+    @DisplayName("Test if a category is in the category Repository - true case")
+    void testValidateIfCategoryIsInTheCategoryRepositoryTrueCase() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
@@ -460,8 +460,8 @@ class CategoryRepositoryTest {
 
 
     @Test
-    @DisplayName("Test if a category is in the category list - false case")
-    void testValidateIfCategoryIsInTheCategoryListFalseCase() {
+    @DisplayName("Test if a category is in the category Repository - false case")
+    void testValidateIfCategoryIsInTheCategoryRepositoryFalseCase() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
@@ -482,72 +482,72 @@ class CategoryRepositoryTest {
 
 
     @Test
-    @DisplayName("Test to validate if set of categories is the the category list-true case for all")
-    void validateIfSetOfCategoriesIsInTheCategoryList() {
+    @DisplayName("Test to validate if set of categories is the the category Repository-true case for all")
+    void validateIfSetOfCategoriesIsInTheCategoryRepository() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository categoryList1 = new CategoryRepository();
+        CategoryRepository categoryRepository1 = new CategoryRepository();
         HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
-        categoryList1.addMultipleCategories(myCategories, person1.getID());
+        categoryRepository1.addMultipleCategories(myCategories, person1.getID());
 
-        boolean result = categoryList1.isSetOfCategoriesValid(myCategories,person1.getID());
+        boolean result = categoryRepository1.isSetOfCategoriesValid(myCategories,person1.getID());
         //Assert
         assertTrue(result);
     }
 
     @Test
-    @DisplayName("Test to validate if set of categories is the the category list adding one at the time-false case")
-    void validateIfSetOfCategoriesIsInTheCategoryList_NotAll() {
+    @DisplayName("Test to validate if set of categories is the the category Repository adding one at the time-false case")
+    void validateIfSetOfCategoriesIsInTheCategoryRepositoryNotAll() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository categoryList1 = new CategoryRepository();
+        CategoryRepository categoryRepository1 = new CategoryRepository();
         HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
-        categoryList1.createCategory("category1", person1.getID());
-        categoryList1.createCategory("category2", person1.getID());
+        categoryRepository1.createCategory("category1", person1.getID());
+        categoryRepository1.createCategory("category2", person1.getID());
 
-        boolean result = categoryList1.isSetOfCategoriesValid(myCategories,person1.getID());
+        boolean result = categoryRepository1.isSetOfCategoriesValid(myCategories,person1.getID());
         //Assert
         assertFalse(result);
     }
 
     /**
-     * Test to validate number of categories in the category list
+     * Test to validate number of categories in the category Repository
      */
 
     @Test
-    @DisplayName("Test to validate number of categories in the category list - Success Case")
-    void numberOfCategoryInTheCategoryListSuccessCase() {
+    @DisplayName("Test to validate number of categories in the category Repository - Success Case")
+    void numberOfCategoryInTheCategoryRepositorySuccessCase() {
 
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository categoryList = new CategoryRepository();
+        CategoryRepository categoryRepository = new CategoryRepository();
 
         //Act
-        categoryList.createCategory("Transports", person1.getID());
-        categoryList.createCategory("House", person1.getID());
+        categoryRepository.createCategory("Transports", person1.getID());
+        categoryRepository.createCategory("House", person1.getID());
 
-        int actual = categoryList.numberOfCategoryInRepository();
+        int actual = categoryRepository.numberOfCategoryInRepository();
         //Assert
         assertEquals(2, actual);
     }
 
 
     @Test
-    @DisplayName("Test to validate number of categories in the category list - Empty CategoryList")
-    void numberOfCategoryInTheCategoryListSuccessCaseEmptyCategoryList() {
+    @DisplayName("Test to validate number of categories in the category Repository - Empty CategoryRepository")
+    void numberOfCategoryInTheCategoryRepositorySuccessCaseEmptyCategoryRepository() {
 
         //Arrange
-        CategoryRepository categoryList = new CategoryRepository(); //empty Category List
+        CategoryRepository categoryRepository = new CategoryRepository(); //empty Category Repository
 
         //Act
-        int actual = categoryList.numberOfCategoryInRepository();
+        int actual = categoryRepository.numberOfCategoryInRepository();
 
         //Assert
         assertEquals(0, actual);
