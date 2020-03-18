@@ -42,10 +42,12 @@ public class Account implements Entity {
      */
 
     public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        accountID = new AccountID(accountDenomination, ownerID);
-        this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
-        if(accountDescription != null) this.description = accountDescription;
-        else throw new IllegalArgumentException("Account Description can't be null.");
+        if(accountDescription == null) throw new IllegalArgumentException("Account Description can't be null.");
+        else {
+            accountID = new AccountID(accountDenomination, ownerID);
+            description = accountDescription;
+            balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
+        }
     }
 
     @Override

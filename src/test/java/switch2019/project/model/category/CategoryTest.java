@@ -8,89 +8,11 @@ import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.PersonID;
+import switch2019.project.model.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryTest {
-
-    /**
-     * Check if category's description was updated
-     */
-    @Test
-    @DisplayName("Update of Category description - Main Scenario")
-    void setCategoryUpdateDescription() {
-        //Arrange
-        Category categoryDescription = new Category("Health");
-        String expected = "FOOD EXPENSES";
-
-        //Act
-        categoryDescription.setNameOfCategory("Food Expenses");
-
-        //Assert
-        assertEquals(expected, categoryDescription.getNameOfCategory());
-    }
-
-    @Test
-    @DisplayName("Validate user's input of Category description")
-    void setCategoryValidateInputSuccessfullScenario() {
-        //Arrange
-        Category categoryDescription = new Category("Not Defined");
-        String expected = "EDUCATION";
-
-        //Act
-        categoryDescription.setNameOfCategory("Education");
-
-        //Assert
-        assertEquals(expected, categoryDescription.getNameOfCategory());
-    }
-
-    @Test
-    @DisplayName("Validate user's input of Category description - Numeric Descriptions Acceptable")
-    void setCategoryValidateNumericInput() {
-        //Arrange
-        Category categoryDescription = new Category("Not Defined");
-        String expected = "123";
-
-        //Act
-        categoryDescription.setNameOfCategory("123");
-
-        //Assert
-        assertEquals(expected, categoryDescription.getNameOfCategory());
-    }
-
-    @Test
-    @DisplayName("Validate user's input of Category description - Remove Special Characters")
-    void setCategoryValidateSpecialCharacterInput() {
-        //Arrange
-        Category categoryDescription = new Category("Not Defined");
-        String expected = "SAUDE";
-
-        //Act
-        categoryDescription.setNameOfCategory("Saúde");
-
-        //Assert
-        assertEquals(expected, categoryDescription.getNameOfCategory());
-    }
-
-    @Test
-    @DisplayName("Validate user's input of Category description - null case")
-    void setCategoryNullCase() {
-        //Arrange
-        Category categoryDescription = new Category("Not Defined");
-        try {
-            //Act
-            categoryDescription.setNameOfCategory(null);
-            fail();
-        }
-        //Assert
-        catch (IllegalArgumentException setterEx) {
-            assertEquals("The category description is not valid or it's missing. Please try again.", setterEx.getMessage());
-        }
-    }
 
     /**
      * Check if two categories are the same
@@ -243,4 +165,18 @@ class CategoryTest {
         assertNotEquals(unExpectedResult, realResult);
     }
 
+    @Test
+    void getID() {
+        //Arrange
+        Category category = new Category(new Denomination("FOOD"),
+                new PersonID(new Email("marta@gmail.com")));
+        CategoryID expected = new CategoryID(new Denomination("FOOD"),
+                new PersonID(new Email("marta@gmail.com")));
+
+        //Act
+        CategoryID actual = category.getID();
+
+        //Assert
+        assertEquals(expected, actual);
+    }
 }
