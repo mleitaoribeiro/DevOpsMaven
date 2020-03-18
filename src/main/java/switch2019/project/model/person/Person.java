@@ -305,7 +305,7 @@ public class Person implements Owner {
      * @param nameOfcategory
      */
     public boolean removeCategoryFromList(String nameOfcategory) {
-        return categoryList.removeCategoryFromList(nameOfcategory, this.personID);
+        return categoryList.removeCategory(nameOfcategory, this.personID);
     }
 
     /**
@@ -314,7 +314,7 @@ public class Person implements Owner {
      * @param categories<Category> categories
      */
     public boolean createAndAddMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
-        return categoryList.addMultipleCategoriesToList(categories, ownerID);
+        return categoryList.addMultipleCategories(categories, ownerID);
     }
 
     /**
@@ -323,14 +323,14 @@ public class Person implements Owner {
      * @param categories<Category> categories
      */
     public boolean removeMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
-        return categoryList.removeMultipleCategoriesToList(categories, ownerID);
+        return categoryList.removeMultipleCategories(categories, ownerID);
     }
 
     /**
      * Method to get the numbers of Categories in the Category List
      */
     public int numberOfCategoryInTheCategoryList() {
-        return this.categoryList.numberOfCategoryInTheCategoryList();
+        return this.categoryList.numberOfCategoryInRepository();
     }
 
     /**

@@ -12,8 +12,6 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.category.Category;
 import switch2019.project.repository.CategoryRepository;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -2005,7 +2003,7 @@ class PersonTest {
 
         //set of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
+        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
 
         //set of Categories to be removed from Categories List
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));

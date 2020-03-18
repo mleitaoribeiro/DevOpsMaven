@@ -1,4 +1,5 @@
 package switch2019.project.controllers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.category.Category;
@@ -17,35 +18,54 @@ import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService
 import static org.junit.jupiter.api.Assertions.*;
 
 public class US005_1AdminAddsCategoryControllerTest {
-    @Test
-    @DisplayName("Happy Case- Category is added to Group categories by an admin")
-    void adminAddsCategoryToCategoryListHappyCase() {
 
-        //Arrange:
-            //Arrangement of the Service:
-        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
+    //initialize repositories and service for the tests as attributes:
+    private static GroupsRepository groupsRepository;
+    private static CategoryRepository categoryRepository;
+    private static PersonRepository personRepository;
+    private static US005_1AdminAddsCategoryToCategoryListService service;
 
-            //Arrangement of the Controller:
-        US005_1AdminAddsCategoryController controller = new US005_1AdminAddsCategoryController();
+    //initialize service:
+    private static US005_1AdminAddsCategoryController controller;
 
-            //Arrangement of the repositories:
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
+    //using before each for the arrangements before the tests:
+    @BeforeEach
+    void universeSetUp() {
 
-            //Arrangement of the Person:
+        //arrangement of repositories:
+        groupsRepository = new GroupsRepository();
+        categoryRepository = new CategoryRepository();
+        personRepository = new PersonRepository();
+
+        //arrangement of the service:
+        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository,categoryRepository);
+
+        //arrangement of the controller:
+        controller = new US005_1AdminAddsCategoryController(service);
+
+
+        //arrangement of the people:
         personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
 
+        personRepository.createPerson("João", new DateAndTime(1994, 04, 16), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
+    }
+
+
+
+    @Test
+    @DisplayName("Happy Case- Category is added to Group categories by an admin")
+    void adminAddsCategoryToCategoryListHappyCase() {
+        //Arrange
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, franciscoID, categoryRepository,
-                "compras", groupsRepository, personRepository,service);
+        boolean result = controller.addCategoryToGroupController(groupID, franciscoID, "compras");
 
         //Assert:
         assertTrue(result);
@@ -56,35 +76,16 @@ public class US005_1AdminAddsCategoryControllerTest {
     void adminAddsCategoryToCategoryListNotAMember() {
 
         //Arrange:
-            //Arrangement of the Service:
-        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
-
-            //Arrangement of the Controller:
-        US005_1AdminAddsCategoryController controller = new US005_1AdminAddsCategoryController();
-
-            //Arrangement of the repositories:
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
-
-            //Arrangement of the Person:
-        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
-
+        //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-
-            //person not in group:
-        personRepository.createPerson("João", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, joaoID, categoryRepository,
-                "compras", groupsRepository, personRepository,service);
+        boolean result = controller.addCategoryToGroupController(groupID, joaoID, "compras");
 
         //Assert:
         assertFalse(result);
@@ -95,37 +96,18 @@ public class US005_1AdminAddsCategoryControllerTest {
     void adminAddsCategoryToCategoryListNotAnAdmin() {
 
         //Arrange:
-            //Arrangement of the Service:
-        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
-
-            //Arrangement of the Controller:
-        US005_1AdminAddsCategoryController controller = new US005_1AdminAddsCategoryController();
-
-            //Arrangement of the repositories:
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
-
-            //Arrangement of the Person:
-        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
 
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-
-            //person not in group:
-        personRepository.createPerson("João", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         Group thisGroup = groupsRepository.findGroupByID(groupID);
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, joaoID, categoryRepository,
-                "compras", groupsRepository, personRepository, service);
+        boolean result = controller.addCategoryToGroupController(groupID, joaoID, "compras");
 
         //Assert:
         assertFalse(result);
@@ -136,32 +118,14 @@ public class US005_1AdminAddsCategoryControllerTest {
     void adminAddsCategoryToCategoryListTwoCategories() {
 
         //Arrange:
-            //Arrangement of the Service:
-        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
-
-            //Arrangement of the Controller:
-        US005_1AdminAddsCategoryController controller = new US005_1AdminAddsCategoryController();
-
-            //Arrangement of the repositories:
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
-
-            //Arrangement of the Person:
-        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
-
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-
-            //Arrangement of the Group:
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
+        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+
         //Act:
-        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, categoryRepository,
-                "compras", groupsRepository, personRepository,service)
-                && (controller.addCategoryToGroupController(groupID,franciscoID,categoryRepository,
-                "supermarket", groupsRepository,personRepository, service)));
+        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, "compras")
+                && (controller.addCategoryToGroupController(groupID,franciscoID,"supermarket")));
 
         //Assert:
         assertTrue(result);
@@ -172,38 +136,17 @@ public class US005_1AdminAddsCategoryControllerTest {
     void adminAddsCategoryToCategoryListTwoAdmins() {
 
         //Arrange:
-            //Arrangement of the Service:
-        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
-
-            //Arrangement of the Controller:
-        US005_1AdminAddsCategoryController controller = new US005_1AdminAddsCategoryController();
-
-            //Arrangement of the repositories:
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
-
-        //Arrangement of the Person:
-        personRepository.createPerson("Francisco", new DateAndTime(1994, 4, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
-
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-
-        personRepository.createPerson("João", new DateAndTime(1994, 4, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
-
         //Act:
-        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, categoryRepository,
-                "compras", groupsRepository, personRepository,service)
-                && (controller.addCategoryToGroupController(groupID,joaoID,categoryRepository,
-                "supermarket", groupsRepository,personRepository,service)));
+        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, "compras")
+                && (controller.addCategoryToGroupController(groupID,joaoID,"supermarket")));
 
         //Assert:
         assertTrue(result);
@@ -214,30 +157,14 @@ public class US005_1AdminAddsCategoryControllerTest {
     void adminAddsCategoryToCategoryListNullParameter() {
 
         //Arrange:
-            //Arrangement of the Service:
-        US005_1AdminAddsCategoryToCategoryListService service = new US005_1AdminAddsCategoryToCategoryListService();
-
-            //Arrangement of the Controller:
-        US005_1AdminAddsCategoryController controller = new US005_1AdminAddsCategoryController();
-
-            //Arrangement of the repositories:
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
-
-            //Arrangement of the Person:
-        personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
-
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        try {controller.addCategoryToGroupController(groupID, franciscoID, categoryRepository,
-                null, groupsRepository, personRepository,service);}
+        try {controller.addCategoryToGroupController(groupID, franciscoID, null);}
 
         //Assert:
         catch(IllegalArgumentException nullParameter) {
@@ -245,4 +172,3 @@ public class US005_1AdminAddsCategoryControllerTest {
         }
     }
 }
-

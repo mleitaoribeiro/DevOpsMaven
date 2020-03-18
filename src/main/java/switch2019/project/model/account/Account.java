@@ -67,16 +67,9 @@ public class Account implements Entity {
     }
 
     /**
-     * Get account by ID
-     */
-    public ID getID() {
-        return accountID;
-    }
-
-    /**
      * Get accountID
      */
-    public AccountID getAccountID() {
+    public AccountID getID() {
         return accountID;
     }
 

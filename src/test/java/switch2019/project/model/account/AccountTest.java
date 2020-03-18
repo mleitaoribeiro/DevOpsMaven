@@ -222,7 +222,7 @@ class AccountTest {
                 ,new Description("Weekly spends"), new PersonID(new Email("martacarda@hotmail.com")));
 
         PersonID personID = new PersonID(new Email("martacarda@hotmail.com"));
-        AccountID accountID = supermarket.getAccountID();
+        AccountID accountID = supermarket.getID();
 
         //Act
         OwnerID accountOwnerID = accountID.getOwnerID();
@@ -240,7 +240,7 @@ class AccountTest {
                 ,new Description("Weekly spends"), new GroupID(new Description("Friends")));
 
         GroupID groupID = new GroupID(new Description("Friends"));
-        AccountID accountID = supermarket.getAccountID();
+        AccountID accountID = supermarket.getID();
 
         //Act
         OwnerID accountOwnerID = accountID.getOwnerID();
