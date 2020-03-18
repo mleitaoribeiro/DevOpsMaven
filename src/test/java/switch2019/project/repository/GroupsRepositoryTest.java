@@ -812,11 +812,6 @@ class GroupsRepositoryTest {
             //Categories:
         Category category1 = new Category("grocery");
         Category category2 = new Category("restaurants");
-            //Categories also added to Group:
-        group1.createCategory("grocery",groupMember);
-        group1.createCategory("restaurants",groupMember);
-        group2.createCategory("grocery",groupMember);
-        group2.createCategory("restaurants",groupMember);
 
             //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -892,11 +887,6 @@ class GroupsRepositoryTest {
         //Categories:
         Category category1 = new Category("grocery");
         Category category2 = new Category("restaurants");
-        //Categories also added to Group:
-        group1.createCategory("grocery",groupMember);
-        group1.createCategory("restaurants",groupMember);
-        group2.createCategory("grocery",groupMember);
-        group2.createCategory("restaurants",groupMember);
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -973,11 +963,6 @@ class GroupsRepositoryTest {
         //Categories:
         Category category1 = new Category("grocery");
         Category category2 = new Category("restaurants");
-        //Categories also added to Group:
-        group1.createCategory("grocery",groupMember);
-        group1.createCategory("restaurants",groupMember);
-        group2.createCategory("grocery",groupMember);
-        group2.createCategory("restaurants",groupMember);
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
