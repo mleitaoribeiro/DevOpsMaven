@@ -9,6 +9,7 @@ import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.PersonID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,8 +100,8 @@ class CategoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        Category categoryDescription = new Category("Health", person1.getID());
-        Category otherCategoryDescription = new Category("HEALTH", person1.getID());
+        Category categoryDescription = new Category(new Denomination("Health"), person1.getID());
+        Category otherCategoryDescription = new Category(new Denomination("HEALTH"), person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -115,8 +116,8 @@ class CategoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        Category categoryDescription = new Category("saúde", person1.getID());
-        Category otherCategoryDescription = new Category("saude", person1.getID());
+        Category categoryDescription = new Category(new Denomination("saúde"), person1.getID());
+        Category otherCategoryDescription = new Category(new Denomination("saude"), person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -131,8 +132,8 @@ class CategoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        Category categoryDescription = new Category("123", person1.getID());
-        Category otherCategoryDescription = new Category("123", person1.getID());
+        Category categoryDescription = new Category(new Denomination("123"), person1.getID());
+        Category otherCategoryDescription = new Category(new Denomination("123"), person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -147,8 +148,8 @@ class CategoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        Category categoryDescription = new Category("Health",person1.getID());
-        Category otherCategoryDescription = new Category("Education",person1.getID());
+        Category categoryDescription = new Category(new Denomination("Health"),person1.getID());
+        Category otherCategoryDescription = new Category(new Denomination("Education"),person1.getID());
 
         //Act
         boolean realResult = categoryDescription.equals(otherCategoryDescription);
@@ -204,8 +205,8 @@ class CategoryTest {
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         // Act
-        Category category1 = new Category("Health",person1.getID());
-        Category category2 = new Category("Education",person1.getID());
+        Category category1 = new Category(new Denomination("Health"),person1.getID());
+        Category category2 = new Category(new Denomination("Education"),person1.getID());
 
         //Assert
         assertNotEquals(category1.hashCode(), category2.hashCode());

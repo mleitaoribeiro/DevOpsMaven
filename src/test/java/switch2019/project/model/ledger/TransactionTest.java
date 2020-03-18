@@ -112,7 +112,7 @@ class TransactionTest {
                 new Description("transporte Metro"), person.getID());
         Account account3 = new Account(new Denomination("bowling"),
                 new Description("bowling NorteShopping"), person.getID());
-        Category category = new Category("grocery", person.getID());
+        Category category = new Category(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
@@ -139,7 +139,7 @@ class TransactionTest {
         Account account3 = new Account(new Denomination("bowling"),
                 new Description("bowling NorteShopping"), person.getID());
 
-        Category category = new Category("grocery", person.getID());
+        Category category = new Category(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
@@ -165,8 +165,8 @@ class TransactionTest {
                 new Description("mercearia Continente"));
         Account account2 = new Account(new Denomination("transporte"),
                 new Description("transporte Metro"));
-        Category category = new Category("grocery",person1.getID());
-        Category category2 = new Category("transport",person1.getID());
+        Category category = new Category(new Denomination("grocery"),person1.getID());
+        Category category2 = new Category(new Denomination("transport"),person1.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
@@ -365,7 +365,7 @@ class TransactionTest {
         Account account3 = new Account(new Denomination("bowling"),
                 new Description("bowling NorteShopping"), person.getID());
 
-        Category category = new Category("grocery", person.getID());
+        Category category = new Category(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, "payment", null, category, account1, account2, new Type (false));
@@ -467,7 +467,7 @@ class TransactionTest {
                 new Description("transporte Metro"), person.getID());
         Account account3 = new Account(new Denomination("bowling"),
                 new Description("bowling NorteShopping"), person.getID());
-        Category category = new Category("grocery", person.getID());
+        Category category = new Category(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         LocalDateTime date = LocalDateTime.of(2020, 1, 13, 13, 02);
 

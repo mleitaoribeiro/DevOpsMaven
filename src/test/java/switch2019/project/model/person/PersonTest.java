@@ -847,7 +847,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
 
-        Category category = new Category("General", person.getID());
+        Category category = new Category(new Denomination("General"), person.getID());
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), person.getID());
@@ -1091,7 +1091,7 @@ class PersonTest {
 
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category = new Category("General", person.getID());
+        Category category = new Category(new Denomination("General"), person.getID());
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), person.getID());
@@ -1130,7 +1130,7 @@ class PersonTest {
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 10, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("General", person.getID());
+        Category category1 = new Category(new Denomination("General"), person.getID());
 
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
@@ -1138,7 +1138,7 @@ class PersonTest {
         //Arrange - Transaction2//
         LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
-        Category category2 = new Category("General", person.getID());
+        Category category2 = new Category(new Denomination("General"), person.getID());
 
         person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
         Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
@@ -1146,7 +1146,7 @@ class PersonTest {
         //Arrange - Transaction3//
         LocalDateTime dateTransaction3 = LocalDateTime.of(2020, 1, 16, 13, 00);
         MonetaryValue amount3 = new MonetaryValue(22, Currency.getInstance("EUR"));
-        Category category3 = new Category("General", person.getID());
+        Category category3 = new Category(new Denomination("General"), person.getID());
 
         person.createTransaction(amount3, "payment", dateTransaction3, category3, from, to, new Type(false));
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, new Type(false));
@@ -1214,7 +1214,7 @@ class PersonTest {
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("General", person.getID());
+        Category category1 = new Category(new Denomination("General"), person.getID());
 
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
@@ -1222,7 +1222,7 @@ class PersonTest {
         //Arrange - Transaction2//
         LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
-        Category category2 = new Category("General", person.getID());
+        Category category2 = new Category(new Denomination("General"), person.getID());
 
         person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
         Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
@@ -1255,7 +1255,7 @@ class PersonTest {
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("General", person.getID());
+        Category category1 = new Category(new Denomination("General"), person.getID());
 
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
@@ -1295,14 +1295,13 @@ class PersonTest {
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
-        //Arrange - ExpectedResult//
-        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
+        //Arrange
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
 
         //Act
         try {
-            List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, null);
+            person.returnPersonLedgerInDateRange(initialDate, null);
         }
 
         //Assert
@@ -1332,15 +1331,13 @@ class PersonTest {
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
-        //Arrange - ExpectedResult//
-        List<Transaction> expectedResult = new ArrayList<>(Arrays.asList(transaction1));
-
+        //Arrange
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 9, 00, 00);
         LocalDateTime finalDate = LocalDateTime.of(2030, 1, 9, 00, 00);
 
         //Act
         try {
-            List<Transaction> personLedgerTransactions = person.returnPersonLedgerInDateRange(initialDate, finalDate);
+            person.returnPersonLedgerInDateRange(initialDate, finalDate);
         }
 
         //Assert
@@ -1364,21 +1361,21 @@ class PersonTest {
         //Init Transactions
         person.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "car gas",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery", person.getID()), new Account(new Denomination("CGD"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("CGD"),
                         new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
                         new Description("Gas"), person.getID()),
@@ -1405,21 +1402,21 @@ class PersonTest {
         //Init Transactions
         person.createTransaction(new MonetaryValue(250, Currency.getInstance("EUR")), "Hostel Barcelona",
                 LocalDateTime.of(2020, 1, 13, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Revolut"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Revolut"),
                         new Description("For trips expenses"), person.getID()),
                 new Account(new Denomination("Friends & Company"),
                         new Description("Holidays"), person.getID()),
                 new Type(true));
         person.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "Pack of Super Bock",
                 LocalDateTime.of(2020, 1, 13, 14, 11),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(60, Currency.getInstance("EUR")), "Car Gas",
                 LocalDateTime.of(2020, 1, 18, 17, 23),
-                new Category("grocery", person.getID()), new Account(new Denomination("CGD"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("CGD"),
                         new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
                         new Description("Gas"), person.getID()),
@@ -1447,21 +1444,21 @@ class PersonTest {
         //Init Transactions
         person.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery", person.getID()), new Account(new Denomination("CGD"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("CGD"),
                         new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
                         new Description("Gas"), person.getID()),
@@ -1488,21 +1485,21 @@ class PersonTest {
         //Init Transactions
         person.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery", person.getID()), new Account(new Denomination("CGD"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("CGD"),
                         new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
                         new Description("Gas"), person.getID()),
@@ -1595,21 +1592,21 @@ class PersonTest {
         //Init Transactions
         person.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         person.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery", person.getID()), new Account(new Denomination("CGD"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("CGD"),
                         new Description("Only Gas Expenses"), person.getID()),
                 new Account(new Denomination("BP"),
                         new Description("Gas"), person.getID()),
@@ -1820,8 +1817,8 @@ class PersonTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), person.getID());
 
-        Category category1 = new Category("grocery", person.getID());
-        Category category2 = new Category("friends", person.getID());
+        Category category1 = new Category(new Denomination("grocery"), person.getID());
+        Category category2 = new Category(new Denomination("friends"), person.getID());
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
@@ -1863,8 +1860,8 @@ class PersonTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), person.getID());
 
-        Category category1 = new Category("grocery", person.getID());
-        Category category2 = new Category("friends", person.getID());
+        Category category1 = new Category(new Denomination("grocery"), person.getID());
+        Category category2 = new Category(new Denomination("friends"), person.getID());
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));

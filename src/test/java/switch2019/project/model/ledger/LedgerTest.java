@@ -682,14 +682,14 @@ class LedgerTest {
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                 new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
@@ -698,7 +698,7 @@ class LedgerTest {
         //Arrange-Transaction2
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 2, 14, 11),
-                new Category("grocery", person.getID()), new Account(new Denomination("BNI"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("BNI"),
                         new Description("General"), person.getID()),
                 new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
@@ -785,14 +785,14 @@ class LedgerTest {
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 05),
-                new Category("grocery", person.getID()), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
                 new Description("Only for Groceries"), person.getID()),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), person.getID()),
