@@ -9,31 +9,31 @@ create "controller:US2.1CreateGroupAndBecomeAdminController"
 activate "controller:US2.1CreateGroupAndBecomeAdminController" #FFBBBB
 
 participant "service:US2.1CreateGroupAndBecomeAdminService"
-participant ":PersonRepository"
-participant ":GroupRepository"
+participant "personRep:PersonRepository"
+participant "groupRep:GroupRepository"
 
 == Act ==
 
-":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController" : isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(service, groupDescription, personAttributes)
+":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController" : isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personID)
 
-"controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(service, groupDescription, personAttributes)
+"controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personID)
 activate "service:US2.1CreateGroupAndBecomeAdminService" #FFBBBB
 
-"service:US2.1CreateGroupAndBecomeAdminService" -> ":PersonRepository" : person = findPersonByAttributes\n(personAttributes)
-activate ":PersonRepository" #FFBBBB
-deactivate ":PersonRepository"
+"service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByAttributes\n(personID)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
 
-"service:US2.1CreateGroupAndBecomeAdminService" -> ":GroupRepository" : isGroupCreatedAndAdminSet = \ncreateGroup(groupDescription, person)
-activate ":GroupRepository" #FFBBBB
+"service:US2.1CreateGroupAndBecomeAdminService" -> "groupRep:GroupRepository" : isGroupCreatedAndAdminSet = \ncreateGroup(groupDescription, person)
+activate "groupRep:GroupRepository" #FFBBBB
 
 create "group:Group"
-":GroupRepository" -> "group:Group" : isGroupCreatedAndAdminSet =\nnew Group(groupDescription, person)
+"groupRep:GroupRepository" -> "group:Group" : isGroupCreatedAndAdminSet =\nnew Group(groupDescription, person)
 activate "group:Group" #FFBBBB
 "group:Group" -> "group:Group" : addMember(person)
 
 deactivate "group:Group"
-deactivate ":GroupRepository"
-deactivate ":PersonRepository"
+deactivate "groupRep:GroupRepository"
+deactivate "personRep:PersonRepository"
 deactivate "service:US2.1CreateGroupAndBecomeAdminService"
 deactivate "controller:US2.1CreateGroupAndBecomeAdminController"
 
