@@ -1,8 +1,8 @@
 package switch2019.project.services;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.controllers.US002_1CreateGroupAndBecomeAdminController;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.DateAndTime;
@@ -15,15 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class US002_1CreateGroupAndBecomeAdminServiceTest {
 
-    private static GroupsRepository groupsRepository;
-    private static PersonRepository personRepository;
     private static US002_1CreateGroupAndBecomeAdminService service;
 
+    /**
+     * US002.1
+     * Universe setup for US tests
+     */
 
     @BeforeEach
     void setUpUniverse() {
-        groupsRepository = new GroupsRepository();
-        personRepository = new PersonRepository();
+        GroupsRepository groupsRepository = new GroupsRepository();
+        PersonRepository personRepository = new PersonRepository();
 
         personRepository.createPerson("Alexandre", new DateAndTime(1996, 3, 4),
                 new Address("Porto"), new Address("Porto",
@@ -33,8 +35,13 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
 
     }
 
+    /**
+     * US001
+     * Test if a group was created and person is admin
+     */
 
     @Test
+    @DisplayName("Main scenario")
     void createGroupAndBecomeAdmin() {
         //Arrange
         Description groupDescription = new Description("Bashtards");
@@ -49,6 +56,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     }
 
     @Test
+    @DisplayName("No personID matching")
     void createGroupAndBecomeAdminNoPersonID() {
 
         //Arrange
@@ -67,6 +75,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     }
 
     @Test
+    @DisplayName("Group was already created")
     void createGroupAndGroupAlreadyExists() {
         //Arrange
         Description groupDescription = new Description("Bashtards");
