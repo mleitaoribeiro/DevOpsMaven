@@ -260,4 +260,51 @@ class DateAndTimeTest {
         assertTrue(result);
     }
 
+    @Test
+    void isInThePastTrue() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27, 10, 10);
+
+        //Act
+        boolean result = birthDate.isInThePast();
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void isInThePastFalse() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(2022, 4, 27);
+
+        //Act
+        boolean result = birthDate.isInThePast();
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    void isInTheFutureTrue() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(2022, 4, 27, 10, 10);
+
+        //Act
+        boolean result = birthDate.isInTheFuture();
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void isInTheFutureFalse() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+
+        //Act
+        boolean result = birthDate.isInTheFuture();
+
+        //Assert
+        assertFalse(result);
+    }
 }
