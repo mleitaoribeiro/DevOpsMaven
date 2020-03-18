@@ -1500,9 +1500,10 @@ class GroupTest {
                 new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person3);
+        group1.addMember(person1);
 
         //Act
-        boolean isMember = group1.isGroupMember(person3);
+        boolean isMember = group1.isGroupMember(person1.getID());
 
         //Assert
         assertTrue(isMember);
@@ -1521,25 +1522,27 @@ class GroupTest {
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3, new Email("1@isep.pt"));
         Group group1 = new Group("Maria's Group");
-        group1.addMember(person3);
+        group1.addMember(person1);
 
         //Act
-        boolean isMember = group1.isGroupMember(person4);
+        boolean isMember = group1.isGroupMember(person3.getID());
 
         //Assert
         assertFalse(isMember);
     }
 
-    @DisplayName("Check if a person null can be a Group Member")
+    @DisplayName("Person it´s not member")
     @Test
     void isGroupMemberNull() {
         //Arrange:
-        Person person1 = null;
+        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Group group1 = new Group("Maria's Group");
         group1.addMember(person1);
-
         //Act
-        boolean isMember = group1.isGroupMember(person1);
+        boolean isMember = group1.isGroupMember(person2.getID());
 
         //Assert
         assertFalse(isMember);

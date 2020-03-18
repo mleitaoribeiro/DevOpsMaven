@@ -3,6 +3,7 @@ package switch2019.project.repository;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.frameworks.OwnerID;
+import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 
@@ -36,6 +37,19 @@ public class AccountRepository implements Repository {
     }
 
     /**
+     * method to add one account to the repository with an Owner
+     * @param accountDenomination
+     * @param accountDescription
+     * @param ownerID
+     * @return
+     */
+
+    public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
+        Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
+        return this.accounts.add(oneAccount);
+    }
+
+    /**
      * Get list of Accounts By Owner ID - not validated
      * @param ownerID
      * @return
@@ -55,40 +69,12 @@ public class AccountRepository implements Repository {
 
 
     /**
-     * method to add one account to the repository with an owner
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     * @return
-     */
-
-    public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
-        return this.accounts.add(oneAccount);
-    }
-
-    /**
      * Method to get the numbers of Accounts in the Repository
      *
      * @return int
      */
 
-    public int numberOfAccountsInTheAccountsRepository() {
-        return this.accounts.size();
-    }
-
-    /**
-     * method to add one account to the list
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @return boolean
-     */
-
-    public boolean createAccount(Denomination accountDenomination, Description accountDescription) {
-        Account oneAccount = new Account(accountDenomination, accountDescription);
-        this.accounts.add(oneAccount);
-        return this.accounts.contains(oneAccount);
+    public int numberOfAccountsInTheAccountsRepository() { return this.accounts.size();
     }
 
 
@@ -109,11 +95,14 @@ public class AccountRepository implements Repository {
     /**
      * method to validate if the account is in the accounts Repository
      *
-     * @param accountToValidate
+     * @param accountID
      * @return boolean
      */
 
-    public boolean validateIfAccountIsInTheAccountsRepository(Account accountToValidate) {
-        return this.accounts.contains(accountToValidate);
+    public boolean isAccountIDOnRepository(AccountID accountID) {
+        for(Account accounts : accounts)
+            if(accounts.getID().equals(accountID))
+                return true;
+        return false;
     }
 }
