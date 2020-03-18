@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupTest {
 
     /**
-     *
      * Compare the same Group - Should be the Same
      */
 
@@ -78,7 +77,7 @@ class GroupTest {
         //Arrange
         Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Frank",new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
+        Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person3 = new Person("Mary", new DateAndTime(1995, 12, 13), new Address("Detroit"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
@@ -470,7 +469,7 @@ class GroupTest {
         Group group1 = new Group(new Description("Grupo a ser submetido aos testes"));
         Person personAdmin = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person1 = new Person("João",new DateAndTime(1995, 12, 13), new Address("Paranhos"),
+        Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
@@ -547,7 +546,7 @@ class GroupTest {
         //Arrange
         Group group1 = new Group(new Description("123 são os primeiros três números inteiros"));
 
-        Person person1 = new Person("João",new DateAndTime(1995, 12, 13), new Address("Lisboa"),
+        Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
@@ -636,7 +635,7 @@ class GroupTest {
         Group group1 = new Group(new Description("Grupo ainda mais fixe que o outro"));
         Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Gabriel",new DateAndTime(1995, 12, 13), new Address("Porto"),
+        Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
@@ -728,7 +727,7 @@ class GroupTest {
     void ifGroupIsFamilyAllFamilyExceptOne() {
 
         //Arrange
-        Person person1 = new Person("Oscar",new DateAndTime(1995, 12, 13), new Address("Porto"),
+        Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
@@ -948,7 +947,7 @@ class GroupTest {
     void promoteMemberFalseAlreadyAdmin() {
 
         //Arrange
-        Person person1 = new Person("Francis",new DateAndTime(1995, 12, 13), new Address("London"),
+        Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
@@ -992,7 +991,7 @@ class GroupTest {
     void promoteMultipleMembersToAdmin() {
 
         //Arrange
-        Person personAdmin = new Person("Marta",new DateAndTime(1995, 12, 13), new Address("Porto"),
+        Person personAdmin = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
@@ -1118,7 +1117,7 @@ class GroupTest {
         //Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Jaques",new DateAndTime(1995, 12, 13), new Address("Paris"),
+        Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Vladimir", new DateAndTime(1995, 12, 13), new Address("Moscow"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
@@ -1200,7 +1199,7 @@ class GroupTest {
         // Arrange:
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Jaques",new DateAndTime(1995, 12, 13), new Address("Paris"),
+        Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("John", new DateAndTime(1995, 12, 13), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
@@ -1355,7 +1354,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person2 = new Person("Jaques",new DateAndTime(2000, 12, 12), new Address("Paris"),
+        Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         Person person3 = new Person("Pedro", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
@@ -1381,7 +1380,8 @@ class GroupTest {
      * Test if a person is a Group Admin
      */
     @DisplayName("Check if a person is in the Group Admin List")
-    @Test void isGroupAdmin() {
+    @Test
+    void isGroupAdmin() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("asd@isep.pt"));
@@ -1400,7 +1400,8 @@ class GroupTest {
     }
 
     @DisplayName("Check if a person is not in the Group Admin List")
-    @Test void isGroupAdminFalse() {
+    @Test
+    void isGroupAdminFalse() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
@@ -1427,7 +1428,7 @@ class GroupTest {
      */
     @Test
     @DisplayName("Check if a person is in the Group Admin List - True ")
-    void isGroupAdmin_True () {
+    void isGroupAdmin_True() {
 
         //Arrange
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
@@ -1451,7 +1452,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Check if a person is in the Group Admin List - False - Person member but not admin")
-    void isGroupAdmin_False () {
+    void isGroupAdmin_False() {
 
         //Arrange
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
@@ -1476,7 +1477,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Check if a person is in the Group Admin List - False - Person not member")
-    void isGroupAdmin_False_PersonNotMember () {
+    void isGroupAdmin_False_PersonNotMember() {
 
         //Arrange
         Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
@@ -1497,7 +1498,6 @@ class GroupTest {
         assertFalse(isgroupAdmin);
 
     }
-
 
 
     @DisplayName("Check if a person null can be a Group Admin")
@@ -1747,7 +1747,7 @@ class GroupTest {
         }
         //Assert:
         catch (IllegalArgumentException nullTransaction) {
-            assertEquals("One (or more) of the transactions is null.",nullTransaction.getMessage());
+            assertEquals("One (or more) of the transactions is null.", nullTransaction.getMessage());
         }
     }
 
@@ -1875,7 +1875,7 @@ class GroupTest {
         List<Transaction> listOfTransactions = group.getOneAccountTransactionsFromGroup(account5, date1, date2, person1);
 
         //Assert
-        assertEquals(expectedTransactions,listOfTransactions);
+        assertEquals(expectedTransactions, listOfTransactions);
     }
 
     @Test
@@ -1923,7 +1923,7 @@ class GroupTest {
 
 
         //Assert
-        assertEquals(expectedTransactions,listOfTransactions);
+        assertEquals(expectedTransactions, listOfTransactions);
     }
 
     @Test
@@ -1969,7 +1969,7 @@ class GroupTest {
 
 
         //Assert
-        assertEquals(expectedTransactions,listOfTransactions);
+        assertEquals(expectedTransactions, listOfTransactions);
     }
 
     @Test
@@ -2017,7 +2017,7 @@ class GroupTest {
 
 
         //Assert
-        assertEquals(expectedTransactions,listOfTransactions);
+        assertEquals(expectedTransactions, listOfTransactions);
     }
 
     @Test
@@ -2430,7 +2430,6 @@ class GroupTest {
         Category otherCategory = new Category("QWERTY");
 
 
-
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
@@ -2499,7 +2498,6 @@ class GroupTest {
         Category otherCategory = new Category("QWERTY");
 
 
-
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
@@ -2546,7 +2544,6 @@ class GroupTest {
         Category otherCategory = new Category("QWERTY");
 
 
-
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
@@ -2587,7 +2584,6 @@ class GroupTest {
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
-
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2638,7 +2634,6 @@ class GroupTest {
         Category otherCategory = new Category("QWERTY");
 
 
-
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
@@ -2684,7 +2679,6 @@ class GroupTest {
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
-
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2734,7 +2728,6 @@ class GroupTest {
         Category otherCategory = new Category("QWERTY");
 
 
-
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
@@ -2782,7 +2775,6 @@ class GroupTest {
         Category otherCategory = new Category("QWERTY");
 
 
-
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
 
@@ -2826,7 +2818,6 @@ class GroupTest {
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
-
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2968,7 +2959,6 @@ class GroupTest {
                 new Description("xyz Account"));
 
 
-
         //Group instanced:
         Group group1 = new Group(new Description("Test Group"));
 
@@ -3011,7 +3001,6 @@ class GroupTest {
                 new Description("xpto Account"));
         Account accountTwo = new Account(new Denomination("xyz"),
                 new Description("xyz Account"));
-
 
 
         //Group instanced:
@@ -3258,7 +3247,7 @@ class GroupTest {
     @Test
     @DisplayName("Test method getID from Group ")
     void getID() {
-        Group group1 = new Group (new Description("Gym Buddies"));
+        Group group1 = new Group(new Description("Gym Buddies"));
         GroupID expected = new GroupID(new Description("Gym Buddies"));
 
         //Act
@@ -3268,26 +3257,29 @@ class GroupTest {
         assertEquals(expected, result);
 
     }
+
     /**
-     * Test to check if iD converts a groupID into a String.
+     * Test to check if converts a group into a String.
      */
 
     @Test
-    @DisplayName("gruoupIDToString tested - Success")
+    @DisplayName("gruoupToString tested - Success")
     void testToString() {
 
+        //Arrange:
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        Group group = new Group(new Description("policias"), person);
 
-            //Arrange:
-            GroupID groupID = new GroupID(new Description("Policias"));
 
-            //Act:
-            String groupIDInString = groupID.toString();
-            String expected = "POLICIAS";
+        //Act:
+        String groupInString = group.toString();
+        String expected = "POLICIAS";
 
-            //Assert:
-            assertEquals(expected, groupIDInString);
-        }
+        //Assert:
+        assertEquals(expected, groupInString);
     }
+}
 
 
 
