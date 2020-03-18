@@ -1255,6 +1255,38 @@ class GroupTest {
     }
 
     @Test
+    @DisplayName("Check if multiple admins can´t be demoted - FALSE - removeMembers same number of admins")
+    void multipleAdminsDemotionTestFalseSecondCondition() {
+
+        //Arrange:
+        Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
+        Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
+        Person person3 = new Person("John", new DateAndTime(2000, 12, 12), new Address("Bristol"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
+        Person person4 = new Person("Susan", new DateAndTime(2000, 12, 12), new Address("Edinburgh"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
+        Person person5 = new Person("Michael", new DateAndTime(2002, 11, 20), new Address("Edinburgh"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
+        Group group1 = new Group("Test Group");
+
+        //Act:
+        group1.addMember(person1); // automatically promoted to admin
+        group1.addMember(person2);
+        group1.addMember(person3);
+        group1.addMember(person4);
+        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
+        group1.promoteMultipleMemberToAdmin(membersToPromote);
+        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5));
+        // Last person will not be removed since if it is, there will be no admins left on the group;
+        boolean isLastAdminDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
+
+        //Assert:
+        assertFalse(isLastAdminDemoted);
+    }
+
+    @Test
     @DisplayName("Check if multiple admins can´t be demoted - FALSE - tring to remove member that is not part of the group")
     void multipleAdminsDemotionTestFalseNotInGroup() {
 
