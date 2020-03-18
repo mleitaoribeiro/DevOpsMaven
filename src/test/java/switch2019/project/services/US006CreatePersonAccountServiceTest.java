@@ -40,7 +40,7 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
     void testIfPersonAccountAreCreated() {
         //Arrange
-        Person onePerson = personRepo.findPersonByEmail(new Email("jose.cardoso@hotmail.com"));
+        Person onePerson = personRepo.findPersonByID(new PersonID(new Email("jose.cardoso@hotmail.com")));
         PersonID onePersonID = onePerson.getID();
 
         //Act
@@ -55,7 +55,7 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
     void testIfPersonAccountIsCreated() {
         //Arrange
-        Person onePerson = personRepo.findPersonByEmail(new Email("maria.santos@live.com.pt"));
+        Person onePerson = personRepo.findPersonByID(new PersonID(new Email("maria.santos@live.com.pt")));
         PersonID onePersonID = onePerson.getID();
 
         //Act
@@ -127,7 +127,7 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If User Account is Created - Null Denomination")
     void testIfAccountIsCreateNullDenomination() {
         //Arrange
-        Person onePerson = personRepo.findPersonByEmail(new Email("jose.cardoso@hotmail.com"));
+        Person onePerson = personRepo.findPersonByID(new PersonID(new Email("jose.cardoso@hotmail.com")));
         PersonID onePersonID = onePerson.getID();
 
         Denomination nullDenomination = null;
@@ -145,7 +145,20 @@ class US006CreatePersonAccountServiceTest {
     @Test
     @DisplayName("Test If User Account is Created - Null Description")
     void testIfAccountIsCreateNullDescription() {
-        //missing
+        //Arrange
+        Person onePerson = personRepo.findPersonByID(new PersonID(new Email("mariana.alves@gmail.com")));
+        PersonID onePersonID = onePerson.getID();
+
+        Description nullDescription = null;
+
+        try {
+            service.createPersonAccount(onePersonID, new Denomination("MbWay"), nullDescription );
+            fail();
+        }
+        catch (IllegalArgumentException invalid) {
+            assertEquals("Account Description can't be null.", invalid.getMessage());
+        }
     }
+
 }
 

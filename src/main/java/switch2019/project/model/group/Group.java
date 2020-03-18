@@ -81,8 +81,6 @@ public class Group implements Owner {
         this.groupID = new GroupID(new Description(groupID));
     }
 
-
-
     /**
      * Method to get Group ID
      * @return groupID
@@ -120,8 +118,6 @@ public class Group implements Owner {
         }
         return false;
     }
-
-
 
     /**
      * Remove one member from a group
