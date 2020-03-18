@@ -20,12 +20,11 @@ public class US003AddMemberToGroupService {
 
     /**
      * Add Member To Group
-     *
-     * @param groupID
      * @param personID
+     * @param groupID
      * @return
      */
-    public boolean addMemberToGroup(GroupID groupID, PersonID personID) {
+    public boolean addMemberToGroup(PersonID personID, GroupID groupID) {
 
         Person person = personRepository.findPersonByID(personID);
         Group group = groupsRepository.findGroupByID(groupID);
