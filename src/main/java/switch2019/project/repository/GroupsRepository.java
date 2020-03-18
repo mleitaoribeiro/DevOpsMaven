@@ -198,4 +198,20 @@ public class GroupsRepository implements Repository {
         }
         throw new IllegalArgumentException("No group found with that ID.");
     }
+
+    /**
+     * method to validate if the group t is in the groups Repository
+     *
+     * @param groupID
+     * @return boolean
+     */
+
+    public boolean isGroupIDOnRepository(GroupID groupID) {
+        for (Group groups : groups)
+            if (groups.getID().equals(groupID))
+                return true;
+        return false;
+    }
+
+
 }

@@ -1123,6 +1123,45 @@ class GroupsRepositoryTest {
         //Assert
         assertEquals(expected, actual);
 
-
     }
+
+
+    /**
+     * Test if GroupID is in the Repository
+     */
+
+    @Test
+    @DisplayName("Validate if GroupID is the repository - True")
+    void isGroupIDOnRepositoryTrue() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupsRepository groupsRepository= new GroupsRepository();
+        groupsRepository.createGroup(new Description("Familia"), person);
+
+        //Act
+        boolean groupIDexists = groupsRepository.isGroupIDOnRepository(new GroupID(new Description("Familia")));
+
+        //Assert
+        assertTrue(groupIDexists);
+    }
+
+    @Test
+    @DisplayName("Validate if GroupID is the repository - false")
+    void isGroupIDOnRepositoryFalse() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupsRepository groupsRepository= new GroupsRepository();
+        groupsRepository.createGroup(new Description("Familia"), person);
+
+        //Act
+        boolean groupIDexists = groupsRepository.isGroupIDOnRepository(new GroupID(new Description("Familia")));
+
+        //Assert
+        assertTrue(groupIDexists);
+    }
+
 }
