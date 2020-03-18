@@ -71,7 +71,7 @@ public class Category implements Entity {
 
     /**
      * Override to toString
-     * @return categoryID string
+     * @return category string
      */
     @Override
     public String toString() {

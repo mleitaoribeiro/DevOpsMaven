@@ -211,4 +211,35 @@ class CategoryTest {
         //Assert
         assertNotEquals(category1.hashCode(), category2.hashCode());
     }
+
+    /**
+     * Test for toString method
+     */
+
+    @Test
+    @DisplayName("Test toString method- true ")
+    void testToStringMethod() {
+        //Arrange
+        Category category = new Category(new Denomination("FOOD"),
+                new PersonID(new Email("marta@gmail.com")));
+        String expectedResult = "FOOD, marta@gmail.com";
+        //Act
+        String realResult = category.toString();
+        //Assert
+        assertEquals(expectedResult, realResult);
+    }
+
+    @Test
+    @DisplayName("Test toString method - false")
+    void testToStringMethodFalse() {
+        //Arrange
+        Category category = new Category(new Denomination("FOOD"),
+                new PersonID(new Email("marta@gmail.com")));
+        String unExpectedResult = "marta@gmail.com, FOOD";
+        //Act
+        String realResult = category.toString();
+        //Assert
+        assertNotEquals(unExpectedResult, realResult);
+    }
+
 }
