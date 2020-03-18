@@ -389,12 +389,7 @@ class GroupsRepositoryTest {
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Categories:
-
-        person.createCategoryAndAddToCategoryList("grocery");
         Category categoryFriends = new Category("friends");
-        person.createCategoryAndAddToCategoryList("friends");
-
-
 
         //Monetary Value:
         MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
@@ -433,7 +428,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -466,7 +461,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -532,7 +527,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -563,7 +558,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -593,7 +588,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -624,7 +619,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -654,7 +649,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -687,7 +682,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -722,7 +717,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        personMember.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -762,7 +757,7 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        personMember.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),

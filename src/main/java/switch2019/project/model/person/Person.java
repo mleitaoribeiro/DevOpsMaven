@@ -285,49 +285,6 @@ public class Person implements Owner {
 
 
     /**
-     * Develop method to create a new Category USERSTORY5: As a user, I want to add a category to my category list.
-     *
-     * @param nameOfCategory
-     */
-    public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
-        return categoryList.createCategory(nameOfCategory, this.personID);
-    }
-
-    /**
-     * Remove a category from CategoryList
-     *
-     * @param nameOfcategory
-     */
-    public boolean removeCategoryFromList(String nameOfcategory) {
-        return categoryList.removeCategory(nameOfcategory, this.personID);
-    }
-
-    /**
-     * Add multiple categories to CategoryList
-     *
-     * @param categories<Category> categories
-     */
-    public boolean createAndAddMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
-        return categoryList.addMultipleCategories(categories, ownerID);
-    }
-
-    /**
-     * Remove multiple categories from CategoryList
-     *
-     * @param categories<Category> categories
-     */
-    public boolean removeMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
-        return categoryList.removeMultipleCategories(categories, ownerID);
-    }
-
-    /**
-     * Method to get the numbers of Categories in the Category List
-     */
-    public int numberOfCategoryInTheCategoryList() {
-        return this.categoryList.numberOfCategoryInRepository();
-    }
-
-    /**
      * Get the balance of the transactions of one Person given a specific date range(US0017)
      *
      * @param initialDate
