@@ -16,7 +16,7 @@ import java.util.*;
 
 public class GroupsRepository implements Repository {
     // Private instance variables
-    private Set<Group> listOfGroups;
+    private Set<Group> groups;
 
     //String literals should not be duplicated
     private static final String NOT_A_MEMBER = "You are not a member of that group.";
@@ -24,7 +24,7 @@ public class GroupsRepository implements Repository {
 
     //Constructor
     public GroupsRepository() {
-        listOfGroups = new HashSet<>();
+        groups = new HashSet<>();
     }
 
     /**
@@ -33,32 +33,32 @@ public class GroupsRepository implements Repository {
      * @param groupDescription
      * @param groupCreator
      */
-    public boolean createGroup(String groupDescription, Person groupCreator) {
+    public boolean createGroup(Description groupDescription, Person groupCreator) {
         if (groupDescription != null && groupCreator != null) {
             Group group1 = new Group(groupDescription, groupCreator);
-            return this.listOfGroups.add(group1) && group1.isGroupAdmin(groupCreator);
+            return this.groups.add(group1) && group1.isGroupAdmin(groupCreator);
         }
         return false;
     }
 
     /**
-     * method to add group to the list
+     * method to add group to the Repository
      *
      * @param group
      */
-    public boolean addGroupToGroupList(Group group) {
+    public boolean addGroupToRepository(Group group) {
         if (group != null) {
-            return listOfGroups.add(group);
+            return groups.add(group);
         } else return false;
     }
 
     /**
-     * Method to check the number of Groups inside the list.
+     * Method to check the number of Groups inside the Repository.
      *
      * @return size of the groupsList
      */
     public int howManyGroups() {
-        return listOfGroups.size();
+        return groups.size();
     }
 
     /**
@@ -68,7 +68,7 @@ public class GroupsRepository implements Repository {
      */
     public Set<Group> returnOnlyFamilies() {
         Set<Group> groupsFamily = new HashSet<>();
-        for (Group g : listOfGroups) {
+        for (Group g : groups) {
             if (g.isFamily()) {
                 groupsFamily.add(g);
             }
@@ -92,7 +92,7 @@ public class GroupsRepository implements Repository {
                                                     MonetaryValue amount, String transactionDescription,
                                                     LocalDateTime localDate, Category category,
                                                     Account accountFrom, Account accountTo, Type type) {
-        for (Group group : listOfGroups) {
+        for (Group group : groups) {
             if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
                 if (group.isGroupMember(person))
                     return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
@@ -117,7 +117,7 @@ public class GroupsRepository implements Repository {
     public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, Periodicity periodicity, MonetaryValue amount, String transactionDescription,
                                                  LocalDateTime localDate, Category category,
                                                  Account accountFrom, Account accountTo, Type type) {
-        for (Group group : listOfGroups) {
+        for (Group group : groups) {
             if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
                 if (group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
@@ -137,7 +137,7 @@ public class GroupsRepository implements Repository {
     public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate) {
         List<Transaction> groupTransactions = new ArrayList<>();
         Set<Group> groups = new HashSet<>();
-        for (Group group : listOfGroups) {
+        for (Group group : this.groups) {
             if (group.isGroupMember(person))
                 groups.add(group);
         }
@@ -151,12 +151,12 @@ public class GroupsRepository implements Repository {
     /**
      * Method to check if a person is admin on a group
      *
-     * @param groupDescription
+     * @param groupID
      * @param person
      */
-    public boolean checkIfAPersonIsAdminInAGivenGroup(String groupDescription, Person person) {
-        for (Group group : listOfGroups) {
-            if (group.getGroupID().equalsIgnoreCase(groupDescription))
+    public boolean checkIfAPersonIsAdminInAGivenGroup(GroupID groupID, Person person) {
+        for (Group group : groups) {
+            if (group.getGroupID().equalsIgnoreCase(groupID.toString()))
                 return group.isGroupAdmin(person);
         }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
@@ -168,7 +168,7 @@ public class GroupsRepository implements Repository {
      * @param groupDescription
      */
     public int checkAGroupsLedgerSize(String groupDescription) {
-        for (Group group : listOfGroups) {
+        for (Group group : groups) {
             if (group.getGroupID().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize();
         }
@@ -179,7 +179,7 @@ public class GroupsRepository implements Repository {
      * Method used to find a specific group by its Description
      */
     public Group findGroupByDescription(Description groupDescription) {
-        for (Group group : listOfGroups) {
+        for (Group group : groups) {
             if (group.getID().getDescription().equals(groupDescription.getDescription()))
                 return group;
         }
@@ -192,7 +192,7 @@ public class GroupsRepository implements Repository {
      * @param groupID
      */
     public Group findGroupByID(GroupID groupID) {
-        for (Group group : listOfGroups) {
+        for (Group group : groups) {
             if (group.getID().equals(groupID))
                 return group;
         }

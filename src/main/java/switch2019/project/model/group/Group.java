@@ -34,7 +34,7 @@ public class Group implements Owner {
      * @param description
      */
 
-    public Group(String description) {
+    public Group(Description description) {
         setGroupID(description);
         startingDate = new DateAndTime();
         members = new HashSet<>();
@@ -44,7 +44,7 @@ public class Group implements Owner {
         ledger = new Ledger();
     }
 
-    public Group(String description, Person groupCreator){
+    public Group(Description description, Person groupCreator){
         setGroupID(description);
         startingDate = new DateAndTime();
         members = new HashSet<>();
@@ -77,8 +77,8 @@ public class Group implements Owner {
      * Method to Set GroupID
      * @param groupID
      */
-    public void setGroupID(String groupID) {
-        this.groupID = new GroupID(new Description(groupID));
+    public void setGroupID(Description groupID) {
+        this.groupID = new GroupID(groupID);
     }
 
     /**

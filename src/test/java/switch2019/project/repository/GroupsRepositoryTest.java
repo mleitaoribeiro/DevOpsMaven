@@ -34,7 +34,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
-        boolean wasGroupCreated = groupsRepository.createGroup("Test Person", person1);
+        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Test Person"), person1);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -46,7 +46,7 @@ class GroupsRepositoryTest {
     public void testIfGroupWasNotCreated() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
-        Person person1 = new Person("Francis", new DateAndTime(2001, 04, 12), new Address("Dublin"),
+        Person person1 = new Person("Francis", new DateAndTime(2001, 4, 12), new Address("Dublin"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
@@ -66,8 +66,8 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
-        groupsRepository.createGroup("Grupo de Teste", person1);
-        boolean wasGroupCreated = groupsRepository.createGroup("Grupo de Teste", person1);
+        groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
+        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
 
         //Assert
         assertFalse(wasGroupCreated);
@@ -85,9 +85,9 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("123@isep.pt"));
 
         //Act
-        groupsRepository.createGroup("Grupo de Teste", person1);
+        groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
 
-        boolean wasGroupCreated = groupsRepository.createGroup("Grupo de Teste", person2);
+        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Grupo de Teste"), person2);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -103,9 +103,9 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
-        groupsRepository.createGroup("Grupo de Teste", person1);
+        groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
 
-        boolean wasGroupCreated = groupsRepository.createGroup("Grupo Diferente", person1);
+        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Grupo Diferente"), person1);
 
         //Assert
         assertTrue(wasGroupCreated);
@@ -132,13 +132,13 @@ class GroupsRepositoryTest {
     @DisplayName("Test if the number of groups on the list was increased")
     public void howManyGroupsTest() {
         //Arrange
-        Group group1 = new Group("Amigos");
-        Group group2 = new Group("Pokémons");
+        Group group1 = new Group(new Description("Amigos"));
+        Group group2 = new Group(new Description("Pokémons"));
         GroupsRepository groupList = new GroupsRepository();
 
         //Act
-        groupList.addGroupToGroupList(group1);
-        groupList.addGroupToGroupList(group2);
+        groupList.addGroupToRepository(group1);
+        groupList.addGroupToRepository(group2);
         int result = groupList.howManyGroups();
 
         //Assert
@@ -152,12 +152,12 @@ class GroupsRepositoryTest {
     @DisplayName("Test if the group added is not in the list")
     public void testGroupIsInList() {
         //Arrange
-        Group group1 = new Group("Switchieees");
-        Group group2 = new Group("Clube da Costura");
+        Group group1 = new Group(new Description("Switchieees"));
+        Group group2 = new Group(new Description("Clube da Costura"));
         GroupsRepository groupList = new GroupsRepository();
 
         //Act
-        boolean groupAdded = groupList.addGroupToGroupList(group1);
+        boolean groupAdded = groupList.addGroupToRepository(group1);
 
         //Assert
         assertTrue(groupAdded);
@@ -170,7 +170,7 @@ class GroupsRepositoryTest {
         GroupsRepository groupList = new GroupsRepository();
 
         //Act
-        boolean groupAdded = groupList.addGroupToGroupList(null);
+        boolean groupAdded = groupList.addGroupToRepository(null);
 
         //Assert
         assertFalse(groupAdded);
@@ -180,16 +180,16 @@ class GroupsRepositoryTest {
     @DisplayName("Test if more than one group was added is in the list")
     public void testGroupIsInList_MoreThanOne() {
         //Arrange
-        Group group1 = new Group("Switchieees");
-        Group group2 = new Group("Clube da Costura");
-        Group group3 = new Group("Clube dos Livros");
+        Group group1 = new Group(new Description("Switchieees"));
+        Group group2 = new Group(new Description("Clube da Costura"));
+        Group group3 = new Group(new Description("Clube dos Livros"));
 
         GroupsRepository groupList = new GroupsRepository();
 
         //Act
-        boolean group1added = groupList.addGroupToGroupList(group1);
-        boolean group2added = groupList.addGroupToGroupList(group2);
-        boolean group3added = groupList.addGroupToGroupList(group3);
+        boolean group1added = groupList.addGroupToRepository(group1);
+        boolean group2added = groupList.addGroupToRepository(group2);
+        boolean group3added = groupList.addGroupToRepository(group3);
 
         //Assert
         assertTrue(group1added && group2added && group3added);
@@ -222,10 +222,10 @@ class GroupsRepositoryTest {
 
         // Group
         HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
-        Group family = new Group("Family");
+        Group family = new Group(new Description("Family"));
         family.addMember(manuelaMOM);
         family.addMultipleMembers(familyMembersToAdd);
-        globalGroupsRepository.addGroupToGroupList(family);
+        globalGroupsRepository.addGroupToRepository(family);
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
@@ -242,10 +242,10 @@ class GroupsRepositoryTest {
 
         // Group
         HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(marge, bart, lisa, maggie));
-        Group simpsons = new Group("Simpsons");
+        Group simpsons = new Group(new Description("Simpsons"));
         simpsons.addMember(homer);
         simpsons.addMultipleMembers(simpsonsMembersToAdd);
-        globalGroupsRepository.addGroupToGroupList(simpsons);
+        globalGroupsRepository.addGroupToRepository(simpsons);
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
@@ -260,10 +260,10 @@ class GroupsRepositoryTest {
 
         // Group
         HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines));
-        Group familyWithNoMom = new Group("Family with no Mom");
+        Group familyWithNoMom = new Group(new Description("Family with no Mom"));
         familyWithNoMom.addMember(joaoDAD);
         familyWithNoMom.addMultipleMembers(noMomMembersToAdd);
-        globalGroupsRepository.addGroupToGroupList(familyWithNoMom);
+        globalGroupsRepository.addGroupToRepository(familyWithNoMom);
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
@@ -276,10 +276,10 @@ class GroupsRepositoryTest {
 
         // Group
         HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaC, martaP));
-        Group martaGroup = new Group("Marta's group");
+        Group martaGroup = new Group(new Description("Marta's group"));
         martaGroup.addMember(martaR);
         martaGroup.addMultipleMembers(martasGroupMembersToAdd);
-        globalGroupsRepository.addGroupToGroupList(martaGroup);
+        globalGroupsRepository.addGroupToRepository(martaGroup);
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
@@ -294,10 +294,10 @@ class GroupsRepositoryTest {
 
         // Group
         HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(carolyn, todd, diane));
-        Group bojackGang = new Group("Bojack's Gang");
+        Group bojackGang = new Group(new Description("Bojack's Gang"));
         bojackGang.addMember(bojack);
         bojackGang.addMultipleMembers(bojackGangMembersToAdd);
-        globalGroupsRepository.addGroupToGroupList(bojackGang);
+        globalGroupsRepository.addGroupToRepository(bojackGang);
 
         //Act
         Set<Group> realResult = globalGroupsRepository.returnOnlyFamilies();
@@ -319,8 +319,8 @@ class GroupsRepositoryTest {
         GroupsRepository testGroupList = new GroupsRepository();
 
             //Arrange Groups:
-        Group testGroup = new Group("test group");
-        testGroupList.addGroupToGroupList(testGroup);
+        Group testGroup = new Group(new Description("test group"));
+        testGroupList.addGroupToRepository(testGroup);
 
             //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
@@ -328,7 +328,7 @@ class GroupsRepositoryTest {
         testGroup.addMember(testGroupAdmin);
 
         //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("test group")),testGroupAdmin);
 
         //Assert:
         assertTrue(result);
@@ -342,15 +342,15 @@ class GroupsRepositoryTest {
         GroupsRepository testGroupList = new GroupsRepository();
 
         //Arrange Groups:
-        Group testGroup = new Group("test group");
-        testGroupList.addGroupToGroupList(testGroup);
+        Group testGroup = new Group(new Description("test group"));
+        testGroupList.addGroupToRepository(testGroup);
 
         //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup("test group",testGroupAdmin);
+        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("test group")),testGroupAdmin);
 
         //Assert:
         assertFalse(result);
@@ -364,8 +364,8 @@ class GroupsRepositoryTest {
         GroupsRepository testGroupList = new GroupsRepository();
 
         //Arrange Groups:
-        Group testGroup = new Group("test group");
-        testGroupList.addGroupToGroupList(testGroup);
+        Group testGroup = new Group(new Description("test group"));
+        testGroupList.addGroupToRepository(testGroup);
 
         //Arrange Admin:
         Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
@@ -374,7 +374,7 @@ class GroupsRepositoryTest {
 
         //Act:
         try {
-            testGroupList.checkIfAPersonIsAdminInAGivenGroup("blabla", testGroupAdmin);
+            testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("blabla")), testGroupAdmin);
         } catch (IllegalArgumentException groupNotFound) {
             assertEquals("There're no groups found with that description.", groupNotFound.getMessage());
         }
@@ -396,10 +396,10 @@ class GroupsRepositoryTest {
 
         // Groups:
         GroupsRepository groupsRepository = new GroupsRepository();
-        Group spiceGirls = new Group("spice girls");
-        Group work = new Group("work");
-        groupsRepository.createGroup("spice girls", person);
-        groupsRepository.createGroup("work", person);
+        Group spiceGirls = new Group(new Description("spice girls"));
+        Group work = new Group(new Description("work"));
+        groupsRepository.createGroup(new Description("spice girls"), person);
+        groupsRepository.createGroup(new Description("work"), person);
 
         // Group Accounts:
         Account accountCombustivel = new Account(new Denomination("combustivel"),
@@ -435,7 +435,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("JUST4FUN", person);
+        groupsRepository.createGroup(new Description("JUST4FUN"), person);
         try {
             //Act
             groupsRepository.createTransactionOnSpecificGroup(person, "Tarzan", amount, description,
@@ -468,7 +468,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("JUST4FUN", person);
+        groupsRepository.createGroup(new Description("JUST4FUN"), person);
         try {
             //Act
             groupsRepository.createTransactionOnSpecificGroup(person1, "Tarzan", amount, description,
@@ -490,7 +490,7 @@ class GroupsRepositoryTest {
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person notMember = new Person("Francisco", new DateAndTime(1993, 11, 13),
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        groupsRepository.createGroup("TestGroup",person1);
+        groupsRepository.createGroup(new Description("TestGroup"),person1);
 
             //Transactions arrangement:
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -534,7 +534,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("tarzan", person);
+        groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan",
@@ -565,7 +565,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("tarzan", person);
+        groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan",
@@ -595,7 +595,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("tarzan", person);
+        groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan",
@@ -626,7 +626,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("tarzan", person);
+        groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
         boolean result = groupsRepository.createScheduleOnSpecificGroup(person, "tarzan",
@@ -656,7 +656,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("tarzan", person);
+        groupsRepository.createGroup(new Description("tarzan"), person);
 
         try {
             //Act
@@ -689,7 +689,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("JUST4FUN", person);
+        groupsRepository.createGroup(new Description("JUST4FUN"), person);
 
         try {
             //Act
@@ -724,7 +724,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("JUST4FUN", personMember);
+        groupsRepository.createGroup(new Description("JUST4FUN"), personMember);
 
         try {
             //Act
@@ -764,7 +764,7 @@ class GroupsRepositoryTest {
                 new Description("Transport expenses"));
 
         GroupsRepository groupsRepository = new GroupsRepository();
-        groupsRepository.createGroup("JUST4FUN", personMember);
+        groupsRepository.createGroup(new Description("JUST4FUN"), personMember);
 
         try {
             //Act
@@ -793,10 +793,10 @@ class GroupsRepositoryTest {
         GroupsRepository testGroupsRepository = new GroupsRepository();
 
             //Arrange two groups inside the GroupsList:
-        Group group1 = new Group("test group 1");
-        Group group2 = new Group("test group 2");
-        testGroupsRepository.addGroupToGroupList(group1);
-        testGroupsRepository.addGroupToGroupList(group2);
+        Group group1 = new Group(new Description("test group 1"));
+        Group group2 = new Group(new Description("test group 2"));
+        testGroupsRepository.addGroupToRepository(group1);
+        testGroupsRepository.addGroupToRepository(group2);
 
             //groupMember is member of both groups:
         group1.addMember(groupMember);
@@ -868,10 +868,10 @@ class GroupsRepositoryTest {
         GroupsRepository testGroupsRepository = new GroupsRepository();
 
         //Arrange two groups inside the GroupsList:
-        Group group1 = new Group("test group 1");
-        Group group2 = new Group("test group 2");
-        testGroupsRepository.addGroupToGroupList(group1);
-        testGroupsRepository.addGroupToGroupList(group2);
+        Group group1 = new Group(new Description("test group 1"));
+        Group group2 = new Group(new Description("test group 2"));
+        testGroupsRepository.addGroupToRepository(group1);
+        testGroupsRepository.addGroupToRepository(group2);
 
         //groupMember is member of both groups:
         group1.addMember(groupMember);
@@ -946,10 +946,10 @@ class GroupsRepositoryTest {
         GroupsRepository testGroupsRepository = new GroupsRepository();
 
         //Arrange two groups inside the GroupsList:
-        Group group1 = new Group("test group 1");
-        Group group2 = new Group("test group 2");
-        testGroupsRepository.addGroupToGroupList(group1);
-        testGroupsRepository.addGroupToGroupList(group2);
+        Group group1 = new Group(new Description("test group 1"));
+        Group group2 = new Group(new Description("test group 2"));
+        testGroupsRepository.addGroupToRepository(group1);
+        testGroupsRepository.addGroupToRepository(group2);
 
         //groupMember is not added
 
@@ -1015,10 +1015,10 @@ class GroupsRepositoryTest {
     void isLedgerSizeChecked(){
         //Arrange:
         GroupsRepository groupsRepository = new GroupsRepository();
-        Group group2 = new Group("test group 2");
-        Group group1 = new Group("Test Group Main");
-        groupsRepository.addGroupToGroupList(group2);
-        groupsRepository.addGroupToGroupList(group1);
+        Group group2 = new Group(new Description("test group 2"));
+        Group group1 = new Group(new Description("Test Group Main"));
+        groupsRepository.addGroupToRepository(group2);
+        groupsRepository.addGroupToRepository(group1);
 
             //Arranging accounts:
         Account savingsAccount = new Account(new Denomination("Savings"),
@@ -1071,8 +1071,8 @@ class GroupsRepositoryTest {
         personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
                 new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
-        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByEmail(new Email ("1234@isep.pt")));
-        Group Blabla = new Group("BLA BLA");
+        groupsRepository.createGroup(new Description("BLA BLA"),personRepository.findPersonByEmail(new Email ("1234@isep.pt")));
+        Group Blabla = new Group(new Description("BLA BLA"));
         Blabla.addMember(personRepository.findPersonByEmail(new Email("1234@isep.pt")));
 
         //Act:
@@ -1093,7 +1093,7 @@ class GroupsRepositoryTest {
                 new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
 
-        groupsRepository.createGroup("BLA BLA",personRepository.findPersonByEmail(new Email("1234@isep.pt")));
+        groupsRepository.createGroup(new Description("BLA BLA"),personRepository.findPersonByEmail(new Email("1234@isep.pt")));
 
 
         //Act:
@@ -1114,8 +1114,8 @@ class GroupsRepositoryTest {
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
         GroupsRepository groupsRepository= new GroupsRepository();
-        groupsRepository.createGroup("Familia", person);
-        Group expected= new Group("Familia");
+        groupsRepository.createGroup(new Description("Familia"), person);
+        Group expected= new Group(new Description("Familia"));
 
         //Act
         Group actual=groupsRepository.findGroupByID(new GroupID(new Description("Familia")));

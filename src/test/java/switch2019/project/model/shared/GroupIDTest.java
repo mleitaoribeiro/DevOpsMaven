@@ -64,7 +64,7 @@ class GroupIDTest {
         Description groupID1description = new Description("Linkin Park Fans");
         GroupID groupID1 = new GroupID(groupID1description);
 
-        Group group1 = new Group("Linkin Park Fans");
+        Group group1 = new Group(new Description("Linkin Park Fans"));
 
         //Act:
         boolean result = groupID1.equals(group1);

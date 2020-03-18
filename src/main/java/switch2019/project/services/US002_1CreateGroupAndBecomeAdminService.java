@@ -29,7 +29,7 @@ public class US002_1CreateGroupAndBecomeAdminService {
     public boolean createGroupAndBecomeAdmin(Description groupDescription, PersonID personID) {
         if (groupDescription != null && personID != null) {
             Person person = personRepository.findPersonByID(personID);
-            return groupsRepository.createGroup(groupDescription.toString(), person);
+            return groupsRepository.createGroup(groupDescription, person);
         } else return false;
     }
     

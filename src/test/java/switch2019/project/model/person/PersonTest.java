@@ -1037,7 +1037,7 @@ class PersonTest {
 
         Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Group group1 = new Group("Test Group");
+        Group group1 = new Group(new Description("Test Group"));
 
         //Act
         boolean result = person1.equals(group1);

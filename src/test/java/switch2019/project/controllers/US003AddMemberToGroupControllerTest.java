@@ -39,8 +39,8 @@ public class US003AddMemberToGroupControllerTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("father@isep.ipp.pt"));
 
         //Add groups to Repository
-        groupsRepository.createGroup("familia", person);
-        groupsRepository.createGroup("canto", person3);
+        groupsRepository.createGroup(new Description("familia"), person);
+        groupsRepository.createGroup(new Description("canto"), person3);
 
         /**
          * US003

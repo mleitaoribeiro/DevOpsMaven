@@ -41,8 +41,8 @@ public class US003AddMemberToGroupServiceTest {
 
         //Add groups to Repository
 
-        groupsRepository.createGroup("familia", person);
-        groupsRepository.createGroup("canto", person3);
+        groupsRepository.createGroup(new Description("familia"), person);
+        groupsRepository.createGroup(new Description("canto"), person3);
     }
 
     /**

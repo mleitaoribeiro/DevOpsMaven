@@ -51,7 +51,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
         //Arrangement of the Group:
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
@@ -71,7 +71,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
         //Arrangement of the Group:
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
@@ -91,7 +91,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
         //Arrangement of the Group:
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         Group thisGroup = groupsRepository.findGroupByID(groupID);
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
@@ -111,7 +111,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
 
         //Act:
         boolean result = (service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"))
@@ -130,7 +130,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
         //Arrangement of the Group:
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
@@ -150,7 +150,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
         //Arrangement of the Group:
-        groupsRepository.createGroup("FRIENDS", personRepository.findPersonByID(franciscoID));
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:

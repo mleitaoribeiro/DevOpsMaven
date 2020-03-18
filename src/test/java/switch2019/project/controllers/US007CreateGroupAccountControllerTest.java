@@ -70,10 +70,10 @@ class US007CreateGroupAccountControllerTest {
 
         //Add Groups to Repository
 
-        groupsRepo.createGroup("Familia", personJoaoCardoso);
-        groupsRepo.createGroup("Friends", personMiluAlbertina);
-        groupsRepo.createGroup("MArket", personRobertoAlmeida);
-        groupsRepo.createGroup("Isep", personFrederico);
+        groupsRepo.createGroup(new Description("Familia"), personJoaoCardoso);
+        groupsRepo.createGroup(new Description("Friends"), personMiluAlbertina);
+        groupsRepo.createGroup(new Description("MArket"), personRobertoAlmeida);
+        groupsRepo.createGroup(new Description("Isep"), personFrederico);
 
         //Add members to groups
 

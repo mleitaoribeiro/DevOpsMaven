@@ -83,42 +83,43 @@ class US004GetFamilyGroupsServiceTest {
         Person diane = new Person("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"),
                 new Address("Rua B", "Porto", "4520-233"),carolyn,bojack, new Email("new4@isep.pt"));
 
-        Group group1 = new Group("Familia Santos");
+        Group group1 = new Group(new Description("Familia Santos"));
         group1.addMember(carlosDAD);
         group1.addMember(manuelaMOM);
         group1.addMember(oscar);
         group1.addMember(marta);
         group1.addMember(joao);
 
-        Group group2 = new Group ("Familia Simpson");
+        Group group2 = new Group (new Description("Familia Simpson"));
         group2.addMember(homer);
         group2.addMember(marge);
         group2.addMember(maggie);
         group2.addMember(lisa);
         group2.addMember(bart);
 
-        Group group3 = new Group("Familia Silva"); //No Mom Added
+        Group group3 = new Group(new Description("Familia Silva")); //No Mom Added
         group3.addMember(joaoDAD);
         group3.addMember(diana);
         group3.addMember(elsa);
         group3.addMember(ines);
 
-        Group group4 = new Group("Grupo Das Martas"); //No Family
+        Group group4 = new Group(new Description("Grupo Das Martas")); //No Family
         group4.addMember(martaC);
         group4.addMember(martaP);
         group4.addMember(martaR);
 
-        Group group5 = new Group("Familia Bojack"); //No Dad Added
+        Group group5 = new Group(new Description("Familia Bojack")); //No Dad Added
         group5.addMember(carolyn);
         group5.addMember(diane);
         group5.addMember(todd);
 
 
 
-        groupsRepository.addGroupToGroupList(group1);
-        groupsRepository.addGroupToGroupList(group2);
-        groupsRepository.addGroupToGroupList(group3);
-        groupsRepository.addGroupToGroupList(group5);
+        groupsRepository.addGroupToRepository(group1);
+        groupsRepository.addGroupToRepository(group2);
+        groupsRepository.addGroupToRepository(group3);
+        groupsRepository.addGroupToRepository(group5);
+
 
 
 

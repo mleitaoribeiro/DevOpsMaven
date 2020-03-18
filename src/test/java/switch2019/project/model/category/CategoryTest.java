@@ -10,6 +10,7 @@ import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.PersonID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -173,7 +174,7 @@ class CategoryTest {
     public void testIfACategoryIsNotEqualToAnotherObject() {
         //Arrange:
         Category categoryPlaceholder = new Category("Dinner");
-        Group groupPlaceholder = new Group("Friends");
+        Group groupPlaceholder = new Group(new Description("Friends"));
 
         //Act:
         boolean result = categoryPlaceholder.equals(groupPlaceholder);

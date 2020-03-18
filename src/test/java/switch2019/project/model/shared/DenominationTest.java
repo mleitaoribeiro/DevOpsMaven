@@ -154,7 +154,7 @@ class DenominationTest {
     public void testIfADenominationIsNotEqualToAnotherObject() {
         //Arrange:
         Denomination denomination = new Denomination("Dinner");
-        Group group = new Group("Friends");
+        Group group = new Group(new Description("Friends"));
 
         //Act:
         boolean result = denomination.equals(group);
