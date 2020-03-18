@@ -89,4 +89,44 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
         assertFalse(result);
 
     }
+
+    @Test
+    @DisplayName("Group was already created")
+    void createGroupAndGroupNullFields() {
+
+        //Act
+        boolean result = service.createGroupAndBecomeAdmin(null, null);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Group was already created")
+    void createGroupAndGroupNullPersonID() {
+
+        //Assert
+        Description groupDescription = new Description("Bashtards");
+
+        //Act
+        boolean result = service.createGroupAndBecomeAdmin(groupDescription, null);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Group was already created")
+    void createGroupAndGroupNullGroupDescription() {
+
+        //Assert
+        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+
+        //Act
+        boolean result = service.createGroupAndBecomeAdmin(null, personID);
+
+        //Assert
+        assertFalse(result);
+    }
+
 }
