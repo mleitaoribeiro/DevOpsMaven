@@ -19,90 +19,91 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryRepositoryTest {
 
     /**
-     * Tests for the CategoryList method toString
+     * Tests for the CategoryRepository method toString
      */
-   /* @Test
-    @DisplayName("Test if method toString returns the categories in the CategoryList")
+    /*@Test
+    @DisplayName("Test if method toString returns the categories in the Category Repository")
     public void validateToString() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        CategoryRepository firstCategoryList = new CategoryRepository();
-        firstCategoryList.createCategory("cinema", person1.getID());
-        firstCategoryList.createCategory("jantares", person1.getID());
-        String expected = "CategoryList: [CINEMA, JANTARES]";
+        CategoryRepository firstCategoryRepository = new CategoryRepository();
+
+        firstCategoryRepository.createCategory("cinema", person1.getID());
+        firstCategoryRepository.createCategory("jantares", person1.getID());
+
+        String expected = "CategoryRepository: [CINEMA, JANTARES]";
 
         //Act:
-        String result = firstCategoryList.toString();
+        String result = firstCategoryRepository.toString();
 
         //Assert:
         assertEquals(expected, result);
-    }
-    */
+    }*/
 
     /**
-     * Test if one category was added to the Category List
+     * Test if one category was added to the Category Repository
      */
 
     @Test
-    @DisplayName("Test if one category was added to the Category List - Main Scenario ")
-    void addCategoryToListMainScenario() {
+    @DisplayName("Test if one category was added to the Category Repository - Main Scenario ")
+    void addCategoryToRepositoryMainScenario() {
         //Arrange
-        //Category to be included in Category List
+        //Category to be included in Category Repository
         String oneCategory = "School expenses";
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
 
-        boolean realResult = newCategoryList.createCategory(oneCategory);
+        boolean realResult = newCategoryRepository.createCategory(oneCategory);
 
         //Assert
         assertEquals(true, realResult);
     }
 
     /**
-     * Test if two different categories were added to the Category List
+     * Test if two different categories were added to the Category Repository
      */
 
     @Test
-    @DisplayName("Test if two categories were added to the Category List - Main Scenario ")
-    void addCategoryToCategoryListTwoDifferentCategories() {
+    @DisplayName("Test if two categories were added to the Category Repository - Main Scenario ")
+    void addCategoryToCategoryRepositoryTwoDifferentCategories() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        //Category to be included in Category List
+        //Category to be included in Category Repository
         String oneCategory = "School expenses";
         String otherCategory = "Health";
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
 
-        boolean realResult = newCategoryList.createCategory(oneCategory,person1.getID())
-                && newCategoryList.createCategory(otherCategory, person1.getID());
+        boolean realResult = newCategoryRepository.createCategory(oneCategory,person1.getID())
+                && newCategoryRepository.createCategory(otherCategory, person1.getID());
 
         //Assert
         assertTrue(realResult);
     }
 
     /**
-     * Test if a null was added to the Category List
-     * Validation trough the size of the List
+     * Test if a null was added to the Category Repository
+     * Validation trough the size of the Repository
      */
 
     @Test
-    @DisplayName("Test if a null was added to the Category List - validate trough size of CategoryList ")
-    void addCategoryToCategoryListNullCase() {
+    @DisplayName("Test if a null was added to the Category Repository - validate trough size of CategoryRepository ")
+    void addCategoryToCategoryRepositoryNullCase() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        //Category to be included in Category List
+        //Category to be included in Category Repository
         String otherCategory = null;
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
 
         try {
-            newCategoryList.createCategory(otherCategory, person1.getID());
+            newCategoryRepository.createCategory(otherCategory, person1.getID());
         }
 
         //Assert
@@ -112,25 +113,25 @@ class CategoryRepositoryTest {
     }
 
     /**
-     * Test if a category that already exists in the list was added
+     * Test if a category that already exists in the Repository was added
      * Ignore the case and spelling accents
      */
 
     @Test
-    @DisplayName("Test if a duplicate Category was added to the Category List - ignore word case or spelling accents")
-    void addCategoryToCategoryListDuplicateCategory() {
+    @DisplayName("Test if a duplicate Category was added to the Category Repository - ignore word case or spelling accents")
+    void addCategoryToCategoryRepositoryDuplicateCategory() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        //Category to be included in Category List
+        //Category to be included in Category Repository
         String originalCategory = "Saude";
         String duplicateCategory = "saúde";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        boolean realResult = newCategoryList.createCategory(originalCategory, person1.getID())
-                && newCategoryList.createCategory(duplicateCategory,person1.getID());
+        boolean realResult = newCategoryRepository.createCategory(originalCategory, person1.getID())
+                && newCategoryRepository.createCategory(duplicateCategory,person1.getID());
 
         //Assert
 
@@ -139,12 +140,12 @@ class CategoryRepositoryTest {
     }
 
     /**
-     * Test if a category was removed from the Category List
+     * Test if a category was removed from the Category Repository
      */
 
     @Test
-    @DisplayName("Test if a category was removed from the Category List - Main Scenario")
-    void removeCategoryFromListMainScenario() {
+    @DisplayName("Test if a category was removed from the Category Repository - Main Scenario")
+    void removeCategoryFromRepositoryMainScenario() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
@@ -152,23 +153,23 @@ class CategoryRepositoryTest {
         String otherCategory = "Health";
         String otherCategoryObject = "Health";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        newCategoryList.createCategory(oneCategory, person1.getID());
-        newCategoryList.createCategory(otherCategory, person1.getID());
+        newCategoryRepository.createCategory(oneCategory, person1.getID());
+        newCategoryRepository.createCategory(otherCategory, person1.getID());
 
         //Remove one Category
 
-        boolean realResult = newCategoryList.removeCategory(otherCategoryObject, person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(otherCategoryObject, person1.getID());
 
         //Assert
         assertTrue(realResult);
     }
 
     @Test
-    @DisplayName("Test if a category was removed from the Category List - ignore word case or word accent")
-    void removeCategoryFromList() {
+    @DisplayName("Test if a category was removed from the Category Repository - ignore word case or word accent")
+    void removeCategoryFromRepository() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
@@ -176,37 +177,37 @@ class CategoryRepositoryTest {
         String otherCategory = "saúde";
         String otherCategoryObject = "saúde";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        newCategoryList.createCategory(oneCategory,person1.getID());
-        newCategoryList.createCategory(otherCategory,person1.getID());
+        newCategoryRepository.createCategory(oneCategory,person1.getID());
+        newCategoryRepository.createCategory(otherCategory,person1.getID());
         //Remove one Category
-        boolean realResult = newCategoryList.removeCategory(otherCategoryObject,person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(otherCategoryObject,person1.getID());
 
         //Assert
         assertTrue(realResult);
     }
 
     @Test
-    @DisplayName("check if category is not in list and threfore cant be removed")
-    void removeCategoryThatIsNotInTheList() {
+    @DisplayName("check if category is not in Repository and threfore cant be removed")
+    void removeCategoryThatIsNotInTheRepository() {
 
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository testCategoryList = new CategoryRepository();
+        CategoryRepository testCategoryRepository = new CategoryRepository();
 
         //Act:
-        boolean isACategoryNotInListRemoved = testCategoryList.removeCategory("Cinema", person1.getID());
+        boolean isACategoryNotInRepositoryRemoved = testCategoryRepository.removeCategory("Cinema", person1.getID());
 
         //Assert:
-        assertFalse(isACategoryNotInListRemoved);
+        assertFalse(isACategoryNotInRepositoryRemoved);
     }
 
     @Test
-    @DisplayName("Test if a category was removed from the Category List - null case")
-    void removeCategoryFromListNullCase() {
+    @DisplayName("Test if a category was removed from the Category Repository - null case")
+    void removeCategoryFromRepositoryNullCase() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
@@ -214,14 +215,14 @@ class CategoryRepositoryTest {
         String otherCategory = "null";
         String otherCategoryObject = null;
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        newCategoryList.createCategory(oneCategory,person1.getID());
-        newCategoryList.createCategory(otherCategory,person1.getID());
+        newCategoryRepository.createCategory(oneCategory,person1.getID());
+        newCategoryRepository.createCategory(otherCategory,person1.getID());
         //Remove one Category
         try {
-            boolean realResult = newCategoryList.removeCategory(otherCategoryObject, person1.getID());
+            boolean realResult = newCategoryRepository.removeCategory(otherCategoryObject, person1.getID());
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -231,8 +232,8 @@ class CategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if a category was removed from the Category List - a category that doesnt exists")
-    void removeCategoryFromListDoesntExist() {
+    @DisplayName("Test if a category was removed from the Category Repository - a category that doesnt exists")
+    void removeCategoryFromRepositoryDoesntExist() {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
@@ -240,96 +241,96 @@ class CategoryRepositoryTest {
         String otherCategory = "Educação";
         String otherCategoryObject = "Educação";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        newCategoryList.createCategory(oneCategory,person1.getID());
+        newCategoryRepository.createCategory(oneCategory,person1.getID());
 
-        //Remove the otherCategory (the list doesn't contain this)
+        //Remove the otherCategory (the Repository doesn't contain this)
 
-        boolean realResult = newCategoryList.removeCategory(otherCategoryObject,person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(otherCategoryObject,person1.getID());
 
         //Assert
         assertFalse(realResult);
     }
 
     /**
-     * Test to add a set of categories to a category list
+     * Test to add a set of categories to a category Repository
      */
 
     @Test
-    @DisplayName("Add a Set of Categories to Category List - Main Scenario")
-    void addMultipleCategoriesToListMainScenario() {
+    @DisplayName("Add a Set of Categories to Category Repository - Main Scenario")
+    void addMultipleCategoriesToRepositoryMainScenario() {
         // Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
+        // Categories to be included in Category Repository
         String categoryHealth = "Health";
         String categoryGym = "Gym";
         String categoryUniversity = "University";
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository= new CategoryRepository();
 
         //Act
 
-        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.addMultipleCategories(setOfCategories,person1.getID());
+        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryRepository.addMultipleCategories(setOfCategories,person1.getID());
 
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
     }
 
     @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously")
-    void addMultipleCategoriesToListWithTwoCategoriesThatAreTheSame() {
+    @DisplayName("Add a Set of Categories to user Category Repository - Check if the same Category is not added simultaneously")
+    void addMultipleCategoriesToRepositoryWithTwoCategoriesThatAreTheSame() {
         // Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
+        // Categories to be included in Category Repository
         String categoryHealth = "Health";
         String categoryHealthDuplicated = "Health";
         String categoryBeauty = "Beauty";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
 
         //Act
-        //Add several categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        //Add several categories simultaneously to Category Repository with method under test
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInRepository();
+        int realNumberOfCategoriesOfTheRepository = newCategoryRepository.numberOfCategoryInRepository();
 
         //Assert
-        assertEquals(2, realNumberOfCategoriesOfTheList);
+        assertEquals(2, realNumberOfCategoriesOfTheRepository);
 
     }
 
     @Test
-    @DisplayName("Add a Set of Categories to user Category List - Check if the same Category is not added simultaneously " +
+    @DisplayName("Add a Set of Categories to user Category Repository - Check if the same Category is not added simultaneously " +
             "Ignore letter capitalization and special characters. ")
-    void addMultipleCategoriesToListWithTwoCategoriesCaseInsensitive() {
+    void addMultipleCategoriesToRepositoryWithTwoCategoriesCaseInsensitive() {
         // Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
+        // Categories to be included in Category Repository
         String categoryHealth = "Health";
         String categoryHealthDuplicated = "heálth";
         String categoryBeauty = "Beauty";
 
-        CategoryRepository newCategoryList = new CategoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //A collection of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
         //Act
-        //Add everal categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
+        //Add everal categories simultaneously to Category Repository with method under test
+        newCategoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInRepository();
+        int realNumberOfCategoriesOfTheRepository = newCategoryRepository.numberOfCategoryInRepository();
 
-        assertEquals(2, realNumberOfCategoriesOfTheList);
+        assertEquals(2, realNumberOfCategoriesOfTheRepository);
     }
 
 

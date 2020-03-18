@@ -61,12 +61,24 @@ public class DateAndTime {
     }
 
 
-    public boolean localDateIsAfter () {
-        return yearMonthDay.isAfter(LocalDate.now());
+    /**
+     * Method to check if the date is in the future
+     */
+    public boolean isInTheFuture() {
+        if(yearMonthDay != null) return yearMonthDay.isAfter(LocalDate.now());
+        else return yearMonthDayHourMinute.isAfter(LocalDateTime.now());
     }
 
     /**
-     * Methood toString() of yearMonthDay
+     * Method to check if the date is in the past
+     */
+    public boolean isInThePast() {
+        if(yearMonthDay != null) return yearMonthDay.isBefore(LocalDate.now());
+        else return yearMonthDayHourMinute.isBefore(LocalDateTime.now());
+    }
+
+    /**
+     * Method toString() of yearMonthDay
      */
     public String dateToString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -74,7 +86,7 @@ public class DateAndTime {
     }
 
     /**
-     * Methood toString() of yearMonthDayHourMinute
+     * Method toString() of yearMonthDayHourMinute
      */
     public String dateHourMinuteToString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

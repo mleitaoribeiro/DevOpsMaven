@@ -141,10 +141,10 @@ class US004GetFamilyGroupsControllerTest {
         expected.add(groupsRepository.findGroupByID(new GroupID(new Description("Familia Simpson"))));
 
         //Act
-        controller.getFamilyGroups(service,groupsRepository);
+        controller.getFamilyGroups(groupsRepository);
 
         //Assert
-        assertEquals(expected, controller.getFamilyGroups(service, groupsRepository));
+        assertEquals(expected, controller.getFamilyGroups(groupsRepository));
     }
 
     @Test
@@ -153,9 +153,9 @@ class US004GetFamilyGroupsControllerTest {
         //Arrange
         Set<Group> expected = new HashSet<>();
         //Act
-        controller.getFamilyGroups(service, groupsRepository2);
+        controller.getFamilyGroups(groupsRepository2);
 
         //Assert
-        assertEquals(expected,controller.getFamilyGroups(service, groupsRepository2));
+        assertEquals(expected,controller.getFamilyGroups(groupsRepository2));
     }
 }

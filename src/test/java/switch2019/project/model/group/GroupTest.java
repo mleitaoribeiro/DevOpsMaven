@@ -1791,104 +1791,8 @@ class GroupTest {
     }
 
     /**
-     * Check if a Admin createad and added Category to the groups Category list (US05.1)
+     * Test if two Groups are the same
      */
-
-    @Test
-    @DisplayName("Check if a category was added to Category List by admin- Main Scenario")
-    void addCategoryToListMainScenario() {
-        //Arrange
-        Group group1 = new Group("Grupo dos amigos");
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        group1.addMember(person1);
-
-
-        //Act
-        boolean realResult = group1.createCategory("School expenses", person1);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Check if Admin created and added category  - False Scenario")
-    void addCategoryToListFalseScenario() {
-        //Arrange
-
-        Group group1 = new Group("Grupo dos amigos");
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Filipa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-
-        group1.addMember(person1);
-
-        //Act
-        boolean realResult = group1.createCategory("School expenses", person2);
-
-        //Assert
-        assertFalse(realResult);
-    }
-
-    @Test
-    @DisplayName("Check if null category is not added by the admin")
-    void addCategoryToListWithANullCase() {
-        //Arrange
-        //Initialize Group
-        Group group1 = new Group("Grupo dos amigos");
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        group1.addMember(person1);
-
-        //Act
-        boolean realResult = group1.createCategory(null, person1);
-
-        //Assert
-        assertFalse(realResult);
-
-    }
-
-    @Test
-    @DisplayName("Check if the same Category is not added simultaneously by the admin")
-    void addTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
-        //Arrange
-
-        Group group1 = new Group("Groupo dos amigos");
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        group1.addMember(person1);
-        //Categories to be included in Category List
-
-        //Act
-        boolean categoryAdded = group1.createCategory("Cinema", person1);
-        boolean sameCategoryAdded = group1.createCategory("Cinema", person1);
-        boolean isSameCategoryAdded = categoryAdded && sameCategoryAdded;
-
-        //Assert
-        assertFalse(isSameCategoryAdded);
-
-    }
-
-    @Test
-    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
-    void addTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
-        //Arrange
-        Group group1 = new Group("Groupo dos amigos");
-        Person person1 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        group1.addMember(person1);
-        //Categories to be included in Category List
-        Category category1 = new Category("School expenses");
-        Category category2 = new Category("SCHOóL expenses");
-
-        //Act
-        boolean realResult = group1.createCategory("School expenses", person1) && !group1.createCategory("SCHOóL expenses", person1);
-
-        //Assert
-        assertTrue(realResult);
-
-    }
 
     @Test
     @DisplayName("test if two Groups are the same")
@@ -1924,85 +1828,6 @@ class GroupTest {
         //Assert
         assertNotEquals(g1, g2);
     }
-
-    /**
-     * Check if a Category was removed from the groups Category list
-     */
-
-    @Test
-    @DisplayName("Remove category from GroupList - Happy Case(True)")
-    void isCategoryRemovedFromCategoryList() {
-
-        //Arrange:
-        Person groupAdmin = new Person("Francisco", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group testGroup = new Group("Test group");
-        testGroup.addMember(groupAdmin);
-        testGroup.createCategory("groceries", groupAdmin);
-
-        //Act:
-        boolean result = testGroup.removeCategoryFromList("groceries", groupAdmin);
-
-        //Assert:
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Remove category from GroupList - False - person trying to remove is not an admin)")
-    void isCategoryRemovedFromCategoryListNotAdmin() {
-
-        //Arrange:
-        Person groupAdmin = new Person("Francisco", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person groupMember = new Person("João", new DateAndTime(1991, 12, 11), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group testGroup = new Group("Test group");
-        testGroup.addMember(groupAdmin);
-        testGroup.addMember(groupMember);
-        testGroup.createCategory("groceries", groupAdmin);
-
-        //Act:
-        boolean result = testGroup.removeCategoryFromList("groceries", groupMember);
-
-        //Assert:
-        assertFalse(result);
-    }
-
-    @Test
-    @DisplayName("Remove category from GroupList - False - person trying to remove is null)")
-    void isCategoryRemovedFromCategoryListNullAdmin() {
-
-        //Arrange:
-        Person groupAdmin = null;
-        Group testGroup = new Group("Test group");
-        testGroup.addMember(groupAdmin);
-        testGroup.createCategory("groceries", groupAdmin);
-
-        //Act:
-        boolean result = testGroup.removeCategoryFromList("groceries", groupAdmin);
-
-        //Assert:
-        assertFalse(result);
-    }
-
-    @Test
-    @DisplayName("Remove category from GroupList - False - category to remove is null)")
-    void isCategoryRemovedFromCategoryListNullCategory() {
-
-        //Arrange:
-        Person groupAdmin = new Person("Francisco", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group testGroup = new Group("Test group");
-        testGroup.addMember(groupAdmin);
-        testGroup.createCategory(null, groupAdmin);
-
-        //Act:
-        boolean result = testGroup.removeCategoryFromList(null, groupAdmin);
-
-        //Assert:
-        assertFalse(result);
-    }
-
 
     /**
      * US010 Como membro de grupo, quero obter os movimentos de determinada conta num dado período.
@@ -2500,9 +2325,6 @@ class GroupTest {
         String description = "payment";
 
         Category category = new Category("General");
-        person4.createCategoryAndAddToCategoryList("General");
-
-
 
         //Act
         boolean transactionCreated = false;
@@ -2540,9 +2362,6 @@ class GroupTest {
         String description1 = "payment";
 
         Category category = new Category("General");
-        person4.createCategoryAndAddToCategoryList("General");
-
-
 
         //Act
         try {
@@ -2583,9 +2402,6 @@ class GroupTest {
         String description = "payment";
 
         Category category = new Category("General");
-        person4.createCategoryAndAddToCategoryList("General");
-
-
 
         //Act
         boolean transactionCreated = false;
@@ -3306,7 +3122,7 @@ class GroupTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -3335,7 +3151,7 @@ class GroupTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -3363,7 +3179,7 @@ class GroupTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -3392,7 +3208,7 @@ class GroupTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -3419,7 +3235,7 @@ class GroupTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -3463,7 +3279,26 @@ class GroupTest {
         assertEquals(expected, result);
 
     }
-}
+    /**
+     * Test to check if iD converts a groupID into a String.
+     */
+
+    @Test
+    @DisplayName("gruoupIDToString tested - Success")
+    void testToString() {
+
+
+            //Arrange:
+            GroupID groupID = new GroupID(new Description("Policias"));
+
+            //Act:
+            String groupIDInString = groupID.toString();
+            String expected = "POLICIAS";
+
+            //Assert:
+            assertEquals(expected, groupIDInString);
+        }
+    }
 
 
 
