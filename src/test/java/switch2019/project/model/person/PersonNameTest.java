@@ -1,5 +1,6 @@
 package switch2019.project.model.person;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.shared.Denomination;
 
@@ -159,4 +160,35 @@ class PersonNameTest {
         assertFalse(result);
     }
 
+    /**
+     * HashCode Tests:
+     */
+    @Test
+    @DisplayName("Happy Case - Same hashCode")
+    void hashCodeVeridficationTestTrue() {
+
+        //Arrange:
+        PersonName personName1 = new PersonName("Francisca");
+        PersonName personName2 = new PersonName("Francisca");
+
+        //Act:
+        boolean result = (personName1.hashCode() == personName2.hashCode());
+
+        //Assert:
+        assertTrue(result);
+    }
+    @Test
+    @DisplayName("False - Different hashCode")
+    void hashCodeVeridficationTestFalse() {
+
+        //Arrange:
+        PersonName personName1 = new PersonName("Francisca");
+        PersonName personName2 = new PersonName("Francisco");
+
+        //Act:
+        boolean result = (personName1.hashCode() == personName2.hashCode());
+
+        //Assert:
+        assertFalse(result);
+    }
 }
