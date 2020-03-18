@@ -67,19 +67,20 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
     }
 
-
     @Test
-    void createGroupAndBecomeAdminNoGroupDescription() {
+    void createGroupAndBecomeAdminGroupAlreadyExists() {
+
+        //Arrange
+        Description groupDescription = new Description("Bashtards");
+        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+        controller.createGroupAndBecomeAdmin(groupDescription, personID);
 
         //Act
-        try {
-            new Description(null);
-        }
+        boolean result = controller.createGroupAndBecomeAdmin(groupDescription, personID);
 
         //Assert
-        catch (IllegalArgumentException e) {
-            assertEquals("The description can't be null or empty.", e.getMessage());
-        }
+        assertFalse(result);
+
     }
 
 }
