@@ -19,7 +19,7 @@ public class US004GetFamilyGroupsController {
    }
 
     /**
-     * Get Family Groups
+     * US004 - As system manager I want to know which groups are families
      * @param service
      * @param groupsRepository
      * @return
