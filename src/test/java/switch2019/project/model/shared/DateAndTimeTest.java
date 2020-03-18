@@ -94,9 +94,40 @@ class DateAndTimeTest {
         }
     }
 
+
     /**
-     * Equals Same Object
+     * Tests to Equals Method
      */
+
+    @Test
+    @DisplayName("Test equals for same DateAndTime - yearMonthDay")
+    public void equalsSameDateAndTimeYearMonthDay() {
+        //Arrange
+        DateAndTime birthDate1 = new DateAndTime(1989, 4, 27);
+        DateAndTime birthDate2 = new DateAndTime(1989, 4, 27);
+
+        //Act
+        boolean result = birthDate1.equals(birthDate2);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test equals for same DateAndTime - yearMonthDayHourMinute")
+    public void equalsSameDateAndTimeYearMonthDayHourMinute() {
+        //Arrange
+        DateAndTime birthDate1 = new DateAndTime(1989, 4, 27,20,03);
+        DateAndTime birthDate2 = new DateAndTime(1989, 4, 27,20,03);
+
+        //Act
+        boolean result = birthDate1.equals(birthDate2);
+
+        //Assert
+        assertTrue(result);
+    }
+
+
     @Test
     @DisplayName("Test equals for the same object")
     public void equalsSameObject() {
@@ -228,4 +259,5 @@ class DateAndTimeTest {
         //Assert
         assertTrue(result);
     }
+
 }
