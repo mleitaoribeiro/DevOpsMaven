@@ -22,7 +22,7 @@ class CategoryRepositoryTest {
     /**
      * Tests for the CategoryRepository method toString
      */
-    /*@Test
+    @Test
     @DisplayName("Test if method toString returns the categories in the Category Repository")
     public void validateToString() {
         //Arrange:
@@ -33,14 +33,35 @@ class CategoryRepositoryTest {
         firstCategoryRepository.createCategory(new Denomination("cinema"), person1.getID());
         firstCategoryRepository.createCategory(new Denomination("jantar"), person1.getID());
 
-        String expected = "CategoryRepository: [CINEMA, JANTARES]";
+        String expected = "Category Repository: [CINEMA, 1234@isep.pt, JANTAR, 1234@isep.pt]";
 
         //Act:
         String result = firstCategoryRepository.toString();
 
         //Assert:
         assertEquals(expected, result);
-    }*/
+    }
+
+    @Test
+    @DisplayName("Test if method toString returns the categories in the Category Repository - False")
+    public void validateToStringFalse() {
+        //Arrange:
+        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        CategoryRepository firstCategoryRepository = new CategoryRepository();
+
+        firstCategoryRepository.createCategory(new Denomination("cinema"), person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("jantar"), person1.getID());
+
+        String expected = "Category Repository: [1234@isep.pt, CINEMA, 1234@isep.pt, JANTAR]";
+
+        //Act:
+        String result = firstCategoryRepository.toString();
+
+        //Assert:
+        assertNotEquals(expected, result);
+    }
+
 
     /**
      * Test if one category was added to the Category Repository
