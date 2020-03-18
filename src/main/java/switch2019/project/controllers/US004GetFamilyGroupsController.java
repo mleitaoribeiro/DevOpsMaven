@@ -12,7 +12,18 @@ import java.util.Set;
 
 public class US004GetFamilyGroupsController {
 
-    //ALTERAR
+   private US004GetFamilyGroupsService service;
+
+   public US004GetFamilyGroupsController(US004GetFamilyGroupsService service){
+       this.service =service;
+   }
+
+    /**
+     * Get Family Groups
+     * @param service
+     * @param groupsRepository
+     * @return
+     */
     public Set<Group> getFamilyGroups(US004GetFamilyGroupsService service, GroupsRepository groupsRepository) {
         return service.getFamilyGroups(groupsRepository) ;
     }
