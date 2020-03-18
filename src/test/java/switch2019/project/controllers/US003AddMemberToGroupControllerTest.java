@@ -57,10 +57,10 @@ public class US003AddMemberToGroupControllerTest {
 
         //Act
 
-        boolean result = controller.addMemberToGroup(personID, groupID);
+        boolean memberAdded = controller.addMemberToGroup(personID, groupID);
 
         //Assert
-        assertTrue(result);
+        assertTrue(memberAdded);
     }
 
     @Test
