@@ -520,29 +520,5 @@ class CategoryRepositoryTest {
         assertEquals(0, actual);
     }
 
-    @Test
-    @DisplayName("Test toString method- true ")
-    void testToStringMethod() {
-        //Arrange
-        CategoryID categoryID = new CategoryID(new Denomination("FOOD"),
-                new PersonID(new Email("marta@gmail.com")));
-        String expectedResult = "FOOD, marta@gmail.com";
-        //Act
-        String realResult = categoryID.toString();
-        //Assert
-        assertEquals(expectedResult, realResult);
-    }
 
-    @Test
-    @DisplayName("Test toString method - false")
-    void testToStringMethodFalse() {
-        //Arrange
-        CategoryID categoryID = new CategoryID(new Denomination("FOOD"),
-                new PersonID(new Email("marta@gmail.com")));
-        String unExpectedResult = "marta@gmail.com, FOOD";
-        //Act
-        String realResult = categoryID.toString();
-        //Assert
-        assertNotEquals(unExpectedResult, realResult);
-    }
 }
