@@ -62,9 +62,9 @@ class US006CreatePersonAccountControllerTest {
         PersonID onePersonID = onePerson.getID();
 
         //Act
-        boolean accountsCreated = controller.createPersonAccount(onePersonID, new Denomination("Revolut"),
+        boolean accountsCreated = controller.createPersonAccount(onePersonID, new Denomination("Moey"),
                 new Description("OnlineShopping"))
-                && service.createPersonAccount(onePersonID, new Denomination("MbWay"),
+                && service.createPersonAccount(onePersonID, new Denomination("Active"),
                 new Description("For sharing expenses"))
                 && service.createPersonAccount(onePersonID, new Denomination("CXG"),
                 new Description("Allowance paychecks"));
@@ -88,6 +88,26 @@ class US006CreatePersonAccountControllerTest {
         //Assert
         catch (IllegalArgumentException invalid) {
             assertEquals("This Person ID doesn't exist or it's null.", invalid.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test If User Account is Created - account already exists on Repository")
+    void testIfAccountIsNotCreatedWhenAlreadyExists() {
+        //Arrange
+        Person onePerson = personRepo.findPersonByID(new PersonID(new Email("maria.santos@live.com.pt")));
+        PersonID onePersonID = onePerson.getID();
+
+        controller.createPersonAccount(onePersonID, new Denomination("Revolut"),
+                new Description("OnlineShopping"));
+        //Act
+        try {
+            controller.createPersonAccount(onePersonID, new Denomination("Revolut"),
+                    new Description("OnlineShopping"));
+        }
+        //Assert
+        catch (IllegalArgumentException invalid) {
+            assertEquals("This Account already exists for that ID.", invalid.getMessage());
         }
     }
 
