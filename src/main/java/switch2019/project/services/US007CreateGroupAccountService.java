@@ -32,6 +32,7 @@ public class US007CreateGroupAccountService {
      * @param accountDescription
      * @return
      */
+
     public boolean createGroupAccount (PersonID onePersonID, GroupID oneGroupID,
                                        Denomination accountDenomination, Description accountDescription ) {
 

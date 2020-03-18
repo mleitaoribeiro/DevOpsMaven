@@ -11,33 +11,37 @@ create ":US007CreateGroupAccountController"
 ":Test" -> ":US007CreateGroupAccountController" : accountCreated = createGroupAccount\n( personID, groupID, denomination, description)
 activate ":US007CreateGroupAccountController"  #FFBBBB
 
-":US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personID, groupID, denomination, description)
-activate "service:US007CreateGroupAccountService"  #FFBBBB
+":US007CreateGroupAccountController" -> ":US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personID, groupID, denomination, description)
+activate ":US007CreateGroupAccountService"  #FFBBBB
 
-"service:US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByID(groupID)
+":US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByID(groupID)
 activate ":GroupsRepository"  #FFBBBB
 deactivate ":GroupsRepository"  #FFBBBB
 
-"service:US007CreateGroupAccountService" -> ":Group" : valid = isGroupAdmin(personID)
-activate ":Group" #FFBBBB
-deactivate ":Group" #FFBBBB
+":US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin(personID)
+activate "group:Group" #FFBBBB
+deactivate "group:Group" #FFBBBB
 
 
-"service:US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(groupID, \ndenomination,description)
+
+":US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(groupID, \ndenomination,description)
 activate ":AccountsRepository" #FFBBBB
+
+":AccountsRepository" -> ":AccountsRepository" : isAccountIDOnRepository(groupID)
+
 
 create ":Account"
 ":AccountsRepository" -> ":Account" : new Account(groupId, \ndenomination,description)
 
 deactivate ":AccountsRepository" #FFBBBB
-deactivate ":Group" #FFBBBB
+deactivate "group:Group" #FFBBBB
 deactivate ":PersonRepository" #FFBBBB
 deactivate ":GroupsRepository" #FFBBBB
-deactivate "service:US007CreateGroupAccountService"  #FFBBBB
+deactivate ":US007CreateGroupAccountService"  #FFBBBB
 deactivate ":US007CreateGroupAccountController" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(account)
+":Test" -> ":Test" : assertTrue(accountCreated)
 
 @enduml
