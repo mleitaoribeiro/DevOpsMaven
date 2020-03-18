@@ -272,34 +272,6 @@ public class Group implements Owner {
         return false;
     }
 
-
-    /**
-     * As a admin i want to develop method add one category to group's Category List(US005.1)
-     *
-     * @param nameOfCategory
-     * @param categoryCreator
-     * @return true if category was added to group's Category List, false if it wasn't
-     */
-    public boolean createCategory(String nameOfCategory, Person categoryCreator) {
-        if (isGroupAdmin(categoryCreator) && nameOfCategory != null) {
-            return categoryList.createCategory(nameOfCategory, categoryCreator.getID());
-        } else return false;
-    }
-
-
-    /**
-     * Remove a category from CategoryList
-     *
-     * @param nameOfcategory
-     */
-
-    public boolean removeCategoryFromList(String nameOfcategory, Person groupAdmin) {
-        if (nameOfcategory == null || !this.isGroupAdmin(groupAdmin)) {
-            return false;
-        }
-        return this.categoryList.removeCategory(nameOfcategory, groupAdmin.getID());
-    }
-
     /**
      * Develop method to create a new group transaction (US008.1)
      *

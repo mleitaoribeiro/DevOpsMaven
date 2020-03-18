@@ -848,7 +848,6 @@ class PersonTest {
         String description = "payment";
 
         Category category = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), person.getID());
@@ -873,7 +872,6 @@ class PersonTest {
         String description1 = "payment";
 
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
 
         Account accountWallet = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
@@ -902,7 +900,6 @@ class PersonTest {
         String description = "payment";
 
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
 
         Account accountWallet = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
@@ -914,89 +911,6 @@ class PersonTest {
         //Assert
         assertFalse(result);
     }
-
-
-    /**
-     * * Tests to validate if a category was added to Category List
-     */
-    @Test
-    @DisplayName("Check if a category was added to Category List - Main Scenario")
-    void createCategoryAndAddToCategoryListMainScenario() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        //Category to be included in Category List
-        String category1 = "School expenses";
-
-        //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Check if null category is not added")
-    void createCategoryAndAddToCategoryListWithANullCase() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        //Category to be included in Category List
-        String category1 = null;
-        //Act
-        try {
-            person1.createCategoryAndAddToCategoryList(category1);
-        }
-
-        //Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("The denomination can´t be null or empty!", description.getMessage());
-        }
-    }
-
-
-    @Test
-    @DisplayName("Check if the same Category is not added simultaneously")
-    void createAndAddTwoCategoriesToListWithTwoCategoriesThatAreTheSame() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        //Categories to be included in Category List
-        String category1 = "School expenses";
-        String category2 = "School expenses";
-
-        //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) &&
-                !person1.createCategoryAndAddToCategoryList(category2);
-
-        //Assert
-        assertTrue(realResult);
-
-    }
-
-    @Test
-    @DisplayName("Check if the same Category is not added simultaneously - Ignore letter capitalization and special characters ")
-    void createAndAddTwoCategoriesToListWithTwoCategoriesCaseInsensitive() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        //Categories to be included in Category List
-        String category1 = "School expenses";
-        String category2 = "SCHOóL expenses";
-
-        //Act
-        boolean realResult = person1.createCategoryAndAddToCategoryList(category1) &&
-                !person1.createCategoryAndAddToCategoryList(category2);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-
 
     /**
      * * Tests to validate if a person is another person's mother
@@ -1165,51 +1079,9 @@ class PersonTest {
     }
 
     /**
-     * * Tests to validate if a category was added to Category List
+     * US011
+     * returnPersonLedgerInDateRangeSuccessCaseOneTransaction
      */
-    @Test
-    @DisplayName("Check if a category was added to Category List - Main Scenario")
-    void removeMultipleCategoriesToListMainScenario() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        person1.createCategoryAndAddToCategoryList("food");
-        person1.createCategoryAndAddToCategoryList("car");
-        person1.createCategoryAndAddToCategoryList("dog");
-        person1.createCategoryAndAddToCategoryList("school");
-        person1.createCategoryAndAddToCategoryList("drinks");
-
-        //Act
-        boolean result = person1.removeMultipleCategoriesToList(new HashSet<>(Arrays.asList("dog", "school", "drinks")),person1.getID());
-
-        //Assert
-        assertTrue(result);
-    }
-
-    /**
-     * Test to check the number os categories in the CategoryList
-     */
-
-    @Test
-    @DisplayName("Check the number of categories in the CategoryList")
-    void numberOfCategoryInTheCategoryList() {
-        //Arrange
-        Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        String categoryDescriptionOne = "Health";
-        String categoryDescriptionTwo = "Saude";
-        String categoryDescriptionThree = "paz";
-        HashSet<String> categoriesList = new HashSet<>(Arrays.asList(categoryDescriptionOne, categoryDescriptionTwo, categoryDescriptionThree));
-        person1.createAndAddMultipleCategoriesToList(categoriesList, person1.getID());
-
-        //Act
-        int result = person1.numberOfCategoryInTheCategoryList();
-
-        //Assert
-        assertEquals(3, result);
-    }
-
-
     @Test
     @DisplayName("Test if a person get their transactions in a given period - success case - one transaction -  US011")
     void returnPersonLedgerInDateRangeSuccessCaseOneTransaction() {
@@ -1220,7 +1092,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), person.getID());
         Account to = new Account(new Denomination("TransportAccount"),
@@ -1259,7 +1131,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 10, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
@@ -1267,7 +1139,7 @@ class PersonTest {
         LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category2 = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
         Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
 
@@ -1275,7 +1147,7 @@ class PersonTest {
         LocalDateTime dateTransaction3 = LocalDateTime.of(2020, 1, 16, 13, 00);
         MonetaryValue amount3 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category3 = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount3, "payment", dateTransaction3, category3, from, to, new Type(false));
         Transaction transaction3 = new Transaction(amount3, "payment", dateTransaction3, category3, from, to, new Type(false));
 
@@ -1309,7 +1181,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
@@ -1343,7 +1215,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
@@ -1351,7 +1223,7 @@ class PersonTest {
         LocalDateTime dateTransaction2 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount2 = new MonetaryValue(22, Currency.getInstance("EUR"));
         Category category2 = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
         Transaction transaction2 = new Transaction(amount2, "payment", dateTransaction2, category2, from, to, new Type(false));
 
@@ -1384,7 +1256,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General", person.getID());
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
@@ -1419,7 +1291,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
@@ -1456,7 +1328,7 @@ class PersonTest {
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
 
@@ -1764,7 +1636,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -1792,7 +1664,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -1818,7 +1690,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -1845,7 +1717,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -1871,7 +1743,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
         Category category = new Category("General");
-        person.createCategoryAndAddToCategoryList("General");
+
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -1906,7 +1778,7 @@ class PersonTest {
         Account account2 = new Account(new Denomination("transporte"),
                 new Description("transporte Metro"));
 
-        person.createCategoryAndAddToCategoryList("grocery");
+
         Category category = new Category("grocery");
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -1921,98 +1793,6 @@ class PersonTest {
 
         //Assert
         assertEquals(sizeBefore + 3, sizeAfter);
-    }
-
-    /**
-     * Test to verify if multiple categories were removed to list
-     */
-
-    @Test
-    @DisplayName("Test if a category was removed from the Category List - Main Scenario")
-    void removeCategoryFromListMainScenario() {
-
-        //Arrange
-        String oneCategory = "Saude";
-        String otherCategory = "Cinema";
-        Person person = new Person("Jose",new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-
-        //Act
-        person.createCategoryAndAddToCategoryList(oneCategory);
-        person.createCategoryAndAddToCategoryList(otherCategory);
-
-        //Remove one Category
-
-        boolean realResult = person.removeCategoryFromList(otherCategory);
-
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("check if category is not in list and threfore cant be removed")
-    void removeCategoryFromListThatIsNotInTheList() {
-
-        //Arrange:
-        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-
-        //Act:
-        boolean isACategoryNotInListRemoved = person.removeCategoryFromList("Cinema");
-
-        //Assert:
-        assertFalse(isACategoryNotInListRemoved);
-    }
-
-    @Test
-    @DisplayName("Add a Set of Categories to Category List - Main Scenario")
-    void addMultipleCategoriesToListMainScenario() {
-        // Arrange
-        Person person1 = new Person("Alex", new DateAndTime(1995, 12, 4), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
-        String categoryHealth = "Health";
-        String categoryGym = "Gym";
-        String categoryUniversity = "University";
-
-        //A collection of categories to be added
-        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryUniversity));
-        CategoryRepository newCategoryList = new CategoryRepository();
-
-        //Act
-
-        boolean validateIfTheSetOfCategoriesWasAdded = person1.createAndAddMultipleCategoriesToList(setOfCategories, person1.getID());
-
-        //Assert
-        assertTrue(validateIfTheSetOfCategoriesWasAdded);
-    }
-
-    @Test
-    @DisplayName("Remove a Set of Categories from user Category List - Main Scenario")
-    void removeMultipleCategoriesToList() {
-        // Arrange
-        Person person1 = new Person("Alex", new DateAndTime(1995, 12, 4), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        // Categories to be included in Category List
-        String categoryHealth = "Health";
-        String categoryGym = "Gym";
-        String categoryBeauty = "Beauty";
-
-        CategoryRepository newCategoryList = new CategoryRepository();
-
-        //set of categories to be added
-        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
-
-        //set of Categories to be removed from Categories List
-        HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
-
-        //Act
-        //Remove the set of categories with the method under test
-        boolean realResult = person1.removeMultipleCategoriesToList(setOfCategoriesToRemove, person1.getID());
-
-        assertTrue(realResult);
     }
 
     /**

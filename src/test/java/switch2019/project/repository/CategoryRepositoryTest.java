@@ -21,15 +21,17 @@ class CategoryRepositoryTest {
     /**
      * Tests for the CategoryList method toString
      */
-   /* @Test
+    /*@Test
     @DisplayName("Test if method toString returns the categories in the CategoryList")
     public void validateToString() {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         CategoryRepository firstCategoryList = new CategoryRepository();
+
         firstCategoryList.createCategory("cinema", person1.getID());
         firstCategoryList.createCategory("jantares", person1.getID());
+
         String expected = "CategoryList: [CINEMA, JANTARES]";
 
         //Act:
@@ -37,8 +39,7 @@ class CategoryRepositoryTest {
 
         //Assert:
         assertEquals(expected, result);
-    }
-    */
+    }*/
 
     /**
      * Test if one category was added to the Category List
