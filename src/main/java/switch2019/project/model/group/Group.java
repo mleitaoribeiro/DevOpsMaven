@@ -303,7 +303,7 @@ public class Group implements Owner {
         if (nameOfcategory == null || !this.isGroupAdmin(groupAdmin)) {
             return false;
         }
-        return this.categoryList.removeCategoryFromList(nameOfcategory, groupAdmin.getID());
+        return this.categoryList.removeCategory(nameOfcategory, groupAdmin.getID());
     }
 
     /**

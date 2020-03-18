@@ -6,68 +6,45 @@ import switch2019.project.model.frameworks.OwnerID;
 
 import java.util.*;
 
-public class CategoryRepository implements Repository{
+public class CategoryRepository implements Repository {
 
     // Private instance variables
     private Set<Category> categories;
 
-    /**
-     * Constructor for Category List
-     */
-
+    //Public Constructor
     public CategoryRepository() {
         categories = new HashSet<>();
     }
 
-    /**
-     * Develop @override of toString method for CategoryList
-     *
-     * @return String with the categories in the CategoryList
-     */
     @Override
     public String toString() {
         List<String> categoriesToString = new ArrayList();
         for (Category category : categories) {
             categoriesToString.add(category.getNameOfCategory());
-        } return "CategoryList: " + categoriesToString;
-    }
-
-    /**
-     * Develop @override of equals for Category List and @override of hashcode
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-        CategoryRepository categoriesList = (CategoryRepository) o;
-        return Objects.equals(categories, categoriesList.categories);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(categories);
+        }
+        return "CategoryList: " + categoriesToString;
     }
 
     /**
      * Find category by ID
-     * @param CategoryID
+     *
+     * @param categoryID
      * @return account
      */
-
-    public Category findByID(ID CategoryID){
-        for(Category category: categories) {
-            if(category.getID().equals(CategoryID))
+    public Category findByID(ID categoryID) {
+        for (Category category : categories) {
+            if (category.getID().equals(categoryID))
                 return category;
-        } throw new IllegalArgumentException("No category found with that ID.");
+        }
+        throw new IllegalArgumentException("No category found with that ID.");
     }
 
     /**
      * Add a new category to CategoryList
+     * (ainda está aqui porque ainda não alteramos todos os testes)
      *
      * @param nameOfCategory
      */
-
     public boolean createCategory(String nameOfCategory) {
         Category newCategory = new Category(nameOfCategory);
         return categories.add(newCategory);
@@ -78,20 +55,17 @@ public class CategoryRepository implements Repository{
      *
      * @param nameOfCategory
      */
-
     public boolean createCategory(String nameOfCategory, OwnerID ownerID) {
         Category newCategory = new Category(nameOfCategory, ownerID);
         return categories.add(newCategory);
     }
-
 
     /**
      * Remove a category from CategoryList
      *
      * @param categoryToRemove
      */
-
-    public boolean removeCategoryFromList(String categoryToRemove, OwnerID ownerID) {
+    public boolean removeCategory(String categoryToRemove, OwnerID ownerID) {
         Category category = new Category(categoryToRemove, ownerID);
         if (this.categories.contains(category)) {
             return categories.remove(category);
@@ -104,8 +78,7 @@ public class CategoryRepository implements Repository{
      *
      * @param categories<Category> categories
      */
-
-    public boolean addMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
+    public boolean addMultipleCategories(Set<String> categories, OwnerID ownerID) {
         int sizeBefore = this.categories.size();
         for (String category : categories) {
             this.createCategory(category, ownerID);
@@ -118,20 +91,23 @@ public class CategoryRepository implements Repository{
      *
      * @param categories<Category> categories
      */
-
-    public boolean removeMultipleCategoriesToList(Set<String> categories, OwnerID ownerID) {
+    public boolean removeMultipleCategories(Set<String> categories, OwnerID ownerID) {
         for (String category : categories)
-            this.removeCategoryFromList(category, ownerID);
+            this.removeCategory(category, ownerID);
         return !this.categories.containsAll(categories);
     }
 
     /**
      * Validate if a category is in the CategoryList
      *
-     * @param category<Category> category to test
+     * @param categoryId that we want to see if exists
      */
-    public boolean validateIfCategoryIsInTheCategoryList(Category category) {
-        return categories.contains(category);
+    public boolean isCategoryValid(ID categoryId) {
+        for (Category category : categories) {
+            if (category.getID().equals(categoryId))
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -139,8 +115,7 @@ public class CategoryRepository implements Repository{
      *
      * @param setOfCategories
      */
-
-    public boolean validateIfSetOfCategoriesIsInTheCategoryList(Set<String> setOfCategories, OwnerID ownerID) {
+    public boolean isSetOfCategoriesValid(Set<String> setOfCategories, OwnerID ownerID) {
         Set<Category> list = new HashSet<>();
         for (String category : setOfCategories) {
             list.add(new Category(category, ownerID));
@@ -151,8 +126,7 @@ public class CategoryRepository implements Repository{
     /**
      * Method to get the numbers of Categories in the Category List
      */
-
-    public int numberOfCategoryInTheCategoryList() {
+    public int numberOfCategoryInRepository() {
         return this.categories.size();
     }
 }

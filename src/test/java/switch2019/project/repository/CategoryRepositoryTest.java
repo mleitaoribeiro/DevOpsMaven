@@ -3,10 +3,13 @@ package switch2019.project.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.category.Category;
+import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
+import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.DateAndTime;
+import switch2019.project.model.shared.Denomination;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -36,167 +39,6 @@ class CategoryRepositoryTest {
         assertEquals(expected, result);
     }
     */
-
-    /**
-     * Tests for the CategoryList HashCode
-     */
-    @Test
-    @DisplayName("Test if two Category Lists with the same categories have the same HashCode")
-    public void compareTwoCategoryListsHashCode() {
-
-        //Arrange:
-        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository firstCategoryList = new CategoryRepository();
-        CategoryRepository secondCategoryList = new CategoryRepository();
-
-        //Act:
-        firstCategoryList.createCategory("cinema", person1.getID());
-        firstCategoryList.createCategory("jantares", person1.getID());
-        secondCategoryList.createCategory("cinema", person1.getID());
-        secondCategoryList.createCategory("jantares", person1.getID());
-
-        //Assert:
-        assertEquals(firstCategoryList.hashCode(), secondCategoryList.hashCode());
-    }
-
-    @Test
-    @DisplayName("Test if two Category Lists with different categories, have different HashCodes")
-    public void compareTwoCategoryListsHashCodeFalse() {
-
-        //Arrange:
-        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository firstCategoryList = new CategoryRepository();
-        CategoryRepository secondCategoryList = new CategoryRepository();
-
-        //Act:
-        firstCategoryList.createCategory("cinema", person1.getID());
-        secondCategoryList.createCategory("jantares", person1.getID());
-
-        //Assert:
-        assertNotEquals(firstCategoryList.hashCode(), secondCategoryList.hashCode());
-    }
-
-    /**
-     * Test to see if two Category Lists are the same
-     **/
-
-    @Test
-    @DisplayName("Test if two Category List are the same - Main Scenario")
-    public void compareTwoCategoryList() {
-        //Arrange
-        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository oneCategoryList = new CategoryRepository();
-        CategoryRepository otherCategoryList = new CategoryRepository();
-
-        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
-
-        //Act
-
-        oneCategoryList.addMultipleCategoriesToList(setOfCategories,person1.getID());
-        otherCategoryList.addMultipleCategoriesToList(setOfCategories,person1.getID());
-
-        boolean realResult = oneCategoryList.equals(oneCategoryList);
-        //Assert
-        assertTrue(realResult);
-    }
-
-    @Test
-    @DisplayName("Test if two Category List equals a Null List")
-    public void compareOneCategoryWithNull() {
-        //Arrange
-        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository oneCategoryList = new CategoryRepository();
-        CategoryRepository otherCategoryList = null;
-
-        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
-
-        //Act
-
-        oneCategoryList.addMultipleCategoriesToList(setOfCategories,person1.getID());
-
-        boolean realResult = oneCategoryList.equals(otherCategoryList);
-        //Assert
-        assertFalse(realResult);
-    }
-
-    /**
-     * Test to see if two Category Lists aren't the same
-     **/
-
-    @Test
-    @DisplayName("Test if two Category List aren't the same - Main Scenario")
-    public void compareTwoCategoryListNotTheSame() {
-        //Arrange
-        Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
-                new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryRepository oneCategoryList = new CategoryRepository();
-        CategoryRepository otherCategoryList = new CategoryRepository();
-        HashSet<String> setOfCategories = new HashSet<>(Arrays.asList("Health", "Education", "Gas"));
-        HashSet<String> anotherSetOfCategories = new HashSet<>(Arrays.asList("Education", "Gas"));
-
-        //Act
-        oneCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
-        otherCategoryList.addMultipleCategoriesToList(anotherSetOfCategories, person1.getID());
-
-        boolean realResult = oneCategoryList.equals(otherCategoryList);
-
-        //Assert
-
-        assertFalse(realResult);
-    }
-
-    /**
-     * Test if two Categories list are consider the same and Have the same Hashcode
-     */
-
-    @Test
-    @DisplayName("test if two lists are the same & have the same HasHCode")
-    public void testIfTwoAccountListsAreTheSameHashcode() {
-        //Arrange
-
-        String oneCategoryName = "xpto";
-        String otherCategoryName = "xpto";
-
-        CategoryRepository oneCategoryList = new CategoryRepository();
-        CategoryRepository otherCategoryList = new CategoryRepository();
-
-        //Act
-        oneCategoryList.createCategory(oneCategoryName);
-        otherCategoryList.createCategory(otherCategoryName);
-
-
-        //Assert
-        assertEquals(oneCategoryList.hashCode(), otherCategoryList.hashCode());
-    }
-
-    /**
-     * Test if two CategoriesList are the same when created from different classes or null
-     */
-    @Test
-    @DisplayName("test if two CategoriesList are the same when created from different classes")
-    public void testIfTwoAccountListsAreTheSameDifferentClasses() {
-        //Arrange
-        CategoryRepository oneCategoryList = new CategoryRepository();
-        GroupsRepository otherCategoryList = new GroupsRepository();
-
-        //Assert
-        assertNotEquals(oneCategoryList, otherCategoryList);
-    }
-
-    @Test
-    @DisplayName("test if two CategoriesList are the same when null")
-    public void testIfTwoAccountListsAreTheSameNull() {
-        //Arrange
-        CategoryRepository oneCategoryList = null;
-        GroupsRepository otherCategoryList = new GroupsRepository();
-
-        //Assert
-        assertNotEquals(oneCategoryList, otherCategoryList);
-    }
 
     /**
      * Test if one category was added to the Category List
@@ -318,7 +160,7 @@ class CategoryRepositoryTest {
 
         //Remove one Category
 
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject, person1.getID());
+        boolean realResult = newCategoryList.removeCategory(otherCategoryObject, person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -340,7 +182,7 @@ class CategoryRepositoryTest {
         newCategoryList.createCategory(oneCategory,person1.getID());
         newCategoryList.createCategory(otherCategory,person1.getID());
         //Remove one Category
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject,person1.getID());
+        boolean realResult = newCategoryList.removeCategory(otherCategoryObject,person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -356,7 +198,7 @@ class CategoryRepositoryTest {
         CategoryRepository testCategoryList = new CategoryRepository();
 
         //Act:
-        boolean isACategoryNotInListRemoved = testCategoryList.removeCategoryFromList("Cinema", person1.getID());
+        boolean isACategoryNotInListRemoved = testCategoryList.removeCategory("Cinema", person1.getID());
 
         //Assert:
         assertFalse(isACategoryNotInListRemoved);
@@ -379,7 +221,7 @@ class CategoryRepositoryTest {
         newCategoryList.createCategory(otherCategory,person1.getID());
         //Remove one Category
         try {
-            boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject, person1.getID());
+            boolean realResult = newCategoryList.removeCategory(otherCategoryObject, person1.getID());
         }
         //Assert
         catch (IllegalArgumentException description) {
@@ -405,7 +247,7 @@ class CategoryRepositoryTest {
 
         //Remove the otherCategory (the list doesn't contain this)
 
-        boolean realResult = newCategoryList.removeCategoryFromList(otherCategoryObject,person1.getID());
+        boolean realResult = newCategoryList.removeCategory(otherCategoryObject,person1.getID());
 
         //Assert
         assertFalse(realResult);
@@ -432,7 +274,7 @@ class CategoryRepositoryTest {
 
         //Act
 
-        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.addMultipleCategoriesToList(setOfCategories,person1.getID());
+        boolean validateIfTheSetOfCategoriesWasAdded = newCategoryList.addMultipleCategories(setOfCategories,person1.getID());
 
         //Assert
         assertTrue(validateIfTheSetOfCategoriesWasAdded);
@@ -456,9 +298,9 @@ class CategoryRepositoryTest {
 
         //Act
         //Add several categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
+        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInTheCategoryList();
+        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInRepository();
 
         //Assert
         assertEquals(2, realNumberOfCategoriesOfTheList);
@@ -483,9 +325,9 @@ class CategoryRepositoryTest {
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryHealthDuplicated, categoryBeauty));
         //Act
         //Add everal categories simultaneously to Category List with method under test
-        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
+        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInTheCategoryList();
+        int realNumberOfCategoriesOfTheList = newCategoryList.numberOfCategoryInRepository();
 
         assertEquals(2, realNumberOfCategoriesOfTheList);
     }
@@ -510,14 +352,14 @@ class CategoryRepositoryTest {
 
         //set of categories to be added
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
+        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
 
         //set of Categories to be removed from Categories List
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryBeauty, categoryGym));
 
         //Act
         //Remove the set of categories with the method under test
-        boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove, person1.getID());
+        boolean realResult = newCategoryList.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
 
         assertTrue(realResult);
     }
@@ -542,14 +384,14 @@ class CategoryRepositoryTest {
 
         // Set of Categories to be added to Categories list
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
+        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
 
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryCar, categoryNull, categoryUniversity));
         //Act
         //set of Categories to be removed from Categories List
         try {
 
-            newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove, person1.getID());
+            newCategoryList.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
         }
         //Assert
         catch (IllegalArgumentException setterEx) {
@@ -575,14 +417,14 @@ class CategoryRepositoryTest {
 
         // set of String to be added to Categories list
         HashSet<String> setOfCategories = new HashSet<>(Arrays.asList(categoryHealth, categoryGym, categoryBeauty));
-        newCategoryList.addMultipleCategoriesToList(setOfCategories, person1.getID());
+        newCategoryList.addMultipleCategories(setOfCategories, person1.getID());
 
         //set of Categories to be removed from Categories List
         HashSet<String> setOfCategoriesToRemove = new HashSet<>(Arrays.asList(categoryHealthLowerCase, categoryGymSpecialCharacter, categoryBeautyUpperCase));
         // Remove the previous categories with the method under test
 
         //Act
-        boolean realResult = newCategoryList.removeMultipleCategoriesToList(setOfCategoriesToRemove, person1.getID());
+        boolean realResult = newCategoryList.removeMultipleCategories(setOfCategoriesToRemove, person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -601,15 +443,15 @@ class CategoryRepositoryTest {
         String house = "House";
         String cats = "Cats";
         String transport = "Transport";
-        Category catsObject = new Category("Cats",person1.getID());
+        ID catsObject = new CategoryID(new Denomination("Cats"),person1.getID());
         CategoryRepository newCategories = new CategoryRepository();
 
         HashSet<String> myCategories = new HashSet<>(Arrays.asList(house, cats, transport));
 
         //Act
 
-        newCategories.addMultipleCategoriesToList(myCategories, person1.getID());
-        boolean result = newCategories.validateIfCategoryIsInTheCategoryList(catsObject);
+        newCategories.addMultipleCategories(myCategories, person1.getID());
+        boolean result = newCategories.isCategoryValid(catsObject);
 
         //Assert
         assertEquals(true, result);
@@ -631,7 +473,7 @@ class CategoryRepositoryTest {
 
         //Act
 
-        boolean realResult = newCategories.addMultipleCategoriesToList(myCategories, person1.getID());
+        boolean realResult = newCategories.addMultipleCategories(myCategories, person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -648,9 +490,9 @@ class CategoryRepositoryTest {
         HashSet<String> myCategories = new HashSet<>(Arrays.asList("category1", "category2", "category3"));
 
         //Act
-        categoryList1.addMultipleCategoriesToList(myCategories, person1.getID());
+        categoryList1.addMultipleCategories(myCategories, person1.getID());
 
-        boolean result = categoryList1.validateIfSetOfCategoriesIsInTheCategoryList(myCategories,person1.getID());
+        boolean result = categoryList1.isSetOfCategoriesValid(myCategories,person1.getID());
         //Assert
         assertTrue(result);
     }
@@ -668,7 +510,7 @@ class CategoryRepositoryTest {
         categoryList1.createCategory("category1", person1.getID());
         categoryList1.createCategory("category2", person1.getID());
 
-        boolean result = categoryList1.validateIfSetOfCategoriesIsInTheCategoryList(myCategories,person1.getID());
+        boolean result = categoryList1.isSetOfCategoriesValid(myCategories,person1.getID());
         //Assert
         assertFalse(result);
     }
@@ -690,7 +532,7 @@ class CategoryRepositoryTest {
         categoryList.createCategory("Transports", person1.getID());
         categoryList.createCategory("House", person1.getID());
 
-        int actual = categoryList.numberOfCategoryInTheCategoryList();
+        int actual = categoryList.numberOfCategoryInRepository();
         //Assert
         assertEquals(2, actual);
     }
@@ -704,7 +546,7 @@ class CategoryRepositoryTest {
         CategoryRepository categoryList = new CategoryRepository(); //empty Category List
 
         //Act
-        int actual = categoryList.numberOfCategoryInTheCategoryList();
+        int actual = categoryList.numberOfCategoryInRepository();
 
         //Assert
         assertEquals(0, actual);
