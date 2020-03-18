@@ -58,10 +58,10 @@ public class US003AddMemberToGroupServiceTest {
 
         //Act
 
-        boolean result = service.addMemberToGroup(personID, groupID);
+        boolean memberAdded = service.addMemberToGroup(personID, groupID);
 
         //Assert
-        assertTrue(result);
+        assertTrue(memberAdded);
     }
 
     @Test
