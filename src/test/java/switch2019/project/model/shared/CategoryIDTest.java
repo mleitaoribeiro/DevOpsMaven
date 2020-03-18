@@ -166,7 +166,7 @@ public class CategoryIDTest {
         }
         //Assert:
         catch (IllegalArgumentException categoryID) {
-            assertEquals("The denomination and ownerID can't be null.", categoryID.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", categoryID.getMessage());
         }
     }
 
@@ -179,7 +179,7 @@ public class CategoryIDTest {
         }
         //Assert:
         catch (IllegalArgumentException categoryID) {
-            assertEquals("The denomination and ownerID can't be null.", categoryID.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", categoryID.getMessage());
         }
     }
 
@@ -192,7 +192,7 @@ public class CategoryIDTest {
         }
         //Assert:
         catch (IllegalArgumentException categoryID) {
-            assertEquals("The denomination and ownerID can't be null.", categoryID.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", categoryID.getMessage());
         }
     }
 
