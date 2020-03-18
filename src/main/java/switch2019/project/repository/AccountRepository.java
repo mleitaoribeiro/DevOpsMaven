@@ -37,6 +37,19 @@ public class AccountRepository implements Repository {
     }
 
     /**
+     * method to add one account to the repository with an Owner
+     * @param accountDenomination
+     * @param accountDescription
+     * @param ownerID
+     * @return
+     */
+
+    public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
+        Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
+        return this.accounts.add(oneAccount);
+    }
+
+    /**
      * Get list of Accounts By Owner ID - not validated
      * @param ownerID
      * @return
@@ -56,19 +69,6 @@ public class AccountRepository implements Repository {
 
 
     /**
-     * method to add one account to the repository with an owner
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     * @return
-     */
-
-    public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
-        return this.accounts.add(oneAccount);
-    }
-
-    /**
      * Method to get the numbers of Accounts in the Repository
      *
      * @return int
@@ -77,19 +77,6 @@ public class AccountRepository implements Repository {
     public int numberOfAccountsInTheAccountsRepository() { return this.accounts.size();
     }
 
-    /**
-     * method to add one account to the list
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @return boolean
-     */
-
-    public boolean createAccount(Denomination accountDenomination, Description accountDescription) {
-        Account oneAccount = new Account(accountDenomination, accountDescription);
-        this.accounts.add(oneAccount);
-        return this.accounts.contains(oneAccount);
-    }
 
     /**
      * method to remove one account from the Repository
