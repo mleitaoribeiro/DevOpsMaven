@@ -444,4 +444,48 @@ class AccountRepositoryTest {
         //Assert:
         assertEquals("Accounts Repository: [ACCOUNT FOR TEST PURPOSES, 0.0 EUR€, TEST ACCOUNT 1, test@gmail.com, ACCOUNT FOR TEST PURPOSES, 0.0 EUR€, TEST ACCOUNT 2, test2@gmail.com]", result);
     }
+
+
+    /**
+     * Tests to method findByID
+     */
+
+    @Test
+    @DisplayName("Test if Account is return when asked by ID - true")
+    void findAccountByID() {
+        //Arrange
+        AccountRepository accountsRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
+                new PersonID(new Email("amadeu1@gmail.com")));
+        accountsRepository.createAccount(new Denomination("xpto"),
+                new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
+
+        //Act
+        Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
+                new PersonID(new Email("amadeu1@gmail.com"))));
+
+        //Arrange
+        assertEquals(accountExpected, accountReturned);
+    }
+
+    @Test
+    @DisplayName("Test if Account is return when asked by ID - false")
+    void findAccountByIDFalse() {
+        //Arrange
+        AccountRepository accountsRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
+                new PersonID(new Email("lol@gmail.com")));
+        accountsRepository.createAccount(new Denomination("xpto"),
+                new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
+
+        //Act
+        Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
+                new PersonID(new Email("amadeu1@gmail.com"))));
+
+        //Arrange
+        assertNotEquals(accountExpected, accountReturned);
+    }
+
+
+
 }
