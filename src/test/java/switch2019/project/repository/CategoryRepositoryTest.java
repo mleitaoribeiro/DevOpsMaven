@@ -10,6 +10,7 @@ import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
+import switch2019.project.model.shared.PersonID;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -517,5 +518,31 @@ class CategoryRepositoryTest {
 
         //Assert
         assertEquals(0, actual);
+    }
+
+    @Test
+    @DisplayName("Test toString method- true ")
+    void testToStringMethod() {
+        //Arrange
+        CategoryID categoryID = new CategoryID(new Denomination("FOOD"),
+                new PersonID(new Email("marta@gmail.com")));
+        String expectedResult = "FOOD, marta@gmail.com";
+        //Act
+        String realResult = categoryID.toString();
+        //Assert
+        assertEquals(expectedResult, realResult);
+    }
+
+    @Test
+    @DisplayName("Test toString method - false")
+    void testToStringMethodFalse() {
+        //Arrange
+        CategoryID categoryID = new CategoryID(new Denomination("FOOD"),
+                new PersonID(new Email("marta@gmail.com")));
+        String unExpectedResult = "marta@gmail.com, FOOD";
+        //Act
+        String realResult = categoryID.toString();
+        //Assert
+        assertNotEquals(unExpectedResult, realResult);
     }
 }
