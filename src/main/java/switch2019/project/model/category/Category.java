@@ -68,4 +68,13 @@ public class Category implements Entity {
     public int hashCode() {
         return Objects.hash(categoryID);
     }
+
+    /**
+     * Override to toString
+     * @return categoryID string
+     */
+    @Override
+    public String toString() {
+        return categoryID.toString();
+    }
 }
