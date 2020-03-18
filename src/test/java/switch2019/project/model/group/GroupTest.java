@@ -3433,7 +3433,26 @@ class GroupTest {
         assertEquals(expected, result);
 
     }
-}
+    /**
+     * Test to check if iD converts a groupID into a String.
+     */
+
+    @Test
+    @DisplayName("gruoupIDToString tested - Success")
+    void testToString() {
+
+
+            //Arrange:
+            GroupID groupID = new GroupID(new Description("Policias"));
+
+            //Act:
+            String groupIDInString = groupID.toString();
+            String expected = "POLICIAS";
+
+            //Assert:
+            assertEquals(expected, groupIDInString);
+        }
+    }
 
 
 
