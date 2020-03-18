@@ -1,4 +1,4 @@
-package switch2019.project.services;
+package switch2019.project.controllers;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -12,24 +12,28 @@ import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.GroupID;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
+import switch2019.project.services.US004GetFamilyGroupsService;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US004GetFamilyGroupsServiceTest {
+class US004GetFamilyGroupsControllerTest {
+
     private static PersonRepository personRepository;
     private static GroupsRepository groupsRepository;
     private static GroupsRepository groupsRepository2;
     private static US004GetFamilyGroupsService service;
+    private static US004GetFamilyGroupsController controller;
 
     @BeforeAll
-            static void universe() {
+    static void universe() {
         personRepository = new PersonRepository();
         groupsRepository = new GroupsRepository();
         groupsRepository2 = new GroupsRepository();
         service = new US004GetFamilyGroupsService();
+        controller = new US004GetFamilyGroupsController(service);
 
         // First global group - All Family
         Person manuelaMOM = new Person("Manuela", new DateAndTime(1960, 10, 10), new Address("Miragaia"),
@@ -46,7 +50,7 @@ class US004GetFamilyGroupsServiceTest {
         // Second global group - All Family 2
         Person homer = new Person("Homer", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("novoMail@isep.pt"));
-        Person marge = new Person("Marge",new DateAndTime(1990, 12, 4), new Address("Springfield"),
+        Person marge = new Person("Marge", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("novoMail2@isep.pt"));
         Person bart = new Person("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail3@isep.pt"));
@@ -58,11 +62,11 @@ class US004GetFamilyGroupsServiceTest {
         // Third global group - No Mom
         Person joaoDAD = new Person("Joao", new DateAndTime(1990, 12, 4), new Address("Miragaia"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("email@isep.pt"));
-        Person mariaMOM = new Person("Maria",new DateAndTime(1990, 12, 4), new Address("Springfield"),
+        Person mariaMOM = new Person("Maria", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("novoMail5@isep.pt"));
         Person diana = new Person("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"),
                 new Address("Rua B", "Gaia", "4520-233"), mariaMOM, joaoDAD, new Email("email2@isep.pt"));
-        Person elsa = new Person("Elsa",new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
+        Person elsa = new Person("Elsa", new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
                 new Address("Rua B", "Gaia", "4520-233"), mariaMOM, joaoDAD, new Email("email3@isep.pt"));
         Person ines = new Person("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"),
                 new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, joaoDAD, new Email("email4@isep.pt"));
@@ -81,9 +85,9 @@ class US004GetFamilyGroupsServiceTest {
         Person carolyn = new Person("Princess Carolyn", new DateAndTime(1990, 12, 4),
                 new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"), new Email("new2@isep.pt"));
         Person todd = new Person("Todd Chavez", new DateAndTime(1990, 12, 4),
-                new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"),carolyn,bojack, new Email("new3@isep.pt"));
+                new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"), carolyn, bojack, new Email("new3@isep.pt"));
         Person diane = new Person("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"),
-                new Address("Rua B", "Porto", "4520-233"),carolyn,bojack, new Email("new4@isep.pt"));
+                new Address("Rua B", "Porto", "4520-233"), carolyn, bojack, new Email("new4@isep.pt"));
 
         Group group1 = new Group("Familia Santos");
         group1.addMember(carlosDAD);
@@ -92,7 +96,7 @@ class US004GetFamilyGroupsServiceTest {
         group1.addMember(marta);
         group1.addMember(joao);
 
-        Group group2 = new Group ("Familia Simpson");
+        Group group2 = new Group("Familia Simpson");
         group2.addMember(homer);
         group2.addMember(marge);
         group2.addMember(maggie);
@@ -116,7 +120,6 @@ class US004GetFamilyGroupsServiceTest {
         group5.addMember(todd);
 
 
-
         groupsRepository.addGroupToGroupList(group1);
         groupsRepository.addGroupToGroupList(group2);
         groupsRepository.addGroupToGroupList(group3);
@@ -128,6 +131,7 @@ class US004GetFamilyGroupsServiceTest {
 
 
     }
+
     @Test
     @DisplayName("Get all the families in the repository")
     void getFamilyGroups() {
@@ -137,10 +141,10 @@ class US004GetFamilyGroupsServiceTest {
         expected.add(groupsRepository.findGroupByID(new GroupID(new Description("Familia Simpson"))));
 
         //Act
-        service.getFamilyGroups(groupsRepository);
+        controller.getFamilyGroups(service,groupsRepository);
 
         //Assert
-        assertEquals(expected,service.getFamilyGroups(groupsRepository));
+        assertEquals(expected, controller.getFamilyGroups(service, groupsRepository));
     }
 
     @Test
@@ -149,12 +153,9 @@ class US004GetFamilyGroupsServiceTest {
         //Arrange
         Set<Group> expected = new HashSet<>();
         //Act
-        service.getFamilyGroups(groupsRepository2);
+        controller.getFamilyGroups(service, groupsRepository2);
 
         //Assert
-        assertEquals(expected,service.getFamilyGroups(groupsRepository2));
+        assertEquals(expected,controller.getFamilyGroups(service, groupsRepository2));
     }
-    
-
-
 }
