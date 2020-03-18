@@ -14,8 +14,7 @@ import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 import switch2019.project.services.US003AddMemberToGroupService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class US003AddMemberToGroupControllerTest {
     private static PersonRepository personRepository;
@@ -61,6 +60,21 @@ public class US003AddMemberToGroupControllerTest {
 
         //Assert
         assertTrue(memberAdded);
+    }
+
+    @Test
+    @DisplayName("Test if a member was added to group-Same Person")
+    void addMemberToGroupAlreadyIn() {
+        //Arrange
+        PersonID personID = new PersonID(new Email("jose.cardoso@hotmail.com"));
+        GroupID groupID = new GroupID(new Description("familia"));
+
+        //Act
+
+        boolean memberAdded = controller.addMemberToGroup(personID, groupID);
+
+        //Assert
+        assertFalse(memberAdded);
     }
 
     @Test
