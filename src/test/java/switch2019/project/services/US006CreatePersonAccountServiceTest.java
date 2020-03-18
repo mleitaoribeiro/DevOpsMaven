@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.PersonID;
+import switch2019.project.model.shared.*;
 import switch2019.project.repository.AccountRepository;
 import switch2019.project.repository.PersonRepository;
 

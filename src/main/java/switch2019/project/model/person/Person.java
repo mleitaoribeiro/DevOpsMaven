@@ -289,12 +289,6 @@ public class Person implements Owner {
      *
      * @param nameOfCategory
      */
-
-    //quem fizer esta user Storie tem de adaptar o outro metodo a este e com o ID
-    public boolean createCategory(String nameOfCategory, Person categoryCreator) {
-        return false;
-    }
-
     public boolean createCategoryAndAddToCategoryList(String nameOfCategory) {
         return categoryList.createCategory(nameOfCategory, this.personID);
     }

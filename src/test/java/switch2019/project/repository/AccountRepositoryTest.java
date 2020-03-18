@@ -64,6 +64,43 @@ class AccountRepositoryTest {
         assertTrue(real);
     }
 
+    @Test
+    @DisplayName("Test if one account was created if it already exist - Person ID")
+    public void testIfAccountWasAddedIfItAlreadyExistsPersonID() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
+        accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
+
+        //Act
+        try {
+            accountRepository.createAccount(new Denomination("xpto"),
+                    new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
+        }
+
+        catch (IllegalArgumentException ex) {
+            assertEquals("This Account already exists for that ID.", ex.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if one account was created if it already exist - Person Group ID")
+    public void testIfAccountWasAddedIfItAlreadyExistsGroupID() {
+        //Arrange
+        AccountRepository accountRepository = new AccountRepository();
+        accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new GroupID(new Description("Friends")));
+
+        //Act
+        try {
+            accountRepository.createAccount(new Denomination("xpto"),
+                    new Description("one account"), new GroupID(new Description("Friends")));
+        }
+
+        catch (IllegalArgumentException ex) {
+            assertEquals("This Account already exists for that ID.", ex.getMessage());
+        }
+    }
 
     @Test
     @DisplayName("Test if  one account was added to the repository with Group ID - Main Scenario")
@@ -241,7 +278,7 @@ class AccountRepositoryTest {
 
     @Test
     @DisplayName("Test if one account is contained in the accounts Repository | False")
-    public void testIfAccountsRepositoryContainAccount_false() {
+    public void testIfAccountsRepositoryContainAccountFalse() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("cat acccount"), new PersonID( new Email("mocho@gmail.com")));
@@ -368,7 +405,7 @@ class AccountRepositoryTest {
 
     @Test
     @DisplayName("Test if account is in the Repository - False")
-    void validateIfAccountIsInTheAccountsRepository_False() {
+    void validateIfAccountIsInTheAccountsRepositoryFalse() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("xpto Account"),  new PersonID(new Email("xpto@gmail.com")));
