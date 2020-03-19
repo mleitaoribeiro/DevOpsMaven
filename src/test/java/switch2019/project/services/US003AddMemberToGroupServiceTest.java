@@ -20,7 +20,7 @@ public class US003AddMemberToGroupServiceTest {
     private static GroupsRepository groupsRepository;
     private static US003AddMemberToGroupService service;
 
-   @BeforeAll
+    @BeforeAll
 
     static void universeSetUp() {
         personRepository = new PersonRepository();
@@ -31,7 +31,7 @@ public class US003AddMemberToGroupServiceTest {
         //Add people to Repository
         Person person = personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
-        Person person2=personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+        Person person2 = personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jo.cardoso@hotmail.com"));
         Person person3 = personRepository.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("father@isep.ipp.pt"));
@@ -50,12 +50,12 @@ public class US003AddMemberToGroupServiceTest {
     @DisplayName("Test if a member was added to group")
     void addMemberToGroup() {
         //Arrange
-       String email="jo.cardoso@hotmail.com";
-       String groupDescription="familia";
+        String personEmail = "jo.cardoso@hotmail.com";
+        String groupDescription = "familia";
 
         //Act
 
-        boolean memberAdded = service.addMemberToGroup(email, groupDescription);
+        boolean memberAdded = service.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
         assertTrue(memberAdded);
@@ -65,26 +65,27 @@ public class US003AddMemberToGroupServiceTest {
     @DisplayName("Test if a member was added to group-Same Person")
     void addMemberToGroupAlreadyIn() {
         //Arrange
-        String email="jose.cardoso@hotmail.com";
-        String groupDescription="familia";
+        String personEmail = "jose.cardoso@hotmail.com";
+        String groupDescription = "familia";
 
         //Act
 
-        boolean memberAdded = service.addMemberToGroup(email, groupDescription);
+        boolean memberAdded = service.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
         assertFalse(memberAdded);
     }
+
     @Test
     @DisplayName("Test if a member was added to group-Invalid Person ID")
     void addMemberToGroupInvalidPersonID() {
         //Arrange
-        String personEmail="jp@ip.pt";
-        String groupDescription="familia";
+        String personEmail = "jp@ip.pt";
+        String groupDescription = "familia";
 
         //Act
         try {
-            service.addMemberToGroup(personEmail,groupDescription);
+            service.addMemberToGroup(personEmail, groupDescription);
         }
 
         //Assert
