@@ -74,7 +74,7 @@ class US001AreSiblingsControllerTest {
         String manuelEmail = "child2@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(antonioEmail, manuelEmail);
+        boolean siblings = controller.areSiblings(antonioEmail, manuelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -88,7 +88,7 @@ class US001AreSiblingsControllerTest {
         String robertoEmail = "child3@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(antonioEmail, robertoEmail);
+        boolean siblings = controller.areSiblings(antonioEmail, robertoEmail);
 
         //Assert
         assertTrue(siblings);
@@ -103,7 +103,7 @@ class US001AreSiblingsControllerTest {
         String amaliaEmail = "child4@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(antonioEmail, amaliaEmail);
+        boolean siblings = controller.areSiblings(antonioEmail, amaliaEmail);
 
         //Assert
         assertTrue(siblings);
@@ -117,7 +117,7 @@ class US001AreSiblingsControllerTest {
         String rafaelEmail = "father2@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(joseEmail, rafaelEmail);
+        boolean siblings = controller.areSiblings(joseEmail, rafaelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -133,8 +133,8 @@ class US001AreSiblingsControllerTest {
         String amaliaEmail = "child4@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(joseEmail, robertoEmail);
-        boolean siblings2 = controller.AreSiblings(mariaEmail, amaliaEmail);
+        boolean siblings = controller.areSiblings(joseEmail, robertoEmail);
+        boolean siblings2 = controller.areSiblings(mariaEmail, amaliaEmail);
 
         //Assert
         assertFalse(siblings && siblings2);
@@ -149,7 +149,7 @@ class US001AreSiblingsControllerTest {
 
         //Act
         try {
-            controller.AreSiblings(joseEmail, robertoEmail);
+            controller.areSiblings(joseEmail, robertoEmail);
         }
 
         //Assert

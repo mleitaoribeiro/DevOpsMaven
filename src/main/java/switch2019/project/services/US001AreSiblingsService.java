@@ -21,7 +21,7 @@ public class US001AreSiblingsService {
      * @param emailPerson2
      * @return true if two people are siblings
      */
-    public boolean AreSiblings (String emailPerson1, String emailPerson2) {
+    public boolean areSiblings(String emailPerson1, String emailPerson2) {
 
         Person person1 = repository.findPersonByEmail(new Email(emailPerson1));
         Person person2 = repository.findPersonByEmail(new Email(emailPerson2));

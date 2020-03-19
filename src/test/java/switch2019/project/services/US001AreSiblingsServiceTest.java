@@ -71,7 +71,7 @@ class US001AreSiblingsServiceTest {
         String manuelEmail = "child2@isep.ipp.pt";
 
         //Act
-        boolean siblings = service.AreSiblings(antonioEmail, manuelEmail);
+        boolean siblings = service.areSiblings(antonioEmail, manuelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -85,7 +85,7 @@ class US001AreSiblingsServiceTest {
         String robertoEmail = "child3@isep.ipp.pt";
 
         //Act
-        boolean siblings = service.AreSiblings(antonioEmail, robertoEmail);
+        boolean siblings = service.areSiblings(antonioEmail, robertoEmail);
 
         //Assert
         assertTrue(siblings);
@@ -100,7 +100,7 @@ class US001AreSiblingsServiceTest {
         String amaliaEmail = "child4@isep.ipp.pt";
 
         //Act
-        boolean siblings = service.AreSiblings(antonioEmail, amaliaEmail);
+        boolean siblings = service.areSiblings(antonioEmail, amaliaEmail);
 
         //Assert
         assertTrue(siblings);
@@ -114,7 +114,7 @@ class US001AreSiblingsServiceTest {
         String rafaelEmail = "father2@isep.ipp.pt";
 
         //Act
-        boolean siblings = service.AreSiblings(joseEmail, rafaelEmail);
+        boolean siblings = service.areSiblings(joseEmail, rafaelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -130,8 +130,8 @@ class US001AreSiblingsServiceTest {
         String amaliaEmail = "child4@isep.ipp.pt";
 
         //Act
-        boolean siblings = service.AreSiblings(joseEmail, robertoEmail);
-        boolean siblings2 = service.AreSiblings(mariaEmail, amaliaEmail);
+        boolean siblings = service.areSiblings(joseEmail, robertoEmail);
+        boolean siblings2 = service.areSiblings(mariaEmail, amaliaEmail);
 
         //Assert
         assertFalse(siblings && siblings2);
@@ -146,7 +146,7 @@ class US001AreSiblingsServiceTest {
 
         //Act
         try {
-            service.AreSiblings(joseEmail, robertoEmail);
+            service.areSiblings(joseEmail, robertoEmail);
         }
 
         //Assert

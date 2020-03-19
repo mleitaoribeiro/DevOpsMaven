@@ -1,6 +1,5 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.services.US001AreSiblingsService;
 
 public class US001AreSiblingsController {
@@ -19,7 +18,7 @@ public class US001AreSiblingsController {
      * @param emailPerson2
      * @return true if two people are siblings
      */
-    public boolean AreSiblings (String emailPerson1, String emailPerson2) {
-        return service.AreSiblings(emailPerson1, emailPerson2);
+    public boolean areSiblings(String emailPerson1, String emailPerson2) {
+        return service.areSiblings(emailPerson1, emailPerson2);
     }
 }
