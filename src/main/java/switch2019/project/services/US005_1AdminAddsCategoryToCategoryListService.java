@@ -42,7 +42,6 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(personEmail)).getID())) {
 
             //create category and associate it with the group
-            //This method also verifies if the category was created inside the CategoryRepository;
             categoryRepository.createCategory(new Denomination(categoryDenomination),group.getID());
             return true;
         } else return false;
