@@ -36,6 +36,20 @@ class US006CreatePersonAccountControllerTest {
                 new Address("Rua de Tagilde", "Vizela", "4620-500"), new Email("mariana.alves@gmail.com"));
     }
 
+    @Test
+    @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
+    void testIfPersonAccountAreCreated() {
+        //Arrange
+        String personEmail = "jose.cardoso@hotmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        //Act
+        boolean accountCreated = service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+
+        //Assert
+        assertTrue(accountCreated);
+    }
 
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
@@ -96,20 +110,6 @@ class US006CreatePersonAccountControllerTest {
         }
     }
 
-    @Test
-    @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
-    void testIfPersonAccountAreCreated() {
-        //Arrange
-        String personEmail = "jose.cardoso@hotmail.com";
-        String accountDenomination = "Revolut";
-        String accountDescription = "OnlineShopping";
-
-        //Act
-        boolean accountCreated = service.createPersonAccount(personEmail, accountDenomination, accountDescription);
-
-        //Assert
-        assertTrue(accountCreated);
-    }
 
     @Test
     @DisplayName("Test If User Account is Created - person ID null")
