@@ -3,6 +3,7 @@ package switch2019.project.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
@@ -50,12 +51,14 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         //Arrange
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
-        //Arrangement of the Group:
+            //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));
+        service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));
+            //verify if the category is in the repository
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
         assertTrue(result);
@@ -70,12 +73,15 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
-        //Arrangement of the Group:
+            //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
+        service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
+
+            //verify if the category is not in the repository:
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
         assertFalse(result);
@@ -90,14 +96,17 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
-        //Arrangement of the Group:
+            //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         Group thisGroup = groupsRepository.findGroupByID(groupID);
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
 
         //Act:
-        boolean result = service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
+        service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
+
+            //verify if the category is in the repository:
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
         assertFalse(result);
@@ -114,8 +123,12 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
 
         //Act:
-        boolean result = (service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"))
-                && (service.addCategoryToGroup(groupID,franciscoID,new Denomination("supermarket"))));
+        service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));
+        service.addCategoryToGroup(groupID,franciscoID,new Denomination("supermarket"));
+
+            //verify if the both categories are in the repository:
+        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
+                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
 
         //Assert:
         assertTrue(result);
@@ -134,9 +147,14 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
+
         //Act:
-        boolean result = (service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"))
-                && (service.addCategoryToGroup(groupID,joaoID,new Denomination("supermarket"))));
+        service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));
+        service.addCategoryToGroup(groupID,joaoID,new Denomination("supermarket"));
+
+            //verify if the both categories are in the repository:
+        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
+                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
 
         //Assert:
         assertTrue(result);
@@ -158,7 +176,28 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Assert:
         catch(IllegalArgumentException nullParameter) {
-            assertEquals("Category could not be added to group because a null object was given as parameter", nullParameter.getMessage());
+            assertEquals("Category could not be added to group because its Description is null", nullParameter.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Illegal exception caused by category already existing in the CategoryRepository")
+    void adminAddsDuplicateCategoryToCategoryListTest() {
+
+        //Arrange:
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+        GroupID groupID = new GroupID(new Description("FRIENDS"));
+
+        //Act:
+        service.addCategoryToGroup(groupID,franciscoID,new Denomination("compras"));
+        try {service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));}
+
+        //Assert:
+        catch(IllegalArgumentException nullParameter) {
+            assertEquals("This category already exists and it could not be created", nullParameter.getMessage());
         }
     }
 }
