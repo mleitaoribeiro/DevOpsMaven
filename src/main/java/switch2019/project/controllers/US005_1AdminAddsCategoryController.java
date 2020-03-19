@@ -17,14 +17,15 @@ public class US005_1AdminAddsCategoryController {
 
     /**
      * Call AdminAddsCategoryToCategoryListService to implement the User Story 5.1 using this controller.
-     * @param groupID
-     * @param personID
-     * @param categoryDescription
+     * @param groupDescription
+     * @param personEmail
+     * @param categoryDenomination
      * @return
      */
-    public boolean addCategoryToGroupController(GroupID groupID, PersonID personID, Denomination categoryDescription) {
 
-        return service.addCategoryToGroup(groupID, personID, categoryDescription);
+    public boolean addCategoryToGroupController(String groupDescription, String personEmail, String categoryDenomination) {
+
+        return service.addCategoryToGroup(groupDescription, personEmail, categoryDenomination);
     }
 
 }
