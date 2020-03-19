@@ -86,19 +86,71 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     }
 
     @Test
-    @DisplayName("Groups was already created")
+    @DisplayName("Group was already created")
     void createGroupAndBecomeAdminGroupAlreadyExists() {
 
         //Arrange
         String groupDescription = "Bashtards";
         String personID = "1234@isep.pt";
         controller.createGroupAndBecomeAdmin(groupDescription, personID);
+
         //Act
         try {
            controller.createGroupAndBecomeAdmin(groupDescription, personID);
         }
         catch (IllegalArgumentException ex) {
             assertEquals("This Group Description already exists.", ex.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Both null fields")
+    void createGroupAndGroupNullFields() {
+
+        //Act
+        try {
+            controller.createGroupAndBecomeAdmin(null, null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException ex) {
+            assertEquals("The description can't be null or empty.", ex.getMessage());
+        }
+
+    }
+
+    @Test
+    @DisplayName("personEmail null")
+    void createGroupAndGroupNullPersonEmail() {
+
+        //Assert
+        String groupDescription = "Bashtards";
+
+        try {
+            controller.createGroupAndBecomeAdmin(groupDescription, null);
+        }
+
+        //Assert
+        catch (IllegalArgumentException ex) {
+            assertEquals("The email can´t be null!", ex.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("group description is null")
+    void createGroupAndGroupNullGroupDescription() {
+
+        //Assert
+        String personID = "1234@isep.pt";
+
+        //Act
+        try {
+            controller.createGroupAndBecomeAdmin(null, personID);
+        }
+
+        //Assert
+        catch (IllegalArgumentException ex) {
+            assertEquals("The description can't be null or empty.", ex.getMessage());
         }
     }
 }

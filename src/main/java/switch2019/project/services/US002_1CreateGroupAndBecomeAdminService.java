@@ -28,12 +28,14 @@ public class US002_1CreateGroupAndBecomeAdminService {
      */
 
     public boolean createGroupAndBecomeAdmin(String groupDescriptionString, String personEmail) {
-        if (groupDescriptionString != null && personEmail != null) {
-            PersonID personID = new PersonID(new Email(personEmail));
-            Description groupDescription = new Description(groupDescriptionString);
-            Person person = personRepository.findPersonByID(personID);
-            return groupsRepository.createGroup(groupDescription, person);
-        } else return false;
+
+        Description groupDescription = new Description(groupDescriptionString);
+        PersonID personID = new PersonID(new Email(personEmail));
+
+        Person person = personRepository.findPersonByID(personID);
+
+        return groupsRepository.createGroup(groupDescription, person);
+
     }
     
 }

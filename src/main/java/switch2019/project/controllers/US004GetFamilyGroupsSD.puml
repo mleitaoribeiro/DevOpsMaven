@@ -1,28 +1,31 @@
 @startuml
 skinparam DefaultFontSize 20
 participant ":Test"
-create ":US004GetFamilyGroupsController"
+participant "controller:US004GetFamilyGroupsController"
 
-":Test" -> ":US004GetFamilyGroupsController" : new US004GetFamilyGroupsController()
-":Test" -> ":US004GetFamilyGroupsController" : groups = getFamilyGroups()
-activate ":US004GetFamilyGroupsController" #FFBBBB
+==Act==
+":Test" -> "controller:US004GetFamilyGroupsController" : families = getFamilyGroups()
+activate "controller:US004GetFamilyGroupsController" #FFBBBB
 
 participant "service:US004GetFamilyGroupsService"
-":US004GetFamilyGroupsController" -> "service:US004GetFamilyGroupsService" : groups = getFamilyGroups()
+"controller:US004GetFamilyGroupsController" -> "service:US004GetFamilyGroupsService" : families = getFamilyGroups()
 activate "service:US004GetFamilyGroupsService" #FFBBBB
 
-participant ":GroupRepository"
-"service:US004GetFamilyGroupsService" -> ":GroupRepository" : families = returnOnlyFamilies()
-activate ":GroupRepository" #FFBBBB
+participant "groupsRepository:GroupsRepository"
+"service:US004GetFamilyGroupsService" -> "groupsRepository:GroupsRepository" : families = returnOnlyFamilies()
+activate "groupsRepository:GroupsRepository" #FFBBBB
 
-participant ":Group"
-":GroupRepository" -> ":Group" : family = isFamily()
-deactivate ":US004GetFamilyGroupsController"
+participant "group:Group"
+
+"groupsRepository:GroupsRepository" -> "group:Group" : family = isFamily()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+deactivate "controller:US004GetFamilyGroupsController"
 deactivate "service:US004GetFamilyGroupsService"
-deactivate ":GroupRepository"
+deactivate "groupsRepository:GroupsRepository"
+==Assert==
 
-
-":Test" -> ":Test" : assertEquals(expected, groups)
+":Test" -> ":Test" : assertEquals(expected, families)
 
 
 @enduml

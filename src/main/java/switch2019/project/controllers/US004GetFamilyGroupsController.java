@@ -19,7 +19,7 @@ public class US004GetFamilyGroupsController {
      *
      * @return family groups
      */
-    public Set<Group> getFamilyGroups() {
+    public Set<String> getFamilyGroups() {
         return service.getFamilyGroups() ;
     }
 
