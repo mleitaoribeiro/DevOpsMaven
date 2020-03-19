@@ -1,7 +1,6 @@
 package switch2019.project.services;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Address;
@@ -9,8 +8,6 @@ import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
@@ -53,12 +50,12 @@ public class US003AddMemberToGroupServiceTest {
     @DisplayName("Test if a member was added to group")
     void addMemberToGroup() {
         //Arrange
-        PersonID personID = new PersonID(new Email("jo.cardoso@hotmail.com"));
-        GroupID groupID = new GroupID(new Description("familia"));
+       String email="jo.cardoso@hotmail.com";
+       String groupDescription="familia";
 
         //Act
 
-        boolean memberAdded = service.addMemberToGroup(personID, groupID);
+        boolean memberAdded = service.addMemberToGroup(email, groupDescription);
 
         //Assert
         assertTrue(memberAdded);
@@ -68,12 +65,12 @@ public class US003AddMemberToGroupServiceTest {
     @DisplayName("Test if a member was added to group-Same Person")
     void addMemberToGroupAlreadyIn() {
         //Arrange
-        PersonID personID = new PersonID(new Email("jose.cardoso@hotmail.com"));
-        GroupID groupID = new GroupID(new Description("familia"));
+        String email="jose.cardoso@hotmail.com";
+        String groupDescription="familia";
 
         //Act
 
-        boolean memberAdded = service.addMemberToGroup(personID, groupID);
+        boolean memberAdded = service.addMemberToGroup(email, groupDescription);
 
         //Assert
         assertFalse(memberAdded);
@@ -82,17 +79,17 @@ public class US003AddMemberToGroupServiceTest {
     @DisplayName("Test if a member was added to group-Invalid Person ID")
     void addMemberToGroupInvalidPersonID() {
         //Arrange
-        PersonID personID = new PersonID(new Email("jp@ip.pt"));
-        GroupID groupID = new GroupID(new Description("familia"));
+        String personEmail="jp@ip.pt";
+        String groupDescription="familia";
 
         //Act
         try {
-            service.addMemberToGroup(personID,groupID);
+            service.addMemberToGroup(personEmail,groupDescription);
         }
 
         //Assert
         catch (IllegalArgumentException email) {
-            assertEquals("No person found with that ID.", email.getMessage());
+            assertEquals("No person found with that email.", email.getMessage());
         }
     }
 }
