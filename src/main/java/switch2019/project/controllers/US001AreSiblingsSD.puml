@@ -30,13 +30,8 @@ activate "person1:Person"  #FFBBBB
 "person1:Person" -> "person1:Person" :  checkSameFather(person2)
 "person1:Person" -> "person1:Person" :  checkSameMother(person2)
 
-"person1:Person" --> "service:US001AreSiblingsService" : validSibling
 deactivate "person1:Person"
-
-"service:US001AreSiblingsService"--> "controller:US001AreSiblingsController" : siblings
 deactivate "service:US001AreSiblingsService"
-
-"controller:US001AreSiblingsController" --> ":Test" : siblings
 deactivate "controller:US001AreSiblingsController"
 
 == Assert ==
