@@ -10,12 +10,12 @@ participant "groupsRep:GroupsRepository"
 
 == Act ==
 
-":Test" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
+":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
 
 "controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
 activate "service:US2.1CreateGroupAndBecomeAdminService" #FFBBBB
 
-"service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByID\n(personID)
+"service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByEmail\n(personEmail)
 activate "personRep:PersonRepository" #FFBBBB
 deactivate "personRep:PersonRepository"
 
@@ -27,6 +27,7 @@ create "group:Group"
 activate "group:Group" #FFBBBB
 "group:Group" -> "group:Group" : addMember(person)
 
+
 deactivate "group:Group"
 deactivate "groupsRep:GroupsRepository"
 deactivate "personRep:PersonRepository"
@@ -35,6 +36,6 @@ deactivate "controller:US2.1CreateGroupAndBecomeAdminController"
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(isGroupCreatedAndAdminSet)
+":Test" -> ":Test" : assertTrue(isGroupCreatedAndAdminSet \n&& isGroupAdmin(personID))
 
 @enduml

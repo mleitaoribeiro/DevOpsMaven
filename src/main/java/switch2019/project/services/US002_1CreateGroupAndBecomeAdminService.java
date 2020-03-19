@@ -30,9 +30,8 @@ public class US002_1CreateGroupAndBecomeAdminService {
     public boolean createGroupAndBecomeAdmin(String groupDescriptionString, String personEmail) {
 
         Description groupDescription = new Description(groupDescriptionString);
-        PersonID personID = new PersonID(new Email(personEmail));
 
-        Person person = personRepository.findPersonByID(personID);
+        Person person = personRepository.findPersonByEmail(new Email (personEmail));
 
         return groupsRepository.createGroup(groupDescription, person);
 
