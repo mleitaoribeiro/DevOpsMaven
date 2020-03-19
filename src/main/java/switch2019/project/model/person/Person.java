@@ -3,11 +3,8 @@ package switch2019.project.model.person;
 import switch2019.project.model.account.Account;
 import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.Owner;
-import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.ledger.*;
 import switch2019.project.model.shared.*;
-import switch2019.project.repository.AccountRepository;
-import switch2019.project.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -26,8 +23,6 @@ public class Person implements Owner {
     private Person father;
     private Address address;
     private Address birthPlace;
-    private AccountRepository accountsList;
-    private CategoryRepository categoryList;
     private Ledger ledger;
 
     /**
@@ -45,8 +40,6 @@ public class Person implements Owner {
         this.birthPlace = birthPlace;
         this.birthDate = birthDate;
         siblingList = new HashSet<>();
-        categoryList = new CategoryRepository();
-        accountsList = new AccountRepository();
         ledger = new Ledger();
         address = homeAddress;
     }
@@ -72,8 +65,6 @@ public class Person implements Owner {
         this.mother = mother;
         this.father = father;
         this.siblingList = new HashSet<>();
-        categoryList = new CategoryRepository();
-        accountsList = new AccountRepository();
         ledger = new Ledger();
     }
 

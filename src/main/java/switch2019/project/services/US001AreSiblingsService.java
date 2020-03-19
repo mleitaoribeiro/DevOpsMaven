@@ -2,7 +2,6 @@ package switch2019.project.services;
 
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.PersonRepository;
 
 public class US001AreSiblingsService {

@@ -1,8 +1,6 @@
 package switch2019.project.model.category;
 
 import switch2019.project.model.frameworks.Entity;
-import switch2019.project.model.frameworks.ID;
-import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.Denomination;

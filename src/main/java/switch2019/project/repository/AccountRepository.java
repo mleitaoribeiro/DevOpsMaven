@@ -2,7 +2,6 @@ package switch2019.project.repository;
 
 import switch2019.project.model.account.Account;
 import switch2019.project.model.frameworks.ID;
-import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.shared.AccountID;
 import switch2019.project.model.shared.Denomination;

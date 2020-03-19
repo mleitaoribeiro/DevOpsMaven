@@ -9,8 +9,6 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.*;
-import switch2019.project.repository.AccountRepository;
-import switch2019.project.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -24,8 +22,6 @@ public class Group implements Owner {
     private final DateAndTime startingDate;
     private Set<Person> members;
     private Set<Person> admins;
-    private CategoryRepository categoryList;
-    private AccountRepository groupAccountsList;
     private Ledger ledger;
 
     /**
@@ -39,8 +35,6 @@ public class Group implements Owner {
         startingDate = new DateAndTime();
         members = new HashSet<>();
         admins = new HashSet<>();
-        groupAccountsList = new AccountRepository();
-        categoryList = new CategoryRepository();
         ledger = new Ledger();
     }
 
@@ -49,8 +43,6 @@ public class Group implements Owner {
         startingDate = new DateAndTime();
         members = new HashSet<>();
         admins = new HashSet<>();
-        groupAccountsList = new AccountRepository();
-        categoryList = new CategoryRepository();
         ledger = new Ledger();
         this.addMember(groupCreator);
     }

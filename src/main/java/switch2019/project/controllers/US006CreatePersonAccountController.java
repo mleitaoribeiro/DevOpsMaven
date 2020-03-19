@@ -1,8 +1,5 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.services.US006CreatePersonAccountService;
 
 

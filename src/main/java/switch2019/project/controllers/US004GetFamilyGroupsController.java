@@ -1,7 +1,5 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.group.Group;
-
 import switch2019.project.services.US004GetFamilyGroupsService;
 
 import java.util.Set;

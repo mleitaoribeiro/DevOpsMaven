@@ -2,8 +2,6 @@ package switch2019.project.model.category;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.frameworks.Owner;
-import switch2019.project.model.frameworks.OwnerID;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;

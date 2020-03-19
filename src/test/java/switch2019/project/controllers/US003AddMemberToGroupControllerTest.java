@@ -8,8 +8,6 @@ import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 import switch2019.project.services.US003AddMemberToGroupService;
