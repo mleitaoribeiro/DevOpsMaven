@@ -68,7 +68,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
 
         //Assert
         catch (IllegalArgumentException e) {
-            assertEquals("No person found with that ID.", e.getMessage());
+            assertEquals("No person found with that email.", e.getMessage());
         }
     }
 
