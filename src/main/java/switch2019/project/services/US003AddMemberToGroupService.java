@@ -22,13 +22,13 @@ public class US003AddMemberToGroupService {
      * US003
      * Add Member To Group
      *
-     * @param emailperson
+     * @param personEmail
      * @param groupDescription
      * @return
      */
-    public boolean addMemberToGroup(String emailperson, String groupDescription) {
+    public boolean addMemberToGroup(String personEmail, String groupDescription) {
 
-        Person person = personRepository.findPersonByEmail(new Email(emailperson));
+        Person person = personRepository.findPersonByEmail(new Email(personEmail));
         Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
         return group.addMember(person);
     }

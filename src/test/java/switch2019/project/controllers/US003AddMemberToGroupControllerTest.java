@@ -54,12 +54,12 @@ public class US003AddMemberToGroupControllerTest {
     @DisplayName("Test if a member was added to group")
     void addMemberToGroup() {
         //Arrange
-        String email="jo.cardoso@hotmail.com";
-        String groupDescription="familia";
+        String personEmail = "jo.cardoso@hotmail.com";
+        String groupDescription = "familia";
 
         //Act
 
-        boolean memberAdded = controller.addMemberToGroup(email, groupDescription);
+        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
         assertTrue(memberAdded);
@@ -70,23 +70,23 @@ public class US003AddMemberToGroupControllerTest {
     void addMemberToGroupAlreadyIn() {
         //Arrange
 
-      String email="jose.cardoso@hotmail.com";
-      String groupDescription  = "familia";
+        String personEmail = "jose.cardoso@hotmail.com";
+        String groupDescription = "familia";
 
         //Act
 
-        boolean memberAdded = controller.addMemberToGroup(email, groupDescription);
+        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
         assertFalse(memberAdded);
     }
 
     @Test
-    @DisplayName("Test if a member was added to group-Invalid Person ID")
+    @DisplayName("Test if a member was added to group-Invalid Person email")
     void addMemberToGroupInvalidPersonID() {
         //Arrange
-        String personEmail="jp@ip.pt";
-        String groupDescription="familia";
+        String personEmail = "jp@ip.pt";
+        String groupDescription = "familia";
 
         //Act
         try {

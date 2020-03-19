@@ -15,11 +15,11 @@ public class US003AddMemberToGroupController {
      * US003
      * Add member to Group
      *
-     * @param emailperson
+     * @param personEmail
      * @param groupDescription
      * @return
      */
-    public boolean addMemberToGroup( String emailperson, String groupDescription) {
-        return service.addMemberToGroup(emailperson, groupDescription);
+    public boolean addMemberToGroup( String personEmail, String groupDescription) {
+        return service.addMemberToGroup(personEmail, groupDescription);
     }
 }
