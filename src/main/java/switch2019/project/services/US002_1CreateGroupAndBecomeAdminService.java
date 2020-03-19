@@ -23,13 +23,13 @@ public class US002_1CreateGroupAndBecomeAdminService {
      * I want to create a group and become an Admin
      *
      * @param groupDescriptionString
-     * @param email
-     * @return true the group was created and person is now Admin
+     * @param personEmail
+     * @return true if the group was created and person is now Admin, false if don't
      */
 
-    public boolean createGroupAndBecomeAdmin(String groupDescriptionString, String email) {
-        if (groupDescriptionString != null && email != null) {
-            PersonID personID = new PersonID(new Email(email));
+    public boolean createGroupAndBecomeAdmin(String groupDescriptionString, String personEmail) {
+        if (groupDescriptionString != null && personEmail != null) {
+            PersonID personID = new PersonID(new Email(personEmail));
             Description groupDescription = new Description(groupDescriptionString);
             Person person = personRepository.findPersonByID(personID);
             return groupsRepository.createGroup(groupDescription, person);
