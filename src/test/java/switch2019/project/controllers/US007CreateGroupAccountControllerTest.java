@@ -183,7 +183,7 @@ class US007CreateGroupAccountControllerTest {
     }
 
     @Test
-    @DisplayName("Test If group Account is created - Several Accounts - One of the Account already exists")
+    @DisplayName("Test If group Account is created - Several Accounts - One of the Accounts already exists")
     void testIfSeveralGroupAccountsWereCreated_OneAccountAlreadyExists() {
 
         //Arrange
@@ -249,13 +249,13 @@ class US007CreateGroupAccountControllerTest {
 
         //Arrange
         String creatorEmail = "joao.cardoso_12@hotmail.com";
-        String oneGroupID  = "xpto";
+        String oneDescription  = "xpto";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
         //Act
         try {
-            controller.createGroupAccount(creatorEmail, oneGroupID, accountDenomination, accountDescription);
+            controller.createGroupAccount(creatorEmail, oneDescription, accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("No group was found with the given description", invalid.getMessage());
@@ -276,7 +276,6 @@ class US007CreateGroupAccountControllerTest {
             controller.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException invalid) {
-            int realNumberOfAccountsInTheRepository = 0;
             //Assert
             assertEquals("No person found with that email.", invalid.getMessage());
         }
@@ -411,12 +410,12 @@ class US007CreateGroupAccountControllerTest {
 
         //Arrange & Act
         try {
-            String creatorID = "joao.cardoso_12@hotmail.com";
-            String groupFamilyID  = "Familia";
+            String creatorEmail = "joao.cardoso_12@hotmail.com";
+            String groupDescription  = "Familia";
             String accountDenomination = "Online Shopping";
             String accountDescription = "";
 
-            controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+            controller.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException invalid) {
             //Assert
@@ -492,8 +491,8 @@ class US007CreateGroupAccountControllerTest {
     void testIfGroupAccountsWasCreated_FalseCompareSize() {
 
         //Arrange
-        String creatorID = "joao.cardoso_12@hotmail.com";
-        String groupFamilyID  = "Familia";
+        String creatorEmail = "joao.cardoso_12@hotmail.com";
+        String groupDescription  = "Familia";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
@@ -501,8 +500,8 @@ class US007CreateGroupAccountControllerTest {
 
         //Act
         try {
-            controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
-            controller.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+            controller.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
+            controller.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException ex) {
             //Assert
@@ -553,9 +552,9 @@ class US007CreateGroupAccountControllerTest {
 
         //Arrange
         String creatorEmail = "joao.cardoso_12@hotmail.com";
-        String  groupDescription  ="Friends";
+        String groupDescription  ="Friends";
         String accountDenomination = "Online";
-        String  accountDescription = "Online Shopping";
+        String accountDescription = "Online Shopping";
 
         int numberOfExpectedAccountsInTheRepository = 0;
 

@@ -246,13 +246,13 @@ class US007CreateGroupAccountServiceTest {
 
         //Arrange
         String creatorEmail = "joao.cardoso_12@hotmail.com";
-        String oneGroupID  = "xpto";
+        String oneDescription  = "xpto";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
         //Act
         try {
-            service.createGroupAccount(creatorEmail, oneGroupID, accountDenomination, accountDescription);
+            service.createGroupAccount(creatorEmail, oneDescription, accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("No group was found with the given description", invalid.getMessage());
@@ -265,15 +265,14 @@ class US007CreateGroupAccountServiceTest {
 
         //Arrange
         String creatorEmail = "miguel@gmail.com";
-        String  groupDescription = "Isep";
-        String  accountDenomination = "Online";
-        String  accountDescription = "Online Shopping";
+        String groupDescription = "Isep";
+        String accountDenomination = "Online";
+        String accountDescription = "Online Shopping";
 
         try {
             service.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException invalid) {
-            int realNumberOfAccountsInTheRepository = 0;
             //Assert
             assertEquals("No person found with that email.", invalid.getMessage());
         }
@@ -368,10 +367,10 @@ class US007CreateGroupAccountServiceTest {
 
         //Arrange & Act
         try {
-            String  creatorEmail = "joao.cardoso_12@hotmail.com";
-            String  groupDescription  = "Familia";
-            String  accountDenomination = "";
-            String  accountDescription = "Online Shopping";
+            String creatorEmail = "joao.cardoso_12@hotmail.com";
+            String groupDescription  = "Familia";
+            String accountDenomination = "";
+            String accountDescription = "Online Shopping";
 
             service.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
@@ -408,12 +407,12 @@ class US007CreateGroupAccountServiceTest {
 
         //Arrange & Act
         try {
-            String creatorID = "joao.cardoso_12@hotmail.com";
-            String groupFamilyID  = "Familia";
+            String creatorEmail = "joao.cardoso_12@hotmail.com";
+            String groupDescription  = "Familia";
             String accountDenomination = "Online Shopping";
             String accountDescription = "";
 
-            service.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+            service.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException invalid) {
             //Assert
@@ -489,8 +488,8 @@ class US007CreateGroupAccountServiceTest {
     void testIfGroupAccountsWasCreated_FalseCompareSize() {
 
         //Arrange
-        String creatorID = "joao.cardoso_12@hotmail.com";
-        String groupFamilyID  = "Familia";
+        String creatorEmail = "joao.cardoso_12@hotmail.com";
+        String groupDescription  = "Familia";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
@@ -498,8 +497,8 @@ class US007CreateGroupAccountServiceTest {
 
         //Act
         try {
-            service.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
-            service.createGroupAccount(creatorID, groupFamilyID, accountDenomination, accountDescription);
+            service.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
+            service.createGroupAccount(creatorEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException ex) {
             //Assert
@@ -550,9 +549,9 @@ class US007CreateGroupAccountServiceTest {
 
         //Arrange
         String creatorEmail = "joao.cardoso_12@hotmail.com";
-        String  groupDescription  ="Friends";
+        String groupDescription  ="Friends";
         String accountDenomination = "Online";
-        String  accountDescription = "Online Shopping";
+        String accountDescription = "Online Shopping";
 
         int numberOfExpectedAccountsInTheRepository = 0;
 
