@@ -10,10 +10,10 @@ participant "person1:Person"
 
 == Act ==
 
-":Test" -> "controller:US001AreSiblingsController" : siblings = AreSiblings(personEmail1, personEmail2)
+":Test" -> "controller:US001AreSiblingsController" : siblings = areSiblings(personEmail1, personEmail2)
 activate "controller:US001AreSiblingsController"  #FFBBBB
 
-"controller:US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings\n(personEmail1, personEmail2)
+"controller:US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = areSiblings\n(personEmail1, personEmail2)
 activate "service:US001AreSiblingsService"  #FFBBBB
 
 "service:US001AreSiblingsService" -> "personRepo:PersonRepository" : person1: findPersonByEmail(personEmail1)
