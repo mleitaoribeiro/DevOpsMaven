@@ -44,8 +44,8 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     @DisplayName("Main scenario")
     void createGroupAndBecomeAdmin() {
         //Arrange
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+        String groupDescription = "Bashtards";
+        String personID = "1234@isep.pt";
 
         //Act
         boolean result = service.createGroupAndBecomeAdmin(groupDescription, personID);
@@ -60,8 +60,8 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     void createGroupAndBecomeAdminNoPersonID() {
 
         //Arrange
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("12345@isep.pt"));
+        String groupDescription = "Bashtards";
+        String personID = "12345@isep.pt";
 
         //Act
         try {
@@ -78,8 +78,8 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     @DisplayName("Group was already created")
     void createGroupAndGroupAlreadyExists() {
         //Arrange
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+        String groupDescription = "Bashtards";
+        String personID = "1234@isep.pt";
         service.createGroupAndBecomeAdmin(groupDescription, personID);
 
         //Act
@@ -107,7 +107,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     void createGroupAndGroupNullPersonID() {
 
         //Assert
-        Description groupDescription = new Description("Bashtards");
+        String groupDescription = "Bashtards";
 
         //Act
         boolean result = service.createGroupAndBecomeAdmin(groupDescription, null);
@@ -121,7 +121,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     void createGroupAndGroupNullGroupDescription() {
 
         //Assert
-        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+        String personID = "1234@isep.pt";
 
         //Act
         boolean result = service.createGroupAndBecomeAdmin(null, personID);

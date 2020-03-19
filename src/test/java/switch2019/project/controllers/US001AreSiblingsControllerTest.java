@@ -7,7 +7,6 @@ import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.PersonRepository;
 import switch2019.project.services.US001AreSiblingsService;
 
@@ -71,11 +70,11 @@ class US001AreSiblingsControllerTest {
     @DisplayName("Test if two individuals are siblings - same mother, same father and are in each other list")
     void AreSiblingsSameMotherFatherAndList() {
         //Arrange
-        PersonID antonioId = new PersonID(new Email("child1@isep.ipp.pt"));
-        PersonID manuelId = new PersonID(new Email("child2@isep.ipp.pt"));
+        String antonioEmail = "child1@isep.ipp.pt";
+        String manuelEmail = "child2@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(antonioId, manuelId);
+        boolean siblings = controller.AreSiblings(antonioEmail, manuelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -85,11 +84,11 @@ class US001AreSiblingsControllerTest {
     @DisplayName("Test if two individuals are siblings - same mother")
     void AreSiblingsSameMother() {
         //Arrange
-        PersonID antonioId = new PersonID(new Email("child1@isep.ipp.pt"));
-        PersonID robertoId = new PersonID(new Email("child3@isep.ipp.pt"));
+        String antonioEmail = "child1@isep.ipp.pt";
+        String robertoEmail = "child3@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(antonioId, robertoId);
+        boolean siblings = controller.AreSiblings(antonioEmail, robertoEmail);
 
         //Assert
         assertTrue(siblings);
@@ -100,11 +99,11 @@ class US001AreSiblingsControllerTest {
     @DisplayName("Test if two individuals are siblings - same father")
     void AreSiblingsSameFather() {
         //Arrange
-        PersonID antonioId = new PersonID(new Email("child1@isep.ipp.pt"));
-        PersonID amaliaId = new PersonID(new Email("child4@isep.ipp.pt"));
+        String antonioEmail = "child1@isep.ipp.pt";
+        String amaliaEmail = "child4@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(antonioId, amaliaId);
+        boolean siblings = controller.AreSiblings(antonioEmail, amaliaEmail);
 
         //Assert
         assertTrue(siblings);
@@ -114,11 +113,11 @@ class US001AreSiblingsControllerTest {
     @DisplayName("Test if two individuals are siblings - in each other list")
     void AreSiblingsInTheSiblingsList() {
         //Arrange
-        PersonID joseId = new PersonID(new Email("father@isep.ipp.pt"));
-        PersonID rafaelId = new PersonID(new Email("father2@isep.ipp.pt"));
+        String joseEmail = "father@isep.ipp.pt";
+        String rafaelEmail = "father2@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(joseId, rafaelId);
+        boolean siblings = controller.AreSiblings(joseEmail, rafaelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -128,14 +127,14 @@ class US001AreSiblingsControllerTest {
     @DisplayName("Test if two individuals are siblings - not related")
     void AreSiblingsFalse() {
         //Arrange
-        PersonID joseId = new PersonID(new Email("father@isep.ipp.pt"));
-        PersonID robertoId = new PersonID(new Email("child3@isep.ipp.pt"));
-        PersonID mariaId = new PersonID(new Email("mother@isep.ipp.pt"));
-        PersonID amaliaId = new PersonID(new Email("child4@isep.ipp.pt"));
+        String joseEmail = "father@isep.ipp.pt";
+        String robertoEmail = "child3@isep.ipp.pt";
+        String mariaEmail = "mother@isep.ipp.pt";
+        String amaliaEmail = "child4@isep.ipp.pt";
 
         //Act
-        boolean siblings = controller.AreSiblings(joseId, robertoId);
-        boolean siblings2 = controller.AreSiblings(mariaId, amaliaId);
+        boolean siblings = controller.AreSiblings(joseEmail, robertoEmail);
+        boolean siblings2 = controller.AreSiblings(mariaEmail, amaliaEmail);
 
         //Assert
         assertFalse(siblings && siblings2);
@@ -145,12 +144,12 @@ class US001AreSiblingsControllerTest {
     @DisplayName("Test if two individuals are siblings - invalid email")
     void AreSiblingsInvalidEmail() {
         //Arrange
-        PersonID joseId = new PersonID(new Email("father1@isep.ipp.pt"));
-        PersonID robertoId = new PersonID(new Email("child3@isep.ipp.pt"));
+        String joseEmail = "father@isep.ipp.pt";
+        String robertoEmail = "child3@isep.ipp.pt";
 
         //Act
         try {
-            controller.AreSiblings(joseId, robertoId);
+            controller.AreSiblings(joseEmail, robertoEmail);
         }
 
         //Assert

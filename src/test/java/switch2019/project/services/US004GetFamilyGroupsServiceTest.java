@@ -21,16 +21,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class US004GetFamilyGroupsServiceTest {
     private static PersonRepository personRepository;
     private static GroupsRepository groupsRepository;
-    private static GroupsRepository groupsRepository2;
     private static US004GetFamilyGroupsService service;
 
     @BeforeAll
             static void universe() {
         personRepository = new PersonRepository();
         groupsRepository = new GroupsRepository();
-        groupsRepository2 = new GroupsRepository();
         service = new US004GetFamilyGroupsService(groupsRepository);
-        service = new US004GetFamilyGroupsService(groupsRepository2);
 
         // First global group - All Family
         Person manuelaMOM = new Person("Manuela", new DateAndTime(1960, 10, 10), new Address("Miragaia"),
@@ -121,15 +118,16 @@ class US004GetFamilyGroupsServiceTest {
         groupsRepository.addGroupToRepository(group1);
         groupsRepository.addGroupToRepository(group2);
         groupsRepository.addGroupToRepository(group3);
+        groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
 
-        groupsRepository2.addGroupToRepository(group3);
-        groupsRepository2.addGroupToRepository(group5);
-        groupsRepository2.addGroupToRepository(group4);
+
 
 
     }
+
+
     @Test
     @DisplayName("Get all the families in the repository")
     void getFamilyGroups() {
@@ -139,23 +137,12 @@ class US004GetFamilyGroupsServiceTest {
         expected.add(groupsRepository.findGroupByID(new GroupID(new Description("Familia Simpson"))));
 
         //Act
-        service.getFamilyGroups(groupsRepository);
+        service.getFamilyGroups();
 
         //Assert
-        assertEquals(expected,service.getFamilyGroups(groupsRepository));
+        assertEquals(expected,service.getFamilyGroups());
     }
 
-    @Test
-    @DisplayName("Get all the families in the repository - no families")
-    void getRepositoryWithoutFamilies() {
-        //Arrange
-        Set<Group> expected = new HashSet<>();
-        //Act
-        service.getFamilyGroups(groupsRepository2);
-
-        //Assert
-        assertEquals(expected,service.getFamilyGroups(groupsRepository2));
-    }
     
 
 

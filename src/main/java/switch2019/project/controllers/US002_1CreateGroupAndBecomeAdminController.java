@@ -17,12 +17,12 @@ public class US002_1CreateGroupAndBecomeAdminController {
      * I want to create a group and become an Admin
      *
      * @param groupDescription
-     * @param personID
+     * @param personEmail
      * @return true the group was created and person is now Admin
      */
 
-    public boolean createGroupAndBecomeAdmin(Description groupDescription, PersonID personID) {
-        return service.createGroupAndBecomeAdmin(groupDescription, personID);
+    public boolean createGroupAndBecomeAdmin(String groupDescription, String personEmail) {
+        return service.createGroupAndBecomeAdmin(groupDescription, personEmail);
     }
 
 

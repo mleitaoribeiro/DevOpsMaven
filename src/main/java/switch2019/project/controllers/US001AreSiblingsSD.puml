@@ -1,26 +1,25 @@
 @startuml
 skinparam DefaultFontSize 20
-create ":Test"
 
-create ":US001AreSiblingsController"
-":Test" -> ":US001AreSiblingsController" : new US001AreSiblingsController
+participant ":Test"
 
+participant ":US001AreSiblingsController"
 participant "service:US001AreSiblingsService"
 participant "personRep:PersonRepository"
 participant "person1:Person"
 
 == Act ==
 
-":Test" -> ":US001AreSiblingsController" : siblings = AreSiblings(personId1, personId2)
+":Test" -> ":US001AreSiblingsController" : siblings = AreSiblings(personEmail1, personEmail2)
 activate ":US001AreSiblingsController"  #FFBBBB
 
-":US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings\n(personId1, personId2)
+":US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings\n(personEmail1, personEmail2)
 activate "service:US001AreSiblingsService"  #FFBBBB
 
-"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person1: findPersonByID(personId1)
+"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person1: findPersonByEmail(personEmail1)
 activate "personRep:PersonRepository" #FFBBBB
 
-"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person2: findPersonByID(personId2)
+"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person2: findPersonByEmail(personEmail2)
 
 deactivate "personRep:PersonRepository" #FFBBBB
 

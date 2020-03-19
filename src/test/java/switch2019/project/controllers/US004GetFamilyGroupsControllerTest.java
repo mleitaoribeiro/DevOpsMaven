@@ -23,7 +23,6 @@ class US004GetFamilyGroupsControllerTest {
 
     private static PersonRepository personRepository;
     private static GroupsRepository groupsRepository;
-    private static GroupsRepository groupsRepository2;
     private static US004GetFamilyGroupsService service;
     private static US004GetFamilyGroupsController controller;
 
@@ -31,9 +30,7 @@ class US004GetFamilyGroupsControllerTest {
     static void universe() {
         personRepository = new PersonRepository();
         groupsRepository = new GroupsRepository();
-        groupsRepository2 = new GroupsRepository();
         service = new US004GetFamilyGroupsService(groupsRepository);
-        service = new US004GetFamilyGroupsService(groupsRepository2);
         controller = new US004GetFamilyGroupsController(service);
 
         // First global group - All Family
@@ -126,9 +123,6 @@ class US004GetFamilyGroupsControllerTest {
         groupsRepository.addGroupToRepository(group5);
 
 
-        groupsRepository2.addGroupToRepository(group3);
-        groupsRepository2.addGroupToRepository(group5);
-        groupsRepository2.addGroupToRepository(group4);
 
 
 
@@ -143,22 +137,11 @@ class US004GetFamilyGroupsControllerTest {
         expected.add(groupsRepository.findGroupByID(new GroupID(new Description("Familia Simpson"))));
 
         //Act
-        controller.getFamilyGroups(groupsRepository);
+        controller.getFamilyGroups();
 
         //Assert
-        assertEquals(expected, controller.getFamilyGroups(groupsRepository));
+        assertEquals(expected, controller.getFamilyGroups());
     }
 
-    @Test
-    @DisplayName("Get all the families in the repository - no families")
-    void getRepositoryWithoutFamilies() {
-        //Arrange
-        Set<Group> expected = new HashSet<>();
-        //Act
-        controller.getFamilyGroups(groupsRepository2);
-
-        //Assert
-        assertEquals(expected,controller.getFamilyGroups(groupsRepository2));
-    }
 
 }

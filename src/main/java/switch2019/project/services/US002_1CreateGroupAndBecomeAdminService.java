@@ -1,5 +1,6 @@
 package switch2019.project.services;
 
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.PersonID;
@@ -21,13 +22,15 @@ public class US002_1CreateGroupAndBecomeAdminService {
      * US002.1
      * I want to create a group and become an Admin
      *
-     * @param groupDescription
-     * @param personID
-     * @return true the group was created and person is now Admin
+     * @param groupDescriptionString
+     * @param personEmail
+     * @return true if the group was created and person is now Admin, false if don't
      */
 
-    public boolean createGroupAndBecomeAdmin(Description groupDescription, PersonID personID) {
-        if (groupDescription != null && personID != null) {
+    public boolean createGroupAndBecomeAdmin(String groupDescriptionString, String personEmail) {
+        if (groupDescriptionString != null && personEmail != null) {
+            PersonID personID = new PersonID(new Email(personEmail));
+            Description groupDescription = new Description(groupDescriptionString);
             Person person = personRepository.findPersonByID(personID);
             return groupsRepository.createGroup(groupDescription, person);
         } else return false;
