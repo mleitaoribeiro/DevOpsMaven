@@ -1,9 +1,9 @@
 package switch2019.project.services;
 
 import switch2019.project.model.group.Group;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.person.Person;
-import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
+import switch2019.project.model.shared.Description;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
@@ -22,14 +22,14 @@ public class US003AddMemberToGroupService {
      * US003
      * Add Member To Group
      *
-     * @param personID
-     * @param groupID
+     * @param emailperson
+     * @param groupDescription
      * @return
      */
-    public boolean addMemberToGroup(PersonID personID, GroupID groupID) {
+    public boolean addMemberToGroup(String emailperson, String groupDescription) {
 
-        Person person = personRepository.findPersonByID(personID);
-        Group group = groupsRepository.findGroupByID(groupID);
+        Person person = personRepository.findPersonByEmail(new Email(emailperson));
+        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
         return group.addMember(person);
     }
 }
