@@ -49,9 +49,8 @@ public class AccountRepository implements Repository {
      */
 
     public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        Account oneAccount = new Account(accountDenomination, accountDescription, ownerID);
         if (!isAccountIDOnRepository(new AccountID(accountDenomination, ownerID)))
-            return this.accounts.add(oneAccount);
+            return this.accounts.add(new Account(accountDenomination, accountDescription, ownerID));
         else throw new IllegalArgumentException("This Account already exists for that ID.");
     }
 

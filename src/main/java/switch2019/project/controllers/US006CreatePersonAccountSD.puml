@@ -1,36 +1,33 @@
 @startuml
 skinparam DefaultFontSize 20
-create ":Test"
 
-== Arrange ==
-create ":US006CreatePersonAccountController"
-":Test" -> ":US006CreatePersonAccountController" : new US006CreatePersonAccountController ()
+participant ":Test"
+participant "controller:US006CreatePersonAccountController"
+participant "service:US006CreatePersonAccountService"
+participant "personRepo:PersonRepository"
+participant "accountsRepo:AccountsRepository"
 
 == Act ==
+":Test" -> "controller:US006CreatePersonAccountController" : accountCreated = createPersonAccount (service, personEmail, \n accountDenomination, accountDescription)
+activate "controller:US006CreatePersonAccountController"  #FFBBBB
 
-":Test" -> ":US006CreatePersonAccountController" : accountCreated = createPersonAccount (service, personAttributes, \n                                     accountDenomination, accountDescription)
-activate ":US006CreatePersonAccountController"  #FFBBBB
-
-":US006CreatePersonAccountController" -> "service:US006CreatePersonAccountService" : accountCreated = createPersonAccount\n(personAttributes, accountDenomination,\n accountDescription)
+"controller:US006CreatePersonAccountController" -> "service:US006CreatePersonAccountService" : accountCreated = createPersonAccount\n(personEmail, accountDenomination,\n accountDescription)
 activate "service:US006CreatePersonAccountService"  #FFBBBB
 
-"service:US006CreatePersonAccountService" -> ":personRepository" : onePerson = findPersonByAttributes(personAttributes)
-activate ":personRepository"  #FFBBBB
-deactivate ":personRepository"  #FFBBBB
+"service:US006CreatePersonAccountService" -> "personRepo:PersonRepository" : isOnRepo = isPersonIDOnRepository
+activate "personRepo:PersonRepository"  #FFBBBB
+deactivate "personRepo:PersonRepository"  #FFBBBB
 
-"service:US006CreatePersonAccountService" -> "onePerson:Person" : personID = getPersonID()
-activate "onePerson:Person"  #FFBBBB
-deactivate "onePerson:Person"  #FFBBBB
+"service:US006CreatePersonAccountService"  -> "accountsRepo:AccountsRepository" : accountCreated  = createPersonAccount(personID, \naccountDenomination,accountDescription)
+activate "accountsRepo:AccountsRepository" #FFBBBB
 
-"service:US006CreatePersonAccountService"  -> ":AccountsRepository" : accountCreated  = createPersonAccount(personID, \naccountDenomination,accountDescription)
-activate ":AccountsRepository" #FFBBBB
-
+"accountsRepo:AccountsRepository" -> "accountsRepo:AccountsRepository" : isNotOnRepo = isAccountIDOnRepository(accountID)
 create ":Account"
-":AccountsRepository" -> ":Account" : new Account (personID, \n accountDenomination,\n accountDescription)
+"accountsRepo:AccountsRepository" -> ":Account" : new Account (personID, \n accountDenomination,\n accountDescription)
 
-deactivate ":AccountsRepository" #FFBBBB
+deactivate "accountsRepo:AccountsRepository" #FFBBBB
 deactivate "service:US006CreatePersonAccountService"  #FFBBBB
-deactivate ":US006CreatePersonAccountController"  #FFBBBB
+deactivate "controller:US006CreatePersonAccountController"  #FFBBBB
 
 == Assert ==
 

@@ -26,9 +26,7 @@ public class US006CreatePersonAccountController {
 
     public boolean createPersonAccount(String personEmail, String accountDenomination,
                                        String accountDescription) {
-
         return service.createPersonAccount(personEmail, accountDenomination, accountDescription);
-
     }
 }
 
