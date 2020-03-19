@@ -2,8 +2,6 @@ package switch2019.project.model.shared;
 
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Email;
-import switch2019.project.model.person.Person;
-import switch2019.project.model.person.PersonName;
 
 import static org.junit.jupiter.api.Assertions.*;
 

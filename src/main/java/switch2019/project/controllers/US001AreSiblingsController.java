@@ -1,6 +1,5 @@
 package switch2019.project.controllers;
 
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.services.US001AreSiblingsService;
 
 public class US001AreSiblingsController {

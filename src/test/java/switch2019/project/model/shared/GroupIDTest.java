@@ -3,9 +3,6 @@ package switch2019.project.model.shared;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.group.Group;
-import switch2019.project.model.person.Address;
-import switch2019.project.model.person.Person;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupIDTest {

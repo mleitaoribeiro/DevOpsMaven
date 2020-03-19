@@ -2,7 +2,6 @@ package switch2019.project.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.ID;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
@@ -10,11 +9,8 @@ import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.CategoryID;
 import switch2019.project.model.shared.DateAndTime;
 import switch2019.project.model.shared.Denomination;
-import switch2019.project.model.shared.PersonID;
-
 import java.util.Arrays;
 import java.util.HashSet;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryRepositoryTest {
