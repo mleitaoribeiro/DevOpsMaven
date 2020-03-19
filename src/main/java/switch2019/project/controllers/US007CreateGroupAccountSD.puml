@@ -27,17 +27,18 @@ deactivate ":PersonRepository"  #FFBBBB
 activate "person:Person"  #FFBBBB
 deactivate "person:Person"  #FFBBBB
 
-":US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByID (groupID)
+":US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByDescription (groupDescription)
 activate ":GroupsRepository"  #FFBBBB
 deactivate ":GroupsRepository"  #FFBBBB
 
-":US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin (personID)
+":US007CreateGroupAccountService" -> "group:Group" : groupID = getID()
 activate "group:Group" #FFBBBB
+":US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin (personID)
 deactivate "group:Group" #FFBBBB
 
 
 
-":US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(groupID, denomination,description)
+":US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(accountDenomination, accountDescription, groupID)
 activate ":AccountsRepository" #FFBBBB
 
 ":AccountsRepository" -> ":AccountsRepository" : accountNotInRepository = \n isAccountIDOnRepository(accountDenomination, groupID)
