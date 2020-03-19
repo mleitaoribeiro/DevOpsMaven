@@ -17,12 +17,12 @@ participant "service:Service"
 activate "service:Service" #FFBBBB
 
 participant ":PersonsRepository"
-"service:Service" -> ":PersonsRepository" : person = findPersonByID (personEmail)
+"service:Service" -> ":PersonsRepository" : person = findPersonByEmail (personEmail)
 activate ":PersonsRepository" #FFBBBB
 deactivate ":PersonsRepository" #FFBBBB
 
 participant ":GroupsRepository"
-"service:Service" -> ":GroupsRepository" : group = findGroupByID (groupDescription)
+"service:Service" -> ":GroupsRepository" : group = findGroupByDescription (groupDescription)
 activate ":GroupsRepository" #FFBBBB
 deactivate ":GroupsRepository" #FFBBBB
 
