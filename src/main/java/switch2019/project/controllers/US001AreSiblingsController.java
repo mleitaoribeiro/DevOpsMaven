@@ -15,11 +15,11 @@ public class US001AreSiblingsController {
      * US001
      * As system manager, I want to know if two people are siblings
      *
-     * @param personId1
-     * @param personId2
+     * @param emailPerson1
+     * @param emailPerson2
      * @return true if two people are siblings
      */
-    public boolean AreSiblings (PersonID personId1, PersonID personId2) {
-        return service.AreSiblings(personId1, personId2);
+    public boolean AreSiblings (String emailPerson1, String emailPerson2) {
+        return service.AreSiblings(emailPerson1, emailPerson2);
     }
 }

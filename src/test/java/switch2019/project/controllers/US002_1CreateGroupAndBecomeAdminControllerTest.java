@@ -40,7 +40,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
 
     /**
-     * US001
+     * US002.1
      * Test if a group was created and person is admin
      */
 
@@ -50,12 +50,16 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     void createGroupAndBecomeAdminDoubleCheck() {
 
         //Arrange
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+        String groupDescription = "Bashtards";
+        String email = "1234@isep.pt";
+
+        PersonID personID = new PersonID(new Email(email)); //usado para confirmar este ficou admin
+
 
         //Act
-        boolean result = controller.createGroupAndBecomeAdmin(groupDescription, personID);
-        boolean isAdmin = groupsRepository.findGroupByDescription(new Description("Bashtards")).isGroupAdmin(personID);
+        boolean result = controller.createGroupAndBecomeAdmin(groupDescription, email);
+        boolean isAdmin = groupsRepository.findGroupByDescription(new Description(
+                "Bashtards")).isGroupAdmin(personID);
 
         //Assert
         assertTrue(result && isAdmin);
@@ -66,8 +70,8 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     void createGroupAndBecomeAdminNoPersonID() {
 
         //Arrange
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("12345@isep.pt"));
+        String groupDescription = "Bashtards";
+        String personID = "12345@isep.pt";
 
         //Act
         try {
@@ -86,8 +90,8 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     void createGroupAndBecomeAdminGroupAlreadyExists() {
 
         //Arrange
-        Description groupDescription = new Description("Bashtards");
-        PersonID personID = new PersonID(new Email("1234@isep.pt"));
+        String groupDescription = "Bashtards";
+        String personID = "1234@isep.pt";
         controller.createGroupAndBecomeAdmin(groupDescription, personID);
         //Act
         try {

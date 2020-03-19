@@ -21,13 +21,14 @@ public class US003AddMemberToGroupController {
     }
 
     /***
+     * US003
      * Add member to Group
+     *
      * @param personID
      * @param groupID
      * @return
      */
-    public boolean addMemberToGroup( PersonID personID,
-                                    GroupID groupID) {
+    public boolean addMemberToGroup( PersonID personID, GroupID groupID) {
         return service.addMemberToGroup(personID, groupID);
     }
 }
