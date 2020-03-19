@@ -1,12 +1,9 @@
 package switch2019.project.services;
 
-import switch2019.project.model.category.Category;
 import switch2019.project.model.group.Group;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.GroupID;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.CategoryRepository;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
@@ -20,10 +17,10 @@ public class US005_1AdminAddsCategoryToCategoryListService {
     private PersonRepository personRepository;
 
     //Service constructor:
-    public US005_1AdminAddsCategoryToCategoryListService(GroupsRepository g, CategoryRepository c, PersonRepository p) {
-        this.groupsRepository = g;
-        this.categoryRepository = c;
-        this.personRepository = p;
+    public US005_1AdminAddsCategoryToCategoryListService(GroupsRepository groupRep, CategoryRepository categoryRep, PersonRepository personRep) {
+        this.groupsRepository = groupRep;
+        this.categoryRepository = categoryRep;
+        this.personRepository = personRep;
     }
 
     /**
@@ -41,9 +38,10 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         //verify if the category creator is a group admin in order to continue with the method:
         if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(personEmail)).getID())) {
 
-            //create category and associate it with the group
-            categoryRepository.createCategory(new Denomination(categoryDenomination),group.getID());
-            return true;
+            //create category and associate it with the group:
+            return categoryRepository.createCategory(new Denomination(categoryDenomination), group.getID());
+
         } else return false;
     }
 }
+

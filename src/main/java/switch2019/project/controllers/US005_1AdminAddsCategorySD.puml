@@ -1,11 +1,6 @@
 @startuml
 skinparam DefaultFontSize 20
-create ":Test"
-
-== Arrange ==
-
-create "controller:US 5.0 MemberAddCategoryToCategoryListController"
-":Test" -> "controller:US 5.0 MemberAddCategoryToCategoryListController" : new MemberAddCategoryToCategoryListController()
+participant ":Test"
 
 == Act ==
 ":Test" -> "controller:US 5.0 MemberAddCategoryToCategoryListController" :isCategoryCreated=createGroupCategory\n(service, groupAtribbutes, personAttributes, categoryDescription)

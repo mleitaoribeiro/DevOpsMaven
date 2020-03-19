@@ -43,6 +43,39 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("Joao@gmail.com"));
     }
 
+    @Test
+    @DisplayName("Test True for the creation of the account using the Service")
+    void addCategoryToGroupServiceTestTrue() {
+        //Arrange
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+
+        //Act:
+        boolean result = service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test False for the creation of the account using the Service")
+    void addCategoryToGroupServiceTestFalse() {
+        //Arrange:
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+        PersonID joaoID = new PersonID(new Email("joao@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+
+        //Act:
+        boolean result = service.addCategoryToGroup("FRIENDS", "joao@gmail.com", "compras");
+
+        //Assert:
+        assertFalse(result);
+    }
+
 
 
     @Test
@@ -198,38 +231,5 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         catch(IllegalArgumentException nullParameter) {
             assertEquals("This category already exists and it could not be created", nullParameter.getMessage());
         }
-    }
-
-    @Test
-    @DisplayName("Test True for the creation of the account using the Controller")
-    void addCategoryToGroupServiceTestTrue() {
-        //Arrange
-        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-
-        //Arrangement of the Group:
-        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-
-        //Act:
-        boolean result = service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
-
-        //Assert:
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Test False for the creation of the account using the Controller")
-    void addCategoryToGroupServiceTestFalse() {
-        //Arrange:
-        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-        PersonID joaoID = new PersonID(new Email("joao@gmail.com"));
-
-        //Arrangement of the Group:
-        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-
-        //Act:
-        boolean result = service.addCategoryToGroup("FRIENDS", "joao@gmail.com", "compras");
-
-        //Assert:
-        assertFalse(result);
     }
 }
