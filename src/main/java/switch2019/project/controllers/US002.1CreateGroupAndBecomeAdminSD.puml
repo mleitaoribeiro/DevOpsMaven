@@ -1,38 +1,34 @@
 @startuml
 skinparam DefaultFontSize 20
-create ":Test"
 
-== Arrange ==
-
-create "controller:US2.1CreateGroupAndBecomeAdminController"
-":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController" : new US2.1CreateGroup\nAndBecomeAdminController()
-activate "controller:US2.1CreateGroupAndBecomeAdminController" #FFBBBB
-
+participant ":Test"
+participant "controller:US2.1CreateGroupAndBecomeAdminController"
+participant "controller:US2.1CreateGroupAndBecomeAdminController"
 participant "service:US2.1CreateGroupAndBecomeAdminService"
 participant "personRep:PersonRepository"
-participant "groupRep:GroupRepository"
+participant "groupsRep:GroupsRepository"
 
 == Act ==
 
-":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController" : isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
+":Test" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
 
 "controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
 activate "service:US2.1CreateGroupAndBecomeAdminService" #FFBBBB
 
-"service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByAttributes\n(personID)
+"service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByID\n(personID)
 activate "personRep:PersonRepository" #FFBBBB
 deactivate "personRep:PersonRepository"
 
-"service:US2.1CreateGroupAndBecomeAdminService" -> "groupRep:GroupRepository" : isGroupCreatedAndAdminSet = \ncreateGroup(groupDescription, person)
-activate "groupRep:GroupRepository" #FFBBBB
+"service:US2.1CreateGroupAndBecomeAdminService" -> "groupsRep:GroupsRepository" : isGroupCreated = \ncreateGroup(groupDescription, person)
+activate "groupsRep:GroupsRepository" #FFBBBB
 
 create "group:Group"
-"groupRep:GroupRepository" -> "group:Group" : isGroupCreatedAndAdminSet =\nnew Group(groupDescription, person)
+"groupsRep:GroupsRepository" -> "group:Group" : isGroupCreated =\nnew Group(groupDescription, person)
 activate "group:Group" #FFBBBB
 "group:Group" -> "group:Group" : addMember(person)
 
 deactivate "group:Group"
-deactivate "groupRep:GroupRepository"
+deactivate "groupsRep:GroupsRepository"
 deactivate "personRep:PersonRepository"
 deactivate "service:US2.1CreateGroupAndBecomeAdminService"
 deactivate "controller:US2.1CreateGroupAndBecomeAdminController"
