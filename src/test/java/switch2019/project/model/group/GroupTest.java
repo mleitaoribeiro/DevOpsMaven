@@ -3279,10 +3279,20 @@ class GroupTest {
         //Assert:
         assertEquals(expected, groupInString);
     }
+
+    @Test
+    @DisplayName("test the exception of setGroupID method")
+    void setGroupIdExceptionTest() {
+
+        //Arrange:
+        Group group = new Group(new Description("grupo de rafting"));
+
+        //Act:
+        try {group.setGroupID(null);}
+
+        //Assert:
+        catch (IllegalArgumentException nullDescription) {
+            assertEquals("GroupID can't be null", nullDescription.getMessage());
+        }
+    }
 }
-
-
-
-
-
-
