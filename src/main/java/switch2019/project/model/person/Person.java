@@ -5,8 +5,6 @@ import switch2019.project.model.category.Category;
 import switch2019.project.model.frameworks.Owner;
 import switch2019.project.model.ledger.*;
 import switch2019.project.model.shared.*;
-import switch2019.project.repository.AccountRepository;
-import switch2019.project.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

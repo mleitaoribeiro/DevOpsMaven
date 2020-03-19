@@ -9,8 +9,6 @@ import switch2019.project.model.ledger.Transaction;
 import switch2019.project.model.ledger.Type;
 import switch2019.project.model.person.Person;
 import switch2019.project.model.shared.*;
-import switch2019.project.repository.AccountRepository;
-import switch2019.project.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
