@@ -71,7 +71,6 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         //Arrange:
         //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-        PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
             //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
@@ -169,7 +168,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
+
 
         //Act:
         try {service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", null);}
@@ -189,7 +188,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
+
 
         //Act:
         service.addCategoryToGroup("FRIENDS","Francisco@gmail.com", "compras");
@@ -209,7 +208,6 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
         boolean result = service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
@@ -227,7 +225,6 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
         boolean result = service.addCategoryToGroup("FRIENDS", "joao@gmail.com", "compras");

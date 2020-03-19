@@ -77,7 +77,6 @@ public class US005_1AdminAddsCategoryControllerTest {
         //Arrange:
         //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-        PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
@@ -175,7 +174,6 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
         try {controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", null);}
@@ -195,7 +193,6 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
         controller.addCategoryToGroupController("FRIENDS","Francisco@gmail.com", "compras");
@@ -215,7 +212,6 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
         boolean result = controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");
@@ -233,7 +229,6 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
         boolean result = controller.addCategoryToGroupController("FRIENDS", "joao@gmail.com", "compras");
