@@ -8,7 +8,7 @@ participant "personRepo:PersonRepository"
 participant "accountsRepo:AccountsRepository"
 
 == Act ==
-":Test" -> "controller:US006CreatePersonAccountController" : accountCreated = createPersonAccount (service, personEmail, \n accountDenomination, accountDescription)
+":Test" -> "controller:US006CreatePersonAccountController" : accountCreated = createPersonAccount (personEmail, \n accountDenomination, accountDescription)
 activate "controller:US006CreatePersonAccountController"  #FFBBBB
 
 "controller:US006CreatePersonAccountController" -> "service:US006CreatePersonAccountService" : accountCreated = createPersonAccount\n(personEmail, accountDenomination,\n accountDescription)
@@ -23,7 +23,7 @@ activate "accountsRepo:AccountsRepository" #FFBBBB
 
 "accountsRepo:AccountsRepository" -> "accountsRepo:AccountsRepository" : isNotOnRepo = isAccountIDOnRepository(accountID)
 create ":Account"
-"accountsRepo:AccountsRepository" -> ":Account" : new Account (personID, \n accountDenomination,\n accountDescription)
+"accountsRepo:AccountsRepository" -> ":Account" : new Account (accountDenomination,\n accountDescription, personID,)
 
 deactivate "accountsRepo:AccountsRepository" #FFBBBB
 deactivate "service:US006CreatePersonAccountService"  #FFBBBB
