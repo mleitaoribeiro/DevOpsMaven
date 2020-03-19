@@ -28,8 +28,10 @@ public class US003AddMemberToGroupControllerTest {
     static void universeSetUp() {
         personRepository = new PersonRepository();
         groupsRepository = new GroupsRepository();
+
         service = new US003AddMemberToGroupService(personRepository, groupsRepository);
         controller = new US003AddMemberToGroupController(service);
+
         //Add people to Repository
         Person person = personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
@@ -42,12 +44,13 @@ public class US003AddMemberToGroupControllerTest {
         groupsRepository.createGroup(new Description("familia"), person);
         groupsRepository.createGroup(new Description("canto"), person3);
 
-        /**
-         * US003
-         * Test if a member was added to group
-         */
+
     }
 
+    /**
+     * US003
+     * Test if a member was added to group
+     */
     @Test
     @DisplayName("Test if a member was added to group")
     void addMemberToGroup() {

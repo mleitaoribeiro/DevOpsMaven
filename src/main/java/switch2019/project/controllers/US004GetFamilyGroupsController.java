@@ -16,6 +16,7 @@ public class US004GetFamilyGroupsController {
 
     /**
      * US004 - As system manager I want to know which groups are families
+     *
      * @param groupsRepository
      * @return
      */

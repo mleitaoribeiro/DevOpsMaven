@@ -40,7 +40,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
 
     /**
-     * US001
+     * US002.1
      * Test if a group was created and person is admin
      */
 
