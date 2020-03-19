@@ -18,16 +18,16 @@ public class US006CreatePersonAccountController {
      * US006
      * Create Person Account
      *
-     * @param onPersonID
+     * @param personEmail
      * @param accountDenomination
      * @param accountDescription
      * @return
      */
 
-    public boolean createPersonAccount(PersonID onPersonID, Denomination accountDenomination,
-                                       Description accountDescription) {
+    public boolean createPersonAccount(String personEmail, String accountDenomination,
+                                       String accountDescription) {
 
-        return service.createPersonAccount(onPersonID, accountDenomination, accountDescription);
+        return service.createPersonAccount(personEmail, accountDenomination, accountDescription);
 
     }
 }
