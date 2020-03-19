@@ -2,57 +2,57 @@
 skinparam DefaultFontSize 20
 
 participant ":Test"
-participant ":US007CreateGroupAccountController"
-participant ":US007CreateGroupAccountService"
-participant ":PersonRepository"
+participant "controller:US007CreateGroupAccountController"
+participant "service:US007CreateGroupAccountService"
+participant "personRepo:PersonRepository"
 participant "person:Person"
-participant ":GroupsRepository"
+participant "groupsRepo:GroupsRepository"
 participant "group:Group"
-participant ":AccountsRepository"
+participant "accountRepo:AccountsRepository"
 participant ":Account"
 
 == Act ==
 
-":Test" -> ":US007CreateGroupAccountController" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
-activate ":US007CreateGroupAccountController"  #FFBBBB
+":Test" -> "controller:US007CreateGroupAccountController" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
+activate "controller:US007CreateGroupAccountController"  #FFBBBB
 
-":US007CreateGroupAccountController" -> ":US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
-activate ":US007CreateGroupAccountService"  #FFBBBB
+"controller:US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
+activate "service:US007CreateGroupAccountService"  #FFBBBB
 
-":US007CreateGroupAccountService" -> ":PersonRepository" : person = findPersonByEmail (personEmail)
-activate ":PersonRepository"  #FFBBBB
-deactivate ":PersonRepository"  #FFBBBB
+"service:US007CreateGroupAccountService" -> "personRepo:PersonRepository" : person = findPersonByEmail (personEmail)
+activate "personRepo:PersonRepository"  #FFBBBB
+deactivate "personRepo:PersonRepository"  #FFBBBB
 
-":US007CreateGroupAccountService" -> "person:Person" : personID = getID ()
+"service:US007CreateGroupAccountService" -> "person:Person" : personID = getID ()
 activate "person:Person"  #FFBBBB
 deactivate "person:Person"  #FFBBBB
 
-":US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByDescription (groupDescription)
-activate ":GroupsRepository"  #FFBBBB
-deactivate ":GroupsRepository"  #FFBBBB
+"service:US007CreateGroupAccountService" -> "groupsRepo:GroupsRepository" : group = findGroupByDescription (groupDescription)
+activate "groupsRepo:GroupsRepository"  #FFBBBB
+deactivate "groupsRepo:GroupsRepository"  #FFBBBB
 
-":US007CreateGroupAccountService" -> "group:Group" : groupID = getID()
+"service:US007CreateGroupAccountService" -> "group:Group" : groupID = getID()
 activate "group:Group" #FFBBBB
-":US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin (personID)
+"service:US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin (personID)
 deactivate "group:Group" #FFBBBB
 
 
 
-":US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(accountDenomination, accountDescription, groupID)
-activate ":AccountsRepository" #FFBBBB
+"service:US007CreateGroupAccountService" -> "accountRepo:AccountsRepository" : accountCreated = createAccount(accountDenomination, accountDescription, groupID)
+activate "accountRepo:AccountsRepository" #FFBBBB
 
-":AccountsRepository" -> ":AccountsRepository" : accountNotInRepository = \n isAccountIDOnRepository(accountDenomination, groupID)
+"accountRepo:AccountsRepository" -> "accountRepo:AccountsRepository" : accountNotInRepository = \n isAccountIDOnRepository(accountDenomination, groupID)
 
 
 create ":Account"
-":AccountsRepository" -> ":Account" : new Account (accountDenomination, \n   accountDescription, groupID)
+"accountRepo:AccountsRepository" -> ":Account" : new Account (accountDenomination, \n   accountDescription, groupID)
 
-deactivate ":AccountsRepository" #FFBBBB
+deactivate "accountRepo:AccountsRepository" #FFBBBB
 deactivate "group:Group" #FFBBBB
-deactivate ":PersonRepository" #FFBBBB
-deactivate ":GroupsRepository" #FFBBBB
-deactivate ":US007CreateGroupAccountService"  #FFBBBB
-deactivate ":US007CreateGroupAccountController" #FFBBBB
+deactivate "personRepo:PersonRepository" #FFBBBB
+deactivate "groupsRepo:GroupsRepository" #FFBBBB
+deactivate "service:US007CreateGroupAccountService"  #FFBBBB
+deactivate "controller:US007CreateGroupAccountController" #FFBBBB
 
 == Assert ==
 
