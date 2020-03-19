@@ -3,25 +3,25 @@ skinparam DefaultFontSize 20
 
 participant ":Test"
 
-participant ":US001AreSiblingsController"
+participant "controller:US001AreSiblingsController"
 participant "service:US001AreSiblingsService"
-participant "personRep:PersonRepository"
+participant "personRepo:PersonRepository"
 participant "person1:Person"
 
 == Act ==
 
-":Test" -> ":US001AreSiblingsController" : siblings = AreSiblings(personEmail1, personEmail2)
-activate ":US001AreSiblingsController"  #FFBBBB
+":Test" -> "controller:US001AreSiblingsController" : siblings = AreSiblings(personEmail1, personEmail2)
+activate "controller:US001AreSiblingsController"  #FFBBBB
 
-":US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings\n(personEmail1, personEmail2)
+"controller:US001AreSiblingsController"-> "service:US001AreSiblingsService" : siblings = AreSiblings\n(personEmail1, personEmail2)
 activate "service:US001AreSiblingsService"  #FFBBBB
 
-"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person1: findPersonByEmail(personEmail1)
-activate "personRep:PersonRepository" #FFBBBB
+"service:US001AreSiblingsService" -> "personRepo:PersonRepository" : person1: findPersonByEmail(personEmail1)
+activate "personRepo:PersonRepository" #FFBBBB
 
-"service:US001AreSiblingsService" -> "personRep:PersonRepository" : person2: findPersonByEmail(personEmail2)
+"service:US001AreSiblingsService" -> "personRepo:PersonRepository" : person2: findPersonByEmail(personEmail2)
 
-deactivate "personRep:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository" #FFBBBB
 
 "service:US001AreSiblingsService" -> "person1:Person" : validSibling = isSibling(person2)
 activate "person1:Person"  #FFBBBB
@@ -33,11 +33,11 @@ activate "person1:Person"  #FFBBBB
 "person1:Person" --> "service:US001AreSiblingsService" : validSibling
 deactivate "person1:Person"
 
-"service:US001AreSiblingsService"--> ":US001AreSiblingsController" : siblings
+"service:US001AreSiblingsService"--> "controller:US001AreSiblingsController" : siblings
 deactivate "service:US001AreSiblingsService"
 
-":US001AreSiblingsController" --> ":Test" : siblings
-deactivate ":US001AreSiblingsController"
+"controller:US001AreSiblingsController" --> ":Test" : siblings
+deactivate "controller:US001AreSiblingsController"
 
 == Assert ==
 
