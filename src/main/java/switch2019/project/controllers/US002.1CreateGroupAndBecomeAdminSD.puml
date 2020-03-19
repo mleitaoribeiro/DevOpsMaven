@@ -14,9 +14,9 @@ participant "groupRep:GroupRepository"
 
 == Act ==
 
-":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController" : isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personID)
+":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController" : isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
 
-"controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personID)
+"controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
 activate "service:US2.1CreateGroupAndBecomeAdminService" #FFBBBB
 
 "service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByAttributes\n(personID)

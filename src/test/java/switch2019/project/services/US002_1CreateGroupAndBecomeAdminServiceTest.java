@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import switch2019.project.model.person.Address;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.DateAndTime;
-import switch2019.project.model.shared.Description;
-import switch2019.project.model.shared.PersonID;
 import switch2019.project.repository.GroupsRepository;
 import switch2019.project.repository.PersonRepository;
 
@@ -92,42 +90,54 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     }
 
     @Test
-    @DisplayName("Group was already created")
+    @DisplayName("Both null fields")
     void createGroupAndGroupNullFields() {
 
         //Act
-        boolean result = service.createGroupAndBecomeAdmin(null, null);
+        try {
+            service.createGroupAndBecomeAdmin(null, null);
+        }
 
         //Assert
-        assertFalse(result);
+        catch (IllegalArgumentException ex) {
+            assertEquals("The description can't be null or empty.", ex.getMessage());
+        }
+
     }
 
     @Test
-    @DisplayName("Group was already created")
-    void createGroupAndGroupNullPersonID() {
+    @DisplayName("personEmail null")
+    void createGroupAndGroupNullPersonEmail() {
 
         //Assert
         String groupDescription = "Bashtards";
 
-        //Act
-        boolean result = service.createGroupAndBecomeAdmin(groupDescription, null);
+       try {
+           service.createGroupAndBecomeAdmin(groupDescription, null);
+       }
 
-        //Assert
-        assertFalse(result);
+       //Assert
+       catch (IllegalArgumentException ex) {
+           assertEquals("The email can´t be null!", ex.getMessage());
+       }
     }
 
     @Test
-    @DisplayName("Group was already created")
+    @DisplayName("group description is null")
     void createGroupAndGroupNullGroupDescription() {
 
         //Assert
         String personID = "1234@isep.pt";
 
         //Act
-        boolean result = service.createGroupAndBecomeAdmin(null, personID);
+        try {
+            service.createGroupAndBecomeAdmin(null, personID);
+        }
 
         //Assert
-        assertFalse(result);
+        catch (IllegalArgumentException ex) {
+            assertEquals("The description can't be null or empty.", ex.getMessage());
+        }
     }
 
 }

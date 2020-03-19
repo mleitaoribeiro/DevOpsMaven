@@ -9,20 +9,20 @@ create "controller:US003AddMemberToGroupController"
 
 == Act ==
 
-":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (personID, groupID)
+":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (personEmail, groupDescription)
 activate "controller:US003AddMemberToGroupController" #FFBBBB
 
 participant "service:Service"
-"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup\n (personID, groupID)
+"controller:US003AddMemberToGroupController" -> "service:Service" : memberAdded = addMemberToGroup\n (personEmail, groupDescription)
 activate "service:Service" #FFBBBB
 
 participant ":PersonsRepository"
-"service:Service" -> ":PersonsRepository" : person = findPersonByID (personID)
+"service:Service" -> ":PersonsRepository" : person = findPersonByEmail (personEmail)
 activate ":PersonsRepository" #FFBBBB
 deactivate ":PersonsRepository" #FFBBBB
 
 participant ":GroupsRepository"
-"service:Service" -> ":GroupsRepository" : group = findGroupByID (groupID)
+"service:Service" -> ":GroupsRepository" : group = findGroupByDescription (groupDescription)
 activate ":GroupsRepository" #FFBBBB
 deactivate ":GroupsRepository" #FFBBBB
 

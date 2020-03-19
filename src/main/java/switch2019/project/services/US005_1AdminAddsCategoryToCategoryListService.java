@@ -27,7 +27,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
     }
 
     /**
-     * User Story 5.1 .- As a group admin i want to associate a category with my group.
+     * User Story 5.1 .- As a group admin i want to associate a category to my group.
      *
      * @param groupDescription
      * @param personEmail
@@ -42,7 +42,6 @@ public class US005_1AdminAddsCategoryToCategoryListService {
         if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(personEmail)).getID())) {
 
             //create category and associate it with the group
-            //This method also verifies if the category was created inside the CategoryRepository;
             categoryRepository.createCategory(new Denomination(categoryDenomination),group.getID());
             return true;
         } else return false;

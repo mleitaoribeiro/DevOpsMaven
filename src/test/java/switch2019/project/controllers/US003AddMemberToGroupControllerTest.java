@@ -54,12 +54,12 @@ public class US003AddMemberToGroupControllerTest {
     @DisplayName("Test if a member was added to group")
     void addMemberToGroup() {
         //Arrange
-        PersonID personID = new PersonID(new Email("jo.cardoso@hotmail.com"));
-        GroupID groupID = new GroupID(new Description("familia"));
+        String email="jo.cardoso@hotmail.com";
+        String groupDescription="familia";
 
         //Act
 
-        boolean memberAdded = controller.addMemberToGroup(personID, groupID);
+        boolean memberAdded = controller.addMemberToGroup(email, groupDescription);
 
         //Assert
         assertTrue(memberAdded);
@@ -69,12 +69,13 @@ public class US003AddMemberToGroupControllerTest {
     @DisplayName("Test if a member was added to group-Same Person")
     void addMemberToGroupAlreadyIn() {
         //Arrange
-        PersonID personID = new PersonID(new Email("jose.cardoso@hotmail.com"));
-        GroupID groupID = new GroupID(new Description("familia"));
+
+      String email="jose.cardoso@hotmail.com";
+      String groupDescription  = "familia";
 
         //Act
 
-        boolean memberAdded = controller.addMemberToGroup(personID, groupID);
+        boolean memberAdded = controller.addMemberToGroup(email, groupDescription);
 
         //Assert
         assertFalse(memberAdded);
@@ -84,17 +85,17 @@ public class US003AddMemberToGroupControllerTest {
     @DisplayName("Test if a member was added to group-Invalid Person ID")
     void addMemberToGroupInvalidPersonID() {
         //Arrange
-        PersonID personID = new PersonID(new Email("jp@ip.pt"));
-        GroupID groupID = new GroupID(new Description("familia"));
+        String personEmail="jp@ip.pt";
+        String groupDescription="familia";
 
         //Act
         try {
-            controller.addMemberToGroup(personID, groupID);
+            controller.addMemberToGroup(personEmail, groupDescription);
         }
 
         //Assert
         catch (IllegalArgumentException email) {
-            assertEquals("No person found with that ID.", email.getMessage());
+            assertEquals("No person found with that email.", email.getMessage());
         }
     }
 }
