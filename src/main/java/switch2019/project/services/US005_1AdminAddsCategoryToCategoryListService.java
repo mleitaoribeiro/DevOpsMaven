@@ -31,24 +31,15 @@ public class US005_1AdminAddsCategoryToCategoryListService {
      * @return
      */
     public boolean addCategoryToGroup(GroupID groupID, PersonID personID, Denomination categoryDescription) {
-
-        //Validation for non-null parameters:
-        if(categoryDescription == null || groupID == null || personID == null){
-            throw new IllegalArgumentException("Category could not be added to group because a null object was given as parameter");
-        }
-
-        //finding the right group and the person who is trying to add the new category:
+        //finding the right group where the new category will be added:
         Group group = groupsRepository.findGroupByID(groupID);
 
-        //verify if person is a group admin in order to continue with the method:
+        //verify if the category creator is a group admin in order to continue with the method:
         if (group.isGroupAdmin(personID)) {
 
-            //create category and associate it with the group:
+            //create category and associate it with the group
+            //This method also verifies if the category was created inside the CategoryRepository;
             categoryRepository.createCategory(categoryDescription, groupID);
-
-            //verify if category was added to the repository
-            //return categoryRepository.isCategoryValid(categoryRepository.findByID(new Category(categoryDescription, groupID).getID()));
-            //Gabriel verifica isto, só pus assim para não dar erro
             return true;
         } else return false;
     }
