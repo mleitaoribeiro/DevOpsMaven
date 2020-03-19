@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.model.account.Account;
+import switch2019.project.model.category.Category;
 import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.*;
 
@@ -572,6 +573,63 @@ class AccountRepositoryTest {
         }
     }
 
+
+    /**
+     * Tests to method findByID
+     */
+
+    @Test
+    @DisplayName("Find Category by ID- success case")
+    void findCategoryByID() {
+        //Arrange
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category expected = new Category(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+        categoryRepository.createCategory(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+
+        //Act
+        Category real = categoryRepository.findByID(new CategoryID(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com"))));
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Find Category by ID -ID not found")
+    void findCategoryByIDNotFound() {
+        //Arrange
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category expected = new Category(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+        categoryRepository.createCategory(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+        try {
+            Category real = categoryRepository.findByID(new CategoryID(new Denomination("Millo"),
+                    new PersonID(new Email("miu@gmail.com"))));
+        } catch (IllegalArgumentException ex) {
+            assertEquals("No category found with that ID.", ex.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if Account is return when asked by ID - exception")
+    void findAccountByIDException() {
+        //Arrange
+        AccountRepository accountsRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
+                new PersonID(new Email("lol@gmail.com")));
+        accountsRepository.createAccount(new Denomination("xpto"),
+                new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
+
+        try {
+            Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
+                    new PersonID(new Email("notfound@gmail.com"))));
+        } catch (IllegalArgumentException ex) {
+            assertEquals("No account found with that ID.", ex.getMessage());
+        }
+    }
 
 
 
