@@ -27,7 +27,7 @@ public class US005_1AdminAddsCategoryToCategoryListService {
     }
 
     /**
-     * User Story 5.1 .- As a group admin i want to associate a category with my group.
+     * User Story 5.1 .- As a group admin i want to associate a category to my group.
      *
      * @param groupDescription
      * @param personEmail
