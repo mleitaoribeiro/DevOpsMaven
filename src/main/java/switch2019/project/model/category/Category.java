@@ -8,6 +8,7 @@ import switch2019.project.model.shared.Denomination;
 import java.util.Objects;
 
 public class Category implements Entity {
+
     //Private instance variables
     private CategoryID categoryID;
     private Denomination nameOfCategory;
@@ -17,9 +18,7 @@ public class Category implements Entity {
      * @param category
      */
     public Category(String category) {
-        if (category != null) {
-            nameOfCategory = new Denomination(category);
-        } else throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
+        nameOfCategory = new Denomination(category);
     }
 
     /**

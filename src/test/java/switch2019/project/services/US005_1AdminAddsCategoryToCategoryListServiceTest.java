@@ -33,9 +33,9 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         personRepository = new PersonRepository();
 
         //arrangement of the service:
-        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository,categoryRepository,personRepository);
+        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository, categoryRepository, personRepository);
 
-        //arrangement of the people:
+        //arrangement of the persons:
         personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
 
@@ -77,21 +77,22 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
     }
 
 
-
     @Test
-    @DisplayName("Happy Case- Category is added to Group categories by an admin")
+    @DisplayName("Happy Case - Category is added to Group categories by an admin")
     void adminAddsCategoryToCategoryListHappyCase() {
         //Arrange
+        //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com","compras");
-            //verify if the category is in the repository
-        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
+        service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
+
+        //verify if the category is in the repository
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID());
 
         //Assert:
         assertTrue(result);
@@ -100,20 +101,19 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
     @Test
     @DisplayName("Category is not added to Group categories - Person is not a group member")
     void adminAddsCategoryToCategoryListNotAMember() {
-
         //Arrange:
         //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        service.addCategoryToGroup("FRIENDS", "Joao@gmail.com","compras");
+        service.addCategoryToGroup("FRIENDS", "Joao@gmail.com", "compras");
 
-            //verify if the category is not in the repository:
-        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
+        //verify if the category is not in the repository:
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID());
 
         //Assert:
         assertFalse(result);
@@ -122,23 +122,22 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
     @Test
     @DisplayName("Category is not added to Group categories - Person is not a group admin")
     void adminAddsCategoryToCategoryListNotAnAdmin() {
-
         //Arrange:
-
+        //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
         PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
-            //Arrangement of the Group:
+        //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         Group thisGroup = groupsRepository.findGroupByID(groupID);
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
 
         //Act:
-        service.addCategoryToGroup("FRIENDS", "Joao@gmail.com","compras");
+        service.addCategoryToGroup("FRIENDS", "Joao@gmail.com", "compras");
 
-            //verify if the category is in the repository:
-        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
+        //verify if the category is in the repository:
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID());
 
         //Assert:
         assertFalse(result);
@@ -147,20 +146,21 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
     @Test
     @DisplayName("Happy Case- more than one category is added to Group categories by an admin")
     void adminAddsCategoryToCategoryListTwoCategories() {
-
         //Arrange:
+        //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
+        //Arrangement of the gROUP:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
 
         //Act:
         service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
         service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "supermarket");
 
-            //verify if the both categories are in the repository:
-        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
-                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
+        //verify if the both categories are in the repository:
+        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID())
+                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID()));
 
         //Assert:
         assertTrue(result);
@@ -182,11 +182,11 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Act:
         service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
-        service.addCategoryToGroup("FRIENDS", "Joao@gmail.com","supermarket");
+        service.addCategoryToGroup("FRIENDS", "Joao@gmail.com", "supermarket");
 
-            //verify if the both categories are in the repository:
-        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
-                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
+        //verify if the both categories are in the repository:
+        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID())
+                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"), groupID).getID()));
 
         //Assert:
         assertTrue(result);
@@ -204,10 +204,12 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
 
         //Act:
-        try {service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", null);}
+        try {
+            service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", null);
+        }
 
         //Assert:
-        catch(IllegalArgumentException nullParameter) {
+        catch (IllegalArgumentException nullParameter) {
             assertEquals("The denomination can´t be null or empty!", nullParameter.getMessage());
         }
     }
@@ -224,11 +226,13 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
 
         //Act:
-        service.addCategoryToGroup("FRIENDS","Francisco@gmail.com", "compras");
-        try {service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");}
+        service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
+        try {
+            service.addCategoryToGroup("FRIENDS", "Francisco@gmail.com", "compras");
+        }
 
         //Assert:
-        catch(IllegalArgumentException nullParameter) {
+        catch (IllegalArgumentException nullParameter) {
             assertEquals("This category already exists and it could not be created", nullParameter.getMessage());
         }
     }

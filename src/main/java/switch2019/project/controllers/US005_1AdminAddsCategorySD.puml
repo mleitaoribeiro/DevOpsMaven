@@ -1,41 +1,49 @@
 @startuml
 skinparam DefaultFontSize 20
+
 participant ":Test"
 
+participant "controller:US005.1MemberAddCategoryToCategoryListController"
+
 == Act ==
-":Test" -> "controller:US 5.0 MemberAddCategoryToCategoryListController" :isCategoryCreated=createGroupCategory\n(service, groupAtribbutes, personAttributes, categoryDescription)
-activate "controller:US 5.0 MemberAddCategoryToCategoryListController" #FFBBBB
+":Test" -> "controller:US005.1MemberAddCategoryToCategoryListController" :isCategoryCreated = addCategoryToGroupController\n(groupDescription, personEmail, categoryDenomination)
+activate "controller:US005.1MemberAddCategoryToCategoryListController" #FFBBBB
 
-"controller:US 5.0 MemberAddCategoryToCategoryListController"-> "service:US 5.0 MemberAddCategoryToCategoryListService":isCategoryCreated=createGroupCategory\n(service, groupAtribbutes, personAttributes, categoryDescription)
-activate "service:US 5.0 MemberAddCategoryToCategoryListService" #FFBBBB
+"controller:US005.1MemberAddCategoryToCategoryListController"-> "service:US005.1MemberAddCategoryToCategoryListService":isCategoryCreated = addCategoryToGroup\n(groupDescription, personEmail, categoryDenomination)
+activate "service:US005.1MemberAddCategoryToCategoryListService" #FFBBBB
 
-"service:US 5.0 MemberAddCategoryToCategoryListService"->":GroupRep":group= findGroupByAttribute\n(groupAtribbutes)
-activate ":GroupRep" #FFBBBB
-deactivate ":GroupRep"
+"service:US005.1MemberAddCategoryToCategoryListService"->"groupRep:GroupRepository":group = findGroupByDescription\n(groupDescription)
+activate "groupRep:GroupRepository" #FFBBBB
+deactivate "groupRep:GroupRepository"
 
-"service:US 5.0 MemberAddCategoryToCategoryListService"->":PersonRep": person=findPersonByAttribute\n(personAttributes)
-activate ":PersonRep" #FFBBBB
-deactivate ":PersonRep"
+"service:US005.1MemberAddCategoryToCategoryListService"->"personRep:PersonRepository": person = findPersonByEmail(personEmail)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
 
-"service:US 5.0 MemberAddCategoryToCategoryListService"->"g1:Group": validateAdmin=isAdmin(person1)
-activate "g1:Group" #FFBBBB
-deactivate "g1:Group"
+"service:US005.1MemberAddCategoryToCategoryListService"->"person:Person": personID = getID()
+activate "person:Person" #FFBBBB
+deactivate "person:Person"
 
-"service:US 5.0 MemberAddCategoryToCategoryListService"->"g1:Group": gID=getGroupID()
-activate "g1:Group" #FFBBBB
-deactivate "g1:Group"
+"service:US005.1MemberAddCategoryToCategoryListService"->"group:Group": validateAdmin = isGroupAdmin(personID)
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
 
-"service:US 5.0 MemberAddCategoryToCategoryListService"->":CatRep":isCategoryCreated=createCategory\n(gID,categoryDescription)
-activate ":CatRep" #FFBBBB
+"service:US005.1MemberAddCategoryToCategoryListService"->"group:Group": groupID = getID()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
 
-create ":Category"
-":CatRep"->":Category":newCategory\n(categoryDescription,gID)
+"service:US005.1MemberAddCategoryToCategoryListService"->"categoryRep:CatRepository":isCategoryCreated = createCategory(categoryDenomination, groupID)
+activate "categoryRep:CatRepository" #FFBBBB
 
-deactivate ":CatRep"
-deactivate "service:US 5.0 MemberAddCategoryToCategoryListService"
-deactivate "controller:US 5.0 MemberAddCategoryToCategoryListController"
+create "category:Category"
+"categoryRep:CatRepository"->"category:Category":new Category\n(categoryDenomination, groupID)
+"categoryRep:CatRepository"->"categoryRep:CatRepository": add(category)
+
+deactivate "categoryRep:CatRepository"
+deactivate "service:US005.1MemberAddCategoryToCategoryListService"
+deactivate "controller:US005.1MemberAddCategoryToCategoryListController"
 
 
 == Assert ==
-":Test" -> ":Test" : assertTrue( categoryCreated)
+":Test" -> ":Test" : assertTrue(isCategoryCreated)
 @enduml
