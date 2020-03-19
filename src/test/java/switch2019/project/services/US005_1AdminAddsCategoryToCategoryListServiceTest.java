@@ -200,4 +200,39 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
             assertEquals("This category already exists and it could not be created", nullParameter.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("Test True for the creation of the account using the Controller")
+    void addCategoryToGroupControllerTestTrue() {
+        //Arrange
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+        GroupID groupID = new GroupID(new Description("FRIENDS"));
+
+        //Act:
+        boolean result = service.addCategoryToGroup(groupID, franciscoID, new Denomination("compras"));
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test False for the creation of the account using the Controller")
+    void addCategoryToGroupControllerTestFalse() {
+        //Arrange:
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+        PersonID joaoID = new PersonID(new Email("joao@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+        GroupID groupID = new GroupID(new Description("FRIENDS"));
+
+        //Act:
+        boolean result = service.addCategoryToGroup(groupID, joaoID, new Denomination("compras"));
+
+        //Assert:
+        assertFalse(result);
+    }
 }
