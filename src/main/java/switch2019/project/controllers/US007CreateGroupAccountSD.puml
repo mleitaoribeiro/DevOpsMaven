@@ -1,37 +1,50 @@
 @startuml
 skinparam DefaultFontSize 20
-create ":Test"
 
-== Arrange ==
-create ":US007CreateGroupAccountController"
-":Test" -> ":US007CreateGroupAccountController" : new US007Create\nGroupAccountController ()
+participant ":Test"
+participant ":US007CreateGroupAccountController"
+participant ":US007CreateGroupAccountService"
+participant ":PersonRepository"
+participant "person:Person"
+participant ":GroupsRepository"
+participant "group:Group"
+participant ":AccountsRepository"
+participant ":Account"
 
 == Act ==
 
-":Test" -> ":US007CreateGroupAccountController" : accountCreated = createGroupAccount\n( personID, groupID, denomination, description)
+":Test" -> ":US007CreateGroupAccountController" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
 activate ":US007CreateGroupAccountController"  #FFBBBB
 
-":US007CreateGroupAccountController" -> ":US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personID, groupID, denomination, description)
+":US007CreateGroupAccountController" -> ":US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
 activate ":US007CreateGroupAccountService"  #FFBBBB
 
-":US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByID(groupID)
+":US007CreateGroupAccountService" -> ":PersonRepository" : person = findPersonByEmail (personEmail)
+activate ":PersonRepository"  #FFBBBB
+deactivate ":PersonRepository"  #FFBBBB
+
+":US007CreateGroupAccountService" -> "person:Person" : personID = getID ()
+activate "person:Person"  #FFBBBB
+deactivate "person:Person"  #FFBBBB
+
+":US007CreateGroupAccountService" -> ":GroupsRepository" : group = findGroupByID (groupID)
 activate ":GroupsRepository"  #FFBBBB
 deactivate ":GroupsRepository"  #FFBBBB
 
-":US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin(personID)
+":US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin (personID)
 activate "group:Group" #FFBBBB
 deactivate "group:Group" #FFBBBB
 
 
 
-":US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(groupID, \ndenomination,description)
+":US007CreateGroupAccountService" -> ":AccountsRepository" : accountCreated = createAccount(groupID, denomination,description)
 activate ":AccountsRepository" #FFBBBB
 
-":AccountsRepository" -> ":AccountsRepository" : isAccountIDOnRepository(groupID)
+":AccountsRepository" -> ":AccountsRepository" : accountNotInRepository = \n isAccountIDOnRepository(accountDenomination, groupID)
 
 
 create ":Account"
-":AccountsRepository" -> ":Account" : new Account(groupId, \ndenomination,description)
+":AccountsRepository" -> ":Account" : new Account (accountDenomination, \n   accountDescription, groupID)
 
 deactivate ":AccountsRepository" #FFBBBB
 deactivate "group:Group" #FFBBBB

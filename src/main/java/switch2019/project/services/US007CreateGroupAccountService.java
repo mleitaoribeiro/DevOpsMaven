@@ -2,6 +2,7 @@ package switch2019.project.services;
 
 
 import switch2019.project.model.group.Group;
+import switch2019.project.model.person.Email;
 import switch2019.project.model.shared.Denomination;
 import switch2019.project.model.shared.Description;
 import switch2019.project.model.shared.GroupID;
@@ -22,29 +23,33 @@ public class US007CreateGroupAccountService {
         this.accountRepository = accountRepository;
     }
 
-
     /**
      *US007 - As a group Admin, I want to create a group account
      *
-     * @param onePersonID
-     * @param oneGroupID
+     * @param personEmail
+     * @param groupDescription
      * @param accountDenomination
      * @param accountDescription
      * @return
      */
 
-    public boolean createGroupAccount (PersonID onePersonID, GroupID oneGroupID,
-                                       Denomination accountDenomination, Description accountDescription ) {
+    public boolean createGroupAccount (String personEmail, String groupDescription ,
+                                       String accountDenomination, String accountDescription ) {
 
-            Group oneGroup = groupsRepository.findGroupByID(oneGroupID);
+        PersonID personID = personRepository.findPersonByEmail(new Email (personEmail)).getID();
 
-            boolean personIsGroupAdmin = oneGroup.isGroupAdmin(onePersonID);
+        Denomination oneAccountDenomination = new Denomination(accountDenomination);
+        Description oneAccountDescription = new Description(accountDescription);
 
-            if (personIsGroupAdmin) {
-                return accountRepository.createAccount(accountDenomination, accountDescription, oneGroupID);
-            }
-            return false;
+        Group group = groupsRepository.findGroupByDescription( new Description( groupDescription));
+        GroupID groupID = group.getID();
 
+        boolean personIsGroupAdmin = group.isGroupAdmin(personID);
+
+        if (personIsGroupAdmin) {
+            return accountRepository.createAccount(oneAccountDenomination, oneAccountDescription, groupID);
+        }
+        return false;
     }
 
 }
