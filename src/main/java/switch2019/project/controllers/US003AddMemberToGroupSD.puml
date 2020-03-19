@@ -9,7 +9,7 @@ create "controller:US003AddMemberToGroupController"
 
 == Act ==
 
-":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (service, personID, groupID)
+":Test" -> "controller:US003AddMemberToGroupController" : memberAdded = addMemberToGroup \n (personID, groupID)
 activate "controller:US003AddMemberToGroupController" #FFBBBB
 
 participant "service:Service"

@@ -50,15 +50,17 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
         //Act
-        boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
-
-        //Assert
-        assertFalse(wasGroupCreated);
+        try {
+            boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
+        }
+        catch (IllegalArgumentException ex) {
+            assertEquals("The description can't be null.", ex.getMessage());
+        }
     }
 
 
     @Test
-    @DisplayName("Test if group was not created when it is already contained within a groupsList - Same name and same Members")
+    @DisplayName("Test if group was not created when it is already contained in the repository")
     public void testIfGroupWasAlreadyInList() {
         //Arrange
         GroupsRepository groupsRepository = new GroupsRepository();
@@ -67,10 +69,11 @@ class GroupsRepositoryTest {
 
         //Act
         groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
-        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
-
-        //Assert
-        assertFalse(wasGroupCreated);
+        try {
+            groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
+        } catch (IllegalArgumentException ex) {
+            assertEquals("This Group Description already exists.", ex.getMessage());
+        }
     }
 
 
@@ -83,14 +86,15 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marshall", new DateAndTime(1990, 12, 4), new Address("Boston"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("123@isep.pt"));
-
-        //Act
         groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
-
-        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Grupo de Teste"), person2);
-
+        //Act
+        try {
+            groupsRepository.createGroup(new Description("Grupo de Teste"), person2);
+        }
         //Assert
-        assertTrue(wasGroupCreated);
+        catch (IllegalArgumentException ex) {
+            assertEquals("This Group Description already exists.", ex.getMessage());
+        }
     }
 
 
@@ -119,10 +123,11 @@ class GroupsRepositoryTest {
         Person person1 = null;
 
         //Act
-        boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
-
-        //Assert
-        assertFalse(wasGroupCreated);
+        try {
+            groupsRepository.createGroup(null, person1);
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The description can't be null.", ex.getMessage());
+        }
     }
 
     /**

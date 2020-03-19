@@ -35,7 +35,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         personRepository = new PersonRepository();
 
         //arrangement of the service:
-        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository,categoryRepository);
+        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository,categoryRepository,personRepository);
 
         //arrangement of the controller:
         controller = new US005_1AdminAddsCategoryController(service);
@@ -62,7 +62,9 @@ public class US005_1AdminAddsCategoryControllerTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, franciscoID, new Denomination("compras"));
+        controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com","compras");
+        //verify if the category is in the repository
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
         assertTrue(result);
@@ -75,14 +77,16 @@ public class US005_1AdminAddsCategoryControllerTest {
         //Arrange:
         //Arrangement of the Person:
         PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
-        PersonID joaoID = new PersonID(new Email("Joao@gmail.com"));
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
         GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, joaoID, new Denomination("compras"));
+        controller.addCategoryToGroupController("FRIENDS", "Joao@gmail.com","compras");
+
+        //verify if the category is not in the repository:
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
         assertFalse(result);
@@ -104,7 +108,10 @@ public class US005_1AdminAddsCategoryControllerTest {
         thisGroup.addMember(personRepository.findPersonByID(joaoID));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController(groupID, joaoID, new Denomination("compras"));
+        controller.addCategoryToGroupController("FRIENDS", "Joao@gmail.com","compras");
+
+        //verify if the category is in the repository:
+        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
         assertFalse(result);
@@ -121,8 +128,12 @@ public class US005_1AdminAddsCategoryControllerTest {
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
 
         //Act:
-        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, new Denomination("compras"))
-                && (controller.addCategoryToGroupController(groupID,franciscoID,new Denomination("supermarket"))));
+        controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");
+        controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "supermarket");
+
+        //verify if the both categories are in the repository:
+        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
+                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
 
         //Assert:
         assertTrue(result);
@@ -141,9 +152,14 @@ public class US005_1AdminAddsCategoryControllerTest {
         GroupID groupID = new GroupID(new Description("FRIENDS"));
         groupsRepository.findGroupByID(groupID).addMember(personRepository.findPersonByID(joaoID));
         groupsRepository.findGroupByID(groupID).setAdmin(personRepository.findPersonByID(joaoID));
+
         //Act:
-        boolean result = (controller.addCategoryToGroupController(groupID, franciscoID, new Denomination("compras"))
-                && (controller.addCategoryToGroupController(groupID,joaoID,new Denomination("supermarket"))));
+        controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");
+        controller.addCategoryToGroupController("FRIENDS", "Joao@gmail.com","supermarket");
+
+        //verify if the both categories are in the repository:
+        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
+                && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
 
         //Assert:
         assertTrue(result);
@@ -158,14 +174,66 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Arrangement of the Group:
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
-        GroupID groupID = new GroupID(new Description("FRIENDS"));
 
         //Act:
-        try {controller.addCategoryToGroupController(groupID, franciscoID, null);}
+        try {controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", null);}
 
         //Assert:
         catch(IllegalArgumentException nullParameter) {
-            assertEquals("Category could not be added to group because a null object was given as parameter", nullParameter.getMessage());
+            assertEquals("The denomination can´t be null or empty!", nullParameter.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("Illegal exception caused by category already existing in the CategoryRepository")
+    void adminAddsDuplicateCategoryToCategoryListTest() {
+
+        //Arrange:
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+
+        //Act:
+        controller.addCategoryToGroupController("FRIENDS","Francisco@gmail.com", "compras");
+        try {controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");}
+
+        //Assert:
+        catch(IllegalArgumentException nullParameter) {
+            assertEquals("This category already exists and it could not be created", nullParameter.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test True for the creation of the account using the Controller")
+    void addCategoryToGroupServiceTestTrue() {
+        //Arrange
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+
+        //Act:
+        boolean result = controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test False for the creation of the account using the Controller")
+    void addCategoryToGroupServiceTestFalse() {
+        //Arrange:
+        PersonID franciscoID = new PersonID(new Email("Francisco@gmail.com"));
+        PersonID joaoID = new PersonID(new Email("joao@gmail.com"));
+
+        //Arrangement of the Group:
+        groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
+
+        //Act:
+        boolean result = controller.addCategoryToGroupController("FRIENDS", "joao@gmail.com", "compras");
+
+        //Assert:
+        assertFalse(result);
     }
 }

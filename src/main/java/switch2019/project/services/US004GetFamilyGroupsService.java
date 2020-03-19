@@ -16,11 +16,10 @@ public class US004GetFamilyGroupsService {
     /**
      * US004 -  As system manager I want to know which groups are families
      *
-     * @param groupsRepository
      * @return set of families
      */
 
-    public Set<Group> getFamilyGroups (GroupsRepository groupsRepository){
+    public Set<Group> getFamilyGroups (){
         return groupsRepository.returnOnlyFamilies() ;
     }
 }

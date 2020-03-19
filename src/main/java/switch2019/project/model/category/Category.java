@@ -19,7 +19,9 @@ public class Category implements Entity {
      * @param category
      */
     public Category(String category) {
-        setNameOfCategory(category);
+        if (category != null) {
+            nameOfCategory = new Denomination(category);
+        } else throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
     }
 
     /**
@@ -34,21 +36,18 @@ public class Category implements Entity {
     /**
      * Get account by ID
      */
-    public ID getID() {
+    public CategoryID getID() {
         return categoryID;
     }
 
-    public void setNameOfCategory(String nameOfCategory) {
-        if (nameOfCategory != null) {
-            this.nameOfCategory = new Denomination(nameOfCategory);
-        } else throw new IllegalArgumentException("The category description is not valid or it's missing. Please try again.");
-    }
 
+    /**
+     * Get name of the category
+     * @return nameOfCategory
+     */
     public String getNameOfCategory() {
         return nameOfCategory.toString();
     }
-
-
 
     /**
      * Develop @override of equals for Category and @override of hashcode

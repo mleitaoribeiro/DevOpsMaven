@@ -53,8 +53,16 @@ public class CategoryRepository implements Repository {
      * @param nameOfCategory
      */
     public boolean createCategory(Denomination nameOfCategory, OwnerID ownerID) {
-        Category newCategory = new Category(nameOfCategory, ownerID);
-        return categories.add(newCategory);
+        if (nameOfCategory == null) {
+            throw new IllegalArgumentException ("Category could not be added to group because its Description is null");
+        }
+        if (this.categories.contains(new Category(nameOfCategory,ownerID))) {
+            throw new IllegalArgumentException ("This category already exists and it could not be created");
+        }
+        else {
+            Category newCategory = new Category(nameOfCategory, ownerID);
+            return categories.add(newCategory);
+        }
     }
 
     /**

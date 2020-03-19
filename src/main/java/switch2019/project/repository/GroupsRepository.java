@@ -34,11 +34,11 @@ public class GroupsRepository implements Repository {
      * @param groupCreator
      */
     public boolean createGroup(Description groupDescription, Person groupCreator) {
-        if (groupDescription != null && groupCreator != null) {
+        if(!isGroupIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
             return this.groups.add(group1) && group1.isGroupAdmin(groupCreator);
         }
-        return false;
+        else throw new IllegalArgumentException("This Group Description already exists.");
     }
 
     /**

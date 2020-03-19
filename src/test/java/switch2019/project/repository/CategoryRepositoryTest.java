@@ -149,13 +149,15 @@ class CategoryRepositoryTest {
         CategoryRepository newCategoryRepository = new CategoryRepository();
 
         //Act
-        boolean realResult = newCategoryRepository.createCategory(originalCategory, person1.getID())
-                && newCategoryRepository.createCategory(duplicateCategory, person1.getID());
+        try{
+            boolean sameCategory = newCategoryRepository.createCategory(originalCategory,person1.getID()) &&
+                    newCategoryRepository.createCategory(duplicateCategory,person1.getID());
+        }
 
         //Assert
-
-        assertFalse(realResult);
-
+        catch (IllegalArgumentException categoryAlreadyExists) {
+            assertEquals("This category already exists and it could not be created", categoryAlreadyExists.getMessage());
+        }
     }
 
     /**
@@ -193,7 +195,7 @@ class CategoryRepositoryTest {
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         String oneCategory = "Saude";
-        String otherCategory = "saúde";
+        String otherCategory = "saúde2";
         String otherCategoryObject = "saúde";
 
         CategoryRepository newCategoryRepository = new CategoryRepository();
