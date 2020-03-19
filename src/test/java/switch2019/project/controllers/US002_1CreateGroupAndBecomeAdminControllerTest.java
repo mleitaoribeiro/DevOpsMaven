@@ -67,6 +67,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         assertTrue(isGroupCreatedAndAdminSet && isAdmin);
     }
 
+
     @Test
     @DisplayName("Email non existing")
     void createGroupAndBecomeAdminNoEmail() {
@@ -84,7 +85,6 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         catch (IllegalArgumentException e) {
             assertEquals("No person found with that email.", e.getMessage());
         }
-
     }
 
     @Test
@@ -102,6 +102,25 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         }
         catch (IllegalArgumentException ex) {
             assertEquals("This Group Description already exists.", ex.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("non valid email")
+    void createGroupAndBecomeAdminIndalidEmail() {
+
+        //Arrange
+        String groupDescription = "Bashtards";
+        String email = "12345isep.pt";
+
+        //Act
+        try {
+            controller.createGroupAndBecomeAdmin(groupDescription, email);
+        }
+
+        //Assert
+        catch (IllegalArgumentException e) {
+            assertEquals("The email it´s not valid", e.getMessage());
         }
     }
 
