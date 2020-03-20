@@ -9,7 +9,7 @@ participant "person:Person"
 participant "groupsRepo:GroupsRepository"
 participant "group:Group"
 participant "accountRepo:AccountsRepository"
-participant ":Account"
+participant "account:Account"
 
 == Act ==
 
@@ -44,8 +44,9 @@ activate "accountRepo:AccountsRepository" #FFBBBB
 "accountRepo:AccountsRepository" -> "accountRepo:AccountsRepository" : accountNotInRepository = \n isAccountIDOnRepository(accountDenomination, groupID)
 
 
-create ":Account"
-"accountRepo:AccountsRepository" -> ":Account" : new Account (accountDenomination, \n   accountDescription, groupID)
+create "account:Account"
+"accountRepo:AccountsRepository" -> "account:Account" : new Account (accountDenomination, \n   accountDescription, groupID)
+"accountRepo:AccountsRepository" -> "accountRepo:AccountsRepository" : add(account)
 
 deactivate "accountRepo:AccountsRepository" #FFBBBB
 deactivate "group:Group" #FFBBBB
