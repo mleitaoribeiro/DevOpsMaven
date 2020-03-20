@@ -59,10 +59,10 @@ public class US005_1AdminAddsCategoryControllerTest {
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");
+        boolean isCategoryCreated = controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "compras");
 
         //Assert:
-        assertTrue(result);
+        assertTrue(isCategoryCreated);
     }
 
     @Test
@@ -75,10 +75,10 @@ public class US005_1AdminAddsCategoryControllerTest {
         groupsRepository.createGroup(new Description("FRIENDS"), personRepository.findPersonByID(franciscoID));
 
         //Act:
-        boolean result = controller.addCategoryToGroupController("FRIENDS", "joao@gmail.com", "compras");
+        boolean isCategoryCreated = controller.addCategoryToGroupController("FRIENDS", "joao@gmail.com", "compras");
 
         //Assert:
-        assertFalse(result);
+        assertFalse(isCategoryCreated);
     }
 
     @Test
@@ -94,10 +94,10 @@ public class US005_1AdminAddsCategoryControllerTest {
         //Act:
         controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com","compras");
         //verify if the category is in the repository
-        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
+        boolean isCategoryCreated = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
-        assertTrue(result);
+        assertTrue(isCategoryCreated);
     }
 
     @Test
@@ -116,10 +116,10 @@ public class US005_1AdminAddsCategoryControllerTest {
         controller.addCategoryToGroupController("FRIENDS", "Joao@gmail.com","compras");
 
         //verify if the category is not in the repository:
-        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
+        boolean isCategoryCreated = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
-        assertFalse(result);
+        assertFalse(isCategoryCreated);
     }
 
     @Test
@@ -141,10 +141,10 @@ public class US005_1AdminAddsCategoryControllerTest {
         controller.addCategoryToGroupController("FRIENDS", "Joao@gmail.com","compras");
 
         //verify if the category is in the repository:
-        boolean result = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
+        boolean isCategoryCreated = categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID());
 
         //Assert:
-        assertFalse(result);
+        assertFalse(isCategoryCreated);
     }
 
     @Test
@@ -162,11 +162,11 @@ public class US005_1AdminAddsCategoryControllerTest {
         controller.addCategoryToGroupController("FRIENDS", "Francisco@gmail.com", "supermarket");
 
         //verify if the both categories are in the repository:
-        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
+        boolean isCategoryCreated = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
                 && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
 
         //Assert:
-        assertTrue(result);
+        assertTrue(isCategoryCreated);
     }
 
     @Test
@@ -188,11 +188,11 @@ public class US005_1AdminAddsCategoryControllerTest {
         controller.addCategoryToGroupController("FRIENDS", "Joao@gmail.com","supermarket");
 
         //verify if the both categories are in the repository:
-        boolean result = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
+        boolean isCategoryCreated = (categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID())
                 && categoryRepository.isCategoryValid(new Category(new Denomination("compras"),groupID).getID()));
 
         //Assert:
-        assertTrue(result);
+        assertTrue(isCategoryCreated);
     }
 
     @Test

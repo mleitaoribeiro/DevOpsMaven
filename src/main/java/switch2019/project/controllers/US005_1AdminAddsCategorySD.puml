@@ -32,14 +32,14 @@ deactivate "group:Group"
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
 
-"service:US005.1MemberAddCategoryToCategoryListService"->"categoryRep:CatRepository":isCategoryCreated = createCategory(categoryDenomination, groupID)
-activate "categoryRep:CatRepository" #FFBBBB
+"service:US005.1MemberAddCategoryToCategoryListService"->"categoryRep:CategoryRepository":isCategoryCreated = createCategory(categoryDenomination, groupID)
+activate "categoryRep:CategoryRepository" #FFBBBB
 
 create "category:Category"
-"categoryRep:CatRepository"->"category:Category":new Category\n(categoryDenomination, groupID)
-"categoryRep:CatRepository"->"categoryRep:CatRepository": add(category)
+"categoryRep:CategoryRepository"->"category:Category":new Category\n(categoryDenomination, groupID)
+"categoryRep:CategoryRepository"->"categoryRep:CategoryRepository": add(category)
 
-deactivate "categoryRep:CatRepository"
+deactivate "categoryRep:CategoryRepository"
 deactivate "service:US005.1MemberAddCategoryToCategoryListService"
 deactivate "controller:US005.1MemberAddCategoryToCategoryListController"
 
