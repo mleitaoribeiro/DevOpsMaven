@@ -46,6 +46,6 @@ public class CreateCategoryInGroupDTOTest {
         String email = dto.getCategoryDenomination();
 
         //Assert:
-        assertEquals("Johnny@gmail.com", email);
+        assertEquals("Movies", email);
     }
 }
