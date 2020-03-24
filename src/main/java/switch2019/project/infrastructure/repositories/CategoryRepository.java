@@ -49,11 +49,12 @@ public class CategoryRepository implements Repository {
     }
 
     /**
-     * 2nd Add a new category to CategoryList
-     *
+     * Add a new category to CategoryList
      * @param nameOfCategory
+     * @param ownerID
+     * 
      */
-    public boolean createCategory(Denomination nameOfCategory, OwnerID ownerID) {
+    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (nameOfCategory == null) {
             throw new IllegalArgumentException ("Category could not be added to group because its Description is null");
         }
@@ -62,7 +63,8 @@ public class CategoryRepository implements Repository {
         }
         else {
             Category newCategory = new Category(nameOfCategory, ownerID);
-            return categories.add(newCategory);
+            categories.add(newCategory);
+            return newCategory;
         }
     }
 
