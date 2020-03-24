@@ -16,7 +16,7 @@ class CreatePersonAccountDTOTest {
     void getPersonEmailTest() {
 
         //Assert
-        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Family", "Revolut", "Online Shopping");
+        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Revolut", "Online Shopping");
 
         //Act:
         String description = dto.getPersonEmail();
@@ -26,27 +26,13 @@ class CreatePersonAccountDTOTest {
 
     }
 
-    @Test
-    @DisplayName("Test groupDescription Getter")
-    void getGroupDescriptionTest() {
-
-        //Assert
-        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Family", "Revolut", "Online Shopping");
-
-        //Act:
-        String description = dto.getGroupDescription();
-
-        //Assert:
-        assertEquals("Family", description);
-
-    }
 
     @Test
     @DisplayName("Test accountDenomination getter")
     void getAccountDenominationTest() {
 
         //Assert
-        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Family", "Revolut", "Online Shopping");
+        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Revolut", "Online Shopping");
 
         //Act:
         String description = dto.getAccountDenomination();
@@ -61,7 +47,7 @@ class CreatePersonAccountDTOTest {
     void getAccountDescriptionTest() {
 
         //Assert
-        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Family", "Revolut", "Online Shopping");
+        CreatePersonAccountDTO dto = new CreatePersonAccountDTO("joao.cardoso_12@isep.ipp.pt", "Revolut", "Online Shopping");
 
         //Act:
         String description = dto.getAccountDescription();
