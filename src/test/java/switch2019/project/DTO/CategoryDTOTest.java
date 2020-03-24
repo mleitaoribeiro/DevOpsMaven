@@ -55,9 +55,9 @@ public class CategoryDTOTest {
         assertTrue(areDtosTheSame);
     }
 
-    @DisplayName("Test if Two CategoryDTO objects are NOT the same")
+    @DisplayName("Test if Two CategoryDTO objects are NOT the same - different description")
     @Test
-    public void equalsTestFalse(){
+    public void equalsTestFalseDifferentDescription(){
         //Arrange:
         CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
         CategoryDTO dto2 = new CategoryDTO("Movies", "ID");
@@ -67,6 +67,33 @@ public class CategoryDTOTest {
 
         //Assert:
         assertFalse(areDtosTheSame);
+    }
+
+    @DisplayName("Test if Two CategoryDTO objects are NOT the same - different categoryID")
+    @Test
+    public void equalsTestFalseDifferentCategoryID(){
+        //Arrange:
+        CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
+        CategoryDTO dto2 = new CategoryDTO("Groceries", "ID2");
+
+        //Act:
+        boolean areDtosTheSame = dto1.equals(dto2);
+
+        //Assert:
+        assertFalse(areDtosTheSame);
+    }
+
+    @DisplayName("Test if the CategoryDTO is equal after  - different categoryID")
+    @Test
+    public void equalsTestTrueSameObject(){
+        //Arrange:
+        CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
+
+        //Act:
+        boolean areDtosTheSame = dto1.equals(dto1);
+
+        //Assert:
+        assertTrue(areDtosTheSame);
     }
 
     @DisplayName("null parameters - check if equals always returns false")
