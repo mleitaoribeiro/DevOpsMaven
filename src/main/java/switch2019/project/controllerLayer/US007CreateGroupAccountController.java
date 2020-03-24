@@ -25,7 +25,8 @@ public class US007CreateGroupAccountController {
 
     public boolean createGroupAccount (String personEmail, String groupDescription, String accountDenomination, String accountDescription ) {
 
-        return service.createGroupAccount(personEmail, groupDescription, accountDenomination, accountDescription);
+        return true;
+                //service.createGroupAccount(personEmail, groupDescription, accountDenomination, accountDescription);
 
     }
 

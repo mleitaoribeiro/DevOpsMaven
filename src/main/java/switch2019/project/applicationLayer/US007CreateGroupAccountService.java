@@ -47,7 +47,7 @@ public class US007CreateGroupAccountService {
         boolean personIsGroupAdmin = group.isGroupAdmin(personID);
 
         if (personIsGroupAdmin) {
-            return accountRepository.createAccount(oneAccountDenomination, oneAccountDescription, groupID);
+            //return accountRepository.createAccount(oneAccountDenomination, oneAccountDescription, groupID);
         }
         return false;
     }

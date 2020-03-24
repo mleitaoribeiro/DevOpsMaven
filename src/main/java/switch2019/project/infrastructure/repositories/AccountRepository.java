@@ -48,10 +48,13 @@ public class AccountRepository implements Repository {
      * @return
      */
 
-    public boolean createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        if (!isAccountIDOnRepository(new AccountID(accountDenomination, ownerID)))
-            return this.accounts.add(new Account(accountDenomination, accountDescription, ownerID));
-        else throw new IllegalArgumentException("This Account already exists for that ID.");
+    public Account createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
+        if (!isAccountIDOnRepository(new AccountID(accountDenomination, ownerID))) {
+            Account account = new Account(accountDenomination, accountDescription, ownerID);
+            accounts.add(account);
+            return account;
+
+        } else throw new IllegalArgumentException("This Account already exists for that ID.");
     }
 
     /**
