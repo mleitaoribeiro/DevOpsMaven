@@ -23,7 +23,7 @@ public class CreateCategoryInGroupDTO {
      * @return
      */
 
-    public String getDescription() {
+    public String getGroupDescription() {
         return groupDescription;
     }
 
