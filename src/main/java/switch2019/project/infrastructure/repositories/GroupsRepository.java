@@ -34,10 +34,13 @@ public class GroupsRepository implements Repository {
      * @param groupDescription
      * @param groupCreator
      */
-    public boolean createGroup(Description groupDescription, Person groupCreator) {
+    public Group createGroup(Description groupDescription, Person groupCreator) {
         if(!isGroupIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
-            return this.groups.add(group1) && group1.isGroupAdmin(groupCreator);
+            if (this.groups.add(group1) && group1.isGroupAdmin(groupCreator)){
+                return group1;
+            }
+            else throw new IllegalArgumentException("The person is not the Group Admin.");
         }
         else throw new IllegalArgumentException("This Group Description already exists.");
     }

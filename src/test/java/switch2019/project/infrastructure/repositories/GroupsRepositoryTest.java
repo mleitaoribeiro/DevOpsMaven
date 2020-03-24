@@ -32,12 +32,13 @@ class GroupsRepositoryTest {
         GroupsRepository groupsRepository = new GroupsRepository();
         Person person1 = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+        Group expected = new Group(new Description("Test Person"), person1);
 
         //Act
-        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Test Person"), person1);
+        Group groupCreated = groupsRepository.createGroup(new Description("Test Person"), person1);
 
         //Assert
-        assertTrue(wasGroupCreated);
+        assertEquals(expected,groupCreated);
 
     }
 
@@ -51,7 +52,7 @@ class GroupsRepositoryTest {
 
         //Act
         try {
-            boolean wasGroupCreated = groupsRepository.createGroup(null, person1);
+             groupsRepository.createGroup(null, person1);
         }
         catch (IllegalArgumentException ex) {
             assertEquals("The description can't be null.", ex.getMessage());
@@ -106,13 +107,15 @@ class GroupsRepositoryTest {
         Person person1 = new Person("Amy", new DateAndTime(1999, 5, 13), new Address("Boston"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
+        Group expected = new Group(new Description("Grupo Diferente"), person1);
+
         //Act
         groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
 
-        boolean wasGroupCreated = groupsRepository.createGroup(new Description("Grupo Diferente"), person1);
+        Group groupCreated = groupsRepository.createGroup(new Description("Grupo Diferente"), person1);
 
         //Assert
-        assertTrue(wasGroupCreated);
+        assertEquals(expected,groupCreated);
     }
 
     @Test
