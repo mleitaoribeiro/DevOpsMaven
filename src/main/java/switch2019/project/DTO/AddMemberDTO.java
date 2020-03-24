@@ -13,20 +13,6 @@ public class AddMemberDTO {
         this.groupDescription = groupDescription;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AddMemberDTO that = (AddMemberDTO) o;
-        return Objects.equals(personEmail, that.personEmail) &&
-                Objects.equals(groupDescription, that.groupDescription);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(personEmail, groupDescription);
-    }
-
     /**
      * Getter for personEmail
      * @return personEmail
