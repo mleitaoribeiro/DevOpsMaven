@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.repositories;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,16 +21,16 @@ class AccountRepositoryTest {
     private AccountRepository accountRepository;
 
     @BeforeEach
-    void universeSetUp () {
+    void universeSetUp() {
         accountRepository = new AccountRepository();
         accountRepository.createAccount(new Denomination("CGD"),
-                new Description("CGD"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
         accountRepository.createAccount(new Denomination("BPI"),
-                new Description("BPI"),  new PersonID(new Email("amadeu2@gmail.com")));
+                new Description("BPI"), new PersonID(new Email("amadeu2@gmail.com")));
         accountRepository.createAccount(new Denomination("BIC"),
-                new Description("BIC"),  new PersonID(new Email("amadeu2@gmail.com")));
+                new Description("BIC"), new PersonID(new Email("amadeu2@gmail.com")));
         accountRepository.createAccount(new Denomination("SAN"),
-                new Description("SAN"),  new PersonID(new Email("amadeu3@gmail.com")));
+                new Description("SAN"), new PersonID(new Email("amadeu3@gmail.com")));
     }
 
 
@@ -42,13 +43,15 @@ class AccountRepositoryTest {
     public void testIfAccountsWasAddedToTheRepositoryWithPersonID() {
         //Arrange
         AccountRepository accountRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("Revolut"),
+                new Description("Online Expenses"), new PersonID((new Email("martacarda@hotmail.com"))));
 
         //Act
-        boolean real = accountRepository.createAccount(new Denomination("Revolut"),
+        Account accountCreated = accountRepository.createAccount(new Denomination("Revolut"),
                 new Description("Online Expenses"), new PersonID(new Email("martacarda@hotmail.com")));
 
         //Assert
-        assertTrue(real);
+        assertEquals(accountExpected, accountCreated);
     }
 
     @Test
@@ -73,17 +76,28 @@ class AccountRepositoryTest {
     public void testIfAccountsWereAddedToTheRepositoryWithPersonID() {
         //Arrange
         AccountRepository accountRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("xpto"),
+                new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
+        Account accountExpected2 = new Account(new Denomination("xyz"),
+                new Description("general"), new PersonID(new Email("mariasousa@gmail.com")));
+        Account accountExpected3 = new Account(new Denomination("Millennium"),
+                new Description("Millennium Account"), new PersonID(new Email("antoniomagalhaes@isep.ipp.pt")));
+
 
         //Act
-        boolean real = accountRepository.createAccount(new Denomination("xpto"),
-                new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")))
-                && accountRepository.createAccount(new Denomination("xyz"),
-                new Description("general"), new PersonID(new Email("mariasousa@gmail.com")))
-                && accountRepository.createAccount(new Denomination("Millennium"),
+        Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
+        Account accountCreated2 = accountRepository.createAccount(new Denomination("xyz"),
+                new Description("general"), new PersonID(new Email("mariasousa@gmail.com")));
+        Account accountCreated3 = accountRepository.createAccount(new Denomination("Millennium"),
                 new Description("Millennium Account"), new PersonID(new Email("antoniomagalhaes@isep.ipp.pt")));
 
         //Assert
-        assertTrue(real);
+        Assertions.assertAll(
+                () -> assertEquals(accountExpected, accountCreated),
+                () -> assertEquals(accountExpected2, accountCreated2),
+                () -> assertEquals(accountExpected3, accountCreated3)
+        );
     }
 
     @Test
@@ -98,9 +112,7 @@ class AccountRepositoryTest {
         try {
             accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
-        }
-
-        catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             assertEquals("This Account already exists for that ID.", ex.getMessage());
         }
     }
@@ -117,9 +129,7 @@ class AccountRepositoryTest {
         try {
             accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new GroupID(new Description("Friends")));
-        }
-
-        catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             assertEquals("This Account already exists for that ID.", ex.getMessage());
         }
     }
@@ -129,13 +139,16 @@ class AccountRepositoryTest {
     public void testIfAccountsWasAddedToTheRepositoryWithGroupID() {
         //Arrange
         AccountRepository accountRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("Revolut"),
+                new Description("Online Expenses"), new GroupID((new Description("Randam Group"))));
+
 
         //Act
-        boolean real = accountRepository.createAccount(new Denomination("xpto"),
-                new Description("one account"), new GroupID(new Description("Random Group")));
+        Account accountCreated = accountRepository.createAccount(new Denomination("Revolut"),
+                new Description("Online Expenses"), new GroupID(new Description("Randam Group")));
 
         //Assert
-        assertTrue(real);
+        assertEquals(accountExpected, accountCreated);
     }
 
     @Test
@@ -145,7 +158,7 @@ class AccountRepositoryTest {
         AccountRepository accountRepository = new AccountRepository();
         //Act
         try {
-            boolean real = accountRepository.createAccount(new Denomination("xpto"),
+            Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new GroupID(new Description(null)));
             fail();
         }
@@ -160,18 +173,30 @@ class AccountRepositoryTest {
     public void testIfAccountsWereAddedToTheRepositoryGroupID() {
         //Arrange
         AccountRepository accountRepository = new AccountRepository();
+        Account accountExpected = new Account(new Denomination("xpto"),
+                new Description("one account"), new GroupID(new Description("familia")));
+        Account accountExpected2 = new Account(new Denomination("xyz"),
+                new Description("general"), new GroupID(new Description("copos")));
+        Account accountExpected3 = new Account(new Denomination("Millennium"),
+                new Description("Millennium Account"), new GroupID(new Description("andorinhas")));
+
 
         //Act
-        boolean real = accountRepository.createAccount(new Denomination("xpto"),
-                new Description("one account"), new GroupID(new Description("Friends")))
-                && accountRepository.createAccount(new Denomination("xyz"),
-                new Description("general"),  new GroupID(new Description("Business")))
-                && accountRepository.createAccount(new Denomination("Millennium"),
-                new Description("Millennium Account"), new GroupID(new Description("Working Group")));
+        Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
+                new Description("one account"), new GroupID(new Description("familia")));
+        Account accountCreated2 = accountRepository.createAccount(new Denomination("xyz"),
+                new Description("general"), new GroupID(new Description ("copos")));
+        Account accountCreated3 = accountRepository.createAccount(new Denomination("Millennium"),
+                new Description("Millennium Account"), new GroupID(new Description("andorinhas")));
 
         //Assert
-        assertTrue(real);
+        Assertions.assertAll(
+                () -> assertEquals(accountExpected, accountCreated),
+                () -> assertEquals(accountExpected2, accountCreated2),
+                () -> assertEquals(accountExpected3, accountCreated3)
+        );
     }
+
 
     @Test
     @DisplayName("Test if more than one account was added to the repository with PersonID - one Account Denomination Is Null")
@@ -244,7 +269,7 @@ class AccountRepositoryTest {
                 && accountRepository.isAccountIDOnRepository(otherAccount.getID());
 
         //Assert
-       assertTrue(real);
+        assertTrue(real);
     }
 
     @Test
@@ -285,12 +310,12 @@ class AccountRepositoryTest {
     public void testIfAccountsRepositoryContainAccountTrue() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"), new Description("cat acccount"),
-                new PersonID( new Email("mocho@gmail.com")));
+                new PersonID(new Email("mocho@gmail.com")));
         AccountRepository accountRepository = new AccountRepository();
 
         //Act
         accountRepository.createAccount(new Denomination("xpto"),
-                new Description("cat acccount"), new PersonID( new Email("mocho@gmail.com")));
+                new Description("cat acccount"), new PersonID(new Email("mocho@gmail.com")));
 
         boolean expected = accountRepository.isAccountIDOnRepository(oneAccount.getID());
 
@@ -303,7 +328,7 @@ class AccountRepositoryTest {
     public void testIfAccountsRepositoryContainAccountFalse() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("cat acccount"), new PersonID( new Email("mocho@gmail.com")));
+                new Description("cat acccount"), new PersonID(new Email("mocho@gmail.com")));
         AccountRepository accountRepository = new AccountRepository();
 
         //Act
@@ -318,17 +343,17 @@ class AccountRepositoryTest {
     @DisplayName("Test if an account was removed from an accounts Repository")
     public void testIfOneAccountWasRemoved() {
         Account butcher = new Account(new Denomination("Butcher"),
-                new Description("Talho do Amadeu"), new PersonID( new Email("amadeu1@gmail.com")));
+                new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
         AccountRepository accountRepository = new AccountRepository();
 
         //Act
         accountRepository.createAccount(new Denomination("Butcher"),
-                new Description("Talho do Amadeu"), new PersonID( new Email("amadeu1@gmail.com")));
+                new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         accountRepository.createAccount(new Denomination("Market"),
-                new Description("Mercado do Amadeu"), new PersonID( new Email("amadeu2@gmail.com")));
+                new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu2@gmail.com")));
         accountRepository.createAccount(new Denomination("Post"),
-                new Description("Correios do Amadeu"), new PersonID( new Email("amadeu3@gmail.com")));
+                new Description("Correios do Amadeu"), new PersonID(new Email("amadeu3@gmail.com")));
 
         accountRepository.removeOneAccountFromRepository(butcher);
 
@@ -347,9 +372,9 @@ class AccountRepositoryTest {
 
         //Act
         accountRepository.createAccount(new Denomination("Butcher"),
-                new Description("Talho do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         accountRepository.createAccount(new Denomination("Market"),
-                new Description("Mercado do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
         accountRepository.removeOneAccountFromRepository(post);
 
@@ -368,11 +393,11 @@ class AccountRepositoryTest {
 
         //Act
         oneAccountsList.createAccount(new Denomination("Butcher"),
-                new Description("Talho do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         oneAccountsList.createAccount(new Denomination("Market"),
-                new Description("Mercado do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         oneAccountsList.createAccount(new Denomination("Post"),
-                new Description("Correios do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Correios do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         boolean real = oneAccountsList.removeOneAccountFromRepository(oneAccount);
 
         //Assert
@@ -386,17 +411,17 @@ class AccountRepositoryTest {
 
         //Arrange
         Account oneAccount = new Account(new Denomination("Post"),
-                new Description("Correios do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Correios do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
         AccountRepository oneAccountsList = new AccountRepository();
 
         //Act
         oneAccountsList.createAccount(new Denomination("Butcher"),
-                new Description("Talho do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         oneAccountsList.createAccount(new Denomination("Market"),
-                new Description("Mercado do Amadeu"),  new PersonID(new Email("amadeu2@gmail.com")));
+                new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu2@gmail.com")));
         oneAccountsList.createAccount(new Denomination("POST"),
-                new Description("Correios do Amadeu"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("Correios do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
         boolean real = oneAccountsList.removeOneAccountFromRepository(oneAccount);
 
@@ -413,12 +438,12 @@ class AccountRepositoryTest {
     @DisplayName("Test if account is in the Repository-True")
     void validateIfAccountIsInTheAccountsRepository() {
         //Arrange
-        Account oneAccount = new Account(new Denomination("xpto"), new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
+        Account oneAccount = new Account(new Denomination("xpto"), new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
         AccountRepository accountsRepository = new AccountRepository();
 
         //Act
         accountsRepository.createAccount(new Denomination("xpto"),
-                new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
         boolean validateIfAccountIsInTheAccountsList = accountsRepository.isAccountIDOnRepository(oneAccount.getID());
 
         //Arrange
@@ -430,7 +455,7 @@ class AccountRepositoryTest {
     void validateIfAccountIsInTheAccountsRepositoryFalse() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("xpto Account"),  new PersonID(new Email("xpto@gmail.com")));
+                new Description("xpto Account"), new PersonID(new Email("xpto@gmail.com")));
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("xyz Account"), new PersonID(new Email("xyz@gmail.com")));
         AccountRepository accountsList = new AccountRepository();
@@ -441,7 +466,7 @@ class AccountRepositoryTest {
         boolean validateIfAccountIsInTheAccountsList = accountsList.isAccountIDOnRepository(otherAccount.getID());
 
         //Arrange
-         assertFalse(validateIfAccountIsInTheAccountsList);
+        assertFalse(validateIfAccountIsInTheAccountsList);
     }
 
     /**
@@ -458,9 +483,9 @@ class AccountRepositoryTest {
 
         //Act:
         testAccountsList.createAccount(new Denomination("test account 1"),
-                new Description("account for test purposes"), new PersonID( new Email("test@gmail.com")));
+                new Description("account for test purposes"), new PersonID(new Email("test@gmail.com")));
         testAccountsList.createAccount(new Denomination("test account 2"),
-                new Description("account for test purposes"), new PersonID( new Email("test2@gmail.com")));
+                new Description("account for test purposes"), new PersonID(new Email("test2@gmail.com")));
         String result = testAccountsList.toString();
 
         //Assert:
@@ -480,7 +505,7 @@ class AccountRepositoryTest {
         Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
                 new PersonID(new Email("amadeu1@gmail.com")));
         accountsRepository.createAccount(new Denomination("xpto"),
-                new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
 
         //Act
         Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
@@ -498,7 +523,7 @@ class AccountRepositoryTest {
         Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
                 new PersonID(new Email("lol@gmail.com")));
         accountsRepository.createAccount(new Denomination("xpto"),
-                new Description("xpto Account"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
 
         //Act
         Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
@@ -507,7 +532,6 @@ class AccountRepositoryTest {
         //Arrange
         assertNotEquals(accountExpected, accountReturned);
     }
-
 
 
     /**
@@ -519,7 +543,7 @@ class AccountRepositoryTest {
     void returnAccountsByOwnerIDOneAccount() {
         //Arrange
         Account cgdAccount = new Account(new Denomination("CGD"),
-                new Description("CGD"),  new PersonID(new Email("amadeu1@gmail.com")));
+                new Description("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
 
         //Expected List of Accounts
         Set<Account> expected = new HashSet<>(Arrays.asList(cgdAccount));
@@ -536,9 +560,9 @@ class AccountRepositoryTest {
     void returnAccountsByOwnerIDSeveralAccount() {
         //Arrange
         Account bpiAccount = new Account(new Denomination("BPI"),
-                new Description("BPI"),  new PersonID(new Email("amadeu2@gmail.com")));
+                new Description("BPI"), new PersonID(new Email("amadeu2@gmail.com")));
         Account bicAccount = new Account(new Denomination("BIC"),
-                new Description("BIC"),  new PersonID(new Email("amadeu2@gmail.com")));
+                new Description("BIC"), new PersonID(new Email("amadeu2@gmail.com")));
 
         //Expected List of Accounts
         Set<Account> expected = new HashSet<>(Arrays.asList(bpiAccount, bicAccount));
@@ -630,7 +654,6 @@ class AccountRepositoryTest {
             assertEquals("No account found with that ID.", ex.getMessage());
         }
     }
-
 
 
 }

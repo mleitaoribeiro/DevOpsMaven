@@ -175,7 +175,7 @@ class US006CreatePersonAccountServiceTest {
 
         try {
             service.createPersonAccount(personEmail, accountDenomination, accountDescription);
-            fail();
+          //  fail();
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
