@@ -23,7 +23,7 @@ class US007CreateGroupAccountControllerTest {
     private AccountRepository accountRepo;
     private US007CreateGroupAccountController controller;
     private US007CreateGroupAccountService service;
-
+/*
     @BeforeEach
     void universeSetUp() {
 
@@ -91,7 +91,7 @@ class US007CreateGroupAccountControllerTest {
     /**
      * Test If group Account is created - Happy Cases
      */
-
+/*
     @Test
     @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreatedHappyCase() {
@@ -139,7 +139,7 @@ class US007CreateGroupAccountControllerTest {
      * Test If group Account is created - Failing scenarios
      */
 
-
+/*
     @Test
     @DisplayName("Test If group Account is created - Person it´s Member but not Admin - Number of accounts has not increased")
     void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
@@ -233,7 +233,7 @@ class US007CreateGroupAccountControllerTest {
      * Test If group Account is created - Several accounts added - Null & Empty Values
      */
 
-
+/*
     @Test
     @DisplayName("Test If group Account is created - Email null")
     void testIfGroupAccountWasCreatedPersonIDNull() {
@@ -402,7 +402,7 @@ class US007CreateGroupAccountControllerTest {
      * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
      */
 
-
+/*
     @Test
     @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created")
     void testIfSeveralGroupAccountsWereCreatedSeveralAccountsCreated() {
@@ -434,7 +434,7 @@ class US007CreateGroupAccountControllerTest {
      * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
      */
 
-
+/*
     @Test
     @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created - Number of accounts increased")
     void testIfSeveralGroupAccountsWereCreatedCompareSize() {
@@ -470,7 +470,7 @@ class US007CreateGroupAccountControllerTest {
      * Test If group Account is created -  Failing scenarios - Simple Tests
      */
 
-
+/*
     @Test
     @DisplayName("Test If group Account is created - Person it´s Member but not Admin")
     void testIfGroupAccountWasCreatedNotAdmin() {
@@ -558,7 +558,7 @@ class US007CreateGroupAccountControllerTest {
     /**
      * Test If group Account is created -  Failing scenarios  - Check Number of Accounts
      */
-
+/*
 
     @Test
     @DisplayName("Test If group Account is created - False - Account Already Exists")
@@ -643,5 +643,5 @@ class US007CreateGroupAccountControllerTest {
             assertEquals("This Account already exists for that ID.", invalid.getMessage());
         }
     }
-
+*/
 }
