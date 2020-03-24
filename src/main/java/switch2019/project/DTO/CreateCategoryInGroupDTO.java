@@ -23,14 +23,26 @@ public class CreateCategoryInGroupDTO {
      * @return
      */
 
-    public String getDescription() {
+    /**
+     * Getter for the groupDescription
+     * @return groupDescription
+     */
+    public String getGroupDescription() {
         return groupDescription;
     }
 
+    /**
+     * Getter for the personEmail
+     * @return personEmail
+     */
     public String getPersonEmail() {
         return personEmail;
     }
 
+    /**
+     * Getter for the categoryDenomination
+     * @return
+     */
     public String getCategoryDenomination() {
         return categoryDenomination;
     }
