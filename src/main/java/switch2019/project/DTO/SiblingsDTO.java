@@ -1,5 +1,7 @@
 package switch2019.project.DTO;
 
+import java.util.Objects;
+
 public class SiblingsDTO {
 
     private String emailPersonOne;
@@ -10,11 +12,24 @@ public class SiblingsDTO {
         this.emailPersonTwo = emailPersonTwo;
     }
 
+
+    /**
+     * get email of PersonOne
+     * @return emailPersonOne
+     */
+
     public String getEmailPersonOne() {
         return emailPersonOne;
     }
 
+    /**
+     * get email of PersonTwo
+     * @return emailPersonTwo
+     */
+
     public String getEmailPersonTwo() {
         return emailPersonTwo;
     }
+
+
 }
