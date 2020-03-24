@@ -2,7 +2,7 @@ package switch2019.project.DTO;
 
 public class CreateCategoryInGroupDTO {
 
-    //this DTO contains all the information necessary to create a category and associate it with a Group.
+    /**this DTO contains all the information necessary to create a Category and associate it with a Group.*/
 
     //description - Group description, necessary to find the GroupID and therefore the Group where the category will be created.
     //personEmail - Person email, necessary to find the PersonID and therefore find if the Person is an admin on the Group where the category will be created.
