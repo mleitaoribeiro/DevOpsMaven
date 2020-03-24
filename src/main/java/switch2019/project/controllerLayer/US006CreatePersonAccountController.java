@@ -20,10 +20,12 @@ public class US006CreatePersonAccountController {
      * @param accountDescription
      * @return
      */
-
+/*
     public boolean createPersonAccount(String personEmail, String accountDenomination,
                                        String accountDescription) {
         return service.createPersonAccount(personEmail, accountDenomination, accountDescription);
     }
+    */
+
 }
 

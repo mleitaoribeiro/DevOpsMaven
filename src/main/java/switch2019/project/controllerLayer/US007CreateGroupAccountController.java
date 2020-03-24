@@ -1,6 +1,11 @@
 package switch2019.project.controllerLayer;
 
+import switch2019.project.DTO.AccountDTO;
+import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
+import switch2019.project.domain.domainEntities.account.Account;
+
+import java.util.Optional;
 
 public class US007CreateGroupAccountController {
 
@@ -16,16 +21,23 @@ public class US007CreateGroupAccountController {
     /**
      * US007 - As a group Admin, I want to create a group account
      *
-     * @param personEmail
-     * @param groupDescription
-     * @param accountDenomination
-     * @param accountDescription
+     * @param accountDTO
+     * @param
+     * @param
      * @return
      */
 
-    public boolean createGroupAccount (String personEmail, String groupDescription, String accountDenomination, String accountDescription ) {
+    public Optional<AccountDTO> createGroupAccount (CreateGroupAccountDTO accountDTO) {
 
-        return service.createGroupAccount(personEmail, groupDescription, accountDenomination, accountDescription);
+        Optional <Account> ret = service.createGroupAccount(accountDTO);
+        if (ret.isPresent()){
+            Account account = ret.get();
+            AccountDTO dto = new AccountDTO(account.getOwnerID().toString(), account.denominationToString(), account.getDescription());
+            return Optional.of(dto);
+        } else {
+            return Optional.empty();
+        }
+
 
     }
 

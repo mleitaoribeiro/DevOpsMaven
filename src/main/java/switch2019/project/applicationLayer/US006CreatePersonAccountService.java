@@ -24,10 +24,12 @@ public class US006CreatePersonAccountService {
      * @param accountDescription
      * @return
      */
-
+/*
     public boolean createPersonAccount(String personEmail, String accountDenomination, String accountDescription) {
             if (personRepository.isPersonIDOnRepository(new PersonID(new Email(personEmail))))
                 return accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription), new PersonID( new Email(personEmail)));
             else throw new IllegalArgumentException("This Person ID doesn't exist.");
     }
+    */
+
 }

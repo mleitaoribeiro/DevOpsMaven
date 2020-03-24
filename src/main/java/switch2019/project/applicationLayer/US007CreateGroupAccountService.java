@@ -1,6 +1,9 @@
 package switch2019.project.applicationLayer;
 
 
+import switch2019.project.DTO.AccountDTO;
+import switch2019.project.DTO.CreateGroupAccountDTO;
+import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
@@ -10,6 +13,8 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
+
+import java.util.Optional;
 
 public class US007CreateGroupAccountService {
 
@@ -26,30 +31,26 @@ public class US007CreateGroupAccountService {
     /**
      *US007 - As a group Admin, I want to create a group account
      *
-     * @param personEmail
-     * @param groupDescription
-     * @param accountDenomination
-     * @param accountDescription
+     * @param accountDTO
+     * @param
      * @return
      */
 
-    public boolean createGroupAccount (String personEmail, String groupDescription ,
-                                       String accountDenomination, String accountDescription ) {
+    public Optional<Account> createGroupAccount (CreateGroupAccountDTO accountDTO) {
 
-        PersonID personID = personRepository.findPersonByEmail(new Email (personEmail)).getID();
+        PersonID personID = personRepository.findPersonByEmail(new Email(accountDTO.getPersonEmail())).getID();
 
-        Denomination oneAccountDenomination = new Denomination(accountDenomination);
-        Description oneAccountDescription = new Description(accountDescription);
+        Denomination oneAccountDenomination = new Denomination(accountDTO.getAccountDenomination());
+        Description oneAccountDescription = new Description(accountDTO.getAccountDescription());
 
-        Group group = groupsRepository.findGroupByDescription( new Description( groupDescription));
+        Group group = groupsRepository.findGroupByDescription(new Description(accountDTO.getGroupDescription()));
         GroupID groupID = group.getID();
 
-        boolean personIsGroupAdmin = group.isGroupAdmin(personID);
+        if (group.isGroupAdmin(personID)) {
 
-        if (personIsGroupAdmin) {
-            return accountRepository.createAccount(oneAccountDenomination, oneAccountDescription, groupID);
+            return Optional.of(accountRepository.createAccount(oneAccountDenomination, oneAccountDescription, groupID));
         }
-        return false;
+        else return Optional.empty();
     }
 
 }
