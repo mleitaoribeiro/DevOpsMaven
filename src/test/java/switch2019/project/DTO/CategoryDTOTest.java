@@ -19,7 +19,7 @@ public class CategoryDTOTest {
         CategoryDTO dto = new CategoryDTO("Groceries", "ID");
 
         //Act:
-        String description = dto.getDescription();
+        String description = dto.getDenomination();
 
         //Assert:
         assertEquals("Groceries", description);

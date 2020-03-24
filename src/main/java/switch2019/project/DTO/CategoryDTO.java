@@ -7,11 +7,14 @@ import java.util.Objects;
 public class CategoryDTO {
     // The Category DTO transfers strings that refer to Category attributes:
 
-    private String description;
+    //denomination .- a String refering to the Category Denomination attribute
+    //categoryID .- a String refering to the Category Denomination and the OwnerID (which can be either a PersonID or GroupID)
+
+    private String denomination;
     private String categoryID;
 
-    public CategoryDTO(String description, String categoryID) {
-        this.description = description;
+    public CategoryDTO(String denomination, String categoryID) {
+        this.denomination = denomination;
         this.categoryID = categoryID;
     }
 
@@ -20,21 +23,21 @@ public class CategoryDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CategoryDTO dto = (CategoryDTO) o;
-        return Objects.equals(description, dto.description) &&
+        return Objects.equals(denomination, dto.denomination) &&
                 Objects.equals(categoryID, dto.categoryID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, categoryID);
+        return Objects.hash(denomination, categoryID);
     }
 
     /**
      * Getter for the Category description
      * @return
      */
-    public String getDescription() {
-        return description;
+    public String getDenomination() {
+        return denomination;
     }
 
     /**
