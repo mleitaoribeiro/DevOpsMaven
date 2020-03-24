@@ -8,27 +8,22 @@ public class CreateCategoryInGroupDTO {
     //personEmail - Person email, necessary to find the PersonID and therefore find if the Person is an admin on the Group where the category will be created.
     //categoryDenomination - this String will become the denominationValue of the Denomination which is essentially the name of the Category that will be created.
 
-    private String groupDescription;
+    private String groupDenomination;
     private String personEmail;
     private String categoryDenomination;
 
     public CreateCategoryInGroupDTO(String groupDescription, String personEmail, String categoryDenomination) {
-        this.groupDescription = groupDescription;
+        this.groupDenomination = groupDescription;
         this.personEmail = personEmail;
         this.categoryDenomination = categoryDenomination;
     }
-
-    /**
-     * Getters used to obtain the attribute Strings, outside of this class:
-     * @return
-     */
 
     /**
      * Getter for the groupDescription
      * @return groupDescription
      */
     public String getGroupDescription() {
-        return groupDescription;
+        return groupDenomination;
     }
 
     /**
