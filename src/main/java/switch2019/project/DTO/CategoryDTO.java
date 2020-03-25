@@ -1,7 +1,5 @@
 package switch2019.project.DTO;
 
-import switch2019.project.domain.domainEntities.shared.Denomination;
-
 import java.util.Objects;
 
 public class CategoryDTO {

@@ -37,12 +37,9 @@ public class GroupsRepository implements Repository {
     public Group createGroup(Description groupDescription, Person groupCreator) {
         if(!isGroupIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
-            if (this.groups.add(group1) && group1.isGroupAdmin(groupCreator)){
+            groups.add(group1);
                 return group1;
-            }
-            else throw new IllegalArgumentException("The person is not the Group Admin.");
-        }
-        else throw new IllegalArgumentException("This Group Description already exists.");
+        } else throw new IllegalArgumentException("This Group Description already exists.");
     }
 
     /**

@@ -5,7 +5,7 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AdminCreateGroupDTOTest {
+class AdminCreateGroupAndFirstAdminDTOTest {
 
     /**
      * Tests for the different getter methods

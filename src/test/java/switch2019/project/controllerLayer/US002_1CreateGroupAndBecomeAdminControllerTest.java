@@ -3,11 +3,11 @@ package switch2019.project.controllerLayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.AdminCreateGroupDTO;
+import switch2019.project.DTO.GroupAndFirstAdminDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US002_1CreateGroupAndBecomeAdminService;
@@ -40,7 +40,6 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         controller = new US002_1CreateGroupAndBecomeAdminController(service);
     }
 
-
     /**
      * US002.1
      * Test if a group was created and person is admin
@@ -49,22 +48,19 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
     @Test
     @DisplayName("Main scenario")
-    void createGroupAndBecomeAdminDoubleCheck() {
+    void createGroupAndBecomeAdmin() {
 
         //Arrange
         String groupDescription = "Bashtards";
-        String email = "1234@isep.pt";
-
-        PersonID personID = new PersonID(new Email(email)); //usado para confirmar este ficou admin
-
+        String personEmail = "1234@isep.pt";
+        AdminCreateGroupDTO adminCreateGroupDTO = new AdminCreateGroupDTO(groupDescription, personEmail);
+        GroupAndFirstAdminDTO expected = new GroupAndFirstAdminDTO(groupDescription, personEmail);
 
         //Act
-        boolean isGroupCreatedAndAdminSet = controller.createGroupAndBecomeAdmin(groupDescription, email);
-        //boolean isAdmin = groupsRepository.findGroupByDescription(new Description(
-        //         "Bashtards")).isGroupAdmin(personID);
+        GroupAndFirstAdminDTO isGroupCreatedAndAdminSet = controller.createGroupAndBecomeAdmin(adminCreateGroupDTO).get();
 
         //Assert
-        // assertTrue(isGroupCreatedAndAdminSet && isAdmin);
+        assertEquals(expected, isGroupCreatedAndAdminSet);
     }
 
 
@@ -74,11 +70,11 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Arrange
         String groupDescription = "Bashtards";
-        String email = "12345@isep.pt";
+        String personEmail = "12345@isep.pt";
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(groupDescription, email);
+            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
         }
 
         //Assert
@@ -93,13 +89,16 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Arrange
         String groupDescription = "Bashtards";
-        String email = "1234@isep.pt";
-        controller.createGroupAndBecomeAdmin(groupDescription, email);
+        String personEmail = "1234@isep.pt";
+        controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(groupDescription, email);
-        } catch (IllegalArgumentException ex) {
+            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
+        }
+
+        //Assert
+        catch (IllegalArgumentException ex) {
             assertEquals("This Group Description already exists.", ex.getMessage());
         }
     }
@@ -110,33 +109,17 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Arrange
         String groupDescription = "Bashtards";
-        String email = "12345isep.pt";
+        String personEmail = "12345isep.pt";
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(groupDescription, email);
+            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
         }
 
         //Assert
         catch (IllegalArgumentException e) {
             assertEquals("The email it´s not valid", e.getMessage());
         }
-    }
-
-    @Test
-    @DisplayName("Both null fields")
-    void createGroupAndGroupNullFields() {
-
-        //Act
-        try {
-            controller.createGroupAndBecomeAdmin(null, null);
-        }
-
-        //Assert
-        catch (IllegalArgumentException ex) {
-            assertEquals("The description can't be null or empty.", ex.getMessage());
-        }
-
     }
 
     @Test
@@ -147,7 +130,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         String groupDescription = "Bashtards";
 
         try {
-            controller.createGroupAndBecomeAdmin(groupDescription, null);
+            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, null));
         }
 
         //Assert
@@ -161,11 +144,11 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
     void createGroupAndGroupNullGroupDescription() {
 
         //Assert
-        String personID = "1234@isep.pt";
+        String personEmail = "1234@isep.pt";
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(null, personID);
+            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(null, personEmail));
         }
 
         //Assert
