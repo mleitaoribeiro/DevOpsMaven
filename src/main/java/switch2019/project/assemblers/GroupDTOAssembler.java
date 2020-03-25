@@ -11,7 +11,7 @@ public class GroupDTOAssembler {
      * @param groupID
      * @return
      */
-    public GroupAndFirstAdminDTO createGroupDTO(GroupID groupID, PersonID adminID) {
+    public static GroupAndFirstAdminDTO createGroupDTO(GroupID groupID, PersonID adminID) {
         return new GroupAndFirstAdminDTO(groupID.getDescription(), adminID.getEmail());
     }
 }
