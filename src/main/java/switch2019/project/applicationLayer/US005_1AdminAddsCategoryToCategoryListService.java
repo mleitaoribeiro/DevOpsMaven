@@ -1,4 +1,4 @@
-package switch2019.project.services;
+package switch2019.project.applicationLayer;
 
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
 import switch2019.project.domain.domainEntities.category.Category;
