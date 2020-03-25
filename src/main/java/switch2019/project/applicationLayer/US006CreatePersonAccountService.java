@@ -23,10 +23,10 @@ public class US006CreatePersonAccountService {
 
 
     /**
-     * US006
-     * Create Person Account
+     * User Story 6
+     * As a user, I want to create a account
+     *
      * @param accountDTO
-     * @return
      */
     public Optional<Account> createPersonAccount(CreatePersonAccountDTO accountDTO) {
 
