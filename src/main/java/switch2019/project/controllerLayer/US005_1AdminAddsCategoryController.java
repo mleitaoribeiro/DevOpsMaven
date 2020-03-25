@@ -1,12 +1,10 @@
 package switch2019.project.controllerLayer;
 
-
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService;
-
 import java.util.Optional;
 
 
