@@ -44,11 +44,8 @@ public class US007CreateGroupAccountService {
         Group group = groupsRepository.findGroupByDescription(new Description(accountDTO.getGroupDescription()));
         GroupID groupID = group.getID();
 
-        if (group.isGroupAdmin(personID)) {
-
+        if (group.isGroupAdmin(personID))
             return Optional.of(accountRepository.createAccount(oneAccountDenomination, oneAccountDescription, groupID));
-        }
         else return Optional.empty();
     }
-
 }
