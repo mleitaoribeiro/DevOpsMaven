@@ -12,6 +12,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountControllerTest {
@@ -56,7 +57,6 @@ class US006CreatePersonAccountControllerTest {
 
     }
 
-
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
     void testIfPersonAccountIsCreated() {
@@ -94,6 +94,35 @@ class US006CreatePersonAccountControllerTest {
 
     }
 
+    @Test
+    @DisplayName("Test If person Account is created - Happy Case - Number of accounts increased")
+    void testIfPersonAccountWasCreatedCompareSize() {
+
+        //Arrange
+        String personEmail = "jose.cardoso@hotmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        int expectedAccountsBefore = 0;
+        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int numberOfExpectedAccountsInTheRepositoryAfter = 1;
+        AccountDTO expected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        AccountDTO accountCreated = controller.createPersonAccount(createPersonAccountDTO).get();
+
+        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expected, accountCreated),
+                () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
+                () -> assertEquals(numberOfExpectedAccountsInTheRepositoryAfter, realNumberOfAccountsInTheRepositoryAfter)
+        );
+    }
+
 
     @Test
     @DisplayName("Test If User Account is Created - person ID does not exists in Repository")
@@ -127,6 +156,8 @@ class US006CreatePersonAccountControllerTest {
         CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
+        controller.createPersonAccount(personAccountDTO).get();
+
         try {
             controller.createPersonAccount(personAccountDTO).get();
         }
@@ -136,6 +167,39 @@ class US006CreatePersonAccountControllerTest {
         }
     }
 
+
+    @Test
+    @DisplayName("Test If person Account isn't created - account already exists on repository - Number of accounts has not increased")
+    void testIfPersonAccountWasNotCreatedCompareSize() {
+
+        //Arrange
+        String personEmail = "maria.santos@live.com.pt";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        int expectedAccountsBefore = 1;
+        int expectedAccountsAfter = 1;
+
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        controller.createPersonAccount(personAccountDTO);
+        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        try {
+            controller.createPersonAccount(personAccountDTO);
+
+        //Assert
+        } catch (IllegalArgumentException accountAlreadyExists) {
+            int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+            Assertions.assertAll(
+                    () -> assertEquals("This Account already exists for that ID.", accountAlreadyExists.getMessage()),
+                    () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
+                    () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
+            );
+        }
+
+    }
 
     @Test
     @DisplayName("Test If User Account is Created - person ID null")
@@ -214,10 +278,11 @@ class US006CreatePersonAccountControllerTest {
         try {
             controller.createPersonAccount(personAccountDTO).get();
 
-        //Assert
+            //Assert
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
+
 
 }
