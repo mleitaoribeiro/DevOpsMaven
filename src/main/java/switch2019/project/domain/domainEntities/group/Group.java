@@ -105,10 +105,9 @@ public class Group implements Owner {
      * @return true if person was promoted, false if it wasn't
      */
     public boolean setAdmin(Person person) {
-        if (person != null && isGroupMember(person.getID())) {
+        if (person != null && isGroupMember(person.getID()))
             return this.admins.add(person);
-        }
-        return false;
+        else return false;
     }
 
     /**
@@ -146,7 +145,7 @@ public class Group implements Owner {
     public boolean isGroupMember(Person isMember) {
         if (isMember != null)
             return this.members.contains(isMember);
-        return false;
+       else return false;
     }
 
     /**
@@ -189,7 +188,7 @@ public class Group implements Owner {
         if (!members.isEmpty())
             for (Person member : newMembers)
                 members.add(member);
-        return members.containsAll(newMembers);
+            return members.containsAll(newMembers);
     }
 
     /**

@@ -167,17 +167,27 @@ class GroupTest {
     }
 
     @Test
-    @DisplayName("Compare ")
+    @DisplayName("Person is not member")
     public void isGroupMemberFalseCase() {
         //Arrange
         Group group = new Group(new Description("Mary"));
-        Person person = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         //Act
         boolean isGroupMember = group.isGroupMember(person2);
+
+        //Assert
+        assertFalse(isGroupMember);
+    }
+
+    @Test
+    @DisplayName("Person is not member - null case")
+    public void isGroupMemberNullCase() {
+        //Arrange
+        Group group = new Group(new Description("Mary"));
+        Person person = null;
+        //Act
+        boolean isGroupMember = group.isGroupMember(person);
 
         //Assert
         assertFalse(isGroupMember);
@@ -268,7 +278,7 @@ class GroupTest {
 
     @Test
     @DisplayName("Test if the same person is not added twice")
-    void addMultipleMembersSamePersonNotTwice() {
+    void addSamePersonTwice() {
 
         //Arrange
         Group group1 = new Group(new Description("Maria's Group"));
@@ -289,6 +299,46 @@ class GroupTest {
         assertFalse(person2NotAdded);
     }
 
+    @Test
+    @DisplayName("Test if multiple members are not added to an empty group")
+    void addMultipleMembersEmptyGroup() {
+
+        //Arrange
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"));
+        Person admin = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
+        group1.addMember(admin);
+        Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
+        //Act
+        boolean result = group1.addMultipleMembers(putMembers);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if multiple members are not added to an empty group")
+    void addMultipleMembersMembers() {
+
+        //Arrange
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"));
+        Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
+
+        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
+        //Act
+        boolean result = group1.addMultipleMembers(putMembers);
+
+        //Assert
+        assertFalse(result);
+    }
 
     /**
      * Test if member was removed from Group
@@ -1207,6 +1257,7 @@ class GroupTest {
         //Assert
         assertFalse(isMember);
     }
+
 
 
     /**
