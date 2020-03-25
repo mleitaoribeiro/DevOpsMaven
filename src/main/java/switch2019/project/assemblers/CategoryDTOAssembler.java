@@ -8,6 +8,8 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 
 public class CategoryDTOAssembler {
 
+    private CategoryDTOAssembler () {}
+
     /**
      * This Method transforms the objects contained in a Category into Strings, in order to create a CategoryDTO.
      * @param denomination - Category Denomination
