@@ -26,7 +26,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
     private static GroupsRepository groupsRepository;
     private static CategoryRepository categoryRepository;
     private static PersonRepository personRepository;
-    private static switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService service;
+    private static US005_1AdminAddsCategoryToCategoryListService service;
 
     //using before each for the arrangements before the tests:
     @BeforeEach
@@ -38,7 +38,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         personRepository = new PersonRepository();
 
         //arrangement of the service:
-        service = new switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService(groupsRepository, categoryRepository, personRepository);
+        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository, categoryRepository, personRepository);
 
         //arrangement of the persons:
         Person personFrancisco = personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),

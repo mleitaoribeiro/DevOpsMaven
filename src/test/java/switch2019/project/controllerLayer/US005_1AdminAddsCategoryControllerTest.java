@@ -14,7 +14,7 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
-import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService;
+import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
 
 import java.util.Optional;
 
