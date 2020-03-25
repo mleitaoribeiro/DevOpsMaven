@@ -166,12 +166,22 @@ class GroupTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Compare ")
+    public void isGroupMemberFalseCase() {
+        //Arrange
+        Group group = new Group(new Description("Mary"));
+        Person person = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
-    /**
-     * US002 - check if group was added to groupList
-     * Methods to check if the number of groups in the GroupList is increased
-     */
+        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
+        //Act
+        boolean isGroupMember = group.isGroupMember(person2);
 
+        //Assert
+        assertFalse(isGroupMember);
+    }
 
     /**
      * US003 (add a member to a group)
