@@ -3,6 +3,7 @@ package switch2019.project.controllerLayer;
 
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService;
 
@@ -30,7 +31,7 @@ public class US005_1AdminAddsCategoryController {
         if(ret.isPresent()) {
             Category cat = ret.get();
             // Transformar a categoria dentro do ret em CategoryDTO
-            CategoryDTO dto = new CategoryDTO(cat.getNameOfCategory(), cat.getID().toString());
+            CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(cat.getID().getDenomination(), cat.getID());
             return Optional.of(dto);
         }
         else {
