@@ -587,7 +587,7 @@ class US007CreateGroupAccountControllerTest {
         //Act
         Optional<AccountDTO> accountCreated = controller.createGroupAccount(createGroupAccountDTO);
         //Assert
-        assertTrue(accountCreated.isPresent());
+        assertFalse(accountCreated.isPresent());
 
     }
 
