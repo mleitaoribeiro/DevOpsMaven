@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import switch2019.project.DTO.SiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.infrastructure.repositories.PersonRepository;
@@ -16,15 +17,15 @@ public class US001AreSiblingsService {
      * US001
      * As system manager, I want to know if two people are siblings
      *
-     * @param emailPerson1
-     * @param emailPerson2
+     * @param
      * @return true if two people are siblings
      */
-    public boolean areSiblings(String emailPerson1, String emailPerson2) {
+    public boolean areSiblings(SiblingsDTO siblingsDTO) {
 
-        Person person1 = repository.findPersonByEmail(new Email(emailPerson1));
-        Person person2 = repository.findPersonByEmail(new Email(emailPerson2));
+        Person person1 = repository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()));
+        Person person2 = repository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()));
 
         return person1.isSibling(person2);
     }
+
 }

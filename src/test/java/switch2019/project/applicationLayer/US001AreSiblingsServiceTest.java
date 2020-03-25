@@ -3,6 +3,7 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.SiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -70,8 +71,10 @@ class US001AreSiblingsServiceTest {
         String antonioEmail = "child1@isep.ipp.pt";
         String manuelEmail = "child2@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail, manuelEmail);
+
         //Act
-        boolean siblings = service.areSiblings(antonioEmail, manuelEmail);
+        boolean siblings = service.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -84,8 +87,10 @@ class US001AreSiblingsServiceTest {
         String antonioEmail = "child1@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail, robertoEmail);
+
         //Act
-        boolean siblings = service.areSiblings(antonioEmail, robertoEmail);
+        boolean siblings = service.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -99,8 +104,10 @@ class US001AreSiblingsServiceTest {
         String antonioEmail = "child1@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail, amaliaEmail);
+
         //Act
-        boolean siblings = service.areSiblings(antonioEmail, amaliaEmail);
+        boolean siblings = service.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -113,8 +120,10 @@ class US001AreSiblingsServiceTest {
         String joseEmail = "father@isep.ipp.pt";
         String rafaelEmail = "father2@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, rafaelEmail);
+
         //Act
-        boolean siblings = service.areSiblings(joseEmail, rafaelEmail);
+        boolean siblings = service.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -129,9 +138,12 @@ class US001AreSiblingsServiceTest {
         String mariaEmail = "mother@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
+        SiblingsDTO siblingsDTO2 = new SiblingsDTO(mariaEmail, amaliaEmail);
+
         //Act
-        boolean siblings = service.areSiblings(joseEmail, robertoEmail);
-        boolean siblings2 = service.areSiblings(mariaEmail, amaliaEmail);
+        boolean siblings = service.areSiblings(siblingsDTO);
+        boolean siblings2 = service.areSiblings(siblingsDTO2);
 
         //Assert
         assertFalse(siblings && siblings2);
@@ -144,9 +156,11 @@ class US001AreSiblingsServiceTest {
         String joseEmail = "father@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
+
         //Act
         try {
-            service.areSiblings(joseEmail, robertoEmail);
+            service.areSiblings(siblingsDTO);
         }
 
         //Assert

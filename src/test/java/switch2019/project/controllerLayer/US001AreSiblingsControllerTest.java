@@ -3,6 +3,7 @@ package switch2019.project.controllerLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.SiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -72,9 +73,10 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String antonioEmail = "child1@isep.ipp.pt";
         String manuelEmail = "child2@isep.ipp.pt";
+        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail,manuelEmail);
 
         //Act
-        boolean siblings = controller.areSiblings(antonioEmail, manuelEmail);
+        boolean siblings = controller.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -86,9 +88,10 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String antonioEmail = "child1@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
+        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail,robertoEmail);
 
         //Act
-        boolean siblings = controller.areSiblings(antonioEmail, robertoEmail);
+        boolean siblings = controller.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -101,9 +104,10 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String antonioEmail = "child1@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
+        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail,amaliaEmail);
 
         //Act
-        boolean siblings = controller.areSiblings(antonioEmail, amaliaEmail);
+        boolean siblings = controller.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -115,9 +119,10 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String joseEmail = "father@isep.ipp.pt";
         String rafaelEmail = "father2@isep.ipp.pt";
+        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail,rafaelEmail);
 
         //Act
-        boolean siblings = controller.areSiblings(joseEmail, rafaelEmail);
+        boolean siblings = controller.areSiblings(siblingsDTO);
 
         //Assert
         assertTrue(siblings);
@@ -132,9 +137,12 @@ class US001AreSiblingsControllerTest {
         String mariaEmail = "mother@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
+        SiblingsDTO siblingsDTO2 = new SiblingsDTO(mariaEmail, amaliaEmail);
+
         //Act
-        boolean siblings = controller.areSiblings(joseEmail, robertoEmail);
-        boolean siblings2 = controller.areSiblings(mariaEmail, amaliaEmail);
+        boolean siblings = controller.areSiblings(siblingsDTO);
+        boolean siblings2 = controller.areSiblings(siblingsDTO2);
 
         //Assert
         assertFalse(siblings && siblings2);
@@ -147,9 +155,11 @@ class US001AreSiblingsControllerTest {
         String joseEmail = "father@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
 
+        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
+
         //Act
         try {
-            controller.areSiblings(joseEmail, robertoEmail);
+            controller.areSiblings(siblingsDTO);
         }
 
         //Assert
