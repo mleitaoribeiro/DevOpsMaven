@@ -8,6 +8,7 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
+import switch2019.project.domain.domainEntities.shared.Denomination;
 
 
 

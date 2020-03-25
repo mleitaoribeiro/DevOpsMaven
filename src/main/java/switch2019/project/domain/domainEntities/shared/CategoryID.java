@@ -34,15 +34,24 @@ public class CategoryID implements ID {
     }
 
     /**
-     * Method to return Denomination
+     * Method to return the Denomination string
      *
      * @return denomination
      */
 
-    public String getDenomination() {
+    public String getDenominationString() {
         return denomination.toString();
     }
 
+    /**
+     * Method to return the Denomination
+     *
+     * @return denomination
+     */
+
+    public Denomination getDenomination() {
+        return denomination;
+    }
 
     /**
      * Override

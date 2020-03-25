@@ -145,7 +145,7 @@ public class CategoryIDTest {
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
 
         //Act:
-        String result = categoryID1.getDenomination();
+        String result = categoryID1.getDenominationString();
 
         //Assert:
         assertEquals("GYM",result);
