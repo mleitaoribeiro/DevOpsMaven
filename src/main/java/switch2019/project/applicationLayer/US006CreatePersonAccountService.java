@@ -1,11 +1,15 @@
 package switch2019.project.applicationLayer;
 
+import switch2019.project.DTO.CreatePersonAccountDTO;
+import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
+
+import java.util.Optional;
 
 public class US006CreatePersonAccountService {
 
@@ -17,20 +21,23 @@ public class US006CreatePersonAccountService {
         this.accountRepository = accountRepository;
     }
 
+
     /**
+     * US006
      * Create Person Account
-     * @param
-     * @param accountDenomination
-     * @param accountDescription
+     * @param accountDTO
      * @return
      */
-/*
-    public boolean createPersonAccount(String personEmail, String accountDenomination, String accountDescription) {
-            if (personRepository.isPersonIDOnRepository(new PersonID(new Email(personEmail))))
-                return true;
-                        //accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription), new PersonID( new Email(personEmail)));
-            else throw new IllegalArgumentException("This Person ID doesn't exist.");
+    public Optional<Account> createPersonAccount(CreatePersonAccountDTO accountDTO) {
+
+        PersonID personID = personRepository.findPersonByEmail(new Email(accountDTO.getPersonEmail())).getID();
+
+        Denomination accountDenomination = new Denomination(accountDTO.getAccountDenomination());
+        Description accountDescription = new Description(accountDTO.getAccountDescription());
+
+
+        return Optional.of(accountRepository.createAccount(accountDenomination, accountDescription, personID));
+
     }
-    */
 
 }
