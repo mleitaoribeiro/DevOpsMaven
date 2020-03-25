@@ -13,6 +13,8 @@ import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountControllerTest {
@@ -56,6 +58,7 @@ class US006CreatePersonAccountControllerTest {
         assertEquals(expected, accountCreated);
 
     }
+
 
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
@@ -282,6 +285,24 @@ class US006CreatePersonAccountControllerTest {
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("Test If account is created - Happy Case")
+    void testIfPersonAccountWasCreatedOptionalHappyCase() {
+
+        //Arrange
+        String personEmail = "jose.cardoso@hotmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        Optional<AccountDTO> accountCreated = controller.createPersonAccount(createPersonAccountDTO);
+
+        //Assert
+        assertTrue(accountCreated.isPresent());
     }
 
 

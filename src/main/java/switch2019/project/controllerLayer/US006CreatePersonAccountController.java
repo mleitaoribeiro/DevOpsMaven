@@ -21,20 +21,21 @@ public class US006CreatePersonAccountController {
 
 
     /**
-     * US006
-     * Create Person Account
+     * User Story 6
+     * As a user, I want to create a account
+     *
      * @param accountDTO
-     * @return
      */
     public Optional<AccountDTO> createPersonAccount(CreatePersonAccountDTO accountDTO) {
 
         Optional<Account> ret = service.createPersonAccount(accountDTO);
         if (ret.isPresent()) {
             Account account = ret.get();
-            AccountDTOAssembler accountDTOAssembler = new AccountDTOAssembler();
+
             Denomination denomination = new Denomination(account.getID().getDenomination());
             Description description = new Description(account.getDescription());
-            AccountDTO dto = accountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination,
+
+            AccountDTO dto = AccountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination,
                     description);
             return Optional.of(dto);
         } else {

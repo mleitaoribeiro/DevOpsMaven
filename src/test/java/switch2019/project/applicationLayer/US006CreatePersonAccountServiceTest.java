@@ -13,6 +13,9 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountServiceTest {
@@ -39,7 +42,7 @@ class US006CreatePersonAccountServiceTest {
 
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
-    void testIfPersonAccountIsCreated() {
+    void testIfPersonAccountIsCreatedMainScenario() {
         //Arrange
         String personEmail = "maria.santos@live.com.pt";
         String accountDenomination1 = "Revolut";
@@ -75,6 +78,36 @@ class US006CreatePersonAccountServiceTest {
 
     }
 
+    @Test
+    @DisplayName("Test If person Account is created - Happy Case - Number of accounts increased")
+    void testIfPersonAccountWasCreatedCompareSize() {
+
+        //Arrange
+        String personEmail = "jose.cardoso@hotmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        int expectedAccountsBefore = 0;
+        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int numberOfExpectedAccountsInTheRepositoryAfter = 1;
+        Account expected = new Account(new Denomination(accountDenomination), new Description(accountDescription),
+                personRepo.findPersonByEmail(new Email(personEmail)).getID());
+
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        Account accountCreated = service.createPersonAccount(createPersonAccountDTO).get();
+
+        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expected, accountCreated),
+                () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
+                () -> assertEquals(numberOfExpectedAccountsInTheRepositoryAfter, realNumberOfAccountsInTheRepositoryAfter)
+        );
+    }
+
 
     @Test
     @DisplayName("Test If User Account is Created - person ID does not exists in Repository")
@@ -88,7 +121,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(personAccountDTO1).get();
+            service.createPersonAccount(personAccountDTO1);
         }
 
         //Assert
@@ -107,10 +140,11 @@ class US006CreatePersonAccountServiceTest {
 
         CreatePersonAccountDTO personAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
-        service.createPersonAccount(personAccountDTO1).get();
         //Act
+        service.createPersonAccount(personAccountDTO1);
+
         try {
-            service.createPersonAccount(personAccountDTO1).get();
+            service.createPersonAccount(personAccountDTO1);
         }
         //Assert
         catch (IllegalArgumentException invalid) {
@@ -119,8 +153,41 @@ class US006CreatePersonAccountServiceTest {
     }
 
     @Test
+    @DisplayName("Test If person Account isn't created - account already exists on repository - Number of accounts has not increased")
+    void testIfPersonAccountWasNotCreatedCompareSize() {
+
+        //Arrange
+        String personEmail = "maria.santos@live.com.pt";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        int expectedAccountsBefore = 1;
+        int expectedAccountsAfter = 1;
+
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        service.createPersonAccount(personAccountDTO);
+        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        try {
+            service.createPersonAccount(personAccountDTO);
+
+            //Assert
+        } catch (IllegalArgumentException accountAlreadyExists) {
+            int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+            Assertions.assertAll(
+                    () -> assertEquals("This Account already exists for that ID.", accountAlreadyExists.getMessage()),
+                    () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
+                    () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
+            );
+        }
+
+    }
+
+    @Test
     @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
-    void testIfPersonAccountAreCreated() {
+    void testIfPersonAccountIsCreated() {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
         String accountDenomination = "Revolut";
@@ -149,7 +216,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(personAccountDTO).get();
+            service.createPersonAccount(personAccountDTO);
         }
 
         //Assert
@@ -170,7 +237,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(personAccountDTO).get();
+            service.createPersonAccount(personAccountDTO);
         }
 
         //Assert
@@ -191,7 +258,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(personAccountDTO).get();
+            service.createPersonAccount(personAccountDTO);
         }
 
         //Assert
@@ -211,12 +278,31 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         try {
-            service.createPersonAccount(personAccountDTO).get();
+            service.createPersonAccount(personAccountDTO);
 
         //Assert
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("Test If account is created - Happy Case")
+    void testIfPersonAccountWasCreatedOptionalHappyCase() {
+
+        //Arrange
+        String personEmail = "jose.cardoso@hotmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "OnlineShopping";
+
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        Optional<Account> accountCreated = service.createPersonAccount(createPersonAccountDTO);
+
+        //Assert
+        assertTrue(accountCreated.isPresent());
+    }
+
 }
 
