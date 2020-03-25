@@ -78,7 +78,6 @@ public class Group implements Owner {
      * Method to get Group ID
      * @return groupID
      */
-
     public GroupID getID() {
         return groupID;
     }
@@ -87,7 +86,6 @@ public class Group implements Owner {
      * Method to get First Admin
      * @return first admin
      */
-
     public PersonID getFirstAdmin() {
         return  admins.toArray(new Person[0])[0].getID();
     }
@@ -99,17 +97,15 @@ public class Group implements Owner {
      * @return true if member was added, false if it wasn't
      */
     public boolean addMember(Person person) {
-        if (person != null && this.members.isEmpty()) {
+        if (this.members.isEmpty()) {
             members.add(person);
             return setAdmin(person);
-        } else if (person != null) {
-            return members.add(person);
         } else
-            return false;
+            return members.add(person);
     }
 
     /**
-     * Setter function to promote a person directly to group administrator
+     * Set a person directly as group administrator
      *
      * @param person
      * @return true if person was promoted, false if it wasn't
@@ -122,6 +118,56 @@ public class Group implements Owner {
     }
 
     /**
+     * Validate if a person is a Group Admin
+     *
+     * @param isAdmin
+     * @return true if is group admin, false if isn't
+     */
+    public boolean isGroupAdmin(Person isAdmin) {
+        if(isAdmin !=null)
+            return this.admins.contains(isAdmin);
+        return false;
+    }
+
+    /**
+     * Validate if a person is a Group Admin
+     *
+     * @param personID
+     * @return true if is group admin, false if isn't
+     */
+    public boolean isGroupAdmin(PersonID personID) {
+        for (Person person : admins)
+            if (person.getID().equals(personID))
+                return true;
+        return false;
+    }
+
+    /**
+     * Validate if a person is a Group Admin
+     *
+     * @param isMember
+     * @return boolean
+     */
+    public boolean isGroupMember(Person isMember) {
+        if(isMember != null)
+            return this.members.contains(isMember);
+        return false;
+    }
+
+    /**
+     * Validate if a person is a Group Admin
+     *
+     * @param personID
+     * @return boolean
+     */
+    public boolean isGroupMember (PersonID personID) {
+        for (Person person : members)
+            if (person.getID().equals(personID))
+                return true;
+        return false;
+    }
+
+    /**
      * Remove one member from a group
      *
      * @param memberToRemove
@@ -129,7 +175,7 @@ public class Group implements Owner {
      */
     public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
-            if (admins.contains(memberToRemove) && members.contains(memberToRemove) && admins.size() > 1) {
+            if (admins.contains(memberToRemove) && admins.size() > 1) {
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
             } else if (!admins.contains(memberToRemove) && members.contains(memberToRemove)) {
                 return members.remove(memberToRemove);
@@ -145,27 +191,10 @@ public class Group implements Owner {
      * @return true if multiple members were added, false if they weren't
      */
     public boolean addMultipleMembers(Set<Person> newMembers) {
-        if (!members.isEmpty()) {
-            for (Person member : newMembers) {
-                addMember(member);
-            }
-            return this.members.containsAll(newMembers);
-        } else
-            throw new IllegalArgumentException("You cannot add an empty list of members or a non existing person. Please try again.");
-    }
-
-    /**
-     * Remove multiple Members
-     *
-     * @param toRemove HashSet of members that are going to be removed
-     * @return true if multiple members were removed, false if they weren't
-     */
-    public boolean removeMultipleMembers(Set<Person> toRemove) {
-        for (Person member : toRemove) {
-            removeMember(member);
-        }
-        return !this.members.containsAll(toRemove);
-
+        if (!members.isEmpty())
+            for (Person member : newMembers)
+                members.add(member);
+            return members.containsAll(newMembers);
     }
 
     /**
@@ -198,81 +227,17 @@ public class Group implements Owner {
     }
 
     /**
-     * Promote multiple members to group admins
-     *
-     * @param multipleMembers
-     * @return true if person was promoted, false if it wasn't
-     */
-    public boolean promoteMultipleMemberToAdmin(Set<Person> multipleMembers) {
-        for (Person member : multipleMembers) {
-            setAdmin(member);
-        }
-        return admins.containsAll(multipleMembers);
-    }
-
-    /**
      * Demote group admin to group member only.
      *
      * @param member
      * @return true if group admin was demoted, false if it wasn't
      */
     public boolean demoteMemberFromAdmin(Person member) {
-        if (this.members.contains(member) && this.admins.contains(member) && this.admins.size() >= 2) {
+        if (this.admins.contains(member) && this.admins.size() >= 2)
             return this.admins.remove(member);
-        }
         return false;
     }
 
-    /**
-     * Demote multiple group admins to member only
-     *
-     * @param multipleMembers
-     * @return true if all
-     */
-
-    public boolean demoteMultipleMembersFromAdmin(Set<Person> multipleMembers) {
-        if (multipleMembers.size() >= this.admins.size()) {
-            return false;
-        }
-        for (Person member : multipleMembers) {
-            demoteMemberFromAdmin(member);
-        }
-        return members.containsAll(multipleMembers) && !admins.containsAll(multipleMembers);
-    }
-
-    /**
-     * Validate if a person is a Group Admin
-     *
-     * @param isAdmin
-     * @return true if is group admin, false if isn't
-     */
-    public boolean isGroupAdmin(Person isAdmin) {
-        return this.admins.contains(isAdmin) && isAdmin != null;
-    }
-
-    public boolean isGroupAdmin(PersonID personID) {
-        for (Person person : admins)
-            if (person.getID().equals(personID))
-                return true;
-        return false;
-    }
-
-    /**
-     * Validate if a person is a Group Admin
-     *
-     * @param isMember
-     * @return
-     */
-    public boolean isGroupMember(Person isMember) {
-        return this.members.contains(isMember) && isMember != null;
-    }
-
-    public boolean isGroupMember (PersonID personID) {
-        for (Person person : members)
-            if (person.getID().equals(personID))
-                return true;
-        return false;
-    }
 
     /**
      * Develop method to create a new group transaction (US008.1)

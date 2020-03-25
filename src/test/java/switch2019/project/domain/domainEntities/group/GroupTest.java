@@ -11,7 +11,6 @@ import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -98,7 +97,7 @@ class GroupTest {
     }
 
     /**
-     * Compare two groups with members but different description
+     * Compare two groups with same members but different description
      */
     @Test
     @DisplayName("Compare two groups with members but different description")
@@ -150,7 +149,7 @@ class GroupTest {
     }
 
     /**
-     * Check if a group and another object are diferent
+     * Check if Group and another object are different
      */
     @Test
     @DisplayName("Compare different objects")
@@ -173,35 +172,14 @@ class GroupTest {
      * Methods to check if the number of groups in the GroupList is increased
      */
 
-    @Test
-    @DisplayName("Check if One group was added")
-    public void wasGroupAddedToList() {
-
-        //Arrange
-        Person person1 = new Person("John", new DateAndTime(1995, 12, 13), new Address("New York"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Group group1 = new Group(new Description("Amigos"));
-        GroupsRepository groupList1 = new GroupsRepository();
-
-        //Act
-        group1.addMember(person1);
-        group1.addMember(person2);
-        boolean addedGroup = groupList1.addGroupToRepository(group1);
-
-
-        //Assert
-        assertTrue(addedGroup);
-    }
 
     /**
      * US003 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
     @Test
-    @DisplayName("Validate if a member was added to a group")
-    void addMember() {
+    @DisplayName("Validate if members were added to a group")
+    void addMembers() {
 
         //Arrange
         Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
@@ -214,9 +192,7 @@ class GroupTest {
         Group group1 = new Group(new Description("OsMaisFixes"));
 
         //Act
-        boolean areMembersAddedToGroup = (
-                group1.addMember(person1) &&
-                        group1.addMember(person2));
+        boolean areMembersAddedToGroup = (group1.addMember(person1) &&  group1.addMember(person2));
 
         //Assert
         assertTrue(areMembersAddedToGroup);
@@ -241,8 +217,8 @@ class GroupTest {
      * Test if a member added to the group is automatically promoted to admin if the group is empty
      */
     @Test
-    @DisplayName("True - member added to an empty group")
-    void promoteAddedMemberIfEmptyTrue() {
+    @DisplayName("Member added to an empty group and Set as Admin")
+    void promoteToAdminMemberAddedToAnEmptyTrue() {
 
         //Arrange
         Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
@@ -254,57 +230,31 @@ class GroupTest {
 
         //Assert
         assertTrue(isMemberAddedToEmpyGroup);
+        assertTrue(group1.isGroupAdmin(person1));
     }
 
     @Test
-    @DisplayName("False - member added to a non empty group")
-    void promoteAddedMemberIfEmptyTestFalse() {
+    @DisplayName("Member added to a non empty group - Not Admin")
+    void addMemberToNonEmptyGroup() {
 
         //Arrange
-        Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Pablo", new DateAndTime(1995, 12, 13), new Address("Madrid"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Group group1 = new Group(new Description("Group with no members"));
 
-        //Act
-        boolean areMembersAddedToANonEmptyGroup = (
-                group1.addMember(person1) &&
-                        group1.addMember(person2));
-
-        //Assert
-        assertTrue(areMembersAddedToANonEmptyGroup);
-    }
-
-    /**
-     * Test if multiple members were added to Group
-     */
-    @Test
-    @DisplayName("Test if all members were added to Group => Success Case")
-    void addMultipleMembersSuccess() {
-
-        //Arrange
-        Group group1 = new Group(new Description("MNation"));
-
-        Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
+        Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Mariana", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Marisa", new DateAndTime(1995, 12, 13), new Address("Leiria"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3));
+        group1.addMember(person1);
+
+        Person person2 = new Person("Pablo", new DateAndTime(1995, 12, 13), new Address("Madrid"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
 
         //Act
-        boolean areThreePeopleAdded = (
-                group1.addMember(person1) &&
-                        group1.addMember(person2) &&
-                        group1.addMember(person3));
-
+        boolean isPerson2AddedButNotToSettledAsAdmin = group1.addMember(person2) && !group1.isGroupAdmin(person2);
 
         //Assert
-        assertTrue(areThreePeopleAdded);
+        assertTrue(isPerson2AddedButNotToSettledAsAdmin);
     }
+
 
     @Test
     @DisplayName("Test if the same person is not added twice")
@@ -315,38 +265,20 @@ class GroupTest {
 
         Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
+
+        group1.addMember(person1);
+
         Person person2 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
 
         //Act
-        group1.addMember(person1);
-        boolean memberNotAdded = group1.addMember(person2);
+
+        boolean person2NotAdded = group1.addMember(person2);
 
         //Assert
-        assertFalse(memberNotAdded);
+        assertFalse(person2NotAdded);
     }
 
-
-    @Test
-    @DisplayName("Test if a null members is added to group trough a collection of members")
-    void addMultipleMembersWithANullCase() {
-
-        //Arrange
-        Group group1 = new Group(new Description("Grupo das M'Nation"));
-
-        Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = null;
-
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2));
-        try {
-            //Act
-            boolean isPerson2NotAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
-            fail();
-        } catch (IllegalArgumentException message) {
-            assertEquals("You cannot add an empty list of members or a non existing person. Please try again.", message.getMessage());
-        }
-    }
 
     /**
      * Test if member was removed from Group
@@ -496,15 +428,10 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("14@isep.pt"));
-
-        HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person2, person1));
 
         //Act
         group1.addMember(person2);
         group1.addMember(person1);
-        group1.setAdmin(person2);
 
         boolean removeSingleMember = group1.removeMember(person2);
 
@@ -562,97 +489,6 @@ class GroupTest {
 
         //Assert
         assertTrue(areBothMembersRemoved);
-    }
-
-    /**
-     * Test if multiple members were removed from a Group and there is at least one group admin in the group
-     */
-    @Test
-    @DisplayName("Test if multiple members were removed from a Group - not removed 1 group admin and 1 member ")
-    void removeMultipleMembersFromAGroupNotRemovingOneGroupAdmin() {
-
-        //Arrange
-        Group group1 = new Group(new Description("grupo dos amiguinhos"));
-        Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person4 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-
-        //Act
-        group1.addMember(person1);
-        group1.setAdmin(person2);
-
-        HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person3, person4));
-        HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person4));
-
-        boolean removeOnlyNonAdminMembers = (
-                group1.addMultipleMembers(setOfMembers) &&
-                        group1.removeMultipleMembers(setOfMembersToRemove));
-
-        //Assert
-        assertTrue(removeOnlyNonAdminMembers);
-    }
-
-    @Test
-    @DisplayName("Test if multiple members were removed from a Group - tried to remove all the group admins")
-    void removeMultipleMembersFromAGroupAllAdmins() {
-
-        //Arrange
-        Group group1 = new Group(new Description("grupo dos amiguinhos"));
-        Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person4 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-
-        //Act
-        group1.addMember(person1);
-        group1.setAdmin(person2);
-
-        HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person3, person4));
-        HashSet<Person> setOfMembersToRemove = new HashSet<>(Arrays.asList(person1, person2, person4));
-
-        boolean removeMultipleMembersAndAdmins = (
-                group1.addMultipleMembers(setOfMembers) &&
-                        group1.removeMultipleMembers(setOfMembersToRemove));
-
-        //Assert
-        assertTrue(removeMultipleMembersAndAdmins);
-    }
-
-    @Test
-    @DisplayName("Test if multiple members were removed from a Group - only the members I choose ")
-    void removeMultipleMembers() {
-
-        //Arrange
-        Group group1 = new Group(new Description("Grupo ainda mais fixe que o outro"));
-        Person person1 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Gabriel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person4 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-
-        group1.addMember(person1);
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
-        HashSet<Person> setOfPeopleToRemoveFromGroup = new HashSet<>(Arrays.asList(person2, person3));
-
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-
-        //Act
-        boolean areMultipleMembersRemoved = (group1.removeMultipleMembers(setOfPeopleToRemoveFromGroup));
-
-        //Assert
-        assertTrue(areMultipleMembersRemoved);
     }
 
     /**
@@ -982,69 +818,6 @@ class GroupTest {
         assertFalse(wasPromoted);
     }
 
-    /**
-     * Check if multiple members were promoted to Admin
-     */
-
-    @Test
-    @DisplayName("Promote multiple members to Admin")
-    void promoteMultipleMembersToAdmin() {
-
-        //Arrange
-        Person personAdmin = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
-
-        Group group1 = new Group(new Description("Francis Group"));
-        group1.addMember(personAdmin);
-
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3));
-        boolean addedMultipleMembers = group1.addMultipleMembers(setOfPeopleToAddToGroup);
-
-        //Act
-        boolean membersWerePromoted = group1.promoteMultipleMemberToAdmin(setOfPeopleToAddToGroup);
-
-        //Assert
-        assertTrue(addedMultipleMembers && membersWerePromoted);
-    }
-
-    @Test
-    @DisplayName("Promote multiple members to admin while there are more than members that are not admins")
-    void promoteMultipleMembersToAdminWhileThereAreOtherGroupMembers() {
-
-        //Arrange
-        Person personAdmin = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("14@isep.pt"));
-        Person person3 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person4 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-
-        Group group1 = new Group(new Description("Francis Group"));
-        group1.addMember(personAdmin);
-
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
-        HashSet<Person> setOfPeopleToBeAdmin = new HashSet<>(Arrays.asList(person1, person2));
-
-        boolean areMultipleMembersAdded = group1.addMultipleMembers(setOfPeopleToAddToGroup);
-
-        //Act
-        boolean areMultipleMembersPromoted = group1.promoteMultipleMemberToAdmin(setOfPeopleToBeAdmin);
-
-        boolean werePromoted = areMultipleMembersPromoted && areMultipleMembersAdded;
-
-        //Assert
-        assertTrue(werePromoted);
-    }
 
     /**
      * Check if member was demoted from group admin
@@ -1188,129 +961,6 @@ class GroupTest {
         assertFalse(isRemovedFromAdminPerson2 && isRemovedFromAdminPerson1);
     }
 
-    /**
-     * Test used to check if an HashSet of group admins can be demoted to member
-     */
-
-    @Test
-    @DisplayName("Check if multiple admins are demoted - True")
-    void multipleAdminDemotionTest() {
-
-        // Arrange:
-        Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("John", new DateAndTime(1995, 12, 13), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person4 = new Person("Susan", new DateAndTime(1995, 12, 13), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"));
-
-        // Act:
-        group1.addMember(person1); //automatically promoted to admin
-        group1.addMember(person2);
-        group1.addMember(person3);
-        group1.addMember(person4);
-        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
-        group1.promoteMultipleMemberToAdmin(membersToPromote);
-        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person2, person3, person4));
-        boolean areAllDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
-
-        // Assert:
-        assertTrue(areAllDemoted);
-    }
-
-    @Test
-    @DisplayName("Check if multiple admins can´t be demoted - FALSE - tring to remove last admin")
-    void multipleAdminsDemotionTestFalse() {
-
-        //Arrange:
-        Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("John", new DateAndTime(2000, 12, 12), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Person person4 = new Person("Susan", new DateAndTime(2000, 12, 12), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"));
-
-        //Act:
-        group1.addMember(person1); // automatically promoted to admin
-        group1.addMember(person2);
-        group1.addMember(person3);
-        group1.addMember(person4);
-        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
-        group1.promoteMultipleMemberToAdmin(membersToPromote);
-        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
-        // Last person will not be removed since if it is, there will be no admins left on the group;
-        boolean isLastAdminDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
-
-        //Assert:
-        assertFalse(isLastAdminDemoted);
-    }
-
-    @Test
-    @DisplayName("Check if multiple admins can´t be demoted - FALSE - removeMembers same number of admins")
-    void multipleAdminsDemotionTestFalseSecondCondition() {
-
-        //Arrange:
-        Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person3 = new Person("John", new DateAndTime(2000, 12, 12), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person4 = new Person("Susan", new DateAndTime(2000, 12, 12), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person5 = new Person("Michael", new DateAndTime(2002, 11, 20), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"));
-
-        //Act:
-        group1.addMember(person1); // automatically promoted to admin
-        group1.addMember(person2);
-        group1.addMember(person3);
-        group1.addMember(person4);
-        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3, person4));
-        group1.promoteMultipleMemberToAdmin(membersToPromote);
-        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5));
-        // Last person will not be removed since if it is, there will be no admins left on the group;
-        boolean isLastAdminDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
-
-        //Assert:
-        assertFalse(isLastAdminDemoted);
-    }
-
-    @Test
-    @DisplayName("Check if multiple admins can´t be demoted - FALSE - tring to remove member that is not part of the group")
-    void multipleAdminsDemotionTestFalseNotInGroup() {
-
-        //Arrange:
-        Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("14@isep.pt"));
-        Person person3 = new Person("John", new DateAndTime(2000, 12, 12), new Address("Bristol"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Person person4 = new Person("Susan", new DateAndTime(2000, 12, 12), new Address("Edinburgh"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"));
-
-        //Act:
-        group1.addMember(person1); // automatically promoted to admin
-        group1.addMember(person2);
-        group1.addMember(person3);
-        HashSet<Person> membersToPromote = new HashSet<>(Arrays.asList(person2, person3));
-        group1.promoteMultipleMemberToAdmin(membersToPromote);
-        HashSet<Person> membersToDemote = new HashSet<>(Arrays.asList(person1, person2, person3, person4));
-        // person4 is not part of the group
-        boolean isNonMemberDemoted = group1.demoteMultipleMembersFromAdmin(membersToDemote);
-
-        //Assert:
-        assertFalse(isNonMemberDemoted);
-    }
 
     /**
      * Check if a person was promoted to member and group administrator simultaneously
@@ -1344,36 +994,6 @@ class GroupTest {
 
         //Assert
         assertFalse(isMemberAddedAsAdmin);
-    }
-
-    @Test
-    @DisplayName("Promote person to member and group admin simultaneously while there are more than members that are not admins")
-    void promoteNotMembertoAdminWhileThereAreOtherGroupMembers_False() {
-        //Arrange
-        Person personAdmin = new Person("Marta", new DateAndTime(2000, 12, 12), new Address("Guimarães"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person2 = new Person("Jaques", new DateAndTime(2000, 12, 12), new Address("Paris"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person3 = new Person("Pedro", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-        Person person4 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
-
-        Group group1 = new Group(new Description("Francis Group"));
-        group1.addMember(personAdmin);
-
-        HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person2, person3, person4));
-        group1.addMultipleMembers(setOfPeopleToAddToGroup);
-
-        //Act
-        boolean isAdminPromoted = group1.setAdmin(person1);
-
-        boolean wasPromoted = isAdminPromoted;
-
-        //Assert
-        assertFalse(wasPromoted);
     }
 
     /**
