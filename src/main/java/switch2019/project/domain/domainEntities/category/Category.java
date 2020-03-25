@@ -37,7 +37,6 @@ public class Category implements Entity {
         return categoryID;
     }
 
-
     /**
      * Get name of the category
      * @return nameOfCategory
@@ -46,12 +45,6 @@ public class Category implements Entity {
         return nameOfCategory.toString();
     }
 
-    /**
-     * Develop @override of equals for Category and @override of hashcode
-     *
-     * @param o
-     * @return true if equal
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,10 +58,6 @@ public class Category implements Entity {
         return Objects.hash(categoryID);
     }
 
-    /**
-     * Override to toString
-     * @return category string
-     */
     @Override
     public String toString() {
         return categoryID.toString();
