@@ -1,5 +1,7 @@
-package switch2019.project.applicationLayer;
+package switch2019.project.services;
 
+import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
@@ -7,6 +9,10 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
+
+
+
+import java.util.Optional;
 
 public class US005_1AdminAddsCategoryToCategoryListService {
 
@@ -26,23 +32,22 @@ public class US005_1AdminAddsCategoryToCategoryListService {
     /**
      * User Story 5.1 .- As a group admin i want to associate a category to my group.
      *
-     * @param groupDescription
-     * @param personEmail
-     * @param categoryDenomination
+     * @param dto
      * @return
      */
-    public boolean addCategoryToGroup(String groupDescription, String personEmail, String categoryDenomination) {
+    public Optional<Category> addCategoryToGroup(CreateCategoryInGroupDTO dto) {
+
         //finding the right group where the new category will be added:
-        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
+        Group group = groupsRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
 
         //verify if the category creator is a group admin in order to continue with the method:
-        if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(personEmail)).getID())) {
+        if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID())) {
 
             //create category and associate it with the group:
-            return true;
-                    //Corrigir: versão antiga: categoryRepository.createCategory(new Denomination(categoryDenomination), group.getID());
+            return Optional.of(categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID()));
 
-        } else return false;
+        } else return Optional.empty();
     }
 }
+
 
