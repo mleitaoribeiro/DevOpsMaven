@@ -121,6 +121,7 @@ public class Group implements Owner {
         if (isAdmin != null)
             return this.admins.contains(isAdmin);
         else return false;
+
     }
 
     /**
