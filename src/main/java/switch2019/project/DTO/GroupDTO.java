@@ -2,10 +2,10 @@ package switch2019.project.DTO;
 
 import java.util.Objects;
 
-public class GroupsDTO {
+public class GroupDTO {
     private String familyGroupDescription;
 
-    public GroupsDTO(String familyGroupDescription) {
+    public GroupDTO(String familyGroupDescription) {
         this.familyGroupDescription = familyGroupDescription;
     }
 
@@ -13,8 +13,8 @@ public class GroupsDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GroupsDTO groupsDTO = (GroupsDTO) o;
-        return Objects.equals(familyGroupDescription, groupsDTO.familyGroupDescription);
+        GroupDTO groupDTO = (GroupDTO) o;
+        return Objects.equals(familyGroupDescription, groupDTO.familyGroupDescription);
     }
 
     @Override

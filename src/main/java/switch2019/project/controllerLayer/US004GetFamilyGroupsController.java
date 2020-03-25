@@ -1,6 +1,6 @@
 package switch2019.project.controllerLayer;
 
-import switch2019.project.DTO.GroupsDTO;
+import switch2019.project.DTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 
 import java.util.Set;
@@ -18,7 +18,7 @@ public class US004GetFamilyGroupsController {
      *
      * @return family groups
      */
-    public Set <GroupsDTO> getFamilyGroups() {
+    public Set <GroupDTO> getFamilyGroups() {
         return service.getFamilyGroups();
     }
 
