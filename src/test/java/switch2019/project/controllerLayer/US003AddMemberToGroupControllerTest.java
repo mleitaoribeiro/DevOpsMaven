@@ -3,6 +3,7 @@ package switch2019.project.controllerLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.AddMemberDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -54,10 +55,10 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jo.cardoso@hotmail.com";
         String groupDescription = "familia";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
-
-        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
+        boolean memberAdded = controller.addMemberToGroup(addMemberDTO);
 
         //Assert
         assertTrue(memberAdded);
@@ -67,13 +68,12 @@ public class US003AddMemberToGroupControllerTest {
     @DisplayName("Test if a member was added to group-Same Person")
     void addMemberToGroupAlreadyIn() {
         //Arrange
-
         String personEmail = "jose.cardoso@hotmail.com";
         String groupDescription = "familia";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
-
-        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
+        boolean memberAdded = controller.addMemberToGroup(addMemberDTO);
 
         //Assert
         assertFalse(memberAdded);
@@ -85,12 +85,12 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jp@ip.pt";
         String groupDescription = "familia";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
         try {
-            controller.addMemberToGroup(personEmail, groupDescription);
+            controller.addMemberToGroup(addMemberDTO);
         }
-
         //Assert
         catch (IllegalArgumentException email) {
             assertEquals("No person found with that email.", email.getMessage());

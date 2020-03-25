@@ -4,7 +4,6 @@ import switch2019.project.DTO.CreateCategoryInGroupDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;

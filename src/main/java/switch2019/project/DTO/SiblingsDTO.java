@@ -1,7 +1,5 @@
 package switch2019.project.DTO;
 
-import java.util.Objects;
-
 public class SiblingsDTO {
 
     private String emailPersonOne;

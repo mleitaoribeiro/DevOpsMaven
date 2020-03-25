@@ -3,6 +3,7 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.AddMemberDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -21,7 +22,6 @@ public class US003AddMemberToGroupServiceTest {
     private static US003AddMemberToGroupService service;
 
     @BeforeAll
-
     static void universeSetUp() {
         personRepository = new PersonRepository();
         groupsRepository = new GroupsRepository();
@@ -52,10 +52,10 @@ public class US003AddMemberToGroupServiceTest {
         //Arrange
         String personEmail = "jo.cardoso@hotmail.com";
         String groupDescription = "familia";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
-
-        boolean memberAdded = service.addMemberToGroup(personEmail, groupDescription);
+        boolean memberAdded = service.addMemberToGroup(addMemberDTO);
 
         //Assert
         assertTrue(memberAdded);
@@ -67,10 +67,10 @@ public class US003AddMemberToGroupServiceTest {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
         String groupDescription = "familia";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
-
-        boolean memberAdded = service.addMemberToGroup(personEmail, groupDescription);
+        boolean memberAdded = service.addMemberToGroup(addMemberDTO);
 
         //Assert
         assertFalse(memberAdded);
@@ -82,10 +82,11 @@ public class US003AddMemberToGroupServiceTest {
         //Arrange
         String personEmail = "jp@ip.pt";
         String groupDescription = "familia";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
         try {
-            service.addMemberToGroup(personEmail, groupDescription);
+            service.addMemberToGroup(addMemberDTO);
         }
 
         //Assert

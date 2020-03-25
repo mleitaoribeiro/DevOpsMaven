@@ -20,7 +20,7 @@ class GroupDTOTest {
     void getFamilyGroupDescription() {
         //Arrange
         GroupDTO dto = new GroupDTO("Querido's Family");
-        String expected = "Querido's Family";
+        String expected = "QUERIDO'S FAMILY";
 
         //Act
         String actual = dto.getFamilyGroupDescription();
@@ -129,7 +129,6 @@ class GroupDTOTest {
         //Act & Assert:
         assertNotEquals(dto1.hashCode(), dto2.hashCode());
     }
-
 
 
 }

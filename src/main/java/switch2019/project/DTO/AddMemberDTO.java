@@ -1,12 +1,9 @@
 package switch2019.project.DTO;
 
-import java.util.Objects;
-
 public class AddMemberDTO {
 
     private String personEmail;
     private String groupDescription;
-
 
     public AddMemberDTO(String personEmail, String groupDescription) {
         this.personEmail = personEmail;
@@ -17,7 +14,6 @@ public class AddMemberDTO {
      * Getter for personEmail
      * @return personEmail
      */
-
     public String getPersonEmail() {
         return personEmail;
     }
@@ -25,7 +21,7 @@ public class AddMemberDTO {
     /**
      * Getter for groupDescription
      *
-     * @return
+     * @return groupDescription
      */
     public String getGroupDescription() {
         return groupDescription;
