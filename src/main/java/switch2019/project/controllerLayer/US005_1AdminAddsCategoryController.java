@@ -1,7 +1,12 @@
 package switch2019.project.controllerLayer;
 
 
-import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
+import switch2019.project.DTO.CategoryDTO;
+import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.services.US005_1AdminAddsCategoryToCategoryListService;
+
+import java.util.Optional;
 
 
 public class US005_1AdminAddsCategoryController {
@@ -15,15 +20,21 @@ public class US005_1AdminAddsCategoryController {
 
     /**
      * Call AdminAddsCategoryToCategoryListService to implement the User Story 5.1 using this controller.
-     * @param groupDescription
-     * @param personEmail
-     * @param categoryDenomination
+     * @param categoryDTO
      * @return
      */
 
-    public boolean addCategoryToGroupController(String groupDescription, String personEmail, String categoryDenomination) {
+    public Optional <CategoryDTO> addCategoryToGroupController(CreateCategoryInGroupDTO categoryDTO) {
 
-        return service.addCategoryToGroup(groupDescription, personEmail, categoryDenomination);
+        Optional <Category> ret =  service.addCategoryToGroup(categoryDTO);
+        if(ret.isPresent()) {
+            Category cat = ret.get();
+            // Transformar a categoria dentro do ret em CategoryDTO
+            CategoryDTO dto = new CategoryDTO(cat.getNameOfCategory(), cat.getID().toString());
+            return Optional.of(dto);
+        }
+        else {
+            return Optional.empty();
+        }
     }
-
 }
