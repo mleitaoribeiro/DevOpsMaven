@@ -1,7 +1,5 @@
 package switch2019.project.applicationLayer;
 
-
-import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.group.Group;

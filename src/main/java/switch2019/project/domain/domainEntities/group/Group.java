@@ -105,10 +105,9 @@ public class Group implements Owner {
      * @return true if person was promoted, false if it wasn't
      */
     public boolean setAdmin(Person person) {
-        if (person != null && isGroupMember(person.getID())) {
+        if (person != null && isGroupMember(person.getID()))
             return this.admins.add(person);
-        }
-        return false;
+        else return false;
     }
 
     /**
@@ -121,11 +120,10 @@ public class Group implements Owner {
         if (isAdmin != null)
             return this.admins.contains(isAdmin);
         else return false;
-
     }
 
     /**
-     * Validate if a person is a Group Admin
+     * Validate if a personID is a Group Admin
      *
      * @param personID
      * @return true if is group admin, false if isn't
@@ -138,7 +136,7 @@ public class Group implements Owner {
     }
 
     /**
-     * Validate if a person is a Group Admin
+     * Validate if a person is a Group member
      *
      * @param isMember
      * @return boolean
@@ -146,11 +144,11 @@ public class Group implements Owner {
     public boolean isGroupMember(Person isMember) {
         if (isMember != null)
             return this.members.contains(isMember);
-        return false;
+       else return false;
     }
 
     /**
-     * Validate if a person is a Group Admin
+     * Validate if a person is a Group member
      *
      * @param personID
      * @return boolean
@@ -170,13 +168,13 @@ public class Group implements Owner {
      */
     public boolean removeMember(Person memberToRemove) {
         if (memberToRemove != null) {
-            if (admins.contains(memberToRemove) && admins.size() > 1) {
+            if (admins.contains(memberToRemove) && admins.size() > 1)
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
-            } else if (!admins.contains(memberToRemove) && members.contains(memberToRemove)) {
+            else if (!admins.contains(memberToRemove) && members.contains(memberToRemove))
                 return members.remove(memberToRemove);
-            } else
-                return false;
-        } else return false;
+            else return false;
+        }
+        else return false;
     }
 
     /**
@@ -189,7 +187,7 @@ public class Group implements Owner {
         if (!members.isEmpty())
             for (Person member : newMembers)
                 members.add(member);
-        return members.containsAll(newMembers);
+            return members.containsAll(newMembers);
     }
 
     /**
@@ -214,9 +212,8 @@ public class Group implements Owner {
 
         for (Person person : members) {
             if (!person.equals(dadPerson) && !person.equals(momPerson) &&
-                    (!person.isMother(momPerson) || !person.isFather(dadPerson))) {
+                    (!person.isMother(momPerson) || !person.isFather(dadPerson)))
                 return false;
-            }
         }
         return true;
     }

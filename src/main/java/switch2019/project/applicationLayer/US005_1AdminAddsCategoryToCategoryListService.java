@@ -2,7 +2,6 @@ package switch2019.project.applicationLayer;
 
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;

@@ -2,8 +2,6 @@ package switch2019.project.controllerLayer;
 
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
-import switch2019.project.assemblers.GroupDTOAssembler;
-import switch2019.project.domain.domainEntities.shared.Description;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +28,7 @@ public class US004GetFamilyGroupsController {
 
         if (!familyGroups.isEmpty()) {
             for (String family : familyGroups) {
-                GroupDTO familyDTO = GroupDTOAssembler.createGroupDTO(new Description(family));
+                GroupDTO familyDTO = new GroupDTO(family);
                 familyGroupDTO.add(familyDTO);
             }
         }

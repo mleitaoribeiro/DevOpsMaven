@@ -3,8 +3,6 @@ package switch2019.project.assemblers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AccountDTO;
-import switch2019.project.domain.domainEntities.frameworks.Owner;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
