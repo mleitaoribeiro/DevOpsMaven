@@ -1,16 +1,18 @@
 package switch2019.project.applicationLayer;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.CreatePersonAccountDTO;
+import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountServiceTest {
@@ -34,7 +36,7 @@ class US006CreatePersonAccountServiceTest {
                 new Address("Rua de Tagilde", "Vizela", "4620-500"), new Email("mariana.alves@gmail.com"));
     }
 
-    /*
+
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
     void testIfPersonAccountIsCreated() {
@@ -46,15 +48,33 @@ class US006CreatePersonAccountServiceTest {
         String accountDescription2 = "For sharing expenses";
         String accountDenomination3 = "CXG";
         String accountDescription3 = "Allowance paychecks";
+
+        CreatePersonAccountDTO personAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination1, accountDescription1);
+        Account expected1 = new Account(new Denomination(accountDenomination1), new Description(accountDescription1),
+                personRepo.findPersonByEmail(new Email(personEmail)).getID());
+
+        CreatePersonAccountDTO personAccountDTO2 = new CreatePersonAccountDTO(personEmail, accountDenomination2, accountDescription2);
+        Account expected2 = new Account(new Denomination(accountDenomination2), new Description(accountDescription2),
+                personRepo.findPersonByEmail(new Email(personEmail)).getID());
+
+        CreatePersonAccountDTO personAccountDTO3 = new CreatePersonAccountDTO(personEmail, accountDenomination3, accountDescription3);
+        Account expected3 = new Account(new Denomination(accountDenomination3), new Description(accountDescription3),
+                personRepo.findPersonByEmail(new Email(personEmail)).getID());
         //Act
-        boolean accountsCreated = service.createPersonAccount(personEmail, accountDenomination1,
-                accountDescription1)
-                && service.createPersonAccount(personEmail, accountDenomination2, accountDescription2)
-                && service.createPersonAccount(personEmail, accountDenomination3, accountDescription3);
+        Account accountCreated1 = service.createPersonAccount(personAccountDTO1).get();
+        Account accountCreated2 = service.createPersonAccount(personAccountDTO2).get();
+        Account accountCreated3 = service.createPersonAccount(personAccountDTO3).get();
 
         //Assert
-        assertTrue(accountsCreated);
+
+        Assertions.assertAll(
+                () -> assertEquals(expected1, accountCreated1),
+                () -> assertEquals(expected2, accountCreated2),
+                () -> assertEquals(expected3, accountCreated3)
+        );
+
     }
+
 
     @Test
     @DisplayName("Test If User Account is Created - person ID does not exists in Repository")
@@ -64,14 +84,16 @@ class US006CreatePersonAccountServiceTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
         try {
-            service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            service.createPersonAccount(personAccountDTO1).get();
         }
 
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("This Person ID doesn't exist.", invalid.getMessage());
+            assertEquals("No person found with that email.", invalid.getMessage());
         }
     }
 
@@ -83,10 +105,12 @@ class US006CreatePersonAccountServiceTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO personAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        service.createPersonAccount(personAccountDTO1).get();
         //Act
         try {
-            service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            service.createPersonAccount(personAccountDTO1).get();
         }
         //Assert
         catch (IllegalArgumentException invalid) {
@@ -102,24 +126,30 @@ class US006CreatePersonAccountServiceTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
+        Account expected = new Account(new Denomination(accountDenomination), new Description(accountDescription),
+                personRepo.findPersonByEmail(new Email(personEmail)).getID());
+
         //Act
-        boolean accountCreated = service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        Account accountCreated = service.createPersonAccount(personAccountDTO).get();
 
         //Assert
-        assertTrue(accountCreated);
+        assertEquals(expected, accountCreated);
     }
 
     @Test
     @DisplayName("Test If User Account is Created - person ID null")
     void testIfAccountIsCreateNullID() {
         //Arrange
-        String personEmail = null;
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(null, accountDenomination, accountDescription);
+
         //Act
         try {
-            service.createPersonAccount(null, accountDenomination, accountDescription);
+            service.createPersonAccount(personAccountDTO).get();
         }
 
         //Assert
@@ -136,9 +166,11 @@ class US006CreatePersonAccountServiceTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
         try {
-            service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            service.createPersonAccount(personAccountDTO).get();
         }
 
         //Assert
@@ -155,14 +187,16 @@ class US006CreatePersonAccountServiceTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        Denomination nullDenomination = null;
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, null, accountDescription);
+
         //Act
         try {
-            service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            service.createPersonAccount(personAccountDTO).get();
         }
+
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("Neither the Denomination nor OwnerID can be null.", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
         }
     }
 
@@ -172,17 +206,17 @@ class US006CreatePersonAccountServiceTest {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
         String accountDenomination = "Revolut";
-        String accountDescription = null;
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, null);
+
+        //Act
         try {
-            service.createPersonAccount(personEmail, accountDenomination, accountDescription);
-          //  fail();
+            service.createPersonAccount(personAccountDTO).get();
+
+        //Assert
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
-
-
-     */
 }
 

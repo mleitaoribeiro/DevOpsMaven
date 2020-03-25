@@ -5,17 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AccountDTO;
-import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.CreatePersonAccountDTO;
-import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountControllerTest {

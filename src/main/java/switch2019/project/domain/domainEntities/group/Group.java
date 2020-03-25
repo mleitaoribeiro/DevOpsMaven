@@ -38,7 +38,7 @@ public class Group implements Owner {
         ledger = new Ledger();
     }
 
-    public Group(Description description, Person groupCreator){
+    public Group(Description description, Person groupCreator) {
         setGroupID(description);
         startingDate = new DateAndTime();
         members = new HashSet<>();
@@ -67,27 +67,21 @@ public class Group implements Owner {
 
     /**
      * Method to Set GroupID
+     *
      * @param groupID
      */
     public void setGroupID(Description groupID) {
-        if(groupID != null) this.groupID = new GroupID(groupID);
+        if (groupID != null) this.groupID = new GroupID(groupID);
         else throw new IllegalArgumentException("GroupID can't be null");
     }
 
     /**
      * Method to get Group ID
+     *
      * @return groupID
      */
     public GroupID getID() {
         return groupID;
-    }
-
-    /**
-     * Method to get First Admin
-     * @return first admin
-     */
-    public PersonID getFirstAdmin() {
-        return  admins.toArray(new Person[0])[0].getID();
     }
 
     /**
@@ -124,7 +118,7 @@ public class Group implements Owner {
      * @return true if is group admin, false if isn't
      */
     public boolean isGroupAdmin(Person isAdmin) {
-        if(isAdmin !=null)
+        if (isAdmin != null)
             return this.admins.contains(isAdmin);
         return false;
     }
@@ -149,7 +143,7 @@ public class Group implements Owner {
      * @return boolean
      */
     public boolean isGroupMember(Person isMember) {
-        if(isMember != null)
+        if (isMember != null)
             return this.members.contains(isMember);
         return false;
     }
@@ -160,7 +154,7 @@ public class Group implements Owner {
      * @param personID
      * @return boolean
      */
-    public boolean isGroupMember (PersonID personID) {
+    public boolean isGroupMember(PersonID personID) {
         for (Person person : members)
             if (person.getID().equals(personID))
                 return true;
@@ -194,7 +188,7 @@ public class Group implements Owner {
         if (!members.isEmpty())
             for (Person member : newMembers)
                 members.add(member);
-            return members.containsAll(newMembers);
+        return members.containsAll(newMembers);
     }
 
     /**
@@ -318,18 +312,19 @@ public class Group implements Owner {
 
     /**
      * Method used to check if multiple transactions are inside a groupLedger
+     *
      * @param transactionsToVerify
      * @return
      */
-    public boolean areMultipleTransactionsInsideTheGroupLedger (Set<Transaction> transactionsToVerify) {
-        for (Transaction transaction : transactionsToVerify){
-            if (transaction == null){
+    public boolean areMultipleTransactionsInsideTheGroupLedger(Set<Transaction> transactionsToVerify) {
+        for (Transaction transaction : transactionsToVerify) {
+            if (transaction == null) {
                 throw new IllegalArgumentException("One (or more) of the transactions is null.");
-            }
-            else if (!this.ledger.isTransactionInLedger(transaction)){
+            } else if (!this.ledger.isTransactionInLedger(transaction)) {
                 return false;
             }
-        } return true;
+        }
+        return true;
     }
 
     /**
@@ -360,12 +355,12 @@ public class Group implements Owner {
 
     /**
      * Develop method to return the ledger size
+     *
      * @return ledger size
      */
     public int ledgerSize() {
         return ledger.getLedgerSize();
     }
-
 
 
 }

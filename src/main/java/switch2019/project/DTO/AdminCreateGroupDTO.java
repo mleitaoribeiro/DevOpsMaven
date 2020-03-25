@@ -6,13 +6,14 @@ public class AdminCreateGroupDTO {
     private String groupDescription;
     private String personEmail;
 
-    public AdminCreateGroupDTO(String groupDescription, String personEmail){
+    public AdminCreateGroupDTO(String groupDescription, String personEmail) {
         this.groupDescription = groupDescription;
         this.personEmail = personEmail;
     }
 
     /**
      * get Group Description
+     *
      * @return groupDescription
      */
 
@@ -22,6 +23,7 @@ public class AdminCreateGroupDTO {
 
     /**
      * get Person Email
+     *
      * @return personEmail
      */
 

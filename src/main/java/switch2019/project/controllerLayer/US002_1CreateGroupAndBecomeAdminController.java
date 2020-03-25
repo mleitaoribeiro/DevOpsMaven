@@ -1,10 +1,11 @@
 package switch2019.project.controllerLayer;
 
 import switch2019.project.DTO.AdminCreateGroupDTO;
-import switch2019.project.DTO.GroupAndFirstAdminDTO;
+import switch2019.project.DTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupAndBecomeAdminService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.shared.Description;
 
 import java.util.Optional;
 
@@ -24,12 +25,12 @@ public class US002_1CreateGroupAndBecomeAdminController {
      * @return true the group was created and person is now Admin
      */
 
-    public Optional<GroupAndFirstAdminDTO> createGroupAndBecomeAdmin(AdminCreateGroupDTO adminCreateGroupDTO) {
+    public Optional<GroupDTO> createGroupAndBecomeAdmin(AdminCreateGroupDTO adminCreateGroupDTO) {
         Optional<Group> optionalGroup = service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
-        if(optionalGroup.isPresent()) {
+        if (optionalGroup.isPresent()) {
             Group group = optionalGroup.get();
-            GroupAndFirstAdminDTO groupAndFirstAdminDTO = GroupDTOAssembler.createGroupAndFirstAdminDTO(group.getID(), group.getFirstAdmin());
-            return Optional.of(groupAndFirstAdminDTO);
+            GroupDTO groupDTO = GroupDTOAssembler.createGroupDTO(new Description(group.getGroupID()));
+            return Optional.of(groupDTO);
         } else return Optional.empty();
     }
 }
