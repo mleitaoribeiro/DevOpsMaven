@@ -3,10 +3,10 @@ package switch2019.project.DTO;
 import java.util.Objects;
 
 public class GroupDTO {
-    private String familyGroupDescription;
+    private String groupDescription;
 
-    public GroupDTO(String familyGroupDescription) {
-        this.familyGroupDescription = familyGroupDescription;
+    public GroupDTO(String groupDescription) {
+        this.groupDescription = groupDescription.toUpperCase();
     }
 
     @Override
@@ -14,20 +14,21 @@ public class GroupDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupDTO groupDTO = (GroupDTO) o;
-        return Objects.equals(familyGroupDescription, groupDTO.familyGroupDescription);
+        return Objects.equals(groupDescription, groupDTO.groupDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(familyGroupDescription);
+        return Objects.hash(groupDescription);
     }
 
     /**
-     * Method to get FamilyGroupDescription
-     * @return
+     * Method to get GroupDescription
+     *
+     * @return groupDescription
      */
 
     public String getFamilyGroupDescription() {
-        return familyGroupDescription;
+        return groupDescription;
     }
 }
