@@ -85,15 +85,6 @@ public class Group implements Owner {
     }
 
     /**
-     * Method to get First Admin
-     *
-     * @return first admin
-     */
-    public PersonID getFirstAdmin() {
-        return admins.toArray(new Person[0])[0].getID();
-    }
-
-    /**
      * Add a new person to a group
      *
      * @param person
