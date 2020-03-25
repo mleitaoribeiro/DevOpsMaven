@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer;
 
+import switch2019.project.DTO.SiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 
 public class US001AreSiblingsController {
@@ -14,11 +15,10 @@ public class US001AreSiblingsController {
      * US001
      * As system manager, I want to know if two people are siblings
      *
-     * @param emailPerson1
-     * @param emailPerson2
+     * @param
      * @return true if two people are siblings
      */
-    public boolean areSiblings(String emailPerson1, String emailPerson2) {
-        return service.areSiblings(emailPerson1, emailPerson2);
+    public boolean areSiblings(SiblingsDTO siblingsDTO) {
+        return service.areSiblings(siblingsDTO);
     }
 }
