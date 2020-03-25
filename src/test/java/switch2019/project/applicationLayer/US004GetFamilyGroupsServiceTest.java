@@ -131,12 +131,12 @@ class US004GetFamilyGroupsServiceTest {
         groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
-        Set <GroupDTO> expected = new HashSet<>();
-        expected.add(new GroupDTO("FAMILIA SANTOS"));
-        expected.add(new GroupDTO("FAMILIA SIMPSON"));
+        Set <String> expected = new HashSet<>();
+        expected.add("FAMILIA SANTOS");
+        expected.add("FAMILIA SIMPSON");
 
         //Act
-        Set <GroupDTO> real = service.getFamilyGroups();
+        Set <String> real = service.getFamilyGroups();
 
         //Assert
         assertEquals(expected, real);
@@ -151,10 +151,10 @@ class US004GetFamilyGroupsServiceTest {
         groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
-        Set <GroupDTO> expected = new HashSet<>();
+        Set <String> expected = new HashSet<>();
 
         //Act
-        Set <GroupDTO> real = service.getFamilyGroups();
+        Set <String> real = service.getFamilyGroups();
 
         //Assert
         assertEquals(expected, real);

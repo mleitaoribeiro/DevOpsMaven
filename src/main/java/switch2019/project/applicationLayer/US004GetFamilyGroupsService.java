@@ -22,18 +22,8 @@ public class US004GetFamilyGroupsService {
      * @return set of families
      */
 
-    public Set <GroupDTO> getFamilyGroups (){
+    public Set <String> getFamilyGroups (){
 
-        Set <String> familyGroups = groupsRepository.returnOnlyFamilies();
-
-        Set <GroupDTO> familyGroupDTO = new HashSet<>();
-
-        if (!familyGroups.isEmpty()) {
-            for (String family : familyGroups) {
-                GroupDTO familyDTO = GroupDTOAssembler.createGroupDescriptionDTO(new Description(family));
-                familyGroupDTO.add(familyDTO);
-            }
-        }
-       return familyGroupDTO;
+        return groupsRepository.returnOnlyFamilies();
     }
 }
