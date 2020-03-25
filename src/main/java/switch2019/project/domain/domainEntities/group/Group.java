@@ -120,7 +120,7 @@ public class Group implements Owner {
     public boolean isGroupAdmin(Person isAdmin) {
         if (isAdmin != null)
             return this.admins.contains(isAdmin);
-        return false;
+        else return false;
     }
 
     /**
