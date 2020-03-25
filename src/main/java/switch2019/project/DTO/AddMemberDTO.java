@@ -21,7 +21,7 @@ public class AddMemberDTO {
     /**
      * Getter for groupDescription
      *
-     * @return
+     * @return groupDescription
      */
     public String getGroupDescription() {
         return groupDescription;

@@ -60,27 +60,6 @@ class CategoryRepositoryTest {
         assertNotEquals(expected, result);
     }
 
-
-    /**
-     * Test if one category was added to the Category Repository
-     */
-
-    @Test
-    @DisplayName("Test if one category was added to the Category Repository - Main Scenario ")
-    void addCategoryToRepositoryMainScenario() {
-        //Arrange
-        //Category to be included in Category Repository
-        String oneCategory = "School expenses";
-        CategoryRepository newCategoryRepository = new CategoryRepository();
-
-        //Act
-
-        boolean realResult = newCategoryRepository.createCategory(oneCategory);
-
-        //Assert
-        assertEquals(true, realResult);
-    }
-
     /**
      * Test if two different categories were added to the Category Repository
      */

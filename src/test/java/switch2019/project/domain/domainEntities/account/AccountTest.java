@@ -10,7 +10,7 @@ import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-// Account equals not working properly - Gabriel (Work in Progress)
+
 class AccountTest {
 
     /**
@@ -23,9 +23,9 @@ class AccountTest {
 
         //Arrange
         Account supermarket = new Account(new Denomination("Supermarket"),
-                new Description("Weekly spends"));
+                new Description("Weekly spends"), new PersonID(new Email("marco@gmail.com")));
         Account supermercado = new Account(new Denomination("Supermarket"),
-                new Description("Weekly spends"));
+                new Description("Weekly spends"), new PersonID(new Email("marco@gmail.com")));
         //Act
         boolean result = supermarket.equals(supermercado);
 
@@ -39,9 +39,9 @@ class AccountTest {
 
         //Arrange
         Account supermarket = new Account(new Denomination("Supermarket"),
-                new Description("Weekly spends"));
+                new Description("Weekly spends"), new PersonID(new Email("marco@gmail.com")));
         Account supermercado = new Account(new Denomination("Supermarket"),
-                new Description("Monthly spends"));
+                new Description("Monthly spends"), new PersonID(new Email("marco@gmail.com")));
 
         //Act
         boolean result = supermarket.equals(supermercado);
@@ -56,7 +56,7 @@ class AccountTest {
 
         //Arrange
         Account oneAccount = new Account(new Denomination("Supermarket"),
-                new Description("Weekly spends"));
+                new Description("Weekly spends"),new PersonID(new Email("marco@gmail.com")));
 
         //Act
         boolean result = oneAccount.equals(oneAccount);
@@ -65,28 +65,13 @@ class AccountTest {
         assertTrue(result);
     }
 
-    @Test
-    @DisplayName("Test if two accounts are the same - Same Account")
-    public void testIfSameObjectToString() {
-
-        //Arrange
-        Account oneAccount = new Account(new Denomination("Supermarket"),
-                new Description("Weekly spends"), new PersonID(new Email("maria@gmail.com")));
-        String one = oneAccount.toString();
-
-        //Act
-        boolean result =(one != null && one.equals("WEEKLY SPENDS, 0.0€, SUPERMARKET, maria@gmail.com"));
-
-        //Assert
-        //assertTrue(result);
-    }
 
     @Test
     @DisplayName("Test if two accounts are the same - one Account is Null")
     public void testIfTwoAccountsAreTheSameOneAccountIsNull() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("xpto account"));
+                new Description("xpto account"), new PersonID(new Email("marco@gmail.com")));
         Account otherAccount = null;
 
         //Act
@@ -97,11 +82,11 @@ class AccountTest {
     }
 
     @Test
-    @DisplayName("Test if two accounts are the same - diferent objects")
+    @DisplayName("Test if two accounts are the same - different objects")
     public void testIfTwoAccountsAreTheSameDifferentObjects() {
         //Arrange
 
-        Account oneAccount = new Account(new Denomination("xpto"),new Description("xpto account"));
+        Account oneAccount = new Account(new Denomination("xpto"),new Description("xpto account"), new PersonID(new Email("marco@gmail.com")));
         Person onePerson = new Person ("Alexandre", new DateAndTime(1994, 02, 10), new Address("Porto"),
                 new Address("Rua de Requeixos", "Vizela", "4620-585"), new Email("1234@isep.pt"));
 
@@ -117,21 +102,21 @@ class AccountTest {
      */
 
     @Test
-    @DisplayName("Test if two lists have the same Hashcode - True")
+    @DisplayName("Test if two accounts have the same Hashcode - True")
     public void testIfTwoAccountsHaveTheSameHashCode() {
 
         //Arrange & Act
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("xpto account"));
+                new Description("xpto account"), new PersonID(new Email("marta@123.com")));
         Account otherAccount = new Account(new Denomination("xpto"),
-                new Description("xpto account"));
+                new Description("xpto account"), new PersonID(new Email("marta@123.com")));
 
         //Assert
-        //assertEquals(oneAccount.hashCode(), otherAccount.hashCode());
+        assertEquals(oneAccount.hashCode(), otherAccount.hashCode());
     }
 
     @Test
-    @DisplayName("Test if two lists have the same Hashcode - Not The Same")
+    @DisplayName("Test if two accounts have the same Hashcode - Not The Same")
     public void testIfTwoAccountsDontHaveTheSameHashCode() {
 
         //Arrange & Act
@@ -159,11 +144,11 @@ class AccountTest {
 
         //Arrange & Act
         try {
-            Account oneAccount = new Account(null, new Description("xpto Account"));
+            Account oneAccount = new Account(null, new Description("xpto Account"), new PersonID(new Email("marta@123.com")));
         }
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The denomination can´t be null or empty!", description.getMessage());
+            assertEquals("Neither the Denomination nor OwnerID can be null.", description.getMessage());
         }
     }
 
@@ -173,11 +158,11 @@ class AccountTest {
 
         //Arrange & Act
         try {
-            Account oneAccount = new Account(new Denomination("xpto"), null);
+            Account oneAccount = new Account(new Denomination("xpto"), null, new PersonID(new Email("marta@123.com")));
         }
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The description can´t be null or empty!", description.getMessage());
+            assertEquals("Account Description can't be null.", description.getMessage());
         }
     }
 
@@ -187,7 +172,7 @@ class AccountTest {
 
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
-                new Description("xyz"));
+                new Description("xyz"), new PersonID(new Email("marta@123.com")));
         String expected = "XYZ";
 
         //Act
