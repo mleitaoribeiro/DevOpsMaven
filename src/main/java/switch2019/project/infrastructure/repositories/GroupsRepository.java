@@ -69,9 +69,9 @@ public class GroupsRepository implements Repository {
      */
     public Set<String> returnOnlyFamilies() {
         Set<String> groupsFamily = new HashSet<>();
-        for (Group g : groups) {
-            if (g.isFamily()) {
-                groupsFamily.add(g.toString());
+        for (Group group : groups) {
+            if (group.isFamily()) {
+                groupsFamily.add(group.toString());
             }
         }
         return groupsFamily;
