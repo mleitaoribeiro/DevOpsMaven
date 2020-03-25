@@ -26,12 +26,6 @@ public class Ledger {
         scheduledTasksList = new ScheduledTasksList();
     }
 
-    /**
-     * To String
-     *
-     * @return
-     */
-
     @Override
     public String toString() {
         return "Ledger:" + ledgerTransactions + ".";
@@ -144,7 +138,6 @@ public class Ledger {
                     (transactions.getDate().equals(initialDate) || transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
-
         return myTransactions;
     }
 

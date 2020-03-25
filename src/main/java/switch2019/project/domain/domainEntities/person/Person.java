@@ -73,12 +73,7 @@ public class Person implements Owner {
         ledger = new Ledger();
     }
 
-    /**
-     * override of equals for Person Instance and @override hashcode
-     *
-     * @param o
-     * @return boolean
-     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

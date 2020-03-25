@@ -41,13 +41,6 @@ public class Transaction {
             this.date = setDate(date);
         }
 
-
-    /**
-     * Develop @override of equals for Transaction and @override of hashcode
-     *
-     * @param o
-     * @return true if equal
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,9 +75,6 @@ public class Transaction {
         return date.format(formatter);
     }
 
-    /**
-     * Develop @override of toString()
-     */
     @Override
     public String toString() {
         return dateToString() + " | " + amount + " " + typeToString() + " | " +
