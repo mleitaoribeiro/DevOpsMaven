@@ -89,10 +89,7 @@ public class Group implements Owner {
      */
 
     public PersonID getFirstAdmin() {
-        PersonID personID = null;
-        for(Person person : admins) {
-            personID = person.getID();
-        } return personID;
+        return  admins.toArray(new Person[0])[0].getID();
     }
 
     /**

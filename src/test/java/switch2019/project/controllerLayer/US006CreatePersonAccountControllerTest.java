@@ -1,8 +1,13 @@
 package switch2019.project.controllerLayer;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.AccountDTO;
+import switch2019.project.DTO.CreateGroupAccountDTO;
+import switch2019.project.DTO.CreatePersonAccountDTO;
+import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
@@ -19,7 +24,7 @@ class US006CreatePersonAccountControllerTest {
     private AccountRepository accountRepo;
     private US006CreatePersonAccountController controller;
     private US006CreatePersonAccountService service;
-/*
+
     @BeforeEach
     void universeSetUp() {
         personRepo = new PersonRepository();
@@ -44,12 +49,17 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        AccountDTO expected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
-        boolean accountCreated = service.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        AccountDTO accountCreated = controller.createPersonAccount(personAccountDTO).get();
 
         //Assert
-        assertTrue(accountCreated);
+        assertEquals(expected, accountCreated);
+
     }
+
 
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
@@ -62,15 +72,32 @@ class US006CreatePersonAccountControllerTest {
         String accountDescription2 = "For sharing expenses";
         String accountDenomination3 = "CXG";
         String accountDescription3 = "Allowance paychecks";
+
+        CreatePersonAccountDTO personAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination1, accountDescription1);
+        AccountDTO expected1 = new AccountDTO(personEmail, accountDenomination1, accountDescription1);
+
+        CreatePersonAccountDTO personAccountDTO2 = new CreatePersonAccountDTO(personEmail, accountDenomination2, accountDescription2);
+        AccountDTO expected2 = new AccountDTO(personEmail, accountDenomination2, accountDescription2);
+
+        CreatePersonAccountDTO personAccountDTO3 = new CreatePersonAccountDTO(personEmail, accountDenomination3, accountDescription3);
+        AccountDTO expected3 = new AccountDTO(personEmail, accountDenomination3, accountDescription3);
+
         //Act
-        boolean accountsCreated = controller.createPersonAccount(personEmail, accountDenomination1,
-                accountDescription1)
-                && service.createPersonAccount(personEmail, accountDenomination2, accountDescription2)
-                && service.createPersonAccount(personEmail, accountDenomination3, accountDescription3);
+
+        AccountDTO accountCreated1 = controller.createPersonAccount(personAccountDTO1).get();
+        AccountDTO accountCreated2 = controller.createPersonAccount(personAccountDTO2).get();
+        AccountDTO accountCreated3 = controller.createPersonAccount(personAccountDTO3).get();
 
         //Assert
-        assertTrue(accountsCreated);
+
+        Assertions.assertAll(
+                () -> assertEquals(expected1, accountCreated1),
+                () -> assertEquals(expected2, accountCreated2),
+                () -> assertEquals(expected3, accountCreated3)
+        );
+
     }
+
 
     @Test
     @DisplayName("Test If User Account is Created - person ID does not exists in Repository")
@@ -80,14 +107,16 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
         try {
-            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            controller.createPersonAccount(personAccountDTO).get();
         }
 
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("This Person ID doesn't exist.", invalid.getMessage());
+            assertEquals("No person found with that email.", invalid.getMessage());
         }
     }
 
@@ -99,10 +128,11 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
         try {
-            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            controller.createPersonAccount(personAccountDTO).get();
         }
         //Assert
         catch (IllegalArgumentException invalid) {
@@ -119,9 +149,11 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
         try {
-            controller.createPersonAccount(null, accountDenomination, accountDescription);
+            controller.createPersonAccount(personAccountDTO).get();
         }
 
         //Assert
@@ -129,6 +161,7 @@ class US006CreatePersonAccountControllerTest {
             assertEquals("The email can´t be null!", invalid.getMessage());
         }
     }
+
 
     @Test
     @DisplayName("Test If User Account is Created - Email is Empty")
@@ -138,9 +171,11 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+
         //Act
         try {
-            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            controller.createPersonAccount(personAccountDTO).get();
         }
 
         //Assert
@@ -149,22 +184,24 @@ class US006CreatePersonAccountControllerTest {
         }
     }
 
+
     @Test
     @DisplayName("Test If User Account is Created - Null Denomination")
     void testIfAccountIsCreateNullDenomination() {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
-        String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        Denomination nullDenomination = null;
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, null, accountDescription);
+
         //Act
         try {
-            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+            controller.createPersonAccount(personAccountDTO).get();
         }
+
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("Neither the Denomination nor OwnerID can be null.", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
         }
     }
 
@@ -174,15 +211,17 @@ class US006CreatePersonAccountControllerTest {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
         String accountDenomination = "Revolut";
-        String accountDescription = null;
 
+        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, null);
+
+        //Act
         try {
-          // controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
-           // fail();
+            controller.createPersonAccount(personAccountDTO).get();
+
+        //Assert
         } catch (IllegalArgumentException invalid) {
-           // assertEquals("The description can't be null or empty.", invalid.getMessage());
+            assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
 
- */
 }

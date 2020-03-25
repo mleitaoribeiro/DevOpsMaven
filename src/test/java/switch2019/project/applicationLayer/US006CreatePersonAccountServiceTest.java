@@ -18,7 +18,7 @@ class US006CreatePersonAccountServiceTest {
     private PersonRepository personRepo;
     private AccountRepository accountRepo;
     private US006CreatePersonAccountService service;
-/*
+
     @BeforeEach
     void universeSetUp() {
         personRepo = new PersonRepository();
@@ -34,6 +34,7 @@ class US006CreatePersonAccountServiceTest {
                 new Address("Rua de Tagilde", "Vizela", "4620-500"), new Email("mariana.alves@gmail.com"));
     }
 
+    /*
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
     void testIfPersonAccountIsCreated() {
@@ -180,6 +181,8 @@ class US006CreatePersonAccountServiceTest {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
-    */
+
+
+     */
 }
 

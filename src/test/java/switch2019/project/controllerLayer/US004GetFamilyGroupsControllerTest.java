@@ -3,13 +3,13 @@ package switch2019.project.controllerLayer;
     import org.junit.jupiter.api.BeforeEach;
     import org.junit.jupiter.api.DisplayName;
     import org.junit.jupiter.api.Test;
+    import switch2019.project.DTO.GroupDTO;
     import switch2019.project.domain.domainEntities.group.Group;
     import switch2019.project.domain.domainEntities.person.Address;
     import switch2019.project.domain.domainEntities.person.Email;
     import switch2019.project.domain.domainEntities.person.Person;
     import switch2019.project.domain.domainEntities.shared.DateAndTime;
     import switch2019.project.domain.domainEntities.shared.Description;
-    import switch2019.project.domain.domainEntities.shared.GroupID;
     import switch2019.project.infrastructure.repositories.GroupsRepository;
     import switch2019.project.infrastructure.repositories.PersonRepository;
     import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
@@ -140,15 +140,15 @@ class US004GetFamilyGroupsControllerTest {
         groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
-        Set<String> expected = new HashSet<>();
-        expected.add(groupsRepository.findGroupByID(new GroupID(new Description("Familia Santos"))).toString());
-        expected.add(groupsRepository.findGroupByID(new GroupID(new Description("Familia Simpson"))).toString());
+        Set <GroupDTO> expected = new HashSet<>();
+        expected.add(new GroupDTO("FAMILIA SANTOS"));
+        expected.add(new GroupDTO("FAMILIA SIMPSON"));
 
         //Act
-        controller.getFamilyGroups();
+        Set <GroupDTO> real = controller.getFamilyGroups();
 
         //Assert
-        assertEquals(expected, controller.getFamilyGroups());
+        assertEquals(expected, real);
     }
 
     @Test
@@ -160,12 +160,12 @@ class US004GetFamilyGroupsControllerTest {
         groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
-        Set<String> expected = new HashSet<>();
+        Set <GroupDTO> expected = new HashSet<>();
 
         //Act
-        controller.getFamilyGroups();
+        Set <GroupDTO> real = controller.getFamilyGroups();
 
         //Assert
-        assertEquals(expected, controller.getFamilyGroups());
+        assertEquals(expected, real);
     }
 }
