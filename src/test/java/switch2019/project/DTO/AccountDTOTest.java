@@ -12,7 +12,7 @@ class AccountDTOTest {
     void getOwnerID() {
         //Arrange
         AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
-        String expected = "mailOwner";
+        String expected = "MAILOWNER";
 
         //Act
         String actual = dto.getOwnerID();
@@ -26,7 +26,7 @@ class AccountDTOTest {
     void getDenomination() {
         //Arrange
         AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
-        String expected = "mesadas";
+        String expected = "MESADAS";
 
         //Act
         String actual = dto.getDenomination();
@@ -40,7 +40,7 @@ class AccountDTOTest {
     void getDescription() {
         //Arrange
         AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
-        String expected = "mesada do Alex";
+        String expected = "MESADA DO ALEX";
 
         //Act
         String actual = dto.getDescription();

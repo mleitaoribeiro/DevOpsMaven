@@ -9,9 +9,9 @@ public class AccountDTO {
     private String description;
 
     public AccountDTO(String ownerID, String denomination, String description) {
-        this.ownerID = ownerID;
-        this.denomination = denomination;
-        this.description = description;
+        this.ownerID = ownerID.toUpperCase();
+        this.denomination = denomination.toUpperCase();
+        this.description = description.toUpperCase();
     }
 
     @Override

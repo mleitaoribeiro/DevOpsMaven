@@ -3,7 +3,10 @@ package switch2019.project.controllerLayer;
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
+import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
 
 import java.util.Optional;
 
@@ -32,12 +35,15 @@ public class US007CreateGroupAccountController {
         Optional <Account> ret = service.createGroupAccount(accountDTO);
         if (ret.isPresent()){
             Account account = ret.get();
-            AccountDTO dto = new AccountDTO(account.getOwnerID().toString(), account.denominationToString(), account.getDescription());
+            AccountDTOAssembler accountDTOAssembler = new AccountDTOAssembler();
+            Denomination denomination = new Denomination(account.getID().getDenomination());
+            Description description = new Description(account.getDescription());
+            AccountDTO dto = accountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination,
+                    description);
             return Optional.of(dto);
         } else {
             return Optional.empty();
         }
-
 
     }
 
