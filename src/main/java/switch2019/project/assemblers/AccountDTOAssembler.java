@@ -7,6 +7,9 @@ import switch2019.project.domain.domainEntities.shared.Description;
 
 public class AccountDTOAssembler {
 
+
+    private AccountDTOAssembler () {}
+
     /**
      * method for creating the DTO for an Account
      * param ownerID

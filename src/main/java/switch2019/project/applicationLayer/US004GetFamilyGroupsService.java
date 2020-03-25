@@ -18,7 +18,6 @@ public class US004GetFamilyGroupsService {
      */
 
     public Set <String> getFamilyGroups (){
-
         return groupsRepository.returnOnlyFamilies();
     }
 }

@@ -31,10 +31,9 @@ public class US006CreatePersonAccountController {
         Optional<Account> ret = service.createPersonAccount(accountDTO);
         if (ret.isPresent()) {
             Account account = ret.get();
-            AccountDTOAssembler accountDTOAssembler = new AccountDTOAssembler();
             Denomination denomination = new Denomination(account.getID().getDenomination());
             Description description = new Description(account.getDescription());
-            AccountDTO dto = accountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination,
+            AccountDTO dto = AccountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination,
                     description);
             return Optional.of(dto);
         } else {

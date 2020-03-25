@@ -26,13 +26,11 @@ public class US004GetFamilyGroupsController {
         //DTO conversion
         Set<GroupDTO> familyGroupDTO = new HashSet<>();
 
-        if (!familyGroups.isEmpty()) {
-            for (String family : familyGroups) {
-                GroupDTO familyDTO = new GroupDTO(family);
-                familyGroupDTO.add(familyDTO);
-            }
-        }
+        if (!familyGroups.isEmpty())
+            for (String family : familyGroups)
+                familyGroupDTO.add(new GroupDTO(family));
         return familyGroupDTO;
-    }
 
+    }
 }
+
