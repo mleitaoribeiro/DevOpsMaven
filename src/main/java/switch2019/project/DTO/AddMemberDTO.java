@@ -7,7 +7,6 @@ public class AddMemberDTO {
     private String personEmail;
     private String groupDescription;
 
-
     public AddMemberDTO(String personEmail, String groupDescription) {
         this.personEmail = personEmail;
         this.groupDescription = groupDescription;
@@ -17,7 +16,6 @@ public class AddMemberDTO {
      * Getter for personEmail
      * @return personEmail
      */
-
     public String getPersonEmail() {
         return personEmail;
     }

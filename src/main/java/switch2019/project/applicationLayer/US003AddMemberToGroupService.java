@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import switch2019.project.DTO.AddMemberDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -22,14 +23,12 @@ public class US003AddMemberToGroupService {
      * US003
      * Add Member To Group
      *
-     * @param personEmail
-     * @param groupDescription
-     * @return
+     * @param addMemberDTO
+     * @return boolean
      */
-    public boolean addMemberToGroup(String personEmail, String groupDescription) {
-
-        Person person = personRepository.findPersonByEmail(new Email(personEmail));
-        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
+    public boolean addMemberToGroup(AddMemberDTO addMemberDTO) {
+        Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
+        Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         return group.addMember(person);
     }
 }
