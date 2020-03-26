@@ -67,11 +67,11 @@ public class GroupsRepository implements Repository {
      *
      * @return groups that are all family
      */
-    public Set<String> returnOnlyFamilies() {
-        Set<String> groupsFamily = new HashSet<>();
+    public Set<Group> returnOnlyFamilies() {
+        Set<Group> groupsFamily = new HashSet<>();
         for (Group group : groups) {
             if (group.isFamily()) {
-                groupsFamily.add(group.toString());
+                groupsFamily.add(group);
             }
         }
         return groupsFamily;

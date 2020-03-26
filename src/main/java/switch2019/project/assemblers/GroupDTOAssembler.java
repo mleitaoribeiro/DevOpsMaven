@@ -2,6 +2,7 @@ package switch2019.project.assemblers;
 
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 
 public class GroupDTOAssembler {
 
@@ -13,7 +14,7 @@ public class GroupDTOAssembler {
      * @param groupDescription
      * @return
      */
-    public static GroupDTO createGroupDTO(Description groupDescription) {
-        return new GroupDTO(groupDescription.getDescription());
+    public static GroupDTO createGroupDTO(GroupID groupID) {
+        return new GroupDTO(groupID.getDescription());
     }
 }

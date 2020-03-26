@@ -23,7 +23,7 @@ class GroupDTOTest {
         String expected = "QUERIDO'S FAMILY";
 
         //Act
-        String actual = dto.getFamilyGroupDescription();
+        String actual = dto.getGroupDescription();
 
         //Assert
         assertEquals(expected, actual);

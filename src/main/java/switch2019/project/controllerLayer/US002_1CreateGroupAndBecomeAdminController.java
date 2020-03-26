@@ -29,7 +29,7 @@ public class US002_1CreateGroupAndBecomeAdminController {
         Optional<Group> optionalGroup = service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
         if (optionalGroup.isPresent()) {
             Group group = optionalGroup.get();
-            GroupDTO groupDTO = GroupDTOAssembler.createGroupDTO(new Description(group.getGroupID()));
+            GroupDTO groupDTO = GroupDTOAssembler.createGroupDTO((group.getID()));
             return Optional.of(groupDTO);
         } else return Optional.empty();
     }
