@@ -30,7 +30,7 @@ class US007CreateGroupAccountServiceTest {
     private static GroupsRepository groupsRepo;
     private static AccountRepository accountRepo;
     private static US007CreateGroupAccountService service;
-/*
+
     @BeforeEach
     void universeSetUp() {
 
@@ -98,7 +98,7 @@ class US007CreateGroupAccountServiceTest {
      */
 
 
-  /*  @Test
+    @Test
     @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreatedHappyCase() {
 
@@ -111,8 +111,8 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        AccountDTO expected = new AccountDTO(accountDenomination, accountDescription,
-                groupDescription);
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination,
+                accountDescription);
 
         //Act
         AccountDTO accountCreated = service.createGroupAccount(createGroupAccountDTO);
@@ -138,8 +138,8 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        AccountDTO expected = new AccountDTO(accountDenomination, accountDescription,
-                groupDescription);
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination,
+                accountDescription);
 
         //Act
         AccountDTO accountCreated = service.createGroupAccount(createGroupAccountDTO);
@@ -156,9 +156,9 @@ class US007CreateGroupAccountServiceTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created - Failing scenarios
-     *//*
+     */
 
 
     @Test
@@ -271,9 +271,9 @@ class US007CreateGroupAccountServiceTest {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    *//**
+    /**
      * Test If group Account is created - Several accounts added - Null & Empty Values
-     *//*
+     */
 
 
     @Test
@@ -472,9 +472,9 @@ class US007CreateGroupAccountServiceTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
-     *//*
+     */
 
 
     @Test
@@ -497,20 +497,20 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        AccountDTO expected = new AccountDTO(accountDenomination, accountDescription,
-                groupDescription);
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination,
+                accountDescription);
 
         CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination1, accountDescription1);
 
-        AccountDTO expected1 = new AccountDTO(accountDenomination1, accountDescription1,
-                groupDescription);
+        AccountDTO expected1 = new AccountDTO(groupDescription, accountDenomination1,
+                accountDescription1);
 
         CreateGroupAccountDTO createGroupAccountDTO2 = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination2, accountDescription2);
 
-        AccountDTO expected2 = new AccountDTO(accountDenomination2, accountDescription2,
-                groupDescription);
+        AccountDTO expected2 = new AccountDTO(groupDescription, accountDenomination2,
+                accountDescription2);
 
 
         //Act
@@ -527,9 +527,9 @@ class US007CreateGroupAccountServiceTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
-     *//*
+     */
 
 
     @Test
@@ -552,20 +552,20 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        AccountDTO expected = new AccountDTO(accountDenomination, accountDescription,
-                groupDescription);
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination,
+                accountDescription);
 
         CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination1, accountDescription1);
 
-        AccountDTO expected1 = new AccountDTO(accountDenomination1, accountDescription1,
-                groupDescription);
+        AccountDTO expected1 = new AccountDTO(groupDescription, accountDenomination1,
+                accountDescription1);
 
         CreateGroupAccountDTO createGroupAccountDTO2 = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination2, accountDescription2);
 
-        AccountDTO expected2 = new AccountDTO(accountDenomination2, accountDescription2,
-                groupDescription);
+        AccountDTO expected2 = new AccountDTO(groupDescription, accountDenomination2,
+                accountDescription2);
 
         int numberOfExpectedAccountsInTheRepository = 3;
 
@@ -588,9 +588,9 @@ class US007CreateGroupAccountServiceTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created -  Failing scenarios - Simple Tests
-     *//*
+     */
 
 
     @Test
@@ -702,9 +702,9 @@ class US007CreateGroupAccountServiceTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created -  Failing scenarios  - Check Number of Accounts
-     *//*
+     */
 
 
     @Test
@@ -816,6 +816,6 @@ class US007CreateGroupAccountServiceTest {
             );
         }
     }
-*/
+
 
 }
