@@ -40,6 +40,7 @@ class US006CreatePersonAccountControllerTest {
                 new Address("Rua de Tagilde", "Vizela", "4620-500"), new Email("mariana.alves@gmail.com"));
     }
 
+
     @Test
     @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
     void testIfPersonAccountAreCreated() {
@@ -48,14 +49,14 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
-        AccountDTO expected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        AccountDTO accountDTOExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
-        AccountDTO accountCreated = controller.createPersonAccount(personAccountDTO).get();
+        AccountDTO accountDTOCreated = controller.createPersonAccount(createPersonAccountDTO);
 
         //Assert
-        assertEquals(expected, accountCreated);
+        assertEquals(accountDTOExpected , accountDTOCreated);
 
     }
 
@@ -72,27 +73,27 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination3 = "CXG";
         String accountDescription3 = "Allowance paychecks";
 
-        CreatePersonAccountDTO personAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination1, accountDescription1);
-        AccountDTO expected1 = new AccountDTO(personEmail, accountDenomination1, accountDescription1);
+        CreatePersonAccountDTO createPersonAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination1, accountDescription1);
+        AccountDTO accountDTOExpected1 = new AccountDTO(personEmail, accountDenomination1, accountDescription1);
 
-        CreatePersonAccountDTO personAccountDTO2 = new CreatePersonAccountDTO(personEmail, accountDenomination2, accountDescription2);
-        AccountDTO expected2 = new AccountDTO(personEmail, accountDenomination2, accountDescription2);
+        CreatePersonAccountDTO createPersonAccountDTO2 = new CreatePersonAccountDTO(personEmail, accountDenomination2, accountDescription2);
+        AccountDTO accountDTOExpected2 = new AccountDTO(personEmail, accountDenomination2, accountDescription2);
 
-        CreatePersonAccountDTO personAccountDTO3 = new CreatePersonAccountDTO(personEmail, accountDenomination3, accountDescription3);
-        AccountDTO expected3 = new AccountDTO(personEmail, accountDenomination3, accountDescription3);
+        CreatePersonAccountDTO createPersonAccountDTO3 = new CreatePersonAccountDTO(personEmail, accountDenomination3, accountDescription3);
+        AccountDTO accountDTOExpected3 = new AccountDTO(personEmail, accountDenomination3, accountDescription3);
 
         //Act
 
-        AccountDTO accountCreated1 = controller.createPersonAccount(personAccountDTO1).get();
-        AccountDTO accountCreated2 = controller.createPersonAccount(personAccountDTO2).get();
-        AccountDTO accountCreated3 = controller.createPersonAccount(personAccountDTO3).get();
+        AccountDTO accountDTOCreated1 = controller.createPersonAccount(createPersonAccountDTO1);
+        AccountDTO accountDTOCreated2 = controller.createPersonAccount(createPersonAccountDTO2);
+        AccountDTO accountDTOCreated3 = controller.createPersonAccount(createPersonAccountDTO3);
 
         //Assert
 
         Assertions.assertAll(
-                () -> assertEquals(expected1, accountCreated1),
-                () -> assertEquals(expected2, accountCreated2),
-                () -> assertEquals(expected3, accountCreated3)
+                () -> assertEquals(accountDTOExpected1, accountDTOCreated1),
+                () -> assertEquals(accountDTOExpected2, accountDTOCreated2),
+                () -> assertEquals(accountDTOExpected3, accountDTOCreated3)
         );
 
     }
@@ -109,18 +110,18 @@ class US006CreatePersonAccountControllerTest {
         int expectedAccountsBefore = 0;
         int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
         int numberOfExpectedAccountsInTheRepositoryAfter = 1;
-        AccountDTO expected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+        AccountDTO accountDTOExpected  = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
-        AccountDTO accountCreated = controller.createPersonAccount(createPersonAccountDTO).get();
+        AccountDTO accountDTOCreated = controller.createPersonAccount(createPersonAccountDTO);
 
         int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
 
         //Assert
         Assertions.assertAll(
-                () -> assertEquals(expected, accountCreated),
+                () -> assertEquals(accountDTOExpected, accountDTOCreated),
                 () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
                 () -> assertEquals(numberOfExpectedAccountsInTheRepositoryAfter, realNumberOfAccountsInTheRepositoryAfter)
         );
@@ -135,11 +136,11 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
         try {
-            controller.createPersonAccount(personAccountDTO).get();
+            controller.createPersonAccount(createPersonAccountDTO);
         }
 
         //Assert
@@ -156,13 +157,13 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
-        controller.createPersonAccount(personAccountDTO).get();
+        controller.createPersonAccount(createPersonAccountDTO);
 
         try {
-            controller.createPersonAccount(personAccountDTO).get();
+            controller.createPersonAccount(createPersonAccountDTO);
         }
         //Assert
         catch (IllegalArgumentException invalid) {
@@ -183,13 +184,13 @@ class US006CreatePersonAccountControllerTest {
         int expectedAccountsBefore = 1;
         int expectedAccountsAfter = 1;
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
-        controller.createPersonAccount(personAccountDTO);
+        controller.createPersonAccount(createPersonAccountDTO);
         int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
         try {
-            controller.createPersonAccount(personAccountDTO);
+            controller.createPersonAccount(createPersonAccountDTO);
 
         //Assert
         } catch (IllegalArgumentException accountAlreadyExists) {
@@ -212,11 +213,11 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
         try {
-            controller.createPersonAccount(personAccountDTO).get();
+            controller.createPersonAccount(createPersonAccountDTO);
         }
 
         //Assert
@@ -234,11 +235,11 @@ class US006CreatePersonAccountControllerTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
         try {
-            controller.createPersonAccount(personAccountDTO).get();
+            controller.createPersonAccount(createPersonAccountDTO);
         }
 
         //Assert
@@ -255,11 +256,11 @@ class US006CreatePersonAccountControllerTest {
         String personEmail = "jose.cardoso@hotmail.com";
         String accountDescription = "OnlineShopping";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, null, accountDescription);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, null, accountDescription);
 
         //Act
         try {
-            controller.createPersonAccount(personAccountDTO).get();
+            controller.createPersonAccount(createPersonAccountDTO);
         }
 
         //Assert
@@ -275,35 +276,16 @@ class US006CreatePersonAccountControllerTest {
         String personEmail = "jose.cardoso@hotmail.com";
         String accountDenomination = "Revolut";
 
-        CreatePersonAccountDTO personAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, null);
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, null);
 
         //Act
         try {
-            controller.createPersonAccount(personAccountDTO).get();
+            controller.createPersonAccount(createPersonAccountDTO);
 
             //Assert
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
-
-    @Test
-    @DisplayName("Test If account is created - Happy Case")
-    void testIfPersonAccountWasCreatedOptionalHappyCase() {
-
-        //Arrange
-        String personEmail = "jose.cardoso@hotmail.com";
-        String accountDenomination = "Revolut";
-        String accountDescription = "OnlineShopping";
-
-        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
-
-        //Act
-        Optional<AccountDTO> accountCreated = controller.createPersonAccount(createPersonAccountDTO);
-
-        //Assert
-        assertTrue(accountCreated.isPresent());
-    }
-
 
 }
