@@ -46,19 +46,17 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
      * Test if a group was created and person is admin
      */
     @Test
-    @DisplayName("Main scenario - Existing person creates a Group and becomes Admin")
+    @DisplayName("Main scenario - Existing person crkeates a Group and becomes Admin")
     void createGroupAndBecomeAdmin() {
 
         //Arrange
         String groupDescription = "Bashtards";
         String personEmail = "1234@isep.pt";
 
-        AdminCreateGroupDTO adminCreateGroupDTO = new AdminCreateGroupDTO(groupDescription, personEmail);
-
         GroupDTO isGroupCreatedAndAdminSetExpected = new GroupDTO(groupDescription);
 
         //Act
-        GroupDTO isGroupCreatedAndAdminSet = controller.createGroupAndBecomeAdmin(adminCreateGroupDTO);
+        GroupDTO isGroupCreatedAndAdminSet = controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
 
         boolean isAdminSet = groupsRepository.findGroupByDescription(new Description(groupDescription)).
                 isGroupAdmin(personRepository.findPersonByEmail(new Email(personEmail)));
@@ -84,7 +82,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
+            controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
         }
 
         //Assert
@@ -100,11 +98,11 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         //Arrange
         String groupDescription = "Bashtards";
         String personEmail = "1234@isep.pt";
-        controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
+        controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
+            controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
         }
 
         //Assert
@@ -123,7 +121,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
+            controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
         }
 
         //Assert
@@ -140,7 +138,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
         String groupDescription = "Bashtards";
 
         try {
-            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, null));
+            controller.createGroupAndBecomeAdmin(groupDescription, null);
         }
 
         //Assert
@@ -158,7 +156,7 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
 
         //Act
         try {
-            controller.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(null, personEmail));
+            controller.createGroupAndBecomeAdmin(null, personEmail);
         }
 
         //Assert
