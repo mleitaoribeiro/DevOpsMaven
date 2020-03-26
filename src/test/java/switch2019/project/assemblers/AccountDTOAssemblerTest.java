@@ -55,7 +55,7 @@ class AccountDTOAssemblerTest {
         CreateGroupAccountDTO expected = new CreateGroupAccountDTO(email, groupDescription, denominationString, descriptionString);
         CreateGroupAccountDTO unexpected = new CreateGroupAccountDTO("email@falso.pt", groupDescription, denominationString, descriptionString);
         //Act
-        CreateGroupAccountDTO actual = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTrypes(email, groupDescription,
+        CreateGroupAccountDTO actual = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(email, groupDescription,
                 denominationString, descriptionString);
 
         // Assert

@@ -30,7 +30,7 @@ public class US007CreateGroupAccountController {
     public AccountDTO createGroupAccount(String personEmail, String groupDescription,
                                          String accountDenomination, String accountDescription) {
 
-        CreateGroupAccountDTO createGroupAccountDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTrypes(
+        CreateGroupAccountDTO createGroupAccountDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(
                 personEmail, groupDescription, accountDenomination, accountDescription);
 
         return service.createGroupAccount(createGroupAccountDTO);
