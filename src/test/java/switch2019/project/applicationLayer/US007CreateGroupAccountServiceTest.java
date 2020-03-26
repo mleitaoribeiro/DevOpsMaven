@@ -6,25 +6,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
-import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class US007CreateGroupAccountServiceTest {
-
 
     private static PersonRepository personRepo;
     private static GroupsRepository groupsRepo;
@@ -51,7 +45,6 @@ class US007CreateGroupAccountServiceTest {
         Person personFrederico = personRepo.createPerson("Frederico Caveira ", new DateAndTime(1999, 10, 20), new Address("Faro"),
                 new Address("Rua da uva ", "Lisboa", "4543-136"), new Email("112345@isep.ipp.pt"));
 
-
         //Person used to add to groups (MEMBERS)
 
         Person personJose = personRepo.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
@@ -62,7 +55,6 @@ class US007CreateGroupAccountServiceTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("123313@isep.ipp.pt"));
         Person personMariana = personRepo.createPerson("Mariana", new DateAndTime(1987, 12, 13), new Address("Fafe"),
                 new Address("Rua X", "Fafe", "4520-266"), new Email("112332@isep.ipp.pt"));
-
 
         //Add Groups to Repository
 
@@ -89,17 +81,14 @@ class US007CreateGroupAccountServiceTest {
         Group groupIsep = groupsRepo.findGroupByDescription(new Description("Isep"));
         groupIsep.addMember(personMaria);
         groupIsep.addMember(personMariana);
-
     }
-
 
     /**
      * Test If group Account is created - Happy Cases
      */
 
-
     @Test
-    @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
+    @DisplayName("Test If group Account is created - Happy Case - Main Scenario")
     void testIfGroupAccountWasCreatedHappyCase() {
 
         //Arrange
@@ -111,8 +100,7 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination,
-                accountDescription);
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
         //Act
         AccountDTO accountCreated = service.createGroupAccount(createGroupAccountDTO);
@@ -123,7 +111,7 @@ class US007CreateGroupAccountServiceTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Happy Case - Number of accounts increased")
+    @DisplayName("Test If group Account is created - Happy Case - Number of accounts has increased")
     void testIfGroupAccountWasCreatedCompareSize() {
 
         //Arrange
@@ -138,8 +126,7 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination,
-                accountDescription);
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
         //Act
         AccountDTO accountCreated = service.createGroupAccount(createGroupAccountDTO);
@@ -155,14 +142,12 @@ class US007CreateGroupAccountServiceTest {
         );
     }
 
-
     /**
      * Test If group Account is created - Failing scenarios
      */
 
-
     @Test
-    @DisplayName("Test If group Account is created - Person it´s Member but not Admin - Number of accounts has not increased")
+    @DisplayName("Test if Group Account is created - Person is a Member but not Admin - Number of accounts has not increased")
     void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
 
         //Arrange
@@ -190,9 +175,8 @@ class US007CreateGroupAccountServiceTest {
         }
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Person it´s not a Member - Number of accounts has not increased")
+    @DisplayName("Test if Group Account is created - Person isn't a Member - Number of accounts has not increased")
     void testIfGroupAccountWasCreatedNotGroupMemberNumberOfAccounts() {
 
         //Arrange
@@ -207,7 +191,6 @@ class US007CreateGroupAccountServiceTest {
         int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
-
         try {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
@@ -221,9 +204,8 @@ class US007CreateGroupAccountServiceTest {
         }
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Person do not Exists")
+    @DisplayName("Test if Group Account is created - Person doesn't exit in Person Repository")
     void testIfGroupAccountWasCreatedPersonNotExists() {
 
         //Arrange
@@ -243,9 +225,8 @@ class US007CreateGroupAccountServiceTest {
         }
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Group Do Not Exists")
+    @DisplayName("Test if Group Account is created - Group doesn't exist in Group Repository")
     void testIfSeveralGroupAccountsWereCreatedGroupDoNotExists() {
 
         //Arrange
@@ -257,7 +238,6 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, oneDescription,
                 accountDenomination, accountDescription);
 
-
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
@@ -267,28 +247,23 @@ class US007CreateGroupAccountServiceTest {
         }
     }
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     /**
      * Test If group Account is created - Several accounts added - Null & Empty Values
      */
-
 
     @Test
     @DisplayName("Test If group Account is created - Email null")
     void testIfGroupAccountWasCreatedPersonIDNull() {
 
         //Arrange
-
         String groupDescription = "Isep";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(null, groupDescription,
                 accountDenomination, accountDescription);
-
 
         //Act
         try {
@@ -313,7 +288,6 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
@@ -335,7 +309,6 @@ class US007CreateGroupAccountServiceTest {
 
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, null,
                 accountDenomination, accountDescription);
-
 
         //Act
         try {
@@ -359,7 +332,6 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 null, accountDescription);
 
-
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
@@ -374,7 +346,6 @@ class US007CreateGroupAccountServiceTest {
     void testIfGroupAccountWasCreatedAccountDenominationEmpty() {
 
         //Arrange
-
         String creatorEmail = "joao.cardoso_12@hotmail.com";
         String groupDescription = "Familia";
         String accountDenomination = "";
@@ -382,7 +353,6 @@ class US007CreateGroupAccountServiceTest {
 
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
-
 
         //Act
         try {
@@ -420,7 +390,6 @@ class US007CreateGroupAccountServiceTest {
     void testIfGroupAccountWasCreated_AccountDescriptionEmpty() {
 
         //Arrange
-
         String creatorEmail = "joao.cardoso_12@hotmail.com";
         String groupDescription = "Familia";
         String accountDenomination = "Online Shopping";
@@ -468,14 +437,11 @@ class US007CreateGroupAccountServiceTest {
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }
-
     }
-
 
     /**
      * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
      */
-
 
     @Test
     @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created")
@@ -526,11 +492,9 @@ class US007CreateGroupAccountServiceTest {
         );
     }
 
-
     /**
      * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
      */
-
 
     @Test
     @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created - Number of accounts increased")
@@ -570,14 +534,12 @@ class US007CreateGroupAccountServiceTest {
         int numberOfExpectedAccountsInTheRepository = 3;
 
         //Act
-        //Act
         AccountDTO accountCreated = service.createGroupAccount(createGroupAccountDTO);
         AccountDTO accountCreated1 = service.createGroupAccount(createGroupAccountDTO1);
         AccountDTO accountCreated2 = service.createGroupAccount(createGroupAccountDTO2);
 
         int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
-        //Assert
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(expected, accountCreated),
@@ -587,11 +549,9 @@ class US007CreateGroupAccountServiceTest {
         );
     }
 
-
     /**
      * Test If group Account is created -  Failing scenarios - Simple Tests
      */
-
 
     @Test
     @DisplayName("Test If group Account is created - Person it´s Member but not Admin")
@@ -609,14 +569,11 @@ class US007CreateGroupAccountServiceTest {
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        }
-        catch (IllegalArgumentException invalid) {
+        } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("This person is not Admin of this group", invalid.getMessage());
         }
-
     }
-
 
     @Test
     @DisplayName("Test If group Account is created - Person it´s not a Member")
@@ -631,12 +588,10 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        }
-        catch (IllegalArgumentException invalid) {
+        } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("This person is not Member of this group", invalid.getMessage());
         }
@@ -685,10 +640,8 @@ class US007CreateGroupAccountServiceTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
-
 
         service.createGroupAccount(createGroupAccountDTO);
 
@@ -701,11 +654,9 @@ class US007CreateGroupAccountServiceTest {
         }
     }
 
-
     /**
      * Test If group Account is created -  Failing scenarios  - Check Number of Accounts
      */
-
 
     @Test
     @DisplayName("Test If group Account is created - False - Account Already Exists")
@@ -724,7 +675,6 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-
         //Act
         service.createGroupAccount(createGroupAccountDTO);
         try {
@@ -734,7 +684,6 @@ class US007CreateGroupAccountServiceTest {
             int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
 
             //Assert
-
             Assertions.assertAll(
                     () -> assertEquals("This Account already exists for that ID.", invalid.getMessage()),
                     () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
@@ -797,7 +746,6 @@ class US007CreateGroupAccountServiceTest {
         CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination1, accountDescription1);
 
-
         //Act
         service.createGroupAccount(createGroupAccountDTO);
         service.createGroupAccount(createGroupAccountDTO1);
@@ -816,6 +764,4 @@ class US007CreateGroupAccountServiceTest {
             );
         }
     }
-
-
 }

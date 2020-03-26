@@ -1,14 +1,10 @@
 package switch2019.project.controllerLayer;
 
 import switch2019.project.DTO.AdminCreateGroupDTO;
-import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupAndBecomeAdminService;
 import switch2019.project.assemblers.GroupDTOAssembler;
-import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.shared.Description;
 
-import java.util.Optional;
 
 public class US002_1CreateGroupAndBecomeAdminController {
 

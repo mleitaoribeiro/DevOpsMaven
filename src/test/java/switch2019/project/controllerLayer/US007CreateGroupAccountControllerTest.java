@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AccountDTO;
-import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -16,8 +15,6 @@ import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +36,6 @@ class US007CreateGroupAccountControllerTest {
         service = new US007CreateGroupAccountService(personRepo, groupsRepo, accountRepo);
         controller = new US007CreateGroupAccountController(service);
 
-
         //Persons used to create groups (ADMINS)
 
         Person personJoaoCardoso = personRepo.createPerson("João Cardoso", new DateAndTime(1993, 1, 13), new Address("Porto"),
@@ -51,7 +47,6 @@ class US007CreateGroupAccountControllerTest {
         Person personFrederico = personRepo.createPerson("Frederico Caveira ", new DateAndTime(1999, 10, 20), new Address("Faro"),
                 new Address("Rua da uva ", "Lisboa", "4543-136"), new Email("112345@isep.ipp.pt"));
 
-
         //Person used to add to groups (MEMBERS)
 
         Person personJose = personRepo.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
@@ -62,7 +57,6 @@ class US007CreateGroupAccountControllerTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("123313@isep.ipp.pt"));
         Person personMariana = personRepo.createPerson("Mariana", new DateAndTime(1987, 12, 13), new Address("Fafe"),
                 new Address("Rua X", "Fafe", "4520-266"), new Email("112332@isep.ipp.pt"));
-
 
         //Add Groups to Repository
 
@@ -89,18 +83,14 @@ class US007CreateGroupAccountControllerTest {
         Group groupIsep = groupsRepo.findGroupByDescription(new Description("Isep"));
         groupIsep.addMember(personMaria);
         groupIsep.addMember(personMariana);
-
     }
 
-
     /**
-     *  Test If group Account is created - Happy Cases
+     * Test If group Account is created - Happy Cases
      */
 
-
-
     @Test
-    @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
+    @DisplayName("Test if Group Account is created - Happy Case - Main Scenario")
     void testIfGroupAccountWasCreatedHappyCase() {
 
         //Arrange
@@ -108,6 +98,7 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
+
         AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
         //Act
@@ -118,9 +109,8 @@ class US007CreateGroupAccountControllerTest {
         assertEquals(expected, accountCreated);
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Happy Case - Number of accounts increased")
+    @DisplayName("Test if Group Account is created - Happy Case - Number of accounts increased")
     void testIfGroupAccountWasCreatedCompareSize() {
 
         //Arrange
@@ -131,15 +121,14 @@ class US007CreateGroupAccountControllerTest {
 
         int expectedAccountsBefore = 0;
         int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
-        int numberOfExpectedAccountsInTheRepositoryAfter = 1;
+
         AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-
 
         //Act
         AccountDTO accountCreated = controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination, accountDescription);
 
+        int numberOfExpectedAccountsInTheRepositoryAfter = 1;
         int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
 
         //Assert
@@ -150,16 +139,12 @@ class US007CreateGroupAccountControllerTest {
         );
     }
 
-
     /**
-     * Test If group Account is created - Failing scenarios
+     * Test if Group Account is created - Failing scenarios
      */
 
-
-
-
     @Test
-    @DisplayName("Test If group Account is created - Person it´s Member but not Admin - Number of accounts has not increased")
+    @DisplayName("Test if Group Account is created - Person is a Member but not Admin - Number of accounts doesn't increase")
     void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
 
         //Arrange
@@ -168,15 +153,13 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-
         int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
         try {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        }
-        catch (IllegalArgumentException invalid) {
+        } catch (IllegalArgumentException invalid) {
             int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
             //Assert
@@ -187,9 +170,8 @@ class US007CreateGroupAccountControllerTest {
         }
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Person it´s not a Member - Number of accounts has not increased")
+    @DisplayName("Test if Group Account is created - Person is not a Member - Number of accounts doesn't increased")
     void testIfGroupAccountWasCreatedNotGroupMemberNumberOfAccounts() {
 
         //Arrange
@@ -198,16 +180,13 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-
         int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
-
         try {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        }
-        catch (IllegalArgumentException invalid) {
+        } catch (IllegalArgumentException invalid) {
 
             int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
@@ -219,9 +198,8 @@ class US007CreateGroupAccountControllerTest {
         }
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Person do not Exists")
+    @DisplayName("Test if Group Account is created - Person doesn't exist in Person Repository")
     void testIfGroupAccountWasCreatedPersonNotExists() {
 
         //Arrange
@@ -230,20 +208,25 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-
+        int numberOfExpectedAccountsInTheRepository = 0;
 
         try {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
+
+            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
             //Assert
-            assertEquals("No person found with that email.", invalid.getMessage());
+            Assertions.assertAll(
+                    () -> assertEquals("No person found with that email.", invalid.getMessage()),
+                    () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
+            );
         }
     }
 
-
     @Test
-    @DisplayName("Test If group Account is created - Group Do Not Exists")
+    @DisplayName("Test if Group Account is created - Group doesn't exist in Group Repository")
     void testIfSeveralGroupAccountsWereCreatedGroupDoNotExists() {
 
         //Arrange
@@ -252,7 +235,7 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-
+        int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
         try {
@@ -260,7 +243,14 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("No group was found with the given description", invalid.getMessage());
+
+            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+            //Assert
+            Assertions.assertAll(
+                    () -> assertEquals("No group was found with the given description", invalid.getMessage()),
+                    () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
+            );
         }
     }
 
@@ -271,7 +261,6 @@ class US007CreateGroupAccountControllerTest {
     /**
      * Test If group Account is created - Several accounts added - Null & Empty Values
      **/
-
 
     @Test
     @DisplayName("Test If group Account is created - Email null")
@@ -349,7 +338,7 @@ class US007CreateGroupAccountControllerTest {
         //Act
         try {
             controller.createGroupAccount(personEmail, groupDescription,
-                   null, accountDescription);
+                    null, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
@@ -365,7 +354,6 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDenomination = "";
         String accountDescription = "Online Shopping";
-
 
 
         // Act
@@ -410,7 +398,6 @@ class US007CreateGroupAccountControllerTest {
         String accountDescription = "";
 
 
-
         //Act
         try {
             controller.createGroupAccount(personEmail, groupDescription,
@@ -430,7 +417,6 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Isep";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
-
 
 
         int numberOfExpectedAccountsInTheRepository = 0;
@@ -555,7 +541,6 @@ class US007CreateGroupAccountControllerTest {
         String accountDescription = "Online Shopping";
 
 
-
         //Act
         try {
             controller.createGroupAccount(personEmail, groupDescription,
@@ -576,8 +561,6 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Isep";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
-
-
 
 
         //Act
@@ -605,8 +588,6 @@ class US007CreateGroupAccountControllerTest {
         String accountDescription1 = "Revolut Account";
 
 
-
-
         controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination, accountDescription);
         controller.createGroupAccount(personEmail, groupDescription,
@@ -631,8 +612,6 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
-
-
 
 
         controller.createGroupAccount(personEmail, groupDescription,
@@ -663,7 +642,6 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
-
 
 
         int expectedAccountsBefore = 0;
@@ -699,7 +677,6 @@ class US007CreateGroupAccountControllerTest {
         String accountDescription = "Online Shopping";
 
 
-
         int numberOfExpectedAccountsInTheRepository = 0;
 
 
@@ -733,7 +710,6 @@ class US007CreateGroupAccountControllerTest {
         String accountDescription1 = "Revolut Account";
 
         int numberOfExpectedAccountsInTheRepository = 2;
-
 
 
         //Act

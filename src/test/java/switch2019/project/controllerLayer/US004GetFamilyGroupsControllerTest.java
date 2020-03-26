@@ -1,19 +1,18 @@
 package switch2019.project.controllerLayer;
 
-    import org.junit.jupiter.api.BeforeEach;
-    import org.junit.jupiter.api.DisplayName;
-    import org.junit.jupiter.api.Test;
-    import switch2019.project.DTO.GroupDTO;
-    import switch2019.project.domain.domainEntities.group.Group;
-    import switch2019.project.domain.domainEntities.person.Address;
-    import switch2019.project.domain.domainEntities.person.Email;
-    import switch2019.project.domain.domainEntities.person.Person;
-    import switch2019.project.domain.domainEntities.shared.DateAndTime;
-    import switch2019.project.domain.domainEntities.shared.Description;
-    import switch2019.project.infrastructure.repositories.GroupsRepository;
-    import switch2019.project.infrastructure.repositories.PersonRepository;
-    import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.GroupDTO;
+import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.person.Person;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.infrastructure.repositories.GroupsRepository;
+import switch2019.project.infrastructure.repositories.PersonRepository;
+import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import java.util.HashSet;
 import java.util.Set;
 

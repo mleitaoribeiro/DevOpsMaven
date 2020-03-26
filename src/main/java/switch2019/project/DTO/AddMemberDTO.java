@@ -1,5 +1,7 @@
 package switch2019.project.DTO;
 
+import java.util.Objects;
+
 public class AddMemberDTO {
 
     private String personEmail;
@@ -8,6 +10,20 @@ public class AddMemberDTO {
     public AddMemberDTO(String personEmail, String groupDescription) {
         this.personEmail = personEmail;
         this.groupDescription = groupDescription;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddMemberDTO that = (AddMemberDTO) o;
+        return personEmail.equals(that.personEmail) &&
+                groupDescription.equals(that.groupDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personEmail, groupDescription);
     }
 
     /**
