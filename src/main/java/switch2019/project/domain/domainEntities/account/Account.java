@@ -99,25 +99,6 @@ public class Account implements Entity {
         return description.toString();
     }
 
-    /**
-     * Public get for description
-     *
-     * @return description
-     */
-
-    public Description getDescription(){
-        return description;
-    }
-
-    /**
-     * Public get for denomination
-     *
-     * @return denomination
-     */
-    public Denomination getDenomination(){
-        return denomination;
-    }
-
 
     /**
      * Public get to access a clone of Account
