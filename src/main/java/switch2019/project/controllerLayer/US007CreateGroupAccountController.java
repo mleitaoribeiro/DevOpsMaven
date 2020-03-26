@@ -45,7 +45,6 @@ public class US007CreateGroupAccountController {
         } else {
             return Optional.empty();
         }
-
     }
 
 }
