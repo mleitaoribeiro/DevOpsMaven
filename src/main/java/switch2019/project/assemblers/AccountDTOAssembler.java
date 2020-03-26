@@ -41,7 +41,7 @@ public class AccountDTOAssembler {
 
 
     /**
-     * Method for creating the DTO for a Account
+     * Method for creating the DTO from Domain Object
      * @param account
      * @return
      */

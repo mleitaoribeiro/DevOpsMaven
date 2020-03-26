@@ -1,5 +1,7 @@
 package switch2019.project.DTO;
 
+import java.util.Objects;
+
 public class CreatePersonAccountDTO {
 
     /**
@@ -24,6 +26,21 @@ public class CreatePersonAccountDTO {
         this.accountDescription = accountDescription;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreatePersonAccountDTO that = (CreatePersonAccountDTO) o;
+        return Objects.equals(personEmail, that.personEmail) &&
+                Objects.equals(accountDenomination, that.accountDenomination) &&
+                Objects.equals(accountDescription, that.accountDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personEmail, accountDenomination, accountDescription);
+    }
+
 
     /** Getters used to obtain the attribute Strings, outside of this class: */
 
@@ -39,7 +56,6 @@ public class CreatePersonAccountDTO {
     public String getAccountDescription() {
         return accountDescription;
     }
-
 
 
 
