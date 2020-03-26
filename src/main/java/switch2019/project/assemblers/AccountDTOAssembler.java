@@ -24,7 +24,7 @@ public class AccountDTOAssembler {
     }
 
     public static AccountDTO createAccountDTOFromDomainObject(Account account) {
-        return new AccountDTO(account.getOwnerID().toString(), account.denominationToString(), account.descriptionToString());
+        return new AccountDTO(account.getOwnerID().toString(), account.getID().getDenomination(), account.descriptionToString());
     }
 
 }

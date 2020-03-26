@@ -1,6 +1,6 @@
 package switch2019.project.assemblers;
 
-import org.graalvm.compiler.asm.Assembler;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AccountDTO;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountDTOAssemblerTest {
 
 
-    /*
+
     @Test
     void createAccountDTO() {
         //Arrange
@@ -41,8 +41,8 @@ class AccountDTOAssemblerTest {
                 () ->  assertNotEquals(unexpected, actual)
         );
     }
-*/
-    
+
+
     @Test
     void createCreateGroupAccountDTOFromPrimitiveTrypes() {
         //Arrange
