@@ -4,6 +4,7 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.GroupDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -121,8 +122,9 @@ class US004GetFamilyGroupsServiceTest {
     }
 
     @Test
-    @DisplayName("Get all the families in the repository")
+    @DisplayName("Get all the groups who are families in the repository")
     void getFamilyGroups() {
+
         //Arrange
         groupsRepository.addGroupToRepository(group1);
         groupsRepository.addGroupToRepository(group2);
@@ -130,12 +132,12 @@ class US004GetFamilyGroupsServiceTest {
         groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
-        Set <String> expected = new HashSet<>();
-        expected.add("FAMILIA SANTOS");
-        expected.add("FAMILIA SIMPSON");
+        Set <GroupDTO> expected = new HashSet<>();
+        expected.add(new GroupDTO("FAMILIA SANTOS"));
+        expected.add(new GroupDTO("FAMILIA SIMPSON"));
 
         //Act
-        Set <String> real = service.getFamilyGroups();
+        Set <GroupDTO> real = service.getFamilyGroups();
 
         //Assert
         assertEquals(expected, real);
@@ -150,10 +152,10 @@ class US004GetFamilyGroupsServiceTest {
         groupsRepository.addGroupToRepository(group4);
         groupsRepository.addGroupToRepository(group5);
 
-        Set <String> expected = new HashSet<>();
+        Set <GroupDTO> expected = new HashSet<>();
 
         //Act
-        Set <String> real = service.getFamilyGroups();
+        Set <GroupDTO> real = service.getFamilyGroups();
 
         //Assert
         assertEquals(expected, real);

@@ -1,6 +1,9 @@
 package switch2019.project.applicationLayer;
 
+import switch2019.project.DTO.GroupDTO;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
+
+import java.util.HashSet;
 import java.util.Set;
 
 public class US004GetFamilyGroupsService {
@@ -17,7 +20,18 @@ public class US004GetFamilyGroupsService {
      * @return set of families
      */
 
-    public Set <String> getFamilyGroups (){
-        return groupsRepository.returnOnlyFamilies();
+    public Set <GroupDTO> getFamilyGroups () {
+
+        Set <String> familyGroups = groupsRepository.returnOnlyFamilies();
+
+        //DTO conversion
+        Set<GroupDTO> familyGroupDTO = new HashSet<>();
+
+        if (!familyGroups.isEmpty())
+            for (String family : familyGroups)
+                familyGroupDTO.add(new GroupDTO(family));
+
+        return familyGroupDTO;
     }
+
 }
