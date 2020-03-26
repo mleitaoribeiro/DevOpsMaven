@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AdminCreateGroupDTO;
+import switch2019.project.DTO.GroupDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -23,8 +24,6 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
      * US002.1
      * Universe setup for US tests
      */
-
-
     @BeforeEach
     void setUpUniverse() {
         GroupsRepository groupsRepository = new GroupsRepository();
@@ -44,23 +43,21 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
      */
 
     @Test
-    @DisplayName("Main scenario")
+    @DisplayName("Main scenario - Existing person creates group and becomes admin")
     void createGroupAndBecomeAdmin() {
         //Arrange
-        Person person = new Person("Alexandre", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto",
-                "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
         String groupDescription = "Bashtards";
         String personEmail = "1234@isep.pt";
+
         AdminCreateGroupDTO adminCreateGroupDTO = new AdminCreateGroupDTO(groupDescription, personEmail);
-        Group expected = new Group(new Description(groupDescription), person);
+
+        GroupDTO expected = new GroupDTO(groupDescription);
 
         //Act
-        Group result = service.createGroupAndBecomeAdmin(adminCreateGroupDTO).get();
+        GroupDTO result = service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
 
         //Assert
         assertEquals(expected, result);
-
     }
 
     @Test
@@ -69,11 +66,11 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
 
         //Arrange
         String groupDescription = "Bashtards";
-        String personID = "12345@isep.pt";
+        String personEmail = "12345@isep.pt";
 
         //Act
         try {
-            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personID));
+            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
         }
 
         //Assert
@@ -100,12 +97,14 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
     }
 
     @Test
-    @DisplayName("Both null fields")
-    void createGroupAndGroupNullFields() {
+    @DisplayName("Null group Description")
+    void createGroupNullDescription() {
+        //Arrange
+        String personEmail = "1234@isep.pt";
 
         //Act
         try {
-            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(null, null));
+            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(null, personEmail));
         }
 
         //Assert
@@ -131,23 +130,4 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
            assertEquals("The email can´t be null!", ex.getMessage());
        }
     }
-
-    @Test
-    @DisplayName("group description is null")
-    void createGroupAndGroupNullGroupDescription() {
-
-        //Arrange
-        String personID = "1234@isep.pt";
-
-        //Act
-        try {
-            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(null, personID));
-        }
-
-        //Assert
-        catch (IllegalArgumentException ex) {
-            assertEquals("The description can't be null or empty.", ex.getMessage());
-        }
-    }
-
 }

@@ -1,6 +1,8 @@
 package switch2019.project.applicationLayer;
 
 import switch2019.project.DTO.AdminCreateGroupDTO;
+import switch2019.project.DTO.GroupDTO;
+import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -15,7 +17,6 @@ public class US002_1CreateGroupAndBecomeAdminService {
     private GroupsRepository groupsRepository;
     private PersonRepository personRepository;
 
-
     public US002_1CreateGroupAndBecomeAdminService(GroupsRepository groupsRepository, PersonRepository personRepository) {
         this.groupsRepository = groupsRepository;
         this.personRepository = personRepository;
@@ -25,15 +26,17 @@ public class US002_1CreateGroupAndBecomeAdminService {
      * US002.1
      * I want to create a group and become an Admin
      *
-     * @param dto
-     * @return true if the group was created and person is now Admin, false if any of those are false
+     * @param adminCreateGroupDTO
+     * @return groupDTO
      */
+    public GroupDTO createGroupAndBecomeAdmin(AdminCreateGroupDTO adminCreateGroupDTO) {
 
-    public Optional<Group> createGroupAndBecomeAdmin(AdminCreateGroupDTO dto) {
-        Description description = new Description(dto.getGroupDescription());
-        Person person = personRepository.findPersonByEmail(new Email(dto.getPersonEmail()));
+        Person admin = personRepository.findPersonByEmail(new Email(adminCreateGroupDTO.getPersonEmail()));
+        Description groupDescription = new Description(adminCreateGroupDTO.getGroupDescription());
 
-        return Optional.of(groupsRepository.createGroup(description, person));
+        Group groupCreated = groupsRepository.createGroup(groupDescription, admin);
+
+        return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
     }
 
 }

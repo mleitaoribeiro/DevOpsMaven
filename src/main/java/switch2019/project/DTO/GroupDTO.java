@@ -28,7 +28,7 @@ public class GroupDTO {
      * @return groupDescription
      */
 
-    public String getFamilyGroupDescription() {
+    public String getGroupDescription() {
         return groupDescription;
     }
 }

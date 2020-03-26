@@ -308,8 +308,8 @@ class GroupsRepositoryTest {
         globalGroupsRepository.addGroupToRepository(bojackGang);
 
         //Act
-        Set<String> realResult = globalGroupsRepository.returnOnlyFamilies();
-        HashSet<String> expectedResult = new HashSet<>(Arrays.asList(family.toString(), simpsons.toString()));
+        Set<Group> realResult = globalGroupsRepository.returnOnlyFamilies();
+        HashSet<Group> expectedResult = new HashSet<>(Arrays.asList(family, simpsons));
 
         //Assert
         assertEquals(expectedResult, realResult);
