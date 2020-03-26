@@ -176,7 +176,7 @@ class AccountTest {
         String expected = "XYZ";
 
         //Act
-        String real = oneAccount.getDescription();
+        String real = oneAccount.descriptionToString();
 
         //Assert
         assertEquals(expected, real);

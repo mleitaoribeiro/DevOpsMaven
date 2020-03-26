@@ -33,10 +33,9 @@ public class US006CreatePersonAccountController {
             Account account = ret.get();
 
             Denomination denomination = new Denomination(account.getID().getDenomination());
-            Description description = new Description(account.getDescription());
+            Description description = new Description(account.descriptionToString());
 
-            AccountDTO dto = AccountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination,
-                    description);
+            AccountDTO dto = AccountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination, description);
             return Optional.of(dto);
         } else {
             return Optional.empty();

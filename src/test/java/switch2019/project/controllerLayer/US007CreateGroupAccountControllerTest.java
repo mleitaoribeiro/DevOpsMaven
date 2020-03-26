@@ -97,7 +97,7 @@ class US007CreateGroupAccountControllerTest {
      * Test If group Account is created - Happy Cases
      */
 
-    @Test
+    /*@Test
     @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreatedHappyCase() {
 
@@ -151,9 +151,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    /**
+    *//**
      * Test If group Account is created - Failing scenarios
-     */
+     *//*
 
 
     @Test
@@ -260,9 +260,9 @@ class US007CreateGroupAccountControllerTest {
 //**********************************************************************************************************************\\
 
 
-    /**
+    *//**
      * Test If group Account is created - Several accounts added - Null & Empty Values
-     */
+     *//*
 
 
     @Test
@@ -450,9 +450,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    /**
+    *//**
      * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
-     */
+     *//*
 
 
     @Test
@@ -499,9 +499,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    /**
+    *//**
      * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
-     */
+     *//*
 
 
     @Test
@@ -544,9 +544,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    /**
+    *//**
      * Test If group Account is created -  Failing scenarios - Simple Tests
-     */
+     *//*
 
 
     @Test
@@ -623,8 +623,8 @@ class US007CreateGroupAccountControllerTest {
             assertEquals("This Account already exists for that ID.", invalid.getMessage());
         }
     }
-
-    @Test
+*/
+   /* @Test
     @DisplayName("Test If group Account is created - False - Account already exists")
     void testIfGroupAccountWasCreatedAccountAlreadyExists() {
 
@@ -650,9 +650,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    /**
+    *//**
      * Test If group Account is created -  Failing scenarios  - Check Number of Accounts
-     */
+     *//*
 
 
     @Test
@@ -755,6 +755,6 @@ class US007CreateGroupAccountControllerTest {
                     () -> assertEquals("This Account already exists for that ID.", invalid.getMessage())
             );
         }
-    }
+    }*/
 
 }

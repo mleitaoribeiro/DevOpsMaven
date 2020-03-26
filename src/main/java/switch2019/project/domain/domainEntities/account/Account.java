@@ -81,9 +81,9 @@ public class Account implements Entity {
     public OwnerID getOwnerID() { return this.accountID.getOwnerID(); }
 
     /**
-     * Public get for denomination
+     * Public get for denomination in String
      *
-     * @return denomination
+     * @return denominationString
      */
 
     public String denominationToString() {
@@ -91,12 +91,31 @@ public class Account implements Entity {
     }
 
     /**
+     * Public get for description in String
+     *
+     * @return descriptionString
+     */
+    public String descriptionToString() {
+        return description.toString();
+    }
+
+    /**
      * Public get for description
      *
-     * @return descritpion
+     * @return description
      */
-    public String getDescription() {
-        return description.getDescription();
+
+    public Description getDescription(){
+        return description;
+    }
+
+    /**
+     * Public get for denomination
+     *
+     * @return denomination
+     */
+    public Denomination getDenomination(){
+        return denomination;
     }
 
 
