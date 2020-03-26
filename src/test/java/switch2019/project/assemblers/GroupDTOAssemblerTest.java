@@ -1,4 +1,5 @@
 package switch2019.project.assemblers;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -63,6 +64,7 @@ class GroupDTOAssemblerTest {
     /**
      * Test to createAddMemberDTO method
      */
+    
     @Test
     @DisplayName("Test to createaAddMemberDTO")
     void createAddMemberDTO() {
