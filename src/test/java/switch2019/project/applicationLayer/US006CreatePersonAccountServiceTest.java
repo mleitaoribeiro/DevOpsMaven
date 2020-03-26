@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountServiceTest {
 
-    private PersonRepository personRepo;
+    /*private PersonRepository personRepo;
     private AccountRepository accountRepo;
     private US006CreatePersonAccountService service;
 
@@ -276,6 +276,6 @@ class US006CreatePersonAccountServiceTest {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
-
+*/
 }
 

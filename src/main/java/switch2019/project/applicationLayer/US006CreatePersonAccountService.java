@@ -28,7 +28,7 @@ public class US006CreatePersonAccountService {
      * @param accountDTO
      * @return AccountDTO
      */
-
+/*
     public AccountDTO createPersonAccount(CreatePersonAccountDTO accountDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(accountDTO.getPersonEmail())).getID();
@@ -41,5 +41,5 @@ public class US006CreatePersonAccountService {
         return AccountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination, description);
 
     }
-
+*/
 }
