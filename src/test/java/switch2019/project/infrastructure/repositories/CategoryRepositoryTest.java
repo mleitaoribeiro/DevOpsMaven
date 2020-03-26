@@ -1,7 +1,9 @@
 package switch2019.project.infrastructure.repositories;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -71,19 +73,22 @@ class CategoryRepositoryTest {
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         //Category to be included in Category Repository
-        Denomination oneCategory = new Denomination("School expenses");
-        Denomination otherCategory = new Denomination("Health");
+        Denomination oneDenomination = new Denomination("School expenses");
+        Denomination otherDenomination = new Denomination("Health");
         CategoryRepository newCategoryRepository = new CategoryRepository();
 
-        /*
+        Category oneCategory = new Category(new Denomination("School Expenses"), person1.getID());
+        Category otherCategory = new Category(new Denomination("Health"), person1.getID());
+
         //Act
-        boolean realResult = newCategoryRepository.createCategory(oneCategory, person1.getID())
-                && newCategoryRepository.createCategory(otherCategory, person1.getID());
+        Category createdOneCategory = newCategoryRepository.createCategory(oneDenomination, person1.getID());
+        Category createdOtherCategory = newCategoryRepository.createCategory(otherDenomination, person1.getID());
 
         //Assert
-        assertTrue(realResult);
-
-         */
+        Assertions.assertAll(
+                () -> assertEquals(oneCategory, createdOneCategory),
+                () -> assertEquals(otherCategory, createdOtherCategory)
+        );
     }
 
     /**
@@ -127,11 +132,11 @@ class CategoryRepositoryTest {
         Denomination duplicateCategory = new Denomination("saúde");
 
         CategoryRepository newCategoryRepository = new CategoryRepository();
-/*
+        newCategoryRepository.createCategory(originalCategory,person1.getID());
+
         //Act
         try{
-            boolean sameCategory = newCategoryRepository.createCategory(originalCategory,person1.getID()) &&
-                    newCategoryRepository.createCategory(duplicateCategory,person1.getID());
+            newCategoryRepository.createCategory(duplicateCategory,person1.getID());
         }
 
         //Assert
@@ -139,7 +144,6 @@ class CategoryRepositoryTest {
             assertEquals("This category already exists and it could not be created", categoryAlreadyExists.getMessage());
         }
 
-*/
     }
 
     /**
