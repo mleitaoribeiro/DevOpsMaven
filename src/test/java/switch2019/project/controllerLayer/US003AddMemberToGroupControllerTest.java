@@ -55,10 +55,9 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jo.cardoso@hotmail.com";
         String groupDescription = "familia";
-        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
 
         //Act
-        boolean memberAdded = controller.addMemberToGroup(addMemberDTO);
+        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
         assertTrue(memberAdded);
@@ -70,10 +69,8 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
         String groupDescription = "familia";
-        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
-
         //Act
-        boolean memberAdded = controller.addMemberToGroup(addMemberDTO);
+        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
         assertFalse(memberAdded);
@@ -85,11 +82,9 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jp@ip.pt";
         String groupDescription = "familia";
-        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
-
         //Act
         try {
-            controller.addMemberToGroup(addMemberDTO);
+            controller.addMemberToGroup(personEmail, groupDescription);
         }
         //Assert
         catch (IllegalArgumentException email) {
