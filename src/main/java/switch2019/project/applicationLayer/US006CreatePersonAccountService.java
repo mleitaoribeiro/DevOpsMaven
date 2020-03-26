@@ -25,21 +25,22 @@ public class US006CreatePersonAccountService {
     /**
      * User Story 6
      * As a user, I want to create a account
-     * @param accountDTO
+     *
+     * @param createPersonAccountDTO
      * @return AccountDTO
      */
-/*
-    public AccountDTO createPersonAccount(CreatePersonAccountDTO accountDTO) {
 
-        PersonID personID = personRepository.findPersonByEmail(new Email(accountDTO.getPersonEmail())).getID();
+    public AccountDTO createPersonAccount(CreatePersonAccountDTO createPersonAccountDTO) {
 
-        Denomination denomination = new Denomination(accountDTO.getAccountDenomination());
-        Description description = new Description(accountDTO.getAccountDescription());
+        PersonID personID = personRepository.findPersonByEmail(new Email(createPersonAccountDTO.getPersonEmail())).getID();
 
-        Account account = accountRepository.createAccount(denomination, description, personID);
+        Denomination accountDenomination = new Denomination(createPersonAccountDTO.getAccountDenomination());
+        Description accountDescription = new Description(createPersonAccountDTO.getAccountDescription());
 
-        return AccountDTOAssembler.createAccountDTO(account.getOwnerID(), denomination, description);
+        Account account = accountRepository.createAccount(accountDenomination, accountDescription, personID);
+
+        return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
 
     }
-*/
+
 }

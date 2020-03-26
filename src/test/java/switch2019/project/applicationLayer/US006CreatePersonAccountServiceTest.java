@@ -11,11 +11,12 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class US006CreatePersonAccountServiceTest {
 
-    /*private PersonRepository personRepo;
+    private PersonRepository personRepo;
     private AccountRepository accountRepo;
     private US006CreatePersonAccountService service;
 
@@ -48,13 +49,13 @@ class US006CreatePersonAccountServiceTest {
         String accountDescription3 = "Allowance paychecks";
 
         CreatePersonAccountDTO createPersonAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination1, accountDescription1);
-        AccountDTO accountDTOExpected1 = new AccountDTO(personEmail,accountDenomination1, accountDescription1);
+        AccountDTO accountDTOExpected1 = new AccountDTO(personEmail, accountDenomination1, accountDescription1);
 
         CreatePersonAccountDTO createPersonAccountDTO2 = new CreatePersonAccountDTO(personEmail, accountDenomination2, accountDescription2);
-        AccountDTO accountDTOExpected2 = new AccountDTO(personEmail,accountDenomination2, accountDescription2);
+        AccountDTO accountDTOExpected2 = new AccountDTO(personEmail, accountDenomination2, accountDescription2);
 
         CreatePersonAccountDTO createPersonAccountDTO3 = new CreatePersonAccountDTO(personEmail, accountDenomination3, accountDescription3);
-        AccountDTO accountDTOExpected3 = new AccountDTO(personEmail,accountDenomination3, accountDescription3);
+        AccountDTO accountDTOExpected3 = new AccountDTO(personEmail, accountDenomination3, accountDescription3);
 
         //Act
         AccountDTO accountDTOCreated1 = service.createPersonAccount(createPersonAccountDTO1);
@@ -83,7 +84,7 @@ class US006CreatePersonAccountServiceTest {
         int expectedAccountsBefore = 0;
         int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
         int numberOfExpectedAccountsInTheRepositoryAfter = 1;
-        AccountDTO accountDTOExpected = new AccountDTO(personEmail,accountDenomination, accountDescription);
+        AccountDTO accountDTOExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
@@ -94,7 +95,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Assert
         Assertions.assertAll(
-                () -> assertEquals(accountDTOExpected , accountDTOCreated),
+                () -> assertEquals(accountDTOExpected, accountDTOCreated),
                 () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
                 () -> assertEquals(numberOfExpectedAccountsInTheRepositoryAfter, realNumberOfAccountsInTheRepositoryAfter)
         );
@@ -129,19 +130,21 @@ class US006CreatePersonAccountServiceTest {
         String personEmail = "maria.santos@live.com.pt";
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
+        String result = "";
 
         CreatePersonAccountDTO createPersonAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
         service.createPersonAccount(createPersonAccountDTO1);
-
         try {
             service.createPersonAccount(createPersonAccountDTO1);
+        } catch (IllegalArgumentException invalid) {
+            result = invalid.getMessage();
         }
+
         //Assert
-        catch (IllegalArgumentException invalid) {
-            assertEquals("This Account already exists for that ID.", invalid.getMessage());
-        }
+        assertEquals("This Account already exists for that ID.", result);
+
     }
 
     @Test
@@ -153,6 +156,7 @@ class US006CreatePersonAccountServiceTest {
         String accountDenomination = "Revolut";
         String accountDescription = "OnlineShopping";
 
+        String catchResult = "";
         int expectedAccountsBefore = 1;
         int expectedAccountsAfter = 1;
 
@@ -163,19 +167,22 @@ class US006CreatePersonAccountServiceTest {
         int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
         try {
             service.createPersonAccount(createPersonAccountDTO);
-
-        //Assert
         } catch (IllegalArgumentException accountAlreadyExists) {
-            int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
-
-            Assertions.assertAll(
-                    () -> assertEquals("This Account already exists for that ID.", accountAlreadyExists.getMessage()),
-                    () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
-                    () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
-            );
+            catchResult = accountAlreadyExists.getMessage();
         }
 
+        int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+        String result = catchResult;
+
+        //Assert
+
+        Assertions.assertAll(
+                () -> assertEquals("This Account already exists for that ID.", result),
+                () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
+                () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
+        );
     }
+
 
     @Test
     @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
@@ -187,7 +194,7 @@ class US006CreatePersonAccountServiceTest {
 
         CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
-        AccountDTO accountDTOExpected = new AccountDTO(personEmail,accountDenomination, accountDescription);
+        AccountDTO accountDTOExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         //Act
         AccountDTO accountDTOCreated = service.createPersonAccount(createPersonAccountDTO);
@@ -271,11 +278,11 @@ class US006CreatePersonAccountServiceTest {
         try {
             service.createPersonAccount(createPersonAccountDTO);
 
-        //Assert
+            //Assert
         } catch (IllegalArgumentException invalid) {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
-*/
+
 }
 
