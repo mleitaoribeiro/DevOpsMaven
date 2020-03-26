@@ -11,8 +11,8 @@ public class GroupDTOAssembler {
     /**
      * method for creating the DTO for the Group
      *
-     * @param groupDescription
-     * @return
+     * @param groupID
+     * @return groupDTO
      */
     public static GroupDTO createGroupDTO(GroupID groupID) {
         return new GroupDTO(groupID.getDescription());
