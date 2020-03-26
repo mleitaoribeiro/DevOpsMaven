@@ -10,16 +10,17 @@ participant "groupsRepo:GroupsRepository"
 participant "group:Group"
 participant "accountRepo:AccountsRepository"
 participant "account:Account"
+participant "assembler:AccountDTOAssembler"
 
 == Act ==
 
-":Test" -> "controller:US007CreateGroupAccountController" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
+":Test" -> "controller:US007CreateGroupAccountController" : createGroupAccount\n(createGroupAccountDTO)
 activate "controller:US007CreateGroupAccountController"  #FFBBBB
 
-"controller:US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : accountCreated = createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
+"controller:US007CreateGroupAccountController" -> "service:US007CreateGroupAccountService" : createGroupAccount\n(createGroupAccountDTO)
 activate "service:US007CreateGroupAccountService"  #FFBBBB
 
-"service:US007CreateGroupAccountService" -> "personRepo:PersonRepository" : person = findPersonByEmail (personEmail)
+"service:US007CreateGroupAccountService" -> "personRepo:PersonRepository" : person = findPersonByEmail\n(createGroupAccountDTO.getPersonEmail())
 activate "personRepo:PersonRepository"  #FFBBBB
 deactivate "personRepo:PersonRepository"  #FFBBBB
 
@@ -27,26 +28,31 @@ deactivate "personRepo:PersonRepository"  #FFBBBB
 activate "person:Person"  #FFBBBB
 deactivate "person:Person"  #FFBBBB
 
-"service:US007CreateGroupAccountService" -> "groupsRepo:GroupsRepository" : group = findGroupByDescription (groupDescription)
+"service:US007CreateGroupAccountService" -> "groupsRepo:GroupsRepository" : group = findGroupByDescription(createGroupAccount.getGroupDescription())
 activate "groupsRepo:GroupsRepository"  #FFBBBB
 deactivate "groupsRepo:GroupsRepository"  #FFBBBB
 
 "service:US007CreateGroupAccountService" -> "group:Group" : groupID = getID()
 activate "group:Group" #FFBBBB
-"service:US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin (personID)
-deactivate "group:Group" #FFBBBB
+deactivate "group:Group"
 
+"service:US007CreateGroupAccountService" -> "group:Group" : personIsGroupAdmin = isGroupAdmin(personID)
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
 
-
-"service:US007CreateGroupAccountService" -> "accountRepo:AccountsRepository" : accountCreated = createAccount(accountDenomination, accountDescription, groupID)
+"service:US007CreateGroupAccountService" -> "accountRepo:AccountsRepository" : account = createAccount(accountDenomination, accountDescription, groupID)
 activate "accountRepo:AccountsRepository" #FFBBBB
-
-"accountRepo:AccountsRepository" -> "accountRepo:AccountsRepository" : accountNotInRepository = \n isAccountIDOnRepository(accountDenomination, groupID)
-
-
+"accountRepo:AccountsRepository" -> "accountRepo:AccountsRepository" : accountNotInRepository = isAccountIDOnRepository\n(accountDenomination, groupID)
 create "account:Account"
-"accountRepo:AccountsRepository" -> "account:Account" : new Account (accountDenomination, \n   accountDescription, groupID)
-"accountRepo:AccountsRepository" -> "accountRepo:AccountsRepository" : add(account)
+"accountRepo:AccountsRepository" -> "account:Account" : new Account(accountDenomination, \n   accountDescription, groupID)
+deactivate "accountRepo:AccountsRepository" #FFBBBB
+
+"service:US007CreateGroupAccountService"--> "assembler:AccountDTOAssembler":accountCreatedDTO = createAccountDTO(account.getOwnerID(), account.getDenomination(), account.getDescription())
+activate "assembler:AccountDTOAssembler" #FFBBBB
+deactivate "assembler:AccountDTOAssembler"
+
+"service:US007CreateGroupAccountService"--> "controller:US007CreateGroupAccountController": accountCreatedDTO
+"controller:US007CreateGroupAccountController" --> ":Test": accountCreatedDTO
 
 deactivate "accountRepo:AccountsRepository" #FFBBBB
 deactivate "group:Group" #FFBBBB
@@ -57,6 +63,6 @@ deactivate "controller:US007CreateGroupAccountController" #FFBBBB
 
 == Assert ==
 
-":Test" -> ":Test" : assertTrue(accountCreated)
+":Test" -> ":Test" : assertEquals(accountExpectedDTO,\naccountCreatedDTO)
 
 @enduml
