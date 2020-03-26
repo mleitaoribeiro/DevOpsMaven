@@ -21,10 +21,10 @@ public class Address {
     }
 
     public Address(String street, String city, String postalCode) {
-       this.street = setValidStreet(street);
-       this.city = setValidCity(city);
-       this.postalCode = setValidPostalCode(postalCode);
-       this.birthPlace = null;
+        this.street = setValidStreet(street);
+        this.city = setValidCity(city);
+        this.postalCode = setValidPostalCode(postalCode);
+        this.birthPlace = null;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Address {
         if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
         } else {
-           return birthPlace.toUpperCase();
+            return birthPlace.toUpperCase();
         }
     }
 
@@ -148,10 +148,11 @@ public class Address {
      */
 
     private static boolean isNumeric(String city) {
-        if(city !=null)
+        if (city != null)
             for (char c : city.toCharArray()) {
                 if (Character.isDigit(c))
                     return true;
-            } return false;
+            }
+        return false;
     }
 }

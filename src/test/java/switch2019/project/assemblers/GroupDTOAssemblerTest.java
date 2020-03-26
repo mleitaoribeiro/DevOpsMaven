@@ -64,7 +64,7 @@ class GroupDTOAssemblerTest {
     /**
      * Test to createAddMemberDTO method
      */
-    
+
     @Test
     @DisplayName("Test to createaAddMemberDTO")
     void createAddMemberDTO() {

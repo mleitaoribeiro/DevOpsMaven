@@ -10,7 +10,7 @@ public class Email {
     private static final String EMAIL_NOT_VALID = "The email it´s not valid";
     private static final String EMAIL_NULL = "The email can´t be null!";
 
-    public Email (String email) {
+    public Email(String email) {
         this.emailAddress = setValidEmail(email);
     }
 
@@ -34,11 +34,12 @@ public class Email {
 
     /**
      * Method to set a valid email
+     *
      * @param email
      * @return
      */
 
-    private String setValidEmail (String email) {
+    private String setValidEmail(String email) {
         if (email == null)
             throw new IllegalArgumentException(EMAIL_NULL);
         else if (isValid(email))
@@ -49,26 +50,29 @@ public class Email {
     }
 
     /**
-     * Auxiliary method to verify if email it´s valid (xxxx@xxxx.xx)
-     * @param email
-     * @return
-     */
-
-   private boolean isValid(String email) {
-           String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                   "[a-zA-Z0-9_+&*-]+)*@" +
-                   "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                   "A-Z]{2,7}$";
-           Pattern pat = Pattern.compile(emailRegex);
-           return pat.matcher(email).matches();
-    }
-
-    /**
      * Get email
+     *
      * @return
      */
 
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+
+    /**
+     * Auxiliary method to verify if email it´s valid (xxxx@xxxx.xx)
+     *
+     * @param email
+     * @return
+     */
+
+    private boolean isValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex);
+        return pat.matcher(email).matches();
     }
 }

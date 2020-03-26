@@ -29,7 +29,7 @@ public class Account implements Entity {
     public Account(Denomination accountDenomination, Description accountDescription) {
         this.denomination = accountDenomination;
         this.description = accountDescription;
-        this.balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
+        this.balance = new MonetaryValue(0.0, Currency.getInstance("EUR"));
     }
 
     /**
@@ -41,11 +41,11 @@ public class Account implements Entity {
      */
 
     public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        if(accountDescription == null) throw new IllegalArgumentException("Account Description can't be null.");
+        if (accountDescription == null) throw new IllegalArgumentException("Account Description can't be null.");
         else {
             accountID = new AccountID(accountDenomination, ownerID);
             description = accountDescription;
-            balance = new MonetaryValue(0.0,Currency.getInstance("EUR"));
+            balance = new MonetaryValue(0.0, Currency.getInstance("EUR"));
         }
     }
 
@@ -64,8 +64,9 @@ public class Account implements Entity {
 
     @Override
     public String toString() {
-        return  description.toString() + ", " + balance.toString() + "€" + ", " + accountID.toString();
+        return description.toString() + ", " + balance.toString() + "€" + ", " + accountID.toString();
     }
+
 
     /**
      * Get accountID
@@ -78,7 +79,9 @@ public class Account implements Entity {
      * Get account by Owner ID
      */
 
-    public OwnerID getOwnerID() { return this.accountID.getOwnerID(); }
+    public OwnerID getOwnerID() {
+        return this.accountID.getOwnerID();
+    }
 
     /**
      * Public get for denomination in String

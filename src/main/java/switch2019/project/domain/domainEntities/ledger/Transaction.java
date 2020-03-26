@@ -32,21 +32,21 @@ public class Transaction {
 
 
     public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
-            this.amount = setValidMonetaryValue(amount);
-            this.description = setValidDescription(description);
-            this.category = setValidCategory(category);
-            this.accountFrom = setValidAccount(accountFrom);
-            this.accountTo = setValidAccount(accountTo);
-            this.type = type;
-            this.date = setDate(date);
-        }
+        this.amount = setValidMonetaryValue(amount);
+        this.description = setValidDescription(description);
+        this.category = setValidCategory(category);
+        this.accountFrom = setValidAccount(accountFrom);
+        this.accountTo = setValidAccount(accountTo);
+        this.type = type;
+        this.date = setDate(date);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return Objects.equals(type,that.type) &&
+        return Objects.equals(type, that.type) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(date, that.date) &&
@@ -58,6 +58,13 @@ public class Transaction {
     @Override
     public int hashCode() {
         return Objects.hash(amount, description, date, category, accountFrom, accountTo, type);
+    }
+
+    @Override
+    public String toString() {
+        return dateToString() + " | " + amount + " " + typeToString() + " | " +
+                accountFrom.denominationToString() + " -> " + accountTo.denominationToString()
+                + " | Description: \"" + description + "\" " + " | " + category.getNameOfCategory();
     }
 
     /**
@@ -75,12 +82,6 @@ public class Transaction {
         return date.format(formatter);
     }
 
-    @Override
-    public String toString() {
-        return dateToString() + " | " + amount + " " + typeToString() + " | " +
-                accountFrom.denominationToString() + " -> " + accountTo.denominationToString()
-                + " | Description: \"" + description + "\" " + " | " + category.getNameOfCategory();
-    }
 
     /**
      * Verify is a given transaction is valid or not
