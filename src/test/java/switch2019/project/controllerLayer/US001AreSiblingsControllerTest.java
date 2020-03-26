@@ -73,10 +73,9 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String antonioEmail = "child1@isep.ipp.pt";
         String manuelEmail = "child2@isep.ipp.pt";
-        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail,manuelEmail);
 
         //Act
-        boolean siblings = controller.areSiblings(siblingsDTO);
+        boolean siblings = controller.areSiblings(antonioEmail,manuelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -88,10 +87,8 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String antonioEmail = "child1@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
-        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail,robertoEmail);
-
         //Act
-        boolean siblings = controller.areSiblings(siblingsDTO);
+        boolean siblings = controller.areSiblings(antonioEmail,robertoEmail);
 
         //Assert
         assertTrue(siblings);
@@ -104,10 +101,8 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String antonioEmail = "child1@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
-        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail,amaliaEmail);
-
         //Act
-        boolean siblings = controller.areSiblings(siblingsDTO);
+        boolean siblings = controller.areSiblings(antonioEmail,amaliaEmail);
 
         //Assert
         assertTrue(siblings);
@@ -119,10 +114,9 @@ class US001AreSiblingsControllerTest {
         //Arrange
         String joseEmail = "father@isep.ipp.pt";
         String rafaelEmail = "father2@isep.ipp.pt";
-        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail,rafaelEmail);
 
         //Act
-        boolean siblings = controller.areSiblings(siblingsDTO);
+        boolean siblings = controller.areSiblings(joseEmail,rafaelEmail);
 
         //Assert
         assertTrue(siblings);
@@ -137,12 +131,9 @@ class US001AreSiblingsControllerTest {
         String mariaEmail = "mother@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
-        SiblingsDTO siblingsDTO2 = new SiblingsDTO(mariaEmail, amaliaEmail);
-
         //Act
-        boolean siblings = controller.areSiblings(siblingsDTO);
-        boolean siblings2 = controller.areSiblings(siblingsDTO2);
+        boolean siblings = controller.areSiblings(joseEmail, robertoEmail);
+        boolean siblings2 = controller.areSiblings(mariaEmail, amaliaEmail);
 
         //Assert
         assertFalse(siblings && siblings2);
@@ -159,7 +150,7 @@ class US001AreSiblingsControllerTest {
 
         //Act
         try {
-            controller.areSiblings(siblingsDTO);
+            controller.areSiblings(joseEmail, robertoEmail);
         }
 
         //Assert
