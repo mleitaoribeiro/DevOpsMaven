@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountDTOAssemblerTest {
 
 
-    /*
+
     @Test
     void createAccountDTO() {
         //Arrange
@@ -41,8 +41,8 @@ class AccountDTOAssemblerTest {
                 () ->  assertNotEquals(unexpected, actual)
         );
     }
-*/
-    
+
+
     @Test
     void createCreateGroupAccountDTOFromPrimitiveTrypes() {
         //Arrange
