@@ -3,6 +3,7 @@ package switch2019.project.controllerLayer;
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
+import switch2019.project.assemblers.AccountDTOAssembler;
 
 
 public class US007CreateGroupAccountController {
@@ -19,13 +20,19 @@ public class US007CreateGroupAccountController {
     /**
      * US007 - As a group Admin, I want to create a group account
      *
-     * @param createGroupAccountDTO
-     * @param
-     * @param
-     * @return
+     * @param personEmail
+     * @param groupDescription
+     * @param accountDenomination
+     * @param accountDescription
+     * @return accountDTO
      */
 
-    public AccountDTO createGroupAccount(CreateGroupAccountDTO createGroupAccountDTO) {
+    public AccountDTO createGroupAccount(String personEmail, String groupDescription,
+                                         String accountDenomination, String accountDescription) {
+
+        CreateGroupAccountDTO createGroupAccountDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTrypes(
+                personEmail, groupDescription, accountDenomination, accountDescription);
+
         return service.createGroupAccount(createGroupAccountDTO);
     }
 
