@@ -2,6 +2,7 @@ package switch2019.project.controllerLayer;
 
 import switch2019.project.DTO.AddMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
+import switch2019.project.assemblers.GroupDTOAssembler;
 
 
 public class US003AddMemberToGroupController {
@@ -16,10 +17,11 @@ public class US003AddMemberToGroupController {
      * US003
      * Add member to Group
      *
-     * @param addMemberDTO
+     * @param personEmail, groupDescription
      * @return
      */
-    public boolean addMemberToGroup(AddMemberDTO addMemberDTO) {
+    public boolean addMemberToGroup(String personEmail, String groupDescription) {
+        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail, groupDescription);
         return service.addMemberToGroup(addMemberDTO);
     }
 }

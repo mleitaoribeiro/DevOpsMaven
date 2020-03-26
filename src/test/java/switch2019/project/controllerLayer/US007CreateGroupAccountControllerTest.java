@@ -94,10 +94,12 @@ class US007CreateGroupAccountControllerTest {
 
 
     /**
-     * Test If group Account is created - Happy Cases
+     *  Test If group Account is created - Happy Cases
      */
 
-    /*@Test
+
+
+    @Test
     @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreatedHappyCase() {
 
@@ -106,12 +108,11 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
         AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
         //Act
-        AccountDTO accountCreated = controller.createGroupAccount(createGroupAccountDTO).get();
+        AccountDTO accountCreated = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
 
         //Assert
         assertEquals(expected, accountCreated);
@@ -133,12 +134,11 @@ class US007CreateGroupAccountControllerTest {
         int numberOfExpectedAccountsInTheRepositoryAfter = 1;
         AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
 
         //Act
-        AccountDTO accountCreated = controller.createGroupAccount(createGroupAccountDTO).get();
+        AccountDTO accountCreated = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
 
         int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
 
@@ -151,9 +151,11 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created - Failing scenarios
-     *//*
+     */
+
+
 
 
     @Test
@@ -166,21 +168,23 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
         int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
-        Optional <AccountDTO> accountCreated = controller.createGroupAccount(createGroupAccountDTO);
-        int realNumberOfAccountsInTheRepository = 0;
+        try {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        }
+        catch (IllegalArgumentException invalid) {
+            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
-        //Assert
-        Assertions.assertAll(
-                () -> assertFalse(accountCreated.isPresent()),
-                () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
-        );
-
+            //Assert
+            Assertions.assertAll(
+                    () -> assertEquals("This person is not Admin of this group", invalid.getMessage()),
+                    () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
+            );
+        }
     }
 
 
@@ -194,20 +198,25 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
         int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
 
-        Optional <AccountDTO> accountCreated = controller.createGroupAccount(createGroupAccountDTO);
-        int realNumberOfAccountsInTheRepository = 0;
+        try {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        }
+        catch (IllegalArgumentException invalid) {
 
-        Assertions.assertAll(
-                () -> assertFalse(accountCreated.isPresent()),
-                () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
-        );
+            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+            //Assert
+            Assertions.assertAll(
+                    () -> assertEquals("This person is not Member of this group", invalid.getMessage()),
+                    () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
+            );
+        }
     }
 
 
@@ -221,12 +230,11 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
 
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("No person found with that email.", invalid.getMessage());
@@ -244,12 +252,12 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("No group was found with the given description", invalid.getMessage());
@@ -260,9 +268,9 @@ class US007CreateGroupAccountControllerTest {
 //**********************************************************************************************************************\\
 
 
-    *//**
+    /**
      * Test If group Account is created - Several accounts added - Null & Empty Values
-     *//*
+     **/
 
 
     @Test
@@ -270,17 +278,15 @@ class US007CreateGroupAccountControllerTest {
     void testIfGroupAccountWasCreatedPersonIDNull() {
 
         //Arrange
-        String personEmail = null;
         String groupDescription = "Isep";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(null, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The email can´t be null!", invalid.getMessage());
@@ -297,12 +303,11 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The email it´s not valid", invalid.getMessage());
@@ -316,16 +321,14 @@ class US007CreateGroupAccountControllerTest {
 
         //Arrange
         String personEmail = "joao.cardoso_12@hotmail.com";
-        String groupDescription = null;
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, null,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The description can't be null or empty.", invalid.getMessage());
@@ -342,12 +345,11 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                null, accountDescription);
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                   null, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
@@ -364,12 +366,12 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
         // Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
@@ -385,13 +387,12 @@ class US007CreateGroupAccountControllerTest {
         String groupDescription = "Familia";
         String accountDenomination = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, null);
 
         //Act
         try {
 
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, null);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The description can't be null or empty.", invalid.getMessage());
@@ -408,12 +409,12 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online Shopping";
         String accountDescription = "";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("The description can't be null or empty.", invalid.getMessage());
@@ -430,15 +431,14 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(null, groupDescription,
-                accountDenomination, accountDescription);
 
 
         int numberOfExpectedAccountsInTheRepository = 0;
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(null, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
             //Assert
@@ -450,9 +450,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
-     *//*
+     */
 
 
     @Test
@@ -472,23 +472,23 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination2 = "Netflix";
         String accountDescription2 = "Netflix Account";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
         AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination1, accountDescription1);
+
         AccountDTO expected1 = new AccountDTO(groupDescription, accountDenomination1, accountDescription1);
 
-        CreateGroupAccountDTO createGroupAccountDTO2 = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination2, accountDescription2);
+
         AccountDTO expected2 = new AccountDTO(groupDescription, accountDenomination2, accountDescription2);
 
 
         //Act
-        AccountDTO accountCreated = controller.createGroupAccount(createGroupAccountDTO).get();
-        AccountDTO accountsCreated1 = controller.createGroupAccount(createGroupAccountDTO1).get();
-        AccountDTO accountsCreated2 = controller.createGroupAccount(createGroupAccountDTO2).get();
+        AccountDTO accountCreated = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
+        AccountDTO accountsCreated1 = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination1, accountDescription1);
+        AccountDTO accountsCreated2 = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination2, accountDescription2);
 
         //Assert
         Assertions.assertAll(
@@ -499,9 +499,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
-     *//*
+     */
 
 
     @Test
@@ -521,21 +521,16 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination2 = "Netflix";
         String accountDescription2 = "Netflix Account";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
-
-        CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination1, accountDescription1);
-
-        CreateGroupAccountDTO createGroupAccountDTO2 = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination2, accountDescription2);
 
         int numberOfExpectedAccountsInTheRepository = 3;
 
         //Act
-        controller.createGroupAccount(createGroupAccountDTO);
-        controller.createGroupAccount(createGroupAccountDTO1);
-        controller.createGroupAccount(createGroupAccountDTO2);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination1, accountDescription1);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination2, accountDescription2);
 
         int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
@@ -544,9 +539,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created -  Failing scenarios - Simple Tests
-     *//*
+     */
 
 
     @Test
@@ -559,14 +554,16 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
         //Act
-        Optional<AccountDTO> accountCreated = controller.createGroupAccount(createGroupAccountDTO);
-
-        //Assert
-        assertFalse(accountCreated.isPresent());
+        try {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        } catch (IllegalArgumentException invalid) {
+            //Assert
+            assertEquals("This person is not Admin of this group", invalid.getMessage());
+        }
     }
 
 
@@ -580,15 +577,17 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
 
         //Act
-        Optional<AccountDTO> accountCreated = controller.createGroupAccount(createGroupAccountDTO);
-        //Assert
-        assertFalse(accountCreated.isPresent());
-
+        try {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        } catch (IllegalArgumentException invalid) {
+            //Assert
+            assertEquals("This person is not Member of this group", invalid.getMessage());
+        }
     }
 
     @Test
@@ -605,26 +604,25 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination1 = "Revolut";
         String accountDescription1 = "Revolut Account";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
+
+
+
+        controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination, accountDescription);
-
-        CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(personEmail, groupDescription,
+        controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination1, accountDescription1);
-
-
-        controller.createGroupAccount(createGroupAccountDTO);
-        controller.createGroupAccount(createGroupAccountDTO1);
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO1);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination1, accountDescription1);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("This Account already exists for that ID.", invalid.getMessage());
         }
     }
-*/
-   /* @Test
+
+    @Test
     @DisplayName("Test If group Account is created - False - Account already exists")
     void testIfGroupAccountWasCreatedAccountAlreadyExists() {
 
@@ -634,15 +632,16 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
+
+
+
+        controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination, accountDescription);
-
-
-        controller.createGroupAccount(createGroupAccountDTO);
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
             assertEquals("This Account already exists for that ID.", invalid.getMessage());
@@ -650,9 +649,9 @@ class US007CreateGroupAccountControllerTest {
     }
 
 
-    *//**
+    /**
      * Test If group Account is created -  Failing scenarios  - Check Number of Accounts
-     *//*
+     */
 
 
     @Test
@@ -665,17 +664,18 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
         int expectedAccountsBefore = 0;
         int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
         int expectedAccountsAfter = 1;
 
         //Act
-        controller.createGroupAccount(createGroupAccountDTO);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
 
@@ -698,15 +698,15 @@ class US007CreateGroupAccountControllerTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
+
 
         int numberOfExpectedAccountsInTheRepository = 0;
 
 
         //Act
         try {
-            controller.createGroupAccount(createGroupAccountDTO);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
             //Assert
@@ -734,20 +734,19 @@ class US007CreateGroupAccountControllerTest {
 
         int numberOfExpectedAccountsInTheRepository = 2;
 
-        CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination, accountDescription);
-        CreateGroupAccountDTO createGroupAccountDTO1 = new CreateGroupAccountDTO(personEmail, groupDescription,
-                accountDenomination1, accountDescription1);
 
 
         //Act
-        controller.createGroupAccount(createGroupAccountDTO);
-        controller.createGroupAccount(createGroupAccountDTO1);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination1, accountDescription1);
 
         int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
 
         try {
-            controller.createGroupAccount(createGroupAccountDTO1);
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination1, accountDescription1);
         } catch (IllegalArgumentException invalid) {
             //Assert
             Assertions.assertAll(
@@ -755,6 +754,6 @@ class US007CreateGroupAccountControllerTest {
                     () -> assertEquals("This Account already exists for that ID.", invalid.getMessage())
             );
         }
-    }*/
+    }
 
 }

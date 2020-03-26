@@ -15,7 +15,10 @@ import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
 
+
 public class US007CreateGroupAccountService {
+
+
 
     private PersonRepository personRepository;
     private GroupsRepository groupsRepository;
@@ -27,13 +30,15 @@ public class US007CreateGroupAccountService {
         this.accountRepository = accountRepository;
     }
 
-    /**
+
+/**
      *US007 - As a group Admin, I want to create a group account
      *
      * @param createGroupAccountDTO
      * @param
-     * @return
+     * @return accountDTO
      */
+
 
     public AccountDTO createGroupAccount (CreateGroupAccountDTO createGroupAccountDTO) {
 
@@ -46,10 +51,14 @@ public class US007CreateGroupAccountService {
 
         GroupID groupID = group.getID();
 
-        if (group.isGroupAdmin(personID)) {
-            Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
-            return AccountDTOAssembler.createAccountDTO(account.getOwnerID(), account.getDenomination(), account.getDescription());
-        }
-        else throw new IllegalArgumentException("This person is not Admin of this group");
+        if (group.isGroupMember(personID)) {
+            if (group.isGroupAdmin(personID)) {
+                Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
+                return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
+            } else throw new IllegalArgumentException("This person is not Admin of this group");
+        } else throw new IllegalArgumentException("This person is not Member of this group");
+
+
     }
+
 }

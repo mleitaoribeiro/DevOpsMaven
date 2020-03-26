@@ -1,5 +1,7 @@
 package switch2019.project.DTO;
 
+import java.util.Objects;
+
 public class CreateGroupAccountDTO {
     private String personEmail;
     private String groupDescription;
@@ -42,5 +44,21 @@ public class CreateGroupAccountDTO {
      */
     public String getAccountDescription() {
         return accountDescription;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreateGroupAccountDTO)) return false;
+        CreateGroupAccountDTO that = (CreateGroupAccountDTO) o;
+        return Objects.equals(personEmail, that.personEmail) &&
+                Objects.equals(groupDescription, that.groupDescription) &&
+                Objects.equals(accountDenomination, that.accountDenomination) &&
+                Objects.equals(accountDescription, that.accountDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personEmail, groupDescription, accountDenomination, accountDescription);
     }
 }

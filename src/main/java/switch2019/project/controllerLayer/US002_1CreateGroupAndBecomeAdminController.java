@@ -1,6 +1,7 @@
 package switch2019.project.controllerLayer;
 
 import switch2019.project.DTO.AdminCreateGroupDTO;
+import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupAndBecomeAdminService;
 import switch2019.project.assemblers.GroupDTOAssembler;
@@ -21,11 +22,12 @@ public class US002_1CreateGroupAndBecomeAdminController {
      * US002.1
      * I want to create a group and become an Admin
      *
-     * @param adminCreateGroupDTO
+     * @param groupDescription, personEmail
      * @return groupDTO
      */
-    public GroupDTO createGroupAndBecomeAdmin(AdminCreateGroupDTO adminCreateGroupDTO) {
-        return service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
+    public GroupDTO createGroupAndBecomeAdmin(String groupDescription, String personEmail) {
+       AdminCreateGroupDTO adminCreateGroupDTO = GroupDTOAssembler.createAdminCreateGroupDTO(groupDescription,personEmail);
+       return service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
     }
 }
 

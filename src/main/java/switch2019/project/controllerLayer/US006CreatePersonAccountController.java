@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 public class US006CreatePersonAccountController {
-
+/*
     private US006CreatePersonAccountService service;
 
     public US006CreatePersonAccountController(US006CreatePersonAccountService service) {
@@ -26,6 +26,7 @@ public class US006CreatePersonAccountController {
      *
      * @param accountDTO
      */
+/*
     public Optional<AccountDTO> createPersonAccount(CreatePersonAccountDTO accountDTO) {
 
         Optional<Account> ret = service.createPersonAccount(accountDTO);
@@ -42,5 +43,8 @@ public class US006CreatePersonAccountController {
         }
 
     }
+
+
+    */
 }
 
