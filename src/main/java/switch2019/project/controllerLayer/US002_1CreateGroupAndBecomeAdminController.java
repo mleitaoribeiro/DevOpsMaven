@@ -22,16 +22,10 @@ public class US002_1CreateGroupAndBecomeAdminController {
      * I want to create a group and become an Admin
      *
      * @param adminCreateGroupDTO
-     * @return true the group was created and person is now Admin
+     * @return groupDTO
      */
-
-    public Optional<GroupDTO> createGroupAndBecomeAdmin(AdminCreateGroupDTO adminCreateGroupDTO) {
-        Optional<Group> optionalGroup = service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
-        if (optionalGroup.isPresent()) {
-            Group group = optionalGroup.get();
-            GroupDTO groupDTO = GroupDTOAssembler.createGroupDTO(new Description(group.getGroupID()));
-            return Optional.of(groupDTO);
-        } else return Optional.empty();
+    public GroupDTO createGroupAndBecomeAdmin(AdminCreateGroupDTO adminCreateGroupDTO) {
+        return service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
     }
 }
 

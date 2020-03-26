@@ -19,18 +19,13 @@ public class US004GetFamilyGroupsController {
      *
      * @return family groups
      */
-    public Set<GroupDTO> getFamilyGroups() {
 
-        Set<String> familyGroups = service.getFamilyGroups();
+    public Set <GroupDTO> getFamilyGroups() {
 
-        //DTO conversion
-        Set<GroupDTO> familyGroupDTO = new HashSet<>();
-
-        if (!familyGroups.isEmpty())
-            for (String family : familyGroups)
-                familyGroupDTO.add(new GroupDTO(family));
-        return familyGroupDTO;
+        return service.getFamilyGroups();
 
     }
+
+
 }
 

@@ -28,7 +28,6 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
      * US002.1
      * Universe setup for US tests
      */
-
     @BeforeEach
     void setUpUniverse() {
         groupsRepository = new GroupsRepository();
@@ -46,21 +45,20 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
      * US002.1
      * Test if a group was created and person is admin
      */
-
-
     @Test
-    @DisplayName("Main scenario")
+    @DisplayName("Main scenario - Existing person creates a Group and becomes Admin")
     void createGroupAndBecomeAdmin() {
 
         //Arrange
         String groupDescription = "Bashtards";
         String personEmail = "1234@isep.pt";
+
         AdminCreateGroupDTO adminCreateGroupDTO = new AdminCreateGroupDTO(groupDescription, personEmail);
 
         GroupDTO isGroupCreatedAndAdminSetExpected = new GroupDTO(groupDescription);
 
         //Act
-        GroupDTO isGroupCreatedAndAdminSet = controller.createGroupAndBecomeAdmin(adminCreateGroupDTO).get();
+        GroupDTO isGroupCreatedAndAdminSet = controller.createGroupAndBecomeAdmin(adminCreateGroupDTO);
 
         boolean isAdminSet = groupsRepository.findGroupByDescription(new Description(groupDescription)).
                 isGroupAdmin(personRepository.findPersonByEmail(new Email(personEmail)));
