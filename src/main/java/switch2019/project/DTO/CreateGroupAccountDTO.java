@@ -8,8 +8,7 @@ public class CreateGroupAccountDTO {
     private String accountDenomination;
     private String accountDescription;
 
-    public CreateGroupAccountDTO(String personEmail, String groupDescription,
-                                 String accountDenomination, String accountDescription) {
+    public CreateGroupAccountDTO(String personEmail, String groupDescription,  String accountDenomination, String accountDescription) {
         this.personEmail = personEmail;
         this.groupDescription = groupDescription;
         this.accountDenomination = accountDenomination;

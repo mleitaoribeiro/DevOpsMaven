@@ -21,7 +21,5 @@ public class US004GetFamilyGroupsController {
     public Set <GroupDTO> getFamilyGroups() {
         return service.getFamilyGroups();
     }
-
-
 }
 

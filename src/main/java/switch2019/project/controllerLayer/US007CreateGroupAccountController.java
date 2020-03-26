@@ -26,7 +26,6 @@ public class US007CreateGroupAccountController {
      * @param accountDescription
      * @return accountDTO
      */
-
     public AccountDTO createGroupAccount(String personEmail, String groupDescription,
                                          String accountDenomination, String accountDescription) {
 
@@ -35,5 +34,7 @@ public class US007CreateGroupAccountController {
 
         return service.createGroupAccount(createGroupAccountDTO);
     }
+
+
 
 }

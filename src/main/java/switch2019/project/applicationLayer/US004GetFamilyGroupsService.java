@@ -3,7 +3,6 @@ package switch2019.project.applicationLayer;
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 
 import java.util.HashSet;
