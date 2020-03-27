@@ -15,6 +15,7 @@ public class Category implements Entity {
 
     /**
      * Category constructor (to delete later)
+     *
      * @param category
      */
     public Category(String category) {
@@ -23,26 +24,12 @@ public class Category implements Entity {
 
     /**
      * 2nd Category constructor
+     *
      * @param category
      * @param ownerID
      */
     public Category(Denomination category, OwnerID ownerID) {
         categoryID = new CategoryID(category, ownerID);
-    }
-
-    /**
-     * Get account by ID
-     */
-    public CategoryID getID() {
-        return categoryID;
-    }
-
-    /**
-     * Get name of the category
-     * @return nameOfCategory
-     */
-    public String getNameOfCategory() {
-        return nameOfCategory.toString();
     }
 
     @Override
@@ -62,4 +49,23 @@ public class Category implements Entity {
     public String toString() {
         return categoryID.toString();
     }
+
+    /**
+     * Get account by ID
+     */
+    public CategoryID getID() {
+        return categoryID;
+    }
+
+    /**
+     * Get name of the category
+     *
+     * @return nameOfCategory
+     */
+    public String getNameOfCategory() {
+        return nameOfCategory.toString();
+    }
 }
+
+
+

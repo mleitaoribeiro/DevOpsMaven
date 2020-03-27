@@ -11,6 +11,21 @@ public class AdminCreateGroupDTO {
         this.personEmail = personEmail;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AdminCreateGroupDTO that = (AdminCreateGroupDTO) o;
+        return Objects.equals(groupDescription, that.groupDescription) &&
+                Objects.equals(personEmail, that.personEmail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupDescription, personEmail);
+    }
+
+
     /**
      * get Group Description
      *
@@ -31,17 +46,4 @@ public class AdminCreateGroupDTO {
         return personEmail;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AdminCreateGroupDTO that = (AdminCreateGroupDTO) o;
-        return Objects.equals(groupDescription, that.groupDescription) &&
-                Objects.equals(personEmail, that.personEmail);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(groupDescription, personEmail);
-    }
 }

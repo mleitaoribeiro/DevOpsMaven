@@ -90,17 +90,55 @@ public class Person implements Owner {
 
     @Override
     public String toString() {
-        return "Email: " + personID.getEmail() + ", Person "  + name.getPersonName() + ", currently lives in " + address.toString() +
+        return "Email: " + personID.getEmail() + ", Person " + name.getPersonName() + ", currently lives in " + address.toString() +
                 ", was born in " + birthPlace.getBirthPlace() + ", on " + birthDate.getYearMonthDay() + ".";
     }
 
     /**
      * Method to get Person ID
+     *
      * @return personID
      */
 
     public PersonID getID() {
         return personID;
+    }
+
+    /**
+     * Develop method to return the ledger size
+     *
+     * @return ledger size
+     */
+    public int ledgerSize() {
+        return ledger.getLedgerSize();
+    }
+
+    /**
+     * Getter function for the sibling's list
+     *
+     * @return siblingList
+     */
+    public Set<Person> getSiblingList() {
+        return new HashSet<>(siblingList);
+    }
+
+    /**
+     * Set Mother
+     *
+     * @param mother new mother Person
+     */
+    public void setMother(Person mother) {
+        this.mother = mother;
+    }
+
+    /**
+     * Set Father
+     *
+     * @param father new father Person
+     */
+
+    public void setFather(Person father) {
+        this.father = father;
     }
 
     /**
@@ -147,23 +185,6 @@ public class Person implements Owner {
         }
     }
 
-    /**
-     * Getter function for the sibling's list
-     *
-     * @return siblingList
-     */
-    public Set<Person> getSiblingList() {
-        return new HashSet<>(siblingList);
-    }
-
-    /**
-     * Set Mother
-     *
-     * @param mother new mother Person
-     */
-    public void setMother(Person mother) {
-        this.mother = mother;
-    }
 
     /**
      * Validate if a person is the Mother of another person
@@ -174,16 +195,6 @@ public class Person implements Owner {
     public boolean isMother(Person mother) {
         if (this.mother == null) return false;
         else return this.mother.equals(mother);
-    }
-
-    /**
-     * Set Father
-     *
-     * @param father new father Person
-     */
-
-    public void setFather(Person father) {
-        this.father = father;
     }
 
     /**
@@ -313,14 +324,6 @@ public class Person implements Owner {
     public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
                                           Category category, Account accountFrom, Account accountTo, Type type) {
         return ledger.scheduleNewTransaction(periodicity, amount, description, date, category, accountFrom, accountTo, type);
-    }
-
-    /**
-     * Develop method to return the ledger size
-     * @return ledger size
-     */
-    public int ledgerSize() {
-        return ledger.getLedgerSize();
     }
 
 

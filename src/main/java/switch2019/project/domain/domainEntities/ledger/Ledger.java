@@ -44,6 +44,15 @@ public class Ledger {
     }
 
     /**
+     * Get the size of the legder
+     * <p>
+     * return int legderSize
+     */
+    public int getLedgerSize() {
+        return this.ledgerTransactions.size();
+    }
+
+    /**
      * Method that checks if a transaction is contained within a Ledger
      *
      * @param transactionInLedger
@@ -75,7 +84,7 @@ public class Ledger {
     }
 
     /**
-     *  Develop method to create a new schedule (USER STORY)
+     * Develop method to create a new schedule (USER STORY)
      *
      * @param amount
      * @param description
@@ -197,14 +206,5 @@ public class Ledger {
             }
         }
         return (double) Math.round(balance * 1000) / 1000; // balance rounded to three decimal places
-    }
-
-    /**
-     * Get the size of the legder
-     * <p>
-     * return int legderSize
-     */
-    public int getLedgerSize() {
-        return this.ledgerTransactions.size();
     }
 }

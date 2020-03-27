@@ -85,6 +85,15 @@ public class Group implements Owner {
     }
 
     /**
+     * Method used to get group description
+     *
+     * @return description
+     */
+    public String getGroupID() {
+        return groupID.getDescription();
+    }
+
+    /**
      * Add a new person to a group
      *
      * @param person
@@ -144,7 +153,7 @@ public class Group implements Owner {
     public boolean isGroupMember(Person isMember) {
         if (isMember != null)
             return this.members.contains(isMember);
-       else return false;
+        else return false;
     }
 
     /**
@@ -173,8 +182,7 @@ public class Group implements Owner {
             else if (!admins.contains(memberToRemove) && members.contains(memberToRemove))
                 return members.remove(memberToRemove);
             else return false;
-        }
-        else return false;
+        } else return false;
     }
 
     /**
@@ -187,7 +195,7 @@ public class Group implements Owner {
         if (!members.isEmpty())
             for (Person member : newMembers)
                 members.add(member);
-            return members.containsAll(newMembers);
+        return members.containsAll(newMembers);
     }
 
     /**
@@ -325,14 +333,6 @@ public class Group implements Owner {
         return true;
     }
 
-    /**
-     * Method used to get group description
-     *
-     * @return description
-     */
-    public String getGroupID() {
-        return groupID.getDescription();
-    }
 
     /**
      * Develop method to create a new schedule (USER STORY)
