@@ -96,7 +96,7 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Main Scenario - Happy Case")
+    @DisplayName("Test If group Account was created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreatedHappyCase() {
 
         //Arrange
@@ -117,7 +117,7 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Happy Case - Number of accounts increased")
+    @DisplayName("Test If group Account was created - Happy Case - Number of accounts increased")
     void testIfGroupAccountWasCreatedCompareSize() {
 
         //Arrange
@@ -155,7 +155,7 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Person it´s Member but not Admin - Number of accounts has not increased")
+    @DisplayName("Test If group Account was created - Person is Member but not Admin - Number of accounts has not increased")
     void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
 
         //Arrange
@@ -186,7 +186,7 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Person it´s not a Member - Number of accounts has not increased")
+    @DisplayName("Test If group Account was created - Person is not a Member - Number of accounts has not increased")
     void testIfGroupAccountWasCreatedNotGroupMemberNumberOfAccounts() {
 
         //Arrange
@@ -201,8 +201,7 @@ class US007CreateGroupAccountControllerTest {
         //Act
 
         try {
-            controller.createGroupAccount(personEmail, groupDescription,
-                    accountDenomination, accountDescription);
+            controller.createGroupAccount(personEmail, groupDescription, accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException invalid) {
 
@@ -218,7 +217,7 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Person do not Exists")
+    @DisplayName("Test If group Account is created - Person does not exist")
     void testIfGroupAccountWasCreatedPersonNotExists() {
 
         //Arrange
@@ -240,7 +239,7 @@ class US007CreateGroupAccountControllerTest {
 
 
     @Test
-    @DisplayName("Test If group Account is created - Group Do Not Exists")
+    @DisplayName("Test If group Account was created - Group does not exist")
     void testIfSeveralGroupAccountsWereCreatedGroupDoNotExists() {
 
         //Arrange
@@ -262,6 +261,92 @@ class US007CreateGroupAccountControllerTest {
 
 
 //**********************************************************************************************************************\\
+
+    /**
+     * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
+     */
+
+
+    @Test
+    @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created")
+    void testIfSeveralGroupAccountsWereCreatedSeveralAccountsCreated() {
+
+        //Arrange
+        String personEmail = "joao.cardoso_12@hotmail.com";
+        String groupDescription = "Familia";
+
+        String accountDenomination = "Online";
+        String accountDescription = "Online Shopping";
+
+        String accountDenomination1 = "Revolut";
+        String accountDescription1 = "Revolut Account";
+
+        String accountDenomination2 = "Netflix";
+        String accountDescription2 = "Netflix Account";
+
+
+        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        AccountDTO expected1 = new AccountDTO(groupDescription, accountDenomination1, accountDescription1);
+
+        AccountDTO expected2 = new AccountDTO(groupDescription, accountDenomination2, accountDescription2);
+
+
+        //Act
+        AccountDTO accountCreated = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
+        AccountDTO accountsCreated1 = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination1, accountDescription1);
+        AccountDTO accountsCreated2 = controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination2, accountDescription2);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expected, accountCreated),
+                () -> assertEquals(expected1, accountsCreated1),
+                () -> assertEquals(expected2, accountsCreated2)
+        );
+    }
+
+
+    /**
+     * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
+     */
+
+
+    @Test
+    @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created - Number of accounts increased")
+    void testIfSeveralGroupAccountsWereCreatedCompareSize() {
+
+        //Arrange
+        String personEmail = "joao.cardoso_12@hotmail.com";
+        String groupDescription = "Familia";
+
+        String accountDenomination = "Online";
+        String accountDescription = "Online Shopping";
+
+        String accountDenomination1 = "Revolut";
+        String accountDescription1 = "Revolut Account";
+
+        String accountDenomination2 = "Netflix";
+        String accountDescription2 = "Netflix Account";
+
+
+        int numberOfExpectedAccountsInTheRepository = 3;
+
+        //Act
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination, accountDescription);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination1, accountDescription1);
+        controller.createGroupAccount(personEmail, groupDescription,
+                accountDenomination2, accountDescription2);
+
+        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+
+        //Assert
+        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
+    }
 
 
     /**
@@ -443,93 +528,6 @@ class US007CreateGroupAccountControllerTest {
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }
-    }
-
-
-    /**
-     * Test If group Account is created - Several Accounts Added - Happy Cases - Simple Tests
-     */
-
-
-    @Test
-    @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created")
-    void testIfSeveralGroupAccountsWereCreatedSeveralAccountsCreated() {
-
-        //Arrange
-        String personEmail = "joao.cardoso_12@hotmail.com";
-        String groupDescription = "Familia";
-
-        String accountDenomination = "Online";
-        String accountDescription = "Online Shopping";
-
-        String accountDenomination1 = "Revolut";
-        String accountDescription1 = "Revolut Account";
-
-        String accountDenomination2 = "Netflix";
-        String accountDescription2 = "Netflix Account";
-
-
-        AccountDTO expected = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        AccountDTO expected1 = new AccountDTO(groupDescription, accountDenomination1, accountDescription1);
-
-        AccountDTO expected2 = new AccountDTO(groupDescription, accountDenomination2, accountDescription2);
-
-
-        //Act
-        AccountDTO accountCreated = controller.createGroupAccount(personEmail, groupDescription,
-                accountDenomination, accountDescription);
-        AccountDTO accountsCreated1 = controller.createGroupAccount(personEmail, groupDescription,
-                accountDenomination1, accountDescription1);
-        AccountDTO accountsCreated2 = controller.createGroupAccount(personEmail, groupDescription,
-                accountDenomination2, accountDescription2);
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(expected, accountCreated),
-                () -> assertEquals(expected1, accountsCreated1),
-                () -> assertEquals(expected2, accountsCreated2)
-        );
-    }
-
-
-    /**
-     * Test If group Account is created - Several Accounts Added - Happy Case - Check Number of Accounts
-     */
-
-
-    @Test
-    @DisplayName("Test If group Account is created - Happy Case - Several Accounts Created - Number of accounts increased")
-    void testIfSeveralGroupAccountsWereCreatedCompareSize() {
-
-        //Arrange
-        String personEmail = "joao.cardoso_12@hotmail.com";
-        String groupDescription = "Familia";
-
-        String accountDenomination = "Online";
-        String accountDescription = "Online Shopping";
-
-        String accountDenomination1 = "Revolut";
-        String accountDescription1 = "Revolut Account";
-
-        String accountDenomination2 = "Netflix";
-        String accountDescription2 = "Netflix Account";
-
-
-        int numberOfExpectedAccountsInTheRepository = 3;
-
-        //Act
-        controller.createGroupAccount(personEmail, groupDescription,
-                accountDenomination, accountDescription);
-        controller.createGroupAccount(personEmail, groupDescription,
-                accountDenomination1, accountDescription1);
-        controller.createGroupAccount(personEmail, groupDescription,
-                accountDenomination2, accountDescription2);
-
-        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
-
-        //Assert
-        assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
     }
 
 
