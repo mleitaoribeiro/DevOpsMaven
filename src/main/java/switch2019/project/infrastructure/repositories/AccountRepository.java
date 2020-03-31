@@ -49,7 +49,7 @@ public class AccountRepository implements Repository {
      */
 
     public Account createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        if (!isAccountIDOnRepository(new AccountID(accountDenomination, ownerID))) {
+        if (!isIDOnRepository(new AccountID(accountDenomination, ownerID))) {
             Account accountToAdd = new Account(accountDenomination, accountDescription, ownerID);
             this.accounts.add(accountToAdd);
             return accountToAdd;
@@ -108,7 +108,7 @@ public class AccountRepository implements Repository {
      * @return boolean
      */
 
-    public boolean isAccountIDOnRepository(AccountID accountID) {
+    public boolean isIDOnRepository(ID accountID) {
         for (Account accounts : accounts)
             if (accounts.getID().equals(accountID))
                 return true;

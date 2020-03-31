@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.repositories;
 
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.ledger.Periodicity;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.shared.Description;
@@ -35,7 +36,7 @@ public class GroupsRepository implements Repository {
      * @param groupCreator
      */
     public Group createGroup(Description groupDescription, Person groupCreator) {
-        if(!isGroupIDOnRepository(new GroupID(groupDescription))) {
+        if(!isIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
             groups.add(group1);
                 return group1;
@@ -207,7 +208,7 @@ public class GroupsRepository implements Repository {
      * @return boolean
      */
 
-    public boolean isGroupIDOnRepository(GroupID groupID) {
+    public boolean isIDOnRepository(ID groupID) {
         for (Group groups : groups)
             if (groups.getID().equals(groupID))
                 return true;

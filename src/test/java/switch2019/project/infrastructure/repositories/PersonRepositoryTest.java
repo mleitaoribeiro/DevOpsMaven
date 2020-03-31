@@ -72,7 +72,7 @@ class PersonRepositoryTest {
         personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
 
-        boolean personIDExists = personRepository.isPersonIDOnRepository(personJose.getID());
+        boolean personIDExists = personRepository.isIDOnRepository(personJose.getID());
 
         //Assert
         assertTrue(personIDExists);
@@ -91,7 +91,7 @@ class PersonRepositoryTest {
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
 
         //Assert
-        assertFalse(personRepository.isPersonIDOnRepository(new PersonID(new Email("fake@sofake.com"))));
+        assertFalse(personRepository.isIDOnRepository(new PersonID(new Email("fake@sofake.com"))));
     }
 
     @Test

@@ -1149,7 +1149,7 @@ class GroupsRepositoryTest {
         groupsRepository.createGroup(new Description("Familia"), person);
 
         //Act
-        boolean groupIDexists = groupsRepository.isGroupIDOnRepository(new GroupID(new Description("Familia")));
+        boolean groupIDexists = groupsRepository.isIDOnRepository(new GroupID(new Description("Familia")));
 
         //Assert
         assertTrue(groupIDexists);
@@ -1166,7 +1166,7 @@ class GroupsRepositoryTest {
         groupsRepository.createGroup(new Description("Familia"), person);
 
         //Act
-        boolean groupIDexists = groupsRepository.isGroupIDOnRepository(new GroupID(new Description("Familia")));
+        boolean groupIDexists = groupsRepository.isIDOnRepository(new GroupID(new Description("Familia")));
 
         //Assert
         assertTrue(groupIDexists);

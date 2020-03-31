@@ -1,5 +1,6 @@
 package switch2019.project.infrastructure.repositories;
 
+import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -125,4 +126,19 @@ public class CategoryRepository implements Repository {
     public int numberOfCategoriesInRepository() {
         return this.categories.size();
     }
+
+    /**
+     * method to validate if the account is in the accounts Repository
+     *
+     * @param categoryID
+     * @return boolean
+     */
+
+    public boolean isIDOnRepository (ID categoryID) {
+        for (Category category : categories)
+            if (category.getID().equals(categoryID))
+                return true;
+        return false;
+    }
+
 }
