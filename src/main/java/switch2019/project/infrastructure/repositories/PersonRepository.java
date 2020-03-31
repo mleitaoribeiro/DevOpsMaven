@@ -25,14 +25,14 @@ public class PersonRepository implements Repository {
     //This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
-        return this.findPersonByID(new PersonID(email));
+        return this.getByID(new PersonID(email));
     }
 
     //3rd constructor - Alternative constructor for people with mother and father
     public Person createPersonWithParents(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                            Person mother, Person father, Email email) {
         listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, mother, father, email));
-        return this.findPersonByID(new PersonID(email));
+        return this.getByID(new PersonID(email));
     }
 
     /**
@@ -40,7 +40,7 @@ public class PersonRepository implements Repository {
      *
      * @param personID
      */
-    public Person findPersonByID(ID personID) {
+    public Person getByID(ID personID) {
         for (Person person : listOfPersons) {
             if (person.getID().equals(personID))
                 return person;

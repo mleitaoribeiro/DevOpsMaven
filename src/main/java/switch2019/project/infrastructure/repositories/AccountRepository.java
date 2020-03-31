@@ -31,7 +31,7 @@ public class AccountRepository implements Repository {
      * @return account
      */
 
-    public Account findByID(ID accountID) {
+    public Account getByID (ID accountID) {
         for (Account account : accounts) {
             if (account.getID().equals(accountID))
                 return account;

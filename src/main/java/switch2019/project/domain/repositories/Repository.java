@@ -4,6 +4,17 @@ import switch2019.project.domain.domainEntities.frameworks.ID;
 
 public interface Repository {
 
+
+    /**
+     * find an object by it´s id
+     *
+     * @param id
+     * @return
+     */
+
+    Object getByID (ID id);
+
+
     /**
      * Verifies if ID exists on the Repository
      *
@@ -12,7 +23,5 @@ public interface Repository {
      */
 
     boolean isIDOnRepository (ID id);
-
-
 
 }

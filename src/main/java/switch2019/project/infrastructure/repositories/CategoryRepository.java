@@ -30,7 +30,7 @@ public class CategoryRepository implements Repository {
      * @param categoryID
      * @return account
      */
-    public Category findByID(ID categoryID) {
+    public Category getByID (ID categoryID) {
         for (Category category : categories) {
             if (category.getID().equals(categoryID))
                 return category;

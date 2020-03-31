@@ -508,7 +508,7 @@ class AccountRepositoryTest {
                 new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
 
         //Act
-        Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
+        Account accountReturned = accountsRepository.getByID(new AccountID(new Denomination("xpto"),
                 new PersonID(new Email("amadeu1@gmail.com"))));
 
         //Arrange
@@ -526,7 +526,7 @@ class AccountRepositoryTest {
                 new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
 
         //Act
-        Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
+        Account accountReturned = accountsRepository.getByID(new AccountID(new Denomination("xpto"),
                 new PersonID(new Email("amadeu1@gmail.com"))));
 
         //Arrange
@@ -613,7 +613,7 @@ class AccountRepositoryTest {
                 new PersonID(new Email("miu@gmail.com")));
 
         //Act
-        Category real = categoryRepository.findByID(new CategoryID(new Denomination("Mello"),
+        Category real = categoryRepository.getByID(new CategoryID(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com"))));
 
         //Assert
@@ -630,7 +630,7 @@ class AccountRepositoryTest {
         categoryRepository.createCategory(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com")));
         try {
-            Category real = categoryRepository.findByID(new CategoryID(new Denomination("Millo"),
+            Category real = categoryRepository.getByID(new CategoryID(new Denomination("Millo"),
                     new PersonID(new Email("miu@gmail.com"))));
         } catch (IllegalArgumentException ex) {
             assertEquals("No category found with that ID.", ex.getMessage());
@@ -648,7 +648,7 @@ class AccountRepositoryTest {
                 new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
 
         try {
-            Account accountReturned = accountsRepository.findByID(new AccountID(new Denomination("xpto"),
+            Account accountReturned = accountsRepository.getByID(new AccountID(new Denomination("xpto"),
                     new PersonID(new Email("notfound@gmail.com"))));
         } catch (IllegalArgumentException ex) {
             assertEquals("No account found with that ID.", ex.getMessage());

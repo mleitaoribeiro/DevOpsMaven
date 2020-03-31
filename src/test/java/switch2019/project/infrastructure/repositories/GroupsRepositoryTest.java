@@ -1126,7 +1126,7 @@ class GroupsRepositoryTest {
         Group expected= new Group(new Description("Familia"));
 
         //Act
-        Group actual=groupsRepository.findGroupByID(new GroupID(new Description("Familia")));
+        Group actual=groupsRepository.getByID(new GroupID(new Description("Familia")));
 
         //Assert
         assertEquals(expected, actual);
