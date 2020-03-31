@@ -1,10 +1,14 @@
 package switch2019.project.applicationLayer;
 
+import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.CategoryID;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
@@ -35,18 +39,27 @@ public class US005_1AdminAddsCategoryToCategoryListService {
      * @param dto
      * @return
      */
-    public Optional<Category> addCategoryToGroup(CreateCategoryInGroupDTO dto) {
+    public CategoryDTO addCategoryToGroup(CreateCategoryInGroupDTO dto) {
+
 
         //finding the right group where the new category will be added:
         Group group = groupsRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
 
+        //Gathering the information needed to create the category:
+        Denomination catDenomination = new Denomination(dto.getCategoryDenomination());
+        GroupID catGroupId = group.getID();
+
         //verify if the category creator is a group admin in order to continue with the method:
         if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID())) {
 
-            //create category and associate it with the group:
-            return Optional.of(categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID()));
+            //Instancing the Category to be created and adding it to the category repository:
+            Category categoryToBeAdded = categoryRepository.createCategory(catDenomination, catGroupId);
 
-        } else return Optional.empty();
+            //create category and associate it with the group:
+            return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryToBeAdded);
+        } else {
+            throw new IllegalArgumentException("This person is not a group admin or member and could not add the category.");
+        }
     }
 }
 
