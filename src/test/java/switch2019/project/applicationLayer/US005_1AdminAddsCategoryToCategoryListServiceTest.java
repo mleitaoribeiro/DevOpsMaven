@@ -108,7 +108,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories in the repository after creating the new Category
         int expectedCategoriesAfter = 1;
-        int actualCategoryBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
 
         //Assert
         /*this assertion verifies three conditions to check if our Controller worked as intended:
@@ -118,8 +118,8 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
          */
         Assertions.assertAll(
                 () -> assertEquals(outputDtoExpected, outputActual),
-                () -> assertEquals(expectedCategoriesBefore, expectedCategoriesBefore),
-                () -> assertEquals(expectedCategoriesAfter, expectedCategoriesAfter)
+                () -> assertEquals(expectedCategoriesBefore, actualCategoriesBefore),
+                () -> assertEquals(expectedCategoriesAfter, actualCategoriesAfter)
         );
     }
 
@@ -207,10 +207,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
 
         //Arrangement of the expected output DTOs:
-        CategoryID catID1 = new CategoryID(new Denomination(categoryDenomination1), new GroupID(new Description(groupDescription)));
         CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDescription);
-
-        CategoryID catID2 = new CategoryID(new Denomination(categoryDenomination2), new GroupID(new Description(groupDescription)));
         CategoryDTO outputDtoExpected2 = new CategoryDTO(categoryDenomination2, groupDescription);
 
         //Act:
@@ -257,7 +254,6 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
 
         //Arrangement of the expected output DTOs:
-        CategoryID catID1 = new CategoryID(new Denomination(categoryDenomination1), new GroupID(new Description(groupDescription)));
         CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDescription);
 
         CategoryID catID2 = new CategoryID(new Denomination(categoryDenomination2), new GroupID(new Description(groupDescription)));

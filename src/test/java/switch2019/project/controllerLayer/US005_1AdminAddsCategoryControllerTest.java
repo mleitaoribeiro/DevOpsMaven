@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
-import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -105,7 +104,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
 
             //Arrangement of the output DTO:
-        CategoryID catID = new CategoryID(new Denomination(categoryDenomination), new GroupID(new Description(groupDescription)));
+
         CategoryDTO outputDtoExpected = new CategoryDTO(categoryDenomination, groupDescription);
 
         //Act:
@@ -139,7 +138,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         String categoryDenomination2 = "CINEMA"; // category denomination will be different on the dtos
 
             //Arrangement of the output DTO:
-        CategoryID catID = new CategoryID(new Denomination(categoryDenomination), new GroupID(new Description(groupDescription)));
+
         CategoryDTO outputDtoExpected = new CategoryDTO(categoryDenomination2, groupDescription);
 
         //Act:
@@ -157,7 +156,6 @@ public class US005_1AdminAddsCategoryControllerTest {
         String creatorEmail = "Ana@hotmail.com"; // Not a Group member.
         String groupDescription = "FRIENDS";
         String categoryDenomination = "COMPRAS";
-        CreateCategoryInGroupDTO inputDto = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination);
 
             //expected number of categories after we try to add it with a non-member (0):
         int expectedCategories = 0;
@@ -190,7 +188,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         String creatorEmail = "Joao@gmail.com"; // Member but not an admin.
         String groupDescription = "FRIENDS";
         String categoryDenomination = "COMPRAS";
-        CreateCategoryInGroupDTO inputDto = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination);
+
 
             //expected number of categories after we try to add it with a non-member (0):
         int expectedCategories = 0;
@@ -231,10 +229,8 @@ public class US005_1AdminAddsCategoryControllerTest {
         int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
 
             //Arrangement of the expected output DTOs:
-        CategoryID catID1 = new CategoryID(new Denomination(categoryDenomination1), new GroupID(new Description(groupDesctiption)));
-        CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDesctiption);
 
-        CategoryID catID2 = new CategoryID(new Denomination(categoryDenomination2), new GroupID(new Description(groupDesctiption)));
+        CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDesctiption);
         CategoryDTO outputDtoExpected2 = new CategoryDTO(categoryDenomination2, groupDesctiption);
 
         //Act:
@@ -272,9 +268,6 @@ public class US005_1AdminAddsCategoryControllerTest {
             //Two Denominations (one for each Dto)
         String categoryDenomination1 = "COMPRAS";
         String categoryDenomination2 = "CINEMA";
-        CreateCategoryInGroupDTO inputDto1 = new CreateCategoryInGroupDTO(groupDescription,creatorEmail1,categoryDenomination1);
-        CreateCategoryInGroupDTO inputDto2 = new CreateCategoryInGroupDTO(groupDescription,creatorEmail2,categoryDenomination2);
-
 
             //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
