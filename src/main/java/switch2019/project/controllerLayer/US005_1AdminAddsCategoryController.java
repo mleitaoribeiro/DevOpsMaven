@@ -4,8 +4,6 @@ import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
-import switch2019.project.domain.domainEntities.category.Category;
-import java.util.Optional;
 
 
 public class US005_1AdminAddsCategoryController {
@@ -19,21 +17,16 @@ public class US005_1AdminAddsCategoryController {
 
     /**
      * Call AdminAddsCategoryToCategoryListService to implement the User Story 5.1 using this controller.
-     * @param categoryDTO
+     * @param personEmail
+     * @param groupDescription
+     * @param categoryDenomination
      * @return
      */
 
-    public Optional <CategoryDTO> addCategoryToGroupController(CreateCategoryInGroupDTO categoryDTO) {
-
-        Optional <Category> ret =  service.addCategoryToGroup(categoryDTO);
-        if(ret.isPresent()) {
-            Category cat = ret.get();
-            // Transformar a categoria dentro do ret em CategoryDTO
-            CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(cat.getID().getDenomination(), cat.getID());
-            return Optional.of(dto);
-        }
-        else {
-            return Optional.empty();
-        }
+    public CategoryDTO addCategoryToGroupController(String personEmail, String groupDescription, String categoryDenomination) {
+        // Create the entry dto for the service:
+        CreateCategoryInGroupDTO dto = CategoryDTOAssembler.createCategoryInGroupDTOFromStrings(groupDescription,personEmail,categoryDenomination);
+        // If the category can be created with the given information, the Category DTO is returned:
+        return service.addCategoryToGroup(dto);
     }
 }

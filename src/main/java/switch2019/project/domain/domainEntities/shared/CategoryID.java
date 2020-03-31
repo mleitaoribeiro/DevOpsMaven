@@ -44,11 +44,18 @@ public class CategoryID implements ID {
     }
 
     /**
+     * Method to return OwnerID string
+     * @return
+     */
+
+    public String getOwnerIDString() { return ownerID.toString(); }
+
+
+    /**
      * Method to return the Denomination
      *
      * @return denomination
      */
-
     public Denomination getDenomination() {
         return denomination;
     }
