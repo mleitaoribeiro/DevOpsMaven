@@ -9,11 +9,11 @@ public class CategoryDTO {
     //categoryID .- a String refering to the Category Denomination and the OwnerID (which can be either a PersonID or GroupID)
 
     private String denomination;
-    private String categoryID;
+    private String ownerID;
 
-    public CategoryDTO(String denomination, String categoryID) {
+    public CategoryDTO(String denomination, String ownerID) {
         this.denomination = denomination;
-        this.categoryID = categoryID;
+        this.ownerID = ownerID;
     }
 
     @Override
@@ -22,12 +22,12 @@ public class CategoryDTO {
         if (o == null || getClass() != o.getClass()) return false;
         CategoryDTO dto = (CategoryDTO) o;
         return Objects.equals(denomination, dto.denomination) &&
-                Objects.equals(categoryID, dto.categoryID);
+                Objects.equals(ownerID, dto.ownerID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(denomination, categoryID);
+        return Objects.hash(denomination, ownerID);
     }
 
     /**
@@ -42,8 +42,8 @@ public class CategoryDTO {
      * Getter for the CategoryID
      * @return
      */
-    public String getCategoryID() {
-        return categoryID;
+    public String getOwnerID() {
+        return ownerID;
     }
 }
 

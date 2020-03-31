@@ -2,6 +2,7 @@ package switch2019.project.domain.domainEntities.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -221,5 +222,68 @@ public class CategoryIDTest {
         //Assert
         assertNotEquals(unExpectedResult, realResult);
     }
+
+    /**
+     * Tests for the Denomination getter as an object
+     */
+    @Test
+    @DisplayName("Test if the Denomination content is correct")
+    void getDenominationTestHappyCase() {
+        //Arrange:
+        CategoryID categoryID = new CategoryID(new Denomination("Groceries"), new GroupID(new Description("friends")));
+        Denomination expectedDenomination = new Denomination ("GROCERIES");
+
+        //Act:
+        Denomination actualDenomination = categoryID.getDenomination();
+
+        //Assert:
+        assertEquals(expectedDenomination,actualDenomination);
+    }
+
+    @Test
+    @DisplayName("Test if the Denomination content is incorrect")
+    void getDenominationTestFail() {
+        //Arrange:
+        CategoryID categoryID = new CategoryID(new Denomination("food"), new GroupID(new Description("friends")));
+        Denomination expectedDenomination = new Denomination ("GROCERIES");
+
+        //Act:
+        Denomination actualDenomination = categoryID.getDenomination();
+
+        //Assert:
+        assertNotEquals(expectedDenomination,actualDenomination);
+    }
+
+    /**
+     * Tests for the Denomination getter as a String
+     */
+    @Test
+    @DisplayName("Test if the OwnerID string is correct")
+    void getOwnerIdTestHappyCase() {
+        //Arrange:
+        CategoryID categoryID = new CategoryID(new Denomination("Groceries"), new GroupID(new Description("friends")));
+        String ownerIdExpected = "FRIENDS";
+
+        //Act:
+        String actualOwnerId = categoryID.getOwnerIDString();
+
+        //Assert:
+        assertEquals(ownerIdExpected,actualOwnerId);
+    }
+
+    @Test
+    @DisplayName("Test if the OwnerID string is incorrect")
+    void getOwnerIdTestFail() {
+        //Arrange:
+        CategoryID categoryID = new CategoryID(new Denomination("Groceries"), new GroupID(new Description("friends")));
+        String ownerIdExpected = "FAMILY";
+
+        //Act:
+        String actualOwnerId = categoryID.getOwnerIDString();
+
+        //Assert:
+        assertNotEquals(ownerIdExpected,actualOwnerId);
+    }
+
 
 }

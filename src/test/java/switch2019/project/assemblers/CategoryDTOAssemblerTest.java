@@ -3,6 +3,7 @@ package switch2019.project.assemblers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.CategoryDTO;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -18,7 +19,7 @@ public class CategoryDTOAssemblerTest {
      */
     @DisplayName("Test categoryDescription Getter")
     @Test
-    void TestIfStringsAreTheExpected() {
+    void testIfStringsAreTheExpected() {
         //Arrange:
 
             //Arrange description:
@@ -32,7 +33,7 @@ public class CategoryDTOAssemblerTest {
         CategoryID categoryID = new CategoryID(denomination, new PersonID(new Email("Francisco@gmail.com")));
 
         //Act:
-        CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(denomination,categoryID);
+        CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(denomination.toString(),categoryID.toString());
         CategoryDTO toCompare = new CategoryDTO("MOVIES", "MOVIES, francisco@gmail.com");
 
         //Assert:
@@ -41,7 +42,7 @@ public class CategoryDTOAssemblerTest {
 
     @DisplayName("Test categoryDescription Getter")
     @Test
-    void TestIfStringsAreTheNotTheExpected() {
+    void testIfStringsAreTheNotTheExpected() {
         //Arrange:
 
         //Arrange description:
@@ -55,10 +56,41 @@ public class CategoryDTOAssemblerTest {
         CategoryID categoryID = new CategoryID(denomination, new PersonID(new Email("Francisco@gmail.com")));
 
         //Act:
-        CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(denomination,categoryID);
+        CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(denomination.toString(),categoryID.toString());
         CategoryDTO toCompare = new CategoryDTO("FILMS", "FILMS, francisco@gmail.com");
 
         //Assert:
         assertNotEquals(dto,toCompare);
+    }
+
+    /**
+     * Tests for the createCategoryDTOFromCategory method.
+     */
+    @DisplayName("DTO has the expected information about the category")
+    @Test
+    void testCreateCategoryDTOFromCategoryHappyCase() {
+        //Arrange:
+        Category categoryToDto = new Category(new Denomination("VIDEOGAMES"),new PersonID(new Email("Francisca@hotmail.com")));
+        CategoryDTO expectedDto = new CategoryDTO("VIDEOGAMES", "francisca@hotmail.com");
+
+        //Act:
+        CategoryDTO actualDto = CategoryDTOAssembler.createCategoryDTOFromCategory(categoryToDto);
+
+        //Assert:
+        assertEquals(expectedDto, actualDto);
+    }
+
+    @DisplayName("DTO has the expected information about the category")
+    @Test
+    void testCreateCategoryDTOFromCategoryFail() {
+        //Arrange:
+        Category categoryToDto = new Category(new Denomination("VIDEOGAMES"),new PersonID(new Email("Francisca@hotmail.com")));
+        CategoryDTO expectedDto = new CategoryDTO("GAMES", "francisca@hotmail.com");
+
+        //Act:
+        CategoryDTO actualDto = CategoryDTOAssembler.createCategoryDTOFromCategory(categoryToDto);
+
+        //Assert:
+        assertNotEquals(expectedDto, actualDto);
     }
 }

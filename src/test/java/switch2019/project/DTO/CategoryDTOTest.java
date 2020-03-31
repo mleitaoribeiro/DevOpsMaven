@@ -30,7 +30,7 @@ public class CategoryDTOTest {
         CategoryDTO dto = new CategoryDTO("Groceries", "ID");
 
         //Act:
-        String categoryID = dto.getCategoryID();
+        String categoryID = dto.getOwnerID();
 
         //Assert:
         assertEquals("ID", categoryID);
