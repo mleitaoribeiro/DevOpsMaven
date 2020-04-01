@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.controllerLayer.controllersCli.US005_1AdminAddsCategoryController;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;

@@ -3,7 +3,7 @@ package switch2019.project.controllerLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.AddMemberDTO;
+import switch2019.project.controllerLayer.controllersCli.US003AddMemberToGroupController;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;

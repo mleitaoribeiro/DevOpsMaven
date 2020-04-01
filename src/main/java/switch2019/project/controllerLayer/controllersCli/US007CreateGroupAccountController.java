@@ -1,4 +1,4 @@
-package switch2019.project.controllerLayer;
+package switch2019.project.controllerLayer.controllersCli;
 
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;

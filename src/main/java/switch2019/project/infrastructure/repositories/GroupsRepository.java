@@ -1,5 +1,6 @@
 package switch2019.project.infrastructure.repositories;
 
+import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.ledger.Periodicity;
@@ -16,6 +17,7 @@ import switch2019.project.domain.repositories.Repository;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Component
 public class GroupsRepository implements Repository {
     // Private instance variables
     private Set<Group> groups;
