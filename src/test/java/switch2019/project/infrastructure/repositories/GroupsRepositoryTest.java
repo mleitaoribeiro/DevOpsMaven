@@ -411,10 +411,10 @@ class GroupsRepositoryTest {
 
         // Group Accounts:
         Account accountCombustivel = new Account(new Denomination("combustivel"),
-                new Description("gastos de combustivél"));
+                new Description("gastos de combustivél"), new PersonID(new Email("personEmail@email.pt")));
 
         Account accountGato = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -438,9 +438,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person);
@@ -471,9 +471,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person);
@@ -504,9 +504,9 @@ class GroupsRepositoryTest {
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Category category1 = new Category("Test");
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         try {
             //Act:
@@ -537,9 +537,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
@@ -568,9 +568,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
@@ -598,9 +598,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
@@ -629,9 +629,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
@@ -659,9 +659,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
@@ -692,9 +692,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person);
@@ -727,9 +727,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), personMember);
@@ -767,9 +767,9 @@ class GroupsRepositoryTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         GroupsRepository groupsRepository = new GroupsRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), personMember);
@@ -823,13 +823,13 @@ class GroupsRepositoryTest {
 
             //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account account2 = new Account(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
         Account account3 = new Account(new Denomination("Savings2"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account account4 = new Account(new Denomination("Pingo Doce2"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
 
             //Transactions arranged:
             //Group1 transactions:
@@ -898,13 +898,13 @@ class GroupsRepositoryTest {
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account account2 = new Account(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
         Account account3 = new Account(new Denomination("Savings2"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account account4 = new Account(new Denomination("Pingo Doce2"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
 
         //Transactions arranged:
         //Group1 transactions:
@@ -974,13 +974,13 @@ class GroupsRepositoryTest {
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account account2 = new Account(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
         Account account3 = new Account(new Denomination("Savings2"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account account4 = new Account(new Denomination("Pingo Doce2"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
 
         //Transactions arranged:
         //Group1 transactions:
@@ -1030,9 +1030,9 @@ class GroupsRepositoryTest {
 
             //Arranging accounts:
         Account savingsAccount = new Account(new Denomination("Savings"),
-                new Description("Savings destined to food"));
+                new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account pingDoceAccount = new Account(new Denomination("Pingo Doce"),
-                new Description("groceries on Pingo Doce"));
+                new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
         Category shoppingForFood = new Category("shopping for food");
 
 

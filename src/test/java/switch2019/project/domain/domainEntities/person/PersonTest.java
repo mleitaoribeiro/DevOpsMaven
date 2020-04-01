@@ -873,9 +873,9 @@ class PersonTest {
         Category category = new Category("General");
 
         Account accountWallet = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account accountTransport = new Account(new Denomination("Transport"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -901,7 +901,7 @@ class PersonTest {
         Category category = new Category("General");
 
         Account accountWallet = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -1172,9 +1172,9 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
@@ -1281,9 +1281,9 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("Account2"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Arrange - Transaction1//
@@ -1318,9 +1318,9 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("Account2"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
@@ -1528,23 +1528,23 @@ class PersonTest {
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
                 new Category("grocery"), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries")),
+                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
                 new Account(new Denomination("Continente"),
-                        new Description("Food Expenses")),
+                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
                 new Category("grocery"), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries")),
+                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
                 new Account(new Denomination("Continente"),
-                        new Description("Food Expenses")),
+                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
                 new Category("grocery"), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses")),
+                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
                 new Account(new Denomination("BP"),
-                        new Description("Gas")),
+                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime initialDate = null;
@@ -1634,9 +1634,9 @@ class PersonTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -1662,9 +1662,9 @@ class PersonTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         //Act
         boolean result = person.scheduleNewTransaction(new Periodicity("working days"), amount, description,
@@ -1688,9 +1688,9 @@ class PersonTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         //Act
         boolean result = person.scheduleNewTransaction(new Periodicity("weekly"), amount, description,
@@ -1715,9 +1715,9 @@ class PersonTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         //Act
         boolean result = person.scheduleNewTransaction(new Periodicity("monthly"), amount, description,
@@ -1741,9 +1741,9 @@ class PersonTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
         try {
             //Act
@@ -1770,9 +1770,9 @@ class PersonTest {
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
 
 
         Category category = new Category("grocery");
@@ -1895,11 +1895,11 @@ class PersonTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new PersonID(new Email("personEmail@email.pt")));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
