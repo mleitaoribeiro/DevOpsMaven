@@ -7,28 +7,32 @@ import static org.junit.jupiter.api.Assertions.*;
 class SiblingsDTOTest {
 
     @Test
-    void getEmailPersonOne() {
-        //Arrange
-        SiblingsDTO dto = new SiblingsDTO("email1", "email2");
-        String expected = "email1";
+    void getSiblings() {
+        SiblingsDTO siblingsDTO = new SiblingsDTO(true);
+        SiblingsDTO siblingsDTO1 = new SiblingsDTO(false);
 
-        //Act
-        String actual = dto.getEmailPersonOne();
+        String expected = "They are siblings.";
+        String expected1 = "They are not siblings.";
 
-        //Assert
-        assertEquals(expected, actual);
+        assertEquals(expected, siblingsDTO.getSiblings());
+        assertEquals(expected1, siblingsDTO1.getSiblings());
     }
 
     @Test
-    void getEmailPersonTwo() {
-        //Arrange
-        SiblingsDTO dto = new SiblingsDTO("email1", "email2");
-        String expected = "email2";
+    void testEquals() {
+        SiblingsDTO siblingsDTO = new SiblingsDTO(true);
 
-        //Act
-        String actual = dto.getEmailPersonTwo();
+        SiblingsDTO siblingsDTO1 = new SiblingsDTO(true);
 
-        //Assert
-        assertEquals(expected, actual);
+        assertEquals(siblingsDTO, siblingsDTO1);
+    }
+
+    @Test
+    void testHashCode() {
+        SiblingsDTO siblingsDTO = new SiblingsDTO(true);
+
+        SiblingsDTO siblingsDTO1 = new SiblingsDTO(true);
+
+        assertEquals(siblingsDTO, siblingsDTO1);
     }
 }

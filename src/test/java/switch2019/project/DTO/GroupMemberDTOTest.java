@@ -78,7 +78,7 @@ class GroupMemberDTOTest {
     void equalsHashCodeFalseDifClass() {
         //Arrange
         GroupMemberDTO dto1 = new GroupMemberDTO("Helena", "helena@gmail.com");
-        SiblingsDTO dto2 = new SiblingsDTO("helenaa@gmail.com", "maria@gmail.com");
+        AreSiblingsDTO dto2 = new AreSiblingsDTO("helenaa@gmail.com", "maria@gmail.com");
 
         //Act && Assert
         assertNotEquals(dto1, dto2);
