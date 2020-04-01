@@ -45,11 +45,11 @@ class US004GetFamilyGroupsControllerTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("manuela@isep.pt"));
         Person carlosDAD = personRepository.createPerson("Carlos", new DateAndTime(1950, 12, 12), new Address("Porto"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("carlos@isep.pt"));
-        Person oscar = personRepository.createPersonWithParents("Oscar", new DateAndTime(1990, 12, 4), new Address("Espinho"),
+        Person oscar = personRepository.createPerson("Oscar", new DateAndTime(1990, 12, 4), new Address("Espinho"),
                 new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("oscar@isep.pt"));
-        Person marta = personRepository.createPersonWithParents("Marta", new DateAndTime(1995, 11, 5), new Address("Paranhos"),
+        Person marta = personRepository.createPerson("Marta", new DateAndTime(1995, 11, 5), new Address("Paranhos"),
                 new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("marta@isep.pt"));
-        Person joao = personRepository.createPersonWithParents("Joao", new DateAndTime(2000, 1, 12), new Address("Matosinhos"),
+        Person joao = personRepository.createPerson("Joao", new DateAndTime(2000, 1, 12), new Address("Matosinhos"),
                 new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("joao@isep.pt"));
 
 
@@ -58,11 +58,11 @@ class US004GetFamilyGroupsControllerTest {
                 new Address("Rua B", "Porto", "4520-233"), new Email("homer@isep.pt"));
         Person marge = personRepository.createPerson("Marge", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("marge@isep.pt"));
-        Person bart = personRepository.createPersonWithParents("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+        Person bart = personRepository.createPerson("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("bart@isep.pt"));
-        Person lisa = personRepository.createPersonWithParents("Lisa", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+        Person lisa = personRepository.createPerson("Lisa", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("lisa@isep.pt"));
-        Person maggie = personRepository.createPersonWithParents("Maggie", new DateAndTime(1990, 12, 4), new Address("Springfield"),
+        Person maggie = personRepository.createPerson("Maggie", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("maggie@isep.pt"));
 
 
@@ -71,11 +71,11 @@ class US004GetFamilyGroupsControllerTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("joao.dad@isep.pt"));
         Person mariaMOM = personRepository.createPerson("Maria", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("maria.mom@isep.pt"));
-        Person diana = personRepository.createPersonWithParents("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"),
+        Person diana = personRepository.createPerson("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"),
                 new Address("Rua B", "Gaia", "4520-233"), mariaMOM, joaoDAD, new Email("diana@isep.pt"));
-        Person elsa = personRepository.createPersonWithParents("Elsa", new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
+        Person elsa = personRepository.createPerson("Elsa", new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
                 new Address("Rua B", "Gaia", "4520-233"), mariaMOM, joaoDAD, new Email("elsa@isep.pt"));
-        Person ines = personRepository.createPersonWithParents("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"),
+        Person ines = personRepository.createPerson("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"),
                 new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, joaoDAD, new Email("ines@isep.pt"));
 
 
@@ -93,9 +93,9 @@ class US004GetFamilyGroupsControllerTest {
                 new Address("Rua B", "Porto", "4520-233"), new Email("bojack@isep.pt"));
         Person carolyn = personRepository.createPerson("Princess Carolyn", new DateAndTime(1990, 12, 4),
                 new Address("Lisboa"), new Address("Rua B", "Porto", "4520-233"), new Email("carolyn@isep.pt"));
-        Person todd = personRepository.createPersonWithParents("Todd Chavez", new DateAndTime(1990, 12, 4),
+        Person todd = personRepository.createPerson("Todd Chavez", new DateAndTime(1990, 12, 4),
                 new Address("Matosinhos"), new Address("Rua B", "Porto", "4520-233"), carolyn, bojack, new Email("todd@isep.pt"));
-        Person diane = personRepository.createPersonWithParents("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"),
+        Person diane = personRepository.createPerson("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"),
                 new Address("Rua B", "Porto", "4520-233"), carolyn, bojack, new Email("diane@isep.pt"));
 
         group1 = new Group(new Description("Familia Santos"));

@@ -42,9 +42,9 @@ class US001AreSiblingsControllerTest {
 
 
         //Two Siblings with same Father and Mother
-        Person antonio = personRepo.createPersonWithParents("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
+        Person antonio = personRepo.createPerson("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("child1@isep.ipp.pt"));
-        Person manuel = personRepo.createPersonWithParents("Manuel", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
+        Person manuel = personRepo.createPerson("Manuel", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
                 new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("child2@isep.ipp.pt"));
 
         //And they are in each other lists
@@ -53,13 +53,13 @@ class US001AreSiblingsControllerTest {
 
         //Only same Mother with antonio
         //Roberto
-        personRepo.createPersonWithParents("Roberto", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
+        personRepo.createPerson("Roberto", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
                 new Address("Rua X", "Porto", "4520-266"), mother, father2, new Email("child3@isep.ipp.pt"));
 
 
         //Only same Father with antonio
         //Amalia
-        personRepo.createPersonWithParents("Amália", new DateAndTime(1995, 12, 13), new Address("Penacova"),
+        personRepo.createPerson("Amália", new DateAndTime(1995, 12, 13), new Address("Penacova"),
                 new Address("Rua X", "Porto", "4520-266"), mother2, father, new Email("child4@isep.ipp.pt"));
     }
 
