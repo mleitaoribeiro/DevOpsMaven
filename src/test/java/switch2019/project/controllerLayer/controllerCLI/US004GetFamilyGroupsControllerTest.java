@@ -1,4 +1,4 @@
-package switch2019.project.controllerLayer;
+package switch2019.project.controllerLayer.controllerCLI;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
