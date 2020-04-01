@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import switch2019.project.DTO.AreSiblingsDTO;
 import switch2019.project.DTO.SiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
@@ -19,8 +20,9 @@ public class US001AreSiblingsController {
      * @param
      * @return true if two people are siblings
      */
-    public boolean areSiblings(String emailPersonOne, String emailPersonTwo) {
-        SiblingsDTO siblingsDTO = PersonDTOAssembler.creatSiblingsDTOSiblingsDTO(emailPersonOne, emailPersonTwo);
-        return service.areSiblings(siblingsDTO);
+    public SiblingsDTO areSiblings(String emailPersonOne, String emailPersonTwo) {
+        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
+
+        return PersonDTOAssembler.createSiblingsDTO(service.areSiblings(siblingsDTO));
     }
 }

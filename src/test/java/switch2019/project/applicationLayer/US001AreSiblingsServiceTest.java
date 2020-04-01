@@ -3,7 +3,7 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.SiblingsDTO;
+import switch2019.project.DTO.AreSiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -71,7 +71,7 @@ class US001AreSiblingsServiceTest {
         String antonioEmail = "child1@isep.ipp.pt";
         String manuelEmail = "child2@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail, manuelEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(antonioEmail, manuelEmail);
 
         //Act
         boolean siblings = service.areSiblings(siblingsDTO);
@@ -87,7 +87,7 @@ class US001AreSiblingsServiceTest {
         String antonioEmail = "child1@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail, robertoEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(antonioEmail, robertoEmail);
 
         //Act
         boolean siblings = service.areSiblings(siblingsDTO);
@@ -104,7 +104,7 @@ class US001AreSiblingsServiceTest {
         String antonioEmail = "child1@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(antonioEmail, amaliaEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(antonioEmail, amaliaEmail);
 
         //Act
         boolean siblings = service.areSiblings(siblingsDTO);
@@ -120,7 +120,7 @@ class US001AreSiblingsServiceTest {
         String joseEmail = "father@isep.ipp.pt";
         String rafaelEmail = "father2@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, rafaelEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(joseEmail, rafaelEmail);
 
         //Act
         boolean siblings = service.areSiblings(siblingsDTO);
@@ -138,8 +138,8 @@ class US001AreSiblingsServiceTest {
         String mariaEmail = "mother@isep.ipp.pt";
         String amaliaEmail = "child4@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
-        SiblingsDTO siblingsDTO2 = new SiblingsDTO(mariaEmail, amaliaEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(joseEmail, robertoEmail);
+        AreSiblingsDTO siblingsDTO2 = new AreSiblingsDTO(mariaEmail, amaliaEmail);
 
         //Act
         boolean siblings = service.areSiblings(siblingsDTO);
@@ -156,7 +156,7 @@ class US001AreSiblingsServiceTest {
         String joseEmail = "father@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTO = new SiblingsDTO(joseEmail, robertoEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(joseEmail, robertoEmail);
 
         //Act
         try {

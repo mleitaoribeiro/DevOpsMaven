@@ -1,6 +1,6 @@
 package switch2019.project.applicationLayer;
 
-import switch2019.project.DTO.SiblingsDTO;
+import switch2019.project.DTO.AreSiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.infrastructure.repositories.PersonRepository;
@@ -20,7 +20,7 @@ public class US001AreSiblingsService {
      * @param
      * @return true if two people are siblings
      */
-    public boolean areSiblings(SiblingsDTO siblingsDTO) {
+    public boolean areSiblings(AreSiblingsDTO siblingsDTO) {
 
         Person person1 = repository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()));
         Person person2 = repository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()));
