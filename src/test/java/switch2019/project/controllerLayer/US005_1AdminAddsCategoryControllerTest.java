@@ -16,8 +16,6 @@ import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class US005_1AdminAddsCategoryControllerTest {
@@ -102,7 +100,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
-        int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesBefore = categoryRepository.repositorySize();
 
             //Arrangement of the output DTO:
 
@@ -113,7 +111,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Check the number of categories in the repository after creating the new Category
         int expectedCategoriesAfter = 1;
-        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.repositorySize();
 
         //Assert
               /*this assertion verifies three conditions to check if our Controller worked as intended:
@@ -166,7 +164,7 @@ public class US005_1AdminAddsCategoryControllerTest {
             controller.addCategoryToGroupController(groupDescription,creatorEmail,categoryDenomination);
         }
         catch (IllegalArgumentException notGroupMember){
-            int actualCategories = categoryRepository.numberOfCategoriesInRepository();
+            int actualCategories = categoryRepository.repositorySize();
 
             //Assert
             /*   This assertion verifies two conditions to check if our Controller worked as intended:
@@ -199,7 +197,7 @@ public class US005_1AdminAddsCategoryControllerTest {
             controller.addCategoryToGroupController(groupDescription,creatorEmail,categoryDenomination);
         }
         catch (IllegalArgumentException notGroupAdmin) {
-            int actualCategories = categoryRepository.numberOfCategoriesInRepository();
+            int actualCategories = categoryRepository.repositorySize();
 
             //Assert
             /*   This assertion verifies two conditions to check if our Controller worked as intended:
@@ -227,7 +225,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
-        int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesBefore = categoryRepository.repositorySize();
 
             //Arrangement of the expected output DTOs:
 
@@ -241,7 +239,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Check the number of categories in the repository after creating the new Category (2 categories created):
         int expectedCategoriesAfter = 2;
-        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.repositorySize();
 
             //Assert
             /*this assertion verifies four conditions to check if our Controller worked as intended:
@@ -272,7 +270,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
-        int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesBefore = categoryRepository.repositorySize();
 
             //Arrangement of the expected output DTOs:
         CategoryID catID1 = new CategoryID(new Denomination(categoryDenomination1), new GroupID(new Description(groupDescription)));
@@ -288,7 +286,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Check the number of categories in the repository after creating the new Category (2 categories created):
         int expectedCategoriesAfter = 2;
-        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.repositorySize();
 
             //Assert
             /*this assertion verifies four conditions to check if our Controller worked as intended:

@@ -121,7 +121,7 @@ class US007CreateGroupAccountServiceTest {
         String accountDescription = "Online Shopping";
 
         int expectedAccountsBefore = 0;
-        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsBefore = accountRepo.repositorySize();
 
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
                 accountDenomination, accountDescription);
@@ -132,7 +132,7 @@ class US007CreateGroupAccountServiceTest {
         AccountDTO accountCreated = service.createGroupAccount(createGroupAccountDTO);
 
         int numberOfExpectedAccountsInTheRepositoryAfter = 1;
-        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.repositorySize();
 
         //Assert
         Assertions.assertAll(
@@ -165,7 +165,7 @@ class US007CreateGroupAccountServiceTest {
         try {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -194,7 +194,7 @@ class US007CreateGroupAccountServiceTest {
         try {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -429,7 +429,7 @@ class US007CreateGroupAccountServiceTest {
 
         } catch (IllegalArgumentException invalid) {
 
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -538,7 +538,7 @@ class US007CreateGroupAccountServiceTest {
         AccountDTO accountCreated1 = service.createGroupAccount(createGroupAccountDTO1);
         AccountDTO accountCreated2 = service.createGroupAccount(createGroupAccountDTO2);
 
-        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
         //Assert
         Assertions.assertAll(
@@ -669,7 +669,7 @@ class US007CreateGroupAccountServiceTest {
         String accountDescription = "Online Shopping";
 
         int expectedAccountsBefore = 0;
-        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsBefore = accountRepo.repositorySize();
         int expectedAccountsAfter = 1;
 
         CreateGroupAccountDTO createGroupAccountDTO = new CreateGroupAccountDTO(creatorEmail, groupDescription,
@@ -681,7 +681,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
 
-            int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realAccountsAfter = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -750,7 +750,7 @@ class US007CreateGroupAccountServiceTest {
         service.createGroupAccount(createGroupAccountDTO);
         service.createGroupAccount(createGroupAccountDTO1);
 
-        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
         try {
             service.createGroupAccount(createGroupAccountDTO1);

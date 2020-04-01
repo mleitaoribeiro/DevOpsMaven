@@ -30,4 +30,14 @@ public class LedgerRepository implements Repository {
     }
 
 
+    /**
+     * Method to check the number of Ledgers inside the Repository.
+     *
+     * @return
+     */
+
+    public int repositorySize () {
+        return 0;
+    }
+
 }

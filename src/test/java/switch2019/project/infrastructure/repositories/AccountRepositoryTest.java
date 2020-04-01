@@ -243,7 +243,7 @@ class AccountRepositoryTest {
                 new Description("one account"), new PersonID(new Email("martacarda@live.pt.pt")));
         accountRepository.createAccount(new Denomination("xyz"),
                 new Description("other Account"), new GroupID(new Description("Business")));
-        int result = accountRepository.numberOfAccountsInTheAccountsRepository();
+        int result = accountRepository.repositorySize();
 
         //Assert
         assertEquals(2, result);
@@ -358,7 +358,7 @@ class AccountRepositoryTest {
         accountRepository.removeOneAccountFromRepository(butcher);
 
         //Assert
-        assertEquals(2, accountRepository.numberOfAccountsInTheAccountsRepository());
+        assertEquals(2, accountRepository.repositorySize());
 
     }
 
@@ -379,7 +379,7 @@ class AccountRepositoryTest {
         accountRepository.removeOneAccountFromRepository(post);
 
         // Assert
-        assertEquals(2, accountRepository.numberOfAccountsInTheAccountsRepository());
+        assertEquals(2, accountRepository.repositorySize());
 
     }
 

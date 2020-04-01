@@ -24,4 +24,15 @@ public interface Repository {
 
     boolean isIDOnRepository (ID id);
 
+
+    /**
+     * Method to get the numbers of Objects in the Repository
+     *
+     * @return
+     */
+
+    int repositorySize();
+
+
+
 }

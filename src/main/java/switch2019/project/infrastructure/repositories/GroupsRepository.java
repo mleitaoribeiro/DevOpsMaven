@@ -61,7 +61,7 @@ public class GroupsRepository implements Repository {
      *
      * @return size of the groupsList
      */
-    public int howManyGroups() {
+    public int repositorySize () {
         return groups.size();
     }
 

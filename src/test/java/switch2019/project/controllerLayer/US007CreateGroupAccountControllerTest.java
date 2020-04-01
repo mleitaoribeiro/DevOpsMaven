@@ -128,7 +128,7 @@ class US007CreateGroupAccountControllerTest {
         String accountDescription = "Online Shopping";
 
         int expectedAccountsBefore = 0;
-        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsBefore = accountRepo.repositorySize();
         int numberOfExpectedAccountsInTheRepositoryAfter = 1;
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
@@ -137,7 +137,7 @@ class US007CreateGroupAccountControllerTest {
         AccountDTO accountCreatedDTO = controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination, accountDescription);
 
-        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.repositorySize();
 
         //Assert
         Assertions.assertAll(
@@ -175,7 +175,7 @@ class US007CreateGroupAccountControllerTest {
         }
         catch (IllegalArgumentException invalid) {
 
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -206,7 +206,7 @@ class US007CreateGroupAccountControllerTest {
         }
         catch (IllegalArgumentException invalid) {
 
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -343,7 +343,7 @@ class US007CreateGroupAccountControllerTest {
         controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination2, accountDescription2);
 
-        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
         //Assert
         assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository);
@@ -522,7 +522,7 @@ class US007CreateGroupAccountControllerTest {
             controller.createGroupAccount(null, groupDescription,
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
             //Assert
             Assertions.assertAll(
                     () -> assertEquals("The email can´t be null!", invalid.getMessage()),
@@ -656,7 +656,7 @@ class US007CreateGroupAccountControllerTest {
 
 
         int expectedAccountsBefore = 0;
-        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsBefore = accountRepo.repositorySize();
         int expectedAccountsAfter = 1;
 
         //Act
@@ -666,7 +666,7 @@ class US007CreateGroupAccountControllerTest {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
-            int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realAccountsAfter = accountRepo.repositorySize();
 
             //Assert
             Assertions.assertAll(
@@ -697,7 +697,7 @@ class US007CreateGroupAccountControllerTest {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
-            int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
             //Assert
             Assertions.assertAll(
                     () -> assertEquals("No person found with that email.", invalid.getMessage()),
@@ -731,7 +731,7 @@ class US007CreateGroupAccountControllerTest {
         controller.createGroupAccount(personEmail, groupDescription,
                 accountDenomination1, accountDescription1);
 
-        int realNumberOfAccountsInTheRepository = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
 
         try {
             controller.createGroupAccount(personEmail, groupDescription,

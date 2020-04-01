@@ -82,7 +82,7 @@ public class AccountRepository implements Repository {
      * @return int
      */
 
-    public int numberOfAccountsInTheAccountsRepository() {
+    public int repositorySize () {
         return this.accounts.size();
     }
 

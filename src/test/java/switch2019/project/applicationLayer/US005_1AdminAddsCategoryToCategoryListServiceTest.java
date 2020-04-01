@@ -16,8 +16,6 @@ import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class US005_1AdminAddsCategoryToCategoryListServiceTest {
@@ -97,7 +95,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
-        int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesBefore = categoryRepository.repositorySize();
 
         //Arrangement of the output DTO:
         CategoryID catID = new CategoryID(new Denomination(categoryDenomination), new GroupID(new Description(groupDescription)));
@@ -108,7 +106,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories in the repository after creating the new Category
         int expectedCategoriesAfter = 1;
-        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.repositorySize();
 
         //Assert
         /*this assertion verifies three conditions to check if our Controller worked as intended:
@@ -204,7 +202,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
-        int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesBefore = categoryRepository.repositorySize();
 
         //Arrangement of the expected output DTOs:
         CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDescription);
@@ -217,7 +215,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories in the repository after creating the new Category (2 categories created):
         int expectedCategoriesAfter = 2;
-        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.repositorySize();
 
         //Assert
         /*this assertion verifies four conditions to check if our Controller worked as intended:
@@ -251,7 +249,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
-        int actualCategoriesBefore = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesBefore = categoryRepository.repositorySize();
 
         //Arrangement of the expected output DTOs:
         CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDescription);
@@ -266,7 +264,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
 
         //Check the number of categories in the repository after creating the new Category (2 categories created):
         int expectedCategoriesAfter = 2;
-        int actualCategoriesAfter = categoryRepository.numberOfCategoriesInRepository();
+        int actualCategoriesAfter = categoryRepository.repositorySize();
 
         //Assert
         /*this assertion verifies four conditions to check if our Controller worked as intended:

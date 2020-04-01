@@ -147,7 +147,7 @@ class GroupsRepositoryTest {
         //Act
         groupList.addGroupToRepository(group1);
         groupList.addGroupToRepository(group2);
-        int result = groupList.howManyGroups();
+        int result = groupList.repositorySize();
 
         //Assert
         assertEquals(2, result);

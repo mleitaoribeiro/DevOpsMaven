@@ -123,7 +123,7 @@ public class CategoryRepository implements Repository {
      * Method to get the numbers of Categories in the Category List
      * @return category
      */
-    public int numberOfCategoriesInRepository() {
+    public int repositorySize () {
         return this.categories.size();
     }
 

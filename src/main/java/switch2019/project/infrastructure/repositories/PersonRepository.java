@@ -89,4 +89,17 @@ public class PersonRepository implements Repository {
                 return true;
         return false;
     }
+
+
+    /**
+     * Method to check the number of Persons inside the Repository.
+     *
+     * @return
+     */
+
+    public int repositorySize () {
+        return listOfPersons.size();
+    }
+
+
 }

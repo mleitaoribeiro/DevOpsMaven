@@ -82,7 +82,7 @@ class US006CreatePersonAccountServiceTest {
         String accountDescription = "OnlineShopping";
 
         int expectedAccountsBefore = 0;
-        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsBefore = accountRepo.repositorySize();
         int numberOfExpectedAccountsInTheRepositoryAfter = 1;
         AccountDTO accountDTOExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
@@ -91,7 +91,7 @@ class US006CreatePersonAccountServiceTest {
         //Act
         AccountDTO accountDTOCreated = service.createPersonAccount(createPersonAccountDTO);
 
-        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.repositorySize();
 
         //Assert
         Assertions.assertAll(
@@ -164,14 +164,14 @@ class US006CreatePersonAccountServiceTest {
 
         //Act
         service.createPersonAccount(createPersonAccountDTO);
-        int realAccountsBefore = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsBefore = accountRepo.repositorySize();
         try {
             service.createPersonAccount(createPersonAccountDTO);
         } catch (IllegalArgumentException accountAlreadyExists) {
             catchResult = accountAlreadyExists.getMessage();
         }
 
-        int realAccountsAfter = accountRepo.numberOfAccountsInTheAccountsRepository();
+        int realAccountsAfter = accountRepo.repositorySize();
         String result = catchResult;
 
         //Assert
