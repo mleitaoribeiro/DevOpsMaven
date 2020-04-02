@@ -1,8 +1,11 @@
 package switch2019.project.assemblers;
 
 import switch2019.project.DTO.AddMemberDTO;
+import switch2019.project.DTO.AddedMemberDTO;
 import switch2019.project.DTO.AdminCreateGroupDTO;
 import switch2019.project.DTO.GroupDTO;
+import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 
@@ -40,5 +43,17 @@ public class GroupDTOAssembler {
 
     public static AddMemberDTO createAddMemberDTO(String personEmail, String groupDescription) {
         return new AddMemberDTO(personEmail, groupDescription);
+    }
+
+    /**
+     * method to create a DTO for a Group an added member
+     *
+     * @param wasMemberAdded
+     * @param person
+     * @param group
+     * @return AddedMemberDTO
+     */
+    public static AddedMemberDTO createAddedMemberDTO(boolean wasMemberAdded, Person person, Group group) {
+        return new AddedMemberDTO(wasMemberAdded, person.getID().getEmail(), group.getID().getDescription());
     }
 }

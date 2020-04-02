@@ -14,7 +14,7 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
-import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
+import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +24,7 @@ public class US005_1AdminAddsCategoryControllerTest {
     private static GroupsRepository groupsRepository;
     private static CategoryRepository categoryRepository;
     private static PersonRepository personRepository;
-    private static US005_1AdminAddsCategoryToCategoryListService service;
+    private static US005_1AdminAddsCategoryToGroupService service;
 
     //initialize service:
     private static US005_1AdminAddsCategoryController controller;
@@ -39,7 +39,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         personRepository = new PersonRepository();
 
         //arrangement of the service:
-        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository,categoryRepository,personRepository);
+        service = new US005_1AdminAddsCategoryToGroupService(groupsRepository,categoryRepository,personRepository);
 
         //arrangement of the controller:
         controller = new US005_1AdminAddsCategoryController(service);

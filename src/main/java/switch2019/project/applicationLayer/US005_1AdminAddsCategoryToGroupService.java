@@ -7,26 +7,19 @@ import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 
+public class US005_1AdminAddsCategoryToGroupService {
 
-
-import java.util.Optional;
-
-public class US005_1AdminAddsCategoryToCategoryListService {
-
-    //Repositories are given as attributes of this service in order to allow its usage by the addCategoryToGroup method
-    //without passing them as parameter:
     private GroupsRepository groupsRepository;
     private CategoryRepository categoryRepository;
     private PersonRepository personRepository;
 
-    //Service constructor:
-    public US005_1AdminAddsCategoryToCategoryListService(GroupsRepository groupRep, CategoryRepository categoryRep, PersonRepository personRep) {
+    public US005_1AdminAddsCategoryToGroupService(GroupsRepository groupRep, CategoryRepository categoryRep, PersonRepository personRep) {
         this.groupsRepository = groupRep;
         this.categoryRepository = categoryRep;
         this.personRepository = personRep;
@@ -40,25 +33,14 @@ public class US005_1AdminAddsCategoryToCategoryListService {
      */
     public CategoryDTO addCategoryToGroup(CreateCategoryInGroupDTO dto) {
 
-
-        //finding the right group where the new category will be added:
         Group group = groupsRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
+        PersonID personID = personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID();
 
-        //Gathering the information needed to create the category:
-        Denomination catDenomination = new Denomination(dto.getCategoryDenomination());
-        GroupID catGroupId = group.getID();
-
-        //verify if the category creator is a group admin in order to continue with the method:
-        if (group.isGroupAdmin(personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID())) {
-
-            //Instancing the Category to be created and adding it to the category repository:
-            Category categoryToBeAdded = categoryRepository.createCategory(catDenomination, catGroupId);
-
-            //create category and associate it with the group:
-            return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryToBeAdded);
-        } else {
+        if (group.isGroupAdmin(personID)) {
+            Category categoryAdded = categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID());
+            return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryAdded);
+        } else
             throw new IllegalArgumentException("This person is not a group admin or member and could not add the category.");
-        }
     }
 }
 

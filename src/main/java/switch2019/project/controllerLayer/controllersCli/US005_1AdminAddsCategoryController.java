@@ -2,16 +2,16 @@ package switch2019.project.controllerLayer.controllersCli;
 
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateCategoryInGroupDTO;
-import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToCategoryListService;
+import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 
 
 public class US005_1AdminAddsCategoryController {
 
-    private US005_1AdminAddsCategoryToCategoryListService service;
+    private US005_1AdminAddsCategoryToGroupService service;
 
     //Service is initialized as attribute:
-    public US005_1AdminAddsCategoryController(US005_1AdminAddsCategoryToCategoryListService service){
+    public US005_1AdminAddsCategoryController(US005_1AdminAddsCategoryToGroupService service){
         this.service = service;
     }
 

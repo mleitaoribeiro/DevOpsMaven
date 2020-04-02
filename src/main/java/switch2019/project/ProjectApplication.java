@@ -6,8 +6,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
-import switch2019.project.applicationLayer.US003AddMemberToGroupService;
-import switch2019.project.controllerLayer.controllersRest.US003AddMemberToGroupControllerRest;
 import switch2019.project.dataLoader.Bootstrapper;
 
 @SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer.controllersCli",
@@ -21,11 +19,7 @@ public class ProjectApplication implements ApplicationRunner {
     }
 
     @Autowired
-    US003AddMemberToGroupService service;
-    @Autowired
     Bootstrapper bootstrapper;
-    @Autowired
-    US003AddMemberToGroupControllerRest us003AddMemberToGroupControllerRest;
 
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
