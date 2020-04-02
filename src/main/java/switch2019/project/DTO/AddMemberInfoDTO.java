@@ -7,12 +7,7 @@ public class AddMemberInfoDTO {
     private String personEmail;
     private String groupDescription;
 
-    public AddMemberInfoDTO(){}
-
-    public AddMemberInfoDTO(String personEmail, String groupDescription) {
-        this.personEmail = personEmail;
-        this.groupDescription = groupDescription;
-    }
+    public AddMemberInfoDTO() {}
 
     @Override
     public boolean equals(Object o) {
@@ -29,7 +24,26 @@ public class AddMemberInfoDTO {
     }
 
     /**
+     * Setter for personEmail
+     *
+     * @param personEmail
+     */
+    public void setPersonEmail(String personEmail) {
+        this.personEmail = personEmail;
+    }
+
+    /**
+     * Setter for groupDescription
+     *
+     * @param groupDescription
+     */
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
+    }
+
+    /**
      * Getter for personEmail
+     *
      * @return personEmail
      */
     public String getPersonEmail() {
