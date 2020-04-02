@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.stereotype.Service;
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -8,6 +9,7 @@ import switch2019.project.infrastructure.repositories.GroupsRepository;
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class US004GetFamilyGroupsService {
 
     private GroupsRepository groupsRepository;
