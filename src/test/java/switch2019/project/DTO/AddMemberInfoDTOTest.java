@@ -1,5 +1,6 @@
 package switch2019.project.DTO;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -123,13 +124,42 @@ class AddMemberInfoDTOTest {
         assertFalse(result);
     }
 
+
+    /**
+     * Tests to Get Methods
+     */
+
     @Test
+    @DisplayName("Test to get method personEmail")
     void getPersonEmail() {
+        //Arrange
+        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        String expected = "raquel@xpto.pt";
+        addMemberDTO.setPersonEmail(expected);
+        addMemberDTO.setGroupDescription("runners");
 
+        //Act
+        String actual = addMemberDTO.getPersonEmail();
+
+        //Assert
+        assertEquals(expected, actual);
     }
 
     @Test
+    @DisplayName("Test to get method groupDescription")
     void getGroupDescription() {
+        //Arrange
+        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        addMemberDTO.setPersonEmail("raquel@xpto.pt");
+        String expected = "runners";
+        addMemberDTO.setGroupDescription(expected);
 
+        //Act
+        String actual = addMemberDTO.getGroupDescription();
+
+        //Assert
+        assertEquals(expected, actual);
     }
+
+
 }
