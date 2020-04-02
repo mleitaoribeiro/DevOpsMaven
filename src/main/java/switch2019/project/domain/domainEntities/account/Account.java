@@ -18,18 +18,6 @@ public class Account implements Entity {
     private Description description;
     private MonetaryValue balance;
 
-    /**
-     * Constructor of Account (to delete later)
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     */
-
-   /* public Account(Denomination accountDenomination, Description accountDescription) {
-        this.denomination = accountDenomination;
-        this.description = accountDescription;
-        this.balance = new MonetaryValue(0.0, Currency.getInstance("EUR"));
-    }*/
 
     /**
      * Constructor of Account
