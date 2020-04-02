@@ -1,7 +1,7 @@
 package switch2019.project.controllerLayer.controllersCli;
 
 import switch2019.project.DTO.CategoryDTO;
-import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.DTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 
@@ -25,7 +25,7 @@ public class US005_1AdminAddsCategoryController {
 
     public CategoryDTO addCategoryToGroupController(String personEmail, String groupDescription, String categoryDenomination) {
         // Create the entry dto for the service:
-        CreateCategoryInGroupDTO dto = CategoryDTOAssembler.createCategoryInGroupDTOFromStrings(groupDescription,personEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = CategoryDTOAssembler.createCategoryInGroupDTOFromStrings(groupDescription,personEmail,categoryDenomination);
         // If the category can be created with the given information, the Category DTO is returned:
         return service.addCategoryToGroup(dto);
     }

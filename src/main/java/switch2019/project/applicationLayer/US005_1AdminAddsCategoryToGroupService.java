@@ -1,7 +1,7 @@
 package switch2019.project.applicationLayer;
 
 import switch2019.project.DTO.CategoryDTO;
-import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.DTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -31,7 +31,7 @@ public class US005_1AdminAddsCategoryToGroupService {
      * @param dto
      * @return
      */
-    public CategoryDTO addCategoryToGroup(CreateCategoryInGroupDTO dto) {
+    public CategoryDTO addCategoryToGroup(CreateGroupCategoryDTO dto) {
 
         Group group = groupsRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
         PersonID personID = personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID();

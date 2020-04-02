@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.CategoryDTO;
-import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.DTO.CreateGroupCategoryDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -70,7 +70,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "Francisco@gmail.com";
         String groupDescription = "FRIENDS";
         String categoryDenomination = "COMPRAS";
-        CreateCategoryInGroupDTO inputDto = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
 
         //Arrangement of the output DTO:
         CategoryID catID = new CategoryID(new Denomination(categoryDenomination), new GroupID(new Description(groupDescription)));
@@ -91,7 +91,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "Francisco@gmail.com";
         String groupDescription = "FRIENDS";
         String categoryDenomination = "COMPRAS";
-        CreateCategoryInGroupDTO inputDto = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
 
         //Check the number of categories before creating the new Category:
         int expectedCategoriesBefore = 0;
@@ -130,7 +130,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String groupDesctiption = "FRIENDS";
         String categoryDenomination = "COMPRAS";
         String categoryDenomination2 = "CINEMA"; // category denomination will be different on the dtos
-        CreateCategoryInGroupDTO inputDto = new CreateCategoryInGroupDTO(groupDesctiption,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDesctiption,creatorEmail,categoryDenomination);
 
         //Arrangement of the output DTO:
         CategoryID catID = new CategoryID(new Denomination(categoryDenomination), new GroupID(new Description(groupDesctiption)));
@@ -151,7 +151,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "Ana@hotmail.com";
         String groupDesctiption = "FRIENDS";
         String categoryDenomination = "compras";
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO(groupDesctiption,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDesctiption,creatorEmail,categoryDenomination);
 
         //Act:
         try {
@@ -172,7 +172,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "Joao@gmail.com";
         String groupDescription = "FRIENDS";
         String categoryDenomination = "compras";
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
 
         //Act:
         try {
@@ -196,8 +196,8 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         //Two Denominations (one for each Dto)
         String categoryDenomination1 = "COMPRAS";
         String categoryDenomination2 = "CINEMA";
-        CreateCategoryInGroupDTO inputDto1 = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination1);
-        CreateCategoryInGroupDTO inputDto2 = new CreateCategoryInGroupDTO(groupDescription,creatorEmail,categoryDenomination2);
+        CreateGroupCategoryDTO inputDto1 = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination1);
+        CreateGroupCategoryDTO inputDto2 = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination2);
 
 
         //Check the number of categories before creating the new Category:
@@ -243,8 +243,8 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         //Two Denominations (one for each Dto)
         String categoryDenomination1 = "COMPRAS";
         String categoryDenomination2 = "CINEMA";
-        CreateCategoryInGroupDTO inputDto1 = new CreateCategoryInGroupDTO(groupDescription,creatorEmail1,categoryDenomination1);
-        CreateCategoryInGroupDTO inputDto2 = new CreateCategoryInGroupDTO(groupDescription,creatorEmail2,categoryDenomination2);
+        CreateGroupCategoryDTO inputDto1 = new CreateGroupCategoryDTO(groupDescription,creatorEmail1,categoryDenomination1);
+        CreateGroupCategoryDTO inputDto2 = new CreateGroupCategoryDTO(groupDescription,creatorEmail2,categoryDenomination2);
 
 
         //Check the number of categories before creating the new Category:
@@ -290,7 +290,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "Francisco@gmail.com";
         String groupDesctiption = "FRIENDS";
         String categoryDenomination = null;
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO(groupDesctiption,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDesctiption,creatorEmail,categoryDenomination);
 
         //Act:
         try {
@@ -311,7 +311,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "Francisco@gmail.com";
         String groupDesctiption = "FRIENDS";
         String categoryDenomination = "compras";
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO(groupDesctiption,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDesctiption,creatorEmail,categoryDenomination);
 
         //Act:
         service.addCategoryToGroup(dto);

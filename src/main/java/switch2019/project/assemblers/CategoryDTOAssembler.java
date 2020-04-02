@@ -1,10 +1,9 @@
 package switch2019.project.assemblers;
 
 import switch2019.project.DTO.CategoryDTO;
-import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.DTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.CreateGroupCategoryInputDTO;
 import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.shared.CategoryID;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 
 //Assembler for CategoryDTO:
 
@@ -24,6 +23,8 @@ public class CategoryDTOAssembler {
 
     /**
      * This method creates the CategoryDTO from a Category.
+     * @param cat
+     * @return CategoryDTO
      */
     public static CategoryDTO createCategoryDTOFromCategory(Category cat) {
         return new CategoryDTO(cat.getID().getDenominationString(), cat.getID().getOwnerIDString());
@@ -31,8 +32,22 @@ public class CategoryDTOAssembler {
 
     /**
      * This method generates the CreateCategoryInGroupDTO using primitive types:
+     * @param personEmail
+     * @param groupDescription
+     * @param categoryDenomination
+     * @return CreateCategoryInGroupDTO
      */
-    public static CreateCategoryInGroupDTO createCategoryInGroupDTOFromStrings(String personEmail, String groupDescription, String categoryDenomination) {
-        return new CreateCategoryInGroupDTO(groupDescription,personEmail,categoryDenomination);
+    public static CreateGroupCategoryDTO createCategoryInGroupDTOFromStrings(String personEmail, String groupDescription, String categoryDenomination) {
+        return new CreateGroupCategoryDTO(groupDescription,personEmail,categoryDenomination);
     }
+
+    /**
+     * This method transformes a input DTO to the CreateCategoryInGroupDTO.
+     * @param dto
+     * @return CreateCategoryInGroupDTO
+     */
+    public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(CreateGroupCategoryInputDTO dto) {
+        return new CreateGroupCategoryDTO(dto.getGroupDescription(), dto.getPersonEmail(), dto.getCategoryDenomination());
+    }
+
 }

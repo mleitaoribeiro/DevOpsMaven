@@ -14,7 +14,7 @@ public class CreateCategoryInGroupAndFirstAdminDTOTest {
     @Test
     public void getDescriptionTest(){
         //Arrange:
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO("Friends", "Johnny@gmail.com", "Movies");
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO("Friends", "Johnny@gmail.com", "Movies");
 
         //Act:
         String description = dto.getGroupDescription();
@@ -27,7 +27,7 @@ public class CreateCategoryInGroupAndFirstAdminDTOTest {
     @Test
     public void getPersonEmailTest(){
         //Arrange:
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO("Friends", "Johnny@gmail.com", "Movies");
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO("Friends", "Johnny@gmail.com", "Movies");
 
         //Act:
         String email = dto.getPersonEmail();
@@ -40,7 +40,7 @@ public class CreateCategoryInGroupAndFirstAdminDTOTest {
     @Test
     public void getCategoryDenominationTest(){
         //Arrange:
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO("Friends", "Johnny@gmail.com", "Movies");
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO("Friends", "Johnny@gmail.com", "Movies");
 
         //Act:
         String email = dto.getCategoryDenomination();

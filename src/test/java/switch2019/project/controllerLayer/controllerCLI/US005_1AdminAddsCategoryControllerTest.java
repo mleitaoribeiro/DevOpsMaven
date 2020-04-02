@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.CategoryDTO;
-import switch2019.project.DTO.CreateCategoryInGroupDTO;
+import switch2019.project.DTO.CreateGroupCategoryDTO;
 import switch2019.project.controllerLayer.controllersCli.US005_1AdminAddsCategoryController;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -332,7 +332,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         String creatorEmail = "Francisco@gmail.com";
         String groupDesctiption = "FRIENDS";
         String categoryDenomination = "compras";
-        CreateCategoryInGroupDTO dto = new CreateCategoryInGroupDTO(groupDesctiption,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDesctiption,creatorEmail,categoryDenomination);
 
         //Act:
         controller.addCategoryToGroupController(groupDesctiption,creatorEmail,categoryDenomination);

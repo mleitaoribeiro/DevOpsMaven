@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GroupCategoryCreationInputDTOTest {
+public class CreateGroupCategoryInputDTOTest {
 
     @DisplayName("Test getGroupDescription Getter")
     @Test
     public void getGroupDescriptionTest(){
         //Arrange
-        GroupCategoryCreationInputDTO dto = new GroupCategoryCreationInputDTO("Friends", "maria@gmail.com",
+        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO("Friends", "maria@gmail.com",
                 "Food");
         String expectedDescription = "Friends";
 
@@ -26,7 +26,7 @@ public class GroupCategoryCreationInputDTOTest {
     @Test
     public void getPersonEmailTest(){
         //Arrange
-        GroupCategoryCreationInputDTO dto = new GroupCategoryCreationInputDTO("Footbal Team", "jorge@gmail.com",
+        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO("Footbal Team", "jorge@gmail.com",
                 "Sport");
         String expectedPersonEmail = "jorge@gmail.com";
 
@@ -41,7 +41,7 @@ public class GroupCategoryCreationInputDTOTest {
     @Test
     public void getCategoryDenominationTest(){
         //Arrange
-        GroupCategoryCreationInputDTO dto = new GroupCategoryCreationInputDTO("Switch Rides", "10203@isep.ipp.pt",
+        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO("Switch Rides", "10203@isep.ipp.pt",
                 "Gasoline");
         String expectedCategoryDenomination = "Gasoline";
 
