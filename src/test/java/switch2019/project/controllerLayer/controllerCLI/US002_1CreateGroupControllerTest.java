@@ -5,23 +5,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.GroupDTO;
-import switch2019.project.controllerLayer.controllersCli.US002_1CreateGroupAndBecomeAdminController;
+import switch2019.project.controllerLayer.controllersCli.US002_1CreateGroupController;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
-import switch2019.project.applicationLayer.US002_1CreateGroupAndBecomeAdminService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US002_1CreateGroupAndBecomeAdminControllerTest {
+class US002_1CreateGroupControllerTest {
 
     private static GroupsRepository groupsRepository;
     private static PersonRepository personRepository;
-    private static US002_1CreateGroupAndBecomeAdminService service;
-    private static US002_1CreateGroupAndBecomeAdminController controller;
+    private static switch2019.project.applicationLayer.US002_1CreateGroupService service;
+    private static US002_1CreateGroupController controller;
 
 
     /**
@@ -37,8 +36,8 @@ class US002_1CreateGroupAndBecomeAdminControllerTest {
                 new Address("Porto"), new Address("Porto",
                         "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
-        service = new US002_1CreateGroupAndBecomeAdminService(groupsRepository, personRepository);
-        controller = new US002_1CreateGroupAndBecomeAdminController(service);
+        service = new switch2019.project.applicationLayer.US002_1CreateGroupService(groupsRepository, personRepository);
+        controller = new US002_1CreateGroupController(service);
     }
 
     /**

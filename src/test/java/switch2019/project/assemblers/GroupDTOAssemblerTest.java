@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AddMemberDTO;
-import switch2019.project.DTO.AdminCreateGroupDTO;
+import switch2019.project.DTO.createGroupDTO;
 import switch2019.project.DTO.GroupDTO;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
@@ -48,11 +48,11 @@ class GroupDTOAssemblerTest {
         String groupDescription = "Grupo";
         String personemail = "j@ip.pt";
 
-        AdminCreateGroupDTO expected = new AdminCreateGroupDTO(groupDescription, personemail);
-        AdminCreateGroupDTO unexpected = new AdminCreateGroupDTO("familia", "js.p@.pt");
+        createGroupDTO expected = new createGroupDTO(groupDescription, personemail);
+        createGroupDTO unexpected = new createGroupDTO("familia", "js.p@.pt");
 
         //Act
-        AdminCreateGroupDTO actual = GroupDTOAssembler.createAdminCreateGroupDTO(groupDescription, personemail);
+        createGroupDTO actual = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personemail);
 
         //Assert
         Assertions.assertAll(

@@ -5,7 +5,7 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AdminCreateGroupAndFirstAdminDTOTest {
+class CreateGroupDTOTest {
 
     /**
      * Tests for the different getter methods
@@ -14,7 +14,7 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void getGroupDescription() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Futebol", "maria@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Futebol", "maria@isep.ipp.pt");
         String expected = "Futebol";
 
         //Act
@@ -28,7 +28,7 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void getPersonEmail() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Futebol", "maria@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Futebol", "maria@isep.ipp.pt");
         String expected = "maria@isep.ipp.pt";
 
         //Act
@@ -45,7 +45,7 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void equalsSameObject() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto);
@@ -57,8 +57,8 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void equalsNullObject() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
-        AdminCreateGroupDTO dto2 = null;
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto2 = null;
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -70,7 +70,7 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void equalsDifferentObjectClass() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
         Denomination denomination = new Denomination("School");
 
         //Act
@@ -83,8 +83,8 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void equalsSameAttributes() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
-        AdminCreateGroupDTO dto2 = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto2 = new createGroupDTO("Games", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -96,8 +96,8 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void equalsDifferentGroupDescription() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
-        AdminCreateGroupDTO dto2 = new AdminCreateGroupDTO("School", "marta@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto2 = new createGroupDTO("School", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -109,8 +109,8 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void equalsDifferentPersonEmail() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
-        AdminCreateGroupDTO dto2 = new AdminCreateGroupDTO("Games", "diana@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto2 = new createGroupDTO("Games", "diana@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -126,8 +126,8 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void sameHashcode() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
-        AdminCreateGroupDTO dto2 = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto2 = new createGroupDTO("Games", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.hashCode() == dto2.hashCode();
@@ -139,8 +139,8 @@ class AdminCreateGroupAndFirstAdminDTOTest {
     @Test
     void differentHashcode() {
         //Arrange
-        AdminCreateGroupDTO dto = new AdminCreateGroupDTO("Games", "marta@isep.ipp.pt");
-        AdminCreateGroupDTO dto2 = new AdminCreateGroupDTO("Games", "diana@isep.ipp.pt");
+        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        createGroupDTO dto2 = new createGroupDTO("Games", "diana@isep.ipp.pt");
 
         //Act
         boolean actual = dto.hashCode() == dto2.hashCode();

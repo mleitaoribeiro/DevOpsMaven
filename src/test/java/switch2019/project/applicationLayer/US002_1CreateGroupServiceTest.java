@@ -3,22 +3,19 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.AdminCreateGroupDTO;
+import switch2019.project.DTO.createGroupDTO;
 import switch2019.project.DTO.GroupDTO;
-import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US002_1CreateGroupAndBecomeAdminServiceTest {
+class US002_1CreateGroupServiceTest {
 
-    private static US002_1CreateGroupAndBecomeAdminService service;
+    private static US002_1CreateGroupService service;
 
     /**
      * US002.1
@@ -33,7 +30,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
                 new Address("Porto"), new Address("Porto",
                         "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
-        service = new US002_1CreateGroupAndBecomeAdminService(groupsRepository, personRepository);
+        service = new US002_1CreateGroupService(groupsRepository, personRepository);
 
     }
 
@@ -49,12 +46,12 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
         String groupDescription = "Bashtards";
         String personEmail = "1234@isep.pt";
 
-        AdminCreateGroupDTO adminCreateGroupDTO = new AdminCreateGroupDTO(groupDescription, personEmail);
+        createGroupDTO createGroupDTO = new createGroupDTO(groupDescription, personEmail);
 
         GroupDTO expected = new GroupDTO(groupDescription);
 
         //Act
-        GroupDTO result = service.createGroupAndBecomeAdmin(adminCreateGroupDTO);
+        GroupDTO result = service.createGroup(createGroupDTO);
 
         //Assert
         assertEquals(expected, result);
@@ -70,7 +67,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
 
         //Act
         try {
-            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personEmail));
+            service.createGroup(new createGroupDTO(groupDescription, personEmail));
         }
 
         //Assert
@@ -85,11 +82,11 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
         //Arrange
         String groupDescription = "Bashtards";
         String personID = "1234@isep.pt";
-        service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personID));
+        service.createGroup(new createGroupDTO(groupDescription, personID));
 
         //Act
         try {
-            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, personID));
+            service.createGroup(new createGroupDTO(groupDescription, personID));
         }
         catch (IllegalArgumentException ex) {
             assertEquals("This Group Description already exists.", ex.getMessage());
@@ -104,7 +101,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
 
         //Act
         try {
-            service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(null, personEmail));
+            service.createGroup(new createGroupDTO(null, personEmail));
         }
 
         //Assert
@@ -122,7 +119,7 @@ class US002_1CreateGroupAndBecomeAdminServiceTest {
         String groupDescription = "Bashtards";
 
        try {
-           service.createGroupAndBecomeAdmin(new AdminCreateGroupDTO(groupDescription, null));
+           service.createGroup(new createGroupDTO(groupDescription, null));
        }
 
        //Assert
