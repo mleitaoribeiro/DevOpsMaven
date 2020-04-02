@@ -54,6 +54,15 @@ public class GroupDTOAssembler {
     }
 
     /**
+     * This method transformes a AddMemberInfoDTO into a AddMemberDTO
+     * @param addMemberInfoDTO
+     * @return addMemberDTO
+     */
+    public static AddMemberDTO transformIntoAddMemberDTO(AddMemberInfoDTO addMemberInfoDTO) {
+        return new AddMemberDTO(addMemberInfoDTO.getPersonEmail(), addMemberInfoDTO.getGroupDescription());
+    }
+
+    /**
      * method to create a DTO for a Group an added member
      *
      * @param wasMemberAdded

@@ -19,7 +19,7 @@ public class US003AddMemberToGroupControllerRest {
     @PostMapping("/addMemberToGroup")
     public ResponseEntity<Object> addMemberToGroup(@RequestBody AddMemberInfoDTO info){
 
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(info.getPersonEmail(), info.getGroupDescription());
+        AddMemberDTO addMemberDTO = GroupDTOAssembler.transformIntoAddMemberDTO(info);
 
         AddedMemberDTO addedMemberDTO = service.addMemberToGroup(addMemberDTO);
 
