@@ -2,6 +2,8 @@ package switch2019.project.applicationLayer;
 
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.AddMemberDTO;
+import switch2019.project.DTO.AddedMemberDTO;
+import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -31,5 +33,12 @@ public class US003AddMemberToGroupService {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         return group.addMember(person);
+    }
+
+    public AddedMemberDTO addMemberToGroupDTO(AddMemberDTO addMemberDTO) {
+        Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
+        Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
+        boolean wasMemberAdded = group.addMember(person);
+        return GroupDTOAssembler.createAddedMemberDTO(wasMemberAdded, person, group);
     }
 }
