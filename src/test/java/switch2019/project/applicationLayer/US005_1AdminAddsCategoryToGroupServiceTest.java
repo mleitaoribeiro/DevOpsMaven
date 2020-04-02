@@ -18,13 +18,13 @@ import switch2019.project.infrastructure.repositories.PersonRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class US005_1AdminAddsCategoryToCategoryListServiceTest {
+public class US005_1AdminAddsCategoryToGroupServiceTest {
 
     //initialize repositories and service for the tests as attributes:
     private static GroupsRepository groupsRepository;
     private static CategoryRepository categoryRepository;
     private static PersonRepository personRepository;
-    private static US005_1AdminAddsCategoryToCategoryListService service;
+    private static US005_1AdminAddsCategoryToGroupService service;
 
     //using before each for the arrangements before the tests:
     @BeforeEach
@@ -36,7 +36,7 @@ public class US005_1AdminAddsCategoryToCategoryListServiceTest {
         personRepository = new PersonRepository();
 
         //arrangement of the service:
-        service = new US005_1AdminAddsCategoryToCategoryListService(groupsRepository, categoryRepository, personRepository);
+        service = new US005_1AdminAddsCategoryToGroupService(groupsRepository, categoryRepository, personRepository);
 
         //arrangement of the persons:
         Person personFrancisco = personRepository.createPerson("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
