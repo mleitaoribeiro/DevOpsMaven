@@ -11,8 +11,12 @@ public class CreateGroupCategoryInputDTOTest {
     @Test
     public void getGroupDescriptionTest(){
         //Arrange
-        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO("Friends", "maria@gmail.com",
-                "Food");
+        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO();
+
+        dto.setGroupDescription("Friends");
+        dto.setPersonEmail("maria@gmail.com");
+        dto.setCategoryDenomination("Netflix");
+
         String expectedDescription = "Friends";
 
         //Act
@@ -26,8 +30,12 @@ public class CreateGroupCategoryInputDTOTest {
     @Test
     public void getPersonEmailTest(){
         //Arrange
-        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO("Footbal Team", "jorge@gmail.com",
-                "Sport");
+        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO();
+
+        dto.setGroupDescription("Footbal Team");
+        dto.setPersonEmail("jorge@gmail.com");
+        dto.setCategoryDenomination("Sport");
+
         String expectedPersonEmail = "jorge@gmail.com";
 
         //Act
@@ -41,8 +49,12 @@ public class CreateGroupCategoryInputDTOTest {
     @Test
     public void getCategoryDenominationTest(){
         //Arrange
-        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO("Switch Rides", "10203@isep.ipp.pt",
-                "Gasoline");
+        CreateGroupCategoryInputDTO dto = new CreateGroupCategoryInputDTO();
+
+        dto.setGroupDescription("Sport");
+        dto.setPersonEmail("10203@isep.ipp.pt");
+        dto.setCategoryDenomination("Gasoline");
+
         String expectedCategoryDenomination = "Gasoline";
 
         //Act

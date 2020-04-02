@@ -10,9 +10,27 @@ public class CreateGroupCategoryInputDTO {
         super();
     }
 
-    public CreateGroupCategoryInputDTO(String groupDescription, String personEmail, String categoryDenomination) {
+    /**
+     * Setter for group Description
+     * @param groupDescription
+     */
+    public void setGroupDescription(String groupDescription) {
         this.groupDescription = groupDescription;
+    }
+
+    /**
+     * Setter for personEmail
+     * @param personEmail
+     */
+    public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
+    }
+
+    /**
+     * Setter for categoryDenomination
+     * @param categoryDenomination
+     */
+    public void setCategoryDenomination(String categoryDenomination) {
         this.categoryDenomination = categoryDenomination;
     }
 
