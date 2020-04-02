@@ -25,7 +25,7 @@ public class US005_1AdminAddsCategoryController {
 
     public CategoryDTO addCategoryToGroupController(String personEmail, String groupDescription, String categoryDenomination) {
         // Create the entry dto for the service:
-        CreateGroupCategoryDTO dto = CategoryDTOAssembler.createCategoryInGroupDTOFromStrings(groupDescription,personEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = CategoryDTOAssembler.createGroupCategoryDTOFromStrings(groupDescription,personEmail,categoryDenomination);
         // If the category can be created with the given information, the Category DTO is returned:
         return service.addCategoryToGroup(dto);
     }

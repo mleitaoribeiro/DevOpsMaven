@@ -9,6 +9,7 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.AccountRepository;
+import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
@@ -21,6 +22,8 @@ public class Bootstrapper {
     GroupsRepository groupRepository;
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    CategoryRepository categoriesRepository;
 
     public void bootstrapping() {
 

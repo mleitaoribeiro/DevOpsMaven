@@ -1,6 +1,6 @@
 package switch2019.project.infrastructure.repositories;
 
-import switch2019.project.domain.domainEntities.account.Account;
+import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -9,6 +9,7 @@ import switch2019.project.domain.repositories.Repository;
 
 import java.util.*;
 
+@Component
 public class CategoryRepository implements Repository {
 
     // Private instance variables

@@ -5,16 +5,14 @@ import switch2019.project.DTO.CreateGroupCategoryDTO;
 import switch2019.project.DTO.CreateGroupCategoryInputDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 
-//Assembler for CategoryDTO:
-
 public class CategoryDTOAssembler {
 
     private CategoryDTOAssembler () {}
 
     /**
      * This Method transforms the objects contained in a Category into Strings, in order to create a CategoryDTO.
-     * @param denomination - Category Denomination
-     * @param ownerID - (Category Denomination, Owner ID)
+     * @param denomination
+     * @param ownerID
      * @return CategoryDTO
      */
     public static CategoryDTO createCategoryDTO(String denomination, String ownerID) {
@@ -37,7 +35,7 @@ public class CategoryDTOAssembler {
      * @param categoryDenomination
      * @return CreateCategoryInGroupDTO
      */
-    public static CreateGroupCategoryDTO createCategoryInGroupDTOFromStrings(String personEmail, String groupDescription, String categoryDenomination) {
+    public static CreateGroupCategoryDTO createGroupCategoryDTOFromStrings(String personEmail, String groupDescription, String categoryDenomination) {
         return new CreateGroupCategoryDTO(groupDescription,personEmail,categoryDenomination);
     }
 

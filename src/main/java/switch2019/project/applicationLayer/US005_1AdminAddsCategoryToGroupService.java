@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.stereotype.Service;
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
@@ -13,6 +14,7 @@ import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 
+@Service
 public class US005_1AdminAddsCategoryToGroupService {
 
     private GroupsRepository groupsRepository;
