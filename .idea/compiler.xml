@@ -17,7 +17,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="switch2019_g2" options="-Xlint:all" />
+      <module name="switch2019_g2" options="-parameters -Xlint:all" />
     </option>
   </component>
 </project>

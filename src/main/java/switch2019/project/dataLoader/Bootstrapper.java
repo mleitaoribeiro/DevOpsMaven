@@ -366,7 +366,7 @@ public class Bootstrapper {
         Group intergalacticGroup = groupRepository.createGroup( new Description("Intergalactic"),
                 personRepository.findPersonByEmail(new Email("mortimer.smith@hotmail.com")));
 
-        //NOT FAMILY - Smith Family - With Grandfa Rick (admin)
+        //NOT FAMILY - Smith Family - With Grandpa Rick (admin)
 
         Group smithFamilyGroup = groupRepository.createGroup( new Description("Smith Family"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")));
