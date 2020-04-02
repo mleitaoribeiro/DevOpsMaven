@@ -1,12 +1,12 @@
 package switch2019.project.DTO;
 
-public class CreateGroupCategoryInputDTO {
+public class CreateGroupCategoryInfoDTO {
 
     private String groupDescription;
     private String personEmail;
     private String categoryDenomination;
 
-    public CreateGroupCategoryInputDTO() {
+    public CreateGroupCategoryInfoDTO() {
         super();
     }
 

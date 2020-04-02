@@ -2,7 +2,7 @@ package switch2019.project.assemblers;
 
 import switch2019.project.DTO.CategoryDTO;
 import switch2019.project.DTO.CreateGroupCategoryDTO;
-import switch2019.project.DTO.CreateGroupCategoryInputDTO;
+import switch2019.project.DTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 
 public class CategoryDTOAssembler {
@@ -44,7 +44,7 @@ public class CategoryDTOAssembler {
      * @param dto
      * @return CreateCategoryInGroupDTO
      */
-    public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(CreateGroupCategoryInputDTO dto) {
+    public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(CreateGroupCategoryInfoDTO dto) {
         return new CreateGroupCategoryDTO(dto.getGroupDescription(), dto.getPersonEmail(), dto.getCategoryDenomination());
     }
 

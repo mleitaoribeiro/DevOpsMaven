@@ -1,8 +1,6 @@
 package switch2019.project.assemblers;
 
-import switch2019.project.DTO.AccountDTO;
-import switch2019.project.DTO.CreateGroupAccountDTO;
-import switch2019.project.DTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.*;
 import switch2019.project.domain.domainEntities.account.Account;
 
 
@@ -47,6 +45,15 @@ public class AccountDTOAssembler {
      */
     public static AccountDTO createAccountDTOFromDomainObject(Account account) {
         return new AccountDTO(account.getOwnerID().toString(), account.getID().getDenomination(), account.descriptionToString());
+    }
+
+    /**
+     * This method transformes a input DTO to the CreateAccountInGroupDTO.
+     * @param dto
+     * @return CreateAccountInGroupDTO
+     */
+    public static CreateGroupAccountDTO transformToCreateGroupCategoryDTO(CreateGroupAccountInfoDTO dto) {
+        return new CreateGroupAccountDTO(dto.getPersonEmail(),dto.getGroupDescription(),dto.getAccountDenomination(), dto.getAccountDescription());
     }
 
 }

@@ -59,7 +59,7 @@ public class CreateGroupAccountDTO {
     }
 
     /**
-     * get Accoun tDescription
+     * get Account tDescription
      *
      * @return accountDescription
      */
