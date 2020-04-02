@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.stereotype.Service;
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
@@ -15,10 +16,8 @@ import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
 
-
+@Service
 public class US007CreateGroupAccountService {
-
-
 
     private PersonRepository personRepository;
     private GroupsRepository groupsRepository;
