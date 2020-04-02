@@ -3,9 +3,9 @@ package switch2019.project.assemblers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.AddMemberDTO;
-import switch2019.project.DTO.createGroupDTO;
-import switch2019.project.DTO.GroupDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
+import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 
@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupDTOAssemblerTest {
 
     /**
-     * Test to createGroupDTO method
+     * Test to CreateGroupDTO method
      */
     @Test
-    @DisplayName("Test to createGroupDTO")
+    @DisplayName("Test to CreateGroupDTO")
     void createGroupDTO() {
         //Arrange
         GroupID groupID = new GroupID(new Description("familia"));
@@ -48,11 +48,11 @@ class GroupDTOAssemblerTest {
         String groupDescription = "Grupo";
         String personemail = "j@ip.pt";
 
-        createGroupDTO expected = new createGroupDTO(groupDescription, personemail);
-        createGroupDTO unexpected = new createGroupDTO("familia", "js.p@.pt");
+        CreateGroupDTO expected = new CreateGroupDTO(groupDescription, personemail);
+        CreateGroupDTO unexpected = new CreateGroupDTO("familia", "js.p@.pt");
 
         //Act
-        createGroupDTO actual = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personemail);
+        CreateGroupDTO actual = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personemail);
 
         //Assert
         Assertions.assertAll(

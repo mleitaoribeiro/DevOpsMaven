@@ -1,4 +1,4 @@
-package switch2019.project.DTO;
+package switch2019.project.DTO.DeserializationDTO;
 
 /*
     this DTO contains all the information necessary to create an Account and associate it with a Group.

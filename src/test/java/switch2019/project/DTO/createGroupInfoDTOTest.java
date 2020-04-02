@@ -2,6 +2,7 @@ package switch2019.project.DTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.DeserializationDTO.createGroupInfoDTO;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import static org.junit.jupiter.api.Assertions.*;

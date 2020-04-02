@@ -1,6 +1,7 @@
 package switch2019.project.DTO;
 
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,7 @@ class CreateGroupDTOTest {
     @Test
     void getGroupDescription() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Futebol", "maria@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Futebol", "maria@isep.ipp.pt");
         String expected = "Futebol";
 
         //Act
@@ -28,7 +29,7 @@ class CreateGroupDTOTest {
     @Test
     void getPersonEmail() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Futebol", "maria@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Futebol", "maria@isep.ipp.pt");
         String expected = "maria@isep.ipp.pt";
 
         //Act
@@ -45,7 +46,7 @@ class CreateGroupDTOTest {
     @Test
     void equalsSameObject() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto);
@@ -57,8 +58,8 @@ class CreateGroupDTOTest {
     @Test
     void equalsNullObject() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
-        createGroupDTO dto2 = null;
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto2 = null;
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -70,7 +71,7 @@ class CreateGroupDTOTest {
     @Test
     void equalsDifferentObjectClass() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
         Denomination denomination = new Denomination("School");
 
         //Act
@@ -83,8 +84,8 @@ class CreateGroupDTOTest {
     @Test
     void equalsSameAttributes() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
-        createGroupDTO dto2 = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto2 = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -96,8 +97,8 @@ class CreateGroupDTOTest {
     @Test
     void equalsDifferentGroupDescription() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
-        createGroupDTO dto2 = new createGroupDTO("School", "marta@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto2 = new CreateGroupDTO("School", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -109,8 +110,8 @@ class CreateGroupDTOTest {
     @Test
     void equalsDifferentPersonEmail() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
-        createGroupDTO dto2 = new createGroupDTO("Games", "diana@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto2 = new CreateGroupDTO("Games", "diana@isep.ipp.pt");
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -126,8 +127,8 @@ class CreateGroupDTOTest {
     @Test
     void sameHashcode() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
-        createGroupDTO dto2 = new createGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto2 = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
 
         //Act
         boolean actual = dto.hashCode() == dto2.hashCode();
@@ -139,8 +140,8 @@ class CreateGroupDTOTest {
     @Test
     void differentHashcode() {
         //Arrange
-        createGroupDTO dto = new createGroupDTO("Games", "marta@isep.ipp.pt");
-        createGroupDTO dto2 = new createGroupDTO("Games", "diana@isep.ipp.pt");
+        CreateGroupDTO dto = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+        CreateGroupDTO dto2 = new CreateGroupDTO("Games", "diana@isep.ipp.pt");
 
         //Act
         boolean actual = dto.hashCode() == dto2.hashCode();

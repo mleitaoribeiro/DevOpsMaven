@@ -3,7 +3,7 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.AreSiblingsDTO;
+import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;

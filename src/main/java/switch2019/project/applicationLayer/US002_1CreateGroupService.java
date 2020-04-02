@@ -1,8 +1,8 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.stereotype.Service;
-import switch2019.project.DTO.createGroupDTO;
-import switch2019.project.DTO.GroupDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -29,7 +29,7 @@ public class US002_1CreateGroupService {
      * @param createGroupDTO
      * @return groupDTO
      */
-    public GroupDTO createGroup(createGroupDTO createGroupDTO) {
+    public GroupDTO createGroup(CreateGroupDTO createGroupDTO) {
 
         Person admin = personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()));
         Description groupDescription = new Description(createGroupDTO.getGroupDescription());

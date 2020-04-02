@@ -1,6 +1,9 @@
 package switch2019.project.assemblers;
 
-import switch2019.project.DTO.*;
+import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
+import switch2019.project.DTO.SerializationDTO.AccountDTO;
+import switch2019.project.DTO.SerializationDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
 import switch2019.project.domain.domainEntities.account.Account;
 
 
@@ -20,7 +23,7 @@ public class AccountDTOAssembler {
      */
 
     public static CreateGroupAccountDTO createGroupAccountDTOFromPrimitiveTypes(String personEmail, String groupDescription,
-                                                                                 String accountDenomination, String accountDescription) {
+                                                                                String accountDenomination, String accountDescription) {
         return new CreateGroupAccountDTO(personEmail, groupDescription, accountDenomination, accountDescription);
     }
 

@@ -2,7 +2,7 @@ package switch2019.project.assemblers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.CategoryDTO;
+import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;

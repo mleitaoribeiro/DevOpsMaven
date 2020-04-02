@@ -3,8 +3,8 @@ package switch2019.project.applicationLayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.createGroupDTO;
-import switch2019.project.DTO.GroupDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
@@ -46,7 +46,7 @@ class US002_1CreateGroupServiceTest {
         String groupDescription = "Bashtards";
         String personEmail = "1234@isep.pt";
 
-        createGroupDTO createGroupDTO = new createGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO createGroupDTO = new CreateGroupDTO(groupDescription, personEmail);
 
         GroupDTO expected = new GroupDTO(groupDescription);
 
@@ -67,7 +67,7 @@ class US002_1CreateGroupServiceTest {
 
         //Act
         try {
-            service.createGroup(new createGroupDTO(groupDescription, personEmail));
+            service.createGroup(new CreateGroupDTO(groupDescription, personEmail));
         }
 
         //Assert
@@ -82,11 +82,11 @@ class US002_1CreateGroupServiceTest {
         //Arrange
         String groupDescription = "Bashtards";
         String personID = "1234@isep.pt";
-        service.createGroup(new createGroupDTO(groupDescription, personID));
+        service.createGroup(new CreateGroupDTO(groupDescription, personID));
 
         //Act
         try {
-            service.createGroup(new createGroupDTO(groupDescription, personID));
+            service.createGroup(new CreateGroupDTO(groupDescription, personID));
         }
         catch (IllegalArgumentException ex) {
             assertEquals("This Group Description already exists.", ex.getMessage());
@@ -101,7 +101,7 @@ class US002_1CreateGroupServiceTest {
 
         //Act
         try {
-            service.createGroup(new createGroupDTO(null, personEmail));
+            service.createGroup(new CreateGroupDTO(null, personEmail));
         }
 
         //Assert
@@ -119,7 +119,7 @@ class US002_1CreateGroupServiceTest {
         String groupDescription = "Bashtards";
 
        try {
-           service.createGroup(new createGroupDTO(groupDescription, null));
+           service.createGroup(new CreateGroupDTO(groupDescription, null));
        }
 
        //Assert

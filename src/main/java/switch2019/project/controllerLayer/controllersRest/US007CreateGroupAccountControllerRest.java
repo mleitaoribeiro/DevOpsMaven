@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import switch2019.project.DTO.AccountDTO;
-import switch2019.project.DTO.CreateGroupAccountDTO;
-import switch2019.project.DTO.CreateGroupAccountInfoDTO;
+import switch2019.project.DTO.SerializationDTO.AccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
+import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 

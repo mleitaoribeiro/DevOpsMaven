@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.AccountDTO;
+import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.controllerLayer.controllersCli.US007CreateGroupAccountController;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;

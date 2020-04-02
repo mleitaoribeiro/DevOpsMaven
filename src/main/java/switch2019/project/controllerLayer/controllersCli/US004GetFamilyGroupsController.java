@@ -1,6 +1,6 @@
 package switch2019.project.controllerLayer.controllersCli;
 
-import switch2019.project.DTO.GroupDTO;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import java.util.Set;
 

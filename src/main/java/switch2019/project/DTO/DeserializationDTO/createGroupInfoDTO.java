@@ -1,21 +1,18 @@
-package switch2019.project.DTO;
+package switch2019.project.DTO.DeserializationDTO;
 
 import java.util.Objects;
 
-public class createGroupDTO {
+public class createGroupInfoDTO {
     private String groupDescription;
     private String personEmail;
 
-    public createGroupDTO(String groupDescription, String personEmail) {
-        this.groupDescription = groupDescription;
-        this.personEmail = personEmail;
-    }
+    public createGroupInfoDTO() {}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        createGroupDTO that = (createGroupDTO) o;
+        createGroupInfoDTO that = (createGroupInfoDTO) o;
         return Objects.equals(groupDescription, that.groupDescription) &&
                 Objects.equals(personEmail, that.personEmail);
     }
@@ -25,15 +22,31 @@ public class createGroupDTO {
         return Objects.hash(groupDescription, personEmail);
     }
 
+    /**
+     * Set groupDescription
+     *
+     * @param groupDescription
+     */
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
+    }
 
     /**
      * get Group Description
      *
      * @return groupDescription
      */
-
     public String getGroupDescription() {
         return groupDescription;
+    }
+
+    /**
+     * set personEmail
+     *
+     * @param personEmail
+     */
+    public void setPersonEmail(String personEmail) {
+        this.personEmail = personEmail;
     }
 
     /**
@@ -41,7 +54,6 @@ public class createGroupDTO {
      *
      * @return personEmail
      */
-
     public String getPersonEmail() {
         return personEmail;
     }

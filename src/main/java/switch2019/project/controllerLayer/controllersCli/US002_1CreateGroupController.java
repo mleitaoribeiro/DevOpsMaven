@@ -1,7 +1,7 @@
 package switch2019.project.controllerLayer.controllersCli;
 
-import switch2019.project.DTO.createGroupDTO;
-import switch2019.project.DTO.GroupDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 
 
@@ -21,7 +21,7 @@ public class US002_1CreateGroupController {
      * @return groupDTO
      */
     public GroupDTO createGroupAndBecomeAdmin(String groupDescription, String personEmail) {
-       createGroupDTO createGroupDTO = GroupDTOAssembler.creationOfGroupDTO(groupDescription,personEmail);
+       CreateGroupDTO createGroupDTO = GroupDTOAssembler.creationOfGroupDTO(groupDescription,personEmail);
        return service.createGroup(createGroupDTO);
     }
 }

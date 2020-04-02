@@ -1,8 +1,8 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.stereotype.Service;
-import switch2019.project.DTO.AddMemberDTO;
-import switch2019.project.DTO.AddedMemberDTO;
+import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
+import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;

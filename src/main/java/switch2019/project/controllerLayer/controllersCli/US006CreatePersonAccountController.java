@@ -1,7 +1,7 @@
 package switch2019.project.controllerLayer.controllersCli;
 
-import switch2019.project.DTO.AccountDTO;
-import switch2019.project.DTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.SerializationDTO.AccountDTO;
+import switch2019.project.DTO.SerializationDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 

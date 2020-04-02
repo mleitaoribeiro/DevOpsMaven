@@ -1,8 +1,8 @@
 package switch2019.project.controllerLayer.controllersCli;
 
 import org.springframework.stereotype.Controller;
-import switch2019.project.DTO.AddMemberDTO;
-import switch2019.project.DTO.AddedMemberDTO;
+import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
+import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 
