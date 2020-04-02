@@ -68,7 +68,7 @@ public class Bootstrapper {
                 new Email("1191779@isep.ipp.pt"));
 
         Person raquelSantos = personRepository.createPerson (
-                "Gabriel Moço",
+                "Raquel Santos",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
