@@ -3,6 +3,9 @@ package switch2019.project.domain.domainEntities.shared;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.person.Person;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,8 +64,10 @@ class GroupIDTest {
         //Arrange:
         Description groupID1description = new Description("Linkin Park Fans");
         GroupID groupID1 = new GroupID(groupID1description);
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
-        Group group1 = new Group(new Description("Linkin Park Fans"));
+        Group group1 = new Group(new Description("Linkin Park Fans"),person);
 
         //Act:
         boolean result = groupID1.equals(group1);

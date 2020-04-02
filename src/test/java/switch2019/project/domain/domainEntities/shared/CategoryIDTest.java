@@ -66,7 +66,7 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("The Ones"));
+        Group group1 = new Group(new Description("The Ones"),person1);
         CategoryID categoryID1 = new CategoryID(new Denomination("House"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("House"), group1.getID());
 
@@ -128,7 +128,7 @@ public class CategoryIDTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        Group group1 = new Group (new Description("The ones"));
+        Group group1 = new Group (new Description("The ones"),person1);
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
         CategoryID categoryID2 = new CategoryID(new Denomination("Gym"), group1.getID());
 
@@ -160,7 +160,9 @@ public class CategoryIDTest {
     @DisplayName("Test to Constructor - Null Denomination")
     void testCategoryIDNullDenomination() {
         //Arrange:
-        Group group = new Group(new Description("Running Team"));
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+        Group group = new Group(new Description("Running Team"),person);
         //Act:
         try {
             CategoryID categoryID1 = new CategoryID(null,group.getID());

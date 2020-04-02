@@ -3,6 +3,9 @@ package switch2019.project.domain.domainEntities.shared;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.person.Person;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -153,8 +156,10 @@ class DenominationTest {
     @DisplayName("Verify if equals method verifies if object is not of the same type")
     public void testIfADenominationIsNotEqualToAnotherObject() {
         //Arrange:
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Denomination denomination = new Denomination("Dinner");
-        Group group = new Group(new Description("Friends"));
+        Group group = new Group(new Description("Friends"),person);
 
         //Act:
         boolean result = denomination.equals(group);

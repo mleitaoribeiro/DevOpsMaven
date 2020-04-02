@@ -151,7 +151,9 @@ class AccountIDTest {
     @DisplayName("Get Owner ID from accountID - GroupID")
     void testIfGetOwnerIDGroup() {
         //Arrange
-        Group group = new Group(new Description("Friends with Benefits"));
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+        Group group = new Group(new Description("Friends with Benefits"),person);
         AccountID accountID = new AccountID(new Denomination("switch"), group.getID());
 
         OwnerID realOwnerID = accountID.getOwnerID();
@@ -169,7 +171,9 @@ class AccountIDTest {
     @DisplayName("Test to Constructor - Null Denomination")
     void testAccountIDNullDenomination() {
         //Arrange:
-        Group group = new Group(new Description("Running Team"));
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+        Group group = new Group(new Description("Running Team"),person);
         //Act:
         try {
             AccountID accountID = new AccountID(null, group.getID());

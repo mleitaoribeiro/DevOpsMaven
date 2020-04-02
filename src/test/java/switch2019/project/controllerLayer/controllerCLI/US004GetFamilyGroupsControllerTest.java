@@ -98,33 +98,28 @@ class US004GetFamilyGroupsControllerTest {
         Person diane = personRepository.createPerson("Diane Nguyen", new DateAndTime(1990, 12, 4), new Address("Espinho"),
                 new Address("Rua B", "Porto", "4520-233"), carolyn, bojack, new Email("diane@isep.pt"));
 
-        group1 = new Group(new Description("Familia Santos"));
+        group1 = new Group(new Description("Familia Santos"),manuelaMOM);
         group1.addMember(carlosDAD);
-        group1.addMember(manuelaMOM);
         group1.addMember(oscar);
         group1.addMember(marta);
         group1.addMember(joao);
 
-        group2 = new Group(new Description("Familia Simpson"));
-        group2.addMember(homer);
+        group2 = new Group(new Description("Familia Simpson"),homer);
         group2.addMember(marge);
         group2.addMember(maggie);
         group2.addMember(lisa);
         group2.addMember(bart);
 
-        group3 = new Group(new Description("Familia Silva")); //No Mom Added
-        group3.addMember(joaoDAD);
+        group3 = new Group(new Description("Familia Silva"),joaoDAD); //No Mom Added
         group3.addMember(diana);
         group3.addMember(elsa);
         group3.addMember(ines);
 
-        group4 = new Group(new Description("Grupo Das Martas")); //No Family
-        group4.addMember(martaC);
+        group4 = new Group(new Description("Grupo Das Martas"),martaC); //No Family
         group4.addMember(martaP);
         group4.addMember(martaR);
 
-        group5 = new Group(new Description("Familia Bojack")); //No Dad Added
-        group5.addMember(carolyn);
+        group5 = new Group(new Description("Familia Bojack"),carolyn); //No Dad Added
         group5.addMember(diane);
         group5.addMember(todd);
     }

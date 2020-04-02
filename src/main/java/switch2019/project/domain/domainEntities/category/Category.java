@@ -11,7 +11,7 @@ public class Category implements Entity {
 
     //Private instance variables
     private CategoryID categoryID;
-    
+
     /**
      * 2nd Category constructor
      *

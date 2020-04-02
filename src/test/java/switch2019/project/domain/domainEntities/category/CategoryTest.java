@@ -93,8 +93,10 @@ class CategoryTest {
     @DisplayName("Verify if equals method verifies if object is not of the same type")
     public void testIfACategoryIsNotEqualToAnotherObject() {
         //Arrange:
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Category categoryPlaceholder = new Category(new Denomination("Dinner"),new PersonID(new Email("personEmail@email.com")));
-        Group groupPlaceholder = new Group(new Description("Friends"));
+        Group groupPlaceholder = new Group(new Description("Friends"),person);
 
         //Act:
         boolean result = categoryPlaceholder.equals(groupPlaceholder);

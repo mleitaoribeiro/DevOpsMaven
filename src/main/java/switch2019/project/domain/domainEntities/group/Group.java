@@ -28,15 +28,16 @@ public class Group implements Owner {
      * Default Group constructor
      *
      * @param description
+     * @param groupCreator
      */
 
-    public Group(Description description) {
+    /*public Group(Description description) {
         setGroupID(description);
         startingDate = new DateAndTime();
         members = new HashSet<>();
         admins = new HashSet<>();
         ledger = new Ledger();
-    }
+    }*/
 
     public Group(Description description, Person groupCreator) {
         setGroupID(description);
