@@ -1,6 +1,8 @@
 package switch2019.project.controllerLayer.controllersRest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +18,13 @@ public class US001AreSiblingsControllerRest {
     US001AreSiblingsService service;
 
     @GetMapping("/areSiblings")
-    public SiblingsDTO areSiblings(@RequestParam(value = "personOneEmail") String personEmail,
+    public ResponseEntity<SiblingsDTO> areSiblings(@RequestParam(value = "personOneEmail") String personEmail,
                                    @RequestParam(value = "personTwoEmail") String personEmail1){
 
         AreSiblingsDTO areSiblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(personEmail, personEmail1);
-        boolean areSiblings = service.areSiblings(areSiblingsDTO);
 
-        //return String.format("Result %b!", areSiblings);
-        return PersonDTOAssembler.createSiblingsDTO(areSiblings);
+        SiblingsDTO result = PersonDTOAssembler.createSiblingsDTO(service.areSiblings(areSiblingsDTO));
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
