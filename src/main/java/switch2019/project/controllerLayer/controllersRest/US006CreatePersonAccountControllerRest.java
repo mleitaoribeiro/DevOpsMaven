@@ -15,13 +15,12 @@ import switch2019.project.assemblers.AccountDTOAssembler;
 public class US006CreatePersonAccountControllerRest {
 
     @Autowired
-    US006CreatePersonAccountService service ;
+    US006CreatePersonAccountService service;
 
     @PostMapping("/createPersonAccount")
-    public ResponseEntity<AccountDTO> createPersonAccount (@RequestBody CreatePersonAccountInfoDTO info){
+    public ResponseEntity<AccountDTO> createPersonAccount(@RequestBody CreatePersonAccountInfoDTO info) {
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes(info.getPersonEmail(),
-                info.getAccountDenomination(), info.getAccountDescription());
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(info);
 
         AccountDTO result = service.createPersonAccount(createPersonAccountDTO);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
