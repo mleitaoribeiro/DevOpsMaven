@@ -40,4 +40,8 @@ public class AreSiblingsDTO {
                 Objects.equals(emailPersonTwo, that.emailPersonTwo);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(emailPersonOne, emailPersonTwo);
+    }
 }
