@@ -10,13 +10,20 @@ import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 
-
 @RestController
 public class US007CreateGroupAccountControllerRest {
 
     @Autowired
     US007CreateGroupAccountService service;
 
+    /**
+     *
+     * @param personEmail
+     * @param groupDescription
+     * @param accountDenomination
+     * @param accountDescription
+     * @return
+     */
     @GetMapping("/addGroupAccount")
     public ResponseEntity<AccountDTO> addGroupAccount (@RequestParam(value = "personEmail" ) String personEmail,
                                    @RequestParam(value = "groupDescription") String groupDescription,
@@ -26,6 +33,7 @@ public class US007CreateGroupAccountControllerRest {
         //Arrange the entry dto with the given strings:
         CreateGroupAccountDTO dto = new CreateGroupAccountDTO(personEmail, groupDescription, accountDenomination, accountDescription);
 
+        //Use the service to obtain the exit DTO
         AccountDTO result = service.createGroupAccount(dto);
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
