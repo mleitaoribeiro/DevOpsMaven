@@ -31,4 +31,12 @@ class AreSiblingsDTOTest {
         //Assert
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testHashCode() {
+        AreSiblingsDTO dto = new AreSiblingsDTO("email", "emaill");
+        AreSiblingsDTO dto1 = new AreSiblingsDTO(dto.getEmailPersonOne(), dto.getEmailPersonTwo());
+
+        assertEquals(dto.hashCode(), dto1.hashCode());
+    }
 }
