@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.frameworks.Owner;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Periodicity;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
@@ -157,7 +159,7 @@ class GroupTest {
         //Arrange
         Group group1 = new Group(new Description("Mary's Gift"));
         Account group2 = new Account(new Denomination("Mary"),
-                new Description("Mary Gift"));
+                new Description("Mary Gift"), new GroupID(new Description("Gift")));
 
         //Act
         boolean result = group1.equals(group2);
@@ -1275,9 +1277,9 @@ class GroupTest {
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("Gift")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("Gift")));
         Category category1 = new Category("ASD");
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
@@ -1301,9 +1303,9 @@ class GroupTest {
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 02);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("Gift")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("Gift")));
         Category category1 = new Category("ASD");
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
@@ -1327,9 +1329,9 @@ class GroupTest {
         LocalDateTime date1 = LocalDateTime.of(2020, 1, 31, 13, 2);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("Gift")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("Gift")));
         Category category1 = new Category("ASD");
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(false));
         Transaction transaction2 = new Transaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, new Type(true));
@@ -1363,9 +1365,9 @@ class GroupTest {
         Category category1 = new Category("grocery");
 
         Account account1 = new Account(new Denomination("groceries"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("groceries"),
-                new Description("mercearia Pingo Doce"));
+                new Description("mercearia Pingo Doce"), new GroupID(new Description("shopping")));
 
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
@@ -1403,9 +1405,9 @@ class GroupTest {
         Category category1 = new Category("grocery");
 
         Account account1 = new Account(new Denomination("groceries"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("groceries"),
-                new Description("mercearia Pingo Doce"));
+                new Description("mercearia Pingo Doce"), new GroupID(new Description("shopping")));
 
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
@@ -1446,9 +1448,9 @@ class GroupTest {
         Category category1 = new Category("grocery");
 
         Account account1 = new Account(new Denomination("groceries"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("groceries"),
-                new Description("mercearia Pingo Doce"));
+                new Description("mercearia Pingo Doce"), new GroupID(new Description("shopping")));
 
         //Transactions added to Group Ledger:
         testGroup.createGroupTransaction(monetaryValue1, "testTransaction1", null, category1, account1, account2, new Type(true));
@@ -1667,11 +1669,11 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new GroupID(new Description("shopping")));
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -1715,11 +1717,11 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new GroupID(new Description("shopping")));
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -1766,11 +1768,11 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new GroupID(new Description("shopping")));
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -1859,11 +1861,11 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new GroupID(new Description("shopping")));
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -1902,7 +1904,7 @@ class GroupTest {
         LocalDateTime date2 = LocalDateTime.of(2019, 12, 13, 13, 02);
 
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
@@ -1935,11 +1937,11 @@ class GroupTest {
         MonetaryValue monetaryValue7 = new MonetaryValue(75, Currency.getInstance("EUR"));
 
         Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"));
+                new Description("mercearia Continente"), new GroupID(new Description("shopping")));
         Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"));
+                new Description("transporte Metro"), new GroupID(new Description("shopping")));
         Account account5 = new Account(new Denomination("comida de gato"),
-                new Description("comida para a gatinha"));
+                new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
         Category category1 = new Category("grocery");
         Category category2 = new Category("friends");
@@ -1986,9 +1988,9 @@ class GroupTest {
         group1.addMember(person4);
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
 
@@ -2023,9 +2025,9 @@ class GroupTest {
         group1.addMember(person4);
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
 
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
@@ -2062,9 +2064,9 @@ class GroupTest {
         group1.addMember(person3);
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
@@ -2101,11 +2103,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2169,11 +2171,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2215,11 +2217,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
 
         Category otherCategory = new Category("QWERTY");
@@ -2257,11 +2259,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2305,11 +2307,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2352,11 +2354,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2399,11 +2401,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2446,11 +2448,11 @@ class GroupTest {
         oneGroup.addMember(onePerson);
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2491,11 +2493,11 @@ class GroupTest {
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
         Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"));
+                new Description("abc Account"), new GroupID(new Description("shopping")));
 
         Category oneCategory = new Category("ASD");
         Category otherCategory = new Category("QWERTY");
@@ -2548,9 +2550,9 @@ class GroupTest {
         Category categoryThree = new Category("groceries");
 
         Account accountOne = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account accountTwo = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
 
         //Group instanced:
         Group group1 = new Group(new Description("Test Group"));
@@ -2591,9 +2593,9 @@ class GroupTest {
         Category categoryThree = new Category("groceries");
 
         Account accountOne = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account accountTwo = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
 
         //Group instanced:
         Group group1 = new Group(new Description("Test Group"));
@@ -2635,9 +2637,9 @@ class GroupTest {
         Category categoryThree = new Category("groceries");
 
         Account accountOne = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account accountTwo = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
 
 
         //Group instanced:
@@ -2679,9 +2681,9 @@ class GroupTest {
         Category categoryThree = new Category("groceries");
 
         Account accountOne = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account accountTwo = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
 
 
         //Group instanced:
@@ -2727,9 +2729,9 @@ class GroupTest {
         Category categoryThree = new Category("groceries");
 
         Account accountOne = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"));
+                new Description("xpto Account"), new GroupID(new Description("shopping")));
         Account accountTwo = new Account(new Denomination("xyz"),
-                new Description("xyz Account"));
+                new Description("xyz Account"), new GroupID(new Description("shopping")));
 
         //Group instanced:
         Group group1 = new Group(new Description("Test Group"));
@@ -2783,9 +2785,9 @@ class GroupTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
 
         Group group = new Group(new Description("tarzan"));
@@ -2793,10 +2795,10 @@ class GroupTest {
         //Act
         boolean result = group.scheduleNewTransaction(new Periodicity("daily"), amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(2400); // 250 x 10 = 2500
+        Thread.sleep(700); // 500 x 2
 
         //Assert
-        assertTrue(result && group.ledgerSize() == 10);
+        assertTrue(result && group.ledgerSize() == 2);
     }
 
 
@@ -2812,9 +2814,9 @@ class GroupTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
 
         Group group = new Group(new Description("tarzan"));
@@ -2822,10 +2824,10 @@ class GroupTest {
         //Act
         boolean result = group.scheduleNewTransaction(new Periodicity("working days"), amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(1900); // 500 x 4 = 2000
+        Thread.sleep(1500); // 1000 x 2
 
         //Assert
-        assertTrue(result && group.ledgerSize() == 4);
+        assertTrue(result && group.ledgerSize() == 2);
     }
 
     @Test
@@ -2840,9 +2842,9 @@ class GroupTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
 
         Group group = new Group(new Description("tarzan"));
@@ -2850,10 +2852,10 @@ class GroupTest {
         //Act
         boolean result = group.scheduleNewTransaction(new Periodicity("weekly"), amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(2900); // 750 x 4 = 3000
+        Thread.sleep(2000); // 1500 x 2
 
         //Assert
-        assertTrue(result && group.ledgerSize() == 4);
+        assertTrue(result && group.ledgerSize() == 2);
     }
 
 
@@ -2869,19 +2871,19 @@ class GroupTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
         Group group = new Group(new Description("tarzan"));
 
         //Act
         boolean result = group.scheduleNewTransaction(new Periodicity("monthly"), amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(2900); // 1000 x 3 = 3000
+        Thread.sleep(2500); // 2000 x 2
 
         //Assert
-        assertTrue(result && group.ledgerSize() == 3);
+        assertTrue(result && group.ledgerSize() == 2);
     }
 
     @Test
@@ -2896,9 +2898,9 @@ class GroupTest {
         Category category = new Category("General");
 
         Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"));
+                new Description("General expenses"), new GroupID(new Description("shopping")));
         Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"));
+                new Description("Transport expenses"), new GroupID(new Description("shopping")));
 
         Group group = new Group(new Description("tarzan"));
 

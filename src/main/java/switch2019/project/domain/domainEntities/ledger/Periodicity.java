@@ -27,13 +27,13 @@ public class Periodicity {
     private int convertKeyWordIntoMilliseconds(String periodicity) {
         switch (periodicity) {
             case "daily":
-                return 250;
-            case "working days":
                 return 500;
-            case "weekly":
-                return 750;
-            case "monthly":
+            case "working days":
                 return 1000;
+            case "weekly":
+                return 1500;
+            case "monthly":
+                return 2000;
             default:
                 throw new IllegalArgumentException("You have to choose between 'daily', 'working days', 'weekly' or 'monthly'.");
         }

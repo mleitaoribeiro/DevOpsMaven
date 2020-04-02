@@ -21,7 +21,7 @@ public class US003AddMemberToGroupControllerRest {
 
         AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(info.getPersonEmail(), info.getGroupDescription());
 
-        AddedMemberDTO addedMemberDTO = service.addMemberToGroupDTO(addMemberDTO);
+        AddedMemberDTO addedMemberDTO = service.addMemberToGroup(addMemberDTO);
 
         return new ResponseEntity<>(addedMemberDTO, HttpStatus.CREATED);
     }

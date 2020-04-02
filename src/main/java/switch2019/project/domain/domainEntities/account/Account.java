@@ -15,22 +15,9 @@ public class Account implements Entity {
     // Private Instance Variables
 
     private AccountID accountID;
-    private Denomination denomination;
     private Description description;
     private MonetaryValue balance;
 
-    /**
-     * Constructor of Account (to delete later)
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     */
-
-    public Account(Denomination accountDenomination, Description accountDescription) {
-        this.denomination = accountDenomination;
-        this.description = accountDescription;
-        this.balance = new MonetaryValue(0.0, Currency.getInstance("EUR"));
-    }
 
     /**
      * Constructor of Account
@@ -90,7 +77,7 @@ public class Account implements Entity {
      */
 
     public String denominationToString() {
-        return denomination.toString();
+        return this.getID().getDenomination();
     }
 
     /**
