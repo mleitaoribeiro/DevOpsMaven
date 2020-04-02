@@ -83,7 +83,7 @@ class CategoryTest {
     @DisplayName("Verify if two categories are the same - same object")
     void twoCategoriesAreEqualsSame() {
         //Arrange
-        Category categoryDescription = new Category("Health");
+        Category categoryDescription = new Category(new Denomination("Health"),new PersonID(new Email("personEmail@email.com")));
 
         //Assert
         assertEquals(categoryDescription, categoryDescription);
@@ -93,7 +93,7 @@ class CategoryTest {
     @DisplayName("Verify if equals method verifies if object is not of the same type")
     public void testIfACategoryIsNotEqualToAnotherObject() {
         //Arrange:
-        Category categoryPlaceholder = new Category("Dinner");
+        Category categoryPlaceholder = new Category(new Denomination("Dinner"),new PersonID(new Email("personEmail@email.com")));
         Group groupPlaceholder = new Group(new Description("Friends"));
 
         //Act:
@@ -112,8 +112,8 @@ class CategoryTest {
     public void testIfTwoCategoriesHaveTheSameHashCodeSame() {
 
         //Arrange & Act
-        Category category1 = new Category("Health");
-        Category category2 = new Category("Health");
+        Category category1 = new Category(new Denomination("Health"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("Health"),new PersonID(new Email("personEmail@email.com")));
 
         //Assert
         assertEquals(category1.hashCode(), category2.hashCode());

@@ -26,7 +26,7 @@ class ScheduledTasksListTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),

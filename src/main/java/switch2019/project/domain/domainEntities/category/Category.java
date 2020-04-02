@@ -11,17 +11,7 @@ public class Category implements Entity {
 
     //Private instance variables
     private CategoryID categoryID;
-    private Denomination nameOfCategory;
-
-    /**
-     * Category constructor (to delete later)
-     *
-     * @param category
-     */
-    public Category(String category) {
-        nameOfCategory = new Denomination(category);
-    }
-
+    
     /**
      * 2nd Category constructor
      *
@@ -63,7 +53,7 @@ public class Category implements Entity {
      * @return nameOfCategory
      */
     public String getNameOfCategory() {
-        return nameOfCategory.toString();
+        return categoryID.getDenominationString();
     }
 }
 

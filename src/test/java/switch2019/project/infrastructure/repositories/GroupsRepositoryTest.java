@@ -397,7 +397,7 @@ class GroupsRepositoryTest {
                 new Address("Porto"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Categories:
-        Category categoryFriends = new Category("friends");
+        Category categoryFriends = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         //Monetary Value:
         MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
@@ -435,7 +435,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -468,7 +468,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("Grocery"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -502,7 +502,7 @@ class GroupsRepositoryTest {
 
             //Transactions arrangement:
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("Test");
+        Category category1 = new Category(new Denomination("Test"),new PersonID(new Email("personEmail@email.com")));
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
         Account to = new Account(new Denomination("TransportAccount"),
@@ -534,7 +534,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("Test"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -565,7 +565,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -595,7 +595,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -626,7 +626,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -656,7 +656,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -689,7 +689,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -724,7 +724,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -764,7 +764,7 @@ class GroupsRepositoryTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -818,8 +818,8 @@ class GroupsRepositoryTest {
         MonetaryValue monetaryValue4 = new MonetaryValue(150, Currency.getInstance("EUR"));
 
             //Categories:
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("restaurants");
+        Category category1 = new Category(new Denomination("general"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("restaurants"),new PersonID(new Email("personEmail@email.com")));
 
             //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -893,8 +893,8 @@ class GroupsRepositoryTest {
         MonetaryValue monetaryValue4 = new MonetaryValue(150, Currency.getInstance("EUR"));
 
         //Categories:
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("restaurants");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("restaurants"),new PersonID(new Email("personEmail@email.com")));
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -969,8 +969,8 @@ class GroupsRepositoryTest {
         MonetaryValue monetaryValue4 = new MonetaryValue(150, Currency.getInstance("EUR"));
 
         //Categories:
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("restaurants");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("restaurants"),new PersonID(new Email("personEmail@email.com")));
 
         //Accounts:
         Account account1 = new Account(new Denomination("Savings"),
@@ -1033,7 +1033,7 @@ class GroupsRepositoryTest {
                 new Description("Savings destined to food"), new PersonID(new Email("personEmail@email.pt")));
         Account pingDoceAccount = new Account(new Denomination("Pingo Doce"),
                 new Description("groceries on Pingo Doce"), new PersonID(new Email("personEmail@email.pt")));
-        Category shoppingForFood = new Category("shopping for food");
+        Category shoppingForFood = new Category(new Denomination("shopping for food"),new PersonID(new Email("personEmail@email.com")));
 
 
             //Arranging transactions inside group1's Ledger:

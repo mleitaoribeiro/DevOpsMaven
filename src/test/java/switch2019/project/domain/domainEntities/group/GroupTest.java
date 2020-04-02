@@ -1280,7 +1280,7 @@ class GroupTest {
                 new Description("xpto Account"), new GroupID(new Description("Gift")));
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("xyz Account"), new GroupID(new Description("Gift")));
-        Category category1 = new Category("ASD");
+        Category category1 = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
         //Act:
@@ -1306,7 +1306,7 @@ class GroupTest {
                 new Description("xpto Account"), new GroupID(new Description("Gift")));
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("xyz Account"), new GroupID(new Description("Gift")));
-        Category category1 = new Category("ASD");
+        Category category1 = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(true));
 
         //Act:
@@ -1332,7 +1332,7 @@ class GroupTest {
                 new Description("xpto Account"), new GroupID(new Description("Gift")));
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("xyz Account"), new GroupID(new Description("Gift")));
-        Category category1 = new Category("ASD");
+        Category category1 = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
         Transaction transaction1 = new Transaction(monetaryValue, "Test Transaction", date1, category1, oneAccount, otherAccount, new Type(false));
         Transaction transaction2 = new Transaction(monetaryValue, "Test Transaction2", date1, category1, oneAccount, otherAccount, new Type(true));
 
@@ -1362,7 +1362,7 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
 
-        Category category1 = new Category("grocery");
+        Category category1 = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
 
         Account account1 = new Account(new Denomination("groceries"),
                 new Description("mercearia Continente"), new GroupID(new Description("shopping")));
@@ -1402,7 +1402,7 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
 
-        Category category1 = new Category("grocery");
+        Category category1 = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
 
         Account account1 = new Account(new Denomination("groceries"),
                 new Description("mercearia Continente"), new GroupID(new Description("shopping")));
@@ -1445,7 +1445,7 @@ class GroupTest {
         MonetaryValue monetaryValue2 = new MonetaryValue(125, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue3 = new MonetaryValue(175, Currency.getInstance("EUR"));
 
-        Category category1 = new Category("grocery");
+        Category category1 = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
 
         Account account1 = new Account(new Denomination("groceries"),
                 new Description("mercearia Continente"), new GroupID(new Description("shopping")));
@@ -1675,8 +1675,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1723,8 +1723,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1774,8 +1774,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1867,8 +1867,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1943,8 +1943,8 @@ class GroupTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), new GroupID(new Description("shopping")));
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
@@ -1996,7 +1996,7 @@ class GroupTest {
 
         String description = "payment";
 
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         //Act
         boolean transactionCreated = false;
@@ -2033,7 +2033,7 @@ class GroupTest {
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description1 = "payment";
 
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         //Act
         try {
@@ -2073,7 +2073,7 @@ class GroupTest {
 
         String description = "payment";
 
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         //Act
         boolean transactionCreated = false;
@@ -2109,8 +2109,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2177,8 +2177,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2224,7 +2224,7 @@ class GroupTest {
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
 
-        Category otherCategory = new Category("QWERTY");
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2265,8 +2265,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2313,8 +2313,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2360,8 +2360,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2407,8 +2407,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2454,8 +2454,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2499,8 +2499,8 @@ class GroupTest {
         Account anotherAccount = new Account(new Denomination("abc"),
                 new Description("abc Account"), new GroupID(new Description("shopping")));
 
-        Category oneCategory = new Category("ASD");
-        Category otherCategory = new Category("QWERTY");
+        Category oneCategory = new Category(new Denomination("ASD"),new PersonID(new Email("personEmail@email.com")));
+        Category otherCategory = new Category(new Denomination("QWERTY"),new PersonID(new Email("personEmail@email.com")));
 
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -2545,9 +2545,9 @@ class GroupTest {
         LocalDateTime localDateTwo = LocalDateTime.of(2018, 11, 23, 9, 10);
         LocalDateTime localDateThree = LocalDateTime.of(2019, 10, 2, 9, 10);
 
-        Category categoryOne = new Category("food");
-        Category categoryTwo = new Category("movie");
-        Category categoryThree = new Category("groceries");
+        Category categoryOne = new Category(new Denomination("food"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryTwo = new Category(new Denomination("movie"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryThree = new Category(new Denomination("groceries"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountOne = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"), new GroupID(new Description("shopping")));
@@ -2588,9 +2588,9 @@ class GroupTest {
         LocalDateTime localDateTwo = LocalDateTime.of(2018, 11, 23, 9, 10);
         LocalDateTime localDateThree = LocalDateTime.of(2019, 10, 2, 9, 10);
 
-        Category categoryOne = new Category("food");
-        Category categoryTwo = new Category("movie");
-        Category categoryThree = new Category("groceries");
+        Category categoryOne = new Category(new Denomination("food"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryTwo = new Category(new Denomination("movie"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryThree = new Category(new Denomination("groceries"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountOne = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"), new GroupID(new Description("shopping")));
@@ -2632,9 +2632,9 @@ class GroupTest {
         LocalDateTime localDateTwo = LocalDateTime.of(2018, 10, 23, 9, 20);
         LocalDateTime localDateThree = LocalDateTime.of(2018, 10, 23, 9, 40);
 
-        Category categoryOne = new Category("food");
-        Category categoryTwo = new Category("movie");
-        Category categoryThree = new Category("groceries");
+        Category categoryOne = new Category(new Denomination("food"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryTwo = new Category(new Denomination("movie"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryThree = new Category(new Denomination("groceries"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountOne = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"), new GroupID(new Description("shopping")));
@@ -2676,9 +2676,9 @@ class GroupTest {
         LocalDateTime localDateTwo = LocalDateTime.of(2018, 11, 23, 9, 10);
         LocalDateTime localDateThree = LocalDateTime.of(2019, 10, 2, 9, 10);
 
-        Category categoryOne = new Category("food");
-        Category categoryTwo = new Category("movie");
-        Category categoryThree = new Category("groceries");
+        Category categoryOne = new Category(new Denomination("food"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryTwo = new Category(new Denomination("movie"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryThree = new Category(new Denomination("groceries"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountOne = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"), new GroupID(new Description("shopping")));
@@ -2724,9 +2724,9 @@ class GroupTest {
         LocalDateTime localDateTwo = LocalDateTime.of(2018, 10, 23, 9, 20);
         LocalDateTime localDateThree = LocalDateTime.of(2018, 10, 23, 9, 40);
 
-        Category categoryOne = new Category("food");
-        Category categoryTwo = new Category("movie");
-        Category categoryThree = new Category("groceries");
+        Category categoryOne = new Category(new Denomination("food"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryTwo = new Category(new Denomination("movie"),new PersonID(new Email("personEmail@email.com")));
+        Category categoryThree = new Category(new Denomination("groceries"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountOne = new Account(new Denomination("myxpto"),
                 new Description("xpto Account"), new GroupID(new Description("shopping")));
@@ -2782,7 +2782,7 @@ class GroupTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new GroupID(new Description("shopping")));
@@ -2811,7 +2811,7 @@ class GroupTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new GroupID(new Description("shopping")));
@@ -2839,7 +2839,7 @@ class GroupTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new GroupID(new Description("shopping")));
@@ -2868,7 +2868,7 @@ class GroupTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new GroupID(new Description("shopping")));
@@ -2895,7 +2895,7 @@ class GroupTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new GroupID(new Description("shopping")));

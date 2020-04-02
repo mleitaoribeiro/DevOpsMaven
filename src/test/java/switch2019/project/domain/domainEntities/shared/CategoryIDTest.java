@@ -85,7 +85,7 @@ public class CategoryIDTest {
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
         CategoryID categoryID1 = new CategoryID(new Denomination("Gym"), person1.getID());
-        Category category1 = new Category("Food");
+        Category category1 = new Category(new Denomination("food"), new PersonID(new Email("personEmail@email.com")));
 
         //Act:
         boolean result = categoryID1.equals(category1);
