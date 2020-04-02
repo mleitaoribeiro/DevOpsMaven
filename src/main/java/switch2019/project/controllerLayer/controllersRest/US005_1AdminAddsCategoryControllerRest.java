@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.CategoryDTO;
 
 import switch2019.project.DTO.CreateGroupCategoryDTO;
-import switch2019.project.DTO.CreateGroupCategoryInputDTO;
+import switch2019.project.DTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 
@@ -29,7 +29,7 @@ public class US005_1AdminAddsCategoryControllerRest {
     }
 
     @PostMapping("/addCategoryToGroup")
-    public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestBody CreateGroupCategoryInputDTO dto) {
+    public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestBody CreateGroupCategoryInfoDTO dto) {
         CreateGroupCategoryDTO categoryDTO = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(dto);
         CategoryDTO result = service.addCategoryToGroup(categoryDTO);
         return new ResponseEntity<>(result, HttpStatus.CREATED);

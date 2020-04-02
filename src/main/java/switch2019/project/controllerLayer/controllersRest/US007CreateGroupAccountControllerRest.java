@@ -3,12 +3,12 @@ package switch2019.project.controllerLayer.controllersRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreateGroupAccountDTO;
+import switch2019.project.DTO.CreateGroupAccountInfoDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
+import switch2019.project.assemblers.AccountDTOAssembler;
 
 @RestController
 public class US007CreateGroupAccountControllerRest {
@@ -17,21 +17,15 @@ public class US007CreateGroupAccountControllerRest {
     US007CreateGroupAccountService service;
 
     /**
-     *
-     * @param personEmail
-     * @param groupDescription
-     * @param accountDenomination
-     * @param accountDescription
+     * Controller that takes the posted information, and creates an Account in a given Group.
+     * @param info
      * @return
      */
-    @GetMapping("/addGroupAccount")
-    public ResponseEntity<AccountDTO> addGroupAccount (@RequestParam(value = "personEmail" ) String personEmail,
-                                   @RequestParam(value = "groupDescription") String groupDescription,
-                                   @RequestParam(value = "accountDenomination") String accountDenomination,
-                                   @RequestParam(value = "accountDescription") String accountDescription) {
+    @PostMapping("/addGroupAccount")
+    public ResponseEntity<AccountDTO> addGroupAccount (@RequestBody CreateGroupAccountInfoDTO info)  {
 
         //Arrange the entry dto with the given strings:
-        CreateGroupAccountDTO dto = new CreateGroupAccountDTO(personEmail, groupDescription, accountDenomination, accountDescription);
+        CreateGroupAccountDTO dto = AccountDTOAssembler.transformToCreateGroupCategoryDTO(info);
 
         //Use the service to obtain the exit DTO
         AccountDTO result = service.createGroupAccount(dto);
