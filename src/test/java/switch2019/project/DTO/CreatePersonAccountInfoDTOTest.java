@@ -2,6 +2,7 @@ package switch2019.project.DTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreatePersonAccountInfoDTOTest {
@@ -14,10 +15,10 @@ class CreatePersonAccountInfoDTOTest {
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
 
         //Act:
-        String description = dto.getPersonEmail();
+        String personEmail = dto.getPersonEmail();
 
         //Assert:
-        assertEquals("1191762@isep.ipp.pt", description);
+        assertEquals("1191762@isep.ipp.pt", personEmail);
 
     }
 
@@ -30,10 +31,10 @@ class CreatePersonAccountInfoDTOTest {
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
 
         //Act:
-        String description = dto.getAccountDenomination();
+        String denomination = dto.getAccountDenomination();
 
         //Assert:
-        assertEquals("Revolut", description);
+        assertEquals("Revolut", denomination);
 
     }
 
@@ -54,14 +55,51 @@ class CreatePersonAccountInfoDTOTest {
 
 
     @Test
-    void setPersonEmail() {}
+    @DisplayName("Test Person Email setter")
+    void setPersonEmail() {
+        //Assert
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
+        String expected = "1191762@isep.ipp.pt";
+
+        //Act:
+        dto.setPersonEmail("1191762@isep.ipp.pt");
+        String result = dto.getPersonEmail();
+
+        //Assert:
+        assertEquals("1191762@isep.ipp.pt", result);
+
+    }
 
 
     @Test
+    @DisplayName("Test accountDenomination setter")
     void setAccountDenomination() {
+        //Assert
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
+        String expected = "Revolut";
+
+        //Act:
+        dto.setAccountDenomination("Revolut");
+        String result = dto.getAccountDenomination();
+
+        //Assert:
+        assertEquals("Revolut", result);
+
     }
 
     @Test
+    @DisplayName("Test accountDescription setter")
     void setAccountDescription() {
+        //Assert
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
+        String expected = "Online Shopping";
+
+        //Act:
+        dto.setAccountDescription("Online Shopping");
+        String result = dto.getAccountDescription();
+
+        //Assert:
+        assertEquals("Online Shopping", result);
+
     }
-}
+    }
