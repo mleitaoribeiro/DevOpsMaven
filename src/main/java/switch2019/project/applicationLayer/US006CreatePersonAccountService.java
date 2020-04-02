@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.stereotype.Service;
 import switch2019.project.DTO.AccountDTO;
 import switch2019.project.DTO.CreatePersonAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
@@ -10,7 +11,7 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
-
+@Service
 public class US006CreatePersonAccountService {
 
     private PersonRepository personRepository;
