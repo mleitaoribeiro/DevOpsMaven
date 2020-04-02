@@ -63,11 +63,11 @@ class CreatePersonAccountDTOTest {
      */
 
     @Test
-    @DisplayName("Test if Two AccountDTO objects are the same")
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are the same")
     public void equalsTestTrue(){
         //Arrange:
-        AccountDTO dto1 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
-        AccountDTO dto2 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto1  = new CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
 
         //Act:
         boolean areDtosTheSame = dto1.equals(dto2);
@@ -77,11 +77,11 @@ class CreatePersonAccountDTOTest {
     }
 
     @Test
-    @DisplayName("Test if Two AccountDTO objects are NOT the same - different description")
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are NOT the same - different description")
     public void equalsTestFalseDifferentDescription(){
         //Arrange:
-        AccountDTO dto1 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
-        AccountDTO dto2 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","house");
+        CreatePersonAccountDTO dto1 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","house");
 
         //Act:
         boolean areDtosTheSame = dto1.equals(dto2);
@@ -91,11 +91,11 @@ class CreatePersonAccountDTOTest {
     }
 
     @Test
-    @DisplayName("Test if Two AccountDTO objects are NOT the same - different ownerID")
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are NOT the same - different ownerID")
     public void equalsTestFalseDifferentOwnerID(){
         //Arrange:
-        AccountDTO dto1 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
-        AccountDTO dto2 = new AccountDTO("raquel.rodrigues@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto1 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("raquel.rodrigues@xpto.pt", "kelle account","expenses");
 
         //Act:
         boolean areDtosTheSame = dto1.equals(dto2);
@@ -109,8 +109,8 @@ class CreatePersonAccountDTOTest {
     @DisplayName("null parameters - check if equals always returns false")
     public void equalsTestFalseNullParameters(){
         //Arrange:
-        AccountDTO dto1 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
-        AccountDTO dto2 = null;
+        CreatePersonAccountDTO dto1 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = null;
 
         //Act:
         boolean areDtosTheSame = dto1.equals(dto2);
@@ -122,10 +122,10 @@ class CreatePersonAccountDTOTest {
 
 
     @Test
-    @DisplayName("Test if Two AccountDTO objects are the same - different type of object")
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are the same - different type of object")
     public void equalsTestFalseDifferentTypeOfObject(){
         //Arrange:
-        AccountDTO dto1 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto1 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
         Description dto2 = new Description("TestEquals");
 
         //Act:
@@ -141,27 +141,30 @@ class CreatePersonAccountDTOTest {
      */
 
     @Test
-    @DisplayName("Test if Two AccountDTO objects are the same")
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are the same")
     public void equalsHashCodeFalse(){
         //Arrange:
-        AccountDTO dto1 = new AccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
-        AccountDTO dto2 = new AccountDTO("raquel.santos@xpto.pt", "global account","expenses for house");
+        CreatePersonAccountDTO dto1 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses for house");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses for house");
+
+        //Act:
+        boolean sameHashCode = (dto1.hashCode() == dto2.hashCode());
+
+        //Assert:
+        assertTrue(sameHashCode);
+    }
+
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are NOT the same")
+    @Test
+    public void equalsHashCodeSame(){
+        //Arrange:
+        CreatePersonAccountDTO dto1 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "raquel account","expenses");
 
         //Act:
         boolean sameHashCode = (dto1.hashCode() == dto2.hashCode());
 
         //Assert:
         assertFalse(sameHashCode);
-    }
-
-    @DisplayName("Test if Two CategoryDTO objects are NOT the same")
-    @Test
-    public void equalsHashCodeSame(){
-        //Arrange:
-        CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
-        CategoryDTO dto2 = new CategoryDTO("Groceries", "ID");
-
-        //Assert:
-        assertEquals(dto1.hashCode(),dto2.hashCode());
     }
 }
