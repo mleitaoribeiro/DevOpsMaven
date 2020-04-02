@@ -870,7 +870,7 @@ class PersonTest {
         MonetaryValue amountNegative = new MonetaryValue(-50, Currency.getInstance("EUR"));
         String description1 = "payment";
 
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountWallet = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -898,7 +898,7 @@ class PersonTest {
         MonetaryValue amount = new MonetaryValue(50, Currency.getInstance("EUR"));
         String description = "payment";
 
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account accountWallet = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -1179,7 +1179,7 @@ class PersonTest {
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 14, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("General");
+        Category category1 = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
@@ -1289,7 +1289,7 @@ class PersonTest {
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("General");
+        Category category1 = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
@@ -1325,7 +1325,7 @@ class PersonTest {
         //Arrange - Transaction1//
         LocalDateTime dateTransaction1 = LocalDateTime.of(2020, 1, 15, 13, 00);
         MonetaryValue amount1 = new MonetaryValue(20, Currency.getInstance("EUR"));
-        Category category1 = new Category("General");
+        Category category1 = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         person.createTransaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
         Transaction transaction1 = new Transaction(amount1, "payment", dateTransaction1, category1, from, to, new Type(false));
@@ -1527,21 +1527,21 @@ class PersonTest {
         //Init Transactions
         person1.createTransaction(new MonetaryValue(20, Currency.getInstance("EUR")), "2 pacs of Gurosan",
                 LocalDateTime.of(2020, 1, 1, 13, 5),
-                new Category("grocery"), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 1, 14, 11),
-                new Category("grocery"), new Account(new Denomination("Millenium"),
+                new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
                         new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
                 new Account(new Denomination("Continente"),
                         new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         person1.createTransaction(new MonetaryValue(70, Currency.getInstance("EUR")), "schweppes",
                 LocalDateTime.of(2020, 1, 5, 17, 23),
-                new Category("grocery"), new Account(new Denomination("CGD"),
+                new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
                         new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
                 new Account(new Denomination("BP"),
                         new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
@@ -1631,7 +1631,7 @@ class PersonTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -1659,7 +1659,7 @@ class PersonTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -1685,7 +1685,7 @@ class PersonTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -1712,7 +1712,7 @@ class PersonTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -1738,7 +1738,7 @@ class PersonTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category("General");
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
 
         Account from = new Account(new Denomination("Wallet"),
                 new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
@@ -1775,7 +1775,7 @@ class PersonTest {
                 new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
 
 
-        Category category = new Category("grocery");
+        Category category = new Category(new Denomination("general"),new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         Ledger ledger = new Ledger();
@@ -1901,8 +1901,8 @@ class PersonTest {
         Account account5 = new Account(new Denomination("comida de gato"),
                 new Description("comida para a gatinha"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category category1 = new Category("grocery");
-        Category category2 = new Category("friends");
+        Category category1 = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        Category category2 = new Category(new Denomination("friends"),new PersonID(new Email("personEmail@email.com")));
 
         Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));

@@ -3,6 +3,7 @@ package switch2019.project.domain.domainEntities.shared;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.person.Email;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -90,7 +91,7 @@ class DescriptionTest {
     @DisplayName("Test if is the same object - false")
     public void sameObjectFalse() {
         Description firstDescription = new Description("Mercearia");
-        Category category = new Category("Talho");
+        Category category = new Category(new Denomination("Talho"),new PersonID(new Email("personEmail@email.com")));
 
 
         boolean result= firstDescription.equals(category);
