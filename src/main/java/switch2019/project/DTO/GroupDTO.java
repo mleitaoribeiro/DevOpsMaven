@@ -3,6 +3,7 @@ package switch2019.project.DTO;
 import java.util.Objects;
 
 public class GroupDTO {
+
     private String groupDescription;
 
     public GroupDTO(String groupDescription) {
