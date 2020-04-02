@@ -14,18 +14,7 @@ class PeriodicityTest {
     void convertKeyWordIntoMillisecondsDaily() {
         //Arrange & Act
         Periodicity periodicity = new Periodicity("daily");
-        int expected = 250;
-        int actual = periodicity.getPeriodicityInMilliseconds();
-
-        //Assert
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void convertKeyWordIntoMillisecondsWeekly() {
-        //Arrange & Act
-        Periodicity periodicity = new Periodicity("weekly");
-        int expected = 750;
+        int expected = 500;
         int actual = periodicity.getPeriodicityInMilliseconds();
 
         //Assert
@@ -36,7 +25,18 @@ class PeriodicityTest {
     void convertKeyWordIntoMillisecondsWorkingDays() {
         //Arrange & Act
         Periodicity periodicity = new Periodicity("working days");
-        int expected = 500;
+        int expected = 1000;
+        int actual = periodicity.getPeriodicityInMilliseconds();
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertKeyWordIntoMillisecondsWeekly() {
+        //Arrange & Act
+        Periodicity periodicity = new Periodicity("weekly");
+        int expected = 1500;
         int actual = periodicity.getPeriodicityInMilliseconds();
 
         //Assert
@@ -47,7 +47,7 @@ class PeriodicityTest {
     void convertKeyWordIntoMillisecondsMonthly() {
         //Arrange & Act
         Periodicity periodicity = new Periodicity("monthly");
-        int expected = 1000;
+        int expected = 2000;
         int actual = periodicity.getPeriodicityInMilliseconds();
 
         //Assert

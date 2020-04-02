@@ -3,6 +3,8 @@ package switch2019.project.controllerLayer.controllerCLI;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.AddMemberDTO;
+import switch2019.project.DTO.AddedMemberDTO;
 import switch2019.project.controllerLayer.controllersCli.US003AddMemberToGroupController;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -55,12 +57,13 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jo.cardoso@hotmail.com";
         String groupDescription = "familia";
+        String expected = "jo.cardoso@hotmail.com was added to group familia";
 
         //Act
-        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
+        AddedMemberDTO addedMemberDTO = controller.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
-        assertTrue(memberAdded);
+        assertEquals(expected, addedMemberDTO.getMemberAdded());
     }
 
     @Test
@@ -69,11 +72,13 @@ public class US003AddMemberToGroupControllerTest {
         //Arrange
         String personEmail = "jose.cardoso@hotmail.com";
         String groupDescription = "familia";
+        String expected = "jose.cardoso@hotmail.com is already on group familia";
+
         //Act
-        boolean memberAdded = controller.addMemberToGroup(personEmail, groupDescription);
+        AddedMemberDTO addedMemberDTO = controller.addMemberToGroup(personEmail, groupDescription);
 
         //Assert
-        assertFalse(memberAdded);
+        assertEquals(expected, addedMemberDTO.getMemberAdded());
     }
 
     @Test

@@ -27,15 +27,10 @@ public class US003AddMemberToGroupService {
      * Add Member To Group
      *
      * @param addMemberDTO
-     * @return boolean
+     * @return AddedMemberDTO
      */
-    public boolean addMemberToGroup(AddMemberDTO addMemberDTO) {
-        Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
-        Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
-        return group.addMember(person);
-    }
 
-    public AddedMemberDTO addMemberToGroupDTO(AddMemberDTO addMemberDTO) {
+    public AddedMemberDTO addMemberToGroup(AddMemberDTO addMemberDTO) {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         boolean wasMemberAdded = group.addMember(person);

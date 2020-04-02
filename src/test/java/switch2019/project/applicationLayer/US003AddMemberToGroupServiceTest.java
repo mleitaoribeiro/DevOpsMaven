@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.AddMemberDTO;
+import switch2019.project.DTO.AddedMemberDTO;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -53,12 +54,13 @@ public class US003AddMemberToGroupServiceTest {
         String personEmail = "jo.cardoso@hotmail.com";
         String groupDescription = "familia";
         AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
+        String expected = "jo.cardoso@hotmail.com was added to group familia";
 
         //Act
-        boolean memberAdded = service.addMemberToGroup(addMemberDTO);
+        AddedMemberDTO addedMemberDTO = service.addMemberToGroup(addMemberDTO);
 
         //Assert
-        assertTrue(memberAdded);
+        assertEquals(expected, addedMemberDTO.getMemberAdded());
     }
 
     @Test
@@ -68,12 +70,13 @@ public class US003AddMemberToGroupServiceTest {
         String personEmail = "jose.cardoso@hotmail.com";
         String groupDescription = "familia";
         AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
+        String expected = "jose.cardoso@hotmail.com is already on group familia";
 
         //Act
-        boolean memberAdded = service.addMemberToGroup(addMemberDTO);
+        AddedMemberDTO addedMemberDTO = service.addMemberToGroup(addMemberDTO);
 
         //Assert
-        assertFalse(memberAdded);
+        assertEquals(expected, addedMemberDTO.getMemberAdded());
     }
 
     @Test

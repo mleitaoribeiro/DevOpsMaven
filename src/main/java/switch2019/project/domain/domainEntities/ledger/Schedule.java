@@ -13,7 +13,7 @@ public class Schedule {
     private final Periodicity periodicity;
 
     /**
-     *  Schedule Constructor
+     * Schedule Constructor
      *
      * @param ledger
      * @param periodicity
@@ -30,7 +30,7 @@ public class Schedule {
         this.periodicity = periodicity;
         Timer timer = new Timer();
         TransactionTask scheduledTransactionTask = new TransactionTask(ledger, amount,
-                                                        description, date, category, accountFrom, accountTo, type);
+                description, date, category, accountFrom, accountTo, type);
         timer.schedule(scheduledTransactionTask, 0, this.periodicity.getPeriodicityInMilliseconds());
     }
 }

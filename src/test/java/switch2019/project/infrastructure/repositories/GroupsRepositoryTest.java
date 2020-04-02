@@ -549,10 +549,10 @@ class GroupsRepositoryTest {
                 new Periodicity("daily"),
                 amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(2400); // 250 x 10 = 2500
+        Thread.sleep(700); // 500 x 2
 
         //Assert
-        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 10);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 2);
     }
 
 
@@ -580,10 +580,10 @@ class GroupsRepositoryTest {
                 new Periodicity("working days"),
                 amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(1900); // 500 x 4 = 2000
+        Thread.sleep(1500); // 1000 x 2
 
         //Assert
-        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 2);
     }
 
     @Test
@@ -610,10 +610,10 @@ class GroupsRepositoryTest {
                 new Periodicity("weekly"),
                 amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(2900); // 750 x 4 = 3000
+        Thread.sleep(2000); // 1500 x 2
 
         //Assert
-        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 4);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 2);
     }
 
 
@@ -641,10 +641,10 @@ class GroupsRepositoryTest {
                 new Periodicity("monthly"),
                 amount, description, null, category, from, to, new Type(false));
 
-        Thread.sleep(2900); // 1000 x 3 = 3000
+        Thread.sleep(2500); // 2000 x 2
 
         //Assert
-        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 3);
+        assertTrue(result && groupsRepository.checkAGroupsLedgerSize("tarzan") == 2);
     }
 
     @Test
