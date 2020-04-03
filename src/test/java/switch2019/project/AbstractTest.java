@@ -1,8 +1,6 @@
 package switch2019.project;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public abstract class AbstractTest {
     }
 
     protected <T> T mapFromJson (String json, Class <T> clazz)
-            throws JsonParseException, JsonMappingException, IOException {
+            throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, clazz);

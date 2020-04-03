@@ -1,9 +1,6 @@
-package switch2019.project.controllerLayer.controllersRest;
+package switch2019.project.springBoot.integration;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
     @Override
-    @BeforeAll
+    @BeforeEach
     public void setUP(){
         super.setUP();
     }
@@ -31,12 +28,12 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
         final String personEmail = "rick@gmail.com";
         final String categoryDenomination = "shopping";
 
-        CreateGroupCategoryInfoDTO createGroupCategoryInputDTO = new CreateGroupCategoryInfoDTO();
-        createGroupCategoryInputDTO.setGroupDescription(groupDescriptionStr);
-        createGroupCategoryInputDTO.setPersonEmail(personEmail);
-        createGroupCategoryInputDTO.setCategoryDenomination(categoryDenomination);
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
-        String inputJson = super.mapToJson((createGroupCategoryInputDTO));
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -45,9 +42,9 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(201, status);
 
-        String expected = mvcResult.getResponse().getContentAsString();
-
-        assertEquals(expected, "{\"denomination\":\"" +categoryDenomination.toUpperCase()+"\"" +"," +"\"ownerID\":\"" +groupDescriptionStr.toUpperCase() + "\"}");
+        String result = mvcResult.getResponse().getContentAsString();
+        String expected = "{\"denomination\":\"" +categoryDenomination.toUpperCase()+"\"" +"," +"\"ownerID\":\"" +groupDescriptionStr.toUpperCase() + "\"}";
+        assertEquals(expected, result);
 
     }
 
