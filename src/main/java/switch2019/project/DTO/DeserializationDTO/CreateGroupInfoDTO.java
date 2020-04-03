@@ -6,7 +6,8 @@ public class CreateGroupInfoDTO {
     private String groupDescription;
     private String personEmail;
 
-    public CreateGroupInfoDTO() {}
+    public CreateGroupInfoDTO() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -57,5 +58,6 @@ public class CreateGroupInfoDTO {
     public String getPersonEmail() {
         return personEmail;
     }
+
 
 }
