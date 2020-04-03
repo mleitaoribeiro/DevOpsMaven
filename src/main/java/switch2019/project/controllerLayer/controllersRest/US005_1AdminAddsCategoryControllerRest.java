@@ -23,4 +23,5 @@ public class US005_1AdminAddsCategoryControllerRest {
         CategoryDTO result = service.addCategoryToGroup(categoryDTO);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+
 }
