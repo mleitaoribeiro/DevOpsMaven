@@ -1,4 +1,4 @@
-package switch2019.project.DTO;
+package switch2019.project.DTO.ServiceDTO;
 
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
