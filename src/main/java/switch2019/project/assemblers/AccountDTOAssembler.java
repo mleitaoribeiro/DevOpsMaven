@@ -3,7 +3,7 @@ package switch2019.project.assemblers;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.SerializationDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
 import switch2019.project.domain.domainEntities.account.Account;
 

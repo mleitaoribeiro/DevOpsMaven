@@ -2,7 +2,7 @@ package switch2019.project.applicationLayer;
 
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.SerializationDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Email;

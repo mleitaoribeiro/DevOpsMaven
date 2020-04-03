@@ -1,7 +1,7 @@
 package switch2019.project.assemblers;
 
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.SerializationDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 
@@ -47,5 +47,4 @@ public class CategoryDTOAssembler {
     public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(CreateGroupCategoryInfoDTO dto) {
         return new CreateGroupCategoryDTO(dto.getGroupDescription(), dto.getPersonEmail(), dto.getCategoryDenomination());
     }
-
 }

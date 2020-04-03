@@ -2,7 +2,7 @@ package switch2019.project.DTO.SerializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.SerializationDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.domain.domainEntities.shared.Description;
 
 import static org.junit.jupiter.api.Assertions.*;

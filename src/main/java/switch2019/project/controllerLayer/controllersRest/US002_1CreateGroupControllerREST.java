@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
-import switch2019.project.DTO.DeserializationDTO.createGroupInfoDTO;
+import switch2019.project.DTO.DeserializationDTO.CreateGroupInfoDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
@@ -23,7 +23,7 @@ public class US002_1CreateGroupControllerREST {
      * @return dto groupCreated
      */
     @PostMapping("/createGroup")
-    public ResponseEntity<Object> createGroup(@RequestBody createGroupInfoDTO info){
+    public ResponseEntity<Object> createGroup(@RequestBody CreateGroupInfoDTO info){
 
         CreateGroupDTO createGroupDTO = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 

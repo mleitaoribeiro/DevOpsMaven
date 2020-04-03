@@ -2,17 +2,17 @@ package switch2019.project.DTO.DeserializationDTO;
 
 import java.util.Objects;
 
-public class createGroupInfoDTO {
+public class CreateGroupInfoDTO {
     private String groupDescription;
     private String personEmail;
 
-    public createGroupInfoDTO() {}
+    public CreateGroupInfoDTO() {}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        createGroupInfoDTO that = (createGroupInfoDTO) o;
+        CreateGroupInfoDTO that = (CreateGroupInfoDTO) o;
         return Objects.equals(groupDescription, that.groupDescription) &&
                 Objects.equals(personEmail, that.personEmail);
     }

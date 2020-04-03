@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 
-import switch2019.project.DTO.SerializationDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
@@ -16,17 +16,6 @@ public class US005_1AdminAddsCategoryControllerRest {
 
     @Autowired
     private US005_1AdminAddsCategoryToGroupService service;
-
-    @GetMapping("/addCategoryToGroup")
-    public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestParam(value = "groupDescription") String groupDescription,
-                                                          @RequestParam(value = "personEmail") String personEmail,
-                                                          @RequestParam(value = "categoryDenomination") String categoryDenomination) {
-
-        CreateGroupCategoryDTO dto = CategoryDTOAssembler.createGroupCategoryDTOFromStrings(groupDescription, personEmail, categoryDenomination);
-        CategoryDTO result = service.addCategoryToGroup(dto);
-
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
-    }
 
     @PostMapping("/addCategoryToGroup")
     public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestBody CreateGroupCategoryInfoDTO dto) {

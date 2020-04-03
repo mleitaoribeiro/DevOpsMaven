@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.SerializationDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;

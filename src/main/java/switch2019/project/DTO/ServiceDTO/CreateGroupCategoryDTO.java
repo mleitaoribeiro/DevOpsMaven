@@ -1,4 +1,4 @@
-package switch2019.project.DTO.SerializationDTO;
+package switch2019.project.DTO.ServiceDTO;
 
 public class CreateGroupCategoryDTO {
 

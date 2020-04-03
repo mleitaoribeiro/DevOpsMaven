@@ -2,7 +2,6 @@ package switch2019.project.DTO.DeserializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.DeserializationDTO.createGroupInfoDTO;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +13,7 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to getPersonEmail")
     void getPersonEmail() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setPersonEmail("raquel@isep.pt");
         String expected = "raquel@isep.pt";
 
@@ -30,7 +29,7 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to getGroupDescription")
     void getGroupDescription() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         String expected = "Gym Buddies";
 
@@ -50,7 +49,7 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to equals - Same Object")
     void equalsSameObject() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
@@ -65,11 +64,11 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to equals - Null Object")
     void equalsNullObject() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
-        createGroupInfoDTO dto2 = null;
+        CreateGroupInfoDTO dto2 = null;
 
         //Act
         boolean actual = dto.equals(dto2);
@@ -82,7 +81,7 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to equals - Object from different class")
     void equalsDifferentObjectClass() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
@@ -99,11 +98,11 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to equals - Same attributes")
     void equalsSameAttributes() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
-        createGroupInfoDTO dto2 = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto2 = new CreateGroupInfoDTO();
         dto2.setGroupDescription("Gym Buddies");
         dto2.setPersonEmail("raquel@isep.pt");
 
@@ -118,11 +117,11 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to equals - Different Group Description")
     void equalsDifferentGroupDescription() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
-        createGroupInfoDTO dto2 = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto2 = new CreateGroupInfoDTO();
         dto2.setGroupDescription("Gym Team");
         dto2.setPersonEmail("raquel@isep.pt");
 
@@ -137,11 +136,11 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to equals - Different Person Email")
     void equalsDifferentPersonEmail() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
-        createGroupInfoDTO dto2 = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto2 = new CreateGroupInfoDTO();
         dto2.setGroupDescription("Gym Buddies");
         dto2.setPersonEmail("kelle@isep.pt");
 
@@ -160,11 +159,11 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to HashCode - Same Hashcode")
     void sameHashcode() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
-        createGroupInfoDTO dto2 = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto2 = new CreateGroupInfoDTO();
         dto2.setGroupDescription("Gym Buddies");
         dto2.setPersonEmail("raquel@isep.pt");
 
@@ -179,11 +178,11 @@ class createGroupInfoDTOTest {
     @DisplayName("Test to HashCode - Different Hashcode")
     void differentHashcode() {
         //Arrange
-        createGroupInfoDTO dto = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto = new CreateGroupInfoDTO();
         dto.setGroupDescription("Gym Buddies");
         dto.setPersonEmail("raquel@isep.pt");
 
-        createGroupInfoDTO dto2 = new createGroupInfoDTO();
+        CreateGroupInfoDTO dto2 = new CreateGroupInfoDTO();
         dto2.setGroupDescription("Gym Team");
         dto2.setPersonEmail("raquel@isep.pt");
 

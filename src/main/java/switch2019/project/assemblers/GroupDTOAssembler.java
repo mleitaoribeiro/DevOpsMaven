@@ -1,7 +1,7 @@
 package switch2019.project.assemblers;
 
 import switch2019.project.DTO.DeserializationDTO.AddMemberInfoDTO;
-import switch2019.project.DTO.DeserializationDTO.createGroupInfoDTO;
+import switch2019.project.DTO.DeserializationDTO.CreateGroupInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
@@ -42,7 +42,7 @@ public class GroupDTOAssembler {
      * @param dto
      * @return
      */
-    public static CreateGroupDTO transformOfCreationOfGroupDTO(createGroupInfoDTO dto) {
+    public static CreateGroupDTO transformOfCreationOfGroupDTO(CreateGroupInfoDTO dto) {
         return new CreateGroupDTO(dto.getGroupDescription(), dto.getPersonEmail());
     }
 
