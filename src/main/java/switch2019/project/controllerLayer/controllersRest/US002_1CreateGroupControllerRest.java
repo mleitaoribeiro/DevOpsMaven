@@ -11,7 +11,7 @@ import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 
 @RestController
-public class US002_1CreateGroupControllerREST {
+public class US002_1CreateGroupControllerRest {
 
     @Autowired
     US002_1CreateGroupService service;
@@ -22,6 +22,7 @@ public class US002_1CreateGroupControllerREST {
      * @param info
      * @return dto groupCreated
      */
+
     @PostMapping("/createGroup")
     public ResponseEntity<Object> createGroup(@RequestBody CreateGroupInfoDTO info){
 

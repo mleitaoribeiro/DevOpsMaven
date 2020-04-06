@@ -272,7 +272,7 @@ public class Bootstrapper {
                 new Email("roberto@gmail.com"));
 
         Person motherMargaridaAzevedo =  personRepository.createPerson(
-                "Maria Cardoso",
+                "Margarida Azevedo",
                 new DateAndTime(1964, 12, 1),
                 new Address("Guimarães"),
                 new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),

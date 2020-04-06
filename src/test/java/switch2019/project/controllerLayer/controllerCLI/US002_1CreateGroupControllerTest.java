@@ -45,7 +45,7 @@ class US002_1CreateGroupControllerTest {
      * Test if a group was created and person is admin
      */
     @Test
-    @DisplayName("Main scenario - Existing person crkeates a Group and becomes Admin")
+    @DisplayName("Main scenario - Existing person creates a Group and becomes Admin")
     void createGroupAndBecomeAdmin() {
 
         //Arrange
