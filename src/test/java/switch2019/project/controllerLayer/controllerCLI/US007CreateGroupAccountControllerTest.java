@@ -94,8 +94,6 @@ class US007CreateGroupAccountControllerTest {
     /**
      *  Test If group Account is created - Happy Cases
      */
-
-
     @Test
     @DisplayName("Test If group Account was created - Main Scenario - Happy Case")
     void testIfGroupAccountWasCreatedHappyCase() {
@@ -151,10 +149,6 @@ class US007CreateGroupAccountControllerTest {
     /**
      * Test If group Account is created - Failing scenarios
      */
-
-
-
-
     @Test
     @DisplayName("Test If group Account was created - Person is Member but not Admin - Number of accounts has not increased")
     void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
