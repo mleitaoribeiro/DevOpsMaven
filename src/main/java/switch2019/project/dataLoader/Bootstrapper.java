@@ -400,7 +400,7 @@ public class Bootstrapper {
         familyCardosoGroup.setAdmin(motherMariaCardoso);
 
         //Family group - Family Azevedo - 1 Admin (Group creator)
-        Group familyAzevedoGroup = groupRepository.createGroup( new Description("Familia Azevedo"),
+        Group familyAzevedoGroup = groupRepository.createGroup( new Description("Family Azevedo"),
                 personRepository.findPersonByEmail(new Email("beatriz.azevedo@gmail.com")));
 
         familyAzevedoGroup.addMember(fatherRobertoAzevedo);
