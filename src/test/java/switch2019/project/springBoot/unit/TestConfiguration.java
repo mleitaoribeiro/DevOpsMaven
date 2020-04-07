@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
+import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 
 @Profile("test")
@@ -16,6 +17,10 @@ public class TestConfiguration {
     public US003AddMemberToGroupService service() {
         return Mockito.mock(US003AddMemberToGroupService.class);
     }
+
+    @Bean
+    @Primary
+    public US004GetFamilyGroupsService serviceUS004() { return Mockito.mock(US004GetFamilyGroupsService.class); }
 
     @Bean
     @Primary
