@@ -1,9 +1,16 @@
 package switch2019.project.springBoot.unit;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
+import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.controllersCli.US007CreateGroupAccountController;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
@@ -12,8 +19,10 @@ import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class US007CreateGroupAccountControllerRestUnitTest extends AbstractTest {
+@SpringBootTest
+@ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
+public class US007CreateGroupAccountControllerRestUnitTest {
 
     @Autowired
     PersonRepository personRepo;
@@ -24,13 +33,8 @@ class US007CreateGroupAccountControllerRestUnitTest extends AbstractTest {
     @Autowired
     US007CreateGroupAccountService service;
 
-    private US007CreateGroupAccountController controller;
+    US007CreateGroupAccountController controller;
 
-    @Override
-    @BeforeEach
-    public void setUP(){
-        super.setUP();
-    }
 
     //testes Marta - ainda nao acabados
 
@@ -45,16 +49,21 @@ class US007CreateGroupAccountControllerRestUnitTest extends AbstractTest {
         //Arrange
         controller = new US007CreateGroupAccountController(service);
 
-        String personEmail = "joao.cardoso_12@hotmail.com";
-        String groupDescription = "Familia";
+        String personEmail = "1110120@isep.ipp.pt";
+        String groupDescription = "SWitCH";
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes
+                (personEmail,groupDescription, accountDenomination, accountDescription);
+
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        //Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
         //AccountDTO accountCreatedDTO = controller.createGroupAccount(personEmail, groupDescription,
-                //accountDenomination, accountDescription);
+               //accountDenomination, accountDescription);
 
         //Assert
         //assertEquals(accountExpectedDTO, accountCreatedDTO);
@@ -65,33 +74,54 @@ class US007CreateGroupAccountControllerRestUnitTest extends AbstractTest {
     void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
 
         //Arrange
-        String personEmail = "joao.cardoso_12@hotmail.com";
+        controller = new US007CreateGroupAccountController(service);
+
+        String personEmail = "beatriz.azevedo@gmail.com";
         String groupDescription = "Friends";
-        String accountDenomination = "Online";
-        String accountDescription = "Online Shopping";
-
-
-        int numberOfExpectedAccountsInTheRepository = 0;
+        String accountDenomination = "Vet";
+        String accountDescription = "Veterinarian dispenses";
 
         //Act
+        String message;
+
         try {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
         }
         catch (IllegalArgumentException invalid) {
-
-            int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
-
-            //Assert
-            /*Assertions.assertAll(
-                    () -> assertEquals("This person is not Admin of this group", invalid.getMessage()),
-                    () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
-            );*/
+            message = invalid.getMessage();
         }
+
+        //Assert
+        //assertEquals("This person is not Admin of this group", message);
     }
 
-    // test if person that is admin in another group can create account
+    @Test
+    @DisplayName("Test If group Account was created - Person is Admin but not of this group")
+    void testIfGroupAccountWasCreatedNotAdminOfRightGroup() {
 
+        //Arrange
+        controller = new US007CreateGroupAccountController(service);
+
+        String personEmail = "hugo.azevedo@gmail.com";
+        String groupDescription = "Friends";
+        String accountDenomination = "Vet";
+        String accountDescription = "Veterinarian dispenses";
+
+        //Act
+        String message;
+
+        try {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        }
+        catch (IllegalArgumentException invalid) {
+            message = invalid.getMessage();
+        }
+
+        //Assert
+        //assertEquals("This person is not Admin of this group", message);
+    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
