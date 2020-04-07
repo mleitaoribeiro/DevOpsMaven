@@ -90,6 +90,8 @@ class US007CreateGroupAccountControllerRestUnitTest extends AbstractTest {
         }
     }
 
+    // test if person that is admin in another group can create account
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
