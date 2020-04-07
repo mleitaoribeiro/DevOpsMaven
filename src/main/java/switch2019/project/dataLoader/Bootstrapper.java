@@ -407,5 +407,33 @@ public class Bootstrapper {
         familyAzevedoGroup.addMember(motherMargaridaAzevedo);
         familyAzevedoGroup.addMember(margaridaAzevedo);
         familyAzevedoGroup.addMember(hugoAzevedo);
+
+        // Additional Set up for siblings Tests
+        Person father = personRepository.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("father1@isep.ipp.pt"));
+        Person father2 = personRepository.createPerson("Rafael", new DateAndTime(1991, 12, 13), new Address("Portimão"),
+                new Address("Rua X", "Portimão", "4520-266"), new Email("father2@isep.ipp.pt"));
+        Person mother = personRepository.createPerson("Maria", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("mother1@isep.ipp.pt"));
+        Person mother2 = personRepository.createPerson("Mariana", new DateAndTime(1987, 12, 13), new Address("Fafe"),
+                new Address("Rua X", "Fafe", "4520-266"), new Email("mother2@isep.ipp.pt"));
+
+        // Siblings - are in each other list of siblings
+        father.addSibling(father2);
+
+        // Siblings - same Father and Mother and in each other's list
+        Person antonio = personRepository.createPerson("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("antonio@isep.ipp.pt"));
+        Person manuel = personRepository.createPerson("Manuel", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
+                new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("manuel@isep.ipp.pt"));
+        antonio.addSibling(manuel);
+
+        // Siblings (with antonio) - only same Mother
+        personRepository.createPerson("Roberto", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
+                new Address("Rua X", "Porto", "4520-266"), mother, father2, new Email("roberto@isep.ipp.pt"));
+
+        // Siblings (with antonio) - only same Father
+        personRepository.createPerson("Amália", new DateAndTime(1995, 12, 13), new Address("Penacova"),
+                new Address("Rua X", "Porto", "4520-266"), mother2, father, new Email("amalia@isep.ipp.pt"));
     }
 }

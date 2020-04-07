@@ -159,8 +159,6 @@ class US001AreSiblingsControllerTest {
         String joseEmail = "father@isep.ipp.pt";
         String robertoEmail = "child3@isep.ipp.pt";
 
-        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(joseEmail, robertoEmail);
-
         //Act
         try {
             controller.areSiblings(joseEmail, robertoEmail);
