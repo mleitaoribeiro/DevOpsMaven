@@ -4,8 +4,11 @@ import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -132,17 +135,18 @@ public class US001AreSiblingsControllerRestTest extends AbstractTest {
     public void checkIfTwoPeopleAreSiblingsPersonEmailNotFound() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=father1@isep.ipp.pt&personTwoEmail=father2@isep.ipp.pt";
+        String uri = "/areSiblings?personOneEmail=404@isep.ipp.pt&personTwoEmail=father2@isep.ipp.pt";
 
-        // Act
-        try {
+        //Act
+        Throwable thrown = catchThrowable(() -> {
             mvc.perform(MockMvcRequestBuilders.get(uri)
                     .contentType(MediaType.APPLICATION_JSON)).andReturn();
-        }
+        });
 
-        // Assert
-        catch (IllegalArgumentException description) {
-            assertEquals("No person found with that ID.", description.getMessage());
-        }
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NestedServletException.class)
+                .hasMessage("Request processing failed; nested exception is " +
+                        "java.lang.IllegalArgumentException: No person found with that email.");
     }
 }
