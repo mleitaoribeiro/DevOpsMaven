@@ -7,6 +7,7 @@ import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
@@ -446,6 +447,15 @@ public class Bootstrapper {
         categoriesRepository.createCategory(new Denomination("GYM"), switchGroup.getID());
         categoriesRepository.createCategory(new Denomination("ISEP"), switchGroup.getID());
 
+        /*Add Accounts to Owner ID*/
+
+        //Account of Group - Family Cardoso
+        accountRepository.createAccount(new Denomination("Revolut"),
+                new Description("Online Expenses"),
+                new GroupID(new Description("Family Cardoso")));
+        // Account of Person - Marta Cardoso
+        accountRepository.createAccount(new Denomination("Mbway")
+        , new Description("Rides"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
     }
 }
