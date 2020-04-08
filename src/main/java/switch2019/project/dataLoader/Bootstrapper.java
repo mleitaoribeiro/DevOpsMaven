@@ -449,6 +449,11 @@ public class Bootstrapper {
 
         /*Add Accounts to Owner ID*/
 
+        //Person Accounts
+        accountRepository.createAccount(new Denomination("Homer Snacks"),
+                new Description("Money spent on snacks for homer"),
+                new PersonID(new Email("marge@hotmail.com")));
+
         //Account of Group - Family Cardoso
         accountRepository.createAccount(new Denomination("Revolut"),
                 new Description("Online Expenses"),
