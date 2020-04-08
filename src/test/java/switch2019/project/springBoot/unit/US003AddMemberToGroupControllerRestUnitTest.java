@@ -16,6 +16,8 @@ import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.controllerLayer.controllersCli.US003AddMemberToGroupController;
 
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -84,15 +86,14 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
 
         //Act
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.addMemberToGroup(personEmail, groupDescription);
-        }
+        });
 
         //Assert
-        catch (IllegalArgumentException email) {
-            assertEquals("No person found with that email.", email.getMessage());
-        }
-
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
     }
 
     @Test
@@ -110,13 +111,13 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
 
         //Act
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.addMemberToGroup(personEmail, groupDescription);
-        }
+        });
 
         //Assert
-        catch (IllegalArgumentException email) {
-            assertEquals("No group was found with the given description.", email.getMessage());
-        }
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group was found with the given description.");
     }
 }
