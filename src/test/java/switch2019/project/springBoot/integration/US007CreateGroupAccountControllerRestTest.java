@@ -127,7 +127,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
         String uri = "/addGroupAccount";
 
         final String groupDescription = "West World";
-        final String personEmail = "dolores@delos.pt";
+        final String personEmail = "homer@hotmail.com";
         final String accountDenomination = "Clone AI from park";
         final String accountDescription = "Dolores several copies";
 
@@ -144,7 +144,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
         assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson)))
-                .hasCause(new IllegalArgumentException("No person found with that email."))
+                .hasCause(new IllegalArgumentException("No group was found with the given description."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 }
