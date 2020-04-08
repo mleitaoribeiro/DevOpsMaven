@@ -19,11 +19,9 @@ class US006CreatePersonAccountControllerRestTest extends AbstractTest {
 
     @Override
     @BeforeEach
-    public void setUP(){
+    public void setUP() {
         super.setUP();
     }
-
-    //ISSUE 814
 
     @DisplayName("Test If User Account is created - Main Scenario")
     @Test
@@ -47,8 +45,8 @@ class US006CreatePersonAccountControllerRestTest extends AbstractTest {
         String inputJson = super.mapToJson((infoDTO));
 
             //arrangement of the expected output:
-        String expected = "{\"ownerID\":\"" + personEmail.toUpperCase() +"\"" +"," +"\"denomination\":\"" +accountDenomination.toUpperCase() +
-                "\"" +"," +"\"description\":\"" +accountDescription.toUpperCase() + "\"}";
+        String expected = "{\"ownerID\":\"" + personEmail.toUpperCase() + "\"" + "," + "\"denomination\":\"" + accountDenomination.toUpperCase() +
+                "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() + "\"}";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -67,24 +65,112 @@ class US006CreatePersonAccountControllerRestTest extends AbstractTest {
                 () -> assertEquals(expected, result)
         );
     }
-
-    @DisplayName("Test If User Account was created - Account already exists")
+    @DisplayName("Test If User Account was created - Account already on Repository")
     @Test
-    void testIfUserAccountWasCreated() throws Exception {
+    void testIfUserAccountWasCreatedAccountAlreadyExists() throws Exception {
+        //ARRANGE:
+            //URI used to call the controller:
+        String uri = "/createPersonAccount";
+
+            //arrangement of the account DTO:
+        final String personEmail = "marge@hotmail.com";
+        final String accountDenomination = "Homer Snacks";
+        final String accountDescription = "Money spent on snacks for homer";
+
+            //setting information for the DTO:
+        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
+        infoDTO.setPersonEmail(personEmail);
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+            //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //ACT:
+        Throwable exception = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //ASSERT:
+        assertThat(exception)
+                .hasCause(new IllegalArgumentException("This Account already exists for that ID."))
+                .isExactlyInstanceOf(NestedServletException.class);
 
     }
+
 
     @DisplayName("Test If User Account was created - Person doesn't exist on Repository")
     @Test
     void testIfUserAccountWasCreatedPersonDoesNotExist() throws Exception {
-        //test here
+        //ARRANGE:
+            //URI used to call the controller:
+        String uri = "/createPersonAccount";
+
+            //arrangement of the account DTO:
+        final String personEmail = "blabla@hotmail.com";
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+            //setting information for the DTO:
+        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
+        infoDTO.setPersonEmail(personEmail);
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+            //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //ACT:
+        Throwable exception = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //ASSERT:
+        assertThat(exception)
+                .hasCause(new IllegalArgumentException("No person found with that email."))
+                .isExactlyInstanceOf(NestedServletException.class);
+
     }
 
     @DisplayName("Test If User Account was created - email invalid - null")
     @Test
     void testIsUserAccountWasCreatedEmailNull() throws Exception {
-        //test here
+        //ARRANGE:
+            //URI used to call the controller:
+        String uri = "/createPersonAccount";
+
+            //arrangement of the account DTO:
+        final String personEmail = null;
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+            //setting information for the DTO:
+        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
+        infoDTO.setPersonEmail(personEmail);
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+            //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //ACT:
+        Throwable exception = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //ASSERT:
+        assertThat(exception)
+                .hasCause(new IllegalArgumentException("The email can´t be null!"))
+                .isExactlyInstanceOf(NestedServletException.class);
+
     }
+
 
     @Test
     @DisplayName("Test If User Account was created  - email invalid - empty")
