@@ -11,6 +11,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.controllerLayer.controllersCli.US006CreatePersonAccountController;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -48,28 +51,81 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //test here
     }
 
+    @Test
     @DisplayName("Test If User Account was created  - email invalid - empty")
-    @Test
-    void test5() {
-        //test here
+    void testIfUserAccountWasCreated_EmailEmpty() {
+        //Arrange
+        String personEmail = "";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email it´s not valid");
     }
 
+    @Test
     @DisplayName("Test If User Account was created  - email invalid - invalid format")
-    @Test
-    void test6() {
-        //test here
+    void testIfUserAccountWasCreated_InvalidEmailFormat() {
+        //Arrange
+        String personEmail = "morty@@gmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email it´s not valid");
     }
 
+    @Test
     @DisplayName("Test If User Account was created  - account invalid - null")
-    @Test
-    void test7() {
-        //test here
+    void testIfUserAccountWasCreated_AccountDenominationNull() {
+        //Arrange
+        String personEmail = "morty@gmail.com";
+        String accountDenomination = null;
+        String accountDescription = "Revolut Account";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can´t be null or empty!");
     }
 
-    @DisplayName("Test If User Account was created - account invalid - empty")
     @Test
-    void test8() {
-        //test here
+    @DisplayName("Test If User Account was created - account invalid - empty")
+    void testIfUserAccountWasCreated_AccountDenominationEmpty() {
+        //Arrange
+        String personEmail = "morty@gmail.com";
+        String accountDenomination = "";
+        String accountDescription = "Revolut Account";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can´t be null or empty!");
+
     }
 
 
