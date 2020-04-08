@@ -2,11 +2,13 @@ package switch2019.project.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
@@ -435,5 +437,15 @@ public class Bootstrapper {
         // Siblings (with antonio) - only same Father
         personRepository.createPerson("Amália", new DateAndTime(1995, 12, 13), new Address("Penacova"),
                 new Address("Rua X", "Porto", "4520-266"), mother2, father, new Email("amalia@isep.ipp.pt"));
+
+
+        /* Add categories to the groups */
+
+        //Group SWitCH - Added some categories
+
+        categoriesRepository.createCategory(new Denomination("GYM"), switchGroup.getID());
+        categoriesRepository.createCategory(new Denomination("ISEP"), switchGroup.getID());
+
+
     }
 }

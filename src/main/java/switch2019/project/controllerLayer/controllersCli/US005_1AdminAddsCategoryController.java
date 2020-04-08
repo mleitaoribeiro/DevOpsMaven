@@ -1,11 +1,12 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import org.springframework.stereotype.Controller;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 
-
+@Controller
 public class US005_1AdminAddsCategoryController {
 
     private US005_1AdminAddsCategoryToGroupService service;
