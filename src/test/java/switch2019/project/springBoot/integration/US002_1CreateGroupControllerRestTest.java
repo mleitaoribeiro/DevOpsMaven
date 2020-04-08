@@ -24,7 +24,7 @@ class US002_1CreateGroupControllerRestTest extends AbstractTest {
 
     @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - Main Scenario")
-    void createGroupAndBecomeAdmin_HappyCase() throws Exception {
+    void createGroupAndBecomeAdminHappyCase() throws Exception {
 
         //Arrange
         String uri = "/createGroup";
@@ -62,7 +62,7 @@ class US002_1CreateGroupControllerRestTest extends AbstractTest {
 
     @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - person doesn't exist")
-    void createGroupAndBecomeAdmin_personDoesNotExists() throws Exception {
+    void createGroupAndBecomeAdminPersonDoesNotExists() throws Exception {
 
         //Arrange
         String uri = "/createGroup";
@@ -76,10 +76,15 @@ class US002_1CreateGroupControllerRestTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        //Act & Assert
-        assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)))
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
                 .hasCause(new IllegalArgumentException("No person found with that email."))
                 .isExactlyInstanceOf(NestedServletException.class);
 
@@ -88,7 +93,7 @@ class US002_1CreateGroupControllerRestTest extends AbstractTest {
 
     @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - group Already Exists")
-    void createGroupAndBecomeAdmin_groupAlreadyExists() throws Exception {
+    void createGroupAndBecomeAdminGroupAlreadyExists() throws Exception {
 
         //Arrange
         String uri = "/createGroup";
@@ -116,7 +121,153 @@ class US002_1CreateGroupControllerRestTest extends AbstractTest {
     }
 
 
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid email - null")
+    void createGroupAndBecomeAdminInvalidEmailNull() throws Exception {
 
+        //Arrange
+        String uri = "/createGroup";
+
+        final String groupDescriptionStr = "SWitCH";
+        final String personEmail = null;
+
+        CreateGroupInfoDTO createGroupInfoDTO = new CreateGroupInfoDTO();
+        createGroupInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupInfoDTO.setPersonEmail(personEmail);
+
+        String inputJson = super.mapToJson((createGroupInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email can´t be null!"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid email - empty")
+    void createGroupAndBecomeAdminInvalidEmailEmpty() throws Exception {
+
+        //Arrange
+        String uri = "/createGroup";
+
+        final String groupDescriptionStr = "SWitCH";
+        final String personEmail = "";
+
+        CreateGroupInfoDTO createGroupInfoDTO = new CreateGroupInfoDTO();
+        createGroupInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupInfoDTO.setPersonEmail(personEmail);
+
+        String inputJson = super.mapToJson((createGroupInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email it´s not valid"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid email - invalid format")
+    void createGroupAndBecomeAdminInvalidEmailFormat() throws Exception {
+
+        //Arrange
+        String uri = "/createGroup";
+
+        final String groupDescriptionStr = "SWitCH";
+        final String personEmail = "morty@@gmail.com";
+
+        CreateGroupInfoDTO createGroupInfoDTO = new CreateGroupInfoDTO();
+        createGroupInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupInfoDTO.setPersonEmail(personEmail);
+
+        String inputJson = super.mapToJson((createGroupInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email it´s not valid"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid groupDescription - null")
+    void createGroupAndBecomeAdminGroupDescriptionNull() throws Exception {
+
+        //Arrange
+        String uri = "/createGroup";
+
+        final String groupDescriptionStr = null;
+        final String personEmail = "morty@gmail.com";
+
+        CreateGroupInfoDTO createGroupInfoDTO = new CreateGroupInfoDTO();
+        createGroupInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupInfoDTO.setPersonEmail(personEmail);
+
+        String inputJson = super.mapToJson((createGroupInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
+
+    }
+
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid groupDescription - Empty")
+    void createGroupAndBecomeAdminGroupDescriptionEmpty() throws Exception {
+
+        //Arrange
+        String uri = "/createGroup";
+
+        final String groupDescriptionStr = "";
+        final String personEmail = "morty@gmail.com";
+
+        CreateGroupInfoDTO createGroupInfoDTO = new CreateGroupInfoDTO();
+        createGroupInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupInfoDTO.setPersonEmail(personEmail);
+
+        String inputJson = super.mapToJson((createGroupInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
+
+    }
 
 
 }
