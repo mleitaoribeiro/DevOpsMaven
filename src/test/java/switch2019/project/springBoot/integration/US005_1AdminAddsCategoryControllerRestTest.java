@@ -117,6 +117,38 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
     }
 
     @Test
+    @DisplayName("Category is not added to Group categories - Group is not on the repository")
+    void adminAddsCategoryToCategoryListGroupIsNotInRepository() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "1191762@isep.ipp.pt";
+        String groupDescription = "Mariquinha";
+        String categoryDenomination = "compras";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("No group was found with the given description."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
     @DisplayName("Category is not added to Group categories - Category Already Exists")
     void adminAddsDuplicateCategoryToCategoryListTest() throws JsonProcessingException {
         //Arrange:
@@ -158,6 +190,38 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
         String personEmail = "1191762@isep.ipp.pt";
         String groupDescription = "Switch";
         String categoryDenomination = null;
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The denomination can´t be null or empty!"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - invalid Category Denomination-Empty")
+    void adminAddsCategoryToCategoryListCategoryDenominationEmpty() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "1191762@isep.ipp.pt";
+        String groupDescription = "Switch";
+        String categoryDenomination = "";
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
