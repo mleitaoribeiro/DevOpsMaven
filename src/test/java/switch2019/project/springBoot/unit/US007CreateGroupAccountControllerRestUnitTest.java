@@ -15,6 +15,8 @@ import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.controllersCli.US007CreateGroupAccountController;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -79,21 +81,17 @@ public class US007CreateGroupAccountControllerRestUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        String message = "";
-
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        }
-        catch (IllegalArgumentException invalid) {
-            message = invalid.getMessage();
-        }
+        });
 
         //Assert
-        assertEquals("This person is not Admin of this group", message);
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("This person is not Admin of this group");
     }
 
-    //Ainda não há codigo para este teste, fazemos?
     @Test
     @DisplayName("Test If group Account was created - Person is Admin but not of this group")
     void testIfGroupAccountWasCreatedNotAdminOfRightGroup() {
@@ -102,7 +100,7 @@ public class US007CreateGroupAccountControllerRestUnitTest {
         controller = new US007CreateGroupAccountController(service);
 
         String personEmail = "hugo.azevedo@gmail.com";
-        String groupDescription = "Friends";
+        String groupDescription = "Family Simpson";
         String accountDenomination = "Vet";
         String accountDescription = "Veterinarian dispenses";
 
@@ -115,18 +113,15 @@ public class US007CreateGroupAccountControllerRestUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        String message = "";
-
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        }
-        catch (IllegalArgumentException invalid) {
-            message = invalid.getMessage();
-        }
+        });
 
         //Assert
-        //assertEquals("This person is not Admin of this group", message);
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("This person is not Member of this group");
     }
 
 
