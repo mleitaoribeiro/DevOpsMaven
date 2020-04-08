@@ -2,19 +2,17 @@ package switch2019.project.springBoot.unit;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import switch2019.project.AbstractTest;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.controllersCli.US007CreateGroupAccountController;
-import switch2019.project.infrastructure.repositories.AccountRepository;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,19 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 public class US007CreateGroupAccountControllerRestUnitTest {
 
+    @Mock
     @Autowired
-    PersonRepository personRepo;
+    private US007CreateGroupAccountService service;
     @Autowired
-    GroupsRepository groupsRepo;
-    @Autowired
-    AccountRepository accountRepo;
-    @Autowired
-    US007CreateGroupAccountService service;
-
-    US007CreateGroupAccountController controller;
-
-
-    //testes Marta - ainda nao acabados
+    private US007CreateGroupAccountController controller;
 
     /**
      * US007
@@ -47,8 +37,6 @@ public class US007CreateGroupAccountControllerRestUnitTest {
     void testIfGroupAccountWasCreatedHappyCase() {
 
         //Arrange
-        controller = new US007CreateGroupAccountController(service);
-
         String personEmail = "1110120@isep.ipp.pt";
         String groupDescription = "SWitCH";
         String accountDenomination = "Online";
@@ -59,19 +47,20 @@ public class US007CreateGroupAccountControllerRestUnitTest {
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        //Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        //AccountDTO accountCreatedDTO = controller.createGroupAccount(personEmail, groupDescription,
-               //accountDenomination, accountDescription);
+        AccountDTO accountCreatedDTO = controller.createGroupAccount(personEmail, groupDescription,
+               accountDenomination, accountDescription);
 
         //Assert
-        //assertEquals(accountExpectedDTO, accountCreatedDTO);
+        assertEquals(accountExpectedDTO, accountCreatedDTO);
     }
 
     @Test
-    @DisplayName("Test If group Account was created - Person is Member but not Admin - Number of accounts has not increased")
-    void testIfGroupAccountWasCreatedNotAdminNumberOfAccounts() {
+    @DisplayName("Test If group Account was created - Person is Member but not Admin")
+    void testIfGroupAccountWasCreatedNotAdmin() {
 
         //Arrange
         controller = new US007CreateGroupAccountController(service);
@@ -81,8 +70,16 @@ public class US007CreateGroupAccountControllerRestUnitTest {
         String accountDenomination = "Vet";
         String accountDescription = "Veterinarian dispenses";
 
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes
+                (personEmail,groupDescription, accountDenomination, accountDescription);
+
+        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+
         //Act
-        String message;
+        String message = "";
 
         try {
             controller.createGroupAccount(personEmail, groupDescription,
@@ -93,9 +90,10 @@ public class US007CreateGroupAccountControllerRestUnitTest {
         }
 
         //Assert
-        //assertEquals("This person is not Admin of this group", message);
+        assertEquals("This person is not Admin of this group", message);
     }
 
+    //Ainda não há codigo para este teste, fazemos?
     @Test
     @DisplayName("Test If group Account was created - Person is Admin but not of this group")
     void testIfGroupAccountWasCreatedNotAdminOfRightGroup() {
@@ -108,8 +106,16 @@ public class US007CreateGroupAccountControllerRestUnitTest {
         String accountDenomination = "Vet";
         String accountDescription = "Veterinarian dispenses";
 
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes
+                (personEmail,groupDescription, accountDenomination, accountDescription);
+
+        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+
         //Act
-        String message;
+        String message = "";
 
         try {
             controller.createGroupAccount(personEmail, groupDescription,
