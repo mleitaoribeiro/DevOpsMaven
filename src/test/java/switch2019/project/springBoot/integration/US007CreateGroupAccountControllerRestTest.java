@@ -91,6 +91,37 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
     }
 
     @Test
+    @DisplayName("Test Group Account creation -  person does not exists on Person Repository")
+    void addGroupAccountPersonDoesNotExists() throws Exception {
+
+        //Arrange
+        String uri = "/addGroupAccount";
+
+        final String groupDescription = "Switch";
+        final String personEmail = "raquel@hotmail.com";
+        final String accountDenomination = "Gym";
+        final String accountDescription = "Fitness Expenses";
+
+        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        createGroupAccountInfoDTO.setGroupDescription(groupDescription);
+        createGroupAccountInfoDTO.setPersonEmail(personEmail);
+        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        //Act & Assert
+        assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)))
+                .hasCause(new IllegalArgumentException("No person found with that email."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+
+
+    @Test
     @DisplayName("Test Group Account creation -  group category already exists - test if output and HTTP response are expected ")
     void addGroupAccountServiceTestAccountCategoryException() throws Exception {
 
@@ -147,4 +178,5 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
                 .hasCause(new IllegalArgumentException("No group was found with the given description."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
+
 }
