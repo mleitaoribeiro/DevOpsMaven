@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
@@ -33,12 +34,12 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
 
 
     @Test
-    @DisplayName("Happy Case-  one category is added to Group categories by an admin")
+    @DisplayName("Happy Case - one category is added to Group categories by an admin")
     void addsCategoryToCategoryListAdmin() throws Exception {
         //Arrange:
         String creatorEmail = "1191743@isep.ipp.pt";
         String groupDescription = "SWITCH";
-        String categoryDenomination1 = "HEALTH";
+        String categoryDenomination1 = "TRAIL";
         CategoryDTO CategoryDTOExpected = new CategoryDTO(categoryDenomination1, groupDescription);
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination1);
 
@@ -58,14 +59,14 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Arrange Category 1:
         String creatorEmail = "1191743@isep.ipp.pt";
         String groupDescription = "SWITCH";
-        String categoryDenomination = "GAMES";
+        String categoryDenomination = "DINNERTIME";
         CategoryDTO CategoryDTOExpected1 = new CategoryDTO(categoryDenomination, groupDescription);
         CreateGroupCategoryDTO createGroupCategoryDTO1 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Arrange Category 2:
         String creatorEmail2 = "1191743@isep.ipp.pt";
         String groupDescription2 = "SWITCH";
-        String categoryDenomination2 = "LOL";
+        String categoryDenomination2 = "FOOD";
         CategoryDTO CategoryDTOExpected2 = new CategoryDTO(categoryDenomination2, groupDescription2);
         CreateGroupCategoryDTO createGroupCategoryDTO2 = new CreateGroupCategoryDTO(groupDescription2, creatorEmail2, categoryDenomination2);
 
