@@ -243,7 +243,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("No group was found with the given description.", invalid.getMessage());
+            assertEquals("There're no groups found with that description.", invalid.getMessage());
         }
     }
 
@@ -337,7 +337,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
         }
     }
 
@@ -359,7 +359,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
         }
     }
 

@@ -1,7 +1,7 @@
-package switch2019.project.DTO.ServiceDTO;
+package switch2019.project.DTO.SerializationDTO;
 
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.ServiceDTO.SiblingsDTO;
+import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
 

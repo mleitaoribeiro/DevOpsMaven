@@ -187,7 +187,7 @@ public class GroupsRepository implements Repository {
             if (group.getID().getDescription().equals(groupDescription.getDescription()))
                 return group;
         }
-        throw new IllegalArgumentException("No group was found with the given description.");
+        throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
 
     /**

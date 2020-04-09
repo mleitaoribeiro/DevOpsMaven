@@ -1,7 +1,7 @@
 package switch2019.project.assemblers;
 
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
-import switch2019.project.DTO.ServiceDTO.SiblingsDTO;
+import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
 
 public class PersonDTOAssembler {
 

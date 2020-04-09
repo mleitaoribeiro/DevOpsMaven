@@ -141,7 +141,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The denomination can´t be null or empty!");
+                .hasMessage("The denomination can´t be null or empty.");
 
     }
 
@@ -161,7 +161,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This category already exists and it could not be created");
+                .hasMessage("This category already exists and it could not be created.");
 
     }
 

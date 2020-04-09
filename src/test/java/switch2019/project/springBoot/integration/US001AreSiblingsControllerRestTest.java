@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class US001AreSiblingsControllerRestTest extends AbstractTest {
 
     @Override
-    @BeforeAll
+    @BeforeEach
     public void setUP() {
         super.setUP();
     }

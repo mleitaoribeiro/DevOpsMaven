@@ -320,7 +320,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Assert:
         catch (IllegalArgumentException nullParameter) {
-            assertEquals("The denomination can´t be null or empty!", nullParameter.getMessage());
+            assertEquals("The denomination can´t be null or empty.", nullParameter.getMessage());
         }
     }
 
@@ -342,7 +342,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Assert:
         catch (IllegalArgumentException nullParameter) {
-            assertEquals("This category already exists and it could not be created", nullParameter.getMessage());
+            assertEquals("This category already exists and it could not be created.", nullParameter.getMessage());
         }
     }
 }
