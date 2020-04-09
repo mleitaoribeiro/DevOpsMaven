@@ -626,7 +626,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO1);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This Account already exists.", invalid.getMessage());
+            assertEquals("This account already exists.", invalid.getMessage());
         }
     }
 
