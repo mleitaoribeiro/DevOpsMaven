@@ -31,7 +31,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     @Autowired private US006CreatePersonAccountControllerRest controller;
 
 
-    //ISSUE 813
+    //ISSUE 820
 
     @DisplayName("Test If User Account is created - Main Scenario")
     @Test
