@@ -11,7 +11,7 @@ import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -82,10 +82,14 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act & Assert
-        assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
+        //Act
+        Throwable thrown = catchThrowable(() -> {  mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)))
+                .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
                 .hasCause(new IllegalArgumentException("This person is not Admin of this group"))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
@@ -111,10 +115,13 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act & Assert
-        assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
+        //Act
+        Throwable thrown = catchThrowable(() -> { mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)))
+                .content(inputJson));
+        });
+        //Assert
+        assertThat(thrown)
                 .hasCause(new IllegalArgumentException("No person found with that email."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
@@ -142,10 +149,15 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act & Assert
-        assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)))
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
                 .hasCause(new IllegalArgumentException("This Account already exists for that ID."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
@@ -171,12 +183,16 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act & Assert
-        assertThatThrownBy(() -> mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)))
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
                 .hasCause(new IllegalArgumentException("No group was found with the given description."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
-
 }
