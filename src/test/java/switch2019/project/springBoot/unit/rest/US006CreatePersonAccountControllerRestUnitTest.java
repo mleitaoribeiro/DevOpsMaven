@@ -14,7 +14,7 @@ import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
-import switch2019.project.controllerLayer.controllersCli.US006CreatePersonAccountController;
+import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.controllersRest.US006CreatePersonAccountControllerRest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,10 +62,20 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     void testIfUserAccountWasCreated_EmailEmpty() {
 
         //Arrange
+        String personEmail = "";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail("");
-        createPersonAccountInfoDTO.setAccountDenomination("Revolut");
-        createPersonAccountInfoDTO.setAccountDescription("Revolut Account");
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -83,10 +93,20 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     void testIfUserAccountWasCreated_InvalidEmailFormat() {
 
         //Arrange
+        String personEmail = "morty@@gmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail("morty@@gmail.com");
-        createPersonAccountInfoDTO.setAccountDenomination("Revolut");
-        createPersonAccountInfoDTO.setAccountDescription("Revolut Account");
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -104,10 +124,20 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     void testIfUserAccountWasCreated_AccountDenominationNull() {
 
         //Arrange
+        String personEmail = "morty@gmail.com";
+        String accountDenomination = null;
+        String accountDescription = "Revolut Account";
+
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail("morty@gmail.com");
-        createPersonAccountInfoDTO.setAccountDenomination(null);
-        createPersonAccountInfoDTO.setAccountDescription("Revolut Account");
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = null;
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -125,10 +155,20 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     void testIfUserAccountWasCreated_AccountDenominationEmpty() {
 
         //Arrange
+        String personEmail = "morty@gmail.com";
+        String accountDenomination = "";
+        String accountDescription = "Revolut Account";
+
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail("morty@gmail.com");
-        createPersonAccountInfoDTO.setAccountDenomination("");
-        createPersonAccountInfoDTO.setAccountDescription("Revolut Account");
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
