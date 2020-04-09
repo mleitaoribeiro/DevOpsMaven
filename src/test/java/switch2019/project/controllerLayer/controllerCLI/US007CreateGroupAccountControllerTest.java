@@ -250,7 +250,7 @@ class US007CreateGroupAccountControllerTest {
         } catch (IllegalArgumentException invalid) {
 
             //Assert
-            assertEquals("There're no groups found with that description.", invalid.getMessage());
+            assertEquals("No group found with that description.", invalid.getMessage());
         }
     }
 

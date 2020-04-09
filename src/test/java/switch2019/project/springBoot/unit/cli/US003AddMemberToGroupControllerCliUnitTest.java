@@ -118,6 +118,6 @@ public class US003AddMemberToGroupControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("There're no groups found with that description.");
+                .hasMessage("No group found with that description.");
     }
 }

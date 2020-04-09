@@ -89,7 +89,7 @@ class US002_1CreateGroupServiceTest {
             service.createGroup(new CreateGroupDTO(groupDescription, personID));
         }
         catch (IllegalArgumentException ex) {
-            assertEquals("This Group Description already exists.", ex.getMessage());
+            assertEquals("This group description already exists.", ex.getMessage());
         }
     }
 

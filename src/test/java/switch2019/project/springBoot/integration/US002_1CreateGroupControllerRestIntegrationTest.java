@@ -117,7 +117,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This Group Description already exists."))
+                .hasCause(new IllegalArgumentException("This group description already exists."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
