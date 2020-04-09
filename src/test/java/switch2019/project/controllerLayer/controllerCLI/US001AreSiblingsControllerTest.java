@@ -152,7 +152,7 @@ class US001AreSiblingsControllerTest {
     }
 
     @Test
-    @DisplayName("Test if two individuals are siblings - invalid email")
+    @DisplayName("Test if two individuals are siblings - Person does't exist on Person Repository")
     void AreSiblingsInvalidEmail() {
         //Arrange
         String joseEmail = "father@isep.ipp.pt";

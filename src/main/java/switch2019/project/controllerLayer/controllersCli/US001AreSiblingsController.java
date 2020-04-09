@@ -1,10 +1,11 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import org.springframework.stereotype.Controller;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
-
+@Controller
 public class US001AreSiblingsController {
 
     private US001AreSiblingsService service;
