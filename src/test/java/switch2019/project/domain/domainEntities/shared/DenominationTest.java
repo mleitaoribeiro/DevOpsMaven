@@ -63,7 +63,7 @@ class DenominationTest {
         }
         //Assert
         catch (IllegalArgumentException setterEx) {
-            assertEquals("The denomination can´t be null or empty!", setterEx.getMessage());
+            assertEquals("The denomination can´t be null or empty.", setterEx.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ class DenominationTest {
         }
         //Assert
         catch (IllegalArgumentException setterEx) {
-            assertEquals("The denomination can´t be null or empty!", setterEx.getMessage());
+            assertEquals("The denomination can´t be null or empty.", setterEx.getMessage());
         }
     }
 

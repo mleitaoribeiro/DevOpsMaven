@@ -28,7 +28,7 @@ public class Account implements Entity {
      */
 
     public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
-        if (accountDescription == null) throw new IllegalArgumentException("Account Description can't be null.");
+        if (accountDescription == null) throw new IllegalArgumentException("Account description can't be null.");
         else {
             accountID = new AccountID(accountDenomination, ownerID);
             description = accountDescription;
