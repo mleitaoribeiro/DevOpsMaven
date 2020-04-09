@@ -158,7 +158,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         // Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This Account already exists for that ID."))
+                .hasCause(new IllegalArgumentException("This account already exists."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 

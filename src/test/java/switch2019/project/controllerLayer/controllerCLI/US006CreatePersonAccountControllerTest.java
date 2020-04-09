@@ -158,7 +158,7 @@ class US006CreatePersonAccountControllerTest {
         }
 
         //Assert
-        assertEquals("This Account already exists for that ID.", result);
+        assertEquals("This account already exists.", result);
     }
 
 

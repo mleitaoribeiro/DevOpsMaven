@@ -113,7 +113,7 @@ class AccountRepositoryTest {
             accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
         } catch (IllegalArgumentException ex) {
-            assertEquals("This Account already exists for that ID.", ex.getMessage());
+            assertEquals("This account already exists.", ex.getMessage());
         }
     }
 
@@ -130,7 +130,7 @@ class AccountRepositoryTest {
             accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new GroupID(new Description("Friends")));
         } catch (IllegalArgumentException ex) {
-            assertEquals("This Account already exists for that ID.", ex.getMessage());
+            assertEquals("This account already exists.", ex.getMessage());
         }
     }
 
@@ -582,7 +582,7 @@ class AccountRepositoryTest {
         try {
             Set<Account> real = accountRepository.returnAccountsByOwnerID(fakeID);
         } catch (IllegalArgumentException ex) {
-            assertEquals("Any Account found with that ID.", ex.getMessage());
+            assertEquals("No account found with that ID.", ex.getMessage());
         }
     }
 

@@ -143,7 +143,7 @@ class US006CreatePersonAccountServiceTest {
         }
 
         //Assert
-        assertEquals("This Account already exists for that ID.", result);
+        assertEquals("This account already exists.", result);
 
     }
 
@@ -177,7 +177,7 @@ class US006CreatePersonAccountServiceTest {
         //Assert
 
         Assertions.assertAll(
-                () -> assertEquals("This Account already exists for that ID.", result),
+                () -> assertEquals("This account already exists.", result),
                 () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
                 () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
         );

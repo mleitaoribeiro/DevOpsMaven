@@ -95,7 +95,7 @@ class US006CreatePersonAccountControllerRestTest extends AbstractTest {
 
         //ASSERT:
         assertThat(exception)
-                .hasCause(new IllegalArgumentException("This Account already exists for that ID."))
+                .hasCause(new IllegalArgumentException("This account already exists."))
                 .isExactlyInstanceOf(NestedServletException.class);
 
     }

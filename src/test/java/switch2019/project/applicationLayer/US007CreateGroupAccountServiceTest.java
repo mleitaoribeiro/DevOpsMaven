@@ -626,7 +626,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO1);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This Account already exists for that ID.", invalid.getMessage());
+            assertEquals("This account already exists.", invalid.getMessage());
         }
     }
 
@@ -650,7 +650,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This Account already exists for that ID.", invalid.getMessage());
+            assertEquals("This account already exists.", invalid.getMessage());
         }
     }
 
@@ -685,7 +685,7 @@ class US007CreateGroupAccountServiceTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("This Account already exists for that ID.", invalid.getMessage()),
+                    () -> assertEquals("This account already exists.", invalid.getMessage()),
                     () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
                     () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
             );
@@ -760,7 +760,7 @@ class US007CreateGroupAccountServiceTest {
             //Assert
             Assertions.assertAll(
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository),
-                    () -> assertEquals("This Account already exists for that ID.", invalid.getMessage())
+                    () -> assertEquals("This account already exists.", invalid.getMessage())
             );
         }
     }
