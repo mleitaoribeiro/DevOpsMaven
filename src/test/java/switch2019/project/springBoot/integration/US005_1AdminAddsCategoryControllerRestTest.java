@@ -53,7 +53,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
     }
 
     @Test
-    @DisplayName("Category is not added to Group categories - Person does't exists on the repository")
+    @DisplayName("Category is not added to Group categories - Person doesn't exist on Person repository")
     void adminAddsCategoryToCategoryListNotExistsOnRepository() throws JsonProcessingException {
         //Arrange:
         String uri = "/addCategoryToGroup";
@@ -117,7 +117,71 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
     }
 
     @Test
-    @DisplayName("Category is not added to Group categories - Group is not on the repository")
+    @DisplayName("Category is not added to Group categories - Person is member but not admin group")
+    void adminAddsCategoryToCategoryListPersonIsNotAdmin() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "roberto@gmail.com";
+        String groupDescription = "Family Azevedo";
+        String categoryDenomination = "compras";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("This person is not a group admin or member and could not add the category."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - Person is admin but not of this group")
+    void adminAddsCategoryToCategoryListPersonIsNotAdminOfThisGroup() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "1191762@isep.ipp.pt";
+        String groupDescription = "Family Azevedo";
+        String categoryDenomination = "compras";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("This person is not a group admin or member and could not add the category."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - Group doesn't exist on Group repository")
     void adminAddsCategoryToCategoryListGroupIsNotInRepository() throws JsonProcessingException {
         //Arrange:
 
@@ -145,6 +209,102 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
         //Assert
         assertThat(thrown)
                 .hasCause(new IllegalArgumentException("No group was found with the given description."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - invalid Email-Null")
+    void adminAddsCategoryToCategoryListEmailNull() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = null;
+        String groupDescription = "friends";
+        String categoryDenomination = "NightOut";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email can´t be null!"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - invalid Email-Empty")
+    void adminAddsCategoryToCategoryListEmailEmpty() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "";
+        String groupDescription = "friends";
+        String categoryDenomination = "NightOut";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email it´s not valid"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - invalid Email-Invalid Format")
+    void adminAddsCategoryToCategoryListEmailInvalidFormat() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "111917.dfkd";
+        String groupDescription = "friends";
+        String categoryDenomination = "NightOut";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email it´s not valid"))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -241,6 +401,70 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
         //Assert
         assertThat(thrown)
                 .hasCause(new IllegalArgumentException("The denomination can´t be null or empty!"))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - invalid Group Description-Null")
+    void adminAddsCategoryToCategoryListGroupDescriptionNull() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "1191762@isep.ipp.pt";
+        String groupDescription = null;
+        String categoryDenomination = "NightOut";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
+
+    @Test
+    @DisplayName("Category is not added to Group categories - invalid Group Description-Empty")
+    void adminAddsCategoryToCategoryListGroupDescriptionEmpty() throws JsonProcessingException {
+        //Arrange:
+
+        String uri = "/addCategoryToGroup";
+
+        String personEmail = "1191762@isep.ipp.pt";
+        String groupDescription = "";
+        String categoryDenomination = "NightOut";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 }
