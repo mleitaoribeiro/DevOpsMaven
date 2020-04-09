@@ -46,9 +46,7 @@ public class CategoryRepository implements Repository {
      * 
      */
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
-        if (nameOfCategory == null)
-            throw new IllegalArgumentException("Category could not be added to group because its Description is null");
-        else if (this.categories.contains(new Category(nameOfCategory, ownerID)))
+        if (this.categories.contains(new Category(nameOfCategory, ownerID)))
             throw new IllegalArgumentException("This category already exists and it could not be created");
         else {
             Category newCategory = new Category(nameOfCategory, ownerID);
