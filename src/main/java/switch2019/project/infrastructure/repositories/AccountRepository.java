@@ -54,7 +54,7 @@ public class AccountRepository implements Repository {
             Account accountToAdd = new Account(accountDenomination, accountDescription, ownerID);
             this.accounts.add(accountToAdd);
             return accountToAdd;
-        } else throw new IllegalArgumentException("This Account already exists for that ID.");
+        } else throw new IllegalArgumentException("This account already exists.");
     }
 
     /**
@@ -72,7 +72,7 @@ public class AccountRepository implements Repository {
                     listOfAccountsByOwnerID.add(account);
             if (!listOfAccountsByOwnerID.isEmpty())
                 return listOfAccountsByOwnerID;
-            else throw new IllegalArgumentException("Any Account found with that ID.");
+            else throw new IllegalArgumentException("No account found with that ID.");
         }
         throw new IllegalArgumentException("Owner ID can't be null.");
     }

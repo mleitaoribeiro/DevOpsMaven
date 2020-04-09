@@ -551,7 +551,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This Account already exists for that ID.", invalid.getMessage());
+            assertEquals("This account already exists.", invalid.getMessage());
         }
     }
 
@@ -626,7 +626,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination1, accountDescription1);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This Account already exists for that ID.", invalid.getMessage());
+            assertEquals("This account already exists.", invalid.getMessage());
         }
     }
 
@@ -664,7 +664,7 @@ class US007CreateGroupAccountControllerTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("This Account already exists for that ID.", invalid.getMessage()),
+                    () -> assertEquals("This account already exists.", invalid.getMessage()),
                     () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
                     () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
             );
@@ -734,7 +734,7 @@ class US007CreateGroupAccountControllerTest {
             //Assert
             Assertions.assertAll(
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository),
-                    () -> assertEquals("This Account already exists for that ID.", invalid.getMessage())
+                    () -> assertEquals("This account already exists.", invalid.getMessage())
             );
         }
     }
