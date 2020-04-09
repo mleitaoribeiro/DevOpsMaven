@@ -245,7 +245,7 @@ class US006CreatePersonAccountControllerTest {
 
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
         }
     }
 

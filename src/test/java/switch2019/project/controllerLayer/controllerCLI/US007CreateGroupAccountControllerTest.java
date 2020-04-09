@@ -250,7 +250,7 @@ class US007CreateGroupAccountControllerTest {
         } catch (IllegalArgumentException invalid) {
 
             //Assert
-            assertEquals("No group was found with the given description.", invalid.getMessage());
+            assertEquals("There're no groups found with that description.", invalid.getMessage());
         }
     }
 
@@ -428,7 +428,7 @@ class US007CreateGroupAccountControllerTest {
                    null, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
         }
     }
 
@@ -450,7 +450,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty!", invalid.getMessage());
+            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
         }
     }
 

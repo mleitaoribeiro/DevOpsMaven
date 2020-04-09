@@ -111,7 +111,7 @@ class CategoryRepositoryTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The denomination can´t be null or empty!", description.getMessage());
+            assertEquals("The denomination can´t be null or empty.", description.getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ class CategoryRepositoryTest {
 
         //Assert
         catch (IllegalArgumentException categoryAlreadyExists) {
-            assertEquals("This category already exists and it could not be created", categoryAlreadyExists.getMessage());
+            assertEquals("This category already exists and it could not be created.", categoryAlreadyExists.getMessage());
         }
 
     }
@@ -234,7 +234,7 @@ class CategoryRepositoryTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The denomination can´t be null or empty!", description.getMessage());
+            assertEquals("The denomination can´t be null or empty.", description.getMessage());
         }
 
     }

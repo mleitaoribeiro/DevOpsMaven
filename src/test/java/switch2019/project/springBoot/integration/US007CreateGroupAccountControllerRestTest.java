@@ -192,7 +192,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         // Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("No group was found with the given description."))
+                .hasCause(new IllegalArgumentException("There're no groups found with that description."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 }
