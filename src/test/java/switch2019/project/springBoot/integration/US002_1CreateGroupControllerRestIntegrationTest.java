@@ -8,13 +8,14 @@ import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupInfoDTO;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class US002_1CreateGroupControllerRestTest extends AbstractTest {
+class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
     @Override
     @BeforeEach
@@ -266,7 +267,6 @@ class US002_1CreateGroupControllerRestTest extends AbstractTest {
         assertThat(thrown)
                 .hasCause(new IllegalArgumentException("The description can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
-
     }
 
 

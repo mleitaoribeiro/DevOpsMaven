@@ -1,4 +1,4 @@
-package switch2019.project.DTO.ServiceDTO;
+package switch2019.project.DTO.SerializationDTO;
 
 import java.util.Objects;
 
