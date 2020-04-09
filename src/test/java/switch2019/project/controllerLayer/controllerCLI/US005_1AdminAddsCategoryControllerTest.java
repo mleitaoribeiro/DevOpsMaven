@@ -83,7 +83,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         CategoryDTO outputDtoExpected = new CategoryDTO(categoryDenomination, groupDescription);
 
         //Act:
-        CategoryDTO outputActual = controller.addCategoryToGroupController(groupDescription,creatorEmail,categoryDenomination);
+        CategoryDTO outputActual = controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
 
         //Assert:
         assertEquals(outputDtoExpected, outputActual);
@@ -107,7 +107,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         CategoryDTO outputDtoExpected = new CategoryDTO(categoryDenomination, groupDescription);
 
         //Act:
-        CategoryDTO outputActual = controller.addCategoryToGroupController(groupDescription, creatorEmail, categoryDenomination);
+        CategoryDTO outputActual = controller.addCategoryToGroupController(creatorEmail, groupDescription, categoryDenomination);
 
             //Check the number of categories in the repository after creating the new Category
         int expectedCategoriesAfter = 1;
@@ -141,7 +141,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         CategoryDTO outputDtoExpected = new CategoryDTO(categoryDenomination2, groupDescription);
 
         //Act:
-        CategoryDTO outputActual = controller.addCategoryToGroupController(groupDescription,creatorEmail,categoryDenomination);
+        CategoryDTO outputActual = controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
 
         //Assert:
         assertNotEquals(outputDtoExpected, outputActual);
@@ -161,7 +161,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Act:
         try {
-            controller.addCategoryToGroupController(groupDescription,creatorEmail,categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
         }
         catch (IllegalArgumentException notGroupMember){
             int actualCategories = categoryRepository.repositorySize();
@@ -194,7 +194,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Act:
         try {
-            controller.addCategoryToGroupController(groupDescription,creatorEmail,categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
         }
         catch (IllegalArgumentException notGroupAdmin) {
             int actualCategories = categoryRepository.repositorySize();
@@ -218,7 +218,7 @@ public class US005_1AdminAddsCategoryControllerTest {
         //Arrange:
             //Arrangement of the entry DTO for the service:
         String creatorEmail = "Francisco@gmail.com";
-        String groupDesctiption = "FRIENDS";
+        String groupDescription = "FRIENDS";
             //Two Denominations (one for each Dto)
         String categoryDenomination1 = "COMPRAS";
         String categoryDenomination2 = "CINEMA";
@@ -229,13 +229,13 @@ public class US005_1AdminAddsCategoryControllerTest {
 
             //Arrangement of the expected output DTOs:
 
-        CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDesctiption);
-        CategoryDTO outputDtoExpected2 = new CategoryDTO(categoryDenomination2, groupDesctiption);
+        CategoryDTO outputDtoExpected1 = new CategoryDTO(categoryDenomination1, groupDescription);
+        CategoryDTO outputDtoExpected2 = new CategoryDTO(categoryDenomination2, groupDescription);
 
         //Act:
             //We then run our controller for each input DTO:
-        CategoryDTO outputActual1 = controller.addCategoryToGroupController(groupDesctiption,creatorEmail,categoryDenomination1);
-        CategoryDTO outputActual2 = controller.addCategoryToGroupController(groupDesctiption,creatorEmail,categoryDenomination2);
+        CategoryDTO outputActual1 = controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination1);
+        CategoryDTO outputActual2 = controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination2);
 
             //Check the number of categories in the repository after creating the new Category (2 categories created):
         int expectedCategoriesAfter = 2;
@@ -281,8 +281,8 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Act:
             //We then run our controller for each input DTO:
-        CategoryDTO outputActual1 = controller.addCategoryToGroupController(groupDescription,creatorEmail1,categoryDenomination1);
-        CategoryDTO outputActual2 = controller.addCategoryToGroupController(groupDescription,creatorEmail2,categoryDenomination2);
+        CategoryDTO outputActual1 = controller.addCategoryToGroupController(creatorEmail1,groupDescription,categoryDenomination1);
+        CategoryDTO outputActual2 = controller.addCategoryToGroupController(creatorEmail2,groupDescription,categoryDenomination2);
 
             //Check the number of categories in the repository after creating the new Category (2 categories created):
         int expectedCategoriesAfter = 2;
@@ -310,12 +310,12 @@ public class US005_1AdminAddsCategoryControllerTest {
         //Arrange:
             //Arrangement of the DTO:
         String creatorEmail = "Francisco@gmail.com";
-        String groupDesctiption = "FRIENDS";
+        String groupDescription = "FRIENDS";
         String categoryDenomination = null;
 
         //Act:
         try {
-            controller.addCategoryToGroupController(groupDesctiption,creatorEmail,categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
         }
 
         //Assert:
@@ -330,14 +330,14 @@ public class US005_1AdminAddsCategoryControllerTest {
         //Arrange:
             //Arrangement of the DTO:
         String creatorEmail = "Francisco@gmail.com";
-        String groupDesctiption = "FRIENDS";
+        String groupDescription = "FRIENDS";
         String categoryDenomination = "compras";
-        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDesctiption,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(creatorEmail,groupDescription,categoryDenomination);
 
         //Act:
-        controller.addCategoryToGroupController(groupDesctiption,creatorEmail,categoryDenomination);
+        controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
         try {
-            controller.addCategoryToGroupController(groupDesctiption,creatorEmail,categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail,groupDescription,categoryDenomination);
         }
 
         //Assert:

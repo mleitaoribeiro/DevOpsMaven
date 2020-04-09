@@ -1,4 +1,4 @@
-package switch2019.project.springBoot.unit;
+package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-public class US003AddMemberToGroupControllerRestUnitTest {
+public class US003AddMemberToGroupControllerCliUnitTest {
     @Mock @Autowired private US003AddMemberToGroupService service;
     @Autowired private US003AddMemberToGroupController controller;
 

@@ -1,4 +1,4 @@
-package switch2019.project.springBoot.unit;
+package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 
-public class US006CreatePersonAccountControllerRestUnitTest {
+public class US006CreatePersonAccountControllerCliUnitTest {
 
     @Mock @Autowired private US006CreatePersonAccountService service;
     @Autowired private US006CreatePersonAccountController controller;

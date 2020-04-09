@@ -1,4 +1,4 @@
-package switch2019.project.springBoot.unit;
+package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-public class US007CreateGroupAccountControllerRestUnitTest {
+public class US007CreateGroupAccountControllerCliUnitTest {
 
     @Mock
     @Autowired

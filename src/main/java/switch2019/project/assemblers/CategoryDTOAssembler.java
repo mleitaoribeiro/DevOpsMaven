@@ -35,7 +35,7 @@ public class CategoryDTOAssembler {
      * @param categoryDenomination
      * @return CreateCategoryInGroupDTO
      */
-    public static CreateGroupCategoryDTO createGroupCategoryDTOFromStrings(String personEmail, String groupDescription, String categoryDenomination) {
+    public static CreateGroupCategoryDTO createGroupCategoryDTOFromStrings( String groupDescription, String personEmail, String categoryDenomination) {
         return new CreateGroupCategoryDTO(groupDescription,personEmail,categoryDenomination);
     }
 

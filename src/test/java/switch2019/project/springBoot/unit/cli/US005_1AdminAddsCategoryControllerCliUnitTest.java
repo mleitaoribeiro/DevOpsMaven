@@ -1,4 +1,4 @@
-package switch2019.project.springBoot.unit;
+package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,24 +24,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-class US005_1AdminAddsCategoryControllerRestUnitTest {
+class US005_1AdminAddsCategoryControllerCliUnitTest {
     @Mock
     @Autowired
     private US005_1AdminAddsCategoryToGroupService service;
     @Autowired
     private US005_1AdminAddsCategoryController controller;
 
-    //INCOMPLETE
 
-/*
     @Test
-   @DisplayName("Happy Case-  one category is added to Group categories by an admin")
+    @DisplayName("Happy Case-  one category is added to Group categories by an admin")
     void addsCategoryToCategoryListAdmin() throws Exception {
         //Arrange:
         String creatorEmail = "1191743@isep.ipp.pt";
         String groupDescription = "SWITCH";
-        String categoryDenomination1 = "GYM";
-        CategoryDTO CategoryDTOExpected = new CategoryDTO(categoryDenomination1, creatorEmail);
+        String categoryDenomination1 = "HEALTH";
+        CategoryDTO CategoryDTOExpected = new CategoryDTO(categoryDenomination1, groupDescription);
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination1);
 
         MockitoAnnotations.initMocks(this);
@@ -54,8 +52,38 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         assertEquals(CategoryDTOExpected, result);
     }
 
-    */
+    @Test
+    @DisplayName("Happy Case - several categories added to Group categories by an admin")
+    void addsCategoriesToCategoryListAdmin() throws Exception {
+        //Arrange Category 1:
+        String creatorEmail = "1191743@isep.ipp.pt";
+        String groupDescription = "SWITCH";
+        String categoryDenomination = "GAMES";
+        CategoryDTO CategoryDTOExpected1 = new CategoryDTO(categoryDenomination, groupDescription);
+        CreateGroupCategoryDTO createGroupCategoryDTO1 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
+        //Arrange Category 2:
+        String creatorEmail2 = "1191743@isep.ipp.pt";
+        String groupDescription2 = "SWITCH";
+        String categoryDenomination2 = "LOL";
+        CategoryDTO CategoryDTOExpected2 = new CategoryDTO(categoryDenomination2, groupDescription2);
+        CreateGroupCategoryDTO createGroupCategoryDTO2 = new CreateGroupCategoryDTO(groupDescription2, creatorEmail2, categoryDenomination2);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO1)).thenReturn(CategoryDTOExpected1);
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO2)).thenReturn(CategoryDTOExpected2);
+
+        //Act:
+        CategoryDTO result1 = controller.addCategoryToGroupController(creatorEmail, groupDescription, categoryDenomination);
+        CategoryDTO result2 = controller.addCategoryToGroupController(creatorEmail2, groupDescription2, categoryDenomination2);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertEquals(CategoryDTOExpected1, result1),
+                () -> assertEquals(CategoryDTOExpected2, result2)
+        );
+
+    }
 
     @Test
     @DisplayName("Category is not added to Group categories - Person is not a group member")
@@ -67,7 +95,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addCategoryToGroupController(groupDescription, creatorEmail, categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail, groupDescription, categoryDenomination);
         });
 
         //Assert
@@ -87,7 +115,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addCategoryToGroupController(groupDescription, creatorEmail, categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail, groupDescription, categoryDenomination);
         });
 
         //Assert
@@ -107,7 +135,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addCategoryToGroupController(groupDescription, creatorEmail, categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail, groupDescription, categoryDenomination);
         });
 
         //Assert
@@ -127,7 +155,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addCategoryToGroupController(groupDescription, creatorEmail, categoryDenomination);
+            controller.addCategoryToGroupController(creatorEmail, groupDescription, categoryDenomination);
         });
 
         //Assert

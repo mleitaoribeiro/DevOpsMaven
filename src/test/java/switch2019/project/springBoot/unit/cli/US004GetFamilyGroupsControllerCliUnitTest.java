@@ -1,4 +1,4 @@
-package switch2019.project.springBoot.unit;
+package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-public class US004GetFamilyGroupsControllerRestUnitTest {
+public class US004GetFamilyGroupsControllerCliUnitTest {
     @Mock
     @Autowired
     private US004GetFamilyGroupsService service;
