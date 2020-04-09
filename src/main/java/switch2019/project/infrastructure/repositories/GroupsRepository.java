@@ -24,7 +24,7 @@ public class GroupsRepository implements Repository {
 
     //String literals should not be duplicated
     private static final String NOT_A_MEMBER = "You are not a member of that group.";
-    private static final String NO_GROUPS_FOUND = "There're no groups found with that description.";
+    private static final String NO_GROUPS_FOUND = "No group found with that description.";
 
     //Constructor
     public GroupsRepository() {
@@ -42,7 +42,7 @@ public class GroupsRepository implements Repository {
             Group group1 = new Group(groupDescription, groupCreator);
             groups.add(group1);
                 return group1;
-        } else throw new IllegalArgumentException("This Group Description already exists.");
+        } else throw new IllegalArgumentException("This group description already exists.");
     }
 
     /**

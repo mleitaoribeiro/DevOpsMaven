@@ -106,7 +106,7 @@ class US002_1CreateGroupControllerTest {
 
         //Assert
         catch (IllegalArgumentException ex) {
-            assertEquals("This Group Description already exists.", ex.getMessage());
+            assertEquals("This group description already exists.", ex.getMessage());
         }
     }
 

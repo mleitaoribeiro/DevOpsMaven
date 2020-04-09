@@ -208,7 +208,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("There're no groups found with that description."))
+                .hasCause(new IllegalArgumentException("No group found with that description."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 

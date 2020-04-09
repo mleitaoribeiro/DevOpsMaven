@@ -243,7 +243,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("There're no groups found with that description.", invalid.getMessage());
+            assertEquals("No group found with that description.", invalid.getMessage());
         }
     }
 

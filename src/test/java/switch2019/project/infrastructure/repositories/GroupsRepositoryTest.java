@@ -73,7 +73,7 @@ class GroupsRepositoryTest {
         try {
             groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
         } catch (IllegalArgumentException ex) {
-            assertEquals("This Group Description already exists.", ex.getMessage());
+            assertEquals("This group description already exists.", ex.getMessage());
         }
     }
 
@@ -94,7 +94,7 @@ class GroupsRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException ex) {
-            assertEquals("This Group Description already exists.", ex.getMessage());
+            assertEquals("This group description already exists.", ex.getMessage());
         }
     }
 
@@ -395,7 +395,7 @@ class GroupsRepositoryTest {
         try {
             testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("blabla")), testGroupAdmin);
         } catch (IllegalArgumentException groupNotFound) {
-            assertEquals("There're no groups found with that description.", groupNotFound.getMessage());
+            assertEquals("No group found with that description.", groupNotFound.getMessage());
         }
     }
 
@@ -461,7 +461,7 @@ class GroupsRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("There're no groups found with that description.", result.getMessage());
+            assertEquals("No group found with that description.", result.getMessage());
         }
     }
 
@@ -494,7 +494,7 @@ class GroupsRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("There're no groups found with that description.", result.getMessage());
+            assertEquals("No group found with that description.", result.getMessage());
         }
     }
 
@@ -717,7 +717,7 @@ class GroupsRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("There're no groups found with that description.", result.getMessage());
+            assertEquals("No group found with that description.", result.getMessage());
         }
     }
 
@@ -1072,7 +1072,7 @@ class GroupsRepositoryTest {
         }
         //Assert:
         catch (IllegalArgumentException e) {
-            assertEquals("There're no groups found with that description.", e.getMessage());
+            assertEquals("No group found with that description.", e.getMessage());
         }
     }
 
