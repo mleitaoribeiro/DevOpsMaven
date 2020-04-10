@@ -15,6 +15,12 @@ public class US004GetFamilyGroupsControllerRest {
     @Autowired
     US004GetFamilyGroupsService service;
 
+    /**
+     * US004
+     * As system manager I want to know which groups are families
+     *
+     * @return groups that are families and 200 OK status
+     */
     @GetMapping("/getFamilyGroups")
     public ResponseEntity <Object> getFamilyGroups() {
 

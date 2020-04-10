@@ -459,8 +459,8 @@ public class Bootstrapper {
                 new Description("Online Expenses"),
                 new GroupID(new Description("Family Cardoso")));
         // Account of Person - Marta Cardoso
-        accountRepository.createAccount(new Denomination("Mbway")
-        , new Description("Rides"), new PersonID(new Email("1191780@isep.ipp.pt")));
+        accountRepository.createAccount(new Denomination("Mbway"),
+                new Description("Rides"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
     }
 }

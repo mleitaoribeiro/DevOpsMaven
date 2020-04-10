@@ -116,6 +116,10 @@ class US004GetFamilyGroupsServiceTest {
         group5.addMember(todd);
     }
 
+    /**
+     * US004
+     * As system manager I want to know which groups are families
+     */
     @Test
     @DisplayName("Get all the groups who are families in the repository")
     void getFamilyGroups() {

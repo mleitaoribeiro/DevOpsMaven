@@ -17,6 +17,12 @@ class US004GetFamilyGroupsControllerRestTest extends AbstractTest {
         super.setUP();
     }
 
+    /**
+     * US004
+     * As system manager I want to know which groups are families
+     *
+     * @throws Exception
+     */
     @Test
     @DisplayName("Get all the groups who are families in the groups repository")
     void getFamilyGroups() throws Exception {

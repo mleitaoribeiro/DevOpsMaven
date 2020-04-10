@@ -32,7 +32,7 @@ public class US007CreateGroupAccountControllerCliUnitTest {
 
     /**
      * US007
-     * Test If group Account is created
+     * As a group Admin, I want to create a group account
      */
     @Test
     @DisplayName("Test If group Account was created - Main Scenario - Happy Case")
@@ -65,8 +65,6 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     void testIfGroupAccountWasCreatedNotAdmin() {
 
         //Arrange
-        controller = new US007CreateGroupAccountController(service);
-
         String personEmail = "beatriz.azevedo@gmail.com";
         String groupDescription = "Friends";
         String accountDenomination = "Vet";
@@ -97,8 +95,6 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     void testIfGroupAccountWasCreatedNotAdminOfRightGroup() {
 
         //Arrange
-        controller = new US007CreateGroupAccountController(service);
-
         String personEmail = "hugo.azevedo@gmail.com";
         String groupDescription = "Family Simpson";
         String accountDenomination = "Vet";
@@ -124,22 +120,18 @@ public class US007CreateGroupAccountControllerCliUnitTest {
                 .hasMessage("This person is not Member of this group");
     }
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //testes Diana
-
-    //Já há uma issue para estes testes - #808
     @Test
     @DisplayName("Test If group Account was created - Group account already exists")
-    void testIfGroupAccountAlreadyExists(){
-        String personEmail = "1191755@isep.ipp.pt";
-        String groupDescription = "SWitCH";
-        String accountDenomination = "Grocery";
-        String accountDescription = "Grocery dispenses";
+    void testIfGroupAccountAlreadyExists() {
+
+        //Arrange
+        String personEmail = "1110120@isep.ipp.pt";
+        String groupDescription = "Family Cardoso";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Online Expenses";
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes
-                (personEmail,groupDescription, accountDenomination, accountDescription);
+                (personEmail, groupDescription, accountDenomination, accountDescription);
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
@@ -147,20 +139,22 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        String message = "";
-
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        } catch (IllegalArgumentException invalid) {
-            //Assert
-            assertEquals("This Account already exists for that ID.", invalid.getMessage());
-        }
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("This account already exists.");
     }
 
     @Test
     @DisplayName("Test If group Account was created - Person doesn't exist in the Person Repository")
     void testIfPersonExistsInThePersonRepository(){
+
+        //Arrange
         String personEmail = "maria.silva@gmail.com";
         String groupDescription = "SWitCH";
         String accountDenomination = "Grocery";
@@ -175,20 +169,22 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        String message = "";
-
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        } catch (IllegalArgumentException invalid) {
-            //Assert
-            assertEquals("No person found with that email.", invalid.getMessage());
-        }
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
     }
 
     @Test
     @DisplayName("Test If group Account was created - Group doesn't exist in the Groups Repository")
     void testIfGroupExistsInTheGroupRepository(){
+
+        //Arrange
         String personEmail = "1191755@isep.ipp.pt";
         String groupDescription = "Amigos";
         String accountDenomination = "Grocery";
@@ -203,14 +199,14 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        String message = "";
-
-        try {
+        Throwable thrown = catchThrowable(() -> {
             controller.createGroupAccount(personEmail, groupDescription,
                     accountDenomination, accountDescription);
-        } catch (IllegalArgumentException invalid) {
-            //Assert
-            assertEquals("No group found with that description.", invalid.getMessage());
-        }
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group found with that description.");
     }
 }
