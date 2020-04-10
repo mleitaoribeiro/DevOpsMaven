@@ -1,9 +1,6 @@
 package switch2019.project.springBoot.integration;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,9 +31,6 @@ class US004GetFamilyGroupsControllerRestTest extends AbstractTest {
         //Status Response
         int status = mvcResult.getResponse().getStatus();
 
-        //Assert
-        assertEquals(201, status);
-
         //outputDTO
         String result = mvcResult.getResponse().getContentAsString();
 
@@ -48,6 +42,9 @@ class US004GetFamilyGroupsControllerRestTest extends AbstractTest {
                 "},{\"groupDescription\":\"" + simpson + "\"}]";
 
         //Assert
-        assertEquals(expected, result);
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
     }
 }

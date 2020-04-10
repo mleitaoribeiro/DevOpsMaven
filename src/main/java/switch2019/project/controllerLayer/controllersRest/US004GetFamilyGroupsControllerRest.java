@@ -20,6 +20,6 @@ public class US004GetFamilyGroupsControllerRest {
 
         Set<GroupDTO> result = service.getFamilyGroups();
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
