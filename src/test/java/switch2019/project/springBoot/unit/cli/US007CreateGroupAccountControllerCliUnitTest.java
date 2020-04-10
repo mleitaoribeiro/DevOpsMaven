@@ -35,8 +35,8 @@ public class US007CreateGroupAccountControllerCliUnitTest {
      * As a group Admin, I want to create a group account
      */
     @Test
-    @DisplayName("Test If group Account was created - Main Scenario - Happy Case")
-    void testIfGroupAccountWasCreatedHappyCase() {
+    @DisplayName("Test if group Account was created - Happy Case")
+    void groupAccountWasCreatedHappyCase() {
 
         //Arrange
         String personEmail = "1110120@isep.ipp.pt";
@@ -44,9 +44,11 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         String accountDenomination = "Online";
         String accountDescription = "Online Shopping";
 
+        //Arrange of CreateGroupAccountDTO
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes
                 (personEmail,groupDescription, accountDenomination, accountDescription);
 
+        //Expected Result AccountDTO
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
         MockitoAnnotations.initMocks(this);
@@ -61,8 +63,8 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     }
 
     @Test
-    @DisplayName("Test If group Account was created - Person is Member but not Admin")
-    void testIfGroupAccountWasCreatedNotAdmin() {
+    @DisplayName("Test if group Account was created - Person is Member but not Admin")
+    void groupAccountWasCreatedNotAdmin() {
 
         //Arrange
         String personEmail = "beatriz.azevedo@gmail.com";
@@ -91,8 +93,8 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     }
 
     @Test
-    @DisplayName("Test If group Account was created - Person is Admin but not of this group")
-    void testIfGroupAccountWasCreatedNotAdminOfRightGroup() {
+    @DisplayName("Test if group Account was created - Person is Admin but not of this group")
+    void groupAccountWasCreatedNotAdminOfRightGroup() {
 
         //Arrange
         String personEmail = "hugo.azevedo@gmail.com";
@@ -121,8 +123,8 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     }
 
     @Test
-    @DisplayName("Test If group Account was created - Group account already exists")
-    void testIfGroupAccountAlreadyExists() {
+    @DisplayName("Test if group Account was created - Group account already exists")
+    void groupAccountWasCreatedGroupAccountAlreadyExists() {
 
         //Arrange
         String personEmail = "1110120@isep.ipp.pt";
@@ -151,8 +153,8 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     }
 
     @Test
-    @DisplayName("Test If group Account was created - Person doesn't exist in the Person Repository")
-    void testIfPersonExistsInThePersonRepository(){
+    @DisplayName("Test if group Account was created - Person doesn't exist in the Person Repository")
+    void groupAccountWasCreatedPersonExistsInThePersonRepository(){
 
         //Arrange
         String personEmail = "maria.silva@gmail.com";
@@ -181,8 +183,8 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     }
 
     @Test
-    @DisplayName("Test If group Account was created - Group doesn't exist in the Groups Repository")
-    void testIfGroupExistsInTheGroupRepository(){
+    @DisplayName("Test if group Account was created - Group doesn't exist in the Groups Repository")
+    void groupAccountWasCreatedGroupExistsInTheGroupRepository(){
 
         //Arrange
         String personEmail = "1191755@isep.ipp.pt";

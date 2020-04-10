@@ -12,7 +12,7 @@ import switch2019.project.applicationLayer.*;
 public class TestConfiguration {
     @Bean
     @Primary
-    public US003AddMemberToGroupService service() {
+    public US003AddMemberToGroupService serviceUS003 () {
         return Mockito.mock(US003AddMemberToGroupService.class);
     }
 
