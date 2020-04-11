@@ -169,7 +169,7 @@ class US007CreateGroupAccountServiceTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("This person is not Admin of this group", invalid.getMessage()),
+                    () -> assertEquals("This person is not admin of this group.", invalid.getMessage()),
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }
@@ -198,7 +198,7 @@ class US007CreateGroupAccountServiceTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("This person is not Member of this group", invalid.getMessage()),
+                    () -> assertEquals("This person is not member of this group.", invalid.getMessage()),
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }
@@ -337,7 +337,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
+            assertEquals("The denomination can't be null or empty.", invalid.getMessage());
         }
     }
 
@@ -359,7 +359,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
+            assertEquals("The denomination can't be null or empty.", invalid.getMessage());
         }
     }
 
@@ -571,7 +571,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This person is not Admin of this group", invalid.getMessage());
+            assertEquals("This person is not admin of this group.", invalid.getMessage());
         }
     }
 
@@ -593,7 +593,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This person is not Member of this group", invalid.getMessage());
+            assertEquals("This person is not member of this group.", invalid.getMessage());
         }
 
     }

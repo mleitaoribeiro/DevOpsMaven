@@ -42,7 +42,7 @@ public class US005_1AdminAddsCategoryToGroupService {
             Category categoryAdded = categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID());
             return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryAdded);
         } else
-            throw new IllegalArgumentException("This person is not a group admin or member and could not add the category.");
+            throw new IllegalArgumentException("This person is not member or admin of this group.");
     }
 }
 

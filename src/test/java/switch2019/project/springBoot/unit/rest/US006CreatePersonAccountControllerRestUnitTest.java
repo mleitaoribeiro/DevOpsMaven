@@ -147,7 +147,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The denomination can´t be null or empty.");
+                .hasMessage("The denomination can't be null or empty.");
     }
 
     @Test
@@ -178,7 +178,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The denomination can´t be null or empty.");
+                .hasMessage("The denomination can't be null or empty.");
 
     }
 

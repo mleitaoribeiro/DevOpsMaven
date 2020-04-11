@@ -173,7 +173,7 @@ public class US005_1AdminAddsCategoryControllerTest {
              */
 
             Assertions.assertAll(
-                    () -> assertEquals("This person is not a group admin or member and could not add the category.", notGroupMember.getMessage()),
+                    () -> assertEquals("This person is not member or admin of this group.", notGroupMember.getMessage()),
                     () -> assertEquals(expectedCategories, actualCategories)
             );
         }
@@ -206,7 +206,7 @@ public class US005_1AdminAddsCategoryControllerTest {
              */
 
             Assertions.assertAll(
-                    () -> assertEquals("This person is not a group admin or member and could not add the category.", notGroupAdmin.getMessage()),
+                    () -> assertEquals("This person is not member or admin of this group.", notGroupAdmin.getMessage()),
                     () -> assertEquals(expectedCategories, actualCategories)
             );
         }
@@ -320,7 +320,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Assert:
         catch (IllegalArgumentException nullParameter) {
-            assertEquals("The denomination can´t be null or empty.", nullParameter.getMessage());
+            assertEquals("The denomination can't be null or empty.", nullParameter.getMessage());
         }
     }
 
@@ -342,7 +342,7 @@ public class US005_1AdminAddsCategoryControllerTest {
 
         //Assert:
         catch (IllegalArgumentException nullParameter) {
-            assertEquals("This category already exists and it could not be created.", nullParameter.getMessage());
+            assertEquals("This category already exists.", nullParameter.getMessage());
         }
     }
 }

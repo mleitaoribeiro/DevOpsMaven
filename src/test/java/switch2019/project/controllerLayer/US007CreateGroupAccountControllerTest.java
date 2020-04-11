@@ -173,7 +173,7 @@ class US007CreateGroupAccountControllerTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("This person is not Admin of this group", invalid.getMessage()),
+                    () -> assertEquals("This person is not admin of this group.", invalid.getMessage()),
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }
@@ -204,7 +204,7 @@ class US007CreateGroupAccountControllerTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("This person is not Member of this group", invalid.getMessage()),
+                    () -> assertEquals("This person is not member of this group.", invalid.getMessage()),
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }
@@ -428,7 +428,7 @@ class US007CreateGroupAccountControllerTest {
                    null, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
+            assertEquals("The denomination can't be null or empty.", invalid.getMessage());
         }
     }
 
@@ -450,7 +450,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The denomination can´t be null or empty.", invalid.getMessage());
+            assertEquals("The denomination can't be null or empty.", invalid.getMessage());
         }
     }
 
@@ -573,7 +573,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This person is not Admin of this group", invalid.getMessage());
+            assertEquals("This person is not admin of this group.", invalid.getMessage());
         }
     }
 
@@ -597,7 +597,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("This person is not Member of this group", invalid.getMessage());
+            assertEquals("This person is not member of this group.", invalid.getMessage());
         }
     }
 

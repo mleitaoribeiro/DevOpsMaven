@@ -106,7 +106,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not Admin of this group");
+                .hasMessage("This person is not admin of this group.");
     }
 
     @Test
@@ -143,7 +143,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not Member of this group");
+                .hasMessage("This person is not member of this group.");
     }
 
     @Test

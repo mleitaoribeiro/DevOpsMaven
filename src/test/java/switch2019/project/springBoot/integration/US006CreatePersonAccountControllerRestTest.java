@@ -277,7 +277,7 @@ class US006CreatePersonAccountControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The denomination can´t be null or empty."))
+                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 

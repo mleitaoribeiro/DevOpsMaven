@@ -54,8 +54,8 @@ public class US007CreateGroupAccountService {
             if (group.isGroupAdmin(personID)) {
                 Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
                 return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
-            } else throw new IllegalArgumentException("This person is not Admin of this group");
-        } else throw new IllegalArgumentException("This person is not Member of this group");
+            } else throw new IllegalArgumentException("This person is not admin of this group.");
+        } else throw new IllegalArgumentException("This person is not member of this group.");
 
 
     }

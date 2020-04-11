@@ -40,7 +40,7 @@ public class Denomination {
     private String setValidDenomination(String newDenomination) {
 
         if (newDenomination == null || newDenomination.isEmpty()){
-            throw new IllegalArgumentException("The denomination can´t be null or empty.");
+            throw new IllegalArgumentException("The denomination can't be null or empty.");
         } else return removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
     }
 

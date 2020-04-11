@@ -102,7 +102,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not a group admin or member and could not add the category.");
+                .hasMessage("This person is not member or admin of this group.");
 
     }
 
@@ -122,7 +122,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not a group admin or member and could not add the category.");
+                .hasMessage("This person is not member or admin of this group.");
 
     }
 
@@ -142,7 +142,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The denomination can´t be null or empty.");
+                .hasMessage("The denomination can't be null or empty.");
 
     }
 
@@ -162,7 +162,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This category already exists and it could not be created.");
+                .hasMessage("This category already exists.");
 
     }
 

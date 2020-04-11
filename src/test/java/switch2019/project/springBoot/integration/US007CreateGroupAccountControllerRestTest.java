@@ -90,7 +90,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         // Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This person is not Admin of this group"))
+                .hasCause(new IllegalArgumentException("This person is not admin of this group."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 

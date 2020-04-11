@@ -112,7 +112,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This person is not a group admin or member and could not add the category."))
+                .hasCause(new IllegalArgumentException("This person is not member or admin of this group."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -144,7 +144,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This person is not a group admin or member and could not add the category."))
+                .hasCause(new IllegalArgumentException("This person is not member or admin of this group."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -176,7 +176,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This person is not a group admin or member and could not add the category."))
+                .hasCause(new IllegalArgumentException("This person is not member or admin of this group."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -336,7 +336,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This category already exists and it could not be created."))
+                .hasCause(new IllegalArgumentException("This category already exists."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -368,7 +368,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The denomination can´t be null or empty."))
+                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -400,7 +400,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The denomination can´t be null or empty."))
+                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
