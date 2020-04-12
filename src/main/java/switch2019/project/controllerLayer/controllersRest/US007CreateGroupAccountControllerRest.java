@@ -18,14 +18,14 @@ public class US007CreateGroupAccountControllerRest {
 
     /**
      * Controller that takes the posted information, and creates an Account in a given Group.
-     * @param info
+     * @param infoDTO
      * @return
      */
     @PostMapping("/addGroupAccount")
-    public ResponseEntity<AccountDTO> addGroupAccount (@RequestBody CreateGroupAccountInfoDTO info)  {
+    public ResponseEntity<AccountDTO> addGroupAccount (@RequestBody CreateGroupAccountInfoDTO infoDTO)  {
 
         //Arrange the entry dto with the given strings:
-        CreateGroupAccountDTO dto = AccountDTOAssembler.transformToCreateGroupAccountDTO(info);
+        CreateGroupAccountDTO dto = AccountDTOAssembler.transformToCreateGroupAccountDTO(infoDTO);
 
         //Use the service to obtain the exit DTO
         AccountDTO result = service.createGroupAccount(dto);

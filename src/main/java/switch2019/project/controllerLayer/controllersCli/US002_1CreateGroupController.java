@@ -1,10 +1,12 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import org.graalvm.compiler.lir.CompositeValue;
+import org.springframework.stereotype.Controller;
 import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 
-
+@Controller
 public class US002_1CreateGroupController {
 
     private switch2019.project.applicationLayer.US002_1CreateGroupService service;
