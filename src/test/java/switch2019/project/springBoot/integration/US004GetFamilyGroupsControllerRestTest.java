@@ -44,7 +44,7 @@ class US004GetFamilyGroupsControllerRestTest extends AbstractTest {
         String azevedo = "FAMILY AZEVEDO";
         String simpson = "FAMILY SIMPSON";
 
-        String expected = "[{\"groupDescription\":\"" + azevedo +"\"},{\"groupDescription\":\"" + cardoso + "\"" +
+        String expected = "[{\"groupDescription\":\"" + cardoso +"\"},{\"groupDescription\":\"" + azevedo + "\"" +
                 "},{\"groupDescription\":\"" + simpson + "\"}]";
 
         //Assert
