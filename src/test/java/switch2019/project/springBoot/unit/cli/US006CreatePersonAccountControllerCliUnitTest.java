@@ -19,6 +19,7 @@ import switch2019.project.controllerLayer.controllersCli.US006CreatePersonAccoun
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -35,31 +36,125 @@ public class US006CreatePersonAccountControllerCliUnitTest {
 
     @DisplayName("Test If User Account is created - Main Scenario")
     @Test
-    void test1() {
-        //test here
+    void testIfUserAccountWasCreatedSuccessCase() {
+        //Arrange
+        String personEmail = "morty@gmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
+        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+
+        AccountDTO accountExpectedDTO = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        AccountDTO accountCreatedDTO = controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+
+
+        //Assert
+        assertEquals(accountExpectedDTO, accountCreatedDTO);
     }
 
     @DisplayName("Test If User Account was created - Account already exists")
     @Test
-    void test2() {
-        //test here
+    void testIfUserAccountWasCreatedRepeatedAccount() {
+        //Arrange
+        String personEmail = "morty@gmail.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
+        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+
+        controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("This account already exists.");
     }
+
 
     @DisplayName("Test If User Account was created - Person doesn't exist on Repository")
     @Test
-    void test3() {
-        //test here
+    void testIfUserAccountWasCreatedNoPersonInRepo() {
+        //Arrange
+        String personEmail = "email@email.com";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
+        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
+        createPersonAccountInfoDTO.setPersonEmail(personEmail);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
+        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
     }
+
 
     @DisplayName("Test If User Account was created - email invalid - null")
     @Test
-    void test4() {
-        //test here
+    void testIfUserAccountWasCreatedEmailNull() {
+        //Arrange
+        String accountDenomination = "Revolut";
+        String accountDescription = "Revolut Account";
+
+        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
+        createPersonAccountInfoDTO.setPersonEmail(null);
+        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(null, accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can´t be null!");
     }
 
     @Test
     @DisplayName("Test If User Account was created  - email invalid - empty")
-    void testIfUserAccountWasCreated_EmailEmpty() {
+    void testIfUserAccountWasCreatedEmailEmpty() {
+
         //Arrange
         String personEmail = "";
         String accountDenomination = "Revolut";
@@ -89,7 +184,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
 
     @Test
     @DisplayName("Test If User Account was created  - email invalid - invalid format")
-    void testIfUserAccountWasCreated_InvalidEmailFormat() {
+    void testIfUserAccountWasCreatedInvalidEmailFormat() {
         //Arrange
         String personEmail = "morty@@gmail.com";
         String accountDenomination = "Revolut";
@@ -119,7 +214,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
 
     @Test
     @DisplayName("Test If User Account was created  - account invalid - null")
-    void testIfUserAccountWasCreated_AccountDenominationNull() {
+    void testIfUserAccountWasCreatedAccountDenominationNull() {
         String personEmail = "morty@gmail.com";
         String accountDenomination = null;
         String accountDescription = "Revolut Account";
@@ -147,7 +242,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
 
     @Test
     @DisplayName("Test If User Account was created - account invalid - empty")
-    void testIfUserAccountWasCreated_AccountDenominationEmpty() {
+    void testIfUserAccountWasCreatedAccountDenominationEmpty() {
         //Arrange
         String personEmail = "morty@gmail.com";
         String accountDenomination = "";
