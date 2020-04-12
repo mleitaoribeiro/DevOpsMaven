@@ -56,7 +56,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupCategoryDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
@@ -90,7 +90,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupCategoryDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
@@ -127,7 +127,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupCategoryDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);

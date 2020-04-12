@@ -25,7 +25,7 @@ public class US007CreateGroupAccountControllerRest {
     public ResponseEntity<AccountDTO> addGroupAccount (@RequestBody CreateGroupAccountInfoDTO info)  {
 
         //Arrange the entry dto with the given strings:
-        CreateGroupAccountDTO dto = AccountDTOAssembler.transformToCreateGroupCategoryDTO(info);
+        CreateGroupAccountDTO dto = AccountDTOAssembler.transformToCreateGroupAccountDTO(info);
 
         //Use the service to obtain the exit DTO
         AccountDTO result = service.createGroupAccount(dto);
