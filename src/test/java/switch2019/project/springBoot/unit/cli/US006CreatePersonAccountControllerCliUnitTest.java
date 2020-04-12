@@ -31,6 +31,10 @@ public class US006CreatePersonAccountControllerCliUnitTest {
     @Mock @Autowired private US006CreatePersonAccountService service;
     @Autowired private US006CreatePersonAccountController controller;
 
+    /**
+     * US006
+     * As a user, I want to create a personal account
+     */
 
     //ISSUE 813
 
@@ -68,7 +72,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
     void testIfUserAccountWasCreatedRepeatedAccount() {
         //Arrange
         String personEmail = "morty@gmail.com";
-        String accountDenomination = "Revolut";
+        String accountDenomination = "Revolutions";
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();

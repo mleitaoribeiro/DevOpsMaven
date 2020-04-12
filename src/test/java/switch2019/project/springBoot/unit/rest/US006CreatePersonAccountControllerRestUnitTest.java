@@ -78,7 +78,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     void testIfUserAccountWasCreatedRepeatedAccount() {
         //Arrange
         String personEmail = "morty@gmail.com";
-        String accountDenomination = "Revolut";
+        String accountDenomination = "Revolution";
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
