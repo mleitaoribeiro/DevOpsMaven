@@ -386,7 +386,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The email it´s not valid", invalid.getMessage());
+            assertEquals("The email it's not valid.", invalid.getMessage());
         }
     }
 

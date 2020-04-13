@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class US007CreateGroupAccountControllerCliUnitTest {
 
     @Mock
-    @Autowired
     private US007CreateGroupAccountService service;
     @Autowired
     private US007CreateGroupAccountController controller;
@@ -210,5 +209,48 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("No group found with that description.");
+    }
+
+
+    @Test
+    @DisplayName("Test if group Account was created - email invalid - null")
+    void groupAccountWasCreatedEmailNull(){
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - email invalid - empty")
+    void groupAccountWasCreatedEmailEmpty(){
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - email invalid - invalid format")
+    void groupAccountWasCreatedEmailInvalidFormat() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - account invalid - null")
+    void groupAccountWasCreatedAccountNull() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - account invalid - empty")
+    void groupAccountWasCreatedAccountEmpty() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - groupDescription invalid - null")
+    void groupAccountWasCreatedGroupDescriptionNull() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - groupDescription invalid - empty")
+    void groupAccountWasCreatedGroupDescriptionEmpty() {
+
     }
 }

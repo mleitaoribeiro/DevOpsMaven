@@ -180,7 +180,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
         //2.- is the contained message the expected:
         assertThat(exception)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it´s not valid");
+                .hasMessage("The email it's not valid.");
     }
 
     @Test
@@ -211,7 +211,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
         //2.- is the contained message the expected:
         assertThat(exception)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it´s not valid");
+                .hasMessage("The email it's not valid.");
     }
 
     @Test

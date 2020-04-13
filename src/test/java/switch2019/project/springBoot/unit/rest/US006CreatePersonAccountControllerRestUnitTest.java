@@ -12,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
@@ -194,7 +192,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it´s not valid");
+                .hasMessage("The email it's not valid.");
     }
 
     @Test
@@ -225,7 +223,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it´s not valid");
+                .hasMessage("The email it's not valid.");
     }
 
     @Test
@@ -243,10 +241,9 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
-        AccountDTO accountCreatedExpected = null;
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {

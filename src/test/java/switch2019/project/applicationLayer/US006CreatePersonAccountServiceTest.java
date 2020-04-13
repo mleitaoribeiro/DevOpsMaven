@@ -240,7 +240,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("The email it´s not valid", invalid.getMessage());
+            assertEquals("The email it's not valid.", invalid.getMessage());
         }
     }
 

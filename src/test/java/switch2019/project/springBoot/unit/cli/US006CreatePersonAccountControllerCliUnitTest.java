@@ -189,7 +189,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it´s not valid");
+                .hasMessage("The email it's not valid.");
     }
 
     @Test
@@ -219,7 +219,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it´s not valid");
+                .hasMessage("The email it's not valid.");
     }
 
     @Test
@@ -235,10 +235,9 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
-        AccountDTO accountCreatedExpected = null;
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
         //Act
         Throwable thrown = catchThrowable(() -> {
             controller.createPersonAccount(personEmail, accountDenomination, accountDescription);
