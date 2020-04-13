@@ -276,7 +276,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email it´s not valid"))
+                .hasCause(new IllegalArgumentException("The email it's not valid."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
@@ -308,7 +308,7 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email it´s not valid"))
+                .hasCause(new IllegalArgumentException("The email it's not valid."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 

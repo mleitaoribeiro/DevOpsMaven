@@ -293,7 +293,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The email it´s not valid", invalid.getMessage());
+            assertEquals("The email it's not valid.", invalid.getMessage());
 
         }
     }

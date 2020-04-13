@@ -7,7 +7,7 @@ public class Email {
 
     private final String emailAddress;
 
-    private static final String EMAIL_NOT_VALID = "The email it´s not valid";
+    private static final String EMAIL_NOT_VALID = "The email it's not valid.";
     private static final String EMAIL_NULL = "The email can't be null.";
 
     public Email(String email) {
