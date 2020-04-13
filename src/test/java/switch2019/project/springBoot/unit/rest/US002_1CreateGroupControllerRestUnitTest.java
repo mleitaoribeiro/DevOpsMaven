@@ -177,7 +177,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         //2.- is the contained message the expected:
         assertThat(exception)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email can´t be null!");
+                .hasMessage("The email can't be null.");
     }
 
     @Test

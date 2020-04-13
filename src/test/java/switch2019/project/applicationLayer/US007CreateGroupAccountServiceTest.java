@@ -270,7 +270,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The email can´t be null!", invalid.getMessage());
+            assertEquals("The email can't be null.", invalid.getMessage());
 
         }
     }
@@ -433,7 +433,7 @@ class US007CreateGroupAccountServiceTest {
 
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("The email can´t be null!", invalid.getMessage()),
+                    () -> assertEquals("The email can't be null.", invalid.getMessage()),
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }

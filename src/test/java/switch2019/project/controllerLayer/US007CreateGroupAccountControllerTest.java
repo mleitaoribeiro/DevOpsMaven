@@ -365,7 +365,7 @@ class US007CreateGroupAccountControllerTest {
                     accountDenomination, accountDescription);
         } catch (IllegalArgumentException invalid) {
             //Assert
-            assertEquals("The email can´t be null!", invalid.getMessage());
+            assertEquals("The email can't be null.", invalid.getMessage());
         }
     }
 
@@ -519,7 +519,7 @@ class US007CreateGroupAccountControllerTest {
             int realNumberOfAccountsInTheRepository = accountRepo.repositorySize();
             //Assert
             Assertions.assertAll(
-                    () -> assertEquals("The email can´t be null!", invalid.getMessage()),
+                    () -> assertEquals("The email can't be null.", invalid.getMessage()),
                     () -> assertEquals(numberOfExpectedAccountsInTheRepository, realNumberOfAccountsInTheRepository)
             );
         }

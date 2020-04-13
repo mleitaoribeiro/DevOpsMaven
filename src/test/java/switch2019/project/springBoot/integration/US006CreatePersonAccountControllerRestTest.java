@@ -166,7 +166,7 @@ class US006CreatePersonAccountControllerRestTest extends AbstractTest {
 
         //ASSERT:
         assertThat(exception)
-                .hasCause(new IllegalArgumentException("The email can´t be null!"))
+                .hasCause(new IllegalArgumentException("The email can't be null."))
                 .isExactlyInstanceOf(NestedServletException.class);
 
     }

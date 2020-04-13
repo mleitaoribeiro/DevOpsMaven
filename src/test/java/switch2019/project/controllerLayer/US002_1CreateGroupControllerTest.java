@@ -142,7 +142,7 @@ class US002_1CreateGroupControllerTest {
 
         //Assert
         catch (IllegalArgumentException ex) {
-            assertEquals("The email can´t be null!", ex.getMessage());
+            assertEquals("The email can't be null.", ex.getMessage());
         }
     }
 

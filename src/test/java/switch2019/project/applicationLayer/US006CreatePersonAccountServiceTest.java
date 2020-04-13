@@ -219,7 +219,7 @@ class US006CreatePersonAccountServiceTest {
 
         //Assert
         catch (IllegalArgumentException invalid) {
-            assertEquals("The email can´t be null!", invalid.getMessage());
+            assertEquals("The email can't be null.", invalid.getMessage());
         }
     }
 

@@ -23,7 +23,7 @@ public class GroupsRepository implements Repository {
     private Set<Group> groups;
 
     //String literals should not be duplicated
-    private static final String NOT_A_MEMBER = "You are not a member of that group.";
+    private static final String NOT_A_MEMBER = "This person is not a member of this group.";
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
 
     //Constructor
