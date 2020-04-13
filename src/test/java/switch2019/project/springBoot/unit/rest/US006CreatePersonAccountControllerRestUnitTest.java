@@ -147,6 +147,14 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (null, accountDenomination, accountDescription );
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(
+                new IllegalArgumentException("The email can't be null."));
+
+
+
         //Act
         Throwable thrown = catchThrowable(() -> {
             controller.createPersonAccount(createPersonAccountInfoDTO);
