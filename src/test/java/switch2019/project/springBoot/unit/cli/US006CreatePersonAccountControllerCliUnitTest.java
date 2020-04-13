@@ -152,7 +152,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email can´t be null!");
+                .hasMessage("The email can't be null.");
     }
 
     @Test

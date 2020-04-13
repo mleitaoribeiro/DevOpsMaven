@@ -147,7 +147,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         //Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email can´t be null!"))
+                .hasCause(new IllegalArgumentException("The email can't be null."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
