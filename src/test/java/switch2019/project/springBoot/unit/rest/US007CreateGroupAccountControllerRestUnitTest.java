@@ -281,11 +281,9 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
                 transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        //Expected Results: AccountDTO and ResponseEntity
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -410,6 +408,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
     @Test
     @DisplayName("Test if group Account was created - account invalid - empty")
     void groupAccountWasCreatedAccountEmpty() {
+
+        //Arrange
         String personEmail = "1191755@isep.ipp.pt";
         String groupDescription = "Switch";
         String accountDenomination = "";
@@ -447,6 +447,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
     @Test
     @DisplayName("Test if group Account was created - groupDescription invalid - null")
     void groupAccountWasCreatedGroupDescriptionNull() {
+
+        //Arrange
         String personEmail = "1191755@isep.ipp.pt";
         String groupDescription = null;
         String accountDenomination = "Grocery";
@@ -462,7 +464,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
                 groupDescription, accountDenomination, accountDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
 
         //Act
@@ -480,6 +483,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
     @Test
     @DisplayName("Test if group Account was created - groupDescription invalid - empty")
     void groupAccountWasCreatedGroupDescriptionEmpty() {
+
+        //Arrange
         String personEmail = "1191755@isep.ipp.pt";
         String groupDescription = "";
         String accountDenomination = "Grocery";
@@ -495,7 +500,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
                 groupDescription, accountDenomination, accountDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
 
         //Act
@@ -509,6 +515,4 @@ class US007CreateGroupAccountControllerRestUnitTest {
                 .hasMessage("The description can't be null or empty.");
 
     }
-
-
 }
