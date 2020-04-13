@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class US004GetFamilyGroupsControllerRestUnitTest {
     @Mock
-    @Autowired
     private US004GetFamilyGroupsService service;
     @Autowired
     private US004GetFamilyGroupsControllerRest controllerRest;
