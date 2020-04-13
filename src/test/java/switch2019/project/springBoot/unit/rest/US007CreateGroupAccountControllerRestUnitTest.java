@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class US007CreateGroupAccountControllerRestUnitTest {
 
     @Mock
-    @Autowired
     private US007CreateGroupAccountService service;
     @Autowired
     private US007CreateGroupAccountControllerRest controller;
@@ -163,5 +162,49 @@ class US007CreateGroupAccountControllerRestUnitTest {
     void groupAccountWasCreatedGroupExistsInTheGroupRepository(){
 
     }
+
+    @Test
+    @DisplayName("Test if group Account was created - email invalid - null")
+    void groupAccountWasCreatedEmailNull(){
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - email invalid - empty")
+    void groupAccountWasCreatedEmailEmpty(){
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - email invalid - invalid format")
+    void groupAccountWasCreatedEmailInvalidFormat() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - account invalid - null")
+    void groupAccountWasCreatedAccountNull() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - account invalid - empty")
+    void groupAccountWasCreatedAccountEmpty() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - groupDescription invalid - null")
+    void groupAccountWasCreatedGroupDescriptionNull() {
+
+    }
+
+    @Test
+    @DisplayName("Test if group Account was created - groupDescription invalid - empty")
+    void groupAccountWasCreatedGroupDescriptionEmpty() {
+
+    }
+
+
 
 }
