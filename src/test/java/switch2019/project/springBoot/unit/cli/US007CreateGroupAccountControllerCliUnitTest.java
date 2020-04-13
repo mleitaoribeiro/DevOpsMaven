@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
@@ -333,18 +334,107 @@ public class US007CreateGroupAccountControllerCliUnitTest {
     @Test
     @DisplayName("Test if group Account was created - account invalid - empty")
     void groupAccountWasCreatedAccountEmpty() {
+        String personEmail = "1191755@isep.ipp.pt";
+        String groupDescription = "Switch";
+        String accountDenomination = "";
+        String accountDescription = "Grocery dispenses";
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        groupAccountInfoDTO.setPersonEmail(personEmail);
+        groupAccountInfoDTO.setGroupDescription(groupDescription);
+        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        groupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
+                groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
 
     }
 
     @Test
     @DisplayName("Test if group Account was created - groupDescription invalid - null")
     void groupAccountWasCreatedGroupDescriptionNull() {
+        String personEmail = "1191755@isep.ipp.pt";
+        String groupDescription = null;
+        String accountDenomination = "Grocery";
+        String accountDescription = "Grocery dispenses";
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        groupAccountInfoDTO.setPersonEmail(personEmail);
+        groupAccountInfoDTO.setGroupDescription(groupDescription);
+        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        groupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
+                groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+
 
     }
 
     @Test
     @DisplayName("Test if group Account was created - groupDescription invalid - empty")
     void groupAccountWasCreatedGroupDescriptionEmpty() {
+
+        String personEmail = "1191755@isep.ipp.pt";
+        String groupDescription = "";
+        String accountDenomination = "Grocery";
+        String accountDescription = "Grocery dispenses";
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        groupAccountInfoDTO.setPersonEmail(personEmail);
+        groupAccountInfoDTO.setGroupDescription(groupDescription);
+        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        groupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
+                groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createGroupAccount(personEmail, groupDescription,
+                    accountDenomination, accountDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
 
     }
 }
