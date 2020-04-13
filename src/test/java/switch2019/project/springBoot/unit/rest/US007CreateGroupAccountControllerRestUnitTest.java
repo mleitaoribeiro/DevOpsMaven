@@ -148,18 +148,111 @@ class US007CreateGroupAccountControllerRestUnitTest {
     @Test
     @DisplayName("Test if group Account was created - Group account already exists")
     void groupAccountWasCreatedGroupAccountAlreadyExists() {
+        String personEmail = "1191755@isep.ipp.pt";
+        String groupDescription = "SWitCH";
+        String accountDenomination = "Grocery";
+        String accountDescription = "Grocery dispenses";
 
-    }
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        groupAccountInfoDTO.setPersonEmail(personEmail);
+        groupAccountInfoDTO.setGroupDescription(groupDescription);
+        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        groupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
+                groupDescription,accountDenomination,accountDescription);
+
+        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+
+        controller.addGroupAccount(groupAccountInfoDTO);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.addGroupAccount(groupAccountInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("This account already exists.");
+
+}
+
 
     @Test
     @DisplayName("Test if group Account was created - Person doesn't exist in the Person Repository")
-    void groupAccountWasCreatedPersonExistsInThePersonRepository(){
+    void groupAccountWasCreatedPersonExistsInThePersonRepository() {
+
+        String personEmail = "maria.silva@gmail.com";
+        String groupDescription = "SWitCH";
+        String accountDenomination = "Grocery";
+        String accountDescription = "Grocery dispenses";
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        groupAccountInfoDTO.setPersonEmail(personEmail);
+        groupAccountInfoDTO.setGroupDescription(groupDescription);
+        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        groupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
+                groupDescription,accountDenomination,accountDescription);
+
+        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.addGroupAccount(groupAccountInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
 
     }
 
     @Test
     @DisplayName("Test if group Account was created - Group doesn't exist in the Groups Repository")
-    void groupAccountWasCreatedGroupExistsInTheGroupRepository(){
+    void groupAccountWasCreatedGroupExistsInTheGroupRepository() {
+        String personEmail = "1191755@isep.ipp.pt";
+        String groupDescription = "Amigos";
+        String accountDenomination = "Grocery";
+        String accountDescription = "Grocery dispenses";
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        groupAccountInfoDTO.setPersonEmail(personEmail);
+        groupAccountInfoDTO.setGroupDescription(groupDescription);
+        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        groupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
+                groupDescription,accountDenomination,accountDescription);
+
+        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.addGroupAccount(groupAccountInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group found with that description.");
 
     }
 
