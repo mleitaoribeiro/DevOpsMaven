@@ -24,9 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 public class US004GetFamilyGroupsControllerCliUnitTest {
     @Mock
-    @Autowired
     private US004GetFamilyGroupsService service;
-    @Autowired private US004GetFamilyGroupsController controller;
+    @Autowired
+    private US004GetFamilyGroupsController controller;
 
     @Test
     @DisplayName("Get all the groups who are families in the repository")

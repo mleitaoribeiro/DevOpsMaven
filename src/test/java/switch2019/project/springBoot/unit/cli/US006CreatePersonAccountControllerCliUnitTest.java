@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
@@ -24,12 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
 
 public class US006CreatePersonAccountControllerCliUnitTest {
 
-    @Mock @Autowired private US006CreatePersonAccountService service;
-    @Autowired private US006CreatePersonAccountController controller;
+    @Mock
+    private US006CreatePersonAccountService service;
+
+    @Autowired
+    private US006CreatePersonAccountController controller;
 
     /**
      * US006

@@ -2,7 +2,6 @@ package switch2019.project.springBoot.unit.rest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -11,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupInfoDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
@@ -25,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
+
 public class US002_1CreateGroupControllerRestUnitTest {
     @Mock
     private US002_1CreateGroupService service;
@@ -88,7 +86,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -124,7 +123,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -160,7 +159,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -196,7 +195,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -232,7 +231,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -268,7 +267,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
