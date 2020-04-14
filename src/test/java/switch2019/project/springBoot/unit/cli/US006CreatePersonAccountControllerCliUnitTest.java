@@ -46,11 +46,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDenomination = "Revolut";
         String accountDescription = "Revolut Account";
 
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
-
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
@@ -74,11 +69,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String personEmail = "morty@gmail.com";
         String accountDenomination = "Revolutions";
         String accountDescription = "Revolut Account";
-
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
@@ -108,10 +98,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDenomination = "Revolut";
         String accountDescription = "Revolut Account";
 
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
@@ -137,11 +123,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         //Arrange
         String accountDenomination = "Revolut";
         String accountDescription = "Revolut Account";
-
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(null);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (null, accountDenomination, accountDescription );
 
@@ -170,11 +151,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDenomination = "Revolut";
         String accountDescription = "Revolut Account";
 
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
-
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
@@ -200,11 +176,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDenomination = "Revolut";
         String accountDescription = "Revolut Account";
 
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
-
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
@@ -229,11 +200,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDenomination = null;
         String accountDescription = "Revolut Account";
 
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
-
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
 
         MockitoAnnotations.initMocks(this);
@@ -256,11 +222,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String personEmail = "morty@gmail.com";
         String accountDenomination = "";
         String accountDescription = "Revolut Account";
-
-        CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
-        createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes (personEmail, accountDenomination, accountDescription );
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
