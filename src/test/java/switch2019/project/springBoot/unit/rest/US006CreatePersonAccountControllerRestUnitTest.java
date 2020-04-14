@@ -30,8 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class US006CreatePersonAccountControllerRestUnitTest {
 
-    @Mock @Autowired private US006CreatePersonAccountService service;
-    @Autowired private US006CreatePersonAccountControllerRest controller;
+    @Mock
+    private US006CreatePersonAccountService service;
+
+    @Autowired
+    private US006CreatePersonAccountControllerRest controller;
 
 
     /**
@@ -150,8 +153,6 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         MockitoAnnotations.initMocks(this);
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(
                 new IllegalArgumentException("The email can't be null."));
-
-
 
         //Act
         Throwable thrown = catchThrowable(() -> {
