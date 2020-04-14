@@ -88,7 +88,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -124,7 +125,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -160,7 +161,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -196,7 +197,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -232,7 +233,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
@@ -268,7 +269,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         GroupDTO groupCreationOutput = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO (input):
-        CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+        CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
         MockitoAnnotations.initMocks(this);
