@@ -149,4 +149,45 @@ public class US001AreSiblingsControllerRestTest extends AbstractTest {
                 .hasMessage("Request processing failed; nested exception is " +
                         "java.lang.IllegalArgumentException: No person found with that email.");
     }
+
+    @Test
+    @DisplayName("Test if two people are siblings - Null First Person Email")
+    public void checkIfTwoPeopleAreSiblingsNullFirstPersonEmail() throws Exception {
+
+        // Arrange
+        String uri = "/areSiblings?personOneEmail=&personTwoEmail=father2@isep.ipp.pt";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.get(uri)
+                    .contentType(MediaType.APPLICATION_JSON)).andReturn();
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NestedServletException.class)
+                .hasMessage("Request processing failed; nested exception is " +
+                        "java.lang.IllegalArgumentException: The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test if two people are siblings - Null Second Person Email")
+    public void checkIfTwoPeopleAreSiblingsNullSecondPersonEmail() throws Exception {
+
+        // Arrange
+        String uri = "/areSiblings?personOneEmail=father1@isep.ipp.pt&personTwoEmail=";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.get(uri)
+                    .contentType(MediaType.APPLICATION_JSON)).andReturn();
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NestedServletException.class)
+                .hasMessage("Request processing failed; nested exception is " +
+                        "java.lang.IllegalArgumentException: The email is not valid.");
+    }
+
 }
