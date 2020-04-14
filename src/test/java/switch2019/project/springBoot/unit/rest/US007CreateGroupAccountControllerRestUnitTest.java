@@ -422,8 +422,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
-                groupDescription, accountDenomination, accountDescription);
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
@@ -460,8 +459,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
-                groupDescription, accountDenomination, accountDescription);
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
         MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
@@ -496,8 +494,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
-                groupDescription, accountDenomination, accountDescription);
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
         MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
