@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 public class US002_1CreateGroupControllerCliUnitTest {
-    @Mock @Autowired private US002_1CreateGroupService service;
+    @Mock private US002_1CreateGroupService service;
     @Autowired private US002_1CreateGroupController controller;
 
 

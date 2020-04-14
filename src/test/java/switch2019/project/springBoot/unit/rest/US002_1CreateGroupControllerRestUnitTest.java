@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 public class US002_1CreateGroupControllerRestUnitTest {
     @Mock
-    @Autowired
     private US002_1CreateGroupService service;
     @Autowired
     private US002_1CreateGroupControllerRest controller;
