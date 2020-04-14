@@ -234,7 +234,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("12345@isep.pt"));
 
         // Group
-        HashSet<Person> familyMembersToAdd = new HashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
+        Set<Person> familyMembersToAdd = new LinkedHashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
         Group family = new Group(new Description("Family"),manuelaMOM);
         family.addMember(manuelaMOM);
         family.addMultipleMembers(familyMembersToAdd);
@@ -254,7 +254,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail5@isep.pt"));
 
         // Group
-        HashSet<Person> simpsonsMembersToAdd = new HashSet<>(Arrays.asList(marge, bart, lisa, maggie));
+        Set<Person> simpsonsMembersToAdd = new LinkedHashSet<>(Arrays.asList(marge, bart, lisa, maggie));
         Group simpsons = new Group(new Description("Simpsons"),homer);
         simpsons.addMember(homer);
         simpsons.addMultipleMembers(simpsonsMembersToAdd);
@@ -272,7 +272,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email4@isep.pt"));
 
         // Group
-        HashSet<Person> noMomMembersToAdd = new HashSet<>(Arrays.asList(diana, elsa, ines));
+        Set<Person> noMomMembersToAdd = new LinkedHashSet<>(Arrays.asList(diana, elsa, ines));
         Group familyWithNoMom = new Group(new Description("Family with no Mom"),joaoDAD);
         familyWithNoMom.addMember(joaoDAD);
         familyWithNoMom.addMultipleMembers(noMomMembersToAdd);
@@ -288,7 +288,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("newMail3@isep.pt"));
 
         // Group
-        HashSet<Person> martasGroupMembersToAdd = new HashSet<>(Arrays.asList(martaC, martaP));
+        Set<Person> martasGroupMembersToAdd = new LinkedHashSet<>(Arrays.asList(martaC, martaP));
         Group martaGroup = new Group(new Description("Marta's group"),martaR);
         martaGroup.addMember(martaR);
         martaGroup.addMultipleMembers(martasGroupMembersToAdd);
@@ -306,7 +306,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Porto", "4520-233"), new Email("new4@isep.pt"));
 
         // Group
-        HashSet<Person> bojackGangMembersToAdd = new HashSet<>(Arrays.asList(carolyn, todd, diane));
+        Set<Person> bojackGangMembersToAdd = new LinkedHashSet<>(Arrays.asList(carolyn, todd, diane));
         Group bojackGang = new Group(new Description("Bojack's Gang"),bojack);
         bojackGang.addMember(bojack);
         bojackGang.addMultipleMembers(bojackGangMembersToAdd);
@@ -314,7 +314,7 @@ class GroupsRepositoryTest {
 
         //Act
         Set<Group> realResult = globalGroupsRepository.returnOnlyFamilies();
-        HashSet<Group> expectedResult = new HashSet<>(Arrays.asList(family, simpsons));
+        HashSet<Group> expectedResult = new LinkedHashSet<>(Arrays.asList(family, simpsons));
 
         //Assert
         assertEquals(expectedResult, realResult);

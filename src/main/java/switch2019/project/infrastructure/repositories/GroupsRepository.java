@@ -71,7 +71,7 @@ public class GroupsRepository implements Repository {
      * @return groups that are all family
      */
     public Set<Group> returnOnlyFamilies() {
-        Set<Group> groupsFamily = new HashSet<>();
+        Set<Group> groupsFamily = new LinkedHashSet<>();
         for (Group group : groups) {
             if (group.isFamily()) {
                 groupsFamily.add(group);

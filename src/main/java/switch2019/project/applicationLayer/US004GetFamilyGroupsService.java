@@ -7,6 +7,7 @@ import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Service
@@ -29,7 +30,7 @@ public class US004GetFamilyGroupsService {
         Set <Group> familyGroups = groupsRepository.returnOnlyFamilies();
 
         //DTO conversion
-        Set<GroupDTO> familyGroupDTO = new HashSet<>();
+        Set<GroupDTO> familyGroupDTO = new LinkedHashSet<>();
 
         if (!familyGroups.isEmpty())
             for (Group family : familyGroups)

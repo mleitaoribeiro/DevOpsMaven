@@ -14,7 +14,7 @@ import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.controllerLayer.controllersCli.US004GetFamilyGroupsController;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +33,7 @@ public class US004GetFamilyGroupsControllerCliUnitTest {
     public void returnFamilyGroups() {
 
         //Arrange
-        Set<GroupDTO> expectedFamilyGroup = new HashSet<>();
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
         expectedFamilyGroup.add(new GroupDTO("FAMILY CARDOSO"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY SIMPSON"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY AZEVEDO"));
