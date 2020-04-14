@@ -59,7 +59,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(personEmail, accountDenomination, accountDescription);
-        ResponseEntity responseEntityExpected = new ResponseEntity<>(accountExpectedDTO, HttpStatus.CREATED);
+        ResponseEntity <AccountDTO> responseEntityExpected = new ResponseEntity<>(accountExpectedDTO, HttpStatus.CREATED);
 
         MockitoAnnotations.initMocks(this);
         Mockito.when(service.createPersonAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
@@ -287,6 +287,22 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     }
 
 
+    @DisplayName("Test If User Account is created - Null info DTO")
+    @Test
+    void testIfUserAccountWasCreatedNullInfoDTO() {
+        //Arrange
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.createPersonAccount(null)).thenThrow(new NullPointerException(null));
 
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonAccount(null);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NullPointerException.class)
+                .hasMessage(null);
+    }
 
 }
