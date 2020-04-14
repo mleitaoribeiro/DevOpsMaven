@@ -10,6 +10,7 @@ import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US007CreateGroupAccountControllerRestTest extends AbstractTest {
@@ -54,6 +55,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         //Assert
         Assertions.assertAll(
+                () -> assertNotNull(mvcResult),
                 () -> assertEquals(201, status),
                 () -> assertEquals(expected, result)
         );

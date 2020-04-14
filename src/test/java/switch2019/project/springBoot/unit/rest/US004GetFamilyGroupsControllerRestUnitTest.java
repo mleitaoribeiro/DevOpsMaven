@@ -1,5 +1,6 @@
 package switch2019.project.springBoot.unit.rest;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -13,10 +14,10 @@ import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.controllerLayer.controllersRest.US004GetFamilyGroupsControllerRest;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -46,7 +47,12 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
         ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups();
 
         //Assert
-        assertEquals(responseEntityExpected, responseEntityResult);
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
+                () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
+                () -> assertNotNull(responseEntityResult)
+        );
 
     }
 
