@@ -7,8 +7,9 @@ public class AddedMemberDTO {
     private String memberAdded;
 
     public AddedMemberDTO(boolean wasMemberAdded, String personEmail, String groupDescription) {
-        if (wasMemberAdded) memberAdded = personEmail + " was added to group " + groupDescription.toLowerCase();
-        else memberAdded = personEmail + " is already on group " + groupDescription.toLowerCase();
+        if(groupDescription != null) groupDescription = groupDescription.toLowerCase();
+        if (wasMemberAdded) memberAdded = personEmail + " was added to group " + groupDescription;
+        else memberAdded = personEmail + " is already on group " + groupDescription;
     }
 
     @Override

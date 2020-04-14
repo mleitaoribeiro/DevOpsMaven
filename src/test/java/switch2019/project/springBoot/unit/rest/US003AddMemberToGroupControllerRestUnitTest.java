@@ -25,8 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 
 public class US003AddMemberToGroupControllerRestUnitTest {
+
     @Mock
     private US003AddMemberToGroupService service;
+
     @Autowired
     private US003AddMemberToGroupControllerRest controller;
 
@@ -145,4 +147,65 @@ public class US003AddMemberToGroupControllerRestUnitTest {
                 .hasMessage("No group found with that description.");
 
     }
+
+    @Test
+    @DisplayName("Test if a member was added to group - Null Person Email")
+    public void addMemberNullPersonEmail() {
+
+        //Arrange
+        String groupDescription = "games";
+        String personEmail = null;
+
+        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
+        addMemberInfoDTO.setPersonEmail(personEmail);
+        addMemberInfoDTO.setGroupDescription(groupDescription);
+
+        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
+        AddedMemberDTO wasMemberAddedExpected = new AddedMemberDTO(true, personEmail, groupDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.addMemberToGroup(addMemberInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+
+    }
+
+    @Test
+    @DisplayName("Test if a member was added to group - Null Group Description")
+    public void addMemberNullGroupDescription() {
+
+        //Arrange
+        String groupDescription = null;
+        String personEmail = "morty@gmail.com";
+
+        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
+        addMemberInfoDTO.setPersonEmail(personEmail);
+        addMemberInfoDTO.setGroupDescription(groupDescription);
+
+        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
+        AddedMemberDTO wasMemberAddedExpected = new AddedMemberDTO(true, personEmail, groupDescription);
+
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.addMemberToGroup(addMemberInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+
+    }
+
 }
