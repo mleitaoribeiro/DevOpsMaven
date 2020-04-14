@@ -204,7 +204,7 @@ class GroupTest {
      * US003 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
-   /* @Test
+    @Test
     @DisplayName("Validate if members were added to a group")
     void addMembers() {
 
@@ -219,11 +219,11 @@ class GroupTest {
         Group group1 = new Group(new Description("OsMaisFixes"),person1);
 
         //Act
-        boolean areMembersAddedToGroup = (group1.addMember(person1) &&  group1.addMember(person2));
+        boolean areMembersAddedToGroup = (group1.isGroupMember(person1.getID()) &&  group1.addMember(person2));
 
         //Assert
         assertTrue(areMembersAddedToGroup);
-    }*/
+    }
 
     @Test
     @DisplayName("Validate if a member was added to a group - Person null")
@@ -238,12 +238,15 @@ class GroupTest {
 
         //Assert
         assertFalse(isMemberAddedToGroup);
+
+
+
     }
 
     /**
      * Test if a member added to the group is automatically promoted to admin if the group is empty
      */
-   /* @Test
+   @Test
     @DisplayName("Member added to an empty group and Set as Admin")
     void promoteToAdminMemberAddedToAnEmptyTrue() {
 
@@ -256,9 +259,9 @@ class GroupTest {
         boolean isMemberAddedToEmpyGroup = group1.addMember(person1);
 
         //Assert
-        assertTrue(isMemberAddedToEmpyGroup);
-        assertTrue(group1.isGroupAdmin(person1));
-    }*/
+        assertFalse(isMemberAddedToEmpyGroup);
+        assertTrue(group1.isGroupAdmin(person1.getID()));
+    }
 
     @Test
     @DisplayName("Member added to a non empty group - Not Admin")
