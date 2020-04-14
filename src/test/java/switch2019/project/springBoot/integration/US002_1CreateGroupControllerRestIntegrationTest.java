@@ -269,5 +269,33 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid groupDescription - Empty")
+    void createGroupAndBecomeAdminNullJsonInput() throws Exception {
+
+        //Arrange
+        String uri = "/createGroup";
+
+        String inputJson = super.mapToJson((null));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(400, status),
+                () -> assertEquals("", result)
+        );
+
+    }
 
 }
