@@ -2,14 +2,12 @@ package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
@@ -23,10 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
 public class US001AreSiblingsControllerCliUnitTests {
     @Mock
-    @Autowired
     private US001AreSiblingsService service;
     @Autowired
     private US001AreSiblingsController controller;

@@ -2,17 +2,12 @@ package switch2019.project.springBoot.integration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
-import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;

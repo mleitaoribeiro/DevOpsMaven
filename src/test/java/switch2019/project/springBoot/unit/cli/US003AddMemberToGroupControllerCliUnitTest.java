@@ -2,14 +2,12 @@ package switch2019.project.springBoot.unit.cli;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
@@ -22,10 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
 public class US003AddMemberToGroupControllerCliUnitTest {
-    @Mock @Autowired private US003AddMemberToGroupService service;
-    @Autowired private US003AddMemberToGroupController controller;
+    @Mock
+    private US003AddMemberToGroupService service;
+    @Autowired
+    private US003AddMemberToGroupController controller;
 
     @Test
     @DisplayName("Test if a member was added to group - Success Case")

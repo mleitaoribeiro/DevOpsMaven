@@ -3,7 +3,6 @@ package switch2019.project.springBoot.unit.rest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -12,13 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.controllerLayer.controllersRest.US005_1AdminAddsCategoryControllerRest;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,10 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
+
 class US005_1AdminAddsCategoryControllerRestUnitTest {
     @Mock
-    @Autowired
     private US005_1AdminAddsCategoryToGroupService service;
     @Autowired
     private US005_1AdminAddsCategoryControllerRest controllerRest;

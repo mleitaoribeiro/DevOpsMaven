@@ -3,15 +3,12 @@ package switch2019.project.springBoot.unit.cli;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
@@ -24,10 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
 class US005_1AdminAddsCategoryControllerCliUnitTest {
     @Mock
-    @Autowired
     private US005_1AdminAddsCategoryToGroupService service;
     @Autowired
     private US005_1AdminAddsCategoryController controller;
