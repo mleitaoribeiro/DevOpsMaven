@@ -55,7 +55,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(expected,result)
+                () -> assertEquals(expected, result)
         );
     }
 
@@ -231,7 +231,34 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
     @Test
     @DisplayName("Test Group Account creation - Email Empty")
     void addGroupAccountEmailEmpty() throws Exception {
+        //Arrange
+        String uri = "/addGroupAccount";
 
+        final String groupDescription = "Smith Family";
+        final String personEmail = "";
+        final String accountDenomination = "Gym";
+        final String accountDescription = "Fitness";
+
+        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        createGroupAccountInfoDTO.setGroupDescription(groupDescription);
+        createGroupAccountInfoDTO.setPersonEmail(personEmail);
+        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The email it's not valid."))
+                .isExactlyInstanceOf(NestedServletException.class);
     }
 
     @Test
@@ -270,7 +297,34 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
     @Test
     @DisplayName("Test Group Account creation - Group ID empty")
     void addGroupAccountGroupIDEmpty() throws Exception {
+        //Arrange
+        String uri = "/addGroupAccount";
 
+        final String groupDescription = "";
+        final String personEmail = "rick@gmail.com";
+        final String accountDenomination = "Gym";
+        final String accountDescription = "Fitness";
+
+        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        createGroupAccountInfoDTO.setGroupDescription(groupDescription);
+        createGroupAccountInfoDTO.setPersonEmail(personEmail);
+        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
     }
 
     @Test
@@ -310,12 +364,39 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
     @Test
     @DisplayName("Test Group Account creation - account denomination empty")
     void addGroupAccountDenominationEmpty() throws Exception {
+        //Arrange
+        String uri = "/addGroupAccount";
 
+        final String groupDescription = "Smith Family";
+        final String personEmail = "rick@gmail.com";
+        final String accountDenomination = "";
+        final String accountDescription = "Fitness";
+
+        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        createGroupAccountInfoDTO.setGroupDescription(groupDescription);
+        createGroupAccountInfoDTO.setPersonEmail(personEmail);
+        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
     }
 
     @Test
     @DisplayName("Test Group Account creation - account description null")
-    void addGroupAccountDescritpionNull() throws Exception {
+    void addGroupAccountDescriptionNull() throws Exception {
         //Arrange
         String uri = "/addGroupAccount";
 
@@ -350,7 +431,35 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Group Account creation - account description empty")
-    void addGroupAccountDescritpionEmpty() throws Exception {
+    void addGroupAccountDescriptionEmpty() throws Exception {
+        //Arrange
+        String uri = "/addGroupAccount";
 
+        final String groupDescription = "Smith Family";
+        final String personEmail = "rick@gmail.com";
+        final String accountDenomination = "Fitness";
+        final String accountDescription = "";
+
+        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        createGroupAccountInfoDTO.setGroupDescription(groupDescription);
+        createGroupAccountInfoDTO.setPersonEmail(personEmail);
+        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.post(uri)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(inputJson));
+        });
+
+        // Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
     }
+
 }
