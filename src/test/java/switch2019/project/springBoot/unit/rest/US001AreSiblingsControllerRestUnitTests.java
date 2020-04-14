@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 public class US001AreSiblingsControllerRestUnitTests {
-    @Mock
     @Autowired
     private US001AreSiblingsService service;
     @Autowired
