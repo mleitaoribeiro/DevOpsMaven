@@ -228,7 +228,7 @@ class EmailTest {
 
             //Assert
             catch (IllegalArgumentException invalidEmail) {
-                assertEquals("The email it's not valid.", invalidEmail.getMessage());
+                assertEquals("The email is not valid.", invalidEmail.getMessage());
             }
 
     }
@@ -248,7 +248,7 @@ class EmailTest {
 
         //Assert
         catch (IllegalArgumentException invalidEmail) {
-            assertEquals("The email it's not valid.", invalidEmail.getMessage());
+            assertEquals("The email is not valid.", invalidEmail.getMessage());
         }
 
     }
@@ -289,7 +289,7 @@ class EmailTest {
 
         //Assert
         catch (IllegalArgumentException invalidEmail) {
-            assertEquals("The email it's not valid.", invalidEmail.getMessage());
+            assertEquals("The email is not valid.", invalidEmail.getMessage());
         }
 
     }
@@ -309,7 +309,7 @@ class EmailTest {
 
         //Assert
         catch (IllegalArgumentException invalidEmail) {
-            assertEquals("The email it's not valid.", invalidEmail.getMessage());
+            assertEquals("The email is not valid.", invalidEmail.getMessage());
         }
 
     }
@@ -329,7 +329,7 @@ class EmailTest {
 
         //Assert
         catch (IllegalArgumentException invalidEmail) {
-            assertEquals("The email it's not valid.", invalidEmail.getMessage());
+            assertEquals("The email is not valid.", invalidEmail.getMessage());
         }
 
     }
@@ -350,7 +350,7 @@ class EmailTest {
 
         //Assert
         catch (IllegalArgumentException invalidEmail) {
-            assertEquals("The email it's not valid.", invalidEmail.getMessage());
+            assertEquals("The email is not valid.", invalidEmail.getMessage());
         }
 
     }

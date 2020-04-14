@@ -257,7 +257,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         // Assert
         assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email it's not valid."))
+                .hasCause(new IllegalArgumentException("The email is not valid."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
 

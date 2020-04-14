@@ -125,7 +125,7 @@ class US002_1CreateGroupControllerTest {
 
         //Assert
         catch (IllegalArgumentException e) {
-            assertEquals("The email it's not valid.", e.getMessage());
+            assertEquals("The email is not valid.", e.getMessage());
         }
     }
 

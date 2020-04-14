@@ -190,7 +190,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it's not valid.");
+                .hasMessage("The email is not valid.");
     }
 
     @Test
@@ -221,7 +221,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email it's not valid.");
+                .hasMessage("The email is not valid.");
     }
 
     @Test
