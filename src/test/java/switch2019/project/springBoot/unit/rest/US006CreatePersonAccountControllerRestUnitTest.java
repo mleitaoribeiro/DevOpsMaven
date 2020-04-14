@@ -20,6 +20,7 @@ import switch2019.project.controllerLayer.controllersRest.US006CreatePersonAccou
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
@@ -69,6 +70,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
         //Assert
         assertEquals(responseEntityExpected, responseEntityResult);
+        assertNotNull(responseEntityResult.getStatusCode());
     }
 
     @DisplayName("Test If User Account was created - Account already exists")
