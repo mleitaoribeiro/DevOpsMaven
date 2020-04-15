@@ -44,13 +44,13 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setPersonEmail(personEmail);
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
-        AddedMemberDTO addedMemberDTO = new AddedMemberDTO(true, personEmail, groupDescription);
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
+        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(addedMemberDTO);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
-        ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberDTO, HttpStatus.CREATED);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberExpectedDTO, HttpStatus.CREATED);
 
         //Act
         ResponseEntity<Object> responseEntity = controller.addMemberToGroup(addMemberInfoDTO);
@@ -72,13 +72,13 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setPersonEmail(personEmail);
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
-        AddedMemberDTO addedMemberDTO = new AddedMemberDTO(false, personEmail, groupDescription);
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
+        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(false, personEmail, groupDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(addedMemberDTO);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
-        ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberDTO, HttpStatus.CREATED);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberExpectedDTO, HttpStatus.CREATED);
 
         //Act
         ResponseEntity<Object> responseEntity = controller.addMemberToGroup(addMemberInfoDTO);
@@ -100,11 +100,11 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setPersonEmail(personEmail);
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
-        AddedMemberDTO wasMemberAddedExpected = new AddedMemberDTO(true, personEmail, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
+        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -130,11 +130,11 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setPersonEmail(personEmail);
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
-        AddedMemberDTO wasMemberAddedExpected = new AddedMemberDTO(true, personEmail, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
+        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -160,11 +160,11 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setPersonEmail(personEmail);
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
-        AddedMemberDTO wasMemberAddedExpected = new AddedMemberDTO(true, personEmail, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
+        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -190,11 +190,11 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setPersonEmail(personEmail);
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
-        AddedMemberDTO wasMemberAddedExpected = new AddedMemberDTO(true, personEmail, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
+        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
