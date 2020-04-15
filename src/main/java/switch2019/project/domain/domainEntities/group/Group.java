@@ -101,11 +101,12 @@ public class Group implements Owner {
      * @return true if member was added, false if it wasn't
      */
     public boolean addMember(Person person) {
-        if (this.members.isEmpty()) {
+        if (person != null && this.members.isEmpty()) {
             members.add(person);
             return setAdmin(person);
-        } else
+        } else if (person != null)
             return members.add(person);
+        else return false;
     }
 
     /**

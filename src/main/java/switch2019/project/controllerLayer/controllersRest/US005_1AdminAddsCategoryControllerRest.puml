@@ -1,49 +1,81 @@
 @startuml
 skinparam DefaultFontSize 20
-
+title US005.1 Sequence Diagram - Happy Case
 participant "test:RestClient"
 
+participant "mvcResult :MvcResult"
+participant "response :MockHttpServletResponse"
 participant ":SpringBoot"
 
 == Act ==
+autonumber
 "test:RestClient" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
 activate ":SpringBoot" #FFBBBB
 
+autonumber 1.1
 create "info:GroupCategoryInfoDTO"
-":SpringBoot"->"info:GroupCategoryInfoDTO":1.1:create (groupDescription,\n personEmail,categoryDenomination)
+":SpringBoot"->"info:GroupCategoryInfoDTO":create (groupDescription,\n personEmail,categoryDenomination)
 activate "restController:US005_1AdminAddsCategoryControllerRest" #FFBBBB
 
+
 create "restController:US005_1AdminAddsCategoryControllerRest"
-":SpringBoot"-> "restController:US005_1AdminAddsCategoryControllerRest":1.2: addCategoryToGroup(info)
+":SpringBoot"-> "restController:US005_1AdminAddsCategoryControllerRest": addCategoryToGroup(info)
 
 
 
-"restController:US005_1AdminAddsCategoryControllerRest"-> ":CategoryDTOAssembler":1.2.1:createGroupCategoryDTO =\n transformToCreateGroupCategoryDTO(info)
+"restController:US005_1AdminAddsCategoryControllerRest"-> ":CategoryDTOAssembler":createGroupCategoryDTO =\n transformToCreateGroupCategoryDTO(info)
 activate ":CategoryDTOAssembler" #FFBBBB
 
-create "categoryDTO:CategoryDTO"
-":CategoryDTOAssembler"-->"categoryDTO:CategoryDTO":1.2.2:categoryDTO=\n createGroupCategoryDTO(createGroupCategoryDTO)
+create "createGroupCategoryDTO:CreateGroupCategoryDTO"
+":CategoryDTOAssembler"-->"createGroupCategoryDTO:CreateGroupCategoryDTO":new CreateGroupCategoryDTO\n(info.getGroupDescription(),\ninfo.getPersonEmail(),\n info.getCategoryDenomination())
 deactivate ":CategoryDTOAssembler"
 
-"restController:US005_1AdminAddsCategoryControllerRest"->"service:US005_1AdminAddsCategoryToGroupService":1.2.3:categoryDTOresult=\naddCategoryDTOgroup(categoryDTO)
+"restController:US005_1AdminAddsCategoryControllerRest"->"service:US005_1AdminAddsCategoryToGroupService":categoryDTOresult=\naddCategoryDTOgroup(createGroupCategoryDTO)
 activate "service:US005_1AdminAddsCategoryToGroupService" #FFBBBB
 deactivate "service:US005_1AdminAddsCategoryToGroupService" #FFBBBB
 
 ref over "service:US005_1AdminAddsCategoryToGroupService": init
 
-"restController:US005_1AdminAddsCategoryControllerRest"--> ":SpringBoot":1.3:responseEntity=responseEntity<>(CategoryDTO,HttpStatus.CREATED)
-":SpringBoot"-->"test:RestClient":1.3.1:mvcResult
+"restController:US005_1AdminAddsCategoryControllerRest"--> ":SpringBoot":responseEntity=responseEntity<>(CategoryDTO,HttpStatus.CREATED)
+deactivate "restController:US005_1AdminAddsCategoryControllerRest"
 
-"test:RestClient" -> ":SpringBoot": 1.3.2:response = mvcResult.getResponse()
+"test:RestClient" <-- ":SpringBoot" : mvcResultJson
+deactivate ":SpringBoot"
 
-"test:RestClient"-> ":SpringBoot":1.3.3: status = response.getStatus()
+autonumber 2
+|||
+"test:RestClient" -> "test:RestClient" : deserialize (mvcResultJson)
+activate "HTTP Client :Test"
 
-"test:RestClient" -> ":SpringBoot":1.3.4: result = response.getContentAsString()
+autonumber 2.1
+"test:RestClient" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
+deactivate "test:RestClient"
+
+|||
+
+autonumber 3
+"test:RestClient" -> "mvcResult :MvcResult" : response = getResponse()
+
+autonumber 3.1
+
+activate "mvcResult :MvcResult" #FFBBBB
+"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
+deactivate "mvcResult :MvcResult"
+
+autonumber 4
+"test:RestClient" -> "response :MockHttpServletResponse" : status = getStatus()
+activate "response :MockHttpServletResponse" #FFBBBB
+"test:RestClient" -> "response :MockHttpServletResponse" : result = getContentAsString()
+deactivate "response :MockHttpServletResponse" #FFBBBB
+
+
 
 == Assert ==
 
 "test:RestClient" -> "test:RestClient" : assertEquals(201, status)
 "test:RestClient" -> "test:RestClient" : assertEquals(expectedResult, result)
+
+deactivate ":SpringBoot"
 deactivate "service:US005_1AdminAddsCategoryToGroupService"
 deactivate "restController:US005_1AdminAddsCategoryControllerRest"
 

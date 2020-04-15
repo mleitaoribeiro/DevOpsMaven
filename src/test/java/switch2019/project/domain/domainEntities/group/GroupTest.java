@@ -170,21 +170,21 @@ class GroupTest {
         assertFalse(result);
     }
 
-    /*@Test
+    @Test
     @DisplayName("Person is not member")
     public void isGroupMemberFalseCase() {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group = new Group(new Description("Mary"),person);
+        Group group = new Group(new Description("Mary"), person);
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
         //Act
-        boolean isGroupMember = group.isGroupMember(person2);
+        boolean isGroupMember = group.isGroupMember(person2.getID());
 
         //Assert
         assertFalse(isGroupMember);
-    }*/
+    }
 
     @Test
     @DisplayName("Person is not member - null case")
@@ -204,6 +204,7 @@ class GroupTest {
      * US003 (add a member to a group)
      * Test if a user was added as first member and group admin to a Group and the second as member
      */
+
     @Test
     @DisplayName("Validate if members were added to a group")
     void addMembers() {
@@ -219,7 +220,7 @@ class GroupTest {
         Group group1 = new Group(new Description("OsMaisFixes"),person1);
 
         //Act
-        boolean areMembersAddedToGroup = (group1.isGroupMember(person1.getID()) &&  group1.addMember(person2));
+        boolean areMembersAddedToGroup = (group1.isGroupMember(person1.getID()) && group1.addMember(person2));
 
         //Assert
         assertTrue(areMembersAddedToGroup);
@@ -238,8 +239,6 @@ class GroupTest {
 
         //Assert
         assertFalse(isMemberAddedToGroup);
-
-
 
     }
 
