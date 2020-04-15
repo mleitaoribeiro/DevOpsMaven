@@ -1,15 +1,15 @@
 @startuml
 skinparam DefaultFontSize 20
 title US005.1 Sequence Diagram - Happy Case
-participant "test:RestClient"
 
+participant "HTTP Client :Test"
 participant "mvcResult :MvcResult"
 participant "response :MockHttpServletResponse"
 participant ":SpringBoot"
 
 == Act ==
 autonumber
-"test:RestClient" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
+"HTTP Client :Test" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
 activate ":SpringBoot" #FFBBBB
 
 autonumber 1.1
@@ -39,22 +39,22 @@ ref over "service:US005_1AdminAddsCategoryToGroupService": init
 "restController:US005_1AdminAddsCategoryControllerRest"--> ":SpringBoot":responseEntity=responseEntity<>(CategoryDTO,HttpStatus.CREATED)
 deactivate "restController:US005_1AdminAddsCategoryControllerRest"
 
-"test:RestClient" <-- ":SpringBoot" : mvcResultJson
+"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
 deactivate ":SpringBoot"
 
 autonumber 2
 |||
-"test:RestClient" -> "test:RestClient" : deserialize (mvcResultJson)
+"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
 activate "HTTP Client :Test"
 
 autonumber 2.1
-"test:RestClient" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
-deactivate "test:RestClient"
+"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
+deactivate "HTTP Client :Test"
 
 |||
 
 autonumber 3
-"test:RestClient" -> "mvcResult :MvcResult" : response = getResponse()
+"HTTP Client :Test" -> "mvcResult :MvcResult" : response = getResponse()
 
 autonumber 3.1
 
@@ -63,17 +63,17 @@ activate "mvcResult :MvcResult" #FFBBBB
 deactivate "mvcResult :MvcResult"
 
 autonumber 4
-"test:RestClient" -> "response :MockHttpServletResponse" : status = getStatus()
+"HTTP Client :Test" -> "response :MockHttpServletResponse" : status = getStatus()
 activate "response :MockHttpServletResponse" #FFBBBB
-"test:RestClient" -> "response :MockHttpServletResponse" : result = getContentAsString()
+"HTTP Client :Test" -> "response :MockHttpServletResponse" : result = getContentAsString()
 deactivate "response :MockHttpServletResponse" #FFBBBB
 
 
 
 == Assert ==
 
-"test:RestClient" -> "test:RestClient" : assertEquals(201, status)
-"test:RestClient" -> "test:RestClient" : assertEquals(expectedResult, result)
+"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(201, status)
+"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(expectedResult, result)
 
 deactivate ":SpringBoot"
 deactivate "service:US005_1AdminAddsCategoryToGroupService"
