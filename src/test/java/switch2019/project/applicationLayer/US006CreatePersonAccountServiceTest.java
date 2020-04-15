@@ -1,46 +1,25 @@
 package switch2019.project.applicationLayer;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
-import switch2019.project.domain.domainEntities.person.Address;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.infrastructure.repositories.AccountRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class US006CreatePersonAccountServiceTest {
 
-    private PersonRepository personRepo;
-    private AccountRepository accountRepo;
+    @Autowired
     private US006CreatePersonAccountService service;
-
-    @BeforeEach
-    void universeSetUp() {
-        personRepo = new PersonRepository();
-        accountRepo = new AccountRepository();
-        service = new US006CreatePersonAccountService(personRepo, accountRepo);
-
-        //Add people to Repository
-        personRepo.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
-                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
-        personRepo.createPerson("Maria Santos", new DateAndTime(1995, 4, 12), new Address("Miragaia"),
-                new Address("Rua de Camões", "Porto", "4220-099"), new Email("maria.santos@live.com.pt"));
-        personRepo.createPerson("Mariana Alves", new DateAndTime(1987, 9, 11), new Address("Fafe"),
-                new Address("Rua de Tagilde", "Vizela", "4620-500"), new Email("mariana.alves@gmail.com"));
-    }
-
 
     @Test
     @DisplayName("Test If several accounts are created for an existing Person - Main Scenario")
     void testIfPersonAccountIsCreatedMainScenario() {
         //Arrange
-        String personEmail = "maria.santos@live.com.pt";
+        String personEmail = "jerry.smith@gmail.com";
         String accountDenomination1 = "Revolut";
         String accountDescription1 = "OnlineShopping";
         String accountDenomination2 = "Active";
@@ -73,36 +52,6 @@ class US006CreatePersonAccountServiceTest {
     }
 
     @Test
-    @DisplayName("Test If person Account is created - Happy Case - Number of accounts increased")
-    void testIfPersonAccountWasCreatedCompareSize() {
-
-        //Arrange
-        String personEmail = "jose.cardoso@hotmail.com";
-        String accountDenomination = "Revolut";
-        String accountDescription = "OnlineShopping";
-
-        int expectedAccountsBefore = 0;
-        int realAccountsBefore = accountRepo.repositorySize();
-        int numberOfExpectedAccountsInTheRepositoryAfter = 1;
-        AccountDTO accountDTOExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
-
-        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
-
-        //Act
-        AccountDTO accountDTOCreated = service.createPersonAccount(createPersonAccountDTO);
-
-        int realNumberOfAccountsInTheRepositoryAfter = accountRepo.repositorySize();
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(accountDTOExpected, accountDTOCreated),
-                () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
-                () -> assertEquals(numberOfExpectedAccountsInTheRepositoryAfter, realNumberOfAccountsInTheRepositoryAfter)
-        );
-    }
-
-
-    @Test
     @DisplayName("Test If User Account is Created - person ID does not exists in Repository")
     void testIfAccountIsCreateNonExistingID() {
         //Arrange
@@ -127,60 +76,21 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If User Account is Created - account already exists on Repository")
     void testIfAccountIsNotCreatedWhenAlreadyExists() {
         //Arrange
-        String personEmail = "maria.santos@live.com.pt";
-        String accountDenomination = "Revolut";
-        String accountDescription = "OnlineShopping";
+        String personEmail = "1191780@isep.ipp.pt";
+        String accountDenomination = "Mbway";
+        String accountDescription = "Rides";
         String result = "";
 
         CreatePersonAccountDTO createPersonAccountDTO1 = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
-        //Act
-        service.createPersonAccount(createPersonAccountDTO1);
         try {
             service.createPersonAccount(createPersonAccountDTO1);
         } catch (IllegalArgumentException invalid) {
             result = invalid.getMessage();
         }
-
         //Assert
         assertEquals("This account already exists.", result);
 
-    }
-
-    @Test
-    @DisplayName("Test If person Account isn't created - account already exists on repository - Number of accounts has not increased")
-    void testIfPersonAccountWasNotCreatedCompareSize() {
-
-        //Arrange
-        String personEmail = "maria.santos@live.com.pt";
-        String accountDenomination = "Revolut";
-        String accountDescription = "OnlineShopping";
-
-        String catchResult = "";
-        int expectedAccountsBefore = 1;
-        int expectedAccountsAfter = 1;
-
-        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
-
-        //Act
-        service.createPersonAccount(createPersonAccountDTO);
-        int realAccountsBefore = accountRepo.repositorySize();
-        try {
-            service.createPersonAccount(createPersonAccountDTO);
-        } catch (IllegalArgumentException accountAlreadyExists) {
-            catchResult = accountAlreadyExists.getMessage();
-        }
-
-        int realAccountsAfter = accountRepo.repositorySize();
-        String result = catchResult;
-
-        //Assert
-
-        Assertions.assertAll(
-                () -> assertEquals("This account already exists.", result),
-                () -> assertEquals(expectedAccountsBefore, realAccountsBefore),
-                () -> assertEquals(expectedAccountsAfter, realAccountsAfter)
-        );
     }
 
 
@@ -188,9 +98,9 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If User Account is created with an existing Person - Main Scenario")
     void testIfPersonAccountIsCreated() {
         //Arrange
-        String personEmail = "jose.cardoso@hotmail.com";
-        String accountDenomination = "Revolut";
-        String accountDescription = "OnlineShopping";
+        String personEmail = "1191780@isep.ipp.pt";
+        String accountDenomination = "ISEP Santander";
+        String accountDescription = "Papelaria";
 
         CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, accountDescription);
 
@@ -248,8 +158,7 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If User Account is Created - Null Denomination")
     void testIfAccountIsCreateNullDenomination() {
         //Arrange
-        String personEmail = "jose.cardoso@hotmail.com";
-        String accountDenomination = "Revolut";
+        String personEmail = "roberto@isep.ipp.pt";
         String accountDescription = "OnlineShopping";
 
         CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, null, accountDescription);
@@ -269,7 +178,7 @@ class US006CreatePersonAccountServiceTest {
     @DisplayName("Test If User Account is Created - Null Description")
     void testIfAccountIsCreateNullDescription() {
         //Arrange
-        String personEmail = "jose.cardoso@hotmail.com";
+        String personEmail = "roberto@isep.ipp.pt";
         String accountDenomination = "Revolut";
 
         CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(personEmail, accountDenomination, null);
