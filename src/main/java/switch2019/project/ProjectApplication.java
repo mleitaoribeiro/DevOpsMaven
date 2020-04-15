@@ -7,9 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import switch2019.project.infrastructure.dataLoader.Bootstrapper;
 
-@SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer.controllersCli",
-        "switch2019.project.infrastructure.repositories", "switch2019.project.applicationLayer",
-        "switch2019.project.infrastructure.dataLoader", "switch2019.project.controllerLayer.controllersRest"})
+@SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer",
+        "switch2019.project.infrastructure", "switch2019.project.applicationLayer"})
 
 public class ProjectApplication implements ApplicationRunner {
 

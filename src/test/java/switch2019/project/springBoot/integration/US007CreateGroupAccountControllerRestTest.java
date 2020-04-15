@@ -9,10 +9,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US007CreateGroupAccountControllerRestTest extends AbstractTest {
@@ -57,10 +55,7 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
         String result = mvcResult.getResponse().getContentAsString();
 
         //Assert
-        Assertions.assertAll(
-                () -> assertEquals(201, status)
-        );
-
+        assertEquals(201, status);
         JSONAssert.assertEquals(expected, result, JSONCompareMode.LENIENT);
     }
 
