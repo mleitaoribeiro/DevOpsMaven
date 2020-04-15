@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -9,11 +10,8 @@ import switch2019.project.infrastructure.repositories.PersonRepository;
 @Service
 public class US001AreSiblingsService {
 
+    @Autowired
     private PersonRepository repository;
-
-    public US001AreSiblingsService (PersonRepository repository) {
-        this.repository = repository;
-    }
 
     /**
      * US001
