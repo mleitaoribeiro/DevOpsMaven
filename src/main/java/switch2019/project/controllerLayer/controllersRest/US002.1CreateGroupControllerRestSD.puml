@@ -82,7 +82,7 @@ activate "groupsRep:GroupsRepository" #FFBBBB
 
 autonumber 1.2.2.4.1
 create "groupCreated:Group"
-"groupsRep:GroupsRepository" -> "groupCreated:Group" : groupCreated =\nnew Group(groupDescription, person)
+"groupsRep:GroupsRepository" -> "groupCreated:Group" : groupCreated = new Group(groupDescription, person)
 
 activate "groupCreated:Group" #FFBBBB
 autonumber 1.2.2.4.1.1
