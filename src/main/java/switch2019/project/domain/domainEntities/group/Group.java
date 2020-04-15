@@ -103,8 +103,7 @@ public class Group implements Owner {
     public boolean addMember(Person person) {
         if (person != null && this.members.isEmpty()) {
             members.add(person);
-            setAdmin(person);
-            return true;
+            return setAdmin(person);
         } else if (person != null)
             return members.add(person);
         else return false;
