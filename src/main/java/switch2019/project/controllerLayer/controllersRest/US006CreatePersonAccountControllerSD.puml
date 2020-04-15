@@ -1,10 +1,11 @@
 @startuml
-skinparam DefaultFontSize 20
+skinparam DefaultFontSize 25
 
-title US006 Sequence Diagram - Happy Case
+title US006 Sequence Diagram - Happy Case  #6495ED
 
 participant "test:RestClient"
 participant "mvcResult:MvcResult"
+
 
 participant "mvc:MockMvc"
 
@@ -14,7 +15,7 @@ participant "mvc:MockMvc"
 activate "test:RestClient" #FFBBBB
 activate "mvc:MockMvc" #FFBBBB
 
-"mvc:MockMvc" -> "mvc:MockMvc" :  deserialize \n {personEmail,accountDenomination,accountDescription}
+"mvc:MockMvc" -> "mvc:MockMvc" :  deserialize {personEmail,accountDenomination,accountDescription}
 
 create "infoDTO:CreatePersonAccountInfoDTO"
 "mvc:MockMvc"->"infoDTO:CreatePersonAccountInfoDTO": CreatePersonAccountInfoDTO(personEmail,\n accountDenomination,accountDescription)
@@ -66,20 +67,34 @@ deactivate "service:US006CreatePersonAccountService"
 
 "restController:US006CreatePersonAccountControllerRest" -> "mvc:MockMvc": responseEntity (groupDTO, HttpStatus.CREATED)
 
-"mvcResult:MvcResult" <-- "mvc:MockMvc" : jsonResponse
+"mvc:MockMvc"--> "test:RestClient" : jsonResponse
 deactivate "mvc:MockMvc"
+
+box "RestClient"
+"test:RestClient" -> "mvcResult:MvcResult" : mvcResult = jsonResponse.andReturn()
+activate "mvcResult:MvcResult"  #FFBBBB
+deactivate "mvcResult:MvcResult"
+
+note right #FFBBBB
+Deserialization
+end note
+
+"test:RestClient" -> "mvcResult:MvcResult" : response = getResponse()
 activate "mvcResult:MvcResult" #FFBBBB
-"mvcResult:MvcResult" -> "mvcResult:MvcResult" : mvcResult = deserialize (jsonResponse)
 deactivate "mvcResult:MvcResult" #FFBBBB
 
-"test:RestClient" -> "mvcResult:MvcResult" : status = getResponse().getStatus
+"test:RestClient" -> "mvcResult:MvcResult" : status = response.status()
 activate "mvcResult:MvcResult" #FFBBBB
-"test:RestClient" -> "mvcResult:MvcResult" : contentResult = getResponse().getContentAsString()
-deactivate "mvcResult:MvcResult" #FFBBBB
+deactivate
+
+"test:RestClient" -> "mvcResult:MvcResult" : contentResult = response.getContentAsString()
+activate "mvcResult:MvcResult" #FFBBBB
+deactivate "mvcResult:MvcResult"
 
 ==Assert==
 "test:RestClient" -> "test:RestClient" : assertEquals(201, status)
 "test:RestClient" -> "test:RestClient" : assertEquals(expectedResult, contentResult)
 
 deactivate "test:RestClient"
+end box
 @enduml
