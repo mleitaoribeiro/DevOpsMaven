@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
@@ -9,12 +10,8 @@ import switch2019.project.assemblers.CategoryDTOAssembler;
 @Controller
 public class US005_1AdminAddsCategoryController {
 
+    @Autowired
     private US005_1AdminAddsCategoryToGroupService service;
-
-    //Service is initialized as attribute:
-    public US005_1AdminAddsCategoryController(US005_1AdminAddsCategoryToGroupService service){
-        this.service = service;
-    }
 
     /**
      * Call AdminAddsCategoryToCategoryListService to implement the User Story 5.1 using this controller.

@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
@@ -19,18 +20,14 @@ import switch2019.project.infrastructure.repositories.PersonRepository;
 @Service
 public class US007CreateGroupAccountService {
 
+    @Autowired
     private PersonRepository personRepository;
+    @Autowired
     private GroupsRepository groupsRepository;
+    @Autowired
     private AccountRepository accountRepository;
 
-    public US007CreateGroupAccountService (PersonRepository personRepository, GroupsRepository groupsRepository, AccountRepository accountRepository) {
-        this.personRepository = personRepository;
-        this.groupsRepository = groupsRepository;
-        this.accountRepository = accountRepository;
-    }
-
-
-/**
+    /**
      *US007 - As a group Admin, I want to create a group account
      *
      * @param createGroupAccountDTO
@@ -59,5 +56,6 @@ public class US007CreateGroupAccountService {
 
 
     }
+
 
 }

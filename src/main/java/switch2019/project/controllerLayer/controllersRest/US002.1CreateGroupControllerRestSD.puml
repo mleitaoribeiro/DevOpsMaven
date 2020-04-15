@@ -1,0 +1,149 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+title US002.1 Sequence Diagram - Happy Case
+
+participant "HTTP Client :Test"
+participant "mvcResult :MvcResult"
+participant "response :MockHttpServletResponse"
+participant ":SpringBoot"
+participant "restController:US2.1CreateGroupControllerRest"
+participant "service:US2.1CreateGroupService"
+participant ":GroupDTOAssembler"
+participant "personRep:PersonRepository"
+participant "groupsRep:GroupsRepository"
+
+
+
+
+== Act ==
+
+autonumber
+"HTTP Client :Test" -> ":SpringBoot": POST = /createGroup ,\n  body {groupDescription, personEmail}
+activate "HTTP Client :Test" #FFBBBB
+
+autonumber 1.1
+
+activate ":SpringBoot" #FFBBBB
+
+":SpringBoot" -> ":SpringBoot" : deserialize (body {groupDescription, personEmail})
+activate ":SpringBoot"
+
+autonumber 1.1.1
+create "createGroupInfoDTO: CreateGroupInfoDTO"
+":SpringBoot" --> "createGroupInfoDTO: CreateGroupInfoDTO" : create (groupDescription, personEmail)
+deactivate ":SpringBoot"
+
+autonumber 1.2
+":SpringBoot" -> "restController:US2.1CreateGroupControllerRest" : createGroup (createGroupInfoDTO)
+
+autonumber 1.2.1
+activate "restController:US2.1CreateGroupControllerRest" #FFBBBB
+"restController:US2.1CreateGroupControllerRest" -> ":GroupDTOAssembler": createGroupDTO = transformOfCreationOfGroupDTO(createGroupInfoDTO)
+
+autonumber 1.2.1.1
+
+activate ":GroupDTOAssembler" #FFBBBB
+
+":GroupDTOAssembler" -> "createGroupInfoDTO: CreateGroupInfoDTO": groupDescription = getGroupDescription()
+
+activate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+deactivate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+
+":GroupDTOAssembler" -> "createGroupInfoDTO: CreateGroupInfoDTO": personEmail = getPersonEmail()
+activate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+deactivate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+
+create "createGroupDTO:CreateGroupDTO"
+":GroupDTOAssembler" -> "createGroupDTO:CreateGroupDTO": createGroupDTO = new CreateGroupDTO(groupDescription,personEmail)
+deactivate ":GroupDTOAssembler"
+
+autonumber 1.2.2
+"restController:US2.1CreateGroupControllerRest" -> "service:US2.1CreateGroupService" : groupDTO = createGroup(createGroupDTO)
+
+
+autonumber 1.2.2.1
+activate "service:US2.1CreateGroupService" #FFBBBB
+"service:US2.1CreateGroupService" -> "createGroupDTO:CreateGroupDTO" : personEmail = getPersonEmail()
+activate "createGroupDTO:CreateGroupDTO" #FFBBBB
+deactivate "createGroupDTO:CreateGroupDTO"
+
+"service:US2.1CreateGroupService" -> "personRep:PersonRepository" : person = findPersonByEmail (personEmail)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
+
+"service:US2.1CreateGroupService" -> "createGroupDTO:CreateGroupDTO" : groupDescription = getGroupDescription()
+activate "createGroupDTO:CreateGroupDTO" #FFBBBB
+deactivate "createGroupDTO:CreateGroupDTO"
+
+"service:US2.1CreateGroupService" -> "groupsRep:GroupsRepository" : groupCreated = createGroup(groupDescription, person)
+activate "groupsRep:GroupsRepository" #FFBBBB
+
+autonumber 1.2.2.4.1
+create "groupCreated:Group"
+"groupsRep:GroupsRepository" -> "groupCreated:Group" : groupCreated = new Group(groupDescription, person)
+
+activate "groupCreated:Group" #FFBBBB
+autonumber 1.2.2.4.1.1
+"groupCreated:Group" -> "groupCreated:Group" : addMember(person)
+deactivate "groupCreated:Group"
+
+autonumber 1.2.2.4.2
+"groupsRep:GroupsRepository" -> "groupsRep:GroupsRepository" :add(groupCreated)
+deactivate "groupsRep:GroupsRepository"
+
+autonumber 1.2.2.5
+
+"service:US2.1CreateGroupService" -> "groupCreated:Group" : groupID = getID()
+activate "groupCreated:Group" #FFBBBB
+deactivate "groupCreated:Group"
+
+"service:US2.1CreateGroupService" -> ":GroupDTOAssembler" : groupDTO = createGroupDTO (groupID)
+
+autonumber 1.2.2.6.1
+create "groupDTO:GroupDTO"
+":GroupDTOAssembler" -> "groupDTO:GroupDTO" : new GroupDTO()
+deactivate "service:US2.1CreateGroupService"
+
+autonumber 1.3
+return responseEntity (groupDTO, HttpStatus.CREATED)
+
+deactivate "restController:US2.1CreateGroupControllerRest"
+
+"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
+deactivate ":SpringBoot"
+
+autonumber 2
+|||
+"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
+activate "HTTP Client :Test"
+
+autonumber 2.1
+"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
+deactivate "HTTP Client :Test"
+
+|||
+
+autonumber 3
+"HTTP Client :Test" -> "mvcResult :MvcResult" : response = getResponse()
+
+autonumber 3.1
+
+activate "mvcResult :MvcResult" #FFBBBB
+"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
+deactivate "mvcResult :MvcResult"
+
+autonumber 4
+"HTTP Client :Test" -> "response :MockHttpServletResponse" : status = getStatus()
+activate "response :MockHttpServletResponse" #FFBBBB
+"HTTP Client :Test" -> "response :MockHttpServletResponse" : result = getContentAsString()
+deactivate "response :MockHttpServletResponse" #FFBBBB
+== Assert ==
+
+"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(201, status)
+"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(expectedResult, result)
+deactivate "HTTP Client :Test"
+
+@enduml
+

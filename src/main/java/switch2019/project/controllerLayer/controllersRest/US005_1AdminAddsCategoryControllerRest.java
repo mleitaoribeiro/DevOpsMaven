@@ -19,10 +19,8 @@ public class US005_1AdminAddsCategoryControllerRest {
 
     @PostMapping("/addCategoryToGroup")
     public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestBody CreateGroupCategoryInfoDTO dto) {
-        if (dto != null) {
             CreateGroupCategoryDTO categoryDTO = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(dto);
             CategoryDTO result = service.addCategoryToGroup(categoryDTO);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
-        } else return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

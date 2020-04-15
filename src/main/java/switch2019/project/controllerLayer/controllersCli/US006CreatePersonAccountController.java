@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
@@ -9,12 +10,8 @@ import switch2019.project.assemblers.AccountDTOAssembler;
 @Controller
 public class US006CreatePersonAccountController {
 
+    @Autowired
     private US006CreatePersonAccountService service;
-
-    public US006CreatePersonAccountController(US006CreatePersonAccountService service) {
-        this.service = service;
-    }
-
 
     /**
      * User Story 6
