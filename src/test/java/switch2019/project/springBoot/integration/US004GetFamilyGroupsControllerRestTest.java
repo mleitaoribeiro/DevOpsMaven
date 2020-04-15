@@ -40,12 +40,12 @@ class US004GetFamilyGroupsControllerRestTest extends AbstractTest {
         //outputDTO
         String result = mvcResult.getResponse().getContentAsString();
 
+        String simpson = "FAMILY SIMPSON";
         String cardoso = "FAMILY CARDOSO";
         String azevedo = "FAMILY AZEVEDO";
-        String simpson = "FAMILY SIMPSON";
 
-        String expected = "[{\"groupDescription\":\"" + cardoso +"\"},{\"groupDescription\":\"" + azevedo + "\"" +
-                "},{\"groupDescription\":\"" + simpson + "\"}]";
+        String expected = "[{\"groupDescription\":\"" + simpson +"\"},{\"groupDescription\":\"" + cardoso + "\"" +
+                "},{\"groupDescription\":\"" + azevedo + "\"}]";
 
         //Assert
         Assertions.assertAll(
