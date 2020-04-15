@@ -1,6 +1,8 @@
 package switch2019.project.springBoot.integration;
 
 import org.junit.jupiter.api.*;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US007CreateGroupAccountControllerRestTest extends AbstractTest {
+
 
     @Override
     @BeforeEach
@@ -55,10 +58,10 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
 
         //Assert
         Assertions.assertAll(
-                () -> assertNotNull(mvcResult),
-                () -> assertEquals(201, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(201, status)
         );
+
+        JSONAssert.assertEquals(expected, result, JSONCompareMode.LENIENT);
     }
 
     @Test
