@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
+class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest {
 
     @Override
     @BeforeEach
@@ -37,17 +37,22 @@ class US005_1AdminAddsCategoryControllerRestTest extends AbstractTest {
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
+        String expected = "{\"denomination\":\"" + categoryDenomination.toUpperCase() + "\"" + "," + "\"ownerID\":\"" + groupDescriptionStr.toUpperCase() + "\"}";
 
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson)).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        assertEquals(201, status);
-
         String result = mvcResult.getResponse().getContentAsString();
-        String expected = "{\"denomination\":\"" + categoryDenomination.toUpperCase() + "\"" + "," + "\"ownerID\":\"" + groupDescriptionStr.toUpperCase() + "\"}";
-        assertEquals(expected, result);
+
+        //
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(201, status),
+                () -> assertEquals(expected, result)
+        );
 
     }
 
