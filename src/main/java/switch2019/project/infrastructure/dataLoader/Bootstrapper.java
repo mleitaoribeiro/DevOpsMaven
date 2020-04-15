@@ -1,4 +1,4 @@
-package switch2019.project.dataLoader;
+package switch2019.project.infrastructure.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

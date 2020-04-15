@@ -6,11 +6,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
-import switch2019.project.dataLoader.Bootstrapper;
+import switch2019.project.infrastructure.dataLoader.Bootstrapper;
 
 @SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer.controllersCli",
         "switch2019.project.infrastructure.repositories", "switch2019.project.applicationLayer",
-        "switch2019.project.dataLoader", "switch2019.project.controllerLayer.controllersRest"})
+        "switch2019.project.infrastructure.dataLoader", "switch2019.project.controllerLayer.controllersRest"})
 @RestController
 public class ProjectApplication implements ApplicationRunner {
 
