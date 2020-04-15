@@ -2,7 +2,7 @@
 
 skinparam DefaultFontSize 20
 
-title US002.1 Sequence Diagram - Happy Case
+title US003 Sequence Diagram - Happy Case
 
 participant "HTTP Client :Test"
 participant "mvcResult :MvcResult"
@@ -101,7 +101,7 @@ create "addedMemberDTO:AddedMemberDTO"
 activate "addedMemberDTO:AddedMemberDTO" #FFBBBB
 
 deactivate "addedMemberDTO:AddedMemberDTO"
-deactivate ":GroupDTOAssembler" 
+deactivate ":GroupDTOAssembler"
 deactivate "service:US003AddMemberToGroupService"
 
 autonumber 1.3
