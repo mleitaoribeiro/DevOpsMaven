@@ -103,7 +103,9 @@ deactivate "groupCreated:Group"
 
 autonumber 1.2.2.6.1
 create "groupDTO:GroupDTO"
-":GroupDTOAssembler" -> "groupDTO:GroupDTO" : new GroupDTO()
+activate ":GroupDTOAssembler" #FFBBBB
+":GroupDTOAssembler" -> "groupDTO:GroupDTO" : groupDTO = new GroupDTO()
+deactivate ":GroupDTOAssembler"
 deactivate "service:US2.1CreateGroupService"
 
 autonumber 1.3
