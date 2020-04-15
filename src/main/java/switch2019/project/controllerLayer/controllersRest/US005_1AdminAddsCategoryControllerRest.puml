@@ -1,36 +1,50 @@
 @startuml
 skinparam DefaultFontSize 20
 
-participant ":RestClient"
+participant "test:RestClient"
 
 participant ":SpringBoot"
 
-participant "restcontroller:US005_1MemberAddCategoryToCategoryListControllerRest"
-
 == Act ==
-":RestClient" -> ":SpringBoot" :1:Post/Category \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
+":RestClient" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
 activate ":SpringBoot" #FFBBBB
 
-":SpringBoot"->"restcontroller:US005_1MemberAddCategoryToCategoryListControllerRest":1.1:create (groupDescription,personEmail,categoryDenomination) info:newcreateGroupCategoryInfoDTO
-activate "restcontroller:US005_1MemberAddCategoryToCategoryListControllerRest" #FFBBBB
+create "info:GroupCategoryInfoDTO"
+":SpringBoot"->"info:GroupCategoryInfoDTO":1.1:create (groupDescription,\n personEmail,categoryDenomination)
+activate "restController:US005_1AdminAddsCategoryControllerRest" #FFBBBB
 
-"restcontroller:US005_1MemberAddCategoryToCategoryListControllerRest"-> ":Assembler":1.2:createGroupCategoryInfoDTO(dto)
-activate ":Assembler" #FFBBBB
+create "restController:US005_1AdminAddsCategoryControllerRest"
+":SpringBoot"-> "restController:US005_1AdminAddsCategoryControllerRest":1.2: addCategoryToGroup(info)
 
-":Assembler"->"service:US005_1MemberAddCategoryToCategoryListService":1.2.1categoryDTO=createGroupCategoryDTO
-activate "service:US005_1MemberAddCategoryToCategoryListService" #FFBBBB
-deactivate "service:US005_1MemberAddCategoryToCategoryListService" #FFBBBB
 
-":Assembler"->"service:US005_1MemberAddCategoryToCategoryListService":1.2.1.2:categoryDTOresult=addCategoryDTOgroup(categoryDTO)
-activate "service:US005_1MemberAddCategoryToCategoryListService" #FFBBBB
-deactivate "service:US005_1MemberAddCategoryToCategoryListService" #FFBBBB
 
-"restcontroller:US005_1MemberAddCategoryToCategoryListControllerRest"--> ":SpringBoot":1.3:ResponseEntity<CategoryDTO>
-activate ":SpringBoot" #FFBBBB
+"restController:US005_1AdminAddsCategoryControllerRest"-> ":CategoryDTOAssembler":1.2.1:createGroupCategoryDTO =\n transformToCreateGroupCategoryDTO(info)
+activate ":CategoryDTOAssembler" #FFBBBB
 
-":SpringBoot"-->":RestClient":1.4:result, HttpStatus.CREATED
+create "categoryDTO:CategoryDTO"
+":CategoryDTOAssembler"-->"categoryDTO:CategoryDTO":1.2.2:categoryDTO=\n createGroupCategoryDTO(createGroupCategoryDTO)
+deactivate ":CategoryDTOAssembler"
 
-deactivate "service:US005_1MemberAddCategoryToCategoryListService"
-deactivate "restcontroller:US005_1MemberAddCategoryToCategoryListControllerRest"
+"restController:US005_1AdminAddsCategoryControllerRest"->"service:US005_1AdminAddsCategoryToGroupService":1.2.3:categoryDTOresult=\naddCategoryDTOgroup(categoryDTO)
+activate "service:US005_1AdminAddsCategoryToGroupService" #FFBBBB
+deactivate "service:US005_1AdminAddsCategoryToGroupService" #FFBBBB
+
+ref over "service:US005_1AdminAddsCategoryToGroupService": init
+
+"restController:US005_1AdminAddsCategoryControllerRest"--> ":SpringBoot":1.3:responseEntity=responseEntity<>(CategoryDTO,HttpStatus.CREATED)
+":SpringBoot"-->"test:RestClient":1.3.1:mvcResult
+
+"test:RestClient" -> ":SpringBoot": 1.3.2:response = mvcResult.getResponse()
+
+"test:RestClient"-> ":SpringBoot":1.3.3: status = response.getStatus()
+
+"test:RestClient" -> ":SpringBoot":1.3.4: result = response.getContentAsString()
+
+== Assert ==
+
+"test:RestClient" -> "test:RestClient" : assertEquals(201, status)
+"test:RestClient" -> "test:RestClient" : assertEquals(expectedResult, result)
+deactivate "service:US005_1AdminAddsCategoryToGroupService"
+deactivate "restController:US005_1AdminAddsCategoryControllerRest"
 
 @enduml
