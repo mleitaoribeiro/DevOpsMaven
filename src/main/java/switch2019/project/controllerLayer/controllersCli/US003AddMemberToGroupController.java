@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.controllersCli;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
 import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
@@ -9,11 +10,8 @@ import switch2019.project.assemblers.GroupDTOAssembler;
 @Controller
 public class US003AddMemberToGroupController {
 
+    @Autowired
     private US003AddMemberToGroupService service;
-
-    public US003AddMemberToGroupController(US003AddMemberToGroupService service) {
-        this.service = service;
-    }
 
     /***
      * US003

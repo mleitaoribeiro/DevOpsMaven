@@ -162,21 +162,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
     }
 
-    @Test
-    @DisplayName("Test if category is not added when input DTO is null")
-    void addCategoryNullInputDTO() {
-
-        //Arrange
-        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = null;
-        ResponseEntity responseEntityExpected = new ResponseEntity<>( HttpStatus.NO_CONTENT);
-
-        //Act
-        ResponseEntity<CategoryDTO> responseEntityResult = controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
-
-        //Assert:
-        assertEquals(responseEntityExpected, responseEntityResult);
-
-    }
 
     @Test
     @DisplayName("Category is not added to Group categories - Null Category")
