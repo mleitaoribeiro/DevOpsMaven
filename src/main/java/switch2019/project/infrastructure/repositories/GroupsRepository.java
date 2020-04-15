@@ -28,7 +28,7 @@ public class GroupsRepository implements Repository {
 
     //Constructor
     public GroupsRepository() {
-        groups = new HashSet<>();
+        groups = new LinkedHashSet<>();
     }
 
     /**
