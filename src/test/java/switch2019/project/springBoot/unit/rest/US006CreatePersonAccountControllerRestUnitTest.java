@@ -306,5 +306,4 @@ public class US006CreatePersonAccountControllerRestUnitTest {
                 .isExactlyInstanceOf(NullPointerException.class)
                 .hasMessage(null);
     }
-
 }
