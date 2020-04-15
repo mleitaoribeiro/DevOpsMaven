@@ -1,38 +1,20 @@
 package switch2019.project.applicationLayer;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
-import switch2019.project.domain.domainEntities.person.Address;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+
+@SpringBootTest
 class US002_1CreateGroupServiceTest {
 
-    private static US002_1CreateGroupService service;
+    @Autowired
+    private US002_1CreateGroupService service;
 
-    /**
-     * US002.1
-     * Universe setup for US tests
-     */
-    @BeforeEach
-    void setUpUniverse() {
-        GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
-
-        personRepository.createPerson("Alexandre", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto",
-                        "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
-
-        service = new US002_1CreateGroupService(groupsRepository, personRepository);
-
-    }
 
     /**
      * US002.1
@@ -43,8 +25,8 @@ class US002_1CreateGroupServiceTest {
     @DisplayName("Main scenario - Existing person creates group and becomes admin")
     void createGroupAndBecomeAdmin() {
         //Arrange
-        String groupDescription = "Bashtards";
-        String personEmail = "1234@isep.pt";
+        String groupDescription = "TEAM KIM";
+        String personEmail = "1191743@isep.ipp.pt";
 
         CreateGroupDTO createGroupDTO = new CreateGroupDTO(groupDescription, personEmail);
 
@@ -63,7 +45,7 @@ class US002_1CreateGroupServiceTest {
 
         //Arrange
         String groupDescription = "Bashtards";
-        String personEmail = "12345@isep.pt";
+        String personEmail = "notFound@isep.pt";
 
         //Act
         try {
@@ -80,8 +62,8 @@ class US002_1CreateGroupServiceTest {
     @DisplayName("Group was already created")
     void createGroupAndGroupAlreadyExists() {
         //Arrange
-        String groupDescription = "Bashtards";
-        String personID = "1234@isep.pt";
+        String groupDescription = "GYM TEAM";
+        String personID = "1191762@isep.ipp.pt";
         service.createGroup(new CreateGroupDTO(groupDescription, personID));
 
         //Act
@@ -97,7 +79,7 @@ class US002_1CreateGroupServiceTest {
     @DisplayName("Null group Description")
     void createGroupNullDescription() {
         //Arrange
-        String personEmail = "1234@isep.pt";
+        String personEmail = "1191762@isep.ipp.pt";
 
         //Act
         try {
@@ -118,13 +100,13 @@ class US002_1CreateGroupServiceTest {
         //Arrange
         String groupDescription = "Bashtards";
 
-       try {
-           service.createGroup(new CreateGroupDTO(groupDescription, null));
-       }
+        try {
+            service.createGroup(new CreateGroupDTO(groupDescription, null));
+        }
 
-       //Assert
-       catch (IllegalArgumentException ex) {
-           assertEquals("The email can't be null.", ex.getMessage());
-       }
+        //Assert
+        catch (IllegalArgumentException ex) {
+            assertEquals("The email can't be null.", ex.getMessage());
+        }
     }
 }
