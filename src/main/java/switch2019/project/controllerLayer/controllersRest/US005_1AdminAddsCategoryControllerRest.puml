@@ -6,7 +6,7 @@ participant "test:RestClient"
 participant ":SpringBoot"
 
 == Act ==
-":RestClient" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
+"test:RestClient" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
 activate ":SpringBoot" #FFBBBB
 
 create "info:GroupCategoryInfoDTO"
