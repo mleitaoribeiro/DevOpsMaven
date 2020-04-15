@@ -13,7 +13,7 @@ participant "service:US2.1CreateGroupService"
 participant ":GroupDTOAssembler"
 participant "personRep:PersonRepository"
 participant "groupsRep:GroupsRepository"
-
+participant "groupID:GroupID"
 
 
 
@@ -28,8 +28,8 @@ autonumber 1.1
 activate ":SpringBoot" #FFBBBB
 
 ":SpringBoot" -> ":SpringBoot" : deserialize (body {groupDescription, personEmail})
-activate ":SpringBoot"
 
+activate ":SpringBoot" #FFBBBB
 autonumber 1.1.1
 create "createGroupInfoDTO: CreateGroupInfoDTO"
 ":SpringBoot" --> "createGroupInfoDTO: CreateGroupInfoDTO" : create (groupDescription, personEmail)
@@ -56,7 +56,7 @@ activate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
 deactivate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
 
 create "createGroupDTO:CreateGroupDTO"
-":GroupDTOAssembler" -> "createGroupDTO:CreateGroupDTO": createGroupDTO = new CreateGroupDTO(groupDescription,personEmail)
+":GroupDTOAssembler" --> "createGroupDTO:CreateGroupDTO": create(groupDescription,personEmail)
 deactivate ":GroupDTOAssembler"
 
 autonumber 1.2.2
@@ -82,7 +82,7 @@ activate "groupsRep:GroupsRepository" #FFBBBB
 
 autonumber 1.2.2.4.1
 create "groupCreated:Group"
-"groupsRep:GroupsRepository" -> "groupCreated:Group" : groupCreated = new Group(groupDescription, person)
+"groupsRep:GroupsRepository" --> "groupCreated:Group" : create(groupDescription, person)
 
 activate "groupCreated:Group" #FFBBBB
 autonumber 1.2.2.4.1.1
@@ -102,9 +102,12 @@ deactivate "groupCreated:Group"
 "service:US2.1CreateGroupService" -> ":GroupDTOAssembler" : groupDTO = createGroupDTO (groupID)
 
 autonumber 1.2.2.6.1
-create "groupDTO:GroupDTO"
 activate ":GroupDTOAssembler" #FFBBBB
-":GroupDTOAssembler" -> "groupDTO:GroupDTO" : groupDTO = new GroupDTO()
+":GroupDTOAssembler" -> "groupID:GroupID" : groupDescription = getDescription()
+
+create "groupDTO:GroupDTO"
+":GroupDTOAssembler" --> "groupDTO:GroupDTO" : create(groupDescription)
+
 deactivate ":GroupDTOAssembler"
 deactivate "service:US2.1CreateGroupService"
 
@@ -119,10 +122,10 @@ deactivate ":SpringBoot"
 autonumber 2
 |||
 "HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
-activate "HTTP Client :Test"
+activate "HTTP Client :Test" #FFBBBB
 
 autonumber 2.1
-"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
+"HTTP Client :Test" --> "mvcResult :MvcResult" : create(mvcResultJson)
 deactivate "HTTP Client :Test"
 
 |||
@@ -133,7 +136,7 @@ autonumber 3
 autonumber 3.1
 
 activate "mvcResult :MvcResult" #FFBBBB
-"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
+"mvcResult :MvcResult" --> "response :MockHttpServletResponse" : create()
 deactivate "mvcResult :MvcResult"
 
 autonumber 4
