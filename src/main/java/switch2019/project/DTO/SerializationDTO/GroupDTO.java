@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class GroupDTO {
 
-    private String groupDescription;
+    private final String groupDescription;
 
     public GroupDTO(String groupDescription) {
         this.groupDescription = groupDescription.toUpperCase();

@@ -49,6 +49,19 @@ class GroupDTOTest {
     }
 
     @Test
+    @DisplayName("Test to see if Equals checks same object")
+    void equalsSameObject() {
+        //Arrange
+        GroupDTO dto1 = new GroupDTO("Querido's Family");
+
+        //Act
+        boolean result = dto1.equals(dto1);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Family Group Description - Different Description")
     void equalsFamilyGroupDescriptionDifferentDescription() {
         //Arrange
