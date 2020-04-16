@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
 import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
@@ -13,14 +14,10 @@ import switch2019.project.infrastructure.repositories.PersonRepository;
 
 @Service
 public class US003AddMemberToGroupService {
-
+    @Autowired
     private PersonRepository personRepository;
+    @Autowired
     private GroupsRepository groupsRepository;
-
-    public US003AddMemberToGroupService(PersonRepository personRepository, GroupsRepository groupsRepository) {
-        this.personRepository = personRepository;
-        this.groupsRepository = groupsRepository;
-    }
 
     /**
      * US003

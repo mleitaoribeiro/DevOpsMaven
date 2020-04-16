@@ -18,10 +18,10 @@ public class US001AreSiblingsControllerRest {
     US001AreSiblingsService service;
 
     @GetMapping("/areSiblings")
-    public ResponseEntity<SiblingsDTO> areSiblings(@RequestParam(value = "personOneEmail") String personEmail,
-                                   @RequestParam(value = "personTwoEmail") String personEmail1){
+    public ResponseEntity<SiblingsDTO> areSiblings(@RequestParam(value = "personOneEmail") String personOneEmail,
+                                   @RequestParam(value = "personTwoEmail") String personTwoEmail){
 
-        AreSiblingsDTO areSiblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(personEmail, personEmail1);
+        AreSiblingsDTO areSiblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(personOneEmail, personTwoEmail);
 
         SiblingsDTO result = PersonDTOAssembler.createSiblingsDTO(service.areSiblings(areSiblingsDTO));
 

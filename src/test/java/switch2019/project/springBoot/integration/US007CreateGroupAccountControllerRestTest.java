@@ -4,15 +4,17 @@ import org.junit.jupiter.api.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US007CreateGroupAccountControllerRestTest extends AbstractTest {
@@ -49,19 +51,22 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
         //Act
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        RequestBuilder postRequest = MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)).andReturn();
+                .content(inputJson);
 
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        ResultActions resultAction = mvc.perform(postRequest);
+        MvcResult mvcResult = resultAction.andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+
+        int status = response.getStatus();
+        String result = response.getContentAsString();
 
         //Assert
         Assertions.assertAll(
-                () -> assertEquals(201, status)
+                () -> assertEquals(201, status),
+                () -> assertEquals(expected, result)
         );
-
-        JSONAssert.assertEquals(expected, result, JSONCompareMode.LENIENT);
     }
 
     @Test

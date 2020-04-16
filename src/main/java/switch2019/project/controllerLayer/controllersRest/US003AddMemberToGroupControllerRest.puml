@@ -30,7 +30,7 @@ autonumber 1.1
 activate ":SpringBoot" #FFBBBB
 
 ":SpringBoot" -> ":SpringBoot" : deserialize (body {personEmail, groupDescription})
-activate ":SpringBoot"
+activate ":SpringBoot" #FFBBBB
 
 autonumber 1.1.1
 create "addMemberInfoDTO: AddMemberInfoDTO"
@@ -85,22 +85,18 @@ activate "groupsRep:GroupsRepository" #FFBBBB
 autonumber 1.2.2.4.1
 
 "groupsRep:GroupsRepository" -> "group:Group" : boolean wasMemberAdded = add(person)
-deactivate "groupsRep:GroupsRepository" #FFBBBB
 activate "group:Group" #FFBBBB
-
+deactivate "groupsRep:GroupsRepository" #FFBBBB
 deactivate "group:Group" #FFBBBB
-
 
 autonumber 1.2.2.5
 "service:US003AddMemberToGroupService" -> ":GroupDTOAssembler" : addedMemberDTO = addMemberDTO (groupID)
-activate ":GroupDTOAssembler"
+activate ":GroupDTOAssembler" #FFBBBB
 
 autonumber 1.2.2.5.1
 create "addedMemberDTO:AddedMemberDTO"
 ":GroupDTOAssembler" -> "addedMemberDTO:AddedMemberDTO" : new AddedMemberDTO(wasMemberAdded, person, group)
-activate "addedMemberDTO:AddedMemberDTO" #FFBBBB
 
-deactivate "addedMemberDTO:AddedMemberDTO"
 deactivate ":GroupDTOAssembler"
 deactivate "service:US003AddMemberToGroupService"
 
@@ -115,7 +111,7 @@ deactivate ":SpringBoot"
 autonumber 2
 |||
 "HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
-activate "HTTP Client :Test"
+activate "HTTP Client :Test" #FFBBBB
 
 autonumber 2.1
 "HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
