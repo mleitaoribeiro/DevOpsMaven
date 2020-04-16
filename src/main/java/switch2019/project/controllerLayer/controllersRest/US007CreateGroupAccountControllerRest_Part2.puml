@@ -1,7 +1,7 @@
 @startuml
 skinparam DefaultFontSize 30
 
-
+participant "createGroupAccountDTO: \nCreateGroupAccountDTO"
 participant "service:\nUS007CreateGroupAccountService"
 participant "personRepo:\nPersonRepository"
 participant "person:\nPerson"
@@ -14,19 +14,41 @@ participant "assembler:\nAccountDTOAssembler"
 [-> "service:\nUS007CreateGroupAccountService" : createGroupAccount\n(createGroupAccountDTO)
 activate "service:\nUS007CreateGroupAccountService" #FFBBBB
 
-"service:\nUS007CreateGroupAccountService" -> "personRepo:\nPersonRepository" : person = findPersonByEmail\n(createGroupAccountDTO.getPersonEmail())
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : personEmail = getPersonEmail()
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : groupDescription = getGroupDescription())
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : accountDenomination = getAccountDenomination()
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : accountDescription = getAccountDescription()
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+
+
+"service:\nUS007CreateGroupAccountService" -> "personRepo:\nPersonRepository" : findPersonByEmail(personEmail)
 activate "personRepo:\nPersonRepository"  #FFBBBB
 deactivate "personRepo:\nPersonRepository"  #FFBBBB
 
-"service:\nUS007CreateGroupAccountService" -> "person:\nPerson" : personID = getID()
+
+"service:\nUS007CreateGroupAccountService" -> "person:\nPerson" : personID = getID(personEmail)
 activate "person:\nPerson"  #FFBBBB
 deactivate "person:\nPerson"  #FFBBBB
 
-"service:\nUS007CreateGroupAccountService" -> "groupRepo:\nGroupRepository" : group = findGroupByDescription\n(createGroupAccountDTO.getGroupDescription())
+
+
+"service:\nUS007CreateGroupAccountService" -> "groupRepo:\nGroupRepository" : findGroupByDescription(groupDescription)
 activate "groupRepo:\nGroupRepository"  #FFBBBB
 deactivate "groupRepo:\nGroupRepository"  #FFBBBB
 
-"service:\nUS007CreateGroupAccountService" -> "group:\nGroup" : groupID = getID()
+
+"service:\nUS007CreateGroupAccountService" -> "group:\nGroup" : groupID = getID(groupDescription)
 activate "group:\nGroup" #FFBBBB
 deactivate "group:\nGroup"
 
