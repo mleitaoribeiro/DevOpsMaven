@@ -99,8 +99,38 @@ class AreSiblingsDTOTest {
     }
 
     @Test
-    @DisplayName("Test Equals - Equals Different Attributes")
-    void testEqualsDifferentAttributes() {
+    @DisplayName("Test Equals - Equals Different Email1")
+    void testEqualsDifferentEmail1() {
+
+        // Arrange
+        AreSiblingsDTO areSiblingsDTO1 = new AreSiblingsDTO("email1", "email2");
+        AreSiblingsDTO areSiblingsDTO2 = new AreSiblingsDTO("email1", "email3");
+
+        // Act
+        boolean result = areSiblingsDTO1.equals(areSiblingsDTO2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test Equals - Equals Different Email2")
+    void testEqualsDifferentEmail2() {
+
+        // Arrange
+        AreSiblingsDTO areSiblingsDTO1 = new AreSiblingsDTO("email1", "email2");
+        AreSiblingsDTO areSiblingsDTO2 = new AreSiblingsDTO("email3", "email2");
+
+        // Act
+        boolean result = areSiblingsDTO1.equals(areSiblingsDTO2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test Equals - Equals Different Email1 & Email2")
+    void testEqualsDifferentEmails() {
 
         // Arrange
         AreSiblingsDTO areSiblingsDTO1 = new AreSiblingsDTO("email1", "email2");
