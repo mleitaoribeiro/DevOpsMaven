@@ -15,9 +15,9 @@ public class CreatePersonAccountDTO {
      **/
 
 
-    private String personEmail;
-    private String accountDenomination;
-    private String accountDescription;
+    private final String personEmail;
+    private final String accountDenomination;
+    private final String accountDescription;
 
 
     public CreatePersonAccountDTO (String personEmail, String accountDenomination, String accountDescription) {

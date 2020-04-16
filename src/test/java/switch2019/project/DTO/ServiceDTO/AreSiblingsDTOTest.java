@@ -1,6 +1,8 @@
 package switch2019.project.DTO.ServiceDTO;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class AreSiblingsDTOTest {
 
     @Test
+    @DisplayName("Test getEmailPersonOne")
     void getEmailPersonOne() {
+
         //Arrange
         AreSiblingsDTO dto = new AreSiblingsDTO("email1", "email2");
         String expected = "email1";
@@ -21,7 +25,9 @@ class AreSiblingsDTOTest {
     }
 
     @Test
+    @DisplayName("Test getEmailPersonTwo")
     void getEmailPersonTwo() {
+
         //Arrange
         AreSiblingsDTO dto = new AreSiblingsDTO("email1", "email2");
         String expected = "email2";
@@ -34,10 +40,76 @@ class AreSiblingsDTOTest {
     }
 
     @Test
+    @DisplayName("Test hashcode")
     void testHashCode() {
-        AreSiblingsDTO dto = new AreSiblingsDTO("email", "emaill");
-        AreSiblingsDTO dto1 = new AreSiblingsDTO(dto.getEmailPersonOne(), dto.getEmailPersonTwo());
 
-        assertEquals(dto.hashCode(), dto1.hashCode());
+        // Arrange
+        AreSiblingsDTO dto1 = new AreSiblingsDTO("email1", "email2");
+        AreSiblingsDTO dto2 = new AreSiblingsDTO(dto1.getEmailPersonOne(), dto1.getEmailPersonTwo());
+
+        // Act
+        boolean result = dto1.hashCode() == dto2.hashCode();
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test Equals - Same object")
+    void testEqualsSameObject() {
+
+        // Arrange
+        AreSiblingsDTO dto = new AreSiblingsDTO("email1", "email2");
+
+        // Act
+        boolean result = dto.equals(dto);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test Equals - Different object class")
+    void testEqualsObjectDifferentClass() {
+
+        // Arrange
+        AreSiblingsDTO areSiblingsDTO = new AreSiblingsDTO("email1", "email2");
+        CategoryDTO categoryDTO = new CategoryDTO("games", "marta");
+
+        // Act
+        boolean result = areSiblingsDTO.equals(categoryDTO);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test Equals - Equals Same Attributes")
+    void testEqualsSameAttributes() {
+
+        // Arrange
+        AreSiblingsDTO areSiblingsDTO1 = new AreSiblingsDTO("email1", "email2");
+        AreSiblingsDTO areSiblingsDTO2 = new AreSiblingsDTO("email1", "email2");
+
+        // Act
+        boolean result = areSiblingsDTO1.equals(areSiblingsDTO2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test Equals - Equals Different Attributes")
+    void testEqualsDifferentAttributes() {
+
+        // Arrange
+        AreSiblingsDTO areSiblingsDTO1 = new AreSiblingsDTO("email1", "email2");
+        AreSiblingsDTO areSiblingsDTO2 = new AreSiblingsDTO("email3", "email4");
+
+        // Act
+        boolean result = areSiblingsDTO1.equals(areSiblingsDTO2);
+
+        // Assert
+        assertFalse(result);
     }
 }

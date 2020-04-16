@@ -78,6 +78,29 @@ class CreatePersonAccountDTOTest {
     }
 
     @Test
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are the same - Same object")
+    public void equalsTestSameObject(){
+        //Arrange:
+        CreatePersonAccountDTO dto1  = new CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+
+        //Act & Assert:
+        assertTrue(dto1.equals(dto1));
+    }
+
+    @Test
+    @DisplayName("Test if Two CreatePersonAccountDTO objects are the same - Same object")
+    public void equalsTestFalse(){
+        //Arrange:
+        CreatePersonAccountDTO dto1  = new CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("santos@xpto.pt", "kelle account","expenses");
+
+
+        //Act & Assert:
+        assertNotEquals(dto1, dto2);
+    }
+
+
+    @Test
     @DisplayName("Test if Two CreatePersonAccountDTO objects are NOT the same - different description")
     public void equalsTestFalseDifferentDescription(){
         //Arrange:
