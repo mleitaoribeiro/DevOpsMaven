@@ -91,6 +91,24 @@ class AddMemberInfoDTOTest {
     }
 
     @Test
+    void testEqualsDifferentParametersDescription() {
+        //Arrange:
+        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        addMemberDTO.setPersonEmail("marta@isep.pt");
+        addMemberDTO.setGroupDescription("bashtards");
+
+        AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
+        addMemberDTO2.setPersonEmail("marta@isep.pt");
+        addMemberDTO2.setGroupDescription("friends");
+
+        //Act:
+        boolean result = addMemberDTO.equals(addMemberDTO2);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
     void testHashCodeTRUE() {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();

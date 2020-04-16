@@ -1,0 +1,16 @@
+@startuml
+skinparam DefaultFontSize 20
+title US004 Sequence Diagram - Happy Case
+
+participant "HTTP Client :Test"
+participant "mvcResult :MvcResult"
+participant "response :MockHttpServletResponse"
+participant ":SpringBoot"
+participant "service:US004GetFamilyGroupsService"
+participant ":GroupDTOAssembler"
+
+==Act==
+autonumber
+"HTTP Client :Test" -> ":SpringBoot" :1:Get/getFamilyGroups()
+activate ":SpringBoot" #FFBBBB
+@enduml
