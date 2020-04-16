@@ -78,11 +78,9 @@ autonumber 2
 deactivate "resultAction:ResultAction"
 create "mvcResult :MvcResult"
 
-"HTTP Client (Test)" --> "mvcResult :MvcResult": create
-activate "mvcResult :MvcResult" #FFBBBB
-
 autonumber 3
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse()
+activate "mvcResult :MvcResult" #FFBBBB
 
 autonumber 4
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
