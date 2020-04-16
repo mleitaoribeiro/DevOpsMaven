@@ -14,20 +14,21 @@ participant "createGroupAccountDTO:\nCreateGroupAccountDTO"
 participant "restController:\nUS007CreateGroupAccountControllerRest"
 
 == Arrange ==
+autonumber
 create "inputDTO:\ncreateGroupAccountInfoDTO"
 activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "inputDTO:\ncreateGroupAccountInfoDTO": inputDTO = CreateGroupAccountInfoDTO(groupDescription,\n personEmail, accountDenomination, accountDescription);
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
 == Act ==
-autonumber
+
 create "postRequest:\nRequestBuilder"
 "HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = Post /addGroupAccount {inputJson}
 create "mvc:MockMvc"
 "HTTP Client (Test)" -> "mvc:MockMvc" : perform(postRequest)
 activate "mvc:MockMvc"  #FFBBBB
 
-autonumber 1.1
+autonumber 3.1
 "mvc:MockMvc" -> "mvc:MockMvc" : deserialize inputJson
 create "info:createGroupAccountInfoDTO"
 "mvc:MockMvc"-->"info:createGroupAccountInfoDTO" :create
@@ -35,10 +36,10 @@ create "info:createGroupAccountInfoDTO"
 create "restController:\nUS007CreateGroupAccountControllerRest"
 "mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": createGroupAccountDTO (info)
 activate "restController:\nUS007CreateGroupAccountControllerRest" #FFBBBB
-
+autonumber 3.3.1
 "restController:\nUS007CreateGroupAccountControllerRest"-> "AccountDTOAssembler":transformToCreateGroupAccountDTO(info)
 activate "AccountDTOAssembler" #FFBBBB
-
+autonumber 3.3.1.1
 "AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : groupDescription = getGroupDescription()
 activate "info:createGroupAccountInfoDTO" #FFBBBB
 "AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : personEmail = getPersonEmail();
@@ -49,40 +50,44 @@ deactivate "info:createGroupAccountInfoDTO"
 create "createGroupAccountDTO:\nCreateGroupAccountDTO"
 "AccountDTOAssembler" -> "createGroupAccountDTO:\nCreateGroupAccountDTO" : createGroupAccountDTO(personEmail,groupDescription, \naccountDenomination, accountDescription)
 activate "createGroupAccountDTO:\nCreateGroupAccountDTO" #FFBBBB
+autonumber 3.3.1.5.1
 "createGroupAccountDTO:\nCreateGroupAccountDTO" --> "AccountDTOAssembler": createGroupAccountDTO
 deactivate "createGroupAccountDTO:\nCreateGroupAccountDTO"
-
+autonumber 3.3.1.6
 "AccountDTOAssembler" --> "restController:\nUS007CreateGroupAccountControllerRest" : createGroupAccountDTO
 deactivate "AccountDTOAssembler"
-
+autonumber 3.3.1.6.1
 "restController:\nUS007CreateGroupAccountControllerRest"->"service:US007CreateGroupAccountService": addAccountDTOGroup(createGroupAccountDTO)
 activate "service:US007CreateGroupAccountService" #FFBBBB
-
+autonumber 3.3.1.6.1.1
 "service:US007CreateGroupAccountService" --> "restController:\nUS007CreateGroupAccountControllerRest" : accountDTO
 deactivate "service:US007CreateGroupAccountService" #FFBBBB
 
 ref over "service:US007CreateGroupAccountService": US007CreateGroupAccountControllerRest_Part2
-
+autonumber 3.3.2
 "restController:\nUS007CreateGroupAccountControllerRest"--> "mvc:MockMvc":responseEntity=responseEntity<>(accountDTO,HttpStatus.CREATED)
 deactivate "restController:\nUS007CreateGroupAccountControllerRest"
-
-"mvc:MockMvc" -> "mvc:MockMvc" : serialize ResponseEntity
+autonumber 3.3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 create "resultAction:ResultAction"
 "resultAction:ResultAction" <-- "mvc:MockMvc" : create
 activate "resultAction:ResultAction" #FFBBBB
 deactivate "mvc:MockMvc"
 
-autonumber 2
+autonumber 4
 |||
 "HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
-deactivate "resultAction:ResultAction"
+
 create "mvcResult :MvcResult"
+autonumber 4.1
+"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
+deactivate "resultAction:ResultAction"
+autonumber 5
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
 
-autonumber 3
-"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse()
+
+
 activate "mvcResult :MvcResult" #FFBBBB
-
-autonumber 4
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
 deactivate "mvcResult :MvcResult" #FFBBBB

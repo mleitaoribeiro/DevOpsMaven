@@ -13,9 +13,10 @@ participant "accountRepo:\nAccountRepository"
 participant "account:\nAccount"
 
 == Act ==
+autonumber
 [-> "service:\nUS007CreateGroupAccountService" : createGroupAccount\n(createGroupAccountDTO)
 activate "service:\nUS007CreateGroupAccountService" #FFBBBB
-
+autonumber 1.1
 "service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : personEmail = getPersonEmail()
 activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
 deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
@@ -58,18 +59,18 @@ deactivate "group:\nGroup"
 activate "group:\nGroup" #FFBBBB
 deactivate "group:\nGroup"
 
-
 "service:\nUS007CreateGroupAccountService" -> "accountRepo:\nAccountRepository" : account = createAccount(accountDenomination, accountDescription, groupID)
 activate "accountRepo:\nAccountRepository" #FFBBBB
+autonumber 1.10.1
 "accountRepo:\nAccountRepository" -> "accountRepo:\nAccountRepository" : accountIsNotInRepository = isAccountIDOnRepository\n(accountDenomination, groupID)
 create "account:\nAccount"
 "accountRepo:\nAccountRepository" --> "account:\nAccount" : create\n(accountDenomination,\n accountDescription, groupID)
 "accountRepo:\nAccountRepository" -> "accountRepo:\nAccountRepository" : add(account)
 deactivate "accountRepo:\nAccountRepository" #FFBBBB
-
+autonumber 1.11
 "service:\nUS007CreateGroupAccountService" -> "AccountDTOAssembler":accountCreatedDTO = createAccountDTOFromDomainObject(account)
 deactivate "service:\nUS007CreateGroupAccountService"
-
+autonumber 1.11.1
 activate "AccountDTOAssembler" #FFBBBB
 create "accountDTO:\nAccountDTO"
 "AccountDTOAssembler" --> "accountDTO:\nAccountDTO": create()
