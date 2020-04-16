@@ -16,10 +16,9 @@ participant "groupsRep:GroupsRepository"
 participant "groupID:GroupID"
 
 
-
 == Act ==
-
 autonumber
+
 "HTTP Client :Test" -> ":SpringBoot": POST = /createGroup ,\n  body {groupDescription, personEmail}
 activate "HTTP Client :Test" #FFBBBB
 
@@ -116,16 +115,17 @@ return responseEntity (groupDTO, HttpStatus.CREATED)
 
 deactivate "restController:US2.1CreateGroupControllerRest"
 
-"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
+"HTTP Client :Test" <-- ":SpringBoot" : JsonResponse
 deactivate ":SpringBoot"
 
 autonumber 2
 |||
-"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
+"HTTP Client :Test" -> "HTTP Client :Test" : mvcResult = andReturn()
 activate "HTTP Client :Test" #FFBBBB
 
+create "mvcResult :MvcResult"
 autonumber 2.1
-"HTTP Client :Test" --> "mvcResult :MvcResult" : create(mvcResultJson)
+"HTTP Client :Test" --> "mvcResult :MvcResult" : create()
 deactivate "HTTP Client :Test"
 
 |||
@@ -135,6 +135,7 @@ autonumber 3
 
 autonumber 3.1
 
+create "response :MockHttpServletResponse"
 activate "mvcResult :MvcResult" #FFBBBB
 "mvcResult :MvcResult" --> "response :MockHttpServletResponse" : create()
 deactivate "mvcResult :MvcResult"
