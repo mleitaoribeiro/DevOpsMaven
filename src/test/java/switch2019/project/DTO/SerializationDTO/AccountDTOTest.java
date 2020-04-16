@@ -67,8 +67,36 @@ class AccountDTOTest {
     }
 
     @Test
-    @DisplayName("test for Equals - different attributes")
-    void EqualsDifferentAttributes() {
+    @DisplayName("test for Equals - different ownerID")
+    void EqualsDifferentOwnerID() {
+
+        //Arrange
+        AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
+
+        //Act
+        AccountDTO dtoActual = new AccountDTO("marta", dtoExpected.getDenomination(), dtoExpected.getDescription());
+
+        //Assert
+        assertNotEquals(dtoExpected, dtoActual);
+    }
+
+    @Test
+    @DisplayName("test for Equals - different denomination")
+    void EqualsDifferentDenomination() {
+
+        //Arrange
+        AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
+
+        //Act
+        AccountDTO dtoActual = new AccountDTO(dtoExpected.getOwnerID(), "poupanças", dtoExpected.getDescription());
+
+        //Assert
+        assertNotEquals(dtoExpected, dtoActual);
+    }
+
+    @Test
+    @DisplayName("test for Equals - different description")
+    void EqualsDifferentDescription() {
 
         //Arrange
         AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");

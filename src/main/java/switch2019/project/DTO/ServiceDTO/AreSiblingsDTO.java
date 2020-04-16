@@ -4,14 +4,13 @@ import java.util.Objects;
 
 public class AreSiblingsDTO {
 
-    final private String emailPersonOne;
-    final private String emailPersonTwo;
+    private final String emailPersonOne;
+    private final String emailPersonTwo;
 
     public AreSiblingsDTO(String emailPersonOne, String emailPersonTwo) {
         this.emailPersonOne = emailPersonOne;
         this.emailPersonTwo = emailPersonTwo;
     }
-
 
     /**
      * get email of PersonOne

@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class AccountDTO {
 
-    final private String ownerID;
-    final private String denomination;
-    final private String description;
+    private final String ownerID;
+    private final String denomination;
+    private final String description;
 
     public AccountDTO(String ownerID, String denomination, String description) {
         this.ownerID = ownerID.toUpperCase();
