@@ -3,10 +3,10 @@ package switch2019.project.DTO.ServiceDTO;
 import java.util.Objects;
 
 public class CreateGroupAccountDTO {
-    private String personEmail;
-    private String groupDescription;
-    private String accountDenomination;
-    private String accountDescription;
+    private final String personEmail;
+    private final String groupDescription;
+    private final String accountDenomination;
+    private final String accountDescription;
 
     public CreateGroupAccountDTO(String personEmail, String groupDescription, String accountDenomination, String accountDescription) {
         this.personEmail = personEmail;

@@ -87,6 +87,7 @@ class CreatePersonAccountDTOTest {
         assertTrue(dto1.equals(dto1));
     }
 
+    @Test
     @DisplayName("Test if Two CreatePersonAccountDTO objects are the same - Same object")
     public void equalsTestFalse(){
         //Arrange:
@@ -95,7 +96,7 @@ class CreatePersonAccountDTOTest {
 
 
         //Act & Assert:
-        assertFalse(dto1.equals(dto1));
+        assertNotEquals(dto1, dto2);
     }
 
 
