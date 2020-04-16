@@ -2,8 +2,6 @@ package switch2019.project.DTO.DeserializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import static org.junit.jupiter.api.Assertions.*;
 
