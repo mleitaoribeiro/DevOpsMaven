@@ -110,6 +110,20 @@ public class CategoryDTOTest {
         assertFalse(areDtosTheSame);
     }
 
+    @DisplayName("Different objects - check if equals always returns false")
+    @Test
+    public void equalsTestFalseDifferentObjectsType(){
+        //Arrange:
+        CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
+        GroupDTO dto2 = new GroupDTO("asd");
+
+        //Act:
+        boolean areDtosTheSame = dto1.equals(dto2);
+
+        //Assert:
+        assertFalse(areDtosTheSame);
+    }
+
     /**
      * Tests for the hashCode method
      */
@@ -151,5 +165,26 @@ public class CategoryDTOTest {
         //Assert:
         assertEquals(dto1.hashCode(),dto2.hashCode());
     }
+
+    /**
+     * Tests for the hashCode method
+     */
+
+    @DisplayName("Test to String")
+    @Test
+    public void testToString(){
+        //Arrange:
+        CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
+
+        String expected = "This Groceries category was added to ID categories list!";
+
+        //Act:
+        String real = dto1.toString();
+
+        //Assert:
+        assertEquals(expected,real);
+    }
+
+
 }
 

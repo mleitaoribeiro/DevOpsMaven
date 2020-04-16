@@ -48,7 +48,7 @@ autonumber 2
 == Act ==
 
 create "postRequest:RequestBuilder"
-"HTTP Client :Test" -> "postRequest:RequestBuilder" : postRequest = post ("/createGroup") {inputJson}
+"HTTP Client :Test" -> "postRequest:RequestBuilder" : postRequest = post ("/createGroup", inputJson)
 
 create "mvc:MockMVC"
 "HTTP Client :Test" -> "mvc:MockMVC": resultAction = perform(postRequest)
