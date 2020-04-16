@@ -8,8 +8,8 @@ public class CategoryDTO {
     denomination .- a String refering to the Category Denomination attribute
     categoryID .- a String refering to the Category Denomination and the OwnerID (which can be either a PersonID or GroupID)*/
 
-    private String denomination;
-    private String ownerID;
+    private final String denomination;
+    private final String ownerID;
 
     public CategoryDTO(String denomination, String ownerID) {
         this.denomination = denomination;

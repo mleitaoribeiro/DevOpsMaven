@@ -167,7 +167,7 @@ public class CategoryDTOTest {
     }
 
     /**
-     * Tests for the hashCode method
+     * Tests for the toString Method
      */
 
     @DisplayName("Test to String")
