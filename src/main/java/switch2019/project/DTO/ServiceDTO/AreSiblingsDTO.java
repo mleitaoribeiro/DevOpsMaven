@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class AreSiblingsDTO {
 
-    private String emailPersonOne;
-    private String emailPersonTwo;
+    final private String emailPersonOne;
+    final private String emailPersonTwo;
 
     public AreSiblingsDTO(String emailPersonOne, String emailPersonTwo) {
         this.emailPersonOne = emailPersonOne;

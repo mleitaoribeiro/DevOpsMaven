@@ -8,8 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountDTOTest {
 
     @Test
-    @DisplayName("test for getownerId")
+    @DisplayName("test for getOwnerId")
     void getOwnerID() {
+
         //Arrange
         AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
         String expected = "MAILOWNER";
@@ -24,6 +25,7 @@ class AccountDTOTest {
     @Test
     @DisplayName("test for getDenomination")
     void getDenomination() {
+
         //Arrange
         AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
         String expected = "MESADAS";
@@ -38,6 +40,7 @@ class AccountDTOTest {
     @Test
     @DisplayName("test for getDescription")
     void getDescription() {
+
         //Arrange
         AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
         String expected = "MESADA DO ALEX";
@@ -50,8 +53,9 @@ class AccountDTOTest {
     }
 
     @Test
-    @DisplayName("test for Equals")
-    void Equals() {
+    @DisplayName("test for Equals - same attributes")
+    void EqualsSameAttributes() {
+
         //Arrange
         AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
 
@@ -63,8 +67,52 @@ class AccountDTOTest {
     }
 
     @Test
+    @DisplayName("test for Equals - different attributes")
+    void EqualsDifferentAttributes() {
+
+        //Arrange
+        AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
+
+        //Act
+        AccountDTO dtoActual = new AccountDTO(dtoExpected.getOwnerID(), dtoExpected.getDenomination(), "mesada da Marta");
+
+        //Assert
+        assertNotEquals(dtoExpected, dtoActual);
+    }
+
+    @Test
+    @DisplayName("test for Equals - same object")
+    void EqualsSameObject() {
+
+        //Arrange
+        AccountDTO dto = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
+
+        //Act
+        boolean result = dto.equals(dto);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("test for Equals - different object class")
+    void EqualsSameObjectClass() {
+
+        //Arrange
+        AccountDTO accountDTO = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
+        CategoryDTO categoryDTO = new CategoryDTO("games", "mailOwner");
+
+        //Act
+        boolean result = accountDTO.equals(categoryDTO);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
     @DisplayName("test for hashcode")
     void Hashcode() {
+
         //Arrange
         AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
 
