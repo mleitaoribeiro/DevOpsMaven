@@ -4,21 +4,26 @@ title US007 Sequence Diagram - Happy Case
 
 participant "HTTP Client :Test"
 participant "mvcResult :MvcResult"
-participant "response :MockHttpServletResponse"
-participant ":SpringBoot"
+
+participant "mvc: MockMvc"
 
 == Act ==
+
+
 autonumber
-"HTTP Client :Test" -> ":SpringBoot" :1:Post /addGroupAccount \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"accountDenomination:"shopping", \n accountDescription:"shopping expenses"})
-activate ":SpringBoot" #FFBBBB
+"HTTP Client :Test" -> "mvc: MockMvc" :Post /addGroupAccount \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"accountDenomination:"shopping", \n accountDescription:"shopping expenses"})
+activate "mvc: MockMvc" #FFBBBB
+
+activate "HTTP Client :Test" #FFBBBB
 
 autonumber 1.1
 create "info:createGroupAccountInfoDTO"
-":SpringBoot"->"info:createGroupAccountInfoDTO":create (groupDescription,\n personEmail, accountDenomination, accountDescription)
-activate "restController:US007CreateGroupAccountControllerRest" #FFBBBB
+
+"mvc: MockMvc"-->"info:createGroupAccountInfoDTO" : create
 
 create "restController:US007CreateGroupAccountControllerRest"
-":SpringBoot"-> "restController:US007CreateGroupAccountControllerRest": createGroupAccountInfoDTO(info)
+"mvc: MockMvc"-> "restController:US007CreateGroupAccountControllerRest": createGroupAccountDTO (info)
+activate "restController:US007CreateGroupAccountControllerRest" #FFBBBB
 
 "restController:US007CreateGroupAccountControllerRest"-> ":AccountDTOAssembler":createGroupAccountDTO =\n transformToCreateGroupAccountDTO(info)
 activate ":AccountDTOAssembler" #FFBBBB
@@ -31,46 +36,41 @@ deactivate ":AccountDTOAssembler"
 activate "service:US007CreateGroupAccountService" #FFBBBB
 deactivate "service:US007CreateGroupAccountService" #FFBBBB
 
-ref over "service:US007CreateGroupAccountService": init
+ref over "service:US007CreateGroupAccountService": US007CreateGroupAccountControllerRest_Part2
 
-"restController:US007CreateGroupAccountControllerRest"--> ":SpringBoot":responseEntity=responseEntity<>(AccountDTO,HttpStatus.CREATED)
+"restController:US007CreateGroupAccountControllerRest"--> "mvc: MockMvc":responseEntity=responseEntity<>(AccountDTO,HttpStatus.CREATED)
 deactivate "restController:US007CreateGroupAccountControllerRest"
 
-"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
-deactivate ":SpringBoot"
+"HTTP Client :Test" <-- "mvc: MockMvc" : jsonResponse
+deactivate "mvc: MockMvc"
 
 autonumber 2
 |||
-"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
-activate "HTTP Client :Test"
+"HTTP Client :Test" -> "HTTP Client :Test" : mvcResult = andReturn()
 
-autonumber 2.1
-"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
-deactivate "HTTP Client :Test"
+create "mvcResult :MvcResult"
 
-|||
-
+"HTTP Client :Test" --> "mvcResult :MvcResult": create
+activate "mvcResult :MvcResult" #FFBBBB
 autonumber 3
 "HTTP Client :Test" -> "mvcResult :MvcResult" : response = getResponse()
 
-autonumber 3.1
-
-activate "mvcResult :MvcResult" #FFBBBB
-"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
-deactivate "mvcResult :MvcResult" #FFBBBB
 
 autonumber 4
-"HTTP Client :Test" -> "response :MockHttpServletResponse" : status = getStatus()
-activate "response :MockHttpServletResponse" #FFBBBB
-"HTTP Client :Test" -> "response :MockHttpServletResponse" : result = getContentAsString()
-deactivate "response :MockHttpServletResponse" #FFBBBB
+"HTTP Client :Test" -> "mvcResult :MvcResult" : status = getStatus()
+
+
+
+"HTTP Client :Test" -> "mvcResult :MvcResult" : result = getContentAsString()
+
+deactivate "mvcResult :MvcResult" #FFBBBB
 
 == Assert ==
 
 "HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(201, status)
 "HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(expectedResult, result)
 
-deactivate ":SpringBoot"
+deactivate "mvc: MockMvc"
 deactivate "service:US007CreateGroupAccountService"
 deactivate "restController:US007CreateGroupAccountControllerRest"
 
