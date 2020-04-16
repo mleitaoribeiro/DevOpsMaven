@@ -1,0 +1,77 @@
+@startuml
+skinparam DefaultFontSize 20
+title US007 Sequence Diagram - Happy Case
+
+participant "HTTP Client :Test"
+participant "mvcResult :MvcResult"
+participant "response :MockHttpServletResponse"
+participant ":SpringBoot"
+
+== Act ==
+autonumber
+"HTTP Client :Test" -> ":SpringBoot" :1:Post /addGroupAccount \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"accountDenomination:"shopping", \n accountDescription:"shopping expenses"})
+activate ":SpringBoot" #FFBBBB
+
+autonumber 1.1
+create "info:createGroupAccountInfoDTO"
+":SpringBoot"->"info:createGroupAccountInfoDTO":create (groupDescription,\n personEmail, accountDenomination, accountDescription)
+activate "restController:US007CreateGroupAccountControllerRest" #FFBBBB
+
+create "restController:US007CreateGroupAccountControllerRest"
+":SpringBoot"-> "restController:US007CreateGroupAccountControllerRest": createGroupAccountInfoDTO(info)
+
+"restController:US007CreateGroupAccountControllerRest"-> ":AccountDTOAssembler":createGroupAccountDTO =\n transformToCreateGroupAccountDTO(info)
+activate ":AccountDTOAssembler" #FFBBBB
+
+create "createGroupAccountDTO:CreateGroupAccountDTO"
+":AccountDTOAssembler"-->"createGroupAccountDTO:CreateGroupAccountDTO":new CreateGroupAccountDTO\n(info.getGroupDescription(),\n info.getPersonEmail(),\n info.getAccountDenomination(), \n info.getAccountDescription())
+deactivate ":AccountDTOAssembler"
+
+"restController:US007CreateGroupAccountControllerRest"->"service:US007CreateGroupAccountService":accountDTO result= \n addAccountDTOGroup(createGroupCategoryDTO)
+activate "service:US007CreateGroupAccountService" #FFBBBB
+deactivate "service:US007CreateGroupAccountService" #FFBBBB
+
+ref over "service:US007CreateGroupAccountService": init
+
+"restController:US007CreateGroupAccountControllerRest"--> ":SpringBoot":responseEntity=responseEntity<>(AccountDTO,HttpStatus.CREATED)
+deactivate "restController:US007CreateGroupAccountControllerRest"
+
+"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
+deactivate ":SpringBoot"
+
+autonumber 2
+|||
+"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
+activate "HTTP Client :Test"
+
+autonumber 2.1
+"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
+deactivate "HTTP Client :Test"
+
+|||
+
+autonumber 3
+"HTTP Client :Test" -> "mvcResult :MvcResult" : response = getResponse()
+
+autonumber 3.1
+
+activate "mvcResult :MvcResult" #FFBBBB
+"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
+deactivate "mvcResult :MvcResult" #FFBBBB
+
+autonumber 4
+"HTTP Client :Test" -> "response :MockHttpServletResponse" : status = getStatus()
+activate "response :MockHttpServletResponse" #FFBBBB
+"HTTP Client :Test" -> "response :MockHttpServletResponse" : result = getContentAsString()
+deactivate "response :MockHttpServletResponse" #FFBBBB
+
+== Assert ==
+
+"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(201, status)
+"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(expectedResult, result)
+
+deactivate ":SpringBoot"
+deactivate "service:US007CreateGroupAccountService"
+deactivate "restController:US007CreateGroupAccountControllerRest"
+
+@enduml
