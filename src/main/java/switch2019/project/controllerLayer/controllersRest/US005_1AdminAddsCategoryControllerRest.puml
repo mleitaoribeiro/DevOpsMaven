@@ -2,81 +2,108 @@
 skinparam DefaultFontSize 20
 title US005.1 Sequence Diagram - Happy Case
 
-participant "HTTP Client :Test"
+participant "HTTP Client (Test)"
+participant "resultAction:ResultAction"
+participant "inputDTO:\ncreateGroupCategoryInfoDTO"
+participant "postRequest:\nRequestBuilder"
 participant "mvcResult :MvcResult"
-participant "response :MockHttpServletResponse"
-participant ":SpringBoot"
+participant "mvc:MockMvc"
+participant "info:createGroupCategoryInfoDTO"
+participant "CategoryDTOAssembler"
+participant "createGroupCategoryDTO:\n createGroupCategoryDTO"
+participant "restController:\nUS005_1AdminAddsCategoryControllerRest"
+
+
+== Arrange ==
+autonumber
+create "inputDTO:\ncreateGroupCategoryInfoDTO"
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(groupDescription,\n personEmail, accountDenomination, accountDescription);
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
 
 == Act ==
-autonumber
-"HTTP Client :Test" -> ":SpringBoot" :1:Post/addCategoryToGroup \n ({ groupDescription :"SmithFamily",\n "personEmail:"ricky@gmail.com",\n"categoryDenomination:"shopping"})
-activate ":SpringBoot" #FFBBBB
 
-autonumber 1.1
-create "info:GroupCategoryInfoDTO"
-":SpringBoot"->"info:GroupCategoryInfoDTO":create (groupDescription,\n personEmail,categoryDenomination)
-activate "restController:US005_1AdminAddsCategoryControllerRest" #FFBBBB
+create "postRequest:\nRequestBuilder"
+"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = Post /addGroupCategory {inputJson}
+create "mvc:MockMvc"
+"HTTP Client (Test)" -> "mvc:MockMvc" : perform(postRequest)
+activate "mvc:MockMvc"  #FFBBBB
 
+autonumber 4.1
+"mvc:MockMvc" -> "mvc:MockMvc" : deserialize inputJson
+create "info:createGroupCategoryInfoDTO"
+"mvc:MockMvc"-->"info:createGroupCategoryInfoDTO" :create
 
-create "restController:US005_1AdminAddsCategoryControllerRest"
-":SpringBoot"-> "restController:US005_1AdminAddsCategoryControllerRest": addCategoryToGroup(info)
+create "restController:\nUS005_1AdminAddsCategoryControllerRest"
+"mvc:MockMvc"-> "restController:\nUS005_1AdminAddsCategoryControllerRest": createGroupCategoryDTO (info)
+activate "restController:\nUS005_1AdminAddsCategoryControllerRest" #FFBBBB
+autonumber 4.3.1
+"restController:\nUS005_1AdminAddsCategoryControllerRest"-> "CategoryDTOAssembler":transformToCreateGroupCategorytDTO(info)
+activate "CategoryDTOAssembler" #FFBBBB
+autonumber 4.3.1.1
 
+"CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : groupDescription = getGroupDescription()
+activate "info:createGroupCategoryInfoDTO" #FFBBBB
+"CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : personEmail = getPersonEmail();
+"CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : categoryDescription = getCategoryDescription();
+"CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : categoryDescription = getCategoryDenomination();
+deactivate "info:createGroupCategoryInfoDTO"
 
+create "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
+"CategoryDTOAssembler" -> "createGroupCategoryDTO:\nCreateGroupCategoryDTO" : createGroupCategoryDTO(personEmail,groupDescription, \ncategoryDenomination, categoryDescription)
+activate "createGroupCategoryDTO:\nCreateGroupCategoryDTO" #FFBBBB
+autonumber 4.3.1.5.1
+"createGroupCategoryDTO:\nCreateGroupCategoryDTO" --> "CategoryDTOAssembler": createGroupCategoryDTO
+deactivate "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
 
-"restController:US005_1AdminAddsCategoryControllerRest"-> ":CategoryDTOAssembler":createGroupCategoryDTO =\n transformToCreateGroupCategoryDTO(info)
-activate ":CategoryDTOAssembler" #FFBBBB
-
-create "createGroupCategoryDTO:CreateGroupCategoryDTO"
-":CategoryDTOAssembler"-->"createGroupCategoryDTO:CreateGroupCategoryDTO":new CreateGroupCategoryDTO\n(info.getGroupDescription(),\ninfo.getPersonEmail(),\n info.getCategoryDenomination())
-deactivate ":CategoryDTOAssembler"
-
-"restController:US005_1AdminAddsCategoryControllerRest"->"service:US005_1AdminAddsCategoryToGroupService":categoryDTOresult=\naddCategoryDTOgroup(createGroupCategoryDTO)
+autonumber 4.3.1.6
+"CategoryDTOAssembler" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : createGroupCategoryDTO
+deactivate "CategoryDTOAssembler"
+autonumber 4.3.1.6.1
+"restController:\nUS005_1AdminAddsCategoryControllerRest"->"service:US005_1AdminAddsCategoryToGroupService": addCategoryDTOGroup(createGroupCategoryDTO)
 activate "service:US005_1AdminAddsCategoryToGroupService" #FFBBBB
+autonumber 4.3.1.6.1.1
+"service:US005_1AdminAddsCategoryToGroupService" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : categoryDTO
 deactivate "service:US005_1AdminAddsCategoryToGroupService" #FFBBBB
 
-ref over "service:US005_1AdminAddsCategoryToGroupService": init
+ref over "service:US005_1AdminAddsCategoryToGroupService": US005_1AdminAddsCategoryControllerRest_Part2
+autonumber 4.3.2
+"restController:\nUS005_1AdminAddsCategoryControllerRest"--> "mvc:MockMvc":responseEntity=responseEntity<>(categoryDTO,HttpStatus.CREATED)
+deactivate "restController:\nUS005_1AdminAddsCategoryControllerRest"
+autonumber 4.3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+create "resultAction:ResultAction"
+"resultAction:ResultAction" <-- "mvc:MockMvc" : create
+activate "resultAction:ResultAction" #FFBBBB
+deactivate "mvc:MockMvc"
 
-"restController:US005_1AdminAddsCategoryControllerRest"--> ":SpringBoot":responseEntity=responseEntity<>(CategoryDTO,HttpStatus.CREATED)
-deactivate "restController:US005_1AdminAddsCategoryControllerRest"
 
-"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
-deactivate ":SpringBoot"
 
-autonumber 2
+autonumber 5
 |||
-"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
-activate "HTTP Client :Test"
+"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
 
-autonumber 2.1
-"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
-deactivate "HTTP Client :Test"
+create "mvcResult :MvcResult"
+autonumber 5.1
+"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
+deactivate "resultAction:ResultAction"
+autonumber 6
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
 
-|||
 
-autonumber 3
-"HTTP Client :Test" -> "mvcResult :MvcResult" : response = getResponse()
-
-autonumber 3.1
 
 activate "mvcResult :MvcResult" #FFBBBB
-"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
-deactivate "mvcResult :MvcResult"
-
-autonumber 4
-"HTTP Client :Test" -> "response :MockHttpServletResponse" : status = getStatus()
-activate "response :MockHttpServletResponse" #FFBBBB
-"HTTP Client :Test" -> "response :MockHttpServletResponse" : result = getContentAsString()
-deactivate "response :MockHttpServletResponse" #FFBBBB
-
-
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+deactivate "mvcResult :MvcResult" #FFBBBB
 
 == Assert ==
 
-"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(201, status)
-"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(expectedResult, result)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
 
-deactivate ":SpringBoot"
 deactivate "service:US005_1AdminAddsCategoryToGroupService"
-deactivate "restController:US005_1AdminAddsCategoryControllerRest"
+
 
 @enduml
