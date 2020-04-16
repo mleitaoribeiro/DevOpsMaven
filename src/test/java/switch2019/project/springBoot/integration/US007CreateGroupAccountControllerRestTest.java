@@ -4,6 +4,8 @@ import org.junit.jupiter.api.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
@@ -54,15 +56,17 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
                 .content(inputJson);
 
         ResultActions resultAction = mvc.perform(postRequest);
-
         MvcResult mvcResult = resultAction.andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
 
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        int status = response.getStatus();
+        String result = response.getContentAsString();
 
         //Assert
-        assertEquals(201, status);
-        JSONAssert.assertEquals(expected, result, JSONCompareMode.LENIENT);
+        Assertions.assertAll(
+                () -> assertEquals(201, status),
+                () -> assertEquals(expected, result)
+        );
     }
 
     @Test
