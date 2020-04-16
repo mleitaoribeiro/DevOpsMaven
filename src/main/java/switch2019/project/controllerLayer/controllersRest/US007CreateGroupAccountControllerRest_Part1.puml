@@ -34,7 +34,7 @@ create "info:createGroupAccountInfoDTO"
 "mvc:MockMvc"-->"info:createGroupAccountInfoDTO" :create
 
 create "restController:\nUS007CreateGroupAccountControllerRest"
-"mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": createGroupAccountDTO (info)
+"mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": addGroupAccount(info)
 activate "restController:\nUS007CreateGroupAccountControllerRest" #FFBBBB
 autonumber 4.3.1
 "restController:\nUS007CreateGroupAccountControllerRest"-> "AccountDTOAssembler":transformToCreateGroupAccountDTO(info)
@@ -69,6 +69,7 @@ autonumber 4.3.2
 deactivate "restController:\nUS007CreateGroupAccountControllerRest"
 autonumber 4.3.4
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+
 create "resultAction:ResultAction"
 "resultAction:ResultAction" <-- "mvc:MockMvc" : create
 activate "resultAction:ResultAction" #FFBBBB
