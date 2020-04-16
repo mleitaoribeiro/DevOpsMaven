@@ -3,6 +3,7 @@ skinparam DefaultFontSize 25
 title US007 Sequence Diagram - Happy Case
 
 participant "HTTP Client (Test)"
+participant "resultAction:ResultAction"
 participant "inputDTO:\ncreateGroupAccountInfoDTO"
 participant "postRequest:\nRequestBuilder"
 participant "mvcResult :MvcResult"
@@ -66,14 +67,15 @@ ref over "service:US007CreateGroupAccountService": US007CreateGroupAccountContro
 deactivate "restController:\nUS007CreateGroupAccountControllerRest"
 
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize ResponseEntity
-
-"HTTP Client (Test)" <-- "mvc:MockMvc" : resultAction
+create "resultAction:ResultAction"
+"resultAction:ResultAction" <-- "mvc:MockMvc" : create
+activate "resultAction:ResultAction" #FFBBBB
 deactivate "mvc:MockMvc"
 
 autonumber 2
 |||
-"HTTP Client (Test)" -> "HTTP Client (Test)" : mvcResult = andReturn()
-
+"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
+deactivate "resultAction:ResultAction"
 create "mvcResult :MvcResult"
 
 "HTTP Client (Test)" --> "mvcResult :MvcResult": create
