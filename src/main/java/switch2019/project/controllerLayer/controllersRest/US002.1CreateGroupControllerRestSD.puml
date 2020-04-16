@@ -2,7 +2,13 @@
 
 skinparam DefaultFontSize 20
 
-title US002.1 Sequence Diagram - Happy Case
+title
+
+ <b>US002.1 Sequence Diagram - Happy Case</b>
+
+
+end title
+
 
 participant "HTTP Client :Test"
 participant "response :MockHttpServletResponse"
@@ -29,9 +35,9 @@ create "inputDTO:CreateGroupInfoDTO"
 activate "HTTP Client :Test" #FFBBBB
 autonumber 1.1
 activate "inputDTO:CreateGroupInfoDTO" #FFBBBB
-"inputDTO:CreateGroupInfoDTO" -> "inputDTO:CreateGroupInfoDTO": setGroupDescription(groupDescription)
-"inputDTO:CreateGroupInfoDTO" -> "inputDTO:CreateGroupInfoDTO": setPersonEmail(personEmail)
-"HTTP Client :Test" <-- "inputDTO:CreateGroupInfoDTO": inputDTO
+"HTTP Client :Test" -> "inputDTO:CreateGroupInfoDTO": setGroupDescription(groupDescription)
+"HTTP Client :Test" -> "inputDTO:CreateGroupInfoDTO": setPersonEmail(personEmail)
+
 deactivate "inputDTO:CreateGroupInfoDTO"
 
 |||
