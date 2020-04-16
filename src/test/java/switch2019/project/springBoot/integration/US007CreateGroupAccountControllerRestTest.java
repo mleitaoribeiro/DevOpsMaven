@@ -5,6 +5,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
@@ -47,9 +49,13 @@ class US007CreateGroupAccountControllerRestTest extends AbstractTest {
         //Act
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        RequestBuilder postRequest = MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson)).andReturn();
+                .content(inputJson);
+
+        ResultActions resultAction = mvc.perform(postRequest);
+
+        MvcResult mvcResult = resultAction.andReturn();
 
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
