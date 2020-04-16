@@ -2,7 +2,6 @@ package switch2019.project.DTO.DeserializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.DeserializationDTO.AddMemberInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
