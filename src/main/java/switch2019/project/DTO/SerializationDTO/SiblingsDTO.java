@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class SiblingsDTO {
 
-    private String siblings;
+    final private String siblings;
 
     public SiblingsDTO(boolean siblings) {
        if (siblings) {
