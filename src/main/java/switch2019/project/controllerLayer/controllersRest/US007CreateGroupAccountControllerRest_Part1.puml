@@ -3,7 +3,7 @@ skinparam DefaultFontSize 25
 title US007 Sequence Diagram - Happy Case
 
 participant "HTTP Client (Test)"
-participant "resultAction:ResultAction"
+participant "resultAction:ResultActions"
 participant "inputDTO:\ncreateGroupAccountInfoDTO"
 participant "postRequest:\nRequestBuilder"
 participant "mvcResult :MvcResult"
@@ -24,8 +24,7 @@ activate "HTTP Client (Test)" #FFBBBB
 
 create "postRequest:\nRequestBuilder"
 "HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = Post /addGroupAccount {inputJson}
-create "mvc:MockMvc"
-"HTTP Client (Test)" -> "mvc:MockMvc" : perform(postRequest)
+"HTTP Client (Test)" -> "mvc:MockMvc" : resultAction=perform(postRequest)
 activate "mvc:MockMvc"  #FFBBBB
 
 autonumber 4.1
@@ -33,7 +32,6 @@ autonumber 4.1
 create "info:createGroupAccountInfoDTO"
 "mvc:MockMvc"-->"info:createGroupAccountInfoDTO" :create
 
-create "restController:\nUS007CreateGroupAccountControllerRest"
 "mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": addGroupAccount(info)
 activate "restController:\nUS007CreateGroupAccountControllerRest" #FFBBBB
 autonumber 4.3.1
@@ -44,7 +42,7 @@ autonumber 4.3.1.1
 activate "info:createGroupAccountInfoDTO" #FFBBBB
 "AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : personEmail = getPersonEmail();
 "AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : accountDescription = getAccountDescription();
-"AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : accountDescription = getAccountDenomination();
+"AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : accountDenomination = getAccountDenomination();
 deactivate "info:createGroupAccountInfoDTO"
 
 create "createGroupAccountDTO:\nCreateGroupAccountDTO"
@@ -70,22 +68,21 @@ deactivate "restController:\nUS007CreateGroupAccountControllerRest"
 autonumber 4.3.4
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 
-create "resultAction:ResultAction"
-"resultAction:ResultAction" <-- "mvc:MockMvc" : create
-activate "resultAction:ResultAction" #FFBBBB
+create "resultAction:ResultActions"
+"resultAction:ResultActions" <-- "mvc:MockMvc" : create
+activate "resultAction:ResultActions" #FFBBBB
 deactivate "mvc:MockMvc"
 
 autonumber 5
 |||
-"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
+"HTTP Client (Test)" -> "resultAction:ResultActions" : mvcResult = andReturn()
 
 create "mvcResult :MvcResult"
 autonumber 5.1
-"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
-deactivate "resultAction:ResultAction"
+"resultAction:ResultActions" -> "mvcResult :MvcResult" : create
+deactivate "resultAction:ResultActions"
 autonumber 6
-"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
-
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse()
 
 
 activate "mvcResult :MvcResult" #FFBBBB
