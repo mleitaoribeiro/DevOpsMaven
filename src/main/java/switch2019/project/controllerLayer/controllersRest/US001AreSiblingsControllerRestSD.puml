@@ -22,6 +22,7 @@ activate "HTTP Client (Test)" #FFBBBB
 
 create "postRequest:\nRequestBuilder"
 "HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = GET /areSiblings \n{param(personOneEmail), \nparam(personTwoEmail}
+
 create "mvc:MockMvc"
 "HTTP Client (Test)" -> "mvc:MockMvc" : perform(getRequest)
 activate "mvc:MockMvc"  #FFBBBB
@@ -77,9 +78,10 @@ autonumber 2.1.4
 "restController:US001AreSiblingsControllerRest" -> "mvc:MockMvc": responseEntity(siblingsDTO, HttpStatus.OK)
 deactivate "restController:US001AreSiblingsControllerRest"
 
+autonumber 2.2
 "mvc:MockMvc" -> "mvc:MockMvc": serialize responseEntity
 
-autonumber 2.2
+autonumber 2.3
 create "resultAction:ResultAction"
 "mvc:MockMvc" -> "resultAction:ResultAction" : create
 activate "resultAction:ResultAction" #FFBBBB
