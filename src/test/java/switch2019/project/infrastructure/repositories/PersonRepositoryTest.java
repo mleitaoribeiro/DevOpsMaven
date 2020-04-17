@@ -128,4 +128,20 @@ class PersonRepositoryTest {
         //Assert
         assertFalse(personRepository.isPersonEmailOnRepository(new Email("fake@sofake.com")));
     }
+
+    @Test
+    @DisplayName("Repository Size")
+    void verifyRepoSize() {
+        //Arrange
+        PersonRepository personRepository = new PersonRepository();
+        int expected = 1;
+        //Act
+        Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
+
+        //Assert
+        assertEquals(1, personRepository.repositorySize());
+    }
 }

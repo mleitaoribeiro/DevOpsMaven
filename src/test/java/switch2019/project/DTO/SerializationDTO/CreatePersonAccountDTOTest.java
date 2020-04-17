@@ -92,7 +92,7 @@ class CreatePersonAccountDTOTest {
     public void equalsTestFalse(){
         //Arrange:
         CreatePersonAccountDTO dto1  = new CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle account","expenses");
-        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("santos@xpto.pt", "kelle account","expenses");
+        CreatePersonAccountDTO dto2 = new  CreatePersonAccountDTO("raquel.santos@xpto.pt", "kelle","expenses");
 
 
         //Act & Assert:

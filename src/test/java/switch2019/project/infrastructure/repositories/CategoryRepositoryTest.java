@@ -5,12 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.CategoryID;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -529,5 +531,35 @@ class CategoryRepositoryTest {
         assertEquals(0, actual);
     }
 
+    @Test
+    @DisplayName("Verify If category ID exists - Main Scenario")
+    void verifyIfCategoryIDExists() {
+        //Arrange
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category newCategory = new Category((new Denomination("Hello")), new PersonID(new Email("hello@gmail.com")));
+        //Act
+        categoryRepository.createCategory(new Denomination("Hello"), new PersonID(new Email("hello@gmail.com")));
+
+        boolean categoryIDExists = categoryRepository.isIDOnRepository(newCategory.getID());
+
+        //Assert
+        assertTrue(categoryIDExists);
+    }
+
+    @Test
+    @DisplayName("Verify If Category ID exists -False Case")
+    void verifyIfCategoryIDExistsOnRepositoryFalse() {
+        //Arrange
+        CategoryRepository categoryRepository = new CategoryRepository();
+        Category newCategory = new Category((new Denomination("Hello")), new PersonID(new Email("hello@gmail.com")));
+
+        //Act
+        categoryRepository.createCategory(new Denomination("BYE"), new PersonID(new Email("hello@gmail.com")));
+
+        boolean categoryIDExists = categoryRepository.isIDOnRepository(newCategory.getID());
+
+        //Assert
+        assertFalse(categoryIDExists);
+    }
 
 }
