@@ -16,8 +16,8 @@ participant "restController:\nUS007CreateGroupAccountControllerRest"
 == Arrange ==
 autonumber
 create "inputDTO:\ncreateGroupAccountInfoDTO"
-activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "inputDTO:\ncreateGroupAccountInfoDTO": inputDTO = CreateGroupAccountInfoDTO(groupDescription,\n personEmail, accountDenomination, accountDescription);
+activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
 == Act ==
