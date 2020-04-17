@@ -13,7 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonRepositoryTest {
 
     @Test
+    @DisplayName("Create new Person - Main scenario")
     void createPerson() {
+
         //Arrange:
         PersonRepository personRepository = new PersonRepository();
         Person expected = new Person("Marta", new DateAndTime(1996, 4, 27),
@@ -28,7 +30,9 @@ class PersonRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find Person By ID - Main scenario")
     void findPersonByID() {
+
         //Arrange:
         PersonRepository personRepository = new PersonRepository();
         personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
@@ -44,7 +48,28 @@ class PersonRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find Person By ID - False - Exception")
+    void findPersonByIDException() {
+
+        //Arrange:
+        PersonRepository personRepository = new PersonRepository();
+        personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        //Act:
+        try {
+            personRepository.getByID(new PersonID(new Email("1234@isep.pt")));
+        }
+
+        catch (IllegalArgumentException exception) {
+            assertEquals("No person found with that ID.", exception.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Find Person By Email - Main scenario")
     void findPersonByAttributes() {
+
         //Arrange:
         PersonRepository personRepository = new PersonRepository();
         personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
@@ -57,6 +82,25 @@ class PersonRepositoryTest {
 
         //Assert:
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Find Person By Email - False - Exception")
+    void findPersonByEmailException() {
+
+        //Arrange:
+        PersonRepository personRepository = new PersonRepository();
+        personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        //Act:
+        try {
+            personRepository.findPersonByEmail(new Email("1234@isep.pt"));
+        }
+
+        catch (IllegalArgumentException exception) {
+            assertEquals("No person found with that email.", exception.getMessage());
+        }
     }
 
     @Test
@@ -79,7 +123,7 @@ class PersonRepositoryTest {
     }
 
     @Test
-    @DisplayName("Verify If Person ID exists On Person Repository -False Case")
+    @DisplayName("Verify If Person ID exists On Person Repository - False Case")
     void verifyIfPersonIDExistsOnPersonRepositoryFalse() {
         //Arrange
         PersonRepository personRepository = new PersonRepository();
@@ -142,6 +186,6 @@ class PersonRepositoryTest {
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
 
         //Assert
-        assertEquals(1, personRepository.repositorySize());
+        assertEquals(expected, personRepository.repositorySize());
     }
 }

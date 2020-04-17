@@ -16,7 +16,7 @@ import java.util.Set;
 public class PersonRepository implements Repository {
 
     // Private instance variable
-    private Set<Person> listOfPersons;
+    private final Set<Person> listOfPersons;
 
     //1st Constructor
     public PersonRepository() {
@@ -46,8 +46,7 @@ public class PersonRepository implements Repository {
         for (Person person : listOfPersons) {
             if (person.getID().equals(personID))
                 return person;
-        }
-        throw new IllegalArgumentException("No person found with that ID.");
+        } throw new IllegalArgumentException("No person found with that ID.");
     }
 
     /**

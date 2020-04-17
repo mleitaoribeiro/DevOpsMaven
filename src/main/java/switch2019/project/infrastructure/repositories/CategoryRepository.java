@@ -13,7 +13,7 @@ import java.util.*;
 public class CategoryRepository implements Repository {
 
     // Private instance variables
-    private Set<Category> categories;
+    private final Set<Category> categories;
 
     //Public Constructor
     public CategoryRepository() {
@@ -93,16 +93,16 @@ public class CategoryRepository implements Repository {
     }
 
     /**
-     * Validate if a category is in the CategoryList
+     * method to validate if the account is in the accounts Repository
      *
-     * @param categoryId that we want to see if exists
+     * @param categoryID
+     * @return boolean
      */
-    public boolean isCategoryValid(ID categoryId) {
+    public boolean isIDOnRepository(ID categoryID) {
         for (Category category : categories) {
-            if (category.getID().equals(categoryId))
+            if (category.getID().equals(categoryID))
                 return true;
-        }
-        return false;
+        } return false;
     }
 
     /**
@@ -125,19 +125,4 @@ public class CategoryRepository implements Repository {
     public int repositorySize () {
         return this.categories.size();
     }
-
-    /**
-     * method to validate if the account is in the accounts Repository
-     *
-     * @param categoryID
-     * @return boolean
-     */
-
-    public boolean isIDOnRepository (ID categoryID) {
-        for (Category category : categories)
-            if (category.getID().equals(categoryID))
-                return true;
-        return false;
-    }
-
 }

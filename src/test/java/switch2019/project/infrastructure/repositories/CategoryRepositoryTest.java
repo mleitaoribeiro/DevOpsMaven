@@ -5,14 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.CategoryID;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.domainEntities.shared.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -423,7 +419,7 @@ class CategoryRepositoryTest {
 
         //Act
         newCategories.addMultipleCategories(myCategories, person1.getID());
-        boolean result = newCategories.isCategoryValid(catsObject);
+        boolean result = newCategories.isIDOnRepository(catsObject);
 
         //Assert
         assertTrue(result);
