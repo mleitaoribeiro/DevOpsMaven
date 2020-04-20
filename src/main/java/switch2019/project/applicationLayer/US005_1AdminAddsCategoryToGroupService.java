@@ -1,5 +1,6 @@
 package switch2019.project.applicationLayer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
@@ -17,21 +18,19 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 @Service
 public class US005_1AdminAddsCategoryToGroupService {
 
+    @Autowired
     private GroupsRepository groupsRepository;
+    @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
     private PersonRepository personRepository;
 
-    public US005_1AdminAddsCategoryToGroupService(GroupsRepository groupRep, CategoryRepository categoryRep, PersonRepository personRep) {
-        this.groupsRepository = groupRep;
-        this.categoryRepository = categoryRep;
-        this.personRepository = personRep;
-    }
 
     /**
      * User Story 5.1 .- As a group admin i want to associate a category to my group.
      *
      * @param dto
-     * @return
+     * @return categoryDTO
      */
     public CategoryDTO addCategoryToGroup(CreateGroupCategoryDTO dto) {
 
