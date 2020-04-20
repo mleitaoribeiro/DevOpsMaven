@@ -4,10 +4,12 @@ skinparam DefaultFontSize 20
 
 title US003 Sequence Diagram - Happy Case
 
-participant "HTTP Client :Test"
+participant "HTTP Client (Test)"
+participant "resultAction:ResultAction"
+participant "inputDTO:\naddMemberInfoDTO"
+participant "postRequest:\nRequestBuilder"
 participant "mvcResult :MvcResult"
-participant "response :MockHttpServletResponse"
-participant ":SpringBoot"
+participant "mvc:MockMvc"
 participant "restController:US003AddMemberToGroupControllerRest"
 participant "service:US003AddMemberToGroupService"
 participant ":GroupDTOAssembler"
@@ -17,28 +19,28 @@ participant "group:Group"
 
 
 
-
+create "inputDTO:\naddMemberInfoDTO"
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "inputDTO:\naddMemberInfoDTO": inputDTO = new AddMemberInfoDTO\n(personEmail, groupDescription);
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
 == Act ==
 
-autonumber
-"HTTP Client :Test" -> ":SpringBoot": POST = /addMemberToGroup ,\n  body {personEmail, groupDescription}
-activate "HTTP Client :Test" #FFBBBB
+create "postRequest:\nRequestBuilder"
+"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = POST=/addMember {inputJson}
 
-autonumber 1.1
+create "mvc:MockMvc"
+"HTTP Client (Test)" -> "mvc:MockMvc" : perform(postRequest)
+activate "mvc:MockMvc"  #FFBBBB
 
-activate ":SpringBoot" #FFBBBB
+autonumber 4.1
+"mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
 
-":SpringBoot" -> ":SpringBoot" : deserialize (body {personEmail, groupDescription})
-activate ":SpringBoot" #FFBBBB
+create "infoDTO:CreatePersonAccountInfoDTO"
+"mvc:MockMvc"->"infoDTO:CreatePersonAccountInfoDTO": create
 
-autonumber 1.1.1
-create "addMemberInfoDTO: AddMemberInfoDTO"
-":SpringBoot" --> "addMemberInfoDTO: AddMemberInfoDTO" : create (personEmail, groupDescription)
-deactivate ":SpringBoot"
-
-autonumber 1.2
-":SpringBoot" -> "restController:US003AddMemberToGroupControllerRest" : addMember (addMemberInfoDTO)
+create "restController:US003AddMemberToGroupControllerRest"
+"mvc:MockMvc"-> "restController:US003AddMemberToGroupControllerRest" : addMember (addMemberInfoDTO)
 
 autonumber 1.2.1
 activate "restController:US003AddMemberToGroupControllerRest" #FFBBBB
@@ -101,43 +103,41 @@ deactivate ":GroupDTOAssembler"
 deactivate "service:US003AddMemberToGroupService"
 
 autonumber 1.3
-return responseEntity (addedMemberDTO, HttpStatus.CREATED)
+return responseEntity = responseEntity<> (addedMemberDTO, HttpStatus.CREATED)
 
 deactivate "restController:US003AddMemberToGroupControllerRest"
 
-"HTTP Client :Test" <-- ":SpringBoot" : mvcResultJson
-deactivate ":SpringBoot"
+autonumber 4.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+create "resultAction:ResultAction"
+"resultAction:ResultAction" <-- "mvc:MockMvc" : create
+activate "resultAction:ResultAction" #FFBBBB
+deactivate "mvc:MockMvc"
 
-autonumber 2
-|||
-"HTTP Client :Test" -> "HTTP Client :Test" : deserialize (mvcResultJson)
-activate "HTTP Client :Test" #FFBBBB
+autonumber 5
+"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
 
-autonumber 2.1
-"HTTP Client :Test" --> "mvcResult :MvcResult" : mvcResult = new MvcResult (mvcResultJson)
-deactivate "HTTP Client :Test"
+create "mvcResult :MvcResult"
+autonumber 5.1
+"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
+deactivate "resultAction:ResultAction"
 
-|||
-
-autonumber 3
-"HTTP Client :Test" -> "mvcResult :MvcResult" : response = getResponse()
-
-autonumber 3.1
-
+autonumber 6
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
 activate "mvcResult :MvcResult" #FFBBBB
-"mvcResult :MvcResult" -> "response :MockHttpServletResponse" : response = new MockHttpServletResponse()
 deactivate "mvcResult :MvcResult"
 
-autonumber 4
-"HTTP Client :Test" -> "response :MockHttpServletResponse" : status = getStatus()
-activate "response :MockHttpServletResponse" #FFBBBB
-"HTTP Client :Test" -> "response :MockHttpServletResponse" : result = getContentAsString()
-deactivate "response :MockHttpServletResponse" #FFBBBB
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+activate "mvcResult :MvcResult" #FFBBBB
+deactivate "mvcResult :MvcResult"
+
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+activate "mvcResult :MvcResult" #FFBBBB
+deactivate "mvcResult :MvcResult"
+
 == Assert ==
 
-"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(201, status)
-"HTTP Client :Test" -> "HTTP Client :Test" : assertEquals(expectedResult, result)
-deactivate "HTTP Client :Test"
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
 
 @enduml
-
