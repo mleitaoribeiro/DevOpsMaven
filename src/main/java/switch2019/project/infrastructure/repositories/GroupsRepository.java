@@ -140,12 +140,12 @@ public class GroupsRepository implements Repository {
      */
     public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate) {
         List<Transaction> groupTransactions = new ArrayList<>();
-        Set<Group> groups = new HashSet<>();
+        Set<Group> groupSet = new HashSet<>();
         for (Group group : this.groups) {
             if (group.isGroupMember(person))
-                groups.add(group);
+                groupSet.add(group);
         }
-        for (Group group : groups) {
+        for (Group group : groupSet) {
             groupTransactions.addAll(group.returnGroupLedgerInDateRange(initialDate, finalDate, person));
         }
         groupTransactions.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
@@ -211,8 +211,8 @@ public class GroupsRepository implements Repository {
      */
 
     public boolean isIDOnRepository(ID groupID) {
-        for (Group groups : groups)
-            if (groups.getID().equals(groupID))
+        for (Group groupSet : groups)
+            if (groupSet.getID().equals(groupID))
                 return true;
         return false;
     }
