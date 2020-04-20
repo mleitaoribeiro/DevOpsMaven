@@ -466,6 +466,38 @@ class GroupsRepositoryTest {
     }
 
     @Test
+    @DisplayName("Create Transaction group description isn't contained in GroupList and person is a member")
+    void testIfANonMemberCanCreateTransaction() {
+        //Arrange
+        Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+
+        Person person2 = new Person("Joana", new DateAndTime(1995, 12, 13),
+                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("54321@isep.pt"));
+        MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
+        String description = "payment";
+        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
+
+        Account from = new Account(new Denomination("Wallet"),
+                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
+        Account to = new Account(new Denomination("TransportAccount"),
+                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
+
+        GroupsRepository groupsRepository = new GroupsRepository();
+        groupsRepository.createGroup(new Description("JUST4FUN"), person2);
+        try {
+            //Act
+            groupsRepository.createTransactionOnSpecificGroup(person, "JUST4FUN", amount, description,
+                    LocalDateTime.of(1995,12,4,00,00), category, from, to, new Type(false));
+
+        }
+        //Assert
+        catch (IllegalArgumentException result) {
+            assertEquals("This person is not a member of this group.", result.getMessage());
+        }
+    }
+
+    @Test
     @DisplayName("Trying to create transaction that member is not contained. ")
     void testIfATransactionCanBeCreatedIfMemberIsNotMember() {
         //Arrange
@@ -1144,6 +1176,27 @@ class GroupsRepositoryTest {
         //Assert
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    void findGroupByIDException() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupsRepository groupsRepository= new GroupsRepository();
+        groupsRepository.createGroup(new Description("Familia"), person);
+        Group expected= new Group(new Description("Familia"),person);
+
+        //Act102
+
+        try{groupsRepository.getByID(new GroupID(new Description("Familia")));}
+
+
+
+        catch(IllegalArgumentException error) {    //Assert
+            assertEquals("No group found with that ID.", error);
+        }
     }
 
 
