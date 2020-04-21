@@ -41,6 +41,30 @@ public class AccountRepository implements Repository {
     }
 
     /**
+     * method to validate if the account is in the accounts Repository
+     *
+     * @param accountID
+     * @return boolean
+     */
+
+    public boolean isIDOnRepository(ID accountID) {
+        for (Account accounts : accounts)
+            if (accounts.getID().equals(accountID))
+                return true;
+        return false;
+    }
+
+    /**
+     * Method to get the numbers of Accounts in the Repository
+     *
+     * @return int
+     */
+
+    public int repositorySize () {
+        return this.accounts.size();
+    }
+
+    /**
      * method to add one account to the repository with an Owner
      *
      * @param accountDenomination
@@ -78,17 +102,6 @@ public class AccountRepository implements Repository {
     }
 
     /**
-     * Method to get the numbers of Accounts in the Repository
-     *
-     * @return int
-     */
-
-    public int repositorySize () {
-        return this.accounts.size();
-    }
-
-
-    /**
      * method to remove one account from the Repository
      *
      * @param accountToBeRemoved
@@ -100,19 +113,5 @@ public class AccountRepository implements Repository {
             return accounts.remove(accountToBeRemoved);
         } else
             return false;
-    }
-
-    /**
-     * method to validate if the account is in the accounts Repository
-     *
-     * @param accountID
-     * @return boolean
-     */
-
-    public boolean isIDOnRepository(ID accountID) {
-        for (Account accounts : accounts)
-            if (accounts.getID().equals(accountID))
-                return true;
-        return false;
     }
 }

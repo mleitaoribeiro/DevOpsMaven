@@ -47,8 +47,8 @@ public class GroupsRepository implements Repository {
 
     /**
      * method to add group to the Repository
-     *
      * @param group
+     * @return boolean
      */
     public boolean addGroupToRepository(Group group) {
         if (group != null) {
@@ -57,10 +57,52 @@ public class GroupsRepository implements Repository {
     }
 
     /**
+     * Method used to find a specific group by its Description
+     * @param groupDescription
+     * @return group
+     */
+
+    public Group findGroupByDescription(Description groupDescription) {
+        for (Group group : groups) {
+            if (group.getID().getDescription().equals(groupDescription.getDescription()))
+                return group;
+        }
+        throw new IllegalArgumentException(NO_GROUPS_FOUND);
+    }
+
+    /**
+     * Method to return the group corespondent to the given GroupID
+     * @param groupID
+     * @return group
+     */
+    public Group getByID (ID groupID) {
+        for (Group group : groups) {
+            if (group.getID().equals(groupID))
+                return group;
+        }
+        throw new IllegalArgumentException("No group found with that ID.");
+    }
+
+    /**
+     * method to validate if the group t is in the groups Repository
+     *
+     * @param groupID
+     * @return boolean
+     */
+
+    public boolean isIDOnRepository(ID groupID) {
+        for (Group groupSet : groups)
+            if (groupSet.getID().equals(groupID))
+                return true;
+        return false;
+    }
+
+    /**
      * Method to check the number of Groups inside the Repository.
      *
      * @return size of the groupsList
      */
+
     public int repositorySize () {
         return groups.size();
     }
@@ -178,44 +220,5 @@ public class GroupsRepository implements Repository {
         }
         throw new IllegalArgumentException(NO_GROUPS_FOUND);
     }
-
-    /**
-     * Method used to find a specific group by its Description
-     */
-    public Group findGroupByDescription(Description groupDescription) {
-        for (Group group : groups) {
-            if (group.getID().getDescription().equals(groupDescription.getDescription()))
-                return group;
-        }
-        throw new IllegalArgumentException(NO_GROUPS_FOUND);
-    }
-
-    /**
-     * Method to return the group corespondent to the given GroupID
-     *
-     * @param groupID
-     */
-    public Group getByID (ID groupID) {
-        for (Group group : groups) {
-            if (group.getID().equals(groupID))
-                return group;
-        }
-        throw new IllegalArgumentException("No group found with that ID.");
-    }
-
-    /**
-     * method to validate if the group t is in the groups Repository
-     *
-     * @param groupID
-     * @return boolean
-     */
-
-    public boolean isIDOnRepository(ID groupID) {
-        for (Group groupSet : groups)
-            if (groupSet.getID().equals(groupID))
-                return true;
-        return false;
-    }
-
 
 }

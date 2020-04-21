@@ -15,7 +15,6 @@ public class CategoryRepository implements Repository {
     // Private instance variables
     private final Set<Category> categories;
 
-    //Public Constructor
     public CategoryRepository() {
         categories = new HashSet<>();
     }
@@ -40,9 +39,32 @@ public class CategoryRepository implements Repository {
     }
 
     /**
+     * method to validate if the account is in the accounts Repository
+     *
+     * @param categoryID
+     * @return boolean
+     */
+
+    public boolean isIDOnRepository(ID categoryID) {
+        for (Category category : categories) {
+            if (category.getID().equals(categoryID))
+                return true;
+        } return false;
+    }
+
+    /**
+     * Method to get the numbers of Categories in the Category List
+     * @return category
+     */
+    public int repositorySize () {
+        return this.categories.size();
+    }
+
+    /**
      * Add a new category to CategoryList
      * @param nameOfCategory
      * @param ownerID
+     * @return category
      * 
      */
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
@@ -59,6 +81,7 @@ public class CategoryRepository implements Repository {
      * Remove a category from CategoryList
      *
      * @param categoryToRemove
+     * @return boolean
      */
     public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
         Category category = new Category(categoryToRemove, ownerID);
@@ -72,6 +95,7 @@ public class CategoryRepository implements Repository {
      * Add multiple categories to CategoryList
      *
      * @param categories<Category> categories
+     * @return boolean
      */
     public boolean addMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         int sizeBefore = this.categories.size();
@@ -85,6 +109,7 @@ public class CategoryRepository implements Repository {
      * Remove multiple categories from CategoryList
      *
      * @param categories<Category> categories
+     * @return boolean
      */
     public boolean removeMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         for (Denomination category : categories)
@@ -93,22 +118,10 @@ public class CategoryRepository implements Repository {
     }
 
     /**
-     * method to validate if the account is in the accounts Repository
-     *
-     * @param categoryID
-     * @return boolean
-     */
-    public boolean isIDOnRepository(ID categoryID) {
-        for (Category category : categories) {
-            if (category.getID().equals(categoryID))
-                return true;
-        } return false;
-    }
-
-    /**
      * Validate if a set of categories is in the CategoryList
      *
      * @param setOfCategories
+     * @return boolean
      */
     public boolean isSetOfCategoriesValid(Set<Denomination> setOfCategories, OwnerID ownerID) {
         Set<Category> list = new HashSet<>();
@@ -118,11 +131,4 @@ public class CategoryRepository implements Repository {
         return this.categories.containsAll(list);
     }
 
-    /**
-     * Method to get the numbers of Categories in the Category List
-     * @return category
-     */
-    public int repositorySize () {
-        return this.categories.size();
-    }
 }
