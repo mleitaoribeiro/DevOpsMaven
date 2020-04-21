@@ -1,6 +1,9 @@
 @startuml
 skinparam DefaultFontSize 20
 
+participant "createGroupCategoryDTO: \nCreateGroupCategoryDTO"
+participant "service:\nUS005_1AdminAddCategoryToCategoryService"
+
 
 == Act ==
 autonumber
@@ -20,27 +23,27 @@ activate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 
 
-"service:US005_1AdminAddCategoryToCategoryService"->"groupRep:GroupRepository":group = findGroupByDescription\n(groupDescription)
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"groupRep:GroupRepository":group = findGroupByDescription\n(groupDescription)
 activate "groupRep:GroupRepository" #FFBBBB
 deactivate "groupRep:GroupRepository"
 
-"service:US005_1AdminAddCategoryToCategoryService"->"personRep:PersonRepository": person = findPersonByEmail(personEmail)
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"personRep:PersonRepository": person = findPersonByEmail(personEmail)
 activate "personRep:PersonRepository" #FFBBBB
 deactivate "personRep:PersonRepository"
 
-"service:US005_1AdminAddCategoryToCategoryService"->"person:Person": personID = getID()
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"person:Person": personID = getID()
 activate "person:Person" #FFBBBB
 deactivate "person:Person"
 
-"service:US005_1AdminAddCategoryToCategoryService"->"group:Group": validateAdmin = isGroupAdmin(personID)
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"group:Group": validateAdmin = isGroupAdmin(personID)
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
 
-"service:US005_1AdminAddCategoryToCategoryService"->"group:Group": groupID = getID()
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"group:Group": groupID = getID()
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
 
-"service:US005_1AdminAddCategoryToCategoryService"->"categoryRep:CategoryRepository":isCategoryCreated = createCategory(categoryDenomination, groupID)
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"categoryRep:CategoryRepository":isCategoryCreated = createCategory(categoryDenomination, groupID)
 activate "categoryRep:CategoryRepository" #FFBBBB
 
 create "category:Category"
@@ -48,7 +51,7 @@ create "category:Category"
 "categoryRep:CategoryRepository"->"categoryRep:CategoryRepository": add(category)
 
 deactivate "categoryRep:CategoryRepository"
-deactivate "service:US005_1AdminAddCategoryToCategoryService"
+deactivate "service:\nUS005_1AdminAddCategoryToCategoryService"
 
 
 @enduml
