@@ -24,7 +24,7 @@ create "request:\nRequestBuilder"
 "HTTP Client (Test)" -> "request:\nRequestBuilder" : request = get("/areSiblings?\npersonOneEmail=antonio@isep.ipp.pt&\npersonTwoEmail=manuel@isep.ipp.pt")
 
 create "mvc:MockMvc"
-"HTTP Client (Test)" -> "mvc:MockMvc" : perform(getRequest)
+"HTTP Client (Test)" -> "mvc:MockMvc" : perform(request)
 activate "mvc:MockMvc"  #FFBBBB
 
 autonumber 2.1
