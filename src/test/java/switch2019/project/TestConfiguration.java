@@ -1,4 +1,4 @@
-package switch2019.project.controllerLayer.cli;
+package switch2019.project;
 
 
 import org.mockito.Mockito;

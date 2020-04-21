@@ -19,8 +19,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ActiveProfiles("test")
 
-@ExtendWith(SpringExtension.class)
 public class US004GetFamilyGroupsControllerCliUnitTest {
     @Mock
     private US004GetFamilyGroupsService service;

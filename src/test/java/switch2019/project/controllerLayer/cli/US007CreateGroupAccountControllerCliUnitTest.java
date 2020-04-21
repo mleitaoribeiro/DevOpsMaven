@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 
 public class US007CreateGroupAccountControllerCliUnitTest {
 

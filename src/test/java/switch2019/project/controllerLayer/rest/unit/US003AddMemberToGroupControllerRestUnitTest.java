@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-
+@ActiveProfiles("test")
 
 public class US003AddMemberToGroupControllerRestUnitTest {
 

@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,6 +23,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 
 class US007CreateGroupAccountControllerRestUnitTest {
 
@@ -29,6 +31,12 @@ class US007CreateGroupAccountControllerRestUnitTest {
     private US007CreateGroupAccountService service;
     @Autowired
     private US007CreateGroupAccountControllerRest controller;
+
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     /**
      * US007
@@ -58,7 +66,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
         ResponseEntity responseEntityExpected = new ResponseEntity<>(accountExpectedDTO, HttpStatus.CREATED);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
@@ -91,7 +98,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
@@ -128,7 +134,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
@@ -164,7 +169,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         controller.addGroupAccount(groupAccountInfoDTO);
@@ -204,7 +208,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
 
@@ -242,7 +245,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
 
@@ -278,7 +280,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
                 transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The email can't be null."));
 
@@ -316,7 +317,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
@@ -353,7 +353,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
@@ -387,7 +386,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
                 transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
@@ -423,7 +421,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
 
@@ -458,7 +455,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
@@ -492,8 +488,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
-
-        MockitoAnnotations.initMocks(this);
+        
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 

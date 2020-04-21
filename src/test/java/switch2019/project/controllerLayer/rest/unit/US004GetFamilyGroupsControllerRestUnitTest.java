@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-
+@ActiveProfiles("test")
 
 public class US004GetFamilyGroupsControllerRestUnitTest {
     @Mock

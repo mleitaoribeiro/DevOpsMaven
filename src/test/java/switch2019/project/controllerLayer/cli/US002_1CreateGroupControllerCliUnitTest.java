@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 @SpringBootTest
+@ActiveProfiles("test")
 
 public class US002_1CreateGroupControllerCliUnitTest {
     @Mock private US002_1CreateGroupService service;

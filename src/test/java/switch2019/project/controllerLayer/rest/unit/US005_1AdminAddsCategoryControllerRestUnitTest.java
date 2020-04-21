@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
-
+@ActiveProfiles("test")
 
 class US005_1AdminAddsCategoryControllerRestUnitTest {
     @Mock

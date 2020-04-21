@@ -19,7 +19,7 @@ import switch2019.project.controllerLayer.rest.US001AreSiblingsControllerRest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-
+@ActiveProfiles("test")
 
 public class US001AreSiblingsControllerRestUnitTests {
     @Mock
