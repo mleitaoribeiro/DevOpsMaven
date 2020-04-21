@@ -1,6 +1,7 @@
 package switch2019.project.controllerLayer.rest.unit;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,10 +24,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ActiveProfiles("test")
 
 public class US004GetFamilyGroupsControllerRestUnitTest {
+
     @Mock
     private US004GetFamilyGroupsService service;
+
     @Autowired
     private US004GetFamilyGroupsControllerRest controllerRest;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     @DisplayName("Get all the groups who are families in the repository")
@@ -41,7 +49,6 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
         ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
 
         //Act
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
 
         ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups();
