@@ -7,16 +7,18 @@ import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.AccountID;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.repositories.Repository;
+import switch2019.project.domain.repositories.AccountRepository;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @Component
-public class AccountRepository implements Repository {
+public class AccountInMemoryRepository implements AccountRepository {
+
     //Private instance variables
     private Set<Account> accounts;
 
-    public AccountRepository() {
+    public AccountInMemoryRepository() {
         accounts = new HashSet<>();
     }
 

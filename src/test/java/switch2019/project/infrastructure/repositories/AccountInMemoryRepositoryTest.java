@@ -16,20 +16,20 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountRepositoryTest {
+class AccountInMemoryRepositoryTest {
 
-    private AccountRepository accountRepository;
+    private AccountInMemoryRepository accountInMemoryRepository;
 
     @BeforeEach
     void universeSetUp() {
-        accountRepository = new AccountRepository();
-        accountRepository.createAccount(new Denomination("CGD"),
+        accountInMemoryRepository = new AccountInMemoryRepository();
+        accountInMemoryRepository.createAccount(new Denomination("CGD"),
                 new Description("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
-        accountRepository.createAccount(new Denomination("BPI"),
+        accountInMemoryRepository.createAccount(new Denomination("BPI"),
                 new Description("BPI"), new PersonID(new Email("amadeu2@gmail.com")));
-        accountRepository.createAccount(new Denomination("BIC"),
+        accountInMemoryRepository.createAccount(new Denomination("BIC"),
                 new Description("BIC"), new PersonID(new Email("amadeu2@gmail.com")));
-        accountRepository.createAccount(new Denomination("SAN"),
+        accountInMemoryRepository.createAccount(new Denomination("SAN"),
                 new Description("SAN"), new PersonID(new Email("amadeu3@gmail.com")));
     }
 
@@ -42,12 +42,12 @@ class AccountRepositoryTest {
     @DisplayName("Test if one account was added to the repository with Person ID - Main Scenario")
     public void testIfAccountsWasAddedToTheRepositoryWithPersonID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("Revolut"),
                 new Description("Online Expenses"), new PersonID((new Email("martacarda@hotmail.com"))));
 
         //Act
-        Account accountCreated = accountRepository.createAccount(new Denomination("Revolut"),
+        Account accountCreated = accountInMemoryRepository.createAccount(new Denomination("Revolut"),
                 new Description("Online Expenses"), new PersonID(new Email("martacarda@hotmail.com")));
 
         //Assert
@@ -58,11 +58,11 @@ class AccountRepositoryTest {
     @DisplayName("Test if  one account was added to the repository with null Person ID")
     public void testIfAccountsWasAddedToTheRepositoryWithNullPersonID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
         try {
-            accountRepository.createAccount(new Denomination("Revolut"),
+            accountInMemoryRepository.createAccount(new Denomination("Revolut"),
                     new Description("Online Expenses"), new PersonID(null));
         }
         //Assert
@@ -75,7 +75,7 @@ class AccountRepositoryTest {
     @DisplayName("Test if more than one account was added to the repository with Person ID ")
     public void testIfAccountsWereAddedToTheRepositoryWithPersonID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("xpto"),
                 new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
         Account accountExpected2 = new Account(new Denomination("xyz"),
@@ -85,11 +85,11 @@ class AccountRepositoryTest {
 
 
         //Act
-        Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
+        Account accountCreated = accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
-        Account accountCreated2 = accountRepository.createAccount(new Denomination("xyz"),
+        Account accountCreated2 = accountInMemoryRepository.createAccount(new Denomination("xyz"),
                 new Description("general"), new PersonID(new Email("mariasousa@gmail.com")));
-        Account accountCreated3 = accountRepository.createAccount(new Denomination("Millennium"),
+        Account accountCreated3 = accountInMemoryRepository.createAccount(new Denomination("Millennium"),
                 new Description("Millennium Account"), new PersonID(new Email("antoniomagalhaes@isep.ipp.pt")));
 
         //Assert
@@ -104,13 +104,13 @@ class AccountRepositoryTest {
     @DisplayName("Test if one account was created if it already exist - Person ID")
     public void testIfAccountWasAddedIfItAlreadyExistsPersonID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
-        accountRepository.createAccount(new Denomination("xpto"),
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
+        accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
 
         //Act
         try {
-            accountRepository.createAccount(new Denomination("xpto"),
+            accountInMemoryRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
         } catch (IllegalArgumentException ex) {
             assertEquals("This account already exists.", ex.getMessage());
@@ -121,13 +121,13 @@ class AccountRepositoryTest {
     @DisplayName("Test if one account was created if it already exist - Person Group ID")
     public void testIfAccountWasAddedIfItAlreadyExistsGroupID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
-        accountRepository.createAccount(new Denomination("xpto"),
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
+        accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new GroupID(new Description("Friends")));
 
         //Act
         try {
-            accountRepository.createAccount(new Denomination("xpto"),
+            accountInMemoryRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new GroupID(new Description("Friends")));
         } catch (IllegalArgumentException ex) {
             assertEquals("This account already exists.", ex.getMessage());
@@ -138,13 +138,13 @@ class AccountRepositoryTest {
     @DisplayName("Test if  one account was added to the repository with Group ID - Main Scenario")
     public void testIfAccountsWasAddedToTheRepositoryWithGroupID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("Revolut"),
                 new Description("Online Expenses"), new GroupID((new Description("Randam Group"))));
 
 
         //Act
-        Account accountCreated = accountRepository.createAccount(new Denomination("Revolut"),
+        Account accountCreated = accountInMemoryRepository.createAccount(new Denomination("Revolut"),
                 new Description("Online Expenses"), new GroupID(new Description("Randam Group")));
 
         //Assert
@@ -155,10 +155,10 @@ class AccountRepositoryTest {
     @DisplayName("Test if  one account was added to the repository with null Group ID")
     public void testIfAccountsWasAddedToTheRepositoryWithNullGroupID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
         //Act
         try {
-            Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
+            Account accountCreated = accountInMemoryRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new GroupID(new Description(null)));
             fail();
         }
@@ -172,7 +172,7 @@ class AccountRepositoryTest {
     @DisplayName("Test if more than one account was added to the list with Group ID")
     public void testIfAccountsWereAddedToTheRepositoryGroupID() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("xpto"),
                 new Description("one account"), new GroupID(new Description("familia")));
         Account accountExpected2 = new Account(new Denomination("xyz"),
@@ -182,11 +182,11 @@ class AccountRepositoryTest {
 
 
         //Act
-        Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
+        Account accountCreated = accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new GroupID(new Description("familia")));
-        Account accountCreated2 = accountRepository.createAccount(new Denomination("xyz"),
+        Account accountCreated2 = accountInMemoryRepository.createAccount(new Denomination("xyz"),
                 new Description("general"), new GroupID(new Description ("copos")));
-        Account accountCreated3 = accountRepository.createAccount(new Denomination("Millennium"),
+        Account accountCreated3 = accountInMemoryRepository.createAccount(new Denomination("Millennium"),
                 new Description("Millennium Account"), new GroupID(new Description("andorinhas")));
 
         //Assert
@@ -202,11 +202,11 @@ class AccountRepositoryTest {
     @DisplayName("Test if more than one account was added to the repository with PersonID - one Account Denomination Is Null")
     public void testIfAccountsWereAddedToTheRepositoryOneAccountDenominationIsNull() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
         try {
-            accountRepository.createAccount(null, new Description("XPTO"), new PersonID(new Email("12345@isep.ipp.pt")));
+            accountInMemoryRepository.createAccount(null, new Description("XPTO"), new PersonID(new Email("12345@isep.ipp.pt")));
 
         }
         //Assert
@@ -219,11 +219,11 @@ class AccountRepositoryTest {
     @DisplayName("Test if more than one account was added to the repository PersonID - one Account Denomination Is Null")
     public void testIfAccountIsAddedToTheRepositoryOneAccountDescriptionIsNull() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
         try {
-            accountRepository.createAccount(new Denomination("xpto"), null, new PersonID(new Email("miguelito@outlook.pt")));
+            accountInMemoryRepository.createAccount(new Denomination("xpto"), null, new PersonID(new Email("miguelito@outlook.pt")));
 
         }
         //Assert
@@ -236,14 +236,14 @@ class AccountRepositoryTest {
     @DisplayName("Test if the account was added to the repository with PersonID and GroupID - the number of accounts on the repository was increased")
     public void testIfAccountsRepositoryIncreased() {
         //Arrange
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
-        accountRepository.createAccount(new Denomination("xpto"),
+        accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new PersonID(new Email("martacarda@live.pt.pt")));
-        accountRepository.createAccount(new Denomination("xyz"),
+        accountInMemoryRepository.createAccount(new Denomination("xyz"),
                 new Description("other Account"), new GroupID(new Description("Business")));
-        int result = accountRepository.repositorySize();
+        int result = accountInMemoryRepository.repositorySize();
 
         //Assert
         assertEquals(2, result);
@@ -259,14 +259,14 @@ class AccountRepositoryTest {
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("general"), new PersonID(new Email("random.letters@123.com")));
 
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
-        accountRepository.createAccount(new Denomination("xyz"),
+        accountInMemoryRepository.createAccount(new Denomination("xyz"),
                 new Description("general"), new PersonID(new Email("random.letters@123.com")));
 
-        boolean real = !accountRepository.isIDOnRepository(oneAccount.getID())
-                && accountRepository.isIDOnRepository(otherAccount.getID());
+        boolean real = !accountInMemoryRepository.isIDOnRepository(oneAccount.getID())
+                && accountInMemoryRepository.isIDOnRepository(otherAccount.getID());
 
         //Assert
         assertTrue(real);
@@ -283,19 +283,19 @@ class AccountRepositoryTest {
         Account anotherAccount = new Account(new Denomination("Millennium"),
                 new Description("Millennium Account"), new PersonID(new Email("millenum@isep.pt")));
 
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
-        accountRepository.createAccount(new Denomination("xpto"),
+        accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("cat acccount"), new PersonID(new Email("xpto@email.pt")));
-        accountRepository.createAccount(new Denomination("xyz"),
+        accountInMemoryRepository.createAccount(new Denomination("xyz"),
                 new Description("general"), new PersonID(new Email("xyz@email.pt")));
-        accountRepository.createAccount(new Denomination("Millennium"),
+        accountInMemoryRepository.createAccount(new Denomination("Millennium"),
                 new Description("Millennium Account"), new PersonID(new Email("millenum@isep.pt")));
 
-        boolean real = accountRepository.isIDOnRepository(oneAccount.getID())
-                && accountRepository.isIDOnRepository(otherAccount.getID())
-                && accountRepository.isIDOnRepository(anotherAccount.getID());
+        boolean real = accountInMemoryRepository.isIDOnRepository(oneAccount.getID())
+                && accountInMemoryRepository.isIDOnRepository(otherAccount.getID())
+                && accountInMemoryRepository.isIDOnRepository(anotherAccount.getID());
 
         //Assert
         assertTrue(real);
@@ -311,13 +311,13 @@ class AccountRepositoryTest {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"), new Description("cat acccount"),
                 new PersonID(new Email("mocho@gmail.com")));
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
-        accountRepository.createAccount(new Denomination("xpto"),
+        accountInMemoryRepository.createAccount(new Denomination("xpto"),
                 new Description("cat acccount"), new PersonID(new Email("mocho@gmail.com")));
 
-        boolean expected = accountRepository.isIDOnRepository(oneAccount.getID());
+        boolean expected = accountInMemoryRepository.isIDOnRepository(oneAccount.getID());
 
         //Assert
         assertTrue(expected);
@@ -329,11 +329,11 @@ class AccountRepositoryTest {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"),
                 new Description("cat acccount"), new PersonID(new Email("mocho@gmail.com")));
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
 
-        boolean notContained = accountRepository.isIDOnRepository(oneAccount.getID());
+        boolean notContained = accountInMemoryRepository.isIDOnRepository(oneAccount.getID());
 
         //Assert
         assertFalse(notContained);
@@ -345,20 +345,20 @@ class AccountRepositoryTest {
         Account butcher = new Account(new Denomination("Butcher"),
                 new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
-        accountRepository.createAccount(new Denomination("Butcher"),
+        accountInMemoryRepository.createAccount(new Denomination("Butcher"),
                 new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
-        accountRepository.createAccount(new Denomination("Market"),
+        accountInMemoryRepository.createAccount(new Denomination("Market"),
                 new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu2@gmail.com")));
-        accountRepository.createAccount(new Denomination("Post"),
+        accountInMemoryRepository.createAccount(new Denomination("Post"),
                 new Description("Correios do Amadeu"), new PersonID(new Email("amadeu3@gmail.com")));
 
-        accountRepository.removeOneAccountFromRepository(butcher);
+        accountInMemoryRepository.removeOneAccountFromRepository(butcher);
 
         //Assert
-        assertEquals(2, accountRepository.repositorySize());
+        assertEquals(2, accountInMemoryRepository.repositorySize());
 
     }
 
@@ -368,18 +368,18 @@ class AccountRepositoryTest {
         Account post = new Account(new Denomination("Post"), new Description("Correios do Amadeu"),
                 new PersonID(new Email("amadeu1@gmail.com")));
 
-        AccountRepository accountRepository = new AccountRepository();
+        AccountInMemoryRepository accountInMemoryRepository = new AccountInMemoryRepository();
 
         //Act
-        accountRepository.createAccount(new Denomination("Butcher"),
+        accountInMemoryRepository.createAccount(new Denomination("Butcher"),
                 new Description("Talho do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
-        accountRepository.createAccount(new Denomination("Market"),
+        accountInMemoryRepository.createAccount(new Denomination("Market"),
                 new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
-        accountRepository.removeOneAccountFromRepository(post);
+        accountInMemoryRepository.removeOneAccountFromRepository(post);
 
         // Assert
-        assertEquals(2, accountRepository.repositorySize());
+        assertEquals(2, accountInMemoryRepository.repositorySize());
 
     }
 
@@ -389,7 +389,7 @@ class AccountRepositoryTest {
 
         //Arrange
         Account oneAccount = null;
-        AccountRepository oneAccountsList = new AccountRepository();
+        AccountInMemoryRepository oneAccountsList = new AccountInMemoryRepository();
 
         //Act
         oneAccountsList.createAccount(new Denomination("Butcher"),
@@ -413,7 +413,7 @@ class AccountRepositoryTest {
         Account oneAccount = new Account(new Denomination("Post"),
                 new Description("Correios do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
-        AccountRepository oneAccountsList = new AccountRepository();
+        AccountInMemoryRepository oneAccountsList = new AccountInMemoryRepository();
 
         //Act
         oneAccountsList.createAccount(new Denomination("Butcher"),
@@ -439,7 +439,7 @@ class AccountRepositoryTest {
     void validateIfAccountIsInTheAccountsRepository() {
         //Arrange
         Account oneAccount = new Account(new Denomination("xpto"), new Description("xpto Account"), new PersonID(new Email("amadeu1@gmail.com")));
-        AccountRepository accountsRepository = new AccountRepository();
+        AccountInMemoryRepository accountsRepository = new AccountInMemoryRepository();
 
         //Act
         accountsRepository.createAccount(new Denomination("xpto"),
@@ -458,7 +458,7 @@ class AccountRepositoryTest {
                 new Description("xpto Account"), new PersonID(new Email("xpto@gmail.com")));
         Account otherAccount = new Account(new Denomination("xyz"),
                 new Description("xyz Account"), new PersonID(new Email("xyz@gmail.com")));
-        AccountRepository accountsList = new AccountRepository();
+        AccountInMemoryRepository accountsList = new AccountInMemoryRepository();
 
         //Act
         accountsList.createAccount(new Denomination("xpto"),
@@ -479,7 +479,7 @@ class AccountRepositoryTest {
     void toStringOfAccountsRepositoryTest() {
 
         //Arrange:
-        AccountRepository testAccountsList = new AccountRepository();
+        AccountInMemoryRepository testAccountsList = new AccountInMemoryRepository();
 
         //Act:
         testAccountsList.createAccount(new Denomination("test account 1"),
@@ -501,7 +501,7 @@ class AccountRepositoryTest {
     @DisplayName("Test if Account is return when asked by ID - true")
     void findAccountByID() {
         //Arrange
-        AccountRepository accountsRepository = new AccountRepository();
+        AccountInMemoryRepository accountsRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
                 new PersonID(new Email("amadeu1@gmail.com")));
         accountsRepository.createAccount(new Denomination("xpto"),
@@ -519,7 +519,7 @@ class AccountRepositoryTest {
     @DisplayName("Test if Account is return when asked by ID - false")
     void findAccountByIDFalse() {
         //Arrange
-        AccountRepository accountsRepository = new AccountRepository();
+        AccountInMemoryRepository accountsRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
                 new PersonID(new Email("lol@gmail.com")));
         accountsRepository.createAccount(new Denomination("xpto"),
@@ -549,7 +549,7 @@ class AccountRepositoryTest {
         Set<Account> expected = new HashSet<>(Arrays.asList(cgdAccount));
 
         //Act
-        Set<Account> real = accountRepository.returnAccountsByOwnerID(new PersonID(new Email("amadeu1@gmail.com")));
+        Set<Account> real = accountInMemoryRepository.returnAccountsByOwnerID(new PersonID(new Email("amadeu1@gmail.com")));
 
         //Assert
         assertEquals(expected, real);
@@ -568,7 +568,7 @@ class AccountRepositoryTest {
         Set<Account> expected = new HashSet<>(Arrays.asList(bpiAccount, bicAccount));
 
         //Act
-        Set<Account> real = accountRepository.returnAccountsByOwnerID(new PersonID(new Email("amadeu2@gmail.com")));
+        Set<Account> real = accountInMemoryRepository.returnAccountsByOwnerID(new PersonID(new Email("amadeu2@gmail.com")));
 
         //Assert
         assertEquals(expected, real);
@@ -580,7 +580,7 @@ class AccountRepositoryTest {
         //Arrange
         PersonID fakeID = (new PersonID(new Email("amadeu5@gmail.com")));
         try {
-            Set<Account> real = accountRepository.returnAccountsByOwnerID(fakeID);
+            Set<Account> real = accountInMemoryRepository.returnAccountsByOwnerID(fakeID);
         } catch (IllegalArgumentException ex) {
             assertEquals("No account found with that ID.", ex.getMessage());
         }
@@ -591,7 +591,7 @@ class AccountRepositoryTest {
     void returnAccountsByOwnerIDNullException() {
         //Arrange
         try {
-            Set<Account> real = accountRepository.returnAccountsByOwnerID(null);
+            Set<Account> real = accountInMemoryRepository.returnAccountsByOwnerID(null);
         } catch (IllegalArgumentException ex) {
             assertEquals("Owner ID can't be null.", ex.getMessage());
         }
@@ -641,7 +641,7 @@ class AccountRepositoryTest {
     @DisplayName("Test if Account is return when asked by ID - exception")
     void findAccountByIDException() {
         //Arrange
-        AccountRepository accountsRepository = new AccountRepository();
+        AccountInMemoryRepository accountsRepository = new AccountInMemoryRepository();
         Account accountExpected = new Account(new Denomination("xpto"), new Description("xpto"),
                 new PersonID(new Email("lol@gmail.com")));
         accountsRepository.createAccount(new Denomination("xpto"),

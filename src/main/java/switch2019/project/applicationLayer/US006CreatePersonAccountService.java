@@ -10,7 +10,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.infrastructure.repositories.AccountRepository;
+import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
 @Service
@@ -20,7 +20,7 @@ public class US006CreatePersonAccountService {
     private PersonRepository personRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountInMemoryRepository accountInMemoryRepository;
 
     /**
      * User Story 6
@@ -37,7 +37,7 @@ public class US006CreatePersonAccountService {
         Denomination accountDenomination = new Denomination(createPersonAccountDTO.getAccountDenomination());
         Description accountDescription = new Description(createPersonAccountDTO.getAccountDescription());
 
-        Account account = accountRepository.createAccount(accountDenomination, accountDescription, personID);
+        Account account = accountInMemoryRepository.createAccount(accountDenomination, accountDescription, personID);
 
         return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
 
