@@ -1,5 +1,5 @@
 
-package switch2019.project.applicationLayer;
+package switch2019.project.applicationLayer.integration;
 
 
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
+import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

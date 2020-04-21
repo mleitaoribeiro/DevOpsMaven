@@ -1,4 +1,4 @@
-package switch2019.project.applicationLayer;
+package switch2019.project.applicationLayer.integration;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
+import switch2019.project.applicationLayer.US002_1CreateGroupService;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
