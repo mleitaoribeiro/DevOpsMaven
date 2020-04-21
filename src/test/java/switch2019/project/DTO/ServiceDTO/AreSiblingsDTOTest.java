@@ -44,8 +44,8 @@ class AreSiblingsDTOTest {
     void testHashCode() {
 
         // Arrange
-        AreSiblingsDTO dto1 = new AreSiblingsDTO("email1", "email2");
-        AreSiblingsDTO dto2 = new AreSiblingsDTO(dto1.getEmailPersonOne(), dto1.getEmailPersonTwo());
+        AreSiblingsDTO dto1 = new AreSiblingsDTO("email1@hola.com", "email2@hola.com");
+        AreSiblingsDTO dto2 = new AreSiblingsDTO("email1@hola.com", "email2@hola.com");
 
         // Act
         boolean result = dto1.hashCode() == dto2.hashCode();
@@ -53,6 +53,22 @@ class AreSiblingsDTOTest {
         // Assert
         assertTrue(result);
     }
+
+    @Test
+    @DisplayName("Test hashcode")
+    void testHashCodeDifferent() {
+
+        // Arrange
+        AreSiblingsDTO dto1 = new AreSiblingsDTO("email1@hola.com", "email2@hola.com");
+        AreSiblingsDTO dto2 = new AreSiblingsDTO("email1@hola.com", "emailssss@hola.com");
+
+
+        // Act & Assert
+        assertNotEquals(dto1.hashCode(), dto2.hashCode());
+    }
+
+
+
 
     @Test
     @DisplayName("Test Equals - Same object")
