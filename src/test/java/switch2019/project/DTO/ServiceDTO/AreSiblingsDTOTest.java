@@ -55,7 +55,7 @@ class AreSiblingsDTOTest {
     }
 
     @Test
-    @DisplayName("Test hashcode")
+    @DisplayName("Test hashcode - Same Hashcode")
     void testHashCodeSame() {
 
         // Arrange
@@ -69,7 +69,7 @@ class AreSiblingsDTOTest {
 
 
     @Test
-    @DisplayName("Test hashcode")
+    @DisplayName("Test hashcode - Different Hashcode")
     void testHashCodeDifferent() {
 
         // Arrange
