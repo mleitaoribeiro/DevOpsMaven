@@ -143,7 +143,21 @@ public class CategoryDTOTest {
 
     @DisplayName("Test if Two CategoryDTO objects are the same")
     @Test
-    public void equalsHashCodeFalse(){
+    public void equalsHashCodeFalseDenom(){
+        //Arrange:
+        CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
+        CategoryDTO dto2 = new CategoryDTO("Groceries", "notID");
+
+        //Act:
+        boolean sameHashCode = (dto1.hashCode() == dto2.hashCode());
+
+        //Assert:
+        assertFalse(sameHashCode);
+    }
+
+    @DisplayName("Test if Two CategoryDTO objects are the same")
+    @Test
+    public void equalsHashCodeFalseID(){
         //Arrange:
         CategoryDTO dto1 = new CategoryDTO("Groceries", "ID");
         CategoryDTO dto2 = new CategoryDTO("Movies", "ID");
