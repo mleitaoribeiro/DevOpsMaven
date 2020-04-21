@@ -56,11 +56,25 @@ class AreSiblingsDTOTest {
 
     @Test
     @DisplayName("Test hashcode")
+    void testHashCodeSame() {
+
+        // Arrange
+        AreSiblingsDTO dto1 = new AreSiblingsDTO("email1@hola.com", "email2@hola.com");
+        AreSiblingsDTO dto2 = new AreSiblingsDTO("email1@hola.com", "email2@hola.com");
+
+
+        // Act & Assert
+        assertEquals(dto1.hashCode(), dto2.hashCode());
+    }
+
+
+    @Test
+    @DisplayName("Test hashcode")
     void testHashCodeDifferent() {
 
         // Arrange
         AreSiblingsDTO dto1 = new AreSiblingsDTO("email1@hola.com", "email2@hola.com");
-        AreSiblingsDTO dto2 = new AreSiblingsDTO("email1@hola.com", "emailssss@hola.com");
+        AreSiblingsDTO dto2 = new AreSiblingsDTO("qwerty@hola.com", "ssss@hola.com");
 
 
         // Act & Assert
