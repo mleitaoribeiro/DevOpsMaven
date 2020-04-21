@@ -1,4 +1,4 @@
-package switch2019.project.controllerLayer.rest.integration;
+package switch2019.project;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

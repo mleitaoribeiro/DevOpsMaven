@@ -10,7 +10,7 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.infrastructure.repositories.AccountRepository;
+import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
 import switch2019.project.infrastructure.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
@@ -23,7 +23,7 @@ public class Bootstrapper {
     @Autowired
     GroupsRepository groupRepository;
     @Autowired
-    AccountRepository accountRepository;
+    AccountInMemoryRepository accountInMemoryRepository;
     @Autowired
     CategoryRepository categoriesRepository;
 
@@ -449,16 +449,16 @@ public class Bootstrapper {
         /*Add Accounts to Owner ID*/
 
         //Person Accounts
-        accountRepository.createAccount(new Denomination("Homer Snacks"),
+        accountInMemoryRepository.createAccount(new Denomination("Homer Snacks"),
                 new Description("Money spent on snacks for homer"),
                 new PersonID(new Email("marge@hotmail.com")));
 
         //Account of Group - Family Cardoso
-        accountRepository.createAccount(new Denomination("Revolut"),
+        accountInMemoryRepository.createAccount(new Denomination("Revolut"),
                 new Description("Online Expenses"),
                 new GroupID(new Description("Family Cardoso")));
         // Account of Person - Marta Cardoso
-        accountRepository.createAccount(new Denomination("Mbway"),
+        accountInMemoryRepository.createAccount(new Denomination("Mbway"),
                 new Description("Rides"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
     }

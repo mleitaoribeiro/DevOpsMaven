@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import switch2019.project.AbstractTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
