@@ -139,12 +139,21 @@
                         <param>lapr.project.utils.*</param>
                     </inScopeClasses>-->
                     <targetClasses>
-                        <param>switch2019.project.domain.*</param>
+                        <param>switch2019.project.applicationLayer.*</param>
+                        <param>switch2019.project.assemblers.*</param>
                         <param>switch2019.project.controllerLayer.*</param>
+                        <param>switch2019.project.domain.*</param>
+                        <param>switch2019.project.DTO.*</param>
+                        <param>switch2019.project.infrastructure.*</param>
+                        <param>switch2019.project.utils.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>switch2019.project.domain.*</param>
+                        <param>switch2019.project.applicationLayer.*</param>
+                        <param>switch2019.project.assemblers.*</param>
                         <param>switch2019.project.controllerLayer.*</param>
+                        <param>switch2019.project.domain.*</param>
+                        <param>switch2019.project.DTO.*</param>
+                        <param>switch2019.project.infrastructure.*</param>
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
