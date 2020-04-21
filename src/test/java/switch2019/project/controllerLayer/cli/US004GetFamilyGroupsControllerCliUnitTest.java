@@ -3,10 +3,10 @@ package switch2019.project.controllerLayer.cli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
@@ -24,11 +24,12 @@ public class US004GetFamilyGroupsControllerCliUnitTest {
 
     @Mock
     private US004GetFamilyGroupsService service;
-    @Autowired
+
+    @InjectMocks
     private US004GetFamilyGroupsController controller;
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
     }
 
