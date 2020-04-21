@@ -5,7 +5,7 @@ skinparam DefaultFontSize 20
 title US002.1 Sequence Diagram - Happy Case
 
 participant "HTTP Client (Test)"
-participant "postRequest:\nRequestBuilder"
+participant "request:\nRequestBuilder"
 participant "resultAction:ResultAction"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
@@ -20,8 +20,8 @@ activate "HTTP Client (Test)" #FFBBBB
 
 == Act ==
 
-create "postRequest:\nRequestBuilder"
-"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = GET /areSiblings \n{param(personOneEmail), \nparam(personTwoEmail}
+create "request:\nRequestBuilder"
+"HTTP Client (Test)" -> "request:\nRequestBuilder" : request = get("/areSiblings?\npersonOneEmail=antonio@isep.ipp.pt&\npersonTwoEmail=manuel@isep.ipp.pt")
 
 create "mvc:MockMvc"
 "HTTP Client (Test)" -> "mvc:MockMvc" : perform(getRequest)
