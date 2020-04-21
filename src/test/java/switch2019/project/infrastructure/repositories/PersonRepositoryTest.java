@@ -140,24 +140,6 @@ class PersonRepositoryTest {
         assertFalse(isIDOnRepo);
     }
 
-    @Test
-    @DisplayName("Verify If Person Email exists On Person Repository - Main Scenario")
-    void verifyIfPersonEmailExistsOnPersonRepositoryFalse() {
-        //Arrange
-        PersonRepository personRepository = new PersonRepository();
-
-        Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
-                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
-
-        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
-                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
-
-        //Act
-        boolean personEmailExists = personRepository.isPersonEmailOnRepository(new Email(personJose.getID().getEmail()));
-
-        //Assert
-        assertTrue(personEmailExists);
-    }
 
     @Test
     @DisplayName("Verify If Person Email exists On Person Repository - False Scenario")
@@ -167,7 +149,8 @@ class PersonRepositoryTest {
 
         Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
-
+        personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
+                new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
         //Act
         boolean personEmailExists = personRepository.isPersonEmailOnRepository(new Email(personJose.getID().getEmail()));
 
