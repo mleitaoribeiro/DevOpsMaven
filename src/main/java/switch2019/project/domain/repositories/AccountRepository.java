@@ -38,7 +38,7 @@ public interface AccountRepository extends Repository {
      *
      */
 
-    boolean removeAccount(Account accountToBeRemoved);
+    boolean removeAccount (Account accountToBeRemoved);
 
     /**
      * Get list of Accounts By Owner ID
@@ -47,7 +47,7 @@ public interface AccountRepository extends Repository {
      *
      */
 
-    Set<Account> returnAccountsByOwnerID (OwnerID ownerID);
+    Set <Account> returnAccountsByOwnerID (OwnerID ownerID);
 
 
 }

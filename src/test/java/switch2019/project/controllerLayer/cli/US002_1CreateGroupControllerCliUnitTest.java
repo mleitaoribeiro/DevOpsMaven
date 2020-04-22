@@ -49,7 +49,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
         Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
 
         //ACT:
-        GroupDTO groupCreatedActual = controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
+        GroupDTO groupCreatedActual = controller.createGroup(groupDescription, personEmail);
 
         //ASSERT:
         assertEquals(groupCreatedExpected, groupCreatedActual);
@@ -75,7 +75,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription,personEmail);
         });
 
         //ASSERT:
@@ -106,7 +106,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription,personEmail);
         });
 
         //ASSERT:
@@ -137,7 +137,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription,personEmail);
         });
 
         //ASSERT:
@@ -168,7 +168,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription,personEmail);
         });
 
         //ASSERT:
@@ -199,7 +199,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription,personEmail);
         });
 
         //ASSERT:
@@ -230,7 +230,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription,personEmail);
         });
 
         //ASSERT:
