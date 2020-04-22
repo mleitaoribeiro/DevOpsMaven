@@ -1,12 +1,13 @@
 package switch2019.project.controllerLayer.rest.unit;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class US005_1AdminAddsCategoryControllerRestUnitTest {
     @Mock
     private US005_1AdminAddsCategoryToGroupService service;
-    @Autowired
+
+    @InjectMocks
     private US005_1AdminAddsCategoryControllerRest controllerRest;
 
+    @BeforeEach
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
-    @DisplayName("Happy Case-  one category is added to Group categories by an admin")
+    @DisplayName("Happy Case - one category is added to Group categories by an admin")
     void addsCategoryToCategoryListAdmin() throws Exception {
         //Arrange:
         String creatorEmail = "1191743@isep.ipp.pt";
@@ -51,7 +57,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         CategoryDTO categoryDTOExpected = new CategoryDTO(categoryDenomination, groupDescription);
         ResponseEntity responseEntityExpected = new ResponseEntity<>(categoryDTOExpected, HttpStatus.CREATED);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO)).thenReturn(categoryDTOExpected);
 
         //Act:
@@ -69,7 +74,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         String groupDescription1 = "SWITCH";
         String categoryDenomination1 = "GAMES";
 
-        CategoryDTO CategoryDTOExpected1 = new CategoryDTO(categoryDenomination1, groupDescription1);
         CreateGroupCategoryDTO createGroupCategoryDTO1 = new CreateGroupCategoryDTO(groupDescription1, creatorEmail1, categoryDenomination1);
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO1 = new CreateGroupCategoryInfoDTO();
@@ -77,15 +81,15 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         createGroupCategoryInfoDTO1.setGroupDescription(groupDescription1);
         createGroupCategoryInfoDTO1.setCategoryDenomination(categoryDenomination1);
 
-        CategoryDTO categoryDTOExpected = new CategoryDTO(categoryDenomination1, groupDescription1);
-        ResponseEntity responseEntityExpected1 = new ResponseEntity<>(categoryDTOExpected, HttpStatus.CREATED);
+        CategoryDTO categoryDTOExpected1 = new CategoryDTO(categoryDenomination1, groupDescription1);
+        ResponseEntity responseEntityExpected1 = new ResponseEntity<>(categoryDTOExpected1, HttpStatus.CREATED);
 
         //Arrange - Category 2:
         String creatorEmail2 = "1191743@isep.ipp.pt";
         String groupDescription2 = "SWITCH";
         String categoryDenomination2 = "BARISEP";
 
-        CategoryDTO CategoryDTOExpected2 = new CategoryDTO(categoryDenomination2, groupDescription2);
+        CategoryDTO categoryDTOExpected2 = new CategoryDTO(categoryDenomination2, groupDescription2);
         CreateGroupCategoryDTO createGroupCategoryDTO2 = new CreateGroupCategoryDTO(groupDescription2, creatorEmail2, categoryDenomination2);
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
@@ -93,12 +97,10 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         createGroupCategoryInfoDTO2.setGroupDescription(groupDescription2);
         createGroupCategoryInfoDTO2.setCategoryDenomination(categoryDenomination2);
 
-        CategoryDTO categoryDTOExpected2 = new CategoryDTO(categoryDenomination2, groupDescription2);
         ResponseEntity responseEntityExpected2 = new ResponseEntity<>(categoryDTOExpected2, HttpStatus.CREATED);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO1)).thenReturn(CategoryDTOExpected1);
-        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO2)).thenReturn(CategoryDTOExpected2);
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO1)).thenReturn(categoryDTOExpected1);
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO2)).thenReturn(categoryDTOExpected2);
 
         //Act:
         ResponseEntity<CategoryDTO> responseEntityResult1 = controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO1);
@@ -125,6 +127,11 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
+        CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
+
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO)).
+                thenThrow(new IllegalArgumentException("This person is not member or admin of this group."));
+
         //Act
         Throwable thrown = catchThrowable(() -> {
             controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
@@ -149,6 +156,11 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
         createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
+
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO)).
+                thenThrow(new IllegalArgumentException("This person is not member or admin of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -176,6 +188,11 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
+        CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
+
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO)).
+                thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+
         //Act
         Throwable thrown = catchThrowable(() -> {
             controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
@@ -200,6 +217,11 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
         createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+
+        CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
+
+        Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO)).
+                thenThrow(new IllegalArgumentException("This category already exists."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {

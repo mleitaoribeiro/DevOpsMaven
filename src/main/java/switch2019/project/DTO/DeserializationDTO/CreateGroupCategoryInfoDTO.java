@@ -1,5 +1,7 @@
 package switch2019.project.DTO.DeserializationDTO;
 
+import java.util.Objects;
+
 public class CreateGroupCategoryInfoDTO {
 
     private String groupDescription;
@@ -58,4 +60,18 @@ public class CreateGroupCategoryInfoDTO {
         return categoryDenomination;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreateGroupCategoryInfoDTO)) return false;
+        CreateGroupCategoryInfoDTO that = (CreateGroupCategoryInfoDTO) o;
+        return Objects.equals(groupDescription, that.groupDescription) &&
+                Objects.equals(personEmail, that.personEmail) &&
+                Objects.equals(categoryDenomination, that.categoryDenomination);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupDescription, personEmail, categoryDenomination);
+    }
 }

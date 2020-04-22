@@ -10,7 +10,7 @@ import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.infrastructure.repositories.CategoryInMemoryRepository;
+import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 import switch2019.project.domain.domainEntities.shared.Denomination;
@@ -21,7 +21,7 @@ public class US005_1AdminAddsCategoryToGroupService {
     @Autowired
     private GroupsRepository groupsRepository;
     @Autowired
-    private CategoryInMemoryRepository categoryInMemoryRepository;
+    private CategoryRepository categoryRepository;
     @Autowired
     private PersonRepository personRepository;
 
@@ -38,7 +38,7 @@ public class US005_1AdminAddsCategoryToGroupService {
         PersonID personID = personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID();
 
         if (group.isGroupAdmin(personID)) {
-            Category categoryAdded = categoryInMemoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID());
+            Category categoryAdded = categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID());
             return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryAdded);
         } else
             throw new IllegalArgumentException("This person is not member or admin of this group.");

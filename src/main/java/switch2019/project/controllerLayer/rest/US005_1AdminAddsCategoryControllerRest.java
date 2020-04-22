@@ -15,7 +15,7 @@ import switch2019.project.assemblers.CategoryDTOAssembler;
 public class US005_1AdminAddsCategoryControllerRest {
 
     @Autowired
-    private US005_1AdminAddsCategoryToGroupService service;
+    US005_1AdminAddsCategoryToGroupService service;
 
     @PostMapping("/addCategoryToGroup")
     public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestBody CreateGroupCategoryInfoDTO dto) {

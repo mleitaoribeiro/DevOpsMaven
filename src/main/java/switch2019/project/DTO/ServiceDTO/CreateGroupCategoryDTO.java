@@ -1,5 +1,7 @@
 package switch2019.project.DTO.ServiceDTO;
 
+import java.util.Objects;
+
 public class CreateGroupCategoryDTO {
 
     /*
@@ -41,6 +43,21 @@ public class CreateGroupCategoryDTO {
      */
     public String getCategoryDenomination() {
         return categoryDenomination;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreateGroupCategoryDTO)) return false;
+        CreateGroupCategoryDTO that = (CreateGroupCategoryDTO) o;
+        return Objects.equals(groupDescription, that.groupDescription) &&
+                Objects.equals(personEmail, that.personEmail) &&
+                Objects.equals(categoryDenomination, that.categoryDenomination);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupDescription, personEmail, categoryDenomination);
     }
 }
 
