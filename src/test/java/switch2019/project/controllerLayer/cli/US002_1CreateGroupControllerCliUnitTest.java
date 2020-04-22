@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
@@ -73,9 +72,6 @@ public class US002_1CreateGroupControllerCliUnitTest {
         String groupDescription = "new Group";
         String personEmail = "nonexistant@hotmail.com";
 
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
-
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
@@ -103,9 +99,6 @@ public class US002_1CreateGroupControllerCliUnitTest {
         //ARRANGE:
         String groupDescription = "Family Simpson";
         String personEmail = "homer@hotmail.com";
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
@@ -135,9 +128,6 @@ public class US002_1CreateGroupControllerCliUnitTest {
         String groupDescription = "New Group";
         String personEmail = null;
 
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
-
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
@@ -165,9 +155,6 @@ public class US002_1CreateGroupControllerCliUnitTest {
         //ARRANGE:
         String groupDescription = "New Group";
         String personEmail = "";
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
@@ -197,9 +184,6 @@ public class US002_1CreateGroupControllerCliUnitTest {
         String groupDescription = "Family Simpson";
         String personEmail = "homer.hotmail.com";
 
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
-
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
@@ -221,15 +205,40 @@ public class US002_1CreateGroupControllerCliUnitTest {
     }
 
     @Test
+    @DisplayName("Test if a person can create a Group with a null description")
+    void createGroupAndBecomeAdminNullGroupDescription() throws Exception {
+
+        //ARRANGE:
+        String groupDescription = null;
+        String personEmail = "homer@hotmail.com";
+
+        //arrange the CreateGroupDTO:
+        CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+
+        //arranging Mockito:
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //ACT:
+        Throwable exception = catchThrowable(() -> {
+            controller.createGroup(groupDescription, personEmail);
+        });
+
+        //ASSERT:
+        //1.- is the instance of the exception is the same
+        //2.- is the contained message the expected:
+        assertThat(exception)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
     @DisplayName("Test if a person can create a Group with an empty description")
     void createGroupAndBecomeAdminEmptyGroupDescription() throws Exception {
 
         //ARRANGE:
         String groupDescription = "";
         String personEmail = "homer@hotmail.com";
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
