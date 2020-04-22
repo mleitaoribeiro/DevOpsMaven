@@ -140,6 +140,22 @@ class CreateGroupAccountDTOTest {
         assertFalse(areDtosTheSame);
     }
 
+    @DisplayName("Test if Two CreateGroupAccountDTO objects are the same object - Not the Same")
+    @Test
+    public void equalsTestFalseDifferentServiceObject(){
+        //Arrange:
+        CreateGroupAccountDTO dto1 = new CreateGroupAccountDTO("milu@gmail.com",
+                "Milu", "Revolut", "Revolut account");
+        CreateGroupDTO dto2 = new CreateGroupDTO("Games", "marta@isep.ipp.pt");
+
+
+        //Act:
+        boolean areDtosTheSame = dto1.equals(dto2);
+
+        //Assert:
+        assertFalse(areDtosTheSame);
+    }
+
     @DisplayName("Test if Two CreateGroupAccountDTO objects are the same - Different Email")
     @Test
     public void equalsTestFalseDifferentEmail(){
