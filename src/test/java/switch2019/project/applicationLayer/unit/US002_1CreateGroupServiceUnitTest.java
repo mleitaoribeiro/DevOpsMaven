@@ -37,13 +37,13 @@ public class US002_1CreateGroupServiceUnitTest {
     @InjectMocks
     private US002_1CreateGroupService service;
 
-
     private Person admin;
     private Description groupDescriptionToMock;
     private Group groupToMock;
 
     @BeforeEach
     public void setup() throws Exception {
+
         MockitoAnnotations.initMocks(this);
 
         admin = new Person("Elizabeth Marie Bouvier Simpson",
@@ -64,7 +64,6 @@ public class US002_1CreateGroupServiceUnitTest {
      * US002.1
      * Test if a group was created and person is admin
      */
-
     @Test
     @DisplayName("Test if group was created - Happy Case")
     void createGroupAndBecomeAdmin() {
@@ -157,6 +156,8 @@ public class US002_1CreateGroupServiceUnitTest {
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(null)).
                 thenThrow(new IllegalArgumentException("The email can't be null."));
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //Act
         Throwable exception = catchThrowable(() -> {
@@ -168,61 +169,6 @@ public class US002_1CreateGroupServiceUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The email can't be null.");
     }
-
-    /*@Test
-    @DisplayName("Test if group was created - email empty")
-    void createGroupAndGroupEmptyPersonEmail() {
-
-        //Arrange
-        String groupDescription = "TEAM KIM";
-        String personEmail = "";
-
-        //arrange the CreateGroupDTO:
-        CreateGroupDTO createGroupDTO = new CreateGroupDTO(groupDescription, personEmail);
-
-        //arranging Mockito:
-        Email emptyEmail = new Email("");
-        Mockito.when(personRepository.findPersonByEmail(emptyEmail)).
-                thenThrow(new IllegalArgumentException("The email is not valid."));
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).thenReturn(groupToMock);
-
-        //Act
-        Throwable exception = catchThrowable(() -> {
-            service.createGroup(createGroupDTO);
-        });
-
-        //Assert
-        assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email is not valid.");
-    }*/
-
-    /*@Test
-    @DisplayName("Test if group was created - email invalid")
-    void createGroupAndGroupInvalidPersonEmail() {
-
-        //Arrange
-        String groupDescription = "TEAM KIM";
-        String personEmail = "liza.simpsonhotmail.com";
-
-        //arrange the CreateGroupDTO:
-        CreateGroupDTO createGroupDTO = new CreateGroupDTO(groupDescription, personEmail);
-
-        //arranging Mockito:
-        Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).
-                thenThrow(new IllegalArgumentException("The email is not valid."));
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).thenReturn(groupToMock);
-
-        //Act
-        /*Throwable exception = catchThrowable(() -> {
-            service.createGroup(createGroupDTO);
-        });
-
-        //Assert
-        assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The email is not valid.");
-    }*/
 
     @Test
     @DisplayName("Test if group was created - group description null")
