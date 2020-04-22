@@ -1,11 +1,12 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 
 public class US002_1CreateGroupControllerRestUnitTest {
+
     @Mock
     private US002_1CreateGroupService service;
-    @Autowired
+
+    @InjectMocks
     private US002_1CreateGroupControllerRest controller;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     /**
      * US002.1
@@ -55,7 +63,6 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
 
         //arrange Response Entity for the HTTP request (EXPECTED):
@@ -90,8 +97,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
+        Mockito.when(service.createGroup(groupCreationInput)).
+                thenThrow(new IllegalArgumentException("No person found with that email."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -126,8 +133,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
+        Mockito.when(service.createGroup(groupCreationInput)).
+                thenThrow(new IllegalArgumentException("This group description already exists."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -162,8 +169,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
+        Mockito.when(service.createGroup(groupCreationInput)).
+                thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -198,8 +205,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
+        Mockito.when(service.createGroup(groupCreationInput)).
+                thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -234,8 +241,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
+        Mockito.when(service.createGroup(groupCreationInput)).
+                thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -270,8 +277,8 @@ public class US002_1CreateGroupControllerRestUnitTest {
         CreateGroupDTO groupCreationInput = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
         //arrange Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreationInput)).thenReturn(groupCreationOutput);
+        Mockito.when(service.createGroup(groupCreationInput)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
