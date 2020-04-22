@@ -36,6 +36,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
+
     @Test
     @DisplayName("Get all the groups who are families in the repository")
     public void returnFamilyGroups() {
