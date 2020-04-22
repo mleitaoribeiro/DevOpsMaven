@@ -1,7 +1,9 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -24,8 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class US001AreSiblingsControllerRestUnitTests {
     @Mock
     private US001AreSiblingsService service;
-    @Autowired
+
+    @InjectMocks
     private US001AreSiblingsControllerRest controller;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     @DisplayName("Test if two individuals are siblings - same mother, same father and are in each other list")
@@ -34,21 +42,23 @@ public class US001AreSiblingsControllerRestUnitTests {
         String emailPersonOne = "antonio@isep.ipp.pt";
         String emailPersonTwo = "manuel@isep.ipp.pt";
 
+        //Arrange AreSiblingsDTO: 
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
 
-        SiblingsDTO siblingsDTOexpected = new SiblingsDTO(true);
+        //Arrange siblingsDTOExpected:
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(true);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true);
+        //Arrange Mockito:
+        Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true).
+                thenThrow(new IllegalArgumentException("No person found with that email."));
 
-        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOexpected, HttpStatus.OK);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
 
         //Act
         ResponseEntity<SiblingsDTO> responseEntity = controller.areSiblings(emailPersonOne, emailPersonTwo);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntity);
-
     }
 
     @Test
@@ -58,14 +68,16 @@ public class US001AreSiblingsControllerRestUnitTests {
         String emailPersonOne = "1110120@isep.ipp.pt";
         String emailPersonTwo = "1191780@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTOexpected = new SiblingsDTO(true);
+        //Arrange of SiblingsDTO:
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(true);
 
+        //Arrange of the areSiblingsDTO:
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
 
-        MockitoAnnotations.initMocks(this);
+        //Arrange Mockito
         Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true);
 
-        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOexpected, HttpStatus.OK);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
 
         //Act
         ResponseEntity<SiblingsDTO> responseEntity = controller.areSiblings(emailPersonOne, emailPersonTwo);
@@ -81,14 +93,16 @@ public class US001AreSiblingsControllerRestUnitTests {
         String emailPersonOne = "amalia@isep.ipp.pt";
         String emailPersonTwo = "antonio@isep.ipp.pt";
 
-        SiblingsDTO siblingsDTOexpected = new SiblingsDTO(true);
+        //Arrange SiblingsDTO
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(true);
 
+        //Arrange AreSiblingsDTO:
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
 
-        MockitoAnnotations.initMocks(this);
+        //Arrange Mockito
         Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true);
 
-        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOexpected, HttpStatus.OK);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
         //Act
         ResponseEntity<SiblingsDTO> responseEntity = controller.areSiblings(emailPersonOne, emailPersonTwo);
 
