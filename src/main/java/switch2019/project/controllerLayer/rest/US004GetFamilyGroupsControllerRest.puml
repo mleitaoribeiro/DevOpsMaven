@@ -48,15 +48,24 @@ participant "group:Group"
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
 deactivate "groupsRepo:GroupsRepository"
+"service:US004GetFamilyGroupsService" --> ":GroupDTOAssembler" : familyGroupsDTO = \n create(groupID())
+activate ":GroupDTOAssembler" #FFBBBB
 create "familyGroupsDTO:Set<GroupDTO>"
-"service:US004GetFamilyGroupsService" --> "familyGroupsDTO:Set<GroupDTO>" : create ()
+":GroupDTOAssembler" --> "familyGroupsDTO:Set<GroupDTO>" : create ()
+deactivate ":GroupDTOAssembler" #FFBBBB
 "service:US004GetFamilyGroupsService" --> "group:Group" : groupID = getID ()
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
-"service:US004GetFamilyGroupsService" --> "familyGroupsDTO:Set<GroupDTO>" : add (groupID)
+"service:US004GetFamilyGroupsService" --> ":GroupDTOAssembler" : groupDTO = \n createGroupDTO(groupID())
 
-activate "familyGroupsDTO:Set<GroupDTO>" #FFBBBB
-deactivate "familyGroupsDTO:Set<GroupDTO>" #FFBBBB
+activate ":GroupDTOAssembler" #FFBBBB
+create "groupDTO:GroupDTO"
+":GroupDTOAssembler" --> "groupDTO:GroupDTO" :create()
+deactivate ":GroupDTOAssembler" #FFBBBB
+"service:US004GetFamilyGroupsService" --> "groupDTO:GroupDTO" : add (groupID)
+
+activate "groupDTO:GroupDTO" #FFBBBB
+deactivate "groupDTO:GroupDTO" #FFBBBB
 
 deactivate "service:US004GetFamilyGroupsService"
 
