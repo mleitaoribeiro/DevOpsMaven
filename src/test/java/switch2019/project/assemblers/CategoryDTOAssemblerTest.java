@@ -1,12 +1,13 @@
 package switch2019.project.assemblers;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.DTO.SerializationDTO.CategoryDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,62 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class CategoryDTOAssemblerTest {
 
     /**
-     * Tests for the createCategoryDTO method:
-     */
-    @DisplayName("Test categoryDescription Getter")
-    @Test
-    void testIfStringsAreTheExpected() {
-        //Arrange:
-
-            //Arrange description:
-        Denomination denomination = new Denomination("Movies");
-
-            //Arrange categoryOwner:
-        Person categoryOwner = new Person("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
-
-            //Arrange categoryID
-        CategoryID categoryID = new CategoryID(denomination, new PersonID(new Email("Francisco@gmail.com")));
-
-        //Act:
-        CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(denomination.toString(),categoryID.toString());
-        CategoryDTO toCompare = new CategoryDTO("MOVIES", "MOVIES, francisco@gmail.com");
-
-        //Assert:
-        assertEquals(dto,toCompare);
-    }
-
-    @DisplayName("Test categoryDescription Getter")
-    @Test
-    void testIfStringsAreTheNotTheExpected() {
-        //Arrange:
-
-        //Arrange description:
-        Denomination denomination = new Denomination("Movies");
-
-        //Arrange categoryOwner:
-        Person categoryOwner = new Person("Francisco", new DateAndTime(1994, 04, 16), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("Francisco@gmail.com"));
-
-        //Arrange categoryID
-        CategoryID categoryID = new CategoryID(denomination, new PersonID(new Email("Francisco@gmail.com")));
-
-        //Act:
-        CategoryDTO dto = CategoryDTOAssembler.createCategoryDTO(denomination.toString(),categoryID.toString());
-        CategoryDTO toCompare = new CategoryDTO("FILMS", "FILMS, francisco@gmail.com");
-
-        //Assert:
-        assertNotEquals(dto,toCompare);
-    }
-
-    /**
      * Tests for the createCategoryDTOFromCategory method.
      */
+
     @DisplayName("DTO has the expected information about the category")
     @Test
     void testCreateCategoryDTOFromCategoryHappyCase() {
         //Arrange:
-        Category categoryToDto = new Category(new Denomination("VIDEOGAMES"),new PersonID(new Email("Francisca@hotmail.com")));
+        Category categoryToDto = new Category(new Denomination("VIDEOGAMES"), new PersonID(new Email("Francisca@hotmail.com")));
         CategoryDTO expectedDto = new CategoryDTO("VIDEOGAMES", "francisca@hotmail.com");
 
         //Act:
@@ -84,7 +37,7 @@ public class CategoryDTOAssemblerTest {
     @Test
     void testCreateCategoryDTOFromCategoryFail() {
         //Arrange:
-        Category categoryToDto = new Category(new Denomination("VIDEOGAMES"),new PersonID(new Email("Francisca@hotmail.com")));
+        Category categoryToDto = new Category(new Denomination("VIDEOGAMES"), new PersonID(new Email("Francisca@hotmail.com")));
         CategoryDTO expectedDto = new CategoryDTO("GAMES", "francisca@hotmail.com");
 
         //Act:
@@ -93,4 +46,102 @@ public class CategoryDTOAssemblerTest {
         //Assert:
         assertNotEquals(expectedDto, actualDto);
     }
+
+    /**
+     * Tests for the CreateGroupCategoryDTOFromStrings method.
+     */
+
+    @Test
+    @DisplayName("createGroupCategoryDTO has the expected information")
+    void testCreateGroupCategoryDTOFromStringsHappyCase() {
+        //Arrange:
+        String groupDescription = "Friends";
+        String personEmail = "raquel@hotmail.com";
+        String categoryDenomination = "Gym";
+
+        //Act:
+        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.createGroupCategoryDTOFromStrings(groupDescription, personEmail, categoryDenomination);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertEquals(categoryDenomination, actualDto.getCategoryDenomination()),
+                () -> assertEquals(personEmail, actualDto.getPersonEmail()),
+                () -> assertEquals(groupDescription, actualDto.getGroupDescription())
+        );
+
+    }
+
+    @Test
+    @DisplayName("createGroupCategoryDTO don't has the expected information")
+    void testCreateGroupCategoryDTOFromStringsUnHappyCase() {
+        //Arrange:
+        String groupDescription = "Friends";
+        String personEmail = "raquel@hotmail.com";
+        String categoryDenomination = "Gym";
+
+        //Act:
+        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.createGroupCategoryDTOFromStrings(groupDescription, personEmail, categoryDenomination);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertNotEquals("House", actualDto.getCategoryDenomination()),
+                () -> assertNotEquals("kelle@gmail.com", actualDto.getPersonEmail()),
+                () -> assertNotEquals("Gym Buddies", actualDto.getGroupDescription())
+        );
+    }
+
+    /**
+     * Tests for the transformToCreateGroupCategoryDTO method.
+     */
+
+    @Test
+    @DisplayName("createGroupCategoryDTO has the expected information")
+    void testTransformToCreateGroupCategoryDTOHappyCase() {
+        //Arrange:
+        String groupDescription = "Friends";
+        String personEmail = "raquel@hotmail.com";
+        String categoryDenomination = "Gym";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+
+        //Act:
+        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(createGroupCategoryInfoDTO);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertEquals(categoryDenomination, actualDto.getCategoryDenomination()),
+                () -> assertEquals(personEmail, actualDto.getPersonEmail()),
+                () -> assertEquals(groupDescription, actualDto.getGroupDescription())
+        );
+
+    }
+
+    @Test
+    @DisplayName("createGroupCategoryDTO don't has the expected information")
+    void testTransformToCreateGroupCategoryDTOUnHappyCase() {
+        //Arrange:
+        String groupDescription = "Friends";
+        String personEmail = "raquel@hotmail.com";
+        String categoryDenomination = "Gym";
+
+        CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
+        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
+        createGroupCategoryInfoDTO.setPersonEmail(personEmail);
+
+        //Act:
+        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(createGroupCategoryInfoDTO);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertNotEquals("House", actualDto.getCategoryDenomination()),
+                () -> assertNotEquals("kelle@gmail.com", actualDto.getPersonEmail()),
+                () -> assertNotEquals("Gym Buddies", actualDto.getGroupDescription())
+        );
+
+    }
+
 }

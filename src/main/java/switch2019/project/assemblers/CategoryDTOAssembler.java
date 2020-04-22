@@ -9,15 +9,6 @@ public class CategoryDTOAssembler {
 
     private CategoryDTOAssembler () {}
 
-    /**
-     * This Method transforms the objects contained in a Category into Strings, in order to create a CategoryDTO.
-     * @param denomination
-     * @param ownerID
-     * @return CategoryDTO
-     */
-    public static CategoryDTO createCategoryDTO(String denomination, String ownerID) {
-        return new CategoryDTO(denomination,ownerID);
-    }
 
     /**
      * This method creates the CategoryDTO from a Category.
