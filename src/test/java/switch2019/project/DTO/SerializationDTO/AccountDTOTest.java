@@ -138,8 +138,8 @@ class AccountDTOTest {
     }
 
     @Test
-    @DisplayName("test for hashcode")
-    void Hashcode() {
+    @DisplayName("test for hashcode - equal")
+    void HashcodeSame() {
 
         //Arrange
         AccountDTO dtoExpected = new AccountDTO("mailOwner", "mesadas", "mesada do Alex");
@@ -149,5 +149,17 @@ class AccountDTOTest {
 
         //Assert
         assertEquals(dtoExpected.hashCode(), dtoActual.hashCode());
+    }
+
+    @Test
+    @DisplayName("test for hashcode - not equal")
+    void HashcodeDifferent() {
+
+        //Arrange
+        AccountDTO accountDTOAlex = new AccountDTO("alex", "mesadas", "mesada do Alex");
+        AccountDTO accountDTOMarta = new AccountDTO("marta", "mesadas", "mesada da Marta");
+
+        //Act & Assert
+        assertNotEquals(accountDTOAlex.hashCode(), accountDTOMarta.hashCode());
     }
 }

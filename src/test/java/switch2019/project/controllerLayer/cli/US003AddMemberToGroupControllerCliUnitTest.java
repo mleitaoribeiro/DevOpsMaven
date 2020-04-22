@@ -46,7 +46,6 @@ public class US003AddMemberToGroupControllerCliUnitTest {
 
         AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail,groupDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.addMemberToGroup(addMemberDTO)).thenReturn(wasMemberAddedExpected);
 
         //Act

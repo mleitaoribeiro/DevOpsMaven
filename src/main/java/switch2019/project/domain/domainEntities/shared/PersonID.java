@@ -12,7 +12,7 @@ public class PersonID implements OwnerID {
 
     public PersonID(Email email) {
         if(email != null) this.email = email;
-        else throw new IllegalArgumentException("email can't be null.");
+        else throw new IllegalArgumentException("The email can't be null.");
     }
 
     @Override
