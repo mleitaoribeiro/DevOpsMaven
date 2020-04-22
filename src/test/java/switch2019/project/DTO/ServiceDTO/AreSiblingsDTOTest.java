@@ -81,9 +81,6 @@ class AreSiblingsDTOTest {
         assertNotEquals(dto1.hashCode(), dto2.hashCode());
     }
 
-
-
-
     @Test
     @DisplayName("Test Equals - Same object")
     void testEqualsSameObject() {

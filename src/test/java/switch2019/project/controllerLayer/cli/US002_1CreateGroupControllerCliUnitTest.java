@@ -1,10 +1,12 @@
 package switch2019.project.controllerLayer.cli;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
@@ -21,9 +23,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 
 public class US002_1CreateGroupControllerCliUnitTest {
-    @Mock private US002_1CreateGroupService service;
-    @Autowired private US002_1CreateGroupController controller;
 
+    @Mock
+    private US002_1CreateGroupService service;
+
+    @InjectMocks
+    private US002_1CreateGroupController controller;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     /**
      * US002.1
@@ -38,18 +48,17 @@ public class US002_1CreateGroupControllerCliUnitTest {
         String groupDescription = "Adventures of Rick and Morty";
         String personEmail = "rick@gmail.com";
 
-            //arrange the GroupDTO:
+        //arrange the GroupDTO:
         GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
-            //arrange the CreateGroupDTO:
+        //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
-            //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
+        //arranging Mockito:
         Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
 
         //ACT:
-        GroupDTO groupCreatedActual = controller.createGroupAndBecomeAdmin(groupDescription, personEmail);
+        GroupDTO groupCreatedActual = controller.createGroup(groupDescription, personEmail);
 
         //ASSERT:
         assertEquals(groupCreatedExpected, groupCreatedActual);
@@ -60,27 +69,24 @@ public class US002_1CreateGroupControllerCliUnitTest {
     void createGroupAndBecomeAdminPersonDoesNotExists() throws Exception {
 
         //ARRANGE:
-        String groupDescription ="new Group";
+        String groupDescription = "new Group";
         String personEmail = "nonexistant@hotmail.com";
 
-            //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
-
-            //arrange the CreateGroupDTO:
+        //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
-            //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
+        //arranging Mockito:
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("No person found with that email."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription, personEmail);
         });
 
         //ASSERT:
-            //1.- is the instance of the exception is the same
-            //2.- is the contained message the expected:
+        //1.- is the instance of the exception is the same
+        //2.- is the contained message the expected:
         assertThat(exception)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("No person found with that email.");
@@ -91,22 +97,19 @@ public class US002_1CreateGroupControllerCliUnitTest {
     void createGroupAndBecomeAdminGroupExists() throws Exception {
 
         //ARRANGE:
-        String groupDescription ="Family Simpson";
+        String groupDescription = "Family Simpson";
         String personEmail = "homer@hotmail.com";
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
         //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("This group description already exists."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription, personEmail);
         });
 
         //ASSERT:
@@ -122,22 +125,19 @@ public class US002_1CreateGroupControllerCliUnitTest {
     void createGroupAndBecomeAdminEmailNull() throws Exception {
 
         //ARRANGE:
-        String groupDescription ="New Group";
+        String groupDescription = "New Group";
         String personEmail = null;
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
         //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription, personEmail);
         });
 
         //ASSERT:
@@ -153,22 +153,19 @@ public class US002_1CreateGroupControllerCliUnitTest {
     void createGroupAndBecomeAdminEmptyEmail() throws Exception {
 
         //ARRANGE:
-        String groupDescription ="New Group";
+        String groupDescription = "New Group";
         String personEmail = "";
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
         //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription, personEmail);
         });
 
         //ASSERT:
@@ -184,22 +181,19 @@ public class US002_1CreateGroupControllerCliUnitTest {
     void createGroupAndBecomeAdminInvalidEmail() throws Exception {
 
         //ARRANGE:
-        String groupDescription ="Family Simpson";
+        String groupDescription = "Family Simpson";
         String personEmail = "homer.hotmail.com";
-
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
 
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
         //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription, personEmail);
         });
 
         //ASSERT:
@@ -211,6 +205,34 @@ public class US002_1CreateGroupControllerCliUnitTest {
     }
 
     @Test
+    @DisplayName("Test if a person can create a Group with a null description")
+    void createGroupAndBecomeAdminNullGroupDescription() throws Exception {
+
+        //ARRANGE:
+        String groupDescription = null;
+        String personEmail = "homer@hotmail.com";
+
+        //arrange the CreateGroupDTO:
+        CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
+
+        //arranging Mockito:
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //ACT:
+        Throwable exception = catchThrowable(() -> {
+            controller.createGroup(groupDescription, personEmail);
+        });
+
+        //ASSERT:
+        //1.- is the instance of the exception is the same
+        //2.- is the contained message the expected:
+        assertThat(exception)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
     @DisplayName("Test if a person can create a Group with an empty description")
     void createGroupAndBecomeAdminEmptyGroupDescription() throws Exception {
 
@@ -218,19 +240,16 @@ public class US002_1CreateGroupControllerCliUnitTest {
         String groupDescription = "";
         String personEmail = "homer@hotmail.com";
 
-        //arrange the Group DTO
-        GroupDTO groupCreatedExpected = new GroupDTO(groupDescription);
-
         //arrange the CreateGroupDTO:
         CreateGroupDTO groupCreation = GroupDTOAssembler.creationOfGroupDTO(groupDescription, personEmail);
 
         //arranging Mockito:
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createGroup(groupCreation)).thenReturn(groupCreatedExpected);
+        Mockito.when(service.createGroup(groupCreation)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
-            controller.createGroupAndBecomeAdmin(groupDescription,personEmail);
+            controller.createGroup(groupDescription, personEmail);
         });
 
         //ASSERT:

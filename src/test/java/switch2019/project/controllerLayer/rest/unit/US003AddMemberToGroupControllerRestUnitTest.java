@@ -1,7 +1,9 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -29,8 +31,13 @@ public class US003AddMemberToGroupControllerRestUnitTest {
     @Mock
     private US003AddMemberToGroupService service;
 
-    @Autowired
+    @InjectMocks
     private US003AddMemberToGroupControllerRest controller;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     @DisplayName("Test if a member was added to group - Success Case")
@@ -47,7 +54,6 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
         AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
         ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberExpectedDTO, HttpStatus.CREATED);
@@ -75,7 +81,6 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
         AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(false, personEmail, groupDescription);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
 
         ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberExpectedDTO, HttpStatus.CREATED);
@@ -101,10 +106,9 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
         AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
-        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
+                thenThrow(new IllegalArgumentException("No person found with that email."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -131,10 +135,9 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
         AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
-        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
+                thenThrow(new IllegalArgumentException("No group found with that description."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -161,10 +164,9 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
         AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
-        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
+                thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -191,10 +193,9 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         addMemberInfoDTO.setGroupDescription(groupDescription);
 
         AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO);
-        AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
+        Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {

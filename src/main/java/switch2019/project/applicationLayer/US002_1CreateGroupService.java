@@ -14,6 +14,7 @@ import switch2019.project.infrastructure.repositories.PersonRepository;
 
 @Service
 public class US002_1CreateGroupService {
+
     @Autowired
     private GroupsRepository groupsRepository;
     @Autowired

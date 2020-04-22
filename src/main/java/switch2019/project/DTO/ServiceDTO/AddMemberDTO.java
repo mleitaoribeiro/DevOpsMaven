@@ -17,8 +17,8 @@ public class AddMemberDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AddMemberDTO that = (AddMemberDTO) o;
-        return personEmail.equals(that.personEmail) &&
-                groupDescription.equals(that.groupDescription);
+        return Objects.equals(personEmail, that.personEmail) &&
+                Objects.equals(groupDescription, that.groupDescription);
     }
 
     @Override

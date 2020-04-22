@@ -12,7 +12,7 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
+import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
 import switch2019.project.infrastructure.repositories.PersonRepository;
 
@@ -25,7 +25,7 @@ public class US007CreateGroupAccountService {
     @Autowired
     private GroupsRepository groupsRepository;
     @Autowired
-    private AccountInMemoryRepository accountInMemoryRepository;
+    private AccountRepository accountRepository;
 
     /**
      *US007 - As a group Admin, I want to create a group account
@@ -49,7 +49,7 @@ public class US007CreateGroupAccountService {
 
         if (group.isGroupMember(personID)) {
             if (group.isGroupAdmin(personID)) {
-                Account account = accountInMemoryRepository.createAccount(accountDenomination, accountDescription, groupID);
+                Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
                 return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
             } else throw new IllegalArgumentException("This person is not admin of this group.");
         } else throw new IllegalArgumentException("This person is not member of this group.");

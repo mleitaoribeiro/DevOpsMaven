@@ -110,7 +110,7 @@ public class AccountInMemoryRepository implements AccountRepository {
      * @return boolean
      */
 
-    public boolean removeOneAccountFromRepository(Account accountToBeRemoved) {
+    public boolean removeAccount(Account accountToBeRemoved) {
         if (accountToBeRemoved != null) {
             return accounts.remove(accountToBeRemoved);
         } else
