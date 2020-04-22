@@ -5,17 +5,18 @@ import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.domain.repositories.Repository;
 
 import java.util.*;
 
 @Component
-public class CategoryRepository implements Repository {
+public class CategoryInMemoryRepository implements CategoryRepository {
 
     // Private instance variables
     private final Set<Category> categories;
 
-    public CategoryRepository() {
+    public CategoryInMemoryRepository() {
         categories = new HashSet<>();
     }
 
@@ -30,6 +31,7 @@ public class CategoryRepository implements Repository {
      * @param categoryID
      * @return account
      */
+
     public Category getByID (ID categoryID) {
         for (Category category : categories) {
             if (category.getID().equals(categoryID))
@@ -49,13 +51,15 @@ public class CategoryRepository implements Repository {
         for (Category category : categories) {
             if (category.getID().equals(categoryID))
                 return true;
-        } return false;
+        }
+        return false;
     }
 
     /**
      * Method to get the numbers of Categories in the Category List
      * @return category
      */
+
     public int repositorySize () {
         return this.categories.size();
     }
@@ -67,6 +71,7 @@ public class CategoryRepository implements Repository {
      * @return category
      * 
      */
+
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (this.categories.contains(new Category(nameOfCategory, ownerID)))
             throw new IllegalArgumentException("This category already exists.");
@@ -83,6 +88,7 @@ public class CategoryRepository implements Repository {
      * @param categoryToRemove
      * @return boolean
      */
+
     public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
         Category category = new Category(categoryToRemove, ownerID);
         if (this.categories.contains(category)) {
@@ -97,6 +103,7 @@ public class CategoryRepository implements Repository {
      * @param categories<Category> categories
      * @return boolean
      */
+
     public boolean addMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         int sizeBefore = this.categories.size();
         for (Denomination category : categories) {
@@ -111,6 +118,7 @@ public class CategoryRepository implements Repository {
      * @param categories<Category> categories
      * @return boolean
      */
+
     public boolean removeMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         for (Denomination category : categories)
             this.removeCategory(category, ownerID);
@@ -123,6 +131,7 @@ public class CategoryRepository implements Repository {
      * @param setOfCategories
      * @return boolean
      */
+
     public boolean isSetOfCategoriesValid(Set<Denomination> setOfCategories, OwnerID ownerID) {
         Set<Category> list = new HashSet<>();
         for (Denomination category : setOfCategories) {

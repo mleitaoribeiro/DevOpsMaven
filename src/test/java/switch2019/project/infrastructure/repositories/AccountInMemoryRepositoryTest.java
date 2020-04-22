@@ -355,7 +355,7 @@ class AccountInMemoryRepositoryTest {
         accountInMemoryRepository.createAccount(new Denomination("Post"),
                 new Description("Correios do Amadeu"), new PersonID(new Email("amadeu3@gmail.com")));
 
-        accountInMemoryRepository.removeOneAccountFromRepository(butcher);
+        accountInMemoryRepository.removeAccount(butcher);
 
         //Assert
         assertEquals(2, accountInMemoryRepository.repositorySize());
@@ -376,7 +376,7 @@ class AccountInMemoryRepositoryTest {
         accountInMemoryRepository.createAccount(new Denomination("Market"),
                 new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
-        accountInMemoryRepository.removeOneAccountFromRepository(post);
+        accountInMemoryRepository.removeAccount(post);
 
         // Assert
         assertEquals(2, accountInMemoryRepository.repositorySize());
@@ -398,7 +398,7 @@ class AccountInMemoryRepositoryTest {
                 new Description("Mercado do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
         oneAccountsList.createAccount(new Denomination("Post"),
                 new Description("Correios do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
-        boolean real = oneAccountsList.removeOneAccountFromRepository(oneAccount);
+        boolean real = oneAccountsList.removeAccount(oneAccount);
 
         //Assert
         assertFalse(real);
@@ -423,7 +423,7 @@ class AccountInMemoryRepositoryTest {
         oneAccountsList.createAccount(new Denomination("POST"),
                 new Description("Correios do Amadeu"), new PersonID(new Email("amadeu1@gmail.com")));
 
-        boolean real = oneAccountsList.removeOneAccountFromRepository(oneAccount);
+        boolean real = oneAccountsList.removeAccount(oneAccount);
 
         //Assert
         assertTrue(real);
@@ -606,14 +606,14 @@ class AccountInMemoryRepositoryTest {
     @DisplayName("Find Category by ID- success case")
     void findCategoryByID() {
         //Arrange
-        CategoryRepository categoryRepository = new CategoryRepository();
+        CategoryInMemoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository();
         Category expected = new Category(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com")));
-        categoryRepository.createCategory(new Denomination("Mello"),
+        categoryInMemoryRepository.createCategory(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com")));
 
         //Act
-        Category real = categoryRepository.getByID(new CategoryID(new Denomination("Mello"),
+        Category real = categoryInMemoryRepository.getByID(new CategoryID(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com"))));
 
         //Assert
@@ -624,13 +624,13 @@ class AccountInMemoryRepositoryTest {
     @DisplayName("Find Category by ID -ID not found")
     void findCategoryByIDNotFound() {
         //Arrange
-        CategoryRepository categoryRepository = new CategoryRepository();
+        CategoryInMemoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository();
         Category expected = new Category(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com")));
-        categoryRepository.createCategory(new Denomination("Mello"),
+        categoryInMemoryRepository.createCategory(new Denomination("Mello"),
                 new PersonID(new Email("miu@gmail.com")));
         try {
-            Category real = categoryRepository.getByID(new CategoryID(new Denomination("Millo"),
+            Category real = categoryInMemoryRepository.getByID(new CategoryID(new Denomination("Millo"),
                     new PersonID(new Email("miu@gmail.com"))));
         } catch (IllegalArgumentException ex) {
             assertEquals("No category found with that ID.", ex.getMessage());
