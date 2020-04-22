@@ -67,7 +67,7 @@ class AccountInMemoryRepositoryTest {
         }
         //Assert
         catch (IllegalArgumentException email) {
-            assertEquals("email can't be null.", email.getMessage());
+            assertEquals("The email can't be null.", email.getMessage());
         }
     }
 
