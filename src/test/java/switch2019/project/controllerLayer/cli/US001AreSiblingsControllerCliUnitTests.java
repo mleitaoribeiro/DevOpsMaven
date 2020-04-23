@@ -14,8 +14,7 @@ import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
