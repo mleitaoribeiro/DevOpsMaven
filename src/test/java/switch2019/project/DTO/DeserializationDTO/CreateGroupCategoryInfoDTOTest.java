@@ -130,15 +130,15 @@ public class CreateGroupCategoryInfoDTOTest {
         groupCategoryInfoDTO.setGroupDescription("gym");
 
         CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
-        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
-        groupCategoryInfoDTO.setCategoryDenomination("compras");
-        groupCategoryInfoDTO.setGroupDescription("gym");
+        groupCategoryInfoDTO2.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO2.setCategoryDenomination("compras");
+        groupCategoryInfoDTO2.setGroupDescription("gym");
 
         //Act
         boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
 
         //Assert:
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test
@@ -151,9 +151,9 @@ public class CreateGroupCategoryInfoDTOTest {
         groupCategoryInfoDTO.setGroupDescription("gym");
 
         CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
-        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupCategoryInfoDTO.setCategoryDenomination("compras");
-        groupCategoryInfoDTO.setGroupDescription("gym");
+        groupCategoryInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO2.setCategoryDenomination("compras");
+        groupCategoryInfoDTO2.setGroupDescription("gym");
 
         //Act
         boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
@@ -172,9 +172,9 @@ public class CreateGroupCategoryInfoDTOTest {
         groupCategoryInfoDTO.setGroupDescription("gym");
 
         CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
-        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupCategoryInfoDTO.setCategoryDenomination("shop");
-        groupCategoryInfoDTO.setGroupDescription("gym");
+        groupCategoryInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO2.setCategoryDenomination("shop");
+        groupCategoryInfoDTO2.setGroupDescription("gym");
 
         //Act
         boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
@@ -193,9 +193,9 @@ public class CreateGroupCategoryInfoDTOTest {
         groupCategoryInfoDTO.setGroupDescription("ginásio");
 
         CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
-        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupCategoryInfoDTO.setCategoryDenomination("compras");
-        groupCategoryInfoDTO.setGroupDescription("gym");
+        groupCategoryInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO2.setCategoryDenomination("compras");
+        groupCategoryInfoDTO2.setGroupDescription("gym");
 
         //Act
         boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
@@ -236,9 +236,9 @@ public class CreateGroupCategoryInfoDTOTest {
         groupCategoryInfoDTO.setGroupDescription("ginásio");
 
         CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
-        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupCategoryInfoDTO.setCategoryDenomination("compras");
-        groupCategoryInfoDTO.setGroupDescription("gym");
+        groupCategoryInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO2.setCategoryDenomination("compras");
+        groupCategoryInfoDTO2.setGroupDescription("gym");
 
         //Act:
         boolean result = groupCategoryInfoDTO.hashCode() == groupCategoryInfoDTO2.hashCode();
