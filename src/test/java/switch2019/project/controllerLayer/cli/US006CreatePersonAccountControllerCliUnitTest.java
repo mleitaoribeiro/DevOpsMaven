@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
@@ -99,7 +98,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
 
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes(personEmail, accountDenomination, accountDescription);
-        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("No person found with that email."));
 
@@ -149,7 +147,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes(personEmail, accountDenomination, accountDescription);
-        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
@@ -218,7 +215,6 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes(personEmail, accountDenomination, accountDescription);
-        AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
