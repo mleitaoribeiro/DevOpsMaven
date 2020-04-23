@@ -23,7 +23,6 @@ public class TestConfiguration {
         return Mockito.mock(US002_1CreateGroupService.class);
     }
 
-
     @Bean
     @Primary
     public US003AddMemberToGroupService serviceUS003() {
@@ -36,13 +35,11 @@ public class TestConfiguration {
         return Mockito.mock(US004GetFamilyGroupsService.class);
     }
 
-
     @Bean
     @Primary
     public US005_1AdminAddsCategoryToGroupService serviceUS005_1() {
         return Mockito.mock(US005_1AdminAddsCategoryToGroupService.class);
     }
-
 
     @Bean
     @Primary
