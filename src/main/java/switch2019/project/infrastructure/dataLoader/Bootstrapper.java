@@ -12,12 +12,8 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.CategoryRepository;
-import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
-import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
-import switch2019.project.infrastructure.repositories.CategoryInMemoryRepository;
 
 @Component
 public class Bootstrapper {
