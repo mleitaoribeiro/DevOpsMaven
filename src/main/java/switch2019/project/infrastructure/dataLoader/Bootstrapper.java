@@ -10,8 +10,8 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
-import switch2019.project.infrastructure.repositories.CategoryInMemoryRepository;
+import switch2019.project.domain.repositories.AccountRepository;
+import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
 import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
@@ -23,9 +23,9 @@ public class Bootstrapper {
     @Autowired
     GroupsInMemoryRepository groupRepository;
     @Autowired
-    AccountInMemoryRepository accountInMemoryRepository;
+    AccountRepository accountRepository;
     @Autowired
-    CategoryInMemoryRepository categoriesRepository;
+    CategoryRepository categoriesRepository;
 
     public void bootstrapping() {
 
@@ -449,16 +449,16 @@ public class Bootstrapper {
         /*Add Accounts to Owner ID*/
 
         //Person Accounts
-        accountInMemoryRepository.createAccount(new Denomination("Homer Snacks"),
+        accountRepository.createAccount(new Denomination("Homer Snacks"),
                 new Description("Money spent on snacks for homer"),
                 new PersonID(new Email("marge@hotmail.com")));
 
         //Account of Group - Family Cardoso
-        accountInMemoryRepository.createAccount(new Denomination("Revolut"),
+        accountRepository.createAccount(new Denomination("Revolut"),
                 new Description("Online Expenses"),
                 new GroupID(new Description("Family Cardoso")));
         // Account of Person - Marta Cardoso
-        accountInMemoryRepository.createAccount(new Denomination("Mbway"),
+        accountRepository.createAccount(new Denomination("Mbway"),
                 new Description("Rides"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
     }

@@ -9,6 +9,7 @@ import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.repositories.CategoryRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,15 +27,15 @@ class CategoryInMemoryRepositoryTest {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        CategoryInMemoryRepository firstCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository firstCategoryRepository = new CategoryInMemoryRepository();
 
-        firstCategoryInMemoryRepository.createCategory(new Denomination("cinema"), person1.getID());
-        firstCategoryInMemoryRepository.createCategory(new Denomination("jantar"), person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("cinema"), person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("jantar"), person1.getID());
 
         String expected = "Category Repository: [CINEMA, 1234@isep.pt, JANTAR, 1234@isep.pt]";
 
         //Act:
-        String result = firstCategoryInMemoryRepository.toString();
+        String result = firstCategoryRepository.toString();
 
         //Assert:
         assertEquals(expected, result);
@@ -46,15 +47,15 @@ class CategoryInMemoryRepositoryTest {
         //Arrange:
         Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        CategoryInMemoryRepository firstCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository firstCategoryRepository = new CategoryInMemoryRepository();
 
-        firstCategoryInMemoryRepository.createCategory(new Denomination("cinema"), person1.getID());
-        firstCategoryInMemoryRepository.createCategory(new Denomination("jantar"), person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("cinema"), person1.getID());
+        firstCategoryRepository.createCategory(new Denomination("jantar"), person1.getID());
 
         String expected = "Category Repository: [1234@isep.pt, CINEMA, 1234@isep.pt, JANTAR]";
 
         //Act:
-        String result = firstCategoryInMemoryRepository.toString();
+        String result = firstCategoryRepository.toString();
 
         //Assert:
         assertNotEquals(expected, result);
@@ -73,14 +74,14 @@ class CategoryInMemoryRepositoryTest {
         //Category to be included in Category Repository
         Denomination oneDenomination = new Denomination("School expenses");
         Denomination otherDenomination = new Denomination("Health");
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
 
         Category oneCategory = new Category(new Denomination("School Expenses"), person1.getID());
         Category otherCategory = new Category(new Denomination("Health"), person1.getID());
 
         //Act
-        Category createdOneCategory = newCategoryInMemoryRepository.createCategory(oneDenomination, person1.getID());
-        Category createdOtherCategory = newCategoryInMemoryRepository.createCategory(otherDenomination, person1.getID());
+        Category createdOneCategory = newCategoryRepository.createCategory(oneDenomination, person1.getID());
+        Category createdOtherCategory = newCategoryRepository.createCategory(otherDenomination, person1.getID());
 
         //Assert
         Assertions.assertAll(
@@ -100,11 +101,11 @@ class CategoryInMemoryRepositoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
 
         //Act
         try {
-            newCategoryInMemoryRepository.createCategory(new Denomination(null), person1.getID());
+            newCategoryRepository.createCategory(new Denomination(null), person1.getID());
         }
 
         //Assert
@@ -129,12 +130,12 @@ class CategoryInMemoryRepositoryTest {
         Denomination originalCategory = new Denomination("Saude");
         Denomination duplicateCategory = new Denomination("saúde");
 
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
-        newCategoryInMemoryRepository.createCategory(originalCategory,person1.getID());
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
+        newCategoryRepository.createCategory(originalCategory,person1.getID());
 
         //Act
         try{
-            newCategoryInMemoryRepository.createCategory(duplicateCategory,person1.getID());
+            newCategoryRepository.createCategory(duplicateCategory,person1.getID());
         }
 
         //Assert
@@ -158,15 +159,15 @@ class CategoryInMemoryRepositoryTest {
         String otherCategory = "Health";
         String otherCategoryObject = "Health";
 
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
 
         //Act
-        newCategoryInMemoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
-        newCategoryInMemoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
 
         //Remove one Category
 
-        boolean realResult = newCategoryInMemoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -182,13 +183,13 @@ class CategoryInMemoryRepositoryTest {
         String otherCategory = "saúde2";
         String otherCategoryObject = "saúde";
 
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
 
         //Act
-        newCategoryInMemoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
-        newCategoryInMemoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
         //Remove one Category
-        boolean realResult = newCategoryInMemoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
 
         //Assert
         assertTrue(realResult);
@@ -201,10 +202,10 @@ class CategoryInMemoryRepositoryTest {
         //Arrange:
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryInMemoryRepository testCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository testCategoryRepository = new CategoryInMemoryRepository();
 
         //Act:
-        boolean isACategoryNotInRepositoryRemoved = testCategoryInMemoryRepository.removeCategory(new Denomination("Cinema"), person1.getID());
+        boolean isACategoryNotInRepositoryRemoved = testCategoryRepository.removeCategory(new Denomination("Cinema"), person1.getID());
 
         //Assert:
         assertFalse(isACategoryNotInRepositoryRemoved);
@@ -220,14 +221,14 @@ class CategoryInMemoryRepositoryTest {
         String otherCategory = "null";
         String otherCategoryObject = null;
 
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
 
-        newCategoryInMemoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
-        newCategoryInMemoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
+        newCategoryRepository.createCategory(new Denomination(otherCategory), person1.getID());
 
         //Act
         try {
-            boolean realResult = newCategoryInMemoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
+            boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
         }
 
         //Assert
@@ -246,11 +247,11 @@ class CategoryInMemoryRepositoryTest {
         String oneCategory = "Saude";
         String otherCategoryObject = "Educação";
 
-        CategoryInMemoryRepository newCategoryInMemoryRepository = new CategoryInMemoryRepository();
-        newCategoryInMemoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
+        CategoryRepository newCategoryRepository = new CategoryInMemoryRepository();
+        newCategoryRepository.createCategory(new Denomination(oneCategory), person1.getID());
 
         //Act
-        boolean realResult = newCategoryInMemoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
+        boolean realResult = newCategoryRepository.removeCategory(new Denomination(otherCategoryObject), person1.getID());
 
         //Assert
         assertFalse(realResult);
@@ -501,13 +502,13 @@ class CategoryInMemoryRepositoryTest {
         //Arrange
         Person person1 = new Person("Raquel", new DateAndTime(1989, 1, 1),
                 new Address("Porto"), new Address("Rua xpto", "Porto", "4430-300"), new Email("1234@isep.pt"));
-        CategoryInMemoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository categoryRepository = new CategoryInMemoryRepository();
 
         //Act
-        categoryInMemoryRepository.createCategory(new Denomination("Transports"), person1.getID());
-        categoryInMemoryRepository.createCategory(new Denomination("House"), person1.getID());
+        categoryRepository.createCategory(new Denomination("Transports"), person1.getID());
+        categoryRepository.createCategory(new Denomination("House"), person1.getID());
 
-        int actual = categoryInMemoryRepository.repositorySize();
+        int actual = categoryRepository.repositorySize();
         //Assert
         assertEquals(2, actual);
     }
@@ -518,10 +519,10 @@ class CategoryInMemoryRepositoryTest {
     void numberOfCategoryInTheCategoryRepositorySuccessCaseEmptyCategoryRepository() {
 
         //Arrange
-        CategoryInMemoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository(); //empty Category Repository
+        CategoryRepository categoryRepository = new CategoryInMemoryRepository(); //empty Category Repository
 
         //Act
-        int actual = categoryInMemoryRepository.repositorySize();
+        int actual = categoryRepository.repositorySize();
 
         //Assert
         assertEquals(0, actual);
@@ -531,12 +532,12 @@ class CategoryInMemoryRepositoryTest {
     @DisplayName("Verify If category ID exists - Main Scenario")
     void verifyIfCategoryIDExists() {
         //Arrange
-        CategoryInMemoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository categoryRepository = new CategoryInMemoryRepository();
         Category newCategory = new Category((new Denomination("Hello")), new PersonID(new Email("hello@gmail.com")));
         //Act
-        categoryInMemoryRepository.createCategory(new Denomination("Hello"), new PersonID(new Email("hello@gmail.com")));
+        categoryRepository.createCategory(new Denomination("Hello"), new PersonID(new Email("hello@gmail.com")));
 
-        boolean categoryIDExists = categoryInMemoryRepository.isIDOnRepository(newCategory.getID());
+        boolean categoryIDExists = categoryRepository.isIDOnRepository(newCategory.getID());
 
         //Assert
         assertTrue(categoryIDExists);
@@ -546,13 +547,13 @@ class CategoryInMemoryRepositoryTest {
     @DisplayName("Verify If Category ID exists -False Case")
     void verifyIfCategoryIDExistsOnRepositoryFalse() {
         //Arrange
-        CategoryInMemoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository();
+        CategoryRepository categoryRepository = new CategoryInMemoryRepository();
         Category newCategory = new Category((new Denomination("Hello")), new PersonID(new Email("hello@gmail.com")));
 
         //Act
-        categoryInMemoryRepository.createCategory(new Denomination("BYE"), new PersonID(new Email("hello@gmail.com")));
+        categoryRepository.createCategory(new Denomination("BYE"), new PersonID(new Email("hello@gmail.com")));
 
-        boolean categoryIDExists = categoryInMemoryRepository.isIDOnRepository(newCategory.getID());
+        boolean categoryIDExists = categoryRepository.isIDOnRepository(newCategory.getID());
 
         //Assert
         assertFalse(categoryIDExists);
