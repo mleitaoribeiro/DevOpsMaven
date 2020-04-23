@@ -248,4 +248,50 @@ class CreateGroupAccountInfoDTOTest {
         //Assert:
         assertFalse(result);
     }
+
+//    @Test
+//    void testHashCodeTRUE() {
+//        //Arrange:
+//
+//        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+//        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+//        groupAccountInfoDTO.setAccountDenomination("bolas");
+//        groupAccountInfoDTO.setAccountDescription("noite");
+//        groupAccountInfoDTO.setGroupDescription("gym");
+//
+//        CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
+//        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+//        groupAccountInfoDTO.setAccountDenomination("bolas");
+//        groupAccountInfoDTO.setAccountDescription("noite");
+//        groupAccountInfoDTO.setGroupDescription("gym");
+//
+//        //Act:
+//        boolean result = groupAccountInfoDTO.hashCode() == groupAccountInfoDTO2.hashCode();
+//
+//        //Assert:
+//        assertTrue(result);
+//    }
+
+    @Test
+    void testHashCodeFalse() {
+        //Arrange:
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO.setAccountDenomination("bolas");
+        groupAccountInfoDTO.setAccountDescription("noite");
+        groupAccountInfoDTO.setGroupDescription("gym");
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
+        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO.setAccountDenomination("bolas");
+        groupAccountInfoDTO.setAccountDescription("noitadas");
+        groupAccountInfoDTO.setGroupDescription("gym");
+
+        //Act:
+        boolean result = groupAccountInfoDTO.hashCode() == groupAccountInfoDTO2.hashCode();
+
+        //Assert:
+        assertFalse(result);
+    }
 }
