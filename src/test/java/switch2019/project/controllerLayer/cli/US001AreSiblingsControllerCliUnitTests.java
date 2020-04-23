@@ -14,8 +14,6 @@ import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -149,30 +147,4 @@ public class US001AreSiblingsControllerCliUnitTests {
                 () -> assertEquals(notSiblingsDTO, areSiblings2)
         );
     }
-
-/*
-    @Test
-    @DisplayName("Test if two individuals are siblings - Person does't exist on Person Repository")
-    void AreSiblingsInvalidEmail() {
-
-        //Arrange
-        String emailPersonOne = "father@isep.ipp.pt";
-        String emailPersonTwo = "child3@isep.ipp.pt";
-
-        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
-
-        Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true).thenThrow(new IllegalArgumentException("No person found with that email"));
-
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            controller.areSiblings(emailPersonOne, emailPersonTwo);
-        });
-
-        //Assert
-        assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("No person found with that email.");
-    }
-
- */
 }

@@ -107,33 +107,33 @@ public class US006CreatePersonAccountServiceUnitTest {
      * Test If person Account is created - Several accounts added - Null & Empty Values
      */
 
-//    @Test
-//    @DisplayName("Test If person Account is created - Exception - Person email is null")
-//    void testIfPersonAccountWasCreatedPersonIDNull() {
-//
-//        //Arrange
-//
-//        String accountDenomination = "Online";
-//        String accountDescription = "Online Shopping";
-//
-//        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(null, accountDenomination, accountDescription);
-//
-//        Mockito.when(personRepository.findPersonByEmail(null))
-//                .thenThrow(new IllegalArgumentException("The email can't be null."));
-//
-//        Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
-//                new PersonID(null)).thenThrow(new IllegalArgumentException("The email can't be null."));
-//
-//        //Act
-//        Throwable thrown = catchThrowable(() -> {
-//            service.createPersonAccount(createPersonAccountDTO);
-//        });
-//
-//        //Assert
-//        assertThat(thrown)
-//                .isExactlyInstanceOf(IllegalArgumentException.class)
-//                .hasMessage("The email can't be null.");
-//    }
+    @Test
+    @DisplayName("Test If person Account is created - Exception - Person email is null")
+    void testIfPersonAccountWasCreatedPersonIDNull() {
+
+        //Arrange
+
+        String accountDenomination = "Online";
+        String accountDescription = "Online Shopping";
+
+        CreatePersonAccountDTO createPersonAccountDTO = new CreatePersonAccountDTO(null, accountDenomination, accountDescription);
+
+        Mockito.when(personRepository.findPersonByEmail(null))
+                .thenThrow(new IllegalArgumentException("The email can't be null."));
+
+        Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
+                null)).thenThrow(new IllegalArgumentException("The email can't be null."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.createPersonAccount(createPersonAccountDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+    }
     @Test
     @DisplayName("Test If person Account is created - Exception - Account denomination is null")
     void testIfPersonAccountWasCreatedAccountDenominationNull() {
