@@ -52,8 +52,6 @@ public class US002_1CreateGroupServiceUnitTest {
                 new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
                 new Email("liza.simpson@hotmail.com"));
 
-
-
         groupDescriptionToMock = new Description("TEAM KIM");
 
         groupToMock = new Group (groupDescriptionToMock, admin);
