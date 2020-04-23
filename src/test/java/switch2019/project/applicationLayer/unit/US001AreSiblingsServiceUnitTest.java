@@ -30,9 +30,39 @@ public class US001AreSiblingsServiceUnitTest {
     @InjectMocks
     private US001AreSiblingsService service;
 
+    private Person father;
+    private Person mother;
+    private Person sibling;
+    private Person relatedSibling;
+    private Person notRelatedSibling;
+
+
     @BeforeEach
     public void setup() {
+
         MockitoAnnotations.initMocks(this);
+
+        father = new Person("Roberto Azevedo", new DateAndTime(1967, 1, 9),
+                new Address("Lisboa"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
+                new Email("roberto@gmail.com"));
+
+        mother = new Person("Margarida Azevedo", new DateAndTime(1964, 12, 1),
+                new Address("Guimarães"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
+                new Email("maria@gmail.com"));
+
+        sibling = new Person("Beatriz Azevedo", new DateAndTime(1995, 04, 12),
+                new Address("Porto"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
+                mother, father, new Email("beatriz.azevedo@gmail.com"));
+
+        relatedSibling = new Person("Hugo Azevedo", new DateAndTime(1993, 9, 1),
+                new Address("Porto"), new Address("Rua das Flores", "Porto", "4050-262"),
+                mother, father, new Email("hugo.azevedo@gmail.com"));
+
+        sibling.addSibling(relatedSibling);
+
+        notRelatedSibling = new Person ("Richard Sanchez", new DateAndTime(1950, 9, 1),
+                new Address("Seattle"), new Address("Smiths house", "Seattle", "4520-266"),
+                new Email("rick@gmail.com"));
     }
 
 
@@ -40,25 +70,15 @@ public class US001AreSiblingsServiceUnitTest {
     @DisplayName("Test if two individuals are siblings - same mother, same father and are in each other list")
     void AreSiblingsSameMotherFatherAndList() {
         //Arrange
-        //Family with same mother, same father and are in each others list
-        Person father = personRepository.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("father1@isep.ipp.pt"));
-        Person mother = personRepository.createPerson("Maria", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("mother1@isep.ipp.pt"));
-
-        Person antonio = new Person("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("antonio@isep.ipp.pt"));
-
-        Person manuel = new Person("Manuel", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
-                new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("manuel@isep.ipp.pt"));
-        antonio.addSibling(manuel);
+        String emailSibling = "beatriz.azevedo@gmail.com";
+        String emailRelatedSiblings = "hugo.azevedo@gmail.com";
 
         //Input DTO
-        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO("antonio@isep.ipp.pt", "manuel@isep.ipp.pt");
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(emailSibling, emailRelatedSiblings);
 
         //Act
-        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()))).thenReturn(antonio);
-        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()))).thenReturn(manuel);
+        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()))).thenReturn(sibling);
+        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()))).thenReturn(relatedSibling);
 
         boolean areSiblings =service.areSiblings(siblingsDTO);
 
@@ -70,28 +90,15 @@ public class US001AreSiblingsServiceUnitTest {
     @DisplayName("Test if two individuals are siblings - not related")
     void AreSiblingsFalse() {
         //Arrange
-        Person fatherOfHugo =  new Person("Roberto Azevedo", new DateAndTime(1967, 1, 9),
-                new Address("Lisboa"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
-                new Email("roberto@gmail.com"));
-
-        Person motherOfHugo =  new Person("Margarida Azevedo", new DateAndTime(1964, 12, 1),
-                new Address("Guimarães"),  new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
-                new Email("maria@gmail.com"));
-
-        Person personHugo = new Person("Hugo Azevedo", new DateAndTime(1993, 9, 1),
-                new Address("Porto"), new Address("Rua das Flores", "Porto", "4050-262"),
-                motherOfHugo, fatherOfHugo, new Email("hugo.azevedo@gmail.com"));
-
-        Person personMaria =  new Person("Maria Cardoso", new DateAndTime(1964, 1, 19),
-                new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-580"),
-                new Email("maria.cardoso_1@gmail.com"));
+        String emailSibling = "hugo.azevedo@gmail.com";
+        String emailNotRelatedSiblings = "rick@gmail.com";
 
         //Input DTO
-        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO("hugo.azevedo@gmail.com", "maria.cardoso_1@gmail.com");
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(emailSibling, emailNotRelatedSiblings);
 
         //Act
-        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()))).thenReturn(personHugo);
-        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()))).thenReturn(personMaria);
+        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()))).thenReturn(sibling);
+        Mockito.when(personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()))).thenReturn(notRelatedSibling);
 
         //Act
         boolean areSiblings1 = service.areSiblings(siblingsDTO);
@@ -127,7 +134,7 @@ public class US001AreSiblingsServiceUnitTest {
     void AreSiblingsInvalidEmailNull() {
         //Arrange
         // Input DTO
-        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(null, "maria.cardoso_1@gmail.com");
+        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(null, "roberto@gmail.com");
         Email emailPersonNull = null;
 
         //Act
