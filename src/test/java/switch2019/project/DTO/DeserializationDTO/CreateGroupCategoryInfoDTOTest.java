@@ -203,4 +203,47 @@ public class CreateGroupCategoryInfoDTOTest {
         //Assert:
         assertFalse(result);
     }
+
+
+    @Test
+    void testHashCodeTrue() {
+        //Arrange:
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO2.setCategoryDenomination("compras");
+        groupCategoryInfoDTO2.setGroupDescription("gym");
+
+        //Act:
+        boolean result = groupCategoryInfoDTO.hashCode() == groupCategoryInfoDTO2.hashCode();
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    void testHashCodeFalse() {
+        //Arrange:
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("ginásio");
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act:
+        boolean result = groupCategoryInfoDTO.hashCode() == groupCategoryInfoDTO2.hashCode();
+
+        //Assert:
+        assertFalse(result);
+    }
 }
