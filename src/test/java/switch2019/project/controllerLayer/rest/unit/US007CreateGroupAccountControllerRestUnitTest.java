@@ -3,10 +3,10 @@ package switch2019.project.controllerLayer.rest.unit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +29,9 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
     @Mock
     private US007CreateGroupAccountService service;
-    @Autowired
-    private US007CreateGroupAccountControllerRest controller;
 
+    @InjectMocks
+    private US007CreateGroupAccountControllerRest controller;
 
     @BeforeEach
     public void setup() {
@@ -98,7 +98,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("This person is not admin of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -134,7 +135,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("This person is not member of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -167,11 +169,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
                 groupDescription, accountDenomination, accountDescription);
 
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
-
-        controller.addGroupAccount(groupAccountInfoDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("This account already exists."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -206,9 +205,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
                 groupDescription, accountDenomination, accountDescription);
 
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("No person found with that email."));
 
 
         //Act
@@ -243,9 +241,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.createGroupAccountDTOFromPrimitiveTypes(personEmail,
                 groupDescription, accountDenomination, accountDescription);
 
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("No group found with that description."));
 
 
         //Act
@@ -314,10 +311,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
                 transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        //Expected Results: AccountDTO and ResponseEntity
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -350,10 +345,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
                 transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        //Expected Results: AccountDTO and ResponseEntity
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -419,9 +412,8 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
 
-        AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
+        Mockito.when(service.createGroupAccount(accountControllerDTO)).
+                thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
 
         //Act
@@ -443,7 +435,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Arrange
         String personEmail = "1191755@isep.ipp.pt";
-        String groupDescription = null;
         String accountDenomination = "Grocery";
         String accountDescription = "Grocery dispenses";
 
@@ -477,7 +468,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Arrange
         String personEmail = "1191755@isep.ipp.pt";
-        String groupDescription = "";
         String accountDenomination = "Grocery";
         String accountDescription = "Grocery dispenses";
 
