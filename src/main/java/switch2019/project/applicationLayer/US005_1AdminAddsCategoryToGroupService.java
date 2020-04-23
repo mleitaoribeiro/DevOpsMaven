@@ -11,7 +11,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.CategoryRepository;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
+import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
 import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 
@@ -19,7 +19,7 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 public class US005_1AdminAddsCategoryToGroupService {
 
     @Autowired
-    private GroupsRepository groupsRepository;
+    private GroupsInMemoryRepository groupsRepository;
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired

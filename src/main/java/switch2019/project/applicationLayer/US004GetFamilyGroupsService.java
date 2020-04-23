@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
+import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 public class US004GetFamilyGroupsService {
 
     @Autowired
-    private GroupsRepository groupsRepository;
+    private GroupsInMemoryRepository groupsRepository;
 
     /**
      * US004 -  As system manager I want to know which groups are families

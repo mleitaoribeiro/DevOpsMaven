@@ -29,7 +29,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if Group was Created")
     public void testIfGroupWasCreated() {
         //Arrange
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Group expected = new Group(new Description("Test Person"), person1);
@@ -46,7 +46,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if Group is not created when its description is null")
     public void testIfGroupWasNotCreated() {
         //Arrange
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = new Person("Francis", new DateAndTime(2001, 4, 12), new Address("Dublin"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
@@ -64,7 +64,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if group was not created when it is already contained in the repository")
     public void testIfGroupWasAlreadyInList() {
         //Arrange
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = new Person("Amy", new DateAndTime(1990, 12, 04), new Address("Boston"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
@@ -82,7 +82,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if group is created even it has the same name but different members")
     public void createGroupWithSameDescriptionAndDifferentMembers() {
         //Arrange
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = new Person("Amy", new DateAndTime(1990, 12, 4), new Address("Boston"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marshall", new DateAndTime(1990, 12, 4), new Address("Boston"),
@@ -103,7 +103,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if group is created with different description but same person")
     public void createGroupWithDifferentDescriptionAndDifferentMembers() {
         //Arrange
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = new Person("Amy", new DateAndTime(1999, 5, 13), new Address("Boston"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("1234@isep.pt"));
 
@@ -122,7 +122,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if group was not created when its null")
     public void testIfWasCreatedWhenNull() {
         //Arrange
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = null;
 
         //Act
@@ -144,7 +144,7 @@ class GroupsRepositoryTest {
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Group group1 = new Group(new Description("Amigos"),person);
         Group group2 = new Group(new Description("Pokémons"),person);
-        GroupsRepository groupList = new GroupsRepository();
+        GroupsInMemoryRepository groupList = new GroupsInMemoryRepository();
 
         //Act
         groupList.addGroupToRepository(group1);
@@ -165,7 +165,7 @@ class GroupsRepositoryTest {
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Group group1 = new Group(new Description("Switchieees"), person);
-        GroupsRepository groupList = new GroupsRepository();
+        GroupsInMemoryRepository groupList = new GroupsInMemoryRepository();
 
         //Act
         boolean groupAdded = groupList.addGroupToRepository(group1);
@@ -178,7 +178,7 @@ class GroupsRepositoryTest {
     @DisplayName("Test if a null group is not added to the list")
     public void testAddGroupIsNull() {
         //Arrange
-        GroupsRepository groupList = new GroupsRepository();
+        GroupsInMemoryRepository groupList = new GroupsInMemoryRepository();
 
         //Act
         boolean groupAdded = groupList.addGroupToRepository(null);
@@ -197,7 +197,7 @@ class GroupsRepositoryTest {
         Group group2 = new Group(new Description("Clube da Costura"),person);
         Group group3 = new Group(new Description("Clube dos Livros"),person);
 
-        GroupsRepository groupList = new GroupsRepository();
+        GroupsInMemoryRepository groupList = new GroupsInMemoryRepository();
 
         //Act
         boolean group1added = groupList.addGroupToRepository(group1);
@@ -218,7 +218,7 @@ class GroupsRepositoryTest {
 
         //Arrange
         // Global Groups List
-        GroupsRepository globalGroupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository globalGroupsRepository = new GroupsInMemoryRepository();
 
         // 1 _________________________________________________________________________________________________________
         // First global group - All Family
@@ -329,7 +329,7 @@ class GroupsRepositoryTest {
     void isPersonAdminOfAGivenGroupTrue() {
 
         //Arrange:
-        GroupsRepository testGroupList = new GroupsRepository();
+        GroupsInMemoryRepository testGroupList = new GroupsInMemoryRepository();
 
             //Arrange Groups:
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
@@ -378,7 +378,7 @@ class GroupsRepositoryTest {
     void isPersonAdminOfAGivenGroupException() {
 
         //Arrange:
-        GroupsRepository testGroupList = new GroupsRepository();
+        GroupsInMemoryRepository testGroupList = new GroupsInMemoryRepository();
 
         //Arrange Groups:
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
@@ -414,7 +414,7 @@ class GroupsRepositoryTest {
         MonetaryValue monetaryValue100 = new MonetaryValue(100, Currency.getInstance("EUR"));
 
         // Groups:
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("spice girls"), person);
         groupsRepository.createGroup(new Description("work"), person);
 
@@ -451,7 +451,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person);
         try {
             //Act
@@ -483,7 +483,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person2);
         try {
             //Act
@@ -516,7 +516,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person);
         try {
             //Act
@@ -534,7 +534,7 @@ class GroupsRepositoryTest {
     @DisplayName("Trying to create transaction that member is not contained. ")
     void testIfATransactionCanBeCreatedIfPersonIsNotAMember() {
         //Arrange:
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Person person1 = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person notMember = new Person("Francisco", new DateAndTime(1993, 11, 13),
@@ -582,7 +582,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
@@ -613,7 +613,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
@@ -643,7 +643,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
@@ -674,7 +674,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
 
         //Act
@@ -704,7 +704,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("tarzan"), person);
 
         try {
@@ -737,7 +737,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), person);
 
         try {
@@ -772,7 +772,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), personMember);
 
         try {
@@ -812,7 +812,7 @@ class GroupsRepositoryTest {
         Account to = new Account(new Denomination("TransportAccount"),
                 new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
 
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("JUST4FUN"), personMember);
 
         try {
@@ -839,7 +839,7 @@ class GroupsRepositoryTest {
         Person groupMember = new Person("Tiago", new DateAndTime(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"), new Email("1234@isep.pt"));
 
-        GroupsRepository testGroupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository testGroupsRepository = new GroupsInMemoryRepository();
 
             //Arrange two groups inside the GroupsList:
         Group group1 = new Group(new Description("test group 1"),groupMember);
@@ -914,7 +914,7 @@ class GroupsRepositoryTest {
         Person groupMember = new Person("Tiago", new DateAndTime(1994,06,17),
                 new Address("Porto"),new Address("Rua xpto","Porto","4450-010"), new Email("1234@isep.pt"));
 
-        GroupsRepository testGroupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository testGroupsRepository = new GroupsInMemoryRepository();
 
         //Arrange two groups inside the GroupsList:
         Group group1 = new Group(new Description("test group 1"),groupMember);
@@ -1065,7 +1065,7 @@ class GroupsRepositoryTest {
         //Arrange:
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         Group group2 = new Group(new Description("test group 2"),person);
         Group group1 = new Group(new Description("Test Group Main"),person);
         groupsRepository.addGroupToRepository(group2);
@@ -1096,7 +1096,7 @@ class GroupsRepositoryTest {
     @DisplayName("Ledger size checked - exception case - no groups in repository")
     void isLedgerSizeCheckedNoGroups(){
         //Arrange:
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
 
         //Act:
         try {
@@ -1116,7 +1116,7 @@ class GroupsRepositoryTest {
     @DisplayName("getting group by its description")
     void getGroupByDescriptionTest(){
         //Arrange:
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
@@ -1139,7 +1139,7 @@ class GroupsRepositoryTest {
     @DisplayName("getting group by its description")
     void getGroupByDescriptionTestException(){
         //Arrange:
-        GroupsRepository groupsRepository = new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository = new GroupsInMemoryRepository();
         PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
 
         personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
@@ -1166,7 +1166,7 @@ class GroupsRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupsRepository groupsRepository= new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository= new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person);
         Group expected= new Group(new Description("Familia"),person);
 
@@ -1184,7 +1184,7 @@ class GroupsRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupsRepository groupsRepository= new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository= new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person);
         Group expected= new Group(new Description("Familia"),person);
 
@@ -1211,7 +1211,7 @@ class GroupsRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupsRepository groupsRepository= new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository= new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person);
 
         //Act
@@ -1228,7 +1228,7 @@ class GroupsRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupsRepository groupsRepository= new GroupsRepository();
+        GroupsInMemoryRepository groupsRepository= new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person);
 
         //Act

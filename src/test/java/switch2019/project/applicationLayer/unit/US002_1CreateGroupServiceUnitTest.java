@@ -18,7 +18,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
+import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
 import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +32,7 @@ public class US002_1CreateGroupServiceUnitTest {
     @Mock
     private PersonInMemoryRepository personRepository;
     @Mock
-    private GroupsRepository groupsRepository;
+    private GroupsInMemoryRepository groupsRepository;
 
     @InjectMocks
     private US002_1CreateGroupService service;

@@ -18,7 +18,7 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
+import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
 import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 import java.util.LinkedHashSet;
@@ -34,7 +34,7 @@ public class US004GetFamilyGroupsServiceUnitTest {
     private PersonInMemoryRepository personRepo;
 
     @Mock
-    private GroupsRepository groupsRepo;
+    private GroupsInMemoryRepository groupsRepo;
 
     //Creating mocked service and inject mocked dependencies:
     @InjectMocks

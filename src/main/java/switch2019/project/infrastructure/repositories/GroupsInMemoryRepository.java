@@ -12,13 +12,14 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.shared.GroupID;
+import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.Repository;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
-public class GroupsRepository implements Repository {
+public class GroupsInMemoryRepository implements GroupRepository {
     // Private instance variables
     private Set<Group> groups;
 
@@ -27,7 +28,7 @@ public class GroupsRepository implements Repository {
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
 
     //Constructor
-    public GroupsRepository() {
+    public GroupsInMemoryRepository() {
         groups = new LinkedHashSet<>();
     }
 

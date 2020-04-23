@@ -25,18 +25,4 @@ public interface PersonRepository extends Repository{
      */
     boolean isPersonEmailOnRepository (Email personEmail);
 
-
-    /**
-     * Verify if ID exists on person Repository
-     * @param personID
-     */
-    boolean isIDOnRepository (ID personID);
-
-    /**
-     *Method to check the number of Persons inside the Repository.
-     */
-
-    int repositorySize ();
-
-
 }

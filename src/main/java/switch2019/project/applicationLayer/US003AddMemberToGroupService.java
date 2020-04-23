@@ -9,7 +9,7 @@ import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.infrastructure.repositories.GroupsRepository;
+import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
 import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class US003AddMemberToGroupService {
     @Autowired
     private PersonInMemoryRepository personRepository;
     @Autowired
-    private GroupsRepository groupsRepository;
+    private GroupsInMemoryRepository groupsRepository;
 
     /**
      * US003
