@@ -2,15 +2,16 @@ package switch2019.project.DTO.DeserializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
+import switch2019.project.DTO.SerializationDTO.AccountDTO;
+import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateGroupCategoryInfoDTOTest {
 
     @DisplayName("Test getGroupDescription Getter")
     @Test
-    public void getGroupDescriptionTest(){
+    public void getGroupDescriptionTest() {
         //Arrange
         CreateGroupCategoryInfoDTO dto = new CreateGroupCategoryInfoDTO();
 
@@ -29,7 +30,7 @@ public class CreateGroupCategoryInfoDTOTest {
 
     @DisplayName("Test getPersonEmail")
     @Test
-    public void getPersonEmailTest(){
+    public void getPersonEmailTest() {
         //Arrange
         CreateGroupCategoryInfoDTO dto = new CreateGroupCategoryInfoDTO();
 
@@ -48,7 +49,7 @@ public class CreateGroupCategoryInfoDTOTest {
 
     @DisplayName("Test getCategoryDenomination")
     @Test
-    public void getCategoryDenominationTest(){
+    public void getCategoryDenominationTest() {
         //Arrange
         CreateGroupCategoryInfoDTO dto = new CreateGroupCategoryInfoDTO();
 
@@ -63,5 +64,143 @@ public class CreateGroupCategoryInfoDTOTest {
 
         //Assert
         assertEquals(expectedCategoryDenomination, realCategoryDenomination);
+    }
+
+    /**
+     * Tests for the equals method
+     */
+
+    @Test
+    @DisplayName("Test to equals - Same Object")
+    void equalsSameObject() {
+        //Arrange
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Null Object")
+    void equalsNullObject() {
+        //Arrange
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        CreateGroupCategoryDTO groupCategoryinfoDTOnull = null;
+        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(null);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - DifferentClass Object")
+    void equalsDifferentObject() {
+        //Arrange
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        AccountDTO accountDTO = new AccountDTO("marta@isep.pt", "savings", "2020 savings");
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(accountDTO);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Same Parameters")
+    void testEqualsSameParameters() {
+        //Arrange:
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Different Parameters")
+    void testEqualsDifferentParameters() {
+        //Arrange:
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Different Parameters-Denomintion")
+    void testEqualsDifferentParametersDenomination() {
+        //Arrange:
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("shop");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Different Parameters-Description")
+    void testEqualsDifferentParametersDescription() {
+        //Arrange:
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("ginásio");
+
+        CreateGroupCategoryInfoDTO groupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
+        groupCategoryInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupCategoryInfoDTO.setCategoryDenomination("compras");
+        groupCategoryInfoDTO.setGroupDescription("gym");
+
+        //Act
+        boolean result = groupCategoryInfoDTO.equals(groupCategoryInfoDTO2);
+
+        //Assert:
+        assertFalse(result);
     }
 }
