@@ -13,13 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class PersonRepository implements Repository {
+public class PersonInMemoryRepository implements Repository {
 
     // Private instance variable
     private final Set<Person> listOfPersons;
 
     //1st Constructor
-    public PersonRepository() {
+    public PersonInMemoryRepository() {
         listOfPersons = new HashSet<>();
     }
 

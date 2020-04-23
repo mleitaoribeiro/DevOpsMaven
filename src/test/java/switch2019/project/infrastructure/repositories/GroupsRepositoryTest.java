@@ -1117,7 +1117,7 @@ class GroupsRepositoryTest {
     void getGroupByDescriptionTest(){
         //Arrange:
         GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
@@ -1140,7 +1140,7 @@ class GroupsRepositoryTest {
     void getGroupByDescriptionTestException(){
         //Arrange:
         GroupsRepository groupsRepository = new GroupsRepository();
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
 
         personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
                 new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));

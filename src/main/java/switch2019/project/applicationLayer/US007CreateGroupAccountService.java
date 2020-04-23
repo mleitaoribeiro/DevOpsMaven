@@ -14,14 +14,14 @@ import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
+import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 
 @Service
 public class US007CreateGroupAccountService {
 
     @Autowired
-    private PersonRepository personRepository;
+    private PersonInMemoryRepository personRepository;
     @Autowired
     private GroupsRepository groupsRepository;
     @Autowired

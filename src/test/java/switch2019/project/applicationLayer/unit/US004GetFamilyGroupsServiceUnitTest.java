@@ -19,7 +19,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
+import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class US004GetFamilyGroupsServiceUnitTest {
 
     //Mocking of the repositories:
     @Mock
-    private PersonRepository personRepo;
+    private PersonInMemoryRepository personRepo;
 
     @Mock
     private GroupsRepository groupsRepo;

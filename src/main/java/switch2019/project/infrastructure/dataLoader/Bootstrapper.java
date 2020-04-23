@@ -13,13 +13,13 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
 import switch2019.project.infrastructure.repositories.CategoryInMemoryRepository;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
+import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 @Component
 public class Bootstrapper {
 
     @Autowired
-    PersonRepository personRepository;
+    PersonInMemoryRepository personRepository;
     @Autowired
     GroupsRepository groupRepository;
     @Autowired

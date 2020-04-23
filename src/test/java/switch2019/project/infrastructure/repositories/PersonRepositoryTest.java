@@ -17,7 +17,7 @@ class PersonRepositoryTest {
     void createPerson() {
 
         //Arrange:
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         Person expected = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
@@ -34,7 +34,7 @@ class PersonRepositoryTest {
     void findPersonByID() {
 
         //Arrange:
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
         Person expected = new Person("Marta", new DateAndTime(1996, 4, 27),
@@ -52,7 +52,7 @@ class PersonRepositoryTest {
     void findPersonByIDException() {
 
         //Arrange:
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
@@ -71,7 +71,7 @@ class PersonRepositoryTest {
     void findPersonByAttributes() {
 
         //Arrange:
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
         Person expected = new Person("Marta", new DateAndTime(1996, 4, 27),
@@ -89,7 +89,7 @@ class PersonRepositoryTest {
     void findPersonByEmailException() {
 
         //Arrange:
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         personRepository.createPerson("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
@@ -107,7 +107,7 @@ class PersonRepositoryTest {
     @DisplayName("Verify If Person ID exists On Person Repository - Main Scenario")
     void verifyIfPersonIDExistsOnPersonRepository() {
         //Arrange
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
 
         Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
@@ -126,7 +126,7 @@ class PersonRepositoryTest {
     @DisplayName("Verify If Person ID exists On Person Repository - False Case")
     void verifyIfPersonIDExistsOnPersonRepositoryFalse() {
         //Arrange
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
 
         Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
@@ -145,7 +145,7 @@ class PersonRepositoryTest {
     @DisplayName("Verify If Person Email exists On Person Repository - False Scenario")
     void verifyIfPersonEmailExistsOnPersonRepository() {
         //Arrange
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
 
         Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
@@ -162,7 +162,7 @@ class PersonRepositoryTest {
     @DisplayName("Verify If Person Email exists On Person Repository - False Case")
     void verifyIfPersonEmailExistsOnRepositoryFalse() {
         //Arrange
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         personRepository.createPerson("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
 
@@ -177,7 +177,7 @@ class PersonRepositoryTest {
     @DisplayName("Repository Size")
     void verifyRepoSize() {
         //Arrange
-        PersonRepository personRepository = new PersonRepository();
+        PersonInMemoryRepository personRepository = new PersonInMemoryRepository();
         int expected = 1;
 
         Person personJose = new Person("José Cardoso", new DateAndTime(1995, 1, 13), new Address("Miragaia"),

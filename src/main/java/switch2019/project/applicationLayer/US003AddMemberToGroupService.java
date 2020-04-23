@@ -10,12 +10,12 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.repositories.GroupsRepository;
-import switch2019.project.infrastructure.repositories.PersonRepository;
+import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 @Service
 public class US003AddMemberToGroupService {
     @Autowired
-    private PersonRepository personRepository;
+    private PersonInMemoryRepository personRepository;
     @Autowired
     private GroupsRepository groupsRepository;
 
