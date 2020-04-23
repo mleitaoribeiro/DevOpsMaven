@@ -124,31 +124,31 @@ class CreateGroupAccountInfoDTOTest {
         //Assert:
         assertFalse(result);
     }
-//
-//    @Test
-//    @DisplayName("Test to equals - Same Parameters")
-//    void testEqualsSameParameters() {
-//        //Arrange:
-//
-//        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
-//        groupAccountInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
-//        groupAccountInfoDTO.setAccountDenomination("compras");
-//        groupAccountInfoDTO.setAccountDescription("balada");
-//        groupAccountInfoDTO.setGroupDescription("gym");
-//
-//        CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-//        groupAccountInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
-//        groupAccountInfoDTO.setAccountDenomination("compras");
-//        groupAccountInfoDTO.setAccountDescription("balada");
-//        groupAccountInfoDTO.setGroupDescription("gym");
-//
-//
-//        //Act
-//        boolean result = groupAccountInfoDTO.equals(groupAccountInfoDTO2);
-//
-//        //Assert:
-//        assertTrue(result);
-//    }
+
+    @Test
+    @DisplayName("Test to equals - Same Parameters")
+    void testEqualsSameParameters() {
+        //Arrange:
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+        groupAccountInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        groupAccountInfoDTO.setAccountDenomination("compras");
+        groupAccountInfoDTO.setAccountDescription("balada");
+        groupAccountInfoDTO.setGroupDescription("gym");
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
+        groupAccountInfoDTO2.setPersonEmail("1191762@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("compras");
+        groupAccountInfoDTO2.setAccountDescription("balada");
+        groupAccountInfoDTO2.setGroupDescription("gym");
+
+
+        //Act
+        boolean result = groupAccountInfoDTO.equals(groupAccountInfoDTO2);
+
+        //Assert:
+        assertTrue(result);
+    }
 
     @Test
     @DisplayName("Test to equals - Different Parameters")
@@ -162,10 +162,10 @@ class CreateGroupAccountInfoDTOTest {
         groupAccountInfoDTO.setGroupDescription("gym");
 
         CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupAccountInfoDTO.setAccountDenomination("compras");
-        groupAccountInfoDTO.setAccountDescription("balada");
-        groupAccountInfoDTO.setGroupDescription("gym");
+        groupAccountInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("compras");
+        groupAccountInfoDTO2.setAccountDescription("balada");
+        groupAccountInfoDTO2.setGroupDescription("gym");
 
 
         //Act
@@ -187,10 +187,10 @@ class CreateGroupAccountInfoDTOTest {
         groupAccountInfoDTO.setGroupDescription("gym");
 
         CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupAccountInfoDTO.setAccountDenomination("bolas");
-        groupAccountInfoDTO.setAccountDescription("balada");
-        groupAccountInfoDTO.setGroupDescription("gym");
+        groupAccountInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("bolas");
+        groupAccountInfoDTO2.setAccountDescription("balada");
+        groupAccountInfoDTO2.setGroupDescription("gym");
 
 
         //Act
@@ -212,10 +212,10 @@ class CreateGroupAccountInfoDTOTest {
         groupAccountInfoDTO.setGroupDescription("gym");
 
         CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupAccountInfoDTO.setAccountDenomination("bolas");
-        groupAccountInfoDTO.setAccountDescription("noite");
-        groupAccountInfoDTO.setGroupDescription("gym");
+        groupAccountInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("bolas");
+        groupAccountInfoDTO2.setAccountDescription("noite");
+        groupAccountInfoDTO2.setGroupDescription("gym");
 
 
         //Act
@@ -236,10 +236,10 @@ class CreateGroupAccountInfoDTOTest {
         groupAccountInfoDTO.setGroupDescription("gym");
 
         CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupAccountInfoDTO.setAccountDenomination("bolas");
-        groupAccountInfoDTO.setAccountDescription("noite");
-        groupAccountInfoDTO.setGroupDescription("ginásio");
+        groupAccountInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("bolas");
+        groupAccountInfoDTO2.setAccountDescription("noite");
+        groupAccountInfoDTO2.setGroupDescription("ginásio");
 
 
         //Act
@@ -249,28 +249,28 @@ class CreateGroupAccountInfoDTOTest {
         assertFalse(result);
     }
 
-//    @Test
-//    void testHashCodeTRUE() {
-//        //Arrange:
-//
-//        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
-//        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-//        groupAccountInfoDTO.setAccountDenomination("bolas");
-//        groupAccountInfoDTO.setAccountDescription("noite");
-//        groupAccountInfoDTO.setGroupDescription("gym");
-//
-//        CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-//        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-//        groupAccountInfoDTO.setAccountDenomination("bolas");
-//        groupAccountInfoDTO.setAccountDescription("noite");
-//        groupAccountInfoDTO.setGroupDescription("gym");
-//
-//        //Act:
-//        boolean result = groupAccountInfoDTO.hashCode() == groupAccountInfoDTO2.hashCode();
-//
-//        //Assert:
-//        assertTrue(result);
-//    }
+    @Test
+    void testHashCodeTRUE() {
+        //Arrange:
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO.setAccountDenomination("bolas");
+        groupAccountInfoDTO.setAccountDescription("noite");
+        groupAccountInfoDTO.setGroupDescription("gym");
+
+        CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
+        groupAccountInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("bolas");
+        groupAccountInfoDTO2.setAccountDescription("noite");
+        groupAccountInfoDTO2.setGroupDescription("gym");
+
+        //Act:
+        boolean result = groupAccountInfoDTO.hashCode() == groupAccountInfoDTO2.hashCode();
+
+        //Assert:
+        assertTrue(result);
+    }
 
     @Test
     void testHashCodeFalse() {
@@ -283,10 +283,10 @@ class CreateGroupAccountInfoDTOTest {
         groupAccountInfoDTO.setGroupDescription("gym");
 
         CreateGroupAccountInfoDTO groupAccountInfoDTO2 = new CreateGroupAccountInfoDTO();
-        groupAccountInfoDTO.setPersonEmail("marge@isep.ipp.pt");
-        groupAccountInfoDTO.setAccountDenomination("bolas");
-        groupAccountInfoDTO.setAccountDescription("noitadas");
-        groupAccountInfoDTO.setGroupDescription("gym");
+        groupAccountInfoDTO2.setPersonEmail("marge@isep.ipp.pt");
+        groupAccountInfoDTO2.setAccountDenomination("bolas");
+        groupAccountInfoDTO2.setAccountDescription("noitadas");
+        groupAccountInfoDTO2.setGroupDescription("gym");
 
         //Act:
         boolean result = groupAccountInfoDTO.hashCode() == groupAccountInfoDTO2.hashCode();

@@ -1,11 +1,12 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,13 @@ public class US006CreatePersonAccountControllerRestUnitTest {
     @Mock
     private US006CreatePersonAccountService service;
 
-    @Autowired
+    @InjectMocks
     private US006CreatePersonAccountControllerRest controller;
 
+    @BeforeEach
+    public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
 
     /**
      * US006
@@ -41,7 +46,6 @@ public class US006CreatePersonAccountControllerRestUnitTest {
      */
 
     //ISSUE 820
-
     @DisplayName("Test If User Account is created - Main Scenario")
     @Test
     void testIfUserAccountWasCreatedSuccessCase() {
@@ -60,7 +64,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(personEmail, accountDenomination, accountDescription);
-        ResponseEntity <AccountDTO> responseEntityExpected = new ResponseEntity<>(accountExpectedDTO, HttpStatus.CREATED);
+        ResponseEntity<AccountDTO> responseEntityExpected = new ResponseEntity<>(accountExpectedDTO, HttpStatus.CREATED);
 
         MockitoAnnotations.initMocks(this);
         Mockito.when(service.createPersonAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
@@ -86,13 +90,11 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("This account already exists."));
 
-        controller.createPersonAccount(createPersonAccountInfoDTO);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -118,11 +120,10 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("No person found with that email."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -147,9 +148,8 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(
                 new IllegalArgumentException("The email can't be null."));
 
@@ -178,11 +178,10 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -209,11 +208,10 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -240,9 +238,8 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
 
-        MockitoAnnotations.initMocks(this);
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
@@ -270,11 +267,10 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO (createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenReturn(accountCreatedExpected);
+        Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
