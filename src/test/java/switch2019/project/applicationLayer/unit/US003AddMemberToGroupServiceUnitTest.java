@@ -42,7 +42,7 @@ public class US003AddMemberToGroupServiceUnitTest {
     }
 
     @Test
-    @DisplayName("Test if a member was added to group")
+    @DisplayName("Test if a member was added to group - Happy Case")
     void addMemberToGroup() {
         //Arrange
         String personEmail = "beatriz.azevedo@gmail.com";
@@ -71,8 +71,9 @@ public class US003AddMemberToGroupServiceUnitTest {
         assertEquals(addedMemberDTOexpected, addedMemberDTOresult);
     }
 
+
     @Test
-    @DisplayName("Test if a member was added to group - Person already in the group")
+    @DisplayName("Test if a member was added to group - Exception - Person already in the group")
     void addMemberToGroupAlreadyIn() {
         //Arrange
         String personEmail = "beatriz.azevedo@gmail.com";
@@ -99,5 +100,91 @@ public class US003AddMemberToGroupServiceUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("beatriz.azevedo@gmail.com is already on group friends.");
     }
+
+    @Test
+    @DisplayName("Test if a member was added to group - Exception - Person doesn't exist on Person Repository")
+    void addMemberToGroupPersonDoesntExist() {
+        //Arrange
+        String personEmail = "raquel.rodrigz@gmail.com";
+        String groupDescription = "Friends";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
+
+        //Act
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenThrow(new IllegalArgumentException("No person found with that email."));
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription())))
+                .thenThrow(new IllegalArgumentException("No person found with that email."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addMemberToGroup(addMemberDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+
+    @Test
+    @DisplayName("Test if a member was added to group - Exception - Group doesn't exist on Group Repository")
+    void addMemberToGroupThatDoesntExist() {
+        //Arrange
+        String personEmail = "beatriz.azevedo@gmail.com";
+        String groupDescription = "GrupodeElite";
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, groupDescription);
+
+        Person member = new Person("Beatriz Azevedo", new DateAndTime(1995, 4, 12), new Address("Porto"),
+                new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"), new Email("beatriz.azevedo@gmail.com"));
+
+        //Act
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(member);
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription())))
+                .thenThrow(new IllegalArgumentException("No group found with that description."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addMemberToGroup(addMemberDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("Test if a member was added to group - Exception - Group Description is null")
+    void addMemberToGroupNullGroupDescription() {
+        //Arrange
+        String personEmail = "beatriz.azevedo@gmail.com";
+
+        AddMemberDTO addMemberDTO = new AddMemberDTO(personEmail, null);
+
+        Person member = new Person("Beatriz Azevedo", new DateAndTime(1995, 4, 12), new Address("Porto"),
+                new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"), new Email("beatriz.azevedo@gmail.com"));
+
+        //Act
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(member);
+
+        Mockito.when(groupsRepository.findGroupByDescription(null))
+                .thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addMemberToGroup(addMemberDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
 
 }
