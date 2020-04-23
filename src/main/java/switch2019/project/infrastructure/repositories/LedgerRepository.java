@@ -11,11 +11,10 @@ public class LedgerRepository { //implements Repository {
      * @param ledgerID
      * @return
      */
+
     public Ledger getByID (Ledger ledgerID) {
         return null;
     }
-
-
 
     /**
      * Verifies if ID exists on the Repository
@@ -23,10 +22,10 @@ public class LedgerRepository { //implements Repository {
      * @param ledgerID
      * @return
      */
+
    public boolean isIDOnRepository (Ledger ledgerID) {
         return false;
     }
-
 
     /**
      * Method to check the number of Ledgers inside the Repository.
