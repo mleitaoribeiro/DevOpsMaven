@@ -18,8 +18,8 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.AccountRepository;
-import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
+import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -29,10 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class US007CreateGroupAccountServiceUnitTest {
 
     @Mock
-    private PersonInMemoryRepository personRepository;
+    private PersonRepository personRepository;
 
     @Mock
-    private GroupsInMemoryRepository groupsRepository;
+    private GroupRepository groupsRepository;
 
     @Mock
     private AccountRepository accountRepository;

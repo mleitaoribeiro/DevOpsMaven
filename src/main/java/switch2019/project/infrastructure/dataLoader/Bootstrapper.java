@@ -10,18 +10,18 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.infrastructure.repositories.AccountInMemoryRepository;
 import switch2019.project.infrastructure.repositories.CategoryInMemoryRepository;
-import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
 
 @Component
 public class Bootstrapper {
 
     @Autowired
-    PersonInMemoryRepository personRepository;
+    PersonRepository personRepository;
     @Autowired
-    GroupsInMemoryRepository groupRepository;
+    GroupRepository groupRepository;
     @Autowired
     AccountInMemoryRepository accountInMemoryRepository;
     @Autowired

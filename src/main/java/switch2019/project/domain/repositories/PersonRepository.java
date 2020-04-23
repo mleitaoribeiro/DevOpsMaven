@@ -1,10 +1,27 @@
 package switch2019.project.domain.repositories;
 
 import switch2019.project.domain.domainEntities.frameworks.ID;
+import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
 public interface PersonRepository extends Repository{
+    /**
+     *
+     * @param name
+     * @param birthDate
+     * @param birthPlace
+     * @param homeAddress
+     * @param email
+     */
+
+    //2nd constructor
+    Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email);
+
+    //3th constructor
+    Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
+                        Person mother, Person father, Email email);
 
     /**
      * Find person by ID

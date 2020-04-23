@@ -16,7 +16,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.AccountRepository;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class US006CreatePersonAccountServiceUnitTest {
 
     @Mock
-    private PersonInMemoryRepository personRepository;
+    private PersonRepository personRepository;
 
     @Mock
     private AccountRepository accountRepository;

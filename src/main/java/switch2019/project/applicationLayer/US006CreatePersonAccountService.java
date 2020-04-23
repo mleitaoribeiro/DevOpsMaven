@@ -11,13 +11,13 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.AccountRepository;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 
 @Service
 public class US006CreatePersonAccountService {
 
     @Autowired
-    private PersonInMemoryRepository personRepository;
+    private PersonRepository personRepository;
 
     @Autowired
     private AccountRepository accountRepository;

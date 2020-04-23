@@ -19,8 +19,8 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.repositories.CategoryRepository;
-import switch2019.project.infrastructure.repositories.GroupsInMemoryRepository;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
+import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -29,10 +29,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
 
     @Mock
-    private PersonInMemoryRepository personRepository;
+    private PersonRepository personRepository;
 
     @Mock
-    private GroupsInMemoryRepository groupsRepository;
+    private GroupRepository groupsRepository;
 
     @Mock
     private CategoryRepository categoryRepository;

@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.infrastructure.repositories.PersonInMemoryRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 
 @Service
 public class US001AreSiblingsService {
 
     @Autowired
-    private PersonInMemoryRepository repository;
+    private PersonRepository repository;
 
     /**
      * US001
