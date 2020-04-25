@@ -1,8 +1,10 @@
 package switch2019.project.DTO.SerializationDTO;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class CategoryDTO {
+public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 
    /* The Category DTO transfers strings that refer to Category attributes:
     denomination .- a String refering to the Category Denomination attribute

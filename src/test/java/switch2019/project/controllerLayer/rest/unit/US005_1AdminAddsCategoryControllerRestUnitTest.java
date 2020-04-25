@@ -17,6 +17,10 @@ import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.controllerLayer.rest.US005_1AdminAddsCategoryControllerRest;
+import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-
 class US005_1AdminAddsCategoryControllerRestUnitTest {
+
     @Mock
     private US005_1AdminAddsCategoryToGroupService service;
 
@@ -37,6 +41,12 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * US005.1
+     * As a Group Administrator, I want to create a category and add it to the group.
+     *
+     * @throws Exception
+     */
     @Test
     @DisplayName("Happy Case - one category is added to Group categories by an admin")
     void addsCategoryToCategoryListAdmin() throws Exception {
@@ -233,6 +243,123 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("This category already exists.");
 
+    }
+
+    /**
+     * Test if a category can be found by the ID
+     */
+    @Test
+    @DisplayName("Test if a category can be found by the ID - Happy Case")
+    void getCategoryByCategoryID() {
+
+        //Arrange
+        String groupDescription = "SMITH FAMILY";
+        String categoryDescription = "ONLINE";
+
+        //DTO expected
+        CategoryDTO categoryDTOExpected = new CategoryDTO(categoryDescription, groupDescription);
+
+        //arranging mockitos
+        Mockito.when(service.getCategoryByCategoryID(categoryDescription, groupDescription))
+                .thenReturn(categoryDTOExpected);
+
+        //Act
+        CategoryDTO categoryDTOResult = service.getCategoryByCategoryID(categoryDescription, groupDescription);
+
+        //Assert
+        assertEquals(categoryDTOExpected, categoryDTOResult);
+    }
+
+    @Test
+    @DisplayName("Test if a category can be found by the ID - group not found")
+    void getCategoryByCategoryIDGroupNotFound() {
+
+        //Arrange
+        String groupDescription = "Just4Fun";
+        String categoryDescription = "ONLINE";
+
+        //arranging mockitos
+        Mockito.when(service.getCategoryByCategoryID(categoryDescription, groupDescription))
+                .thenThrow(new IllegalArgumentException("No group found with that description."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoryByCategoryID(categoryDescription, groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("Test if a category can be found by the ID - category not found")
+    void getCategoryByCategoryIDCategoryNotFound() {
+
+        //Arrange
+        String groupDescription = "SMITH FAMILY";
+        String categoryDescription = "Dispenses";
+
+        //arranging mockitos
+        Mockito.when(service.getCategoryByCategoryID(categoryDescription, groupDescription))
+                .thenThrow(new IllegalArgumentException("No category found with that ID."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoryByCategoryID(categoryDescription, groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No category found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test if a category can be found by the ID - category null")
+    void getCategoryByCategoryIDCategoryNull() {
+
+        //Arrange
+        String groupDescription = "SMITH FAMILY";
+        String categoryDescription = null;
+
+        //arranging mockitos
+        Mockito.when(service.getCategoryByCategoryID(categoryDescription, groupDescription))
+                .thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoryByCategoryID(categoryDescription, groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test if a category can be found by the ID - group null")
+    void getCategoryByCategoryIDGroupNull() {
+
+        //Arrange
+        String groupDescription = null;
+        String categoryDescription = "ONLINE";
+
+        //arranging mockitos
+        Mockito.when(service.getCategoryByCategoryID(categoryDescription, groupDescription))
+                .thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoryByCategoryID(categoryDescription, groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
     }
 
 }

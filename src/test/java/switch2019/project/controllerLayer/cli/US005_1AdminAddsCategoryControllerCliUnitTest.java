@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 
 class US005_1AdminAddsCategoryControllerCliUnitTest {
+
     @Mock
     private US005_1AdminAddsCategoryToGroupService service;
 
@@ -33,6 +34,12 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * US005.1
+     * As a Group Administrator, I want to create a category and add it to the group.
+     *
+     * @throws Exception
+     */
     @Test
     @DisplayName("Happy Case - one category is added to Group categories by an admin")
     void addsCategoryToCategoryListAdmin() throws Exception {
