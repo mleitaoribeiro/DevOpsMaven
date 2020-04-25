@@ -445,6 +445,7 @@ public class Bootstrapper {
 
         categoriesRepository.createCategory(new Denomination("GYM"), switchGroup.getID());
         categoriesRepository.createCategory(new Denomination("ISEP"), switchGroup.getID());
+        categoriesRepository.createCategory(new Denomination("ONLINE"), smithFamilyGroup.getID());
 
         /*Add Accounts to Owner ID*/
 

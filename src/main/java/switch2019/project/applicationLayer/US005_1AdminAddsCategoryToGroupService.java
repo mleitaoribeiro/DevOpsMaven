@@ -6,8 +6,10 @@ import switch2019.project.DTO.SerializationDTO.CategoryDTO;
 import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.CategoryID;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.CategoryRepository;
@@ -27,7 +29,7 @@ public class US005_1AdminAddsCategoryToGroupService {
 
 
     /**
-     * User Story 5.1 .- As a group admin i want to associate a category to my group.
+     * User Story 5.1 - As a group admin i want to associate a category to my group.
      *
      * @param dto
      * @return categoryDTO
@@ -42,6 +44,28 @@ public class US005_1AdminAddsCategoryToGroupService {
             return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryAdded);
         } else
             throw new IllegalArgumentException("This person is not member or admin of this group.");
+    }
+
+    /**
+     * method that finds a category by category ID
+     *
+     * @param categoryDescription
+     * @param groupDescription
+     * @return CategoryDTO representing a Category
+     */
+    public CategoryDTO getCategoryByCategoryID (String categoryDescription, String groupDescription) {
+
+        //find groupID that created the category
+        OwnerID newGroupID = groupsRepository.findGroupByDescription(new Description (groupDescription)).getID();
+
+        //transform strings given in a category ID
+        CategoryID newCategoryID = new CategoryID(new Denomination(categoryDescription), newGroupID);
+
+        //find category by ID
+        Category newCategory = categoryRepository.getByID(newCategoryID);
+
+        //return DTO that represents category
+        return CategoryDTOAssembler.createCategoryDTOFromCategory(newCategory);
     }
 }
 
