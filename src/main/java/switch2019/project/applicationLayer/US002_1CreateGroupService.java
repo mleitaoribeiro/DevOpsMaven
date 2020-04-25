@@ -37,4 +37,14 @@ public class US002_1CreateGroupService {
         return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
     }
 
+    /**
+     * method that finds a group by its description and returns a GroupDTO
+     * @param groupDescription
+     * @return
+     */
+
+    public GroupDTO getGroupByDescription(String groupDescription) {
+     Group group = groupsRepository.findGroupByDescription( new Description(groupDescription));
+     return GroupDTOAssembler.createGroupDTO( group.getID());
+    }
 }

@@ -8,6 +8,8 @@ import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
 import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -111,4 +113,75 @@ class US002_1CreateGroupServiceTest {
             assertEquals("The email can't be null.", ex.getMessage());
         }
     }
+
+    /**
+     * US002.1
+     * Test if a groupDTO is returned given its description
+     */
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description  Hapyy Case")
+    public void getGroupByDescription() {
+        //Arrange
+        String groupDescription = "SWITCH";
+        GroupDTO outputExpected = new GroupDTO("SWITCH");
+
+        //Act
+        GroupDTO outputActual = service.getGroupByDescription(groupDescription);
+
+        //Assert
+        assertEquals(outputExpected, outputActual);
+    }
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description - Not Found")
+    public void getGroupByDescriptionNotFound() {
+        //Arrange
+        String groupDescription = "Just4Fun";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getGroupByDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description - group null")
+    void getGroupByDescriptionNull() {
+        //Arrange:
+        String groupDescription = null;
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getGroupByDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test if a category can be found by the ID - group empty")
+    void getCategoryByCategoryIDGroupEmpty() {
+        //Arrange:
+        String groupDescription = "";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getGroupByDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
 }
+
