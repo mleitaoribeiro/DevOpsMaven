@@ -33,7 +33,7 @@ public class PersonInMemoryRepository implements PersonRepository {
 
     //3rd constructor - Alternative constructor for people with mother and father
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
-                               Person mother, Person father, Email email) {
+                               PersonID mother, PersonID father, Email email) {
         listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, mother, father, email));
         return this.getByID(new PersonID(email));
     }

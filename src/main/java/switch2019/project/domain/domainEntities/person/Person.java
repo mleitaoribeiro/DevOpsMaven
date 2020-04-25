@@ -24,8 +24,8 @@ public class Person implements Owner {
     private PersonName name;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
-    private Person mother;
-    private Person father;
+    private PersonID mother;
+    private PersonID father;
     private Address address;
     private Address birthPlace;
     private Ledger ledger;
@@ -60,7 +60,7 @@ public class Person implements Owner {
      * @param father
      */
 
-    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Person mother, Person father,
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, PersonID mother, PersonID father,
                   Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
@@ -127,7 +127,7 @@ public class Person implements Owner {
      *
      * @param mother new mother Person
      */
-    public void setMother(Person mother) {
+    public void setMother(PersonID mother) {
         this.mother = mother;
     }
 
@@ -137,7 +137,7 @@ public class Person implements Owner {
      * @param father new father Person
      */
 
-    public void setFather(Person father) {
+    public void setFather(PersonID father) {
         this.father = father;
     }
 
@@ -192,7 +192,7 @@ public class Person implements Owner {
      * @param mother Person to validate if it's the mother
      * @return boolean
      */
-    public boolean isMother(Person mother) {
+    public boolean isMother(PersonID mother) {
         if (this.mother == null) return false;
         else return this.mother.equals(mother);
     }
@@ -204,7 +204,7 @@ public class Person implements Owner {
      * @return boolean
      */
 
-    public boolean isFather(Person father) {
+    public boolean isFather(PersonID father) {
         if (this.father == null || father == null) return false;
         else return this.father.equals(father);
     }

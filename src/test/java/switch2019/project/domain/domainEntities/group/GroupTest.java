@@ -630,12 +630,12 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5));
 
-        person1.setMother(person4);
-        person1.setFather(person5);
-        person2.setMother(person4);
-        person2.setFather(person5);
-        person3.setMother(person4);
-        person3.setFather(person5);
+        person1.setMother(person4.getID());
+        person1.setFather(person5.getID());
+        person2.setMother(person4.getID());
+        person2.setFather(person5.getID());
+        person3.setMother(person4.getID());
+        person3.setFather(person5.getID());
 
         Group group1 = new Group(new Description("Family"),person4);
         // Act
@@ -664,12 +664,12 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("34@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5, person6));
 
-        person1.setMother(person4);
-        person1.setFather(person5);
-        person2.setMother(person4);
-        person2.setFather(person5);
-        person3.setMother(person4);
-        person3.setFather(person5);
+        person1.setMother(person4.getID());
+        person1.setFather(person5.getID());
+        person2.setMother(person4.getID());
+        person2.setFather(person5.getID());
+        person3.setMother(person4.getID());
+        person3.setFather(person5.getID());
 
         Group group1 = new Group(new Description("Family"),person1);
         // Act
@@ -722,9 +722,9 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
         HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
 
-        person1.setFather(person5);
-        person2.setFather(person5);
-        person3.setFather(person5);
+        person1.setFather(person5.getID());
+        person2.setFather(person5.getID());
+        person3.setFather(person5.getID());
 
         Group group1 = new Group(new Description("Family"),person1);
 
@@ -1114,7 +1114,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("qwerty@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("321@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("321@isep.pt"));
         Group group1 = new Group(new Description("Maria's Group"),person3);
 
 
@@ -1136,9 +1136,9 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("12@isep.pt"));
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3, new Email("1@isep.pt"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2.getID(), person3.getID(), new Email("1@isep.pt"));
         Group group1 = new Group(new Description("Maria's Group"),person);
         group1.addMember(person3);
         group1.addMember(person4);
@@ -1166,7 +1166,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("234@isep.pt"));
         Group oneGroup = new Group(new Description("XPTO"),person);
 
         oneGroup.addMember(person2);
@@ -1192,7 +1192,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("ada@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("dasdas@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("dasdas@isep.pt"));
 
         Group oneGroup = new Group(new Description("XPTO"),person);
 
@@ -1219,7 +1219,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("elsa@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("sd@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("sd@isep.pt"));
 
         Group oneGroup = new Group(new Description("XPTO"),person);
         oneGroup.addMember(person2);
@@ -1263,7 +1263,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("134@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("34@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("34@isep.pt"));
         Group group1 = new Group(new Description("Maria's Group"),person);
         group1.addMember(person3);
         group1.addMember(person1);
@@ -1284,9 +1284,9 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("12@isep.pt"));
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), person2, person3, new Email("1@isep.pt"));
+                new Address("Rua dos Flores", "Porto", "4450-852"), person2.getID(), person3.getID(), new Email("1@isep.pt"));
         Group group1 = new Group(new Description("Maria's Group"),person1);
 
 
@@ -1956,11 +1956,6 @@ class GroupTest {
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
-
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
-
         group1.addMember(person1);
 
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
@@ -2036,11 +2031,6 @@ class GroupTest {
         Person person1 = new Person("Maria", new DateAndTime(1998, 12, 5), new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4455-987"), new Email("1234@isep.pt"));
 
-
-        Transaction transaction1 = new Transaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
-        Transaction transaction2 = new Transaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
-        Transaction transaction3 = new Transaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
-
         group1.createGroupTransaction(monetaryValue1, "payment", LocalDateTime.of(2020, 1, 14, 13, 05), category1, account1, account5, new Type(true));
         group1.createGroupTransaction(monetaryValue7, "payment", LocalDateTime.of(2020, 1, 20, 17, 22), category2, account5, account1, new Type(true));
         group1.createGroupTransaction(monetaryValue2, "payment", LocalDateTime.of(2019, 12, 25, 12, 15), category2, account2, account5, new Type(false));
@@ -2069,9 +2059,9 @@ class GroupTest {
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("14@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("14@isep.pt"));
         Person person4 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("123@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person.getID(), person1.getID(), new Email("123@isep.pt"));
         Group group1 = new Group(new Description("Test group"),person);
         group1.addMember(person3);
         group1.addMember(person4);
@@ -2108,9 +2098,9 @@ class GroupTest {
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("1234@isep.pt"));
         Person person4 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("123@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("123@isep.pt"));
         Group group1 = new Group(new Description("Test group"),person);
         group1.addMember(person3);
         group1.addMember(person4);
@@ -2150,9 +2140,9 @@ class GroupTest {
         Person person2 = new Person("Francisca", new DateAndTime(2000, 12, 12), new Address("Lisboa"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Jose", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("12@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("12@isep.pt"));
         Person person4 = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), person2, person1, new Email("1@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("1@isep.pt"));
         Group group1 = new Group(new Description("Test group"),person);
         group1.addMember(person3);
 

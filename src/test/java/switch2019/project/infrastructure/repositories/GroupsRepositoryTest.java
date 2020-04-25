@@ -229,11 +229,11 @@ class GroupsRepositoryTest {
         Person carlosDAD = new Person("Carlos", new DateAndTime(1950, 12, 12), new Address("Porto"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("123@isep.pt"));
         Person oscar = new Person("Oscar", new DateAndTime(1990, 12, 4), new Address("Espinho"),
-                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("12@isep.pt"));
+                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM.getID(), carlosDAD.getID(), new Email("12@isep.pt"));
         Person marta = new Person("Marta", new DateAndTime(1995, 11, 5), new Address("Paranhos"),
-                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("1@isep.pt"));
+                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM.getID(), carlosDAD.getID(), new Email("1@isep.pt"));
         Person joao = new Person("Joao", new DateAndTime(2000, 1, 12), new Address("Matosinhos"),
-                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM, carlosDAD, new Email("12345@isep.pt"));
+                new Address("Rua B", "Gaia", "4520-233"), manuelaMOM.getID(), carlosDAD.getID(), new Email("12345@isep.pt"));
 
         // Group
         Set<Person> familyMembersToAdd = new LinkedHashSet<>(Arrays.asList(oscar, marta, joao, carlosDAD));
@@ -249,11 +249,11 @@ class GroupsRepositoryTest {
         Person marge = new Person("Marge",new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("novoMail2@isep.pt"));
         Person bart = new Person("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"),
-                new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail3@isep.pt"));
+                new Address("Rua B", "Porto", "4520-233"), marge.getID(), homer.getID(), new Email("novoMail3@isep.pt"));
         Person lisa = new Person("Lisa", new DateAndTime(1990, 12, 4), new Address("Springfield"),
-                new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail4@isep.pt"));
+                new Address("Rua B", "Porto", "4520-233"), marge.getID(), homer.getID(), new Email("novoMail4@isep.pt"));
         Person maggie = new Person("Maggie", new DateAndTime(1990, 12, 4), new Address("Springfield"),
-                new Address("Rua B", "Porto", "4520-233"), marge, homer, new Email("novoMail5@isep.pt"));
+                new Address("Rua B", "Porto", "4520-233"), marge.getID(), homer.getID(), new Email("novoMail5@isep.pt"));
 
         // Group
         Set<Person> simpsonsMembersToAdd = new LinkedHashSet<>(Arrays.asList(marge, bart, lisa, maggie));
@@ -267,11 +267,11 @@ class GroupsRepositoryTest {
         Person joaoDAD = new Person("Joao", new DateAndTime(1990, 12, 4), new Address("Miragaia"),
                 new Address("Rua B", "Gaia", "4520-233"), new Email("email@isep.pt"));
         Person diana = new Person("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"),
-                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email2@isep.pt"));
+                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD.getID(), new Email("email2@isep.pt"));
         Person elsa = new Person("Elsa",new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
-                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email3@isep.pt"));
+                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD.getID(), new Email("email3@isep.pt"));
         Person ines = new Person("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"),
-                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD, new Email("email4@isep.pt"));
+                new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD.getID(), new Email("email4@isep.pt"));
 
         // Group
         Set<Person> noMomMembersToAdd = new LinkedHashSet<>(Arrays.asList(diana, elsa, ines));

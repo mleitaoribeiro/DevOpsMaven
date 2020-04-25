@@ -122,8 +122,8 @@ public class Bootstrapper {
                 new DateAndTime(1967, 2, 3),
                 new Address("Seattle"),
                 new Address("Smiths house", "Seattle", "4520-266"),
-                joyceSmith,
-                leonardSmith,
+                joyceSmith.getID(),
+                leonardSmith.getID(),
                 new Email("jerry.smith@gmail.com"));
 
         Person bethSmith  = personRepository.createPerson (
@@ -131,8 +131,8 @@ public class Bootstrapper {
                 new DateAndTime(1973, 6, 10),
                 new Address("Seattle"),
                 new Address("Smiths house", "Seattle", "4520-266"),
-                dianeSanchez,
-                rickSanchez,
+                dianeSanchez.getID(),
+                rickSanchez.getID(),
                 new Email("beth.smith@gmail.com"));
 
         Person summerSmith = personRepository.createPerson(
@@ -140,8 +140,8 @@ public class Bootstrapper {
                 new DateAndTime(2000, 5, 18),
                 new Address("Seattle"),
                 new Address("Smiths house", "Seattle", "4520-266"),
-                bethSmith,
-                jerrySmith,
+                bethSmith.getID(),
+                jerrySmith.getID(),
                 new Email("summer@gmail.com"));
 
         Person mortySmith = personRepository.createPerson(
@@ -149,8 +149,8 @@ public class Bootstrapper {
                 new DateAndTime(2003, 10, 2),
                 new Address("Seattle"),
                 new Address("Smiths house", "Seattle", "4520-266"),
-                bethSmith,
-                jerrySmith,
+                bethSmith.getID(),
+                jerrySmith.getID(),
                 new Email("morty@gmail.com"));
 
         //Mortimer Jr. Mother - No Parents
@@ -167,8 +167,8 @@ public class Bootstrapper {
                 new DateAndTime(2010, 4, 3),
                 new Address("Seattle"),
                 new Address("Alki Avenue", "Seattle", "4520-233"),
-                gwendolyn,
-                mortySmith,
+                gwendolyn.getID(),
+                mortySmith.getID(),
                 new Email("mortimer.smith@hotmail.com"));
 
         //Simpson Family
@@ -192,8 +192,8 @@ public class Bootstrapper {
                 new DateAndTime(1956, 5, 12),
                 new Address("Springfield"),
                 new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
-                grandmotherMonaSimpson,
-                grandfatherAbrahamSimpson,
+                grandmotherMonaSimpson.getID(),
+                grandfatherAbrahamSimpson.getID(),
                 new Email("homer@hotmail.com"));
 
         Person motherMarjorieSimpson =  personRepository.createPerson(
@@ -208,8 +208,8 @@ public class Bootstrapper {
                 new DateAndTime(2000, 4, 3),
                 new Address("Springfield"),
                 new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
-                motherMarjorieSimpson,
-                fatherHomerSimpson,
+                motherMarjorieSimpson.getID(),
+                fatherHomerSimpson.getID(),
                 new Email("bart.simpson@gmail.com"));
 
         Person elizabetSimpson = personRepository.createPerson(
@@ -217,8 +217,8 @@ public class Bootstrapper {
                 new DateAndTime(2002, 9, 10),
                 new Address("Springfield"),
                 new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
-                motherMarjorieSimpson,
-                fatherHomerSimpson,
+                motherMarjorieSimpson.getID(),
+                fatherHomerSimpson.getID(),
                 new Email("liza.simpson@hotmail.com"));
 
         Person margaretSimpson = personRepository.createPerson(
@@ -226,8 +226,8 @@ public class Bootstrapper {
                 new DateAndTime(2019, 2, 5),
                 new Address("Springfield"),
                 new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
-                motherMarjorieSimpson,
-                fatherHomerSimpson,
+                motherMarjorieSimpson.getID(),
+                fatherHomerSimpson.getID(),
                 new Email("maggie.simpson@gmail.com"));
 
         //Cardoso Family
@@ -251,8 +251,8 @@ public class Bootstrapper {
                 new DateAndTime(1995, 04, 12),
                 new Address("Porto"),
                 new Address("Rua de Requeixos", "Vizela", "4620-580"),
-                motherMariaCardoso,
-                fatherAntonioCardoso,
+                motherMariaCardoso.getID(),
+                fatherAntonioCardoso.getID(),
                 new Email("1191780@isep.ipp.pt"));
 
         Person joaoCardoso = personRepository.createPerson(
@@ -260,8 +260,8 @@ public class Bootstrapper {
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua de Requeixos", "Vizela", "4620-580"),
-                motherMariaCardoso,
-                fatherAntonioCardoso,
+                motherMariaCardoso.getID(),
+                fatherAntonioCardoso.getID(),
                 new Email("1110120@isep.ipp.pt"));
 
         //Azevedo Family
@@ -285,8 +285,8 @@ public class Bootstrapper {
                 new DateAndTime(1995, 04, 12),
                 new Address("Porto"),
                 new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
-                motherMargaridaAzevedo,
-                fatherRobertoAzevedo,
+                motherMargaridaAzevedo.getID(),
+                fatherRobertoAzevedo.getID(),
                 new Email("beatriz.azevedo@gmail.com"));
 
         Person margaridaAzevedo = personRepository.createPerson(
@@ -294,8 +294,8 @@ public class Bootstrapper {
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
-                motherMargaridaAzevedo,
-                fatherRobertoAzevedo,
+                motherMargaridaAzevedo.getID(),
+                fatherRobertoAzevedo.getID(),
                 new Email("margarida_azevedo@gmail.com"));
 
         Person hugoAzevedo = personRepository.createPerson(
@@ -303,8 +303,8 @@ public class Bootstrapper {
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
-                motherMargaridaAzevedo,
-                fatherRobertoAzevedo,
+                motherMargaridaAzevedo.getID(),
+                fatherRobertoAzevedo.getID(),
                 new Email("hugo.azevedo@gmail.com"));
 
 
@@ -425,18 +425,18 @@ public class Bootstrapper {
 
         // Siblings - same Father and Mother and in each other's list
         Person antonio = personRepository.createPerson("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("antonio@isep.ipp.pt"));
+                new Address("Rua X", "Porto", "4520-266"), mother.getID(), father.getID(), new Email("antonio@isep.ipp.pt"));
         Person manuel = personRepository.createPerson("Manuel", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
-                new Address("Rua X", "Porto", "4520-266"), mother, father, new Email("manuel@isep.ipp.pt"));
+                new Address("Rua X", "Porto", "4520-266"), mother.getID(), father.getID(), new Email("manuel@isep.ipp.pt"));
         antonio.addSibling(manuel);
 
         // Siblings (with antonio) - only same Mother
         personRepository.createPerson("Roberto", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
-                new Address("Rua X", "Porto", "4520-266"), mother, father2, new Email("roberto@isep.ipp.pt"));
+                new Address("Rua X", "Porto", "4520-266"), mother.getID(), father2.getID(), new Email("roberto@isep.ipp.pt"));
 
         // Siblings (with antonio) - only same Father
         personRepository.createPerson("Amália", new DateAndTime(1995, 12, 13), new Address("Penacova"),
-                new Address("Rua X", "Porto", "4520-266"), mother2, father, new Email("amalia@isep.ipp.pt"));
+                new Address("Rua X", "Porto", "4520-266"), mother2.getID(), father.getID(), new Email("amalia@isep.ipp.pt"));
 
 
         /* Add categories to the groups */

@@ -5,6 +5,7 @@ import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 public interface PersonRepository extends Repository{
     /**
@@ -21,8 +22,7 @@ public interface PersonRepository extends Repository{
 
     //3th constructor
     Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
-                        Person mother, Person father, Email email);
-
+                        PersonID mother, PersonID father, Email email);
     /**
      * Find person by ID
      */

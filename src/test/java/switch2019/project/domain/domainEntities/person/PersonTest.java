@@ -52,9 +52,9 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Person onePerson = new Person("João", new DateAndTime(1990, 12, 4), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("1234@isep.pt"));
         Person samePerson = new Person("João", new DateAndTime(1990, 12, 4), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("1234@isep.pt"));
 
         //Act & Assert
         assertEquals(onePerson, samePerson);
@@ -74,9 +74,9 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         Person onePerson = new Person("João Cardoso", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("1234@isep.pt"));
         Person otherPerson = new Person("João Cardoso", new DateAndTime(1995, 12, 13), new Address("Lisboa"),
-                new Address("Rua X", "Porto", "4520-266"), otherPersonMother, otherPersonFather, new Email("1234@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), otherPersonMother.getID(), otherPersonFather.getID(), new Email("1234@isep.pt"));
 
         //Act & Assert
         assertEquals(onePerson, otherPerson);
@@ -96,9 +96,9 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1@isep.pt"));
 
         Person onePerson = new Person("João Cardoso", new DateAndTime(1995, 12, 13), new Address("Portugal"),
-                new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("12345@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("12345@isep.pt"));
         Person otherPerson = new Person("João Cardoso", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), otherPersonMother, otherPersonFather, new Email("123456@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), otherPersonMother.getID(), otherPersonFather.getID(), new Email("123456@isep.pt"));
 
 
         //Act & Assert
@@ -117,7 +117,7 @@ class PersonTest {
 
         Address address1 = new Address("Rua da Alegria", "Porto", "4430-654");
         Person person1 = new Person("Miguel", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), person1Mother, person1Father, new Email("12@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), person1Mother.getID(), person1Father.getID(), new Email("12@isep.pt"));
 
         //Act & Assert
         assertNotEquals(address1, person1);
@@ -132,9 +132,9 @@ class PersonTest {
         Person onePersonFather = new Person("Artur", new DateAndTime(1995, 12, 13), new Address("Portugal"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("12@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("12@isep.pt"));
         Person person2 = new Person("Maria", new DateAndTime(1996, 12, 13), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("1@isep.pt"));
+                new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("1@isep.pt"));
         //Act
         boolean validation = person1.equals(person2);
 
@@ -153,10 +153,10 @@ class PersonTest {
 
         //Act
         try {
-            Person person1Mother = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                    new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("1234@isep.pt"));
-            Person person2Mother = new Person("Maria", null, new Address("Porto"),
-                    new Address("Rua X", "Porto", "4520-266"), onePersonMother, onePersonFather, new Email("1234@isep.pt"));
+            new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                    new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("1234@isep.pt"));
+            new Person("Maria", null, new Address("Porto"),
+                    new Address("Rua X", "Porto", "4520-266"), onePersonMother.getID(), onePersonFather.getID(), new Email("1234@isep.pt"));
 
         } catch (IllegalArgumentException description) {
             assertEquals("Birth Date Can't be Null.", description.getMessage());
@@ -342,8 +342,8 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("12@isep.pt"));
         Person person2 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1@isep.pt"));
-        person1.setMother(mother1);
-        person2.setMother(mother2);
+        person1.setMother(mother1.getID());
+        person2.setMother(mother2.getID());
 
         //Act
         boolean result = person1.checkSameMother(person2);
@@ -362,8 +362,8 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person2 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("12@isep.pt"));
-        person1.setMother(mother1);
-        person2.setMother(mother1);
+        person1.setMother(mother1.getID());
+        person2.setMother(mother1.getID());
 
         //Act
         boolean result = person1.checkSameMother(person2);
@@ -382,7 +382,7 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        person1.setMother(mother1);
+        person1.setMother(mother1.getID());
 
         //Act
         boolean result = person1.checkSameMother(person2);
@@ -397,13 +397,12 @@ class PersonTest {
         //Arrage
         Person mother1 = new Person("Teresa", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person mother2 = null;
         Person person1 = new Person("Ricardo", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        person1.setMother(mother1);
-        person2.setMother(mother2);
+        person1.setMother(mother1.getID());
+        person2.setMother(null);
 
         //Act
         boolean result = person1.checkSameMother(person2);
@@ -416,14 +415,12 @@ class PersonTest {
     @DisplayName("Validate if two people have the same mother - Null mothers")
     void checkSameMotherNullMothers() {
         //Arrage
-        Person mother1 = null;
-        Person mother2 = null;
         Person person1 = new Person("Miguel", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Gaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        person1.setMother(mother1);
-        person2.setMother(mother2);
+        person1.setMother(null);
+        person2.setMother(null);
 
         //Act
         boolean result = person1.checkSameMother(person2);
@@ -661,8 +658,8 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Act
-        person1.setFather(father1);
-        person2.setFather(father1);
+        person1.setFather(father1.getID());
+        person2.setFather(father1.getID());
 
         boolean result = person1.checkSameFather(person2);
 
@@ -684,8 +681,8 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1@isep.pt"));
 
         //Act
-        person1.setFather(father1);
-        person2.setFather(father2);
+        person1.setFather(father1.getID());
+        person2.setFather(father2.getID());
 
         boolean result = person1.checkSameFather(person2);
 
@@ -706,8 +703,8 @@ class PersonTest {
         Person father2 = new Person("Pedro", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1@isep.pt"));
         //Act
-        person1.setFather(father1);
-        person2.setFather(father2);
+        person1.setFather(father1.getID());
+        person2.setFather(father2.getID());
 
         boolean result = person1.checkSameFather(person2);
 
@@ -726,7 +723,7 @@ class PersonTest {
         Person father1 = new Person("jose", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         //Act
-        person1.setFather(father1);
+        person1.setFather(father1.getID());
         person2.setFather(null);
 
         boolean result = person1.checkSameFather(person2);
@@ -751,8 +748,8 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Act
-        person1.setMother(mother);
-        person2.setMother(mother);
+        person1.setMother(mother.getID());
+        person2.setMother(mother.getID());
         boolean resultado = person1.isSibling(person2);
 
         //Assert
@@ -772,8 +769,8 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
         //Act
-        person1.setFather(father);
-        person2.setFather(father);
+        person1.setFather(father.getID());
+        person2.setFather(father.getID());
         boolean resultado = person1.isSibling(person2);
 
         //Assert
@@ -822,10 +819,10 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("123456@isep.pt"));
 
         //Act
-        antonio.setMother(mae);
-        antonio.setFather(senhor);
-        manuel.setMother(mama);
-        manuel.setFather(pai);
+        antonio.setMother(mae.getID());
+        antonio.setFather(senhor.getID());
+        manuel.setMother(mama.getID());
+        manuel.setFather(pai.getID());
         boolean resultado = antonio.isSibling(manuel);
 
         //Assert
@@ -922,10 +919,10 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        person1.setMother(person2);
+        person1.setMother(person2.getID());
 
         //Act
-        boolean realResult = person1.isMother(person2);
+        boolean realResult = person1.isMother(person2.getID());
 
         //Assert
         assertTrue(realResult);
@@ -941,10 +938,10 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person3 = new Person("Diana", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("12@isep.pt"));
-        person1.setMother(person2);
+        person1.setMother(person2.getID());
 
         //Act
-        boolean realResult = person1.isMother(person3);
+        boolean realResult = person1.isMother(person3.getID());
 
         //Assert
         assertFalse(realResult);
@@ -961,7 +958,7 @@ class PersonTest {
         person1.setMother(null);
 
         //Act
-        boolean realResult = person1.isMother(person2);
+        boolean realResult = person1.isMother(person2.getID());
 
         //Assert
         assertFalse(realResult);
@@ -979,11 +976,11 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        person1.setFather(person2);
+        person1.setFather(person2.getID());
 
         //Act
 
-        boolean result = person1.isFather(person2);
+        boolean result = person1.isFather(person2.getID());
         //
         assertTrue(result);
     }
@@ -999,11 +996,11 @@ class PersonTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("12@isep.pt"));
-        person1.setFather(person2);
+        person1.setFather(person2.getID());
 
         //Act
 
-        boolean result = person1.isFather(person3);
+        boolean result = person1.isFather(person3.getID());
         //
         assertFalse(result);
     }
@@ -1021,7 +1018,7 @@ class PersonTest {
 
         //Act
 
-        boolean result = person1.isFather(person2);
+        boolean result = person1.isFather(person2.getID());
         //Assert
         assertFalse(result);
     }
@@ -1509,7 +1506,7 @@ class PersonTest {
 
         try {
             //Act
-            double personalBalanceInDateRange = person.getPersonalBalanceInDateRange(initialDate, finalDate);
+            person.getPersonalBalanceInDateRange(initialDate, finalDate);
             fail();
         }
         //Assert
@@ -1552,7 +1549,7 @@ class PersonTest {
 
         try {
             //Act
-            double personalBalanceInDateRange = person1.getPersonalBalanceInDateRange(initialDate, finalDate);
+            person1.getPersonalBalanceInDateRange(initialDate, finalDate);
             fail();
         }
         //Assert
@@ -1778,14 +1775,13 @@ class PersonTest {
         Category category = new Category(new Denomination("general"),new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Ledger ledger = new Ledger();
 
         //Act
-        int sizeBefore = ledger.getLedgerSize();
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
-        ledger.addTransactionToLedger(monetaryValue, "payment", null, category, account1, account2, new Type(true));
-        int sizeAfter = ledger.getLedgerSize();
+        int sizeBefore = person.ledgerSize();
+        person.createTransaction(monetaryValue, "payment", null, category, account1, account2, new Type(true));
+        person.createTransaction(monetaryValue, "payment", null, category, account1, account2, new Type(true));
+        person.createTransaction(monetaryValue, "payment", null, category, account1, account2, new Type(true));
+        int sizeAfter = person.ledgerSize();
 
         //Assert
         assertEquals(sizeBefore + 3, sizeAfter);

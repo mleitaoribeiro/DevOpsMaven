@@ -206,26 +206,24 @@ public class Group implements Owner {
      * @return boolean
      */
     public boolean isFamily() {
-        Person dadPerson = null;
-        Person momPerson = null;
+        PersonID dadPerson = null;
+        PersonID momPerson = null;
         for (Person person : members) {
             for (Person person2 : members) {
                 if (!person.equals(person2)) {
-                    if (person.isFather(person2))
-                        dadPerson = person2;
-                    else if (person.isMother(person2))
-                        momPerson = person2;
+                    if (person.isFather(person2.getID()))
+                        dadPerson = person2.getID();
+                    else if (person.isMother(person2.getID()))
+                        momPerson = person2.getID();
                 }
             }
-        }
-        if (dadPerson == null || momPerson == null) return false;
+        } if (dadPerson == null || momPerson == null) return false;
 
         for (Person person : members) {
-            if (!person.equals(dadPerson) && !person.equals(momPerson) &&
+            if (!person.getID().equals(dadPerson) && !person.getID().equals(momPerson) &&
                     (!person.isMother(momPerson) || !person.isFather(dadPerson)))
                 return false;
-        }
-        return true;
+        } return true;
     }
 
     /**

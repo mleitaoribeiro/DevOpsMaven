@@ -52,11 +52,11 @@ public class US001AreSiblingsServiceUnitTest {
 
         sibling = new Person("Beatriz Azevedo", new DateAndTime(1995, 04, 12),
                 new Address("Porto"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
-                mother, father, new Email("beatriz.azevedo@gmail.com"));
+                mother.getID(), father.getID(), new Email("beatriz.azevedo@gmail.com"));
 
         relatedSibling = new Person("Hugo Azevedo", new DateAndTime(1993, 9, 1),
                 new Address("Porto"), new Address("Rua das Flores", "Porto", "4050-262"),
-                mother, father, new Email("hugo.azevedo@gmail.com"));
+                mother.getID(), father.getID(), new Email("hugo.azevedo@gmail.com"));
 
         sibling.addSibling(relatedSibling);
 
