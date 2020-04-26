@@ -1,9 +1,11 @@
 package switch2019.project.error;
 
-import com.sun.tools.javac.util.List;
+
 import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
+import java.util.List;
+
 
 public class ApiError {
     private HttpStatus status;
@@ -26,7 +28,7 @@ public class ApiError {
         super();
         this.status = status;
         this.message = message;
-        errors = (List<String>) Arrays.asList(error);
+        errors = Arrays.asList(error);
     }
 
 
