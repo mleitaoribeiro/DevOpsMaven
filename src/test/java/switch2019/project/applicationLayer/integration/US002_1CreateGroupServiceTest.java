@@ -169,7 +169,7 @@ class US002_1CreateGroupServiceTest {
 
     @Test
     @DisplayName("Test if a category can be found by the ID - group empty")
-    void getCategoryByCategoryIDGroupEmpty() {
+    void getGroupByDescriptionEmpty() {
         //Arrange:
         String groupDescription = "";
 

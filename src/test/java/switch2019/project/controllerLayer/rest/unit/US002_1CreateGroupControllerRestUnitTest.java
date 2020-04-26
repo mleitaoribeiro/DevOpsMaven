@@ -292,4 +292,85 @@ public class US002_1CreateGroupControllerRestUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The description can't be null or empty.");
     }
+    /**
+     * US002.1
+     * Test if a groupDTO is returned given its description
+     */
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description  Hapyy Case")
+    public void getGroupByDescription() {
+        //Arrange
+        String groupDescription = "SWITCH";
+        GroupDTO outputExpected = new GroupDTO(groupDescription);
+        ResponseEntity expectedResponseEntity = new ResponseEntity<>(outputExpected, HttpStatus.CREATED);
+
+        //Act
+        Mockito.when(service.getGroupByDescription(groupDescription)).thenReturn(outputExpected);
+
+        ResponseEntity<Object> actualResponseEntity = controller.getGroupByDescription(outputExpected.getGroupDescription());
+
+        //Assert
+        assertEquals(expectedResponseEntity, actualResponseEntity);
+    }
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description - Not Found")
+    public void getGroupByDescriptionNotFound() {
+        //Arrange
+        String groupDescription = "SWITCH";
+
+        //Act
+        Mockito.when(service.getGroupByDescription(groupDescription)).
+                thenThrow(new IllegalArgumentException("No group found with that description."));
+
+        Throwable thrown = catchThrowable(() -> {
+            controller.getGroupByDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description - group null")
+    void getGroupByDescriptionNull() {
+        //Arrange:
+        String groupDescription = null;
+
+        //Act
+        Mockito.when(service.getGroupByDescription(groupDescription)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        Throwable thrown = catchThrowable(() -> {
+            service.getGroupByDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description - group empty")
+    void getGroupByDescriptionEmpty() {
+        //Arrange:
+        String groupDescription = "";
+
+        //Act
+        Mockito.when(service.getGroupByDescription(groupDescription)).
+                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        Throwable thrown = catchThrowable(() -> {
+            service.getGroupByDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
 }

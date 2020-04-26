@@ -25,7 +25,7 @@ public class US002_1CreateGroupControllerRest {
      */
 
     @PostMapping("/createGroup")
-    public ResponseEntity<Object> createGroup(@RequestBody CreateGroupInfoDTO info){
+    public ResponseEntity<Object> createGroup(@RequestBody CreateGroupInfoDTO info) {
 
         CreateGroupDTO createGroupDTO = GroupDTOAssembler.transformOfCreationOfGroupDTO(info);
 
@@ -34,4 +34,9 @@ public class US002_1CreateGroupControllerRest {
         return new ResponseEntity<>(groupCreated, HttpStatus.CREATED);
     }
 
+    @GetMapping(value = "groups/{groupDescription}")
+    public ResponseEntity<Object> getGroupByDescription(@PathVariable final String groupDescription) {
+        GroupDTO newGroupDTO = service.getGroupByDescription(groupDescription);
+        return new ResponseEntity<>(newGroupDTO, HttpStatus.CREATED);
+    }
 }

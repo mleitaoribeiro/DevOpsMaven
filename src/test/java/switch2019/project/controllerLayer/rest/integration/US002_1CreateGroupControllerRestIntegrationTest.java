@@ -297,4 +297,53 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
     }
 
+    /**
+     * Test if a groupDTO is returned given its description
+     */
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description  Hapyy Case")
+    public void getGroupByDescription() throws Exception {
+
+        //Arrange
+        String uri = "/groups/Smith Family";
+
+        String groupDescription = "SMITH FAMILY";
+
+        String expectedJson = "{\"groupDescription\":\"" + groupDescription + "\"}";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String resultJson = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(201, status),
+                () -> assertEquals(expectedJson, resultJson)
+        );
+    }
+
+    @Test
+    @DisplayName("Test if a groupDTO is returned given its description - Not Found")
+    public void getGroupByDescriptionNotFound() {
+
+        //Arrange
+        String uri = "/groups/SuicideSquad";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.get(uri)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andReturn();
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("No group found with that description."))
+                .isExactlyInstanceOf(NestedServletException.class);
+    }
 }
