@@ -28,7 +28,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminHappyCase() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "Online Shopping";
         final String personEmail = "1110120@isep.ipp.pt";
@@ -39,7 +39,8 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expected = "{\"groupDescription\":\"" +groupDescriptionStr.toUpperCase() +"\"}";
+        String expected = "{\"groupDescription\":\"" +groupDescriptionStr.toUpperCase() +
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/ONLINE%20SHOPPING\"}}}";
 
        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -65,7 +66,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminPersonDoesNotExists() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "Expenses";
         final String personEmail = "qwerty@gmail.com";
@@ -96,7 +97,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminGroupAlreadyExists() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "SWitCH";
         final String personEmail = "morty@gmail.com";
@@ -126,7 +127,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminInvalidEmailNull() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "SWitCH";
         final String personEmail = null;
@@ -155,7 +156,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminInvalidEmailEmpty() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "SWitCH";
         final String personEmail = "";
@@ -184,7 +185,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminInvalidEmailFormat() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "SWitCH";
         final String personEmail = "morty@@gmail.com";
@@ -213,7 +214,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminGroupDescriptionNull() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = null;
         final String personEmail = "morty@gmail.com";
@@ -244,7 +245,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminGroupDescriptionEmpty() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         final String groupDescriptionStr = "";
         final String personEmail = "morty@gmail.com";
@@ -273,7 +274,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminNullJsonInput() throws Exception {
 
         //Arrange
-        String uri = "/createGroup";
+        String uri = "/groups";
 
         String inputJson = super.mapToJson((null));
 

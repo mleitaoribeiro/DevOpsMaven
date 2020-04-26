@@ -1,8 +1,11 @@
 package switch2019.project.DTO.SerializationDTO;
 
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class GroupDTO {
+public class GroupDTO extends RepresentationModel<GroupDTO> {
 
     private final String groupDescription;
 
@@ -32,4 +35,5 @@ public class GroupDTO {
     public String getGroupDescription() {
         return groupDescription;
     }
+
 }

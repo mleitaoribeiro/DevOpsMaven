@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,8 +45,10 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
         String cardoso = "FAMILY CARDOSO";
         String azevedo = "FAMILY AZEVEDO";
 
-        String expected = "[{\"groupDescription\":\"" + simpson +"\"},{\"groupDescription\":\"" + cardoso + "\"" +
-                "},{\"groupDescription\":\"" + azevedo + "\"}]";
+        String expected = "[{\"groupDescription\":\"" + simpson + "\",\"links\":[]}," +
+                "{\"groupDescription\":\"" + cardoso + "\",\"links\":[]}," +
+                "{\"groupDescription\":\"" + azevedo + "\",\"links\":[]}]";
+
 
         //Assert
         Assertions.assertAll(
