@@ -9,6 +9,7 @@ import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
@@ -32,5 +33,18 @@ public class US003AddMemberToGroupService {
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         boolean wasMemberAdded = group.addMember(person);
         return GroupDTOAssembler.createAddedMemberDTO(wasMemberAdded, person, group);
+
     }
+
+    public PersonID getPersonByEmail(String personEmail, String groupDescription){
+        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
+        PersonID personID = new PersonID(new Email(personEmail));
+
+        if (group.isGroupMember(personID)) {
+            return personID;
+        }
+        throw new IllegalArgumentException("That person is not a member of this groups.");
+    }
+
+
 }

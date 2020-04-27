@@ -29,7 +29,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroup() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";
 
         final String personEmail = "rick@gmail.com";
         final String groupDescription = "switch";
@@ -40,6 +40,9 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
+        String expected = "{\"memberAdded\":\"" + personEmail + " was added to group " + groupDescription+
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/switch/members/rick@gmail.com\"}}}";
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson)).andReturn();
@@ -48,7 +51,6 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         assertEquals(201, status);
 
         String result = mvcResult.getResponse().getContentAsString();
-        String expected = "{\"memberAdded\":\"" + personEmail + " was added to group " + groupDescription + "\"}";
         assertEquals(expected, result);
     }
 
@@ -57,7 +59,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupAlreadyIn() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";
 
         final String personEmail = "1191743@isep.ipp.pt";
         final String groupDescription = "switch";
@@ -78,7 +80,8 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         //Act
         String result = mvcResult.getResponse().getContentAsString();
-        String expected = "{\"memberAdded\":\"" + personEmail + " is already on group " + groupDescription + "\"}";
+        String expected = "{\"memberAdded\":\"" + personEmail + " is already on group " + groupDescription+
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/switch/members/1191743@isep.ipp.pt\"}}}";
         //Assert
         assertEquals(expected, result);
     }
@@ -89,7 +92,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupNotExist() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";
 
         final String personEmail = "asdfg@gmail.com";
         final String groupDescription = "switch";
@@ -119,7 +122,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupThatDoesNotExist() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";
 
         final String personEmail = "rick@gmail.com";
         final String groupDescription = "amigos";
@@ -150,7 +153,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupNullEmail() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";
 
         final String personEmail = null;
         final String groupDescription = "switch";
@@ -180,7 +183,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupNullDescription() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";;
 
         final String personEmail = "rick@gmail.com";
         final String groupDescription = null;
@@ -210,7 +213,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupEmptyDescription() throws Exception {
 
         //Status Request
-        String uri = "/addMemberToGroup";
+        String uri = "/groups/SWITCH/members";
 
         final String personEmail = "rick@gmail.com";
         final String groupDescription = "";
