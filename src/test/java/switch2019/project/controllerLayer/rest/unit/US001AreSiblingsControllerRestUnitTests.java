@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,8 @@ import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.controllerLayer.rest.US001AreSiblingsControllerRest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -101,12 +102,114 @@ public class US001AreSiblingsControllerRestUnitTests {
 
         //Arrange Mockito
         Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true);
-
         ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
+
         //Act
         ResponseEntity<SiblingsDTO> responseEntity = controller.areSiblings(emailPersonOne, emailPersonTwo);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntity);
+    }
+
+    @Test
+    @DisplayName("Test if two individuals are siblings - in each other list")
+    void AreSiblingsInTheSiblingsList() {
+        //Arrange
+        String emailPersonOne = "father1@isep.ipp.pt";
+        String emailPersonTwo = "father2@isep.ipp.pt";
+
+        //Arrange SiblingsDTO
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(true);
+
+        //Arrange AreSiblingsDTO:
+        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
+
+        //Arrange Mockito
+        Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(true);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<SiblingsDTO> responseEntity = controller.areSiblings(emailPersonOne, emailPersonTwo);
+
+        //Assert
+        assertEquals(responseEntityExpected, responseEntity);
+    }
+
+    @Test
+    @DisplayName("Test if two individuals are siblings - They are not siblings")
+    void AreNotSiblings() {
+        //Arrange
+        String emailPersonOne = "rick@gmail.com";
+        String emailPersonTwo = "antonio@isep.ipp.pt";
+
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(false);
+
+        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
+
+        //Arrange Mockito
+        Mockito.when(service.areSiblings(siblingsDTO)).thenReturn(false);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<SiblingsDTO> responseEntity = controller.areSiblings(emailPersonOne, emailPersonTwo);
+
+        //Assert
+        assertEquals(responseEntityExpected, responseEntity);
+    }
+
+    @Test
+    @DisplayName("Test if two individuals are siblings - person email not found on Person Repository")
+    void AreSiblingsInvalidEmail() {
+        //Arrange
+        String emailPersonOne = "";
+        String emailPersonTwo = "antonio@isep.ipp.pt";
+
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(false);
+
+        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
+
+        //Arrange Mockito
+        Mockito.when(service.areSiblings(siblingsDTO)).thenThrow(new IllegalArgumentException("No person found with that email."));
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.areSiblings(emailPersonOne, emailPersonTwo);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
+
+    }
+
+    @Test
+    @DisplayName("Test if two individuals are siblings - Null person email")
+    void AreSiblingsNullEmail() {
+        //Arrange
+        String emailPersonOne = null;
+        String emailPersonTwo = "antonio@isep.ipp.pt";
+
+        SiblingsDTO siblingsDTOExpected = new SiblingsDTO(false);
+
+        AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
+
+        //Arrange Mockito
+        Mockito.when(service.areSiblings(siblingsDTO)).thenThrow(new IllegalArgumentException("The email can't be null."));
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(siblingsDTOExpected, HttpStatus.OK);
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.areSiblings(emailPersonOne, emailPersonTwo);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+
     }
 }
