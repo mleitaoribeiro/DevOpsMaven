@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,5 +73,32 @@ public class US003AddMemberToGroupServiceTest {
         catch (IllegalArgumentException email) {
             assertEquals("No person found with that email.", email.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("Test to getPersonByEmail not valid")
+    void getPersonByEmail(){
+        String personEmail = "1191743@isep.ipp.pt";
+        String groupDescription = "friends";
+
+        try {
+            service.getPersonByEmail(personEmail, groupDescription);
+        }
+        catch (IllegalArgumentException e)  {
+            assertEquals("That person is not a member of this group.", e.getMessage());
+        };
+    }
+
+    @Test
+    @DisplayName("Test to getPersonByEmail")
+    void getPersonByEmailEquals(){
+        String personEmail = "1191743@isep.ipp.pt";
+        String groupDescription = "switch";
+
+        PersonID personIDactual = service.getPersonByEmail(personEmail, groupDescription);
+
+        PersonID personIDexpected = new PersonID(new Email(personEmail));
+
+            assertEquals(personIDexpected, personIDactual);
     }
 }

@@ -43,7 +43,7 @@ public class US003AddMemberToGroupService {
         if (group.isGroupMember(personID)) {
             return personID;
         }
-        throw new IllegalArgumentException("That person is not a member of this groups.");
+        throw new IllegalArgumentException("That person is not a member of this group.");
     }
 
 
