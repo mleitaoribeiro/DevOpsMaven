@@ -40,7 +40,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
-        String expected = "{\"memberAdded\":\"" + personEmail + " was added to group " + groupDescription+
+        String expected = "{\"memberAdded\":\"" + personEmail + " was added to group " + groupDescription +
                 "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/switch/members/rick@gmail.com\"}}}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -80,7 +80,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         //Act
         String result = mvcResult.getResponse().getContentAsString();
-        String expected = "{\"memberAdded\":\"" + personEmail + " is already on group " + groupDescription+
+        String expected = "{\"memberAdded\":\"" + personEmail + " is already on group " + groupDescription +
                 "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/switch/members/1191743@isep.ipp.pt\"}}}";
         //Assert
         assertEquals(expected, result);
@@ -183,7 +183,8 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupNullDescription() throws Exception {
 
         //Status Request
-        String uri = "/groups/SWITCH/members";;
+        String uri = "/groups/SWITCH/members";
+        ;
 
         final String personEmail = "rick@gmail.com";
         final String groupDescription = null;
@@ -234,6 +235,27 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         //Assert
         assertThat(thrown)
                 .hasCause(new IllegalArgumentException("The description can't be null or empty."))
+                .isExactlyInstanceOf(NestedServletException.class);
+
+    }
+
+    @Test
+    @DisplayName("Test for get person - not member of group")
+    void getPersonByID() throws Exception {
+        //Status Request
+        String personEmail = "morty@gmail.com";
+        String groupDescription = "switch";
+        String uri = "/groups/"+ groupDescription+ "/members/" + personEmail;
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            mvc.perform(MockMvcRequestBuilders.get(uri)
+                    .contentType(MediaType.APPLICATION_JSON)).andReturn();
+        });
+
+        //Assert
+        assertThat(thrown)
+                .hasCause(new IllegalArgumentException("That person is not a member of this group."))
                 .isExactlyInstanceOf(NestedServletException.class);
 
     }
