@@ -7,12 +7,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
-import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
+import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest {
@@ -28,7 +26,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void createPersonAccountHappyCase() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
             //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -41,19 +39,19 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
 
-            //arrangement of the input:
+        //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
-            //arrangement of the expected output:
-        String expected = "{\"ownerID\":\"" + personEmail.toUpperCase() + "\"" + "," + "\"denomination\":\"" + accountDenomination.toUpperCase() +
-                "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() + "\"}";
+        //arrangement of the expected output:
+        String expected = "{\"ownerID\":\"" +personEmail.toUpperCase() +
+                "\",\"denomination\":\"" +accountDenomination.toUpperCase() +
+                "\",\"description\":\"" +accountDescription.toUpperCase() +
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}}}";;
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
-                .andExpect(status().isCreated())
-                .andExpect(content().string(expected))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
@@ -65,12 +63,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 () -> assertEquals(expected, result)
         );
     }
+
     @DisplayName("Test If User Account was created - Account already on Repository")
     @Test
     void testIfUserAccountWasCreatedAccountAlreadyExists() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
             //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -106,7 +105,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIfUserAccountWasCreatedPersonDoesNotExist() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
             //arrangement of the account DTO:
         final String personEmail = "blabla@hotmail.com";
@@ -141,7 +140,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIsUserAccountWasCreatedEmailNull() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
             //arrangement of the account DTO:
         final String personEmail = null;
@@ -178,7 +177,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
         //arrangement of the account DTO:
         final String personEmail = "";
@@ -214,7 +213,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
         //arrangement of the account DTO:
         final String personEmail = "mail.com";
@@ -252,7 +251,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
         //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -289,7 +288,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/createPersonAccount";
+        String uri = "/persons";
 
         //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -317,6 +316,39 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .hasCause(new IllegalArgumentException("The description can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
     }
+
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountByAccountID() throws Exception {
+
+        //ARRANGE:
+        String uri = "/persons/MARGE@HOTMAIL.COM/accounts/HOMER SNACKS";
+
+        String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"," +
+                "\"denomination\":\"HOMER SNACKS\"," +
+                "\"description\":\"MONEY SPENT ON SNACKS FOR HOMER\"}";
+
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+
+    }
+
+
 
 
 }

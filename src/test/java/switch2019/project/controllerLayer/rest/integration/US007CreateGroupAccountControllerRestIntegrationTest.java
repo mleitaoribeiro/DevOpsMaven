@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
+import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

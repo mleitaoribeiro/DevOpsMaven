@@ -12,14 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupCategoryInfoDTO;
-import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.controllerLayer.rest.US005_1AdminAddsCategoryControllerRest;
-import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

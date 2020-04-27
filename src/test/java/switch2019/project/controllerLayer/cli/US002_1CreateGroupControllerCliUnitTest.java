@@ -9,8 +9,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 

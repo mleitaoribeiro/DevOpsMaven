@@ -2,8 +2,8 @@ package switch2019.project.controllerLayer.cli;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 

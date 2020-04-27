@@ -7,9 +7,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupAccountInfoDTO;
-import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
+import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 

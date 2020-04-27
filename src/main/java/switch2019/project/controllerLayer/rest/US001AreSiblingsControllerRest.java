@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
-import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
+import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
+import switch2019.project.DTO.serializationDTO.SiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
 

@@ -5,12 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
-import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.shared.*;
-import switch2019.project.domain.repositories.CategoryRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

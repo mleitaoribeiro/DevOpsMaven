@@ -10,8 +10,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 
 import static org.assertj.core.api.Assertions.assertThat;

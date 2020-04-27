@@ -4,8 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupAccountDTO;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 
 import static org.junit.jupiter.api.Assertions.*;
