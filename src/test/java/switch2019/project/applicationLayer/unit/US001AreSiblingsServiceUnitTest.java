@@ -131,7 +131,7 @@ public class US001AreSiblingsServiceUnitTest {
 
     @Test
     @DisplayName("Test if two individuals are siblings - Exception - null email")
-    void AreSiblingsInvalidEmailNull() {
+    void AreSiblingsNullEmail() {
         //Arrange
         // Input DTO
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(null, "roberto@gmail.com");
@@ -148,4 +148,5 @@ public class US001AreSiblingsServiceUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The email can't be null.");
     }
+
 }

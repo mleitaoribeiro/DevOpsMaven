@@ -171,11 +171,11 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     }
 
     @Test
-    @DisplayName("Test if two people are siblings - Null Second Person Email")
+    @DisplayName("Test if two people are siblings - Invalid Person Email")
     public void checkIfTwoPeopleAreSiblingsNullSecondPersonEmail() throws Exception {
 
         // Arrange
-        String uri = "/persons/father1@isep.ipp.pt/siblings/null";
+        String uri = "/persons/father1@isep.ipp.pt/siblings/raquelisep.pt";
 
         //Act
         Throwable thrown = catchThrowable(() -> {
