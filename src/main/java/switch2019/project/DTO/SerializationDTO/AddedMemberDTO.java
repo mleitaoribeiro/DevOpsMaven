@@ -1,8 +1,10 @@
 package switch2019.project.DTO.SerializationDTO;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class AddedMemberDTO {
+public class AddedMemberDTO extends RepresentationModel<AddedMemberDTO>  {
 
     private String memberAdded;
 
