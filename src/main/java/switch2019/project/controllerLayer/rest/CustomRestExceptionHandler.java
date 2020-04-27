@@ -75,7 +75,26 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
     }
 
-   
+    /**
+     * Exception handler for IllegalArgumentException
+     * @param exception
+     * @param request
+     * @return
+     */
+    @ExceptionHandler({ IllegalArgumentException.class })
+    public ResponseEntity<Object> handleIllegalArgumentException(
+            final IllegalArgumentException exception,
+            final WebRequest request) {
+
+        //Construction of the error message:
+        final String error = exception.getMessage();
+
+        //Construction of the ApiError:
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "Operation could not be completed", error);
+
+        //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
+        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+    }
 }
 
 
