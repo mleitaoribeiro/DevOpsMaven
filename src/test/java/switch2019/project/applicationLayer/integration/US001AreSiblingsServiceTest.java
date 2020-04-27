@@ -113,8 +113,8 @@ public class US001AreSiblingsServiceTest {
     }
 
     @Test
-    @DisplayName("Test if two individuals are siblings - invalid email")
-    void AreSiblingsInvalidEmail() {
+    @DisplayName("Test if two individuals are siblings - no person found with that email")
+    void AreSiblingsNoPersonEmail() {
         //Arrange
         String joseEmail = "father@isep.ipp.pt";
         String robertoEmail = "roberto@isep.ipp.pt";
@@ -130,6 +130,26 @@ public class US001AreSiblingsServiceTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Test if two individuals are siblings - invalid email")
+    void AreSiblingsInvalidEmail() {
+        //Arrange
+        String personEmail1 = "fatherisep.ipp.pt";
+        String personEmail2 = "roberto@isep.ipp.pt";
+
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(personEmail1, personEmail2);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.areSiblings(siblingsDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
     }
 
 }

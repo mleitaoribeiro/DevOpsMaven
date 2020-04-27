@@ -1,9 +1,6 @@
 package switch2019.project.controllerLayer.rest.integration;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -248,6 +245,30 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 .isExactlyInstanceOf(NestedServletException.class);
 
          */
+    }
+
+
+    @Test
+    @DisplayName("Test for get person - not member of group")
+    void getPersonByIDHappyCase() throws Exception {
+        //Status Request
+        String personEmail = "morty@gmail.com";
+        String groupDescription = "Rick And Morty";
+        String uri = "/groups/"+ groupDescription+ "/members/" + personEmail;
+        String expected = "{\"email\":\"morty@gmail.com\"}";
+
+        //Ac
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
     }
 
     @Test

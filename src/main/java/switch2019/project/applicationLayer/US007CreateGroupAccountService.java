@@ -6,12 +6,10 @@ import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
-import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
@@ -55,6 +53,29 @@ public class US007CreateGroupAccountService {
         } else throw new IllegalArgumentException("This person is not member of this group.");
 
 
+    }
+
+    /**
+     * method that finds an account by account ID
+     *
+     * @param groupDescription
+     * @param accountDenomination
+     * @return AccountDTO representing an Account
+     */
+
+    public AccountDTO getAccountByAccountID (String accountDenomination, String groupDescription) {
+
+        //Find ownerID that created the Account
+        OwnerID ownerID = groupsRepository.findGroupByDescription(new Description(groupDescription)).getID();
+
+        //Transform in a category ID
+        AccountID accountID = new AccountID(new Denomination(accountDenomination), ownerID);
+
+        //Find the account by ID
+        Account account = accountRepository.getByID(accountID);
+
+        //Return DTO that represents category
+        return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
     }
 
 

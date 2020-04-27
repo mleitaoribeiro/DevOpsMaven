@@ -1,6 +1,7 @@
 package switch2019.project.controllerLayer.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,9 @@ import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class US007CreateGroupAccountControllerRest {
@@ -21,7 +25,7 @@ public class US007CreateGroupAccountControllerRest {
      * @param info
      * @return
      */
-    @PostMapping("/addGroupAccount")
+    @PostMapping("/accounts")
     public ResponseEntity<AccountDTO> addGroupAccount (@RequestBody CreateGroupAccountInfoDTO info)  {
 
         //Arrange the entry dto with the given strings:
@@ -30,6 +34,22 @@ public class US007CreateGroupAccountControllerRest {
         //Use the service to obtain the exit DTO
         AccountDTO result = service.createGroupAccount(dto);
 
+        Link selfLink = linkTo(methodOn(US007CreateGroupAccountControllerRest.class)
+                .getAccountByGroupID(result.getDenomination(),result.getOwnerID()))
+                .withSelfRel();
+
+        result.add(selfLink);
+
         return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/groups/{ownerID}/accounts/{accountDenomination}")
+    public ResponseEntity<Object> getAccountByGroupID
+            (@PathVariable final String accountDenomination, @PathVariable String ownerID){
+
+        AccountDTO result = service.getAccountByAccountID(accountDenomination,ownerID);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
 }

@@ -28,7 +28,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     void addGroupAccountMainScenario() throws Exception {
 
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Family Simpson";
         final String personEmail = "homer@hotmail.com";
@@ -42,8 +42,10 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        String expected = "{\"ownerID\":\"" + groupDescription.toUpperCase() + "\"" + "," + "\"denomination\":\"" + accountDenomination.toUpperCase() +
-                "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() + "\"}";
+        String expected = "{\"ownerID\":\"" + groupDescription.toUpperCase() +
+                "\"" + "," + "\"denomination\":\"" + accountDenomination.toUpperCase() +
+                "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() +
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts/KWIK%20E%20MART\"}}}";
 
         //Act
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
@@ -74,7 +76,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     void addGroupAccountPersonIsNotAdmin() throws Exception {
 
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Smith Family";
         final String personEmail = "jerry.smith@gmail.com";
@@ -111,7 +113,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     void addGroupAccountPersonDoesNotExists() throws Exception {
 
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Switch";
         final String personEmail = "raquel@hotmail.com";
@@ -148,7 +150,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     void addGroupAccountGroupAccountAlreadyExistsException() throws Exception {
 
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Family Cardoso";
         final String personEmail = "1191780@isep.ipp.pt";
@@ -185,7 +187,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     void addGroupAccountTestGroupNotFoundException() throws Exception {
 
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "West World";
         final String personEmail = "homer@hotmail.com";
@@ -221,7 +223,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - Email Null")
     void addGroupAccountNullEmail() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Friends";
         final String personEmail = null;
@@ -257,7 +259,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - Email Empty")
     void addGroupAccountEmailEmpty() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Smith Family";
         final String personEmail = "";
@@ -293,7 +295,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - Group ID Null")
     void addGroupAccountGroupIDNull() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = null;
         final String personEmail = "beatriz.azevedo@gmail.com";
@@ -329,7 +331,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - Group ID empty")
     void addGroupAccountGroupIDEmpty() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "";
         final String personEmail = "rick@gmail.com";
@@ -365,7 +367,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - account denomination null")
     void addGroupAccountDenominationNull() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "SWITCH";
         final String personEmail = "1191755@isep.ipp.pt";
@@ -402,7 +404,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - account denomination empty")
     void addGroupAccountDenominationEmpty() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Smith Family";
         final String personEmail = "rick@gmail.com";
@@ -438,7 +440,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - account description null")
     void addGroupAccountDescriptionNull() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "SWITCH";
         final String personEmail = "1191762@isep.ipp.pt";
@@ -476,7 +478,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - account description empty")
     void addGroupAccountDescriptionEmpty() throws Exception {
         //Arrange
-        String uri = "/addGroupAccount";
+        String uri = "/accounts";
 
         final String groupDescription = "Smith Family";
         final String personEmail = "rick@gmail.com";
