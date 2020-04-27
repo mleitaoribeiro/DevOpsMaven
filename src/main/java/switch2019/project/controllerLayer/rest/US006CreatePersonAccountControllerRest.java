@@ -30,7 +30,7 @@ public class US006CreatePersonAccountControllerRest {
      * @return Response Entity with AccountDTO and HTTPStatus
      */
 
-    @PostMapping("/persons")
+    @PostMapping("/accounts/createPersonAccount")
     public ResponseEntity<AccountDTO> createPersonAccount(@RequestBody CreatePersonAccountInfoDTO info) {
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(info);
@@ -55,7 +55,7 @@ public class US006CreatePersonAccountControllerRest {
      * @return Response Entity with AccountDTO and HTTPStatus
      */
 
-    @GetMapping(value = "persons/{personEmail}/accounts/{accountDenomination}")
+    @GetMapping(value = "accounts/{personEmail}/{accountDenomination}")
     public ResponseEntity<AccountDTO> getAccountByAccountID
     (@PathVariable final String accountDenomination, @PathVariable final String personEmail) {
 
