@@ -7,12 +7,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
-import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
+import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest {

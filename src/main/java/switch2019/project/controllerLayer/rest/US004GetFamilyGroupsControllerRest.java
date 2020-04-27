@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import java.util.Set;
 

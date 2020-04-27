@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
+import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.domain.domainEntities.person.Address;

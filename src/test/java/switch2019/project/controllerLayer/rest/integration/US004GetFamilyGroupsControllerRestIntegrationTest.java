@@ -5,7 +5,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

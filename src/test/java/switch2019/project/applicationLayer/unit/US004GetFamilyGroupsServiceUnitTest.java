@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;

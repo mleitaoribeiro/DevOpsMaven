@@ -5,9 +5,9 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
-import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 

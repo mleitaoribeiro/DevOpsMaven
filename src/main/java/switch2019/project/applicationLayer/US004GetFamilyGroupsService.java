@@ -2,7 +2,7 @@ package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.repositories.GroupRepository;

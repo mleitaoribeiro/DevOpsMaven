@@ -5,9 +5,9 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupInfoDTO;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
+import switch2019.project.DTO.deserializationDTO.CreateGroupInfoDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 

@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.SerializationDTO.AccountDTO;
-import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

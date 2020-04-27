@@ -1,8 +1,8 @@
 package switch2019.project.assemblers;
 
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.ServiceDTO.AreSiblingsDTO;
-import switch2019.project.DTO.SerializationDTO.SiblingsDTO;
+import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
+import switch2019.project.DTO.serializationDTO.SiblingsDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -2,8 +2,8 @@ package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import switch2019.project.DTO.SerializationDTO.CategoryDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupCategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;

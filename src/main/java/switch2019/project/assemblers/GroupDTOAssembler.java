@@ -1,11 +1,11 @@
 package switch2019.project.assemblers;
 
-import switch2019.project.DTO.DeserializationDTO.AddMemberInfoDTO;
-import switch2019.project.DTO.DeserializationDTO.CreateGroupInfoDTO;
-import switch2019.project.DTO.SerializationDTO.AddedMemberDTO;
-import switch2019.project.DTO.SerializationDTO.GroupDTO;
-import switch2019.project.DTO.ServiceDTO.AddMemberDTO;
-import switch2019.project.DTO.ServiceDTO.CreateGroupDTO;
+import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
+import switch2019.project.DTO.deserializationDTO.CreateGroupInfoDTO;
+import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
+import switch2019.project.DTO.serviceDTO.AddMemberDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.GroupID;
