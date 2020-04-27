@@ -1,19 +1,21 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.NoPermissionException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.frameworks.ID;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
-import switch2019.project.domain.domainEntities.ledger.Type;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.frameworks.ID;
+import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.ledger.Periodicity;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
+import switch2019.project.domain.domainEntities.ledger.Type;
+import switch2019.project.domain.domainEntities.person.Person;
+import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
+import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.repositories.GroupRepository;
-import switch2019.project.domain.repositories.Repository;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -43,7 +45,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
             Group group1 = new Group(groupDescription, groupCreator);
             groups.add(group1);
                 return group1;
-        } else throw new IllegalArgumentException("This group description already exists.");
+        } else throw new ResourceAlreadyExistsException("This group description already exists.");
     }
 
     /**
@@ -81,7 +83,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
             if (group.getID().equals(groupID))
                 return group;
         }
-        throw new IllegalArgumentException("No group found with that ID.");
+        throw new ArgumentNotFoundException("No group found with that ID.");
     }
 
     /**
@@ -168,10 +170,10 @@ public class GroupsInMemoryRepository implements GroupRepository {
             if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
                 if (group.isGroupMember(person))
                     return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
-                else throw new IllegalArgumentException(NOT_A_MEMBER);
+                else throw new NoPermissionException(NOT_A_MEMBER);
             }
         }
-        throw new IllegalArgumentException(NO_GROUPS_FOUND);
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -219,7 +221,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
             if (group.getGroupID().equalsIgnoreCase(groupDescription))
                 return group.ledgerSize();
         }
-        throw new IllegalArgumentException(NO_GROUPS_FOUND);
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
 }

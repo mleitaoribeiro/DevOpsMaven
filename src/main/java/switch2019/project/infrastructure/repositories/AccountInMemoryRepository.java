@@ -1,6 +1,8 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -39,7 +41,7 @@ public class AccountInMemoryRepository implements AccountRepository {
             if (account.getID().equals(accountID))
                 return account;
         }
-        throw new IllegalArgumentException("No account found with that ID.");
+        throw new ArgumentNotFoundException("No account found with that ID.");
     }
 
     /**
@@ -80,7 +82,7 @@ public class AccountInMemoryRepository implements AccountRepository {
             Account accountToAdd = new Account(accountDenomination, accountDescription, ownerID);
             this.accounts.add(accountToAdd);
             return accountToAdd;
-        } else throw new IllegalArgumentException("This account already exists.");
+        } else throw new ResourceAlreadyExistsException("This account already exists.");
     }
 
     /**
@@ -98,7 +100,7 @@ public class AccountInMemoryRepository implements AccountRepository {
                     listOfAccountsByOwnerID.add(account);
             if (!listOfAccountsByOwnerID.isEmpty())
                 return listOfAccountsByOwnerID;
-            else throw new IllegalArgumentException("No account found with that ID.");
+            else throw new ArgumentNotFoundException("No account found with that ID.");
         }
         throw new IllegalArgumentException("Owner ID can't be null.");
     }

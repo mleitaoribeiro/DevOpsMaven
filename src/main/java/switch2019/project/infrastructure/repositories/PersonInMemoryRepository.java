@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -8,7 +9,6 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.PersonRepository;
-import switch2019.project.domain.repositories.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,7 +47,7 @@ public class PersonInMemoryRepository implements PersonRepository {
         for (Person person : listOfPersons) {
             if (person.getID().equals(personID))
                 return person;
-        } throw new IllegalArgumentException("No person found with that ID.");
+        } throw new ArgumentNotFoundException("No person found with that ID.");
     }
 
     /**
@@ -61,7 +61,7 @@ public class PersonInMemoryRepository implements PersonRepository {
             if (person.getID().getEmail().equals(personEmail.getEmailAddress()))
                 return person;
         }
-        throw new IllegalArgumentException("No person found with that email.");
+        throw new ArgumentNotFoundException("No person found with that email.");
     }
 
     /**

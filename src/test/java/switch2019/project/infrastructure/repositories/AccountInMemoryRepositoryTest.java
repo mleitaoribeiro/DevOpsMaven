@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -114,7 +116,7 @@ class AccountInMemoryRepositoryTest {
         try {
             accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
-        } catch (IllegalArgumentException ex) {
+        } catch (ResourceAlreadyExistsException ex) {
             assertEquals("This account already exists.", ex.getMessage());
         }
     }
@@ -131,7 +133,7 @@ class AccountInMemoryRepositoryTest {
         try {
             accountRepository.createAccount(new Denomination("xpto"),
                     new Description("one account"), new GroupID(new Description("Friends")));
-        } catch (IllegalArgumentException ex) {
+        } catch (ResourceAlreadyExistsException ex) {
             assertEquals("This account already exists.", ex.getMessage());
         }
     }
@@ -583,7 +585,7 @@ class AccountInMemoryRepositoryTest {
         PersonID fakeID = (new PersonID(new Email("amadeu5@gmail.com")));
         try {
             Set<Account> real = accountRepository.returnAccountsByOwnerID(fakeID);
-        } catch (IllegalArgumentException ex) {
+        } catch (ArgumentNotFoundException ex) {
             assertEquals("No account found with that ID.", ex.getMessage());
         }
     }
@@ -634,7 +636,7 @@ class AccountInMemoryRepositoryTest {
         try {
             Category real = categoryInMemoryRepository.getByID(new CategoryID(new Denomination("Millo"),
                     new PersonID(new Email("miu@gmail.com"))));
-        } catch (IllegalArgumentException ex) {
+        } catch (ArgumentNotFoundException ex) {
             assertEquals("No category found with that ID.", ex.getMessage());
         }
     }
@@ -652,7 +654,7 @@ class AccountInMemoryRepositoryTest {
         try {
             Account accountReturned = accountsRepository.getByID(new AccountID(new Denomination("xpto"),
                     new PersonID(new Email("notfound@gmail.com"))));
-        } catch (IllegalArgumentException ex) {
+        } catch (ArgumentNotFoundException ex) {
             assertEquals("No account found with that ID.", ex.getMessage());
         }
     }

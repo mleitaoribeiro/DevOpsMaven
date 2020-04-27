@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.shared.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -181,7 +183,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
             service.addCategoryToGroup(dto);
         }
         //Assert:
-        catch (IllegalArgumentException nullParameter) {
+        catch (ResourceAlreadyExistsException nullParameter) {
             assertEquals("This category already exists.", nullParameter.getMessage());
         }
     }
@@ -238,7 +240,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No category found with that ID.");
     }
 

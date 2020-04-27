@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -57,7 +59,7 @@ class US002_1CreateGroupServiceTest {
         }
 
         //Assert
-        catch (IllegalArgumentException e) {
+        catch (ArgumentNotFoundException e) {
             assertEquals("No person found with that email.", e.getMessage());
         }
     }
@@ -74,7 +76,7 @@ class US002_1CreateGroupServiceTest {
         try {
             service.createGroup(new CreateGroupDTO(groupDescription, personID));
         }
-        catch (IllegalArgumentException ex) {
+        catch (ResourceAlreadyExistsException ex) {
             assertEquals("This group description already exists.", ex.getMessage());
         }
     }

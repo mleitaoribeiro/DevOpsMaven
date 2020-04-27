@@ -3,6 +3,8 @@ package switch2019.project.infrastructure.repositories;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -74,7 +76,7 @@ class GroupsRepositoryTest {
         groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
         try {
             groupsRepository.createGroup(new Description("Grupo de Teste"), person1);
-        } catch (IllegalArgumentException ex) {
+        } catch (ResourceAlreadyExistsException ex) {
             assertEquals("This group description already exists.", ex.getMessage());
         }
     }
@@ -95,7 +97,7 @@ class GroupsRepositoryTest {
             groupsRepository.createGroup(new Description("Grupo de Teste"), person2);
         }
         //Assert
-        catch (IllegalArgumentException ex) {
+        catch (ResourceAlreadyExistsException ex) {
             assertEquals("This group description already exists.", ex.getMessage());
         }
     }
@@ -750,7 +752,7 @@ class GroupsRepositoryTest {
 
         }
         //Assert
-        catch (IllegalArgumentException result) {
+        catch (ArgumentNotFoundException result) {
             assertEquals("No group found with that description.", result.getMessage());
         }
     }
@@ -1105,7 +1107,7 @@ class GroupsRepositoryTest {
             groupsRepository.checkAGroupsLedgerSize("test group main");
         }
         //Assert:
-        catch (IllegalArgumentException e) {
+        catch (ArgumentNotFoundException e) {
             assertEquals("No group found with that description.", e.getMessage());
         }
     }

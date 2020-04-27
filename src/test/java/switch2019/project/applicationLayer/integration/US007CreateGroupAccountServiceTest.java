@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,7 +59,7 @@ class US007CreateGroupAccountServiceTest {
 
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        } catch (IllegalArgumentException invalid) {
+        } catch (ArgumentNotFoundException invalid) {
             //Assert
             assertEquals("No person found with that email.", invalid.getMessage());
         }
@@ -313,7 +315,7 @@ class US007CreateGroupAccountServiceTest {
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        } catch (IllegalArgumentException invalid) {
+        } catch (ResourceAlreadyExistsException invalid) {
             //Assert
             assertEquals("This account already exists.", invalid.getMessage());
         }

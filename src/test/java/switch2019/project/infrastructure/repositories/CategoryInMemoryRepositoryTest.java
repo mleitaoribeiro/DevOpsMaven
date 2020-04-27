@@ -3,6 +3,7 @@ package switch2019.project.infrastructure.repositories;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -139,7 +140,7 @@ class CategoryInMemoryRepositoryTest {
         }
 
         //Assert
-        catch (IllegalArgumentException categoryAlreadyExists) {
+        catch (ResourceAlreadyExistsException categoryAlreadyExists) {
             assertEquals("This category already exists.", categoryAlreadyExists.getMessage());
         }
 

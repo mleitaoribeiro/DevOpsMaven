@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -69,7 +71,7 @@ class US006CreatePersonAccountServiceTest {
         }
 
         //Assert
-        catch (IllegalArgumentException invalid) {
+        catch (ArgumentNotFoundException invalid) {
             assertEquals("No person found with that email.", invalid.getMessage());
         }
     }
@@ -87,7 +89,7 @@ class US006CreatePersonAccountServiceTest {
 
         try {
             service.createPersonAccount(createPersonAccountDTO1);
-        } catch (IllegalArgumentException invalid) {
+        } catch (ResourceAlreadyExistsException invalid) {
             result = invalid.getMessage();
         }
         //Assert

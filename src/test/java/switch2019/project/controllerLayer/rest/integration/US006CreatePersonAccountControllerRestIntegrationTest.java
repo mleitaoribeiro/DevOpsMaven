@@ -5,12 +5,14 @@ import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest {
@@ -52,6 +54,8 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
+                .andExpect(status().isCreated())
+                .andExpect(content().string(expected))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
@@ -85,20 +89,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
             //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"CONFLICT\"," +
+                "\"message\":\"This resource already exists.\"," +
+                "\"errors\":[\"This account already exists.\"]}";
+
+        String expectedException = "switch2019.project.customExceptions.ResourceAlreadyExistsException: This account already exists.";
+
         //ACT:
-        Throwable exception = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
-        assertThat(exception)
-                .hasCause(new IllegalArgumentException("This account already exists."))
-                .isExactlyInstanceOf(NestedServletException.class);
-
-         */
+        Assertions.assertAll(
+                () -> assertEquals(409, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
 
     }
 
@@ -124,20 +139,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
             //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"This resource was not found.\"," +
+                "\"errors\":[\"No person found with that email.\"]}";
+
+        String expectedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
+
         //ACT:
-        Throwable exception = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
-        assertThat(exception)
-                .hasCause(new IllegalArgumentException("No person found with that email."))
-                .isExactlyInstanceOf(NestedServletException.class);
-
-         */
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
 
     }
 
@@ -162,20 +188,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
             //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The email can't be null.\"]}";
+
+        String expectedException = "java.lang.IllegalArgumentException: The email can't be null.";
+
         //ACT:
-        Throwable exception = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
-        assertThat(exception)
-                .hasCause(new IllegalArgumentException("The email can't be null."))
-                .isExactlyInstanceOf(NestedServletException.class);
-
-         */
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
 
     }
 
@@ -202,21 +239,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The email is not valid.\"]}";
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedException = "java.lang.IllegalArgumentException: The email is not valid.";
 
-        //Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email is not valid."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
 
-         */
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
     }
 
     @Test
@@ -241,21 +288,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The email is not valid.\"]}";
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedException = "java.lang.IllegalArgumentException: The email is not valid.";
 
-        //Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email is not valid."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
 
-         */
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
     }
 
 
@@ -281,21 +338,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The denomination can't be null or empty.\"]}";
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedException = "java.lang.IllegalArgumentException: The denomination can't be null or empty.";
 
-        //Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
 
-         */
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
     }
 
 
@@ -321,21 +388,31 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedException = "java.lang.IllegalArgumentException: The description can't be null or empty.";
 
-        //Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
 
-         */
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
     }
 
     /**

@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 
@@ -70,7 +71,7 @@ public class US003AddMemberToGroupServiceTest {
         }
 
         //Assert
-        catch (IllegalArgumentException email) {
+        catch (ArgumentNotFoundException email) {
             assertEquals("No person found with that email.", email.getMessage());
         }
     }

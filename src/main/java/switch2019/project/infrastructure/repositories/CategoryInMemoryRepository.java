@@ -1,14 +1,16 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.repositories.CategoryRepository;
-import switch2019.project.domain.repositories.Repository;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class CategoryInMemoryRepository implements CategoryRepository {
@@ -37,7 +39,7 @@ public class CategoryInMemoryRepository implements CategoryRepository {
             if (category.getID().equals(categoryID))
                 return category;
         }
-        throw new IllegalArgumentException("No category found with that ID.");
+        throw new ArgumentNotFoundException("No category found with that ID.");
     }
 
     /**
@@ -74,7 +76,7 @@ public class CategoryInMemoryRepository implements CategoryRepository {
 
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (this.categories.contains(new Category(nameOfCategory, ownerID)))
-            throw new IllegalArgumentException("This category already exists.");
+            throw new ResourceAlreadyExistsException("This category already exists.");
         else {
             Category newCategory = new Category(nameOfCategory, ownerID);
             categories.add(newCategory);
