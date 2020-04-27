@@ -1,4 +1,4 @@
-package switch2019.project.error;
+package switch2019.project.DTO.error;
 
 
 import org.springframework.http.HttpStatus;

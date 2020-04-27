@@ -154,7 +154,6 @@
                         <param>switch2019.project.controllerLayer.*</param>
                         <param>switch2019.project.domain.*</param>
                         <param>switch2019.project.DTO.*</param>
-                        <param>switch2019.project.error.*</param>
                         <param>switch2019.project.infrastructure.*</param>
                         <param>switch2019.project.utils.*</param>
                     </targetClasses>
@@ -164,7 +163,6 @@
                         <param>switch2019.project.controllerLayer.*</param>
                         <param>switch2019.project.domain.*</param>
                         <param>switch2019.project.DTO.*</param>
-                        <param>switch2019.project.error.*</param>
                         <param>switch2019.project.infrastructure.*</param>
                     </targetTests>
                     <outputFormats>
