@@ -13,6 +13,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import switch2019.project.DTO.error.ErrorDTO;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.NoPermissionException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +51,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
 
-        //Construction of the ApiError with all the errors present:
+        //Construction of the ErrorDTO with all the errors present:
         final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), errors);
 
         //Return of the HandleExceptionInternal:
@@ -55,20 +59,20 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Exception handler for MethodArgumentTypeMismatchException
+     * Exception handler for MethodArgumentTypeMismatchExceptions
      * @param exception
      * @param request
      * @return
      */
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
-    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
+    public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
             final MethodArgumentTypeMismatchException exception,
             final WebRequest request) {
 
         //Construction of the error message:
         final String error = exception.getName() + " should be of of type " + exception.getRequiredType().getName();
 
-        //Construction of the ApiError:
+        //Construction of the ErrorDTO:
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
@@ -76,7 +80,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Exception handler for IllegalArgumentException
+     * Exception handler for IllegalArgumentExceptions
      * @param exception
      * @param request
      * @return
@@ -89,8 +93,71 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         //Construction of the error message:
         final String error = exception.getMessage();
 
-        //Construction of the ApiError:
-        final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "Operation could not be completed", error);
+        //Construction of the ErrorDTO:
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "One of the parameters is invalid or is missing.", error);
+
+        //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
+        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+    }
+
+    /**
+     * Exception handler for ResourceAlreadyExistsExceptions
+     * @param exception
+     * @param request
+     * @return
+     */
+    @ExceptionHandler({ ResourceAlreadyExistsException.class })
+    public ResponseEntity<Object> handleResourceAlreadyExistsException(
+            final ResourceAlreadyExistsException exception,
+            final WebRequest request) {
+
+        //Construction of the error message:
+        final String error = exception.getMessage();
+
+        //Construction of the ErrorDTO:
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.CONFLICT, "This resource already exists.", error);
+
+        //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
+        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+    }
+
+    /**
+     * Exception handler for ArgumentNotFoundExceptions
+     * @param exception
+     * @param request
+     * @return
+     */
+    @ExceptionHandler({ ArgumentNotFoundException.class })
+    public ResponseEntity<Object> handleArgumentNotFoundException(
+            final ArgumentNotFoundException exception,
+            final WebRequest request) {
+
+        //Construction of the error message:
+        final String error = exception.getMessage();
+
+        //Construction of the ErrorDTO:
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "This resource was not found.", error);
+
+        //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
+        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+    }
+
+    /**
+     * Exception handler for NoPermissionExceptions
+     * @param exception
+     * @param request
+     * @return
+     */
+    @ExceptionHandler({ NoPermissionException.class })
+    public ResponseEntity<Object> handleNoPermissionException(
+            final NoPermissionException exception,
+            final WebRequest request) {
+
+        //Construction of the error message:
+        final String error = exception.getMessage();
+
+        //Construction of the ErrorDTO:
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.FORBIDDEN, "No permission for this group operation.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
         return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());

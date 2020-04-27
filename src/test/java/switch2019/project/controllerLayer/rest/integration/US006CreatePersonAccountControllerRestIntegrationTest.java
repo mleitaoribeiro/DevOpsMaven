@@ -334,7 +334,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         assertThat(thrown)
                 .hasCause(new IllegalArgumentException("The description can't be null or empty."))
                 .isExactlyInstanceOf(NestedServletException.class);
-                
+
          */
     }
 
