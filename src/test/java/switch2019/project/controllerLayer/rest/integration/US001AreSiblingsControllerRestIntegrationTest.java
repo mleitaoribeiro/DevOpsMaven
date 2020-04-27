@@ -25,7 +25,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsTRUE() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=antonio@isep.ipp.pt&personTwoEmail=manuel@isep.ipp.pt";
+        String uri = "/persons/antonio@isep.ipp.pt/siblings/manuel@isep.ipp.pt";
         String expected = "{\"siblings\":\"They are siblings.\"}";
 
         // Act
@@ -47,7 +47,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsTRUESameMother() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=antonio@isep.ipp.pt&personTwoEmail=roberto@isep.ipp.pt";
+        String uri = "/persons/antonio@isep.ipp.pt/siblings/roberto@isep.ipp.pt";
         String expected = "{\"siblings\":\"They are siblings.\"}";
 
         // Act
@@ -69,7 +69,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsTRUESameFather() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=antonio@isep.ipp.pt&personTwoEmail=amalia@isep.ipp.pt";
+        String uri = "/persons/antonio@isep.ipp.pt/siblings/amalia@isep.ipp.pt";
         String expected = "{\"siblings\":\"They are siblings.\"}";
 
         // Act
@@ -91,7 +91,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsTRUEOnSiblingsList() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=father1@isep.ipp.pt&personTwoEmail=father2@isep.ipp.pt";
+        String uri = "/persons/father1@isep.ipp.pt/siblings/father2@isep.ipp.pt";
         String expected = "{\"siblings\":\"They are siblings.\"}";
 
         // Act
@@ -113,7 +113,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsFALSE() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=mother1@isep.ipp.pt&personTwoEmail=mother2@isep.ipp.pt";
+        String uri = "/persons/mother1@isep.ipp.pt/siblings/mother2@isep.ipp.pt";
         String expected = "{\"siblings\":\"They are not siblings.\"}";
 
         // Act
@@ -135,7 +135,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsPersonEmailNotFound() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=404@isep.ipp.pt&personTwoEmail=father2@isep.ipp.pt";
+        String uri = "/persons/404@isep.ipp.pt/siblings/father2@isep.ipp.pt";
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -155,7 +155,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsNullFirstPersonEmail() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=&personTwoEmail=father2@isep.ipp.pt";
+        String uri = "/persons/null/siblings/father2@isep.ipp.pt";
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -175,7 +175,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     public void checkIfTwoPeopleAreSiblingsNullSecondPersonEmail() throws Exception {
 
         // Arrange
-        String uri = "/areSiblings?personOneEmail=father1@isep.ipp.pt&personTwoEmail=";
+        String uri = "/persons/father1@isep.ipp.pt/siblings/null";
 
         //Act
         Throwable thrown = catchThrowable(() -> {
