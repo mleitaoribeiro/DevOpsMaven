@@ -4,7 +4,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Objects;
 
-public class AccountDTO extends RepresentationModel<CategoryDTO> {
+public class AccountDTO extends RepresentationModel<AccountDTO> {
 
     private final String ownerID;
     private final String denomination;

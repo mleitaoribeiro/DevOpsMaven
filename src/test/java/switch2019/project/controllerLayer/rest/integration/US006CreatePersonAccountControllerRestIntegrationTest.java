@@ -26,7 +26,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void createPersonAccountHappyCase() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
             //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -46,7 +46,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String expected = "{\"ownerID\":\"" +personEmail.toUpperCase() +
                 "\",\"denomination\":\"" +accountDenomination.toUpperCase() +
                 "\",\"description\":\"" +accountDescription.toUpperCase() +
-                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}}}";;
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/accounts/MARGE@HOTMAIL.COM/FOOD%20EXPENSES\"}}}";;
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -69,7 +69,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIfUserAccountWasCreatedAccountAlreadyExists() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
             //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -108,7 +108,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIfUserAccountWasCreatedPersonDoesNotExist() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
             //arrangement of the account DTO:
         final String personEmail = "blabla@hotmail.com";
@@ -146,7 +146,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIsUserAccountWasCreatedEmailNull() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
             //arrangement of the account DTO:
         final String personEmail = null;
@@ -186,7 +186,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
         //arrangement of the account DTO:
         final String personEmail = "";
@@ -225,7 +225,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
         //arrangement of the account DTO:
         final String personEmail = "mail.com";
@@ -266,7 +266,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
         //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -306,7 +306,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/persons";
+        String uri = "/accounts/createPersonAccount";
 
         //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -347,7 +347,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountByAccountID() throws Exception {
 
         //ARRANGE:
-        String uri = "/persons/MARGE@HOTMAIL.COM/accounts/HOMER SNACKS";
+        String uri = "/accounts/MARGE@HOTMAIL.COM/HOMER SNACKS";
 
         String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"," +
                 "\"denomination\":\"HOMER SNACKS\"," +
