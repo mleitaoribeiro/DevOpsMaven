@@ -22,7 +22,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Error handler for error status 400
-     *
      * @param exception
      * @param headers
      * @param status
@@ -40,7 +39,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         //Obtaining the errors for each field:
         for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
+            errors.add(error.getField() + ": " +error.getDefaultMessage());
         }
 
         //Obtaining the errors for the objects associated with the fields:
@@ -49,12 +48,34 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         //Construction of the ApiError with all the errors present:
-        final ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), errors);
+        final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), errors);
 
         //Return of the HandleExceptionInternal:
         return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
     }
 
+    /**
+     * Exception handler for MethodArgumentTypeMismatchException
+     * @param exception
+     * @param request
+     * @return
+     */
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
+            final MethodArgumentTypeMismatchException exception,
+            final WebRequest request) {
+
+        //Construction of the error message:
+        final String error = exception.getName() + " should be of of type " + exception.getRequiredType().getName();
+
+        //Construction of the ApiError:
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
+
+        //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
+        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+    }
+
+   
 }
 
 
