@@ -28,7 +28,7 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
     void getFamilyGroups() throws Exception {
 
         //Status Request
-        String uri = "/getFamilyGroups";
+        String uri = "/groups?type=family";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -40,13 +40,13 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
         //outputDTO
         String result = mvcResult.getResponse().getContentAsString();
 
-        String simpson = "FAMILY SIMPSON";
-        String cardoso = "FAMILY CARDOSO";
-        String azevedo = "FAMILY AZEVEDO";
 
-        String expected = "[{\"groupDescription\":\"" + simpson + "\",\"links\":[]}," +
-                "{\"groupDescription\":\"" + cardoso + "\",\"links\":[]}," +
-                "{\"groupDescription\":\"" + azevedo + "\",\"links\":[]}]";
+        String expected = "[{\"groupDescription\":\"" + "FAMILY SIMPSON\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20SIMPSON\"}]}," +
+                "{\"groupDescription\":\"FAMILY CARDOSO\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20CARDOSO\"}]}," +
+                "{\"groupDescription\":\"FAMILY AZEVEDO\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20AZEVEDO\"}]}]";
 
 
         //Assert

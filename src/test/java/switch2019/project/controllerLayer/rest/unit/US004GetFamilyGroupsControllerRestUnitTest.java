@@ -52,7 +52,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
         //Act
         Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
 
-        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups();
+        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups("family");
 
         //Assert
         Assertions.assertAll(

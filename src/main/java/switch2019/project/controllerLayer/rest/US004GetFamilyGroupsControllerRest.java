@@ -1,13 +1,20 @@
 package switch2019.project.controllerLayer.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
+
+import java.util.LinkedHashSet;
 import java.util.Set;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class US004GetFamilyGroupsControllerRest {
@@ -21,11 +28,21 @@ public class US004GetFamilyGroupsControllerRest {
      *
      * @return groups that are families and 200 OK status
      */
-    @GetMapping("/getFamilyGroups")
-    public ResponseEntity <Object> getFamilyGroups() {
 
-        Set<GroupDTO> result = service.getFamilyGroups();
+    @GetMapping("/groups")
+    public ResponseEntity <Object> getFamilyGroups(@RequestParam(value = "type") String type) {
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        Set<GroupDTO> groups = new LinkedHashSet<>();
+
+        if(type.equals("family")) {
+            groups = service.getFamilyGroups();
+
+            for (GroupDTO groupDTO : groups) {
+                Link selfLink = linkTo(methodOn(US002_1CreateGroupControllerRest.class)
+                        .getGroupByDescription(groupDTO.getGroupDescription()))
+                        .withSelfRel();
+                groupDTO.add(selfLink);
+            }
+        } return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 }
