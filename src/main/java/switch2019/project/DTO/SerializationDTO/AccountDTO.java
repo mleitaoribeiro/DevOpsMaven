@@ -1,8 +1,10 @@
 package switch2019.project.DTO.SerializationDTO;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class AccountDTO {
+public class AccountDTO extends RepresentationModel<CategoryDTO> {
 
     private final String ownerID;
     private final String denomination;

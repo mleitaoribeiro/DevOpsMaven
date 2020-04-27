@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.DeserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.SerializationDTO.AccountDTO;
+import switch2019.project.DTO.SerializationDTO.GroupDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
@@ -302,4 +303,28 @@ public class US006CreatePersonAccountControllerRestUnitTest {
                 .isExactlyInstanceOf(NullPointerException.class)
                 .hasMessage(null);
     }
+
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountByAccountID()  {
+
+        AccountDTO accountDTOExpected = new AccountDTO("MARGE@HOTMAIL.COM", "HOMER SNACKS", "MONEY SPENT ON SNACKS FOR HOMER");
+
+        ResponseEntity <AccountDTO> expectedResponseEntity = new ResponseEntity<>(accountDTOExpected, HttpStatus.OK);
+
+        //Act
+        Mockito.when(service.getAccountByAccountID("HOMER SNACKS","MARGE@HOTMAIL.COM" )).thenReturn(accountDTOExpected);
+
+        ResponseEntity<AccountDTO> actualResponseEntity = controller.getAccountByAccountID("HOMER SNACKS","MARGE@HOTMAIL.COM");
+
+        //Assert
+        assertEquals(expectedResponseEntity, actualResponseEntity);
+
+    }
+
+
 }

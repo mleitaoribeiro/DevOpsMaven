@@ -14,7 +14,10 @@ import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
@@ -223,4 +226,40 @@ public class US006CreatePersonAccountServiceUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("This account already exists.");
     }
+
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountyByAccountID() {
+
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("rick@gmail.com"));
+        PersonID personID = person.getID();
+
+        Denomination accountDenomination = new Denomination("Revolut");
+        Description accountDescription = new Description("Revolut Account");
+        Account account = new Account(accountDenomination, accountDescription, personID);
+
+        //arranging mockitos
+        Mockito.when(personRepository.findPersonByEmail(new Email("rick@gmail.com"))).thenReturn(person);
+
+        Mockito.when(accountRepository.getByID(account.getID())).thenReturn(account);
+
+        //DTO expected
+        AccountDTO accountDTOExpected = new AccountDTO("rick@gmail.com", "Revolut", "Revolut Account");
+
+        //Act
+        AccountDTO accountDTOResult = service.getAccountByAccountID("Revolut", "rick@gmail.com" );
+
+        //Assert
+        assertEquals(accountDTOExpected, accountDTOResult);
+
+    }
+
+
+
 }

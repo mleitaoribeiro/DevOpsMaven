@@ -9,7 +9,7 @@ import switch2019.project.DTO.SerializationDTO.AccountDTO;
 import switch2019.project.DTO.ServiceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class US006CreatePersonAccountServiceTest {
@@ -194,6 +194,31 @@ class US006CreatePersonAccountServiceTest {
             assertEquals("The description can't be null or empty.", invalid.getMessage());
         }
     }
+
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountByAccountID() {
+        //Arrange:
+        String personEmail = "marge@hotmail.com";
+        String accountDenomination = "Homer Snacks";
+        String accountDescription = "Money spent on snacks for homer";
+
+        //Arrangement of the output DTO:
+        AccountDTO expectedOutput = new AccountDTO(personEmail, accountDenomination, accountDescription);
+
+        //Act:
+        AccountDTO realOutput = service.getAccountByAccountID(accountDenomination, personEmail);
+
+        //Assert:
+        assertEquals(expectedOutput, realOutput);
+    }
+
+
+
 
 }
 
