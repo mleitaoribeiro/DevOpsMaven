@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
+import switch2019.project.customExceptions.NoPermissionException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -45,14 +46,10 @@ public class US007CreateGroupAccountService {
 
         GroupID groupID = group.getID();
 
-        if (group.isGroupMember(personID)) {
             if (group.isGroupAdmin(personID)) {
                 Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
                 return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
-            } else throw new IllegalArgumentException("This person is not admin of this group.");
-        } else throw new IllegalArgumentException("This person is not member of this group.");
-
-
+        } else throw new NoPermissionException("This person is not member or admin of this group.");
     }
 
     /**

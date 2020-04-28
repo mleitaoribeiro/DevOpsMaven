@@ -12,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -99,7 +101,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).
-                thenThrow(new IllegalArgumentException("No person found with that email."));
+                thenThrow(new ArgumentNotFoundException("No person found with that email."));
         Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).thenReturn(groupToMock);
 
         //Act
@@ -109,7 +111,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //Assert
         assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No person found with that email.");
     }
 
@@ -127,7 +129,7 @@ public class US002_1CreateGroupServiceUnitTest {
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).thenReturn(admin);
         Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).
-                thenThrow(new IllegalArgumentException("This group description already exists."));
+                thenThrow(new ResourceAlreadyExistsException("This group description already exists."));
 
         //Act
         Throwable exception = catchThrowable(() -> {
@@ -136,7 +138,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //Assert
         assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
                 .hasMessage("This group description already exists.");
     }
 
@@ -253,7 +255,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //Act
         Mockito.when(groupsRepository.findGroupByDescription( new Description(groupDescription))).
-                thenThrow(new IllegalArgumentException("No group found with that description."));
+                thenThrow(new ArgumentNotFoundException("No group found with that description."));
 
         Throwable thrown = catchThrowable(() -> {
             service.getGroupByDescription(groupDescription);
@@ -261,7 +263,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No group found with that description.");
     }
 

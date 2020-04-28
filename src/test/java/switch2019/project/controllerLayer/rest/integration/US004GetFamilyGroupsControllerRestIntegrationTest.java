@@ -24,22 +24,11 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
      * @throws Exception
      */
     @Test
-    @DisplayName("Get all the groups who are families in the groups repository")
-    void getFamilyGroups() throws Exception {
+    @DisplayName("Get groups - type family - Main Scenario")
+    void getGroupsTypeFamily() throws Exception {
 
-        //Status Request
+        // Status Request
         String uri = "/groups?type=family";
-
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
-
-        //Status Response
-        int status = mvcResult.getResponse().getStatus();
-
-        //outputDTO
-        String result = mvcResult.getResponse().getContentAsString();
-
 
         String expected = "[{\"groupDescription\":\"" + "FAMILY SIMPSON\",\"links\":" +
                 "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20SIMPSON\"}]}," +
@@ -48,8 +37,72 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
                 "{\"groupDescription\":\"FAMILY AZEVEDO\",\"links\":" +
                 "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20AZEVEDO\"}]}]";
 
+        // Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
 
-        //Assert
+        // Status Response
+        int status = mvcResult.getResponse().getStatus();
+
+        // OutputDTO
+        String result = mvcResult.getResponse().getContentAsString();
+
+        // Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Get groups - type empty - empty result")
+    void returnGroupsTypeEmpty() throws Exception {
+
+        // Status Request
+        String uri = "/groups?type=";
+
+        String expected = "[]";
+
+        // Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        // Status Response
+        int status = mvcResult.getResponse().getStatus();
+
+        // OutputDTO
+        String result = mvcResult.getResponse().getContentAsString();
+
+        // Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Get groups - type different from family - empty result")
+    void returnGroupsTypeDifferentFromFamily() throws Exception {
+
+        // Status Request
+        String uri = "/groups?type=friends";
+
+        String expected = "[]";
+
+        // Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        // Status Response
+        int status = mvcResult.getResponse().getStatus();
+
+        // OutputDTO
+        String result = mvcResult.getResponse().getContentAsString();
+
+        // Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
                 () -> assertEquals(expected, result)

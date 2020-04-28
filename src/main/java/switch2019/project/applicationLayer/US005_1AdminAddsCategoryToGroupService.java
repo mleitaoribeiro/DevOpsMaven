@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
+import switch2019.project.customExceptions.NoPermissionException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -43,7 +44,7 @@ public class US005_1AdminAddsCategoryToGroupService {
             Category categoryAdded = categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID());
             return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryAdded);
         } else
-            throw new IllegalArgumentException("This person is not member or admin of this group.");
+            throw new NoPermissionException("This person is not member or admin of this group.");
     }
 
     /**

@@ -13,6 +13,8 @@ import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,7 +79,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //arranging Mockito:
         Mockito.when(service.createGroup(groupCreation)).
-                thenThrow(new IllegalArgumentException("No person found with that email."));
+                thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
@@ -88,7 +90,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
         //1.- is the instance of the exception is the same
         //2.- is the contained message the expected:
         assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No person found with that email.");
     }
 
@@ -105,7 +107,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
 
         //arranging Mockito:
         Mockito.when(service.createGroup(groupCreation)).
-                thenThrow(new IllegalArgumentException("This group description already exists."));
+                thenThrow(new ResourceAlreadyExistsException("This group description already exists."));
 
         //ACT:
         Throwable exception = catchThrowable(() -> {
@@ -116,7 +118,7 @@ public class US002_1CreateGroupControllerCliUnitTest {
         //1.- is the instance of the exception is the same
         //2.- is the contained message the expected:
         assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
                 .hasMessage("This group description already exists.");
     }
 

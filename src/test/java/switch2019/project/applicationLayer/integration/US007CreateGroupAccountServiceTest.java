@@ -8,6 +8,7 @@ import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.NoPermissionException;
 import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,7 +82,7 @@ class US007CreateGroupAccountServiceTest {
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        } catch (IllegalArgumentException invalid) {
+        } catch (ArgumentNotFoundException invalid) {
             //Assert
             assertEquals("No group found with that description.", invalid.getMessage());
         }
@@ -267,9 +268,9 @@ class US007CreateGroupAccountServiceTest {
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        } catch (IllegalArgumentException invalid) {
+        } catch (NoPermissionException invalid) {
             //Assert
-            assertEquals("This person is not admin of this group.", invalid.getMessage());
+            assertEquals("This person is not member or admin of this group.", invalid.getMessage());
         }
     }
 
@@ -289,9 +290,9 @@ class US007CreateGroupAccountServiceTest {
         //Act
         try {
             service.createGroupAccount(createGroupAccountDTO);
-        } catch (IllegalArgumentException invalid) {
+        } catch (NoPermissionException invalid) {
             //Assert
-            assertEquals("This person is not member of this group.", invalid.getMessage());
+            assertEquals("This person is not member or admin of this group.", invalid.getMessage());
         }
 
     }

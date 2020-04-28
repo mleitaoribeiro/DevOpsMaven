@@ -47,4 +47,5 @@ public class US002_1CreateGroupService {
      Group group = groupsRepository.findGroupByDescription( new Description(groupDescription));
      return GroupDTOAssembler.createGroupDTO( group.getID());
     }
+
 }

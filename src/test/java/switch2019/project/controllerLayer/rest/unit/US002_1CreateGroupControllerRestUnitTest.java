@@ -17,6 +17,8 @@ import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.controllerLayer.rest.US002_1CreateGroupControllerRest;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -98,7 +100,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
 
         //arrange Mockito:
         Mockito.when(service.createGroup(groupCreationInput)).
-                thenThrow(new IllegalArgumentException("No person found with that email."));
+                thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -109,7 +111,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         //1.- is the instance of the exception is the same
         //2.- is the contained message the expected:
         assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No person found with that email.");
     }
 
@@ -134,7 +136,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
 
         //arrange Mockito:
         Mockito.when(service.createGroup(groupCreationInput)).
-                thenThrow(new IllegalArgumentException("This group description already exists."));
+                thenThrow(new ResourceAlreadyExistsException("This group description already exists."));
 
         //ACT
         Throwable exception = catchThrowable(() -> {
@@ -145,7 +147,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         //1.- is the instance of the exception is the same
         //2.- is the contained message the expected:
         assertThat(exception)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
                 .hasMessage("This group description already exists.");
     }
 
@@ -322,7 +324,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
 
         //Act
         Mockito.when(service.getGroupByDescription(groupDescription)).
-                thenThrow(new IllegalArgumentException("No group found with that description."));
+                thenThrow(new ArgumentNotFoundException("No group found with that description."));
 
         Throwable thrown = catchThrowable(() -> {
             controller.getGroupByDescription(groupDescription);
@@ -330,7 +332,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No group found with that description.");
     }
 
