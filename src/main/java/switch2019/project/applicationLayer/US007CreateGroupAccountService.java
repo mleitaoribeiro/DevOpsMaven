@@ -46,10 +46,15 @@ public class US007CreateGroupAccountService {
 
         GroupID groupID = group.getID();
 
-            if (group.isGroupAdmin(personID)) {
-                Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
-                return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
-        } else throw new NoPermissionException("This person is not member or admin of this group.");
+        if  (!group.isGroupMember(personID)) {
+            throw new NoPermissionException("This person is not member of this group.");
+        }
+        else if   (!group.isGroupAdmin(personID))
+            throw new NoPermissionException("This person is not admin of this group.");
+        else {
+            Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
+            return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
+        }
     }
 
     /**

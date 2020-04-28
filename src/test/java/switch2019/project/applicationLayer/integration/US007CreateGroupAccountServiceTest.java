@@ -270,7 +270,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (NoPermissionException invalid) {
             //Assert
-            assertEquals("This person is not member or admin of this group.", invalid.getMessage());
+            assertEquals("This person is not admin of this group.", invalid.getMessage());
         }
     }
 
@@ -292,7 +292,7 @@ class US007CreateGroupAccountServiceTest {
             service.createGroupAccount(createGroupAccountDTO);
         } catch (NoPermissionException invalid) {
             //Assert
-            assertEquals("This person is not member or admin of this group.", invalid.getMessage());
+            assertEquals("This person is not member of this group.", invalid.getMessage());
         }
 
     }

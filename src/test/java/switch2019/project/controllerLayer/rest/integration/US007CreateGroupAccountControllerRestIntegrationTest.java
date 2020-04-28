@@ -10,8 +10,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.NoPermissionException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+
+import java.util.Objects;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest {
@@ -92,20 +100,32 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
+        String expectedErrorMessage = "{\"status\":\"FORBIDDEN\"," +
+                "\"message\":\"No permission for this group operation.\"," +
+                "\"errors\":[\"This person is not admin of this group.\"]}";
+
+        String expectedResolvedException = "switch2019.project.customExceptions.NoPermissionException: This person is not admin of this group.";
+
         //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isForbidden())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This person is not admin of this group."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
 
-         */
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(403, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+
     }
 
     @Test
@@ -127,21 +147,34 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
+            //arrangement of the input:
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
-        //Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("No person found with that email."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"This resource was not found.\"," +
+                "\"errors\":[\"No person found with that email.\"]}";
 
-         */
+        String expectedResolvedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
 
@@ -166,20 +199,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"CONFLICT\"," +
+                "\"message\":\"This resource already exists.\"," +
+                "\"errors\":[\"This account already exists.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("This account already exists."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new ResourceAlreadyExistsException("This account already exists.").toString();
 
-         */
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(409, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -203,20 +247,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"This resource was not found.\"," +
+                "\"errors\":[\"No group found with that description.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("No group found with that description."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new ArgumentNotFoundException("No group found with that description.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -239,20 +294,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The email can't be null.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email can't be null."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -275,20 +341,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The email is not valid.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The email is not valid."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -311,20 +388,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -347,20 +435,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -383,20 +482,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The denomination can't be null or empty.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
 
     }
 
@@ -420,20 +530,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The denomination can't be null or empty.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The denomination can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     @Test
@@ -456,20 +577,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
 
 
     }
@@ -494,20 +626,31 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            mvc.perform(MockMvcRequestBuilders.post(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson));
-        });
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        // Assert
-        /*
-        assertThat(thrown)
-                .hasCause(new IllegalArgumentException("The description can't be null or empty."))
-                .isExactlyInstanceOf(NestedServletException.class);
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
-         */
+        //Act:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
     }
 
     /**
