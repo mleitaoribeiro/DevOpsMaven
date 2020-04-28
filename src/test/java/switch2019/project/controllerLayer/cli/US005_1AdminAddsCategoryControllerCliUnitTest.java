@@ -102,7 +102,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         CreateGroupCategoryDTO createGroupCategoryDTO1 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO1)).
-                thenThrow(new IllegalArgumentException("This person is not member or admin of this group."));
+                thenThrow(new IllegalArgumentException("This person is not member of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -112,7 +112,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not member or admin of this group.");
+                .hasMessage("This person is not member of this group.");
 
     }
 
@@ -128,7 +128,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         CreateGroupCategoryDTO createGroupCategoryDTO1 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO1)).
-                thenThrow(new IllegalArgumentException("This person is not member or admin of this group."));
+                thenThrow(new IllegalArgumentException("This person is not admin of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -138,7 +138,7 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not member or admin of this group.");
+                .hasMessage("This person is not admin of this group.");
 
     }
 
