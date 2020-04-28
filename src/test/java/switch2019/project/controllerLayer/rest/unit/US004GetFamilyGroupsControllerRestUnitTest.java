@@ -36,10 +36,10 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
-    @DisplayName("Get all the groups who are families in the repository")
-    public void returnFamilyGroups() {
+    @DisplayName("Get groups - type family - Main Scenario")
+    void getGroupsTypeFamily() {
+
         //Arrange
         Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
 
@@ -61,7 +61,74 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
                 () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
                 () -> assertNotNull(responseEntityResult)
         );
-
     }
 
+    @Test
+    @DisplayName("Get groups - type family - empty result (no families found on Group Repository")
+    void getGroupsTypeFamilyEmptyResult() {
+
+        //Arrange
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
+
+        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
+
+        //Act
+        Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
+
+        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups("family");
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
+                () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
+                () -> assertNotNull(responseEntityResult)
+        );
+    }
+
+    @Test
+    @DisplayName("Get groups - type empty - empty result")
+    void getGroupsTypeEmpty() {
+
+        //Arrange
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
+
+        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
+
+        //Act
+        Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
+
+        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups("");
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
+                () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
+                () -> assertNotNull(responseEntityResult)
+        );
+    }
+
+    @Test
+    @DisplayName("Get groups - type different from family - empty result")
+    void getGroupsTypeDifferentFromFamily() {
+
+        //Arrange
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
+
+        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
+
+        //Act
+        Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
+
+        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups("friends");
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
+                () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
+                () -> assertNotNull(responseEntityResult)
+        );
+    }
 }
