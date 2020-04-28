@@ -398,7 +398,7 @@ class GroupsRepositoryTest {
         //Act:
         try {
             testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("blabla")), testGroupAdmin);
-        } catch (IllegalArgumentException groupNotFound) {
+        } catch (ArgumentNotFoundException groupNotFound) {
             assertEquals("No group found with that description.", groupNotFound.getMessage());
         }
     }
@@ -464,7 +464,7 @@ class GroupsRepositoryTest {
 
         }
         //Assert
-        catch (IllegalArgumentException result) {
+        catch (ArgumentNotFoundException result) {
             assertEquals("No group found with that description.", result.getMessage());
         }
     }
@@ -529,7 +529,7 @@ class GroupsRepositoryTest {
 
         }
         //Assert
-        catch (IllegalArgumentException result) {
+        catch (ArgumentNotFoundException result) {
             assertEquals("No group found with that description.", result.getMessage());
         }
     }

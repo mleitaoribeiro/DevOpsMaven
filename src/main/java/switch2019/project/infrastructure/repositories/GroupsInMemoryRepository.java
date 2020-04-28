@@ -70,7 +70,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
             if (group.getID().getDescription().equals(groupDescription.getDescription()))
                 return group;
         }
-        throw new IllegalArgumentException(NO_GROUPS_FOUND);
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -148,7 +148,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
                 else throw new IllegalArgumentException(NOT_A_MEMBER);
             }
         }
-        throw new IllegalArgumentException(NO_GROUPS_FOUND);
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -208,7 +208,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
             if (group.getGroupID().equalsIgnoreCase(groupID.toString()))
                 return group.isGroupAdmin(person);
         }
-        throw new IllegalArgumentException(NO_GROUPS_FOUND);
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
     /**

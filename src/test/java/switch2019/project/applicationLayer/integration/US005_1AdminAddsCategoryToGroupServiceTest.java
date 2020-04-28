@@ -9,6 +9,7 @@ import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.NoPermissionException;
 import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.shared.*;
 
@@ -86,7 +87,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         }
 
         //Assert:
-        catch (IllegalArgumentException notGroupMember) {
+        catch (NoPermissionException notGroupMember) {
             assertEquals("This person is not member or admin of this group.", notGroupMember.getMessage());
         }
     }
@@ -107,7 +108,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         }
 
         //Assert:
-        catch (IllegalArgumentException notGroupAdmin) {
+        catch (NoPermissionException notGroupAdmin) {
             assertEquals("This person is not member or admin of this group.", notGroupAdmin.getMessage());
         }
     }
@@ -222,7 +223,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No group found with that description.");
     }
 
