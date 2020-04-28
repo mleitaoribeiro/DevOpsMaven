@@ -7,6 +7,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.Objects;
 
@@ -93,7 +95,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"This resource already exists.\"," +
                 "\"errors\":[\"This account already exists.\"]}";
 
-        String expectedResolvedException = "switch2019.project.customExceptions.ResourceAlreadyExistsException: This account already exists.";
+        String expectedResolvedException = new ResourceAlreadyExistsException("This account already exists.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -143,7 +145,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No person found with that email.\"]}";
 
-        String expectedResolvedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
+        String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -192,7 +194,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The email can't be null.\"]}";
 
-        String expectedResolvedException = "java.lang.IllegalArgumentException: The email can't be null.";
+        String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -215,7 +217,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         );
 
     }
-
 
     @Test
     @DisplayName("Test If User Account was created  - email invalid - empty")
@@ -243,7 +244,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The email is not valid.\"]}";
 
-        String expectedResolvedException = "java.lang.IllegalArgumentException: The email is not valid.";
+        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -292,7 +293,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The email is not valid.\"]}";
 
-        String expectedResolvedException = "java.lang.IllegalArgumentException: The email is not valid.";
+        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -341,7 +342,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The denomination can't be null or empty.\"]}";
 
-        String expectedResolvedException = "java.lang.IllegalArgumentException: The denomination can't be null or empty.";
+        String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -389,7 +390,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        String expectedResolvedException = "java.lang.IllegalArgumentException: The description can't be null or empty.";
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -472,8 +473,102 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
     }
 
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Person does not exists")
+    void getAccountByAccountIDPersonDoesNotExists() throws Exception {
+
+        //ARRANGE:
+        String uri = "/accounts/blabla@HOTMAIL.COM/HOMER SNACKS";
+
+        String expected = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"This resource was not found.\"," +
+                "\"errors\":[\"No person found with that email.\"]}";
+
+        String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
+
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expected, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+
+    }
 
 
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Account not found")
+    void getAccountByAccountIDAccountNotFound() throws Exception {
+
+        //ARRANGE:
+        String uri = "/accounts/MARGE@HOTMAIL.COM/SNACKS";
+
+        String expected = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"This resource was not found.\"," +
+                "\"errors\":[\"No account found with that ID.\"]}";
+
+        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
+
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expected, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+
+    }
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Invalid Email")
+    void getAccountByAccountIDInvalidEmail() throws Exception {
+
+        //ARRANGE:
+        String uri = "/accounts/MARGEHOTMAIL.COM/SNACKS";
+
+        String expected = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"errors\":[\"The email is not valid.\"]}";
+
+        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
+
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expected, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+
+    }
 
 }
 
