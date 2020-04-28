@@ -302,9 +302,6 @@ public class US006CreatePersonAccountServiceUnitTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("rick@gmail.com"));
         PersonID personID = person.getID();
 
-        Denomination accountDenomination = new Denomination("Revolut");
-        Description accountDescription = new Description("Revolut Account");
-
         AccountID accountID = new AccountID(new Denomination("notExistingAccount"), personID);
 
         //arranging mockitos
@@ -368,7 +365,6 @@ public class US006CreatePersonAccountServiceUnitTest {
         Description accountDescription = new Description("Revolut Account");
         Account account = new Account(accountDenomination, accountDescription, personID);
 
-
         Mockito.when(personRepository.findPersonByEmail(null)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         Mockito.when(accountRepository.getByID(account.getID())).thenReturn(account);
@@ -423,7 +419,6 @@ public class US006CreatePersonAccountServiceUnitTest {
         //Arrange
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("rick@gmail.com"));
-        PersonID personID = person.getID();
 
         Mockito.when(personRepository.findPersonByEmail(new Email("rick@gmail.com"))).thenReturn(person);
 
@@ -449,9 +444,6 @@ public class US006CreatePersonAccountServiceUnitTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("rick@gmail.com"));
         PersonID personID = person.getID();
-
-        Denomination accountDenomination = new Denomination("Revolut");
-        Description accountDescription = new Description("Revolut Account");
 
         Mockito.when(personRepository.findPersonByEmail(new Email("rick@gmail.com"))).thenReturn(person);
 
