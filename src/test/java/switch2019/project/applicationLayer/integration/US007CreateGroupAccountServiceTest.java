@@ -322,5 +322,26 @@ class US007CreateGroupAccountServiceTest {
         }
     }
 
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountByGroupID() {
+        //Arrange:
+        String groupDescription = "family cardoso";
+        String accountDenomination = "Revolut";
+        String accountDescription = "Online Expenses";
+
+        //Arrangement of the output DTO:
+        AccountDTO expectedOutput = new AccountDTO(groupDescription, accountDenomination, accountDescription);
+
+        //Act:
+        AccountDTO realOutput = service.getAccountByGroupID(accountDenomination, groupDescription);
+
+        //Assert:
+        assertEquals(expectedOutput, realOutput);
+    }
 
 }
