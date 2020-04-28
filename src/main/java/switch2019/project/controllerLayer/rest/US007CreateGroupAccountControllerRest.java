@@ -43,6 +43,14 @@ public class US007CreateGroupAccountControllerRest {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+
+    /**
+     * Method to get an Account by AccountID
+     *
+     * @param accountDenomination
+     * @param ownerID
+     * @return Response Entity with AccountDTO and HTTPStatus
+     */
     @GetMapping(value = "/groups/{ownerID}/accounts/{accountDenomination}")
     public ResponseEntity<Object> getAccountByGroupID
             (@PathVariable final String accountDenomination, @PathVariable String ownerID){

@@ -62,13 +62,13 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         String result = response.getContentAsString();
 
         //Assert
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(201, status),
                 () -> assertEquals(expected, result)
         );
 
-         */
+
     }
 
     @Test
@@ -508,6 +508,37 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 .isExactlyInstanceOf(NestedServletException.class);
 
          */
+    }
+
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountByGroupID() throws Exception {
+
+        //ARRANGE:
+        String uri = "/groups/FAMILY CARDOSO/accounts/REVOLUT";
+
+        String expected = "{\"ownerID\":\"FAMILY CARDOSO\"," +
+                "\"denomination\":\"REVOLUT\"," +
+                "\"description\":\"ONLINE EXPENSES\"}";
+
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+
     }
 
 }
