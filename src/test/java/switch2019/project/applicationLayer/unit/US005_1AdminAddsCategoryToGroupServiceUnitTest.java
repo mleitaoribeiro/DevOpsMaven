@@ -134,7 +134,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(categoryRepository.createCategory(new Denomination(categoryDescription),
-                group.getID())).thenThrow(new IllegalArgumentException("This person is not member or admin of this group."));
+                group.getID())).thenThrow(new IllegalArgumentException("This person is not admin of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -143,13 +143,13 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("This person is not member or admin of this group.");
+                .hasMessage("This person is not admin of this group.");
 
 
     }
 
     @Test
-    @DisplayName("testIfGroupCategoryWasCreatedNotAdmin")
+    @DisplayName("testIfGroupCategoryWasCreatedNullCategory")
     void testIfGroupCategoryWasCreatedNullCategory() {
         //Arrange
 

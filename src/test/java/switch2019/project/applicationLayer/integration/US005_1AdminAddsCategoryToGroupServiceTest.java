@@ -88,7 +88,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
 
         //Assert:
         catch (NoPermissionException notGroupMember) {
-            assertEquals("This person is not member or admin of this group.", notGroupMember.getMessage());
+            assertEquals("This person is not member of this group.", notGroupMember.getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
 
         //Assert:
         catch (NoPermissionException notGroupAdmin) {
-            assertEquals("This person is not member or admin of this group.", notGroupAdmin.getMessage());
+            assertEquals("This person is not admin of this group.", notGroupAdmin.getMessage());
         }
     }
 
