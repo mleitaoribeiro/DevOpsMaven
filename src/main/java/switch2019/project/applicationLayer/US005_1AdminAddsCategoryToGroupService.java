@@ -40,11 +40,15 @@ public class US005_1AdminAddsCategoryToGroupService {
         Group group = groupsRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
         PersonID personID = personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID();
 
-        if (group.isGroupAdmin(personID)) {
+        if (!group.isGroupMember(personID)) {
+            throw new NoPermissionException("This person is not member of this group.");
+        }
+        else if (!group.isGroupAdmin(personID))
+            throw new NoPermissionException("This person is not admin of this group.");
+        else {
             Category categoryAdded = categoryRepository.createCategory(new Denomination(dto.getCategoryDenomination()), group.getID());
             return CategoryDTOAssembler.createCategoryDTOFromCategory(categoryAdded);
-        } else
-            throw new NoPermissionException("This person is not member or admin of this group.");
+        }
     }
 
     /**
