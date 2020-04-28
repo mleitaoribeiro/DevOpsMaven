@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -119,13 +120,13 @@ public class US001AreSiblingsServiceUnitTest {
 
         //Act
         Mockito.when(personRepository.findPersonByEmail(new Email(emailPersonInvalid))).
-                thenThrow(new IllegalArgumentException("No person found with that email."));
+                thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         Throwable thrown = catchThrowable(() -> { service.areSiblings(siblingsDTO); });
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No person found with that email.");
     }
 
