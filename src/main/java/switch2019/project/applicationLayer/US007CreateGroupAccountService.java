@@ -60,7 +60,7 @@ public class US007CreateGroupAccountService {
      * @return AccountDTO representing an Account
      */
 
-    public AccountDTO getAccountByAccountID (String accountDenomination, String groupDescription) {
+    public AccountDTO getAccountByGroupID (String accountDenomination, String groupDescription) {
 
         //Find ownerID that created the Account
         OwnerID ownerID = groupsRepository.findGroupByDescription(new Description(groupDescription)).getID();

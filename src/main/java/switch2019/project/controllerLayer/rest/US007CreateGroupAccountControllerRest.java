@@ -55,7 +55,7 @@ public class US007CreateGroupAccountControllerRest {
     public ResponseEntity<Object> getAccountByGroupID
             (@PathVariable final String accountDenomination, @PathVariable String ownerID){
 
-        AccountDTO result = service.getAccountByAccountID(accountDenomination,ownerID);
+        AccountDTO result = service.getAccountByGroupID(accountDenomination,ownerID);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
 
