@@ -93,7 +93,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"This resource already exists.\"," +
                 "\"errors\":[\"This account already exists.\"]}";
 
-        String expectedException = "switch2019.project.customExceptions.ResourceAlreadyExistsException: This account already exists.";
+        String expectedResolvedException = "switch2019.project.customExceptions.ResourceAlreadyExistsException: This account already exists.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -106,13 +106,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(409, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
     }
@@ -143,7 +143,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No person found with that email.\"]}";
 
-        String expectedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
+        String expectedResolvedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -156,13 +156,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
     }
@@ -192,7 +192,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The email can't be null.\"]}";
 
-        String expectedException = "java.lang.IllegalArgumentException: The email can't be null.";
+        String expectedResolvedException = "java.lang.IllegalArgumentException: The email can't be null.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -205,13 +205,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
     }
@@ -243,7 +243,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The email is not valid.\"]}";
 
-        String expectedException = "java.lang.IllegalArgumentException: The email is not valid.";
+        String expectedResolvedException = "java.lang.IllegalArgumentException: The email is not valid.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -256,13 +256,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
 
@@ -292,7 +292,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The email is not valid.\"]}";
 
-        String expectedException = "java.lang.IllegalArgumentException: The email is not valid.";
+        String expectedResolvedException = "java.lang.IllegalArgumentException: The email is not valid.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -305,16 +305,15 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-
 
 
     @Test
@@ -342,7 +341,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The denomination can't be null or empty.\"]}";
 
-        String expectedException = "java.lang.IllegalArgumentException: The denomination can't be null or empty.";
+        String expectedResolvedException = "java.lang.IllegalArgumentException: The denomination can't be null or empty.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -355,17 +354,15 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-
-
 
     @Test
     @DisplayName("Test If User Account was created - account invalid - empty")
@@ -392,7 +389,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 "\"message\":\"One of the parameters is invalid or is missing.\"," +
                 "\"errors\":[\"The description can't be null or empty.\"]}";
 
-        String expectedException = "java.lang.IllegalArgumentException: The description can't be null or empty.";
+        String expectedResolvedException = "java.lang.IllegalArgumentException: The description can't be null or empty.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -405,14 +402,43 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
+    }
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - null input")
+    void createGroupAndBecomeAdminNullJsonInput() throws Exception {
+
+        //Arrange
+        String uri = "/accounts/createPersonAccount";
+
+        String inputJson = super.mapToJson((null));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(400, status),
+                () -> assertEquals("", result)
+        );
+
     }
 
     /**

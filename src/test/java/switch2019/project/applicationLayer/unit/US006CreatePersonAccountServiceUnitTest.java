@@ -10,6 +10,8 @@ import org.mockito.MockitoAnnotations;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -88,11 +90,11 @@ public class US006CreatePersonAccountServiceUnitTest {
 
 
         Mockito.when(personRepository.findPersonByEmail(new Email(creatorEmail)))
-                .thenThrow(new IllegalArgumentException("No person found with that email."));
+                .thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
-                new PersonID(new Email(creatorEmail)))).thenThrow(new IllegalArgumentException("No person found with that email."));
+                new PersonID(new Email(creatorEmail)))).thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -101,7 +103,7 @@ public class US006CreatePersonAccountServiceUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No person found with that email.");
     }
 
@@ -214,7 +216,7 @@ public class US006CreatePersonAccountServiceUnitTest {
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
                 new PersonID(new Email(creatorEmail)))).
-                thenThrow(new IllegalArgumentException("This account already exists."));
+                thenThrow(new ResourceAlreadyExistsException("This account already exists."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -223,7 +225,7 @@ public class US006CreatePersonAccountServiceUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
                 .hasMessage("This account already exists.");
     }
 
