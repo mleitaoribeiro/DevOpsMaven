@@ -10,6 +10,9 @@ import org.mockito.MockitoAnnotations;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.customExceptions.NoPermissionException;
+import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -134,7 +137,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(categoryRepository.createCategory(new Denomination(categoryDescription),
-                group.getID())).thenThrow(new IllegalArgumentException("This person is not admin of this group."));
+                group.getID())).thenThrow(new NoPermissionException("This person is not admin of this group."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -142,7 +145,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
         });
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(NoPermissionException.class)
                 .hasMessage("This person is not admin of this group.");
 
 
@@ -193,7 +196,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(categoryRepository.createCategory(new Denomination(categoryDescription),
-                group.getID())).thenThrow(new IllegalArgumentException("This category already exists."));
+                group.getID())).thenThrow(new ResourceAlreadyExistsException("This category already exists."));
 
 
         //Act
@@ -202,7 +205,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
         });
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
                 .hasMessage("This category already exists.");
 
     }
@@ -245,7 +248,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
 
         //arranging mockitos
         Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription2)))
-                .thenThrow(new IllegalArgumentException("No group found with that description."));
+                .thenThrow(new ArgumentNotFoundException("No group found with that description."));
 
         Mockito.when(categoryRepository.getByID(category.getID())).thenReturn(category);
 
@@ -256,7 +259,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No group found with that description.");
     }
 
@@ -274,7 +277,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
                 .thenReturn(group);
 
         Mockito.when(categoryRepository.getByID(category.getID())).
-                thenThrow(new IllegalArgumentException("No category found with that ID."));
+                thenThrow(new ArgumentNotFoundException("No category found with that ID."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
@@ -283,7 +286,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No category found with that ID.");
     }
 
