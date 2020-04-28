@@ -11,6 +11,8 @@ import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.customExceptions.ResourceAlreadyExistsException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -204,6 +206,7 @@ class US006CreatePersonAccountServiceTest {
     @Test
     @DisplayName("Test if an Account can be found by the ID - Happy Case")
     void getAccountByAccountID() {
+
         //Arrange:
         String personEmail = "marge@hotmail.com";
         String accountDenomination = "Homer Snacks";
@@ -219,8 +222,140 @@ class US006CreatePersonAccountServiceTest {
         assertEquals(expectedOutput, realOutput);
     }
 
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Person Does Not Exists")
+    void getAccountByAccountIDPersonDoesNotExists() {
+
+        //Arrange:
+        String personEmail = "not_existing_person@hotmail.com";
+        String accountDenomination = "Homer Snacks";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Account Does Not Exists")
+    void getAccountByAccountIDAccountDoesNotExists() {
+        //Arrange:
+        String personEmail = "marge@hotmail.com";
+        String accountDenomination = "Homers";
 
 
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No account found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Invalid Email")
+    void getAccountByAccountIDInvalidEmail() {
+
+        //Arrange:
+        String personEmail = "margehotmail.com";
+        String accountDenomination = "Homer Snacks";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Email Null")
+    void getAccountByAccountIDEmailNull() {
+
+        //Arrange:
+        String personEmail = null;
+        String accountDenomination = "Homer Snacks";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+    }
+
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Email Empty")
+    void getAccountByAccountIDEmailEmpty() {
+
+        //Arrange:
+        String personEmail = "";
+        String accountDenomination = "Homer Snacks";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Denomination Null")
+    void getAccountByAccountIDDenominationNull() {
+
+        //Arrange:
+        String personEmail = "marge@hotmail.com";
+        String accountDenomination = null;
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Denomination Empty")
+    void getAccountByAccountIDDenominationEmpty() {
+
+        //Arrange:
+        String personEmail = "marge@hotmail.com";
+        String accountDenomination = "";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountByAccountID(accountDenomination, personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
+    }
 
 }
 
