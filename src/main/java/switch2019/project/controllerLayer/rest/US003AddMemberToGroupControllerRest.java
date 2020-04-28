@@ -5,12 +5,12 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
-import switch2019.project.domain.domainEntities.shared.PersonID;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -48,7 +48,7 @@ public class US003AddMemberToGroupControllerRest {
     public ResponseEntity<Object> getPersonByEmail
             (@PathVariable final String groupDescription, @PathVariable final String personEmail) {
 
-        PersonID result = service.getPersonByEmail(personEmail, groupDescription);
+        PersonIDDTO result = service.getPersonByEmail(personEmail, groupDescription);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

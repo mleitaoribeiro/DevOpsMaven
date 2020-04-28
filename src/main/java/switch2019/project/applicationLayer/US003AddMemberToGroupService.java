@@ -2,9 +2,11 @@ package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
+import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -36,12 +38,12 @@ public class US003AddMemberToGroupService {
 
     }
 
-    public PersonID getPersonByEmail(String personEmail, String groupDescription){
+    public PersonIDDTO getPersonByEmail(String personEmail, String groupDescription){
         Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
         PersonID personID = new PersonID(new Email(personEmail));
 
         if (group.isGroupMember(personID)) {
-            return personID;
+            return PersonDTOAssembler.createPersonIDDTO(personEmail);
         }
         throw new IllegalArgumentException("That person is not a member of this group.");
     }
