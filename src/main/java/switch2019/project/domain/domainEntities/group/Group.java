@@ -11,10 +11,7 @@ import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Person;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Group implements Owner {
 
@@ -198,6 +195,28 @@ public class Group implements Owner {
             for (Person member : newMembers)
                 members.add(member);
         return members.containsAll(newMembers);
+    }
+
+    /**
+     * Get the admins of one group
+     * @return
+     */
+    public Set<PersonID> getAdmins() {
+       Set<PersonID> auxAdmins =  new HashSet<>();
+        for(Person p: this.admins)
+            auxAdmins.add(p.getID());
+        return auxAdmins;
+    }
+
+    /**
+     * Get members of one group
+     * @return
+     */
+    public Set<PersonID> getMembers() {
+        Set<PersonID> auxMembers =  new HashSet<>();
+        for(Person p: this.members)
+            auxMembers.add(p.getID());
+        return auxMembers;
     }
 
     /**

@@ -1313,6 +1313,64 @@ class GroupTest {
         assertFalse(isMember);
     }
 
+    /**
+     * Get admins and members
+     */
+
+    @DisplayName("Get amdins of Group - happy case")
+    @Test
+    public void getAdmins() {
+        //Arrange
+        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
+        Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
+        Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
+        Group group1 = new Group(new Description("Maria's Group"),person1);
+
+        group1.addMember(person2);
+        group1.setAdmin(person2);
+        group1.addMember(person3);
+        group1.addMember(person4);
+
+        Set<PersonID> expectedListOfAdmins = new HashSet<>(Arrays.asList(person1.getID(), person2.getID()));
+        //Act
+        Set<PersonID> resultListOfAdmins = group1.getAdmins();
+
+        //Assert
+        assertEquals(expectedListOfAdmins, resultListOfAdmins);
+    }
+
+    @DisplayName("Get members of Group - happy case")
+    @Test
+    public void getMembers() {
+        //Arrange
+        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
+        Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
+        Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
+        Group group1 = new Group(new Description("Maria's Group"),person1);
+
+        group1.addMember(person2);
+        group1.setAdmin(person2);
+        group1.addMember(person3);
+        group1.addMember(person4);
+
+        Set<PersonID> expectedListOfAdmins = new HashSet<>(Arrays.asList(person1.getID(), person2.getID(), person3.getID(), person4.getID()));
+        //Act
+        Set<PersonID> resultListOfAdmins = group1.getMembers();
+
+        //Assert
+        assertEquals(expectedListOfAdmins, resultListOfAdmins);
+    }
+
 
 
     /**
@@ -2177,8 +2235,6 @@ class GroupTest {
     void getLedgerTransactionsInPeriod() {
 
         //Arrange
-
-
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 4),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
 
@@ -2224,7 +2280,6 @@ class GroupTest {
     void getLedgerTransactionsInPeriodEmptyLedger() {
 
         //Arrange
-
 
         Person onePerson = new Person("Alex", new DateAndTime(1995, 12, 04),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
