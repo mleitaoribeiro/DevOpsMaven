@@ -4,14 +4,9 @@ import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
-
 import java.util.Objects;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -147,10 +142,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson((addMemberInfoDTO));
 
         String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No group found with that description.\"]}";
 
-        String expectedException = "java.lang.IllegalArgumentException: No group found with that description.";
+        String expectedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No group found with that description.";
 
         //ACT
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
