@@ -312,7 +312,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String personEmail = "morty@gmail.com";
         String groupDescription = "Rick And Morty";
         String uri = "/groups/" + groupDescription + "/members/" + personEmail;
-        String expected = "{\"email\":\"morty@gmail.com\"}";
+        String expected = "{\"personID\":\"morty@gmail.com\"}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
