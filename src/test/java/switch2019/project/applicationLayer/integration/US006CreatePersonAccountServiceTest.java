@@ -379,16 +379,86 @@ class US006CreatePersonAccountServiceTest {
         String personEmail = "1191782@isep.ipp.pt";
 
         Set<AccountDTO> expectedAccounts = new LinkedHashSet<>();
-        expectedAccounts.add(new AccountDTO(personEmail,"Mbway","Friends"));
-        expectedAccounts.add(new AccountDTO(personEmail,"CTT","Work"));
-        expectedAccounts.add(new AccountDTO(personEmail,"Home","Home Expenses"));
+        expectedAccounts.add(new AccountDTO(personEmail, "Mbway", "Friends"));
+        expectedAccounts.add(new AccountDTO(personEmail, "CTT", "Work"));
+        expectedAccounts.add(new AccountDTO(personEmail, "Home", "Home Expenses"));
 
         //Act
-        Set <AccountDTO> realResult = service.getAccountsByPersonID(personEmail);
+        Set<AccountDTO> realResult = service.getAccountsByPersonID(personEmail);
 
         //Assert
         assertEquals(expectedAccounts, realResult);
     }
+
+
+    @Test
+    @DisplayName("Test to get all accounts by the Person ID - Invalid Email")
+    void getAccountsByPersonIDInvalidEmail() {
+        //Arrange:
+        String personEmail = "raquesdsisep.ipp.pt";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by the Person ID - Null Email")
+    void getAccountsByPersonIDNullEmail() {
+        //Arrange:
+        String personEmail = null;
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by the Person ID - Empty Email")
+    void getAccountsByPersonIDEmptyEmail() {
+        //Arrange:
+        String personEmail = "";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by the Person ID - Person Does Not Exists")
+    void getAccountsByPersonIDPersonDoesNotExists() {
+        //Arrange:
+        String personEmail = "raquel@xpto.pt";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert:
+       // assertThat(thrown)
+         //       .isExactlyInstanceOf(ArgumentNotFoundException.class)
+           //     .hasMessage("No person found with that email.");
+    }
+
 
 }
 
