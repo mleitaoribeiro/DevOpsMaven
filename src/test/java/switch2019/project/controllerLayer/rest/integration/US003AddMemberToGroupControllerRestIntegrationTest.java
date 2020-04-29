@@ -371,9 +371,9 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String groupDescription = "Rick And Morty";
         String uri = "/groups/" + groupDescription + "/members/";
         String expected = "[{\"personID\":\"morty@gmail.com\",\"links\":" +
-                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/morty@gmail.com\"}]}," +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/Rick%20And%20Morty/members/morty@gmail.com\"}]}," +
                 "{\"personID\":\"rick@gmail.com\",\"links\":" +
-                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/rick@gmail.com\"}]}]";
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/Rick%20And%20Morty/members/rick@gmail.com\"}]}]";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)

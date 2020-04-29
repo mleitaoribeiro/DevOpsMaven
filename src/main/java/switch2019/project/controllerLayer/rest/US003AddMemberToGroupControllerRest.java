@@ -5,7 +5,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
@@ -62,8 +62,8 @@ public class US003AddMemberToGroupControllerRest {
         Set<PersonIDDTO> members = service.getMembersByGroupDescription(groupDescription);
 
         for(PersonIDDTO member : members) {
-            Link selfLink = linkTo(methodOn(US002_1CreateGroupControllerRest.class)
-                    .getGroupByDescription(member.getPersonID()))
+            Link selfLink = linkTo(methodOn(US003AddMemberToGroupControllerRest.class)
+                    .getPersonByEmail(groupDescription, member.getPersonID()))
                     .withSelfRel();
             member.add(selfLink);
         }
@@ -77,8 +77,8 @@ public class US003AddMemberToGroupControllerRest {
         Set<PersonIDDTO> admins = service.getAdminsByGroupDescription(groupDescription);
 
         for(PersonIDDTO admin : admins) {
-            Link selfLink = linkTo(methodOn(US002_1CreateGroupControllerRest.class)
-                    .getGroupByDescription(admin.getPersonID()))
+            Link selfLink = linkTo(methodOn(US003AddMemberToGroupControllerRest.class)
+                    .getPersonByEmail(groupDescription, admin.getPersonID()))
                     .withSelfRel();
             admin.add(selfLink);
         }
