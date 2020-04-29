@@ -221,16 +221,19 @@ public class US003AddMemberToGroupControllerRestUnitTest {
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
         membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("morty@gmail.com"));
 
         Mockito.when(service.getMembersByGroupDescription(groupDescription))
                 .thenReturn(membersExpected);
 
-        //Act
         Set<PersonIDDTO> membersActual = service.getMembersByGroupDescription(groupDescription);
 
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(membersActual, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> responseEntity = controller.getMembersByGroupDescription(groupDescription);
+
         //Assert
-        assertEquals(membersExpected, membersActual);
+        assertEquals(responseEntityExpected, responseEntity);
     }
 
     @Test
@@ -265,16 +268,19 @@ public class US003AddMemberToGroupControllerRestUnitTest {
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
         membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("morty@gmail.com"));
 
         Mockito.when(service.getAdminsByGroupDescription(groupDescription))
                 .thenReturn(membersExpected);
 
-        //Act
         Set<PersonIDDTO> membersActual = service.getAdminsByGroupDescription(groupDescription);
 
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(membersActual, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> responseEntity = controller.getAdminsByGroupDescription(groupDescription);
+
         //Assert
-        assertEquals(membersExpected, membersActual);
+        assertEquals(responseEntityExpected, responseEntity);
     }
 
     @Test
