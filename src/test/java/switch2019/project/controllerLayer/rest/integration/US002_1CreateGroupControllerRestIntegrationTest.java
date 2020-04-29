@@ -420,7 +420,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         //Assert
         Assertions.assertAll(
-                () -> assertEquals(201, status),
+                () -> assertEquals(200, status),
                 () -> assertEquals(expectedJson, resultJson)
         );
     }

@@ -305,7 +305,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         //Arrange
         String groupDescription = "SWITCH";
         GroupDTO outputExpected = new GroupDTO(groupDescription);
-        ResponseEntity expectedResponseEntity = new ResponseEntity<>(outputExpected, HttpStatus.CREATED);
+        ResponseEntity expectedResponseEntity = new ResponseEntity<>(outputExpected, HttpStatus.OK);
 
         //Act
         Mockito.when(service.getGroupByDescription(groupDescription)).thenReturn(outputExpected);

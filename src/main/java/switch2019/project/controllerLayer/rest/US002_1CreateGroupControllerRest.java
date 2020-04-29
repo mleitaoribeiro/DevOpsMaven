@@ -47,6 +47,6 @@ public class US002_1CreateGroupControllerRest {
     @GetMapping(value = "groups/{groupDescription}")
     public ResponseEntity<Object> getGroupByDescription(@PathVariable final String groupDescription) {
         GroupDTO newGroupDTO = service.getGroupByDescription(groupDescription);
-        return new ResponseEntity<>(newGroupDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(newGroupDTO, HttpStatus.OK);
     }
 }
