@@ -1,4 +1,4 @@
-package switch2019.project.customExceptions;
+package switch2019.project.utils.customExceptions;
 
 public class ResourceAlreadyExistsException extends RuntimeException{
 

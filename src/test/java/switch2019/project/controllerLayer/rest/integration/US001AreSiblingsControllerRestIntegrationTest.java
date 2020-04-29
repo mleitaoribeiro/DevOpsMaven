@@ -145,7 +145,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
                 "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No person found with that email.\"]}";
 
-        String expectedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
+        String expectedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No person found with that email.";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)

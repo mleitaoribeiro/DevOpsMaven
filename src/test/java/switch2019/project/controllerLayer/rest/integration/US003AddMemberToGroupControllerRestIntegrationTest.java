@@ -112,7 +112,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No person found with that email.\"]}";
 
-        String expectedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No person found with that email.";
+        String expectedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No person found with that email.";
 
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
@@ -145,7 +145,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No group found with that description.\"]}";
 
-        String expectedException = "switch2019.project.customExceptions.ArgumentNotFoundException: No group found with that description.";
+        String expectedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No group found with that description.";
 
         //ACT
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -401,7 +401,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 "\"message\":\"This resource was not found.\"," +
                 "\"errors\":[\"No group found with that description.\"]}";
 
-        String expectedException = "switch2019.project.customExceptions." +
+        String expectedException = "switch2019.project.utils.customExceptions." +
                 "ArgumentNotFoundException: No group found with that description.";
 
         //Act
