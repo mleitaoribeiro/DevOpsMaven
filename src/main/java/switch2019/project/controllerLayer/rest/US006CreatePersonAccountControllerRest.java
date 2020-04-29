@@ -34,10 +34,10 @@ public class US006CreatePersonAccountControllerRest {
      * @return Response Entity with AccountDTO and HTTPStatus
      */
 
-    @PostMapping("/accounts/createPersonAccount")
-    public ResponseEntity<AccountDTO> createPersonAccount(@RequestBody CreatePersonAccountInfoDTO info) {
+    @PostMapping("/persons/{personEmail}/accounts")
+    public ResponseEntity<AccountDTO> createPersonAccount(@PathVariable final String personEmail,@RequestBody CreatePersonAccountInfoDTO info) {
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(info);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, info);
 
         AccountDTO result = service.createPersonAccount(createPersonAccountDTO);
 

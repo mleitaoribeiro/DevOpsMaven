@@ -10,16 +10,16 @@ class PersonIDDTOTest {
 
     @Test
     void getPersonID() {
-        PersonIDDTO personIDDTO = new PersonIDDTO(new PersonID(new Email("email@email.com")));
+        PersonIDDTO personIDDTO = new PersonIDDTO("email@email.com");
 
         assertEquals("email@email.com", personIDDTO.getPersonID());
     }
 
     @Test
     void testEquals() {
-        PersonIDDTO personIDDTO = new PersonIDDTO(new PersonID(new Email("email@email.com")));
-        PersonIDDTO personIDDTOanother = new PersonIDDTO(new PersonID(new Email("email@email.com")));
-        PersonIDDTO personIDDTOfalse = new PersonIDDTO(new PersonID(new Email("otheremail@email.com")));
+        PersonIDDTO personIDDTO = new PersonIDDTO("email@email.com");
+        PersonIDDTO personIDDTOanother = new PersonIDDTO("email@email.com");
+        PersonIDDTO personIDDTOfalse = new PersonIDDTO("otheremail@email.com");
         PersonID personID = new PersonID(new Email("email@mail.com"));
 
         assertEquals(personIDDTO, personIDDTO);
@@ -31,9 +31,9 @@ class PersonIDDTOTest {
 
     @Test
     void testHashCode() {
-        PersonIDDTO personIDDTO = new PersonIDDTO(new PersonID(new Email("email@email.com")));
-        PersonIDDTO personIDDTOanother = new PersonIDDTO(new PersonID(new Email("email@email.com")));
-        PersonIDDTO personIDDTOfalse = new PersonIDDTO(new PersonID(new Email("otheremail@email.com")));
+        PersonIDDTO personIDDTO = new PersonIDDTO("email@email.com");
+        PersonIDDTO personIDDTOanother = new PersonIDDTO("email@email.com");
+        PersonIDDTO personIDDTOfalse = new PersonIDDTO("otheremail@email.com");
 
         assertEquals(personIDDTO.hashCode(), personIDDTOanother.hashCode());
         assertNotEquals(personIDDTO.hashCode(), personIDDTOfalse.hashCode());

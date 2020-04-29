@@ -9,8 +9,8 @@ public class PersonIDDTO extends RepresentationModel<PersonIDDTO>{
 
     private String personID;
 
-    public PersonIDDTO(PersonID personID) {
-        this.personID = personID.getEmail();
+    public PersonIDDTO(String personID) {
+        this.personID = personID;
     }
 
 
