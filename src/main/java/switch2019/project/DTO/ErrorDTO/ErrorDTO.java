@@ -1,41 +1,37 @@
 package switch2019.project.DTO.ErrorDTO;
 
-
 import org.springframework.http.HttpStatus;
-
-import java.util.Arrays;
-import java.util.List;
-
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 
 public class ErrorDTO {
+    private String timestamp;
+    private int statusCode;
     private HttpStatus status;
+    private String error;
     private String message;
-    private List<String> errors;
 
     public ErrorDTO() {
         super();
-
     }
 
-    public ErrorDTO(final HttpStatus status, final String message, final List<String> errors) {
+    public ErrorDTO(final HttpStatus status, final String error, final String message) {
         super();
+        this.timestamp = LocalDateTime.now().withSecond(0).withNano(0).toString();
+        this.statusCode = status.value();
         this.status = status;
         this.message = message;
-        this.errors = errors;
+        this.error = error;
     }
 
-    public ErrorDTO(final HttpStatus status, final String message, final String error) {
-        super();
-        this.status = status;
-        this.message = message;
-        errors = Arrays.asList(error);
-    }
+
 
 
     public HttpStatus getStatus() {
         return status;
     }
 
+    public String getTimestamp() {return timestamp;}
 
     public void setStatus(HttpStatus status) {
         this.status = status;
@@ -49,11 +45,13 @@ public class ErrorDTO {
         this.message = message;
     }
 
-    public List<String> getErrors() {
-        return errors;
+    public int getStatusCode() {return statusCode;}
+
+    public String getError() {
+        return error;
     }
 
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
+    public void setError(String error) {
+        this.error = error;
     }
 }

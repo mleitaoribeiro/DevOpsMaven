@@ -13,7 +13,7 @@ import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.assemblers.PersonDTOAssembler;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;

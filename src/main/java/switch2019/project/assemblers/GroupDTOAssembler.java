@@ -63,8 +63,8 @@ public class GroupDTOAssembler {
      * @param addMemberInfoDTO
      * @return addMemberDTO
      */
-    public static AddMemberDTO transformIntoAddMemberDTO(AddMemberInfoDTO addMemberInfoDTO) {
-        return new AddMemberDTO(addMemberInfoDTO.getPersonEmail(), addMemberInfoDTO.getGroupDescription());
+    public static AddMemberDTO transformIntoAddMemberDTO(AddMemberInfoDTO addMemberInfoDTO, String groupDescription) {
+        return new AddMemberDTO(addMemberInfoDTO.getPersonEmail(), groupDescription);
     }
 
     /**
