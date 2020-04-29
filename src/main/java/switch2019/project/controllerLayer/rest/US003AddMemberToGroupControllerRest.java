@@ -5,12 +5,15 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
+
+import java.util.Set;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -53,7 +56,33 @@ public class US003AddMemberToGroupControllerRest {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/groups/{groupDescription}/members")
+    public ResponseEntity<Object> getMembersByGroupDescription(@PathVariable final String groupDescription) {
 
+        Set<PersonIDDTO> members = service.getMembersByGroupDescription(groupDescription);
 
+        for(PersonIDDTO member : members) {
+            Link selfLink = linkTo(methodOn(US003AddMemberToGroupControllerRest.class)
+                    .getPersonByEmail(groupDescription, member.getPersonID()))
+                    .withSelfRel();
+            member.add(selfLink);
+        }
 
+        return new ResponseEntity<>(members, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/groups/{groupDescription}/admins")
+    public ResponseEntity<Object> getAdminsByGroupDescription(@PathVariable final String groupDescription) {
+
+        Set<PersonIDDTO> admins = service.getAdminsByGroupDescription(groupDescription);
+
+        for(PersonIDDTO admin : admins) {
+            Link selfLink = linkTo(methodOn(US003AddMemberToGroupControllerRest.class)
+                    .getPersonByEmail(groupDescription, admin.getPersonID()))
+                    .withSelfRel();
+            admin.add(selfLink);
+        }
+
+        return new ResponseEntity<>(admins, HttpStatus.OK);
+    }
 }

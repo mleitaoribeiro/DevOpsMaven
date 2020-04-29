@@ -363,4 +363,65 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+    @Test
+    @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
+    void getMembersByGroupDescriptionException() throws Exception {
+
+        //Status Request
+        String groupDescription = "Rick And Morty";
+        String uri = "/groups/" + groupDescription + "/members/";
+        String expected = "[{\"personID\":\"morty@gmail.com\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/Rick%20And%20Morty/members/morty@gmail.com\"}]}," +
+                "{\"personID\":\"rick@gmail.com\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/Rick%20And%20Morty/members/rick@gmail.com\"}]}]";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Test for getMembersByGroupDescription - Exception - No group found with that description")
+    void getAdminsByGroupDescriptionException() throws Exception {
+
+        //Status Request
+        String groupDescription = "High School buddies";
+        String uri = "/groups/" + groupDescription + "/members/";
+
+        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"message\":\"This resource was not found.\"," +
+                "\"errors\":[\"No group found with that description.\"]}";
+
+        String expectedException = "switch2019.project.customExceptions." +
+                "ArgumentNotFoundException: No group found with that description.";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedException, realException)
+        );
+    }
+
 }

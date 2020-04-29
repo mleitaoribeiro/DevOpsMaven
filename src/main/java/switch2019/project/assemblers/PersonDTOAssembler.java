@@ -1,6 +1,6 @@
 package switch2019.project.assemblers;
 
-import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.DTO.serializationDTO.SiblingsDTO;
 import switch2019.project.domain.domainEntities.shared.PersonID;
