@@ -104,11 +104,11 @@ public class CategoryDTOAssemblerTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setPersonEmail(personEmail);
 
         //Act:
-        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(createGroupCategoryInfoDTO);
+        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.transformToCreateGroupCategoryDTO
+                (groupDescription, createGroupCategoryInfoDTO);
 
         //Assert:
         Assertions.assertAll(
@@ -129,11 +129,11 @@ public class CategoryDTOAssemblerTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setPersonEmail(personEmail);
 
         //Act:
-        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(createGroupCategoryInfoDTO);
+        CreateGroupCategoryDTO actualDto = CategoryDTOAssembler.transformToCreateGroupCategoryDTO
+                (groupDescription,createGroupCategoryInfoDTO);
 
         //Assert:
         Assertions.assertAll(
