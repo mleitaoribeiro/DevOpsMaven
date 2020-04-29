@@ -36,7 +36,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     @DisplayName("Test if the outputDTO is the expected")
     void addCategoryToGroupServiceTestEqual() throws Exception {
 
-        String uri = "/group/Smith Family/categories";
+        String uri = "/groups/Smith Family/categories";
 
         final String groupDescriptionStr = "Smith Family";
         final String personEmail = "rick@gmail.com";
@@ -73,7 +73,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListNotExistsOnRepository() throws Exception {
 
         //Arrange:
-        String uri = "/group/FRIENDS/categories";
+        String uri = "/groups/FRIENDS/categories";
 
         String personEmail = "Ana@hotmail.com"; // Not a Group member.
         String categoryDenomination = "COMPRAS";
@@ -115,7 +115,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListNotAMember() throws Exception {
 
         //Arrange:
-        String uri = "/group/FRIENDS/categories";
+        String uri = "/groups/FRIENDS/categories";
 
         String personEmail = "1191762@isep.ipp.pt";
         String categoryDenomination = "compras";
@@ -156,7 +156,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListPersonIsNotAdmin() throws Exception {
 
         //Arrange:
-        String uri = "/group/Family Azevedo/categories";
+        String uri = "/groups/Family Azevedo/categories";
 
         String personEmail = "roberto@gmail.com";
         String categoryDenomination = "compras";
@@ -197,7 +197,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListPersonIsNotAdminOfThisGroup() throws Exception {
 
         //Arrange:
-        String uri = "/group/Family Azevedo/categories";
+        String uri = "/groups/Family Azevedo/categories";
 
         String personEmail = "1191762@isep.ipp.pt";
         String categoryDenomination = "compras";
@@ -238,7 +238,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListGroupIsNotInRepository() throws Exception {
 
         //Arrange:
-        String uri = "/group/Mariquinha/categories";
+        String uri = "/groups/Mariquinha/categories";
 
         String personEmail = "1191762@isep.ipp.pt";
         String categoryDenomination = "compras";
@@ -279,7 +279,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsDuplicateCategoryToCategoryListTest() throws Exception {
 
         //Arrange:
-        String uri = "/group/Switch/categories";
+        String uri = "/groups/Switch/categories";
 
         String personEmail = "1191762@isep.ipp.pt";
         String categoryDenomination = "ISEP";
@@ -321,7 +321,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListEmailNull() throws Exception {
 
         //Arrange:
-        String uri = "/group/friends/categories";
+        String uri = "/groups/friends/categories";
 
         String personEmail = null;
         String categoryDenomination = "NightOut";
@@ -362,7 +362,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListEmailEmpty() throws Exception {
 
         //Arrange:
-        String uri = "/group/friends/categories";
+        String uri = "/groups/friends/categories";
 
         String personEmail = "";
         String categoryDenomination = "NightOut";
@@ -403,7 +403,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListEmailInvalidFormat() throws Exception {
 
         //Arrange:
-        String uri = "/group/friends/categories";
+        String uri = "/groups/friends/categories";
 
         String personEmail = "111917.dfkd";
         String categoryDenomination = "NightOut";
@@ -444,7 +444,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListCategoryDenominationNull() throws Exception {
 
         //Arrange:
-        String uri = "/group/Switch/categories";
+        String uri = "/groups/Switch/categories";
 
         String personEmail = "1191762@isep.ipp.pt";
         String categoryDenomination = null;
@@ -485,7 +485,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void adminAddsCategoryToCategoryListCategoryDenominationEmpty() throws Exception {
 
         //Arrange:
-        String uri = "/group/Switch/categories";
+        String uri = "/groups/Switch/categories";
 
         String personEmail = "1191762@isep.ipp.pt";
         String categoryDenomination = "";
