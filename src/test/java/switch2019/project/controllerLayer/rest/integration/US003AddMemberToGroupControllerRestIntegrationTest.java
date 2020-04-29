@@ -25,14 +25,13 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroup() throws Exception {
 
         //Status Request
-        String uri = "/groups/SWITCH/members";
+        String uri = "/groups/switch/members";
 
         final String personEmail = "rick@gmail.com";
         final String groupDescription = "switch";
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
@@ -55,14 +54,13 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupAlreadyIn() throws Exception {
 
         //Status Request
-        String uri = "/groups/SWITCH/members";
+        String uri = "/groups/switch/members";
 
         final String personEmail = "1191743@isep.ipp.pt";
         final String groupDescription = "switch";
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
@@ -91,11 +89,9 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String uri = "/groups/SWITCH/members";
 
         final String personEmail = "asdfg@gmail.com";
-        final String groupDescription = "switch";
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
@@ -132,14 +128,12 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
     void addMemberToGroupThatDoesNotExist() throws Exception {
 
         //Status Request
-        String uri = "/groups/SWITCH/members";
+        String uri = "/groups/amigos/members";
 
         final String personEmail = "rick@gmail.com";
-        final String groupDescription = "amigos";
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
@@ -189,7 +183,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
+
 
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
@@ -200,6 +194,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 "\"errors\":[\"The email can't be null.\"]}";
 
         String expectedException = "java.lang.IllegalArgumentException: The email can't be null.";
+
 /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
