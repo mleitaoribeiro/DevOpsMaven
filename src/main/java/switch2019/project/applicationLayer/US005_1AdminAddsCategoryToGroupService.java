@@ -5,18 +5,18 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.CategoryID;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
-import switch2019.project.domain.domainEntities.shared.Denomination;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Service
 public class US005_1AdminAddsCategoryToGroupService {
@@ -72,6 +72,26 @@ public class US005_1AdminAddsCategoryToGroupService {
         //return DTO that represents category
         return CategoryDTOAssembler.createCategoryDTOFromCategory(newCategory);
     }
+
+    /**
+     * method that finds a category by group ID
+     *
+     * @param groupDescription
+     * @return CategoryDTO representing an Account
+     */
+
+    public Set<CategoryDTO> getCategoriesByGroupID(String groupDescription) {
+
+        Set <Category> categories = categoryRepository.returnCategoriesByOwnerID(new GroupID(new Description(groupDescription)));
+
+        Set<CategoryDTO> categoriesDTO = new LinkedHashSet<>();
+
+        for (Category category : categories)
+            categoriesDTO.add(CategoryDTOAssembler.createCategoryDTOFromCategory((category)));
+
+        return categoriesDTO;
+    }
 }
+
 
 

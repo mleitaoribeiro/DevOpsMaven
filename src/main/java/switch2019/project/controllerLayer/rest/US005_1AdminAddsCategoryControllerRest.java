@@ -11,6 +11,9 @@ import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
+import switch2019.project.domain.domainEntities.category.Category;
+
+import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -61,4 +64,29 @@ public class US005_1AdminAddsCategoryControllerRest {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    /**
+     * Method to get all categories by GroupID
+     *
+     * @param groupDescription
+     * @return All categories from group and HTTPStatus
+     */
+
+    @GetMapping(value = "categories/{groupDescription}")
+    public ResponseEntity<Object> getCategoriesByGroupID
+    (@PathVariable final String groupDescription) {
+
+        Set<CategoryDTO> categoriesDTO = service.getCategoriesByGroupID(groupDescription);
+
+        for (CategoryDTO category : categoriesDTO) {
+            Link selfLink = linkTo(methodOn(US005_1AdminAddsCategoryControllerRest.class)
+                    .getCategoryByCategoryID(category.getDenomination(), category.getOwnerID()))
+                    .withSelfRel();
+
+            category.add(selfLink);
+        }
+
+        return new ResponseEntity<>(categoriesDTO, HttpStatus.OK);
+    }
+
 }
