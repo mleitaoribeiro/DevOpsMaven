@@ -35,7 +35,7 @@ public class US006CreatePersonAccountControllerRest {
      */
 
     @PostMapping("/persons/{personEmail}/accounts")
-    public ResponseEntity<AccountDTO> createPersonAccount(@PathVariable final String personEmail,@RequestBody CreatePersonAccountInfoDTO info) {
+    public ResponseEntity<AccountDTO> createPersonAccount(@PathVariable final String personEmail, @RequestBody CreatePersonAccountInfoDTO info) {
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, info);
 
@@ -45,9 +45,9 @@ public class US006CreatePersonAccountControllerRest {
                 .getAccountByAccountID(result.getDenomination(), result.getOwnerID()))
                 .withSelfRel();
 
-       result.add(selfLink);
+        result.add(selfLink);
 
-       return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
 
     }
 
@@ -69,22 +69,27 @@ public class US006CreatePersonAccountControllerRest {
     }
 
     /**
-     * Method to get an Account by PersonID
+     * Method to get all accounts by PersonID
      *
      * @param personEmail
-     * @return Response Entity with AccountDTO and HTTPStatus
+     * @return All accounts from person and HTTPStatus
      */
 
     @GetMapping(value = "accounts/{personEmail}")
     public ResponseEntity<Object> getAccountsByPersonID
     (@PathVariable final String personEmail) {
 
-       Set <AccountDTO> accounts = service.getAccountsByPersonID(personEmail);
+        Set<AccountDTO> accounts = service.getAccountsByPersonID(personEmail);
+
+        for (AccountDTO account : accounts) {
+            Link selfLink = linkTo(methodOn(US006CreatePersonAccountControllerRest.class)
+                    .getAccountByAccountID(account.getDenomination(), account.getOwnerID()))
+                    .withSelfRel();
+
+            account.add(selfLink);
+        }
 
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
-
-
-
 
 }
