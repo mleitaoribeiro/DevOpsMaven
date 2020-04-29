@@ -29,7 +29,7 @@ public class US005_1AdminAddsCategoryControllerRest {
      * @param info
      * @return Response Entity with CategoryDTO and HTTPStatus
      */
-    @PostMapping("group/{groupDescription}/categories")
+    @PostMapping("groups/{groupDescription}/categories")
     public ResponseEntity<CategoryDTO> addCategoryToGroup(@PathVariable final String groupDescription,
                                                           @RequestBody CreateGroupCategoryInfoDTO info) {
 

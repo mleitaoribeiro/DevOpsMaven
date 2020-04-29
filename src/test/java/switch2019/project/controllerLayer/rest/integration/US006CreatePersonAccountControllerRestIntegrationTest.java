@@ -570,5 +570,39 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
     }
 
+    /**
+     * Test to get all accounts by PersonID
+     */
+
+    @Test
+    @DisplayName("Test if an Account can be found by the ID - Happy Case")
+    void getAccountsByPersonID() throws Exception {
+
+        //ARRANGE:
+        String uri = "/accounts/1191782@isep.ipp.pt";
+
+        String expected = "[{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
+                "\"denomination\":\"CTT\"," + "\"description\":\"WORK\"," + "\"links\":[]}," +
+                "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
+                "\"denomination\":\"MBWAY\"," + "\"description\":\"FRIENDS\"," + "\"links\":[]}," +
+                "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
+                "\"denomination\":\"HOME\"," + "\"description\":\"HOME EXPENSES\"," + "\"links\":[]}]" ;
+
+        //ACT:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+
+    }
+
 }
 
