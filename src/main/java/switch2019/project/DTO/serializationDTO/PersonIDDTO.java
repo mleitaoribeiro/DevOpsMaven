@@ -22,7 +22,6 @@ public class PersonIDDTO extends RepresentationModel<PersonIDDTO>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonIDDTO)) return false;
-        if (!super.equals(o)) return false;
         PersonIDDTO that = (PersonIDDTO) o;
         return Objects.equals(personID, that.personID);
     }
