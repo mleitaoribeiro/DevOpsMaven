@@ -19,6 +19,9 @@ import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.controllerLayer.rest.US003AddMemberToGroupControllerRest;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.PersonID;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -220,7 +223,7 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "Rick and Morty";
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
 
         Mockito.when(service.getMembersByGroupDescription(groupDescription))
                 .thenReturn(membersExpected);
@@ -267,7 +270,7 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "Rick and Morty";
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
 
         Mockito.when(service.getAdminsByGroupDescription(groupDescription))
                 .thenReturn(membersExpected);

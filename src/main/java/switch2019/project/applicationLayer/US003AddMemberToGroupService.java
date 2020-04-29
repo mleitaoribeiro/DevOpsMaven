@@ -58,7 +58,7 @@ public class US003AddMemberToGroupService {
 
         Set<PersonIDDTO> membersDTO = new LinkedHashSet<>();
         for(PersonID person : members) {
-            membersDTO.add(PersonDTOAssembler.createPersonIDDTO(person.getEmail()));
+            membersDTO.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email(person.getEmail()))));
         } return membersDTO;
     }
 
@@ -68,7 +68,7 @@ public class US003AddMemberToGroupService {
 
         Set<PersonIDDTO> adminsDTO = new LinkedHashSet<>();
         for(PersonID person : admins) {
-            adminsDTO.add(PersonDTOAssembler.createPersonIDDTO(person.getEmail()));
+            adminsDTO.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email(person.getEmail()))));
         } return adminsDTO;
     }
 }
