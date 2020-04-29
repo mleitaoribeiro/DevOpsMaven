@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.serializationDTO.PersonIDDTO;
+import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
@@ -105,7 +105,7 @@ public class US003AddMemberToGroupServiceTest {
 
         PersonIDDTO personIDDTOactual = service.getPersonByEmail(personEmail, groupDescription);
 
-        PersonIDDTO personIDDTOexpected = new PersonIDDTO(new PersonID(new Email(personEmail)));
+        PersonIDDTO personIDDTOexpected = new PersonIDDTO(personEmail);
 
             assertEquals(personIDDTOexpected, personIDDTOactual);
     }
