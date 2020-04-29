@@ -42,6 +42,7 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         throw new ArgumentNotFoundException("No category found with that ID.");
     }
 
+
     /**
      * method to validate if the account is in the accounts Repository
      *
@@ -142,4 +143,24 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         return this.categories.containsAll(list);
     }
 
+
+    /**
+     * Get list of Categories By Owner ID - not validated
+     *
+     * @param ownerID
+     * @return
+     */
+
+    public Set<Category> returnCategoriesByOwnerID(OwnerID ownerID) {
+        Set<Category> listOfCategoriesByOwnerID = new HashSet<>();
+        if (ownerID != null) {
+            for (Category category : categories)
+                if (category.getOwnerID().equals(ownerID))
+                    listOfCategoriesByOwnerID.add(category);
+            if (!listOfCategoriesByOwnerID.isEmpty())
+                return listOfCategoriesByOwnerID;
+            else throw new ArgumentNotFoundException("No category found with that ID.");
+        }
+        throw new IllegalArgumentException("Owner ID can't be null.");
+    }
 }
