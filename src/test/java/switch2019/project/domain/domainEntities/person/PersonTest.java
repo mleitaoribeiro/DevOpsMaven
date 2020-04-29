@@ -1936,4 +1936,47 @@ class PersonTest {
         //Assert:
         assertEquals(expected, result);
     }
+
+    @Test
+    @DisplayName("Get siblings ID List")
+    public void getSiblingsIDs() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("marta@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(1990, 10, 20), new Address("Lyon"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("elsa@isep.pt"));
+        Person person3 = new Person("Diana", new DateAndTime(1994, 11, 5), new Address("Lisboa"),
+                new Address("Rua X", "Lisboa", "4520-266"), new Email("diana@isep.pt"));
+        person1.addSibling(person2);
+        person1.addSibling(person3);
+
+        Set<PersonID> expectedSiblingsID = new HashSet<>(Arrays.asList(person2.getID(),person3.getID()));
+        //Act
+        Set<PersonID> realSiblingsID = person1.getSiblingsIDList();
+
+        //Assert
+        assertEquals(expectedSiblingsID, realSiblingsID);
+    }
+
+    @Test
+    @DisplayName("Get siblings ID Lis")
+    public void getSiblingsIDsNull() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("marta@isep.pt"));
+        Person person2 = new Person("Elsa", new DateAndTime(1990, 10, 20), new Address("Lyon"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("elsa@isep.pt"));
+        Person person3 = new Person("Diana", new DateAndTime(1994, 11, 5), new Address("Lisboa"),
+                new Address("Rua X", "Lisboa", "4520-266"), new Email("diana@isep.pt"));
+        person1.addSibling(person2);
+        person1.addSibling(person3);
+
+        Set<PersonID> expectedSiblingsID = new HashSet<>(Arrays.asList(person2.getID()));
+        //Act
+        Set<PersonID> realSiblingsID = person1.getSiblingsIDList();
+
+        //Assert
+        assertNotEquals( expectedSiblingsID, realSiblingsID);
+    }
 }
+

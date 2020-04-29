@@ -123,6 +123,18 @@ public class Person implements Owner {
     }
 
     /**
+     * Getter function for the sibling's list ID
+     *
+     * @return siblingList
+     */
+    public Set<PersonID> getSiblingsIDList() {
+        Set<PersonID> aux = new HashSet<>();
+        for(Person p: siblingList)
+            aux.add(p.getID());
+        return aux;
+    }
+
+    /**
      * Set Mother
      *
      * @param mother new mother Person
