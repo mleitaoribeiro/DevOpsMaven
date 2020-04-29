@@ -387,6 +387,10 @@ public class Bootstrapper {
         familySimpsonGroup.addMember(bartolomewSimpson);
         familySimpsonGroup.addMember(elizabetSimpson);
         familySimpsonGroup.addMember(margaretSimpson);
+        //Siblings
+        bartolomewSimpson.addSibling(elizabetSimpson);
+        bartolomewSimpson.addSibling(elizabetSimpson);
+        bartolomewSimpson.addSibling(margaretSimpson);
 
         //Family group - Family Cardoso - All members are Group Admin
         Group familyCardosoGroup = groupRepository.createGroup( new Description("Family Cardoso"),
@@ -400,6 +404,8 @@ public class Bootstrapper {
 
         familyCardosoGroup.addMember(motherMariaCardoso);
         familyCardosoGroup.setAdmin(motherMariaCardoso);
+        //Siblings
+        martaCardoso.addSibling(joaoCardoso);
 
         //Family group - Family Azevedo - 1 Admin (Group creator)
         Group familyAzevedoGroup = groupRepository.createGroup( new Description("Family Azevedo"),
@@ -409,6 +415,8 @@ public class Bootstrapper {
         familyAzevedoGroup.addMember(motherMargaridaAzevedo);
         familyAzevedoGroup.addMember(margaridaAzevedo);
         familyAzevedoGroup.addMember(hugoAzevedo);
+        //Siblings
+        margaridaAzevedo.addSibling(hugoAzevedo);
 
         // Additional Set up for siblings Tests
         Person father = personRepository.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
