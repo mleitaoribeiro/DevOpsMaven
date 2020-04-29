@@ -9,10 +9,14 @@ import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
+import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.PersonID;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -102,5 +106,78 @@ public class US003AddMemberToGroupServiceTest {
         PersonIDDTO personIDDTOexpected = new PersonIDDTO(personEmail);
 
             assertEquals(personIDDTOexpected, personIDDTOactual);
+    }
+
+    @Test
+    @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
+    void getMembersByGroupDescription(){
+
+        // Arrange
+        String groupDescription = "Rick and Morty";
+
+        Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("morty@gmail.com"));
+
+        // Act
+        Set<PersonIDDTO> members = service.getMembersByGroupDescription(groupDescription);
+
+        // Assert
+        assertEquals(membersExpected, members);
+    }
+
+    @Test
+    @DisplayName("Test for getMembersByGroupDescription - Exception - No group found with that description")
+    void getMembersByGroupDescriptionException() throws ArgumentNotFoundException{
+
+        // Arrange
+        String groupDescription = "High School buddies";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getMembersByGroupDescription(groupDescription);;
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+
+    }
+
+    @Test
+    @DisplayName("Test for getAdminssByGroupDescription - Main Scenario")
+    void getAdminsByGroupDescription(){
+
+        // Arrange
+        String groupDescription = "Rick and Morty";
+
+        Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+
+        // Act
+        Set<PersonIDDTO> members = service.getAdminsByGroupDescription(groupDescription);
+
+        // Assert
+        assertEquals(membersExpected, members);
+    }
+
+    @Test
+    @DisplayName("Test for getAdminsByGroupDescription - Exception - No group found with that description")
+    void getAdminsByGroupDescriptionException() throws ArgumentNotFoundException{
+
+        // Arrange
+        String groupDescription = "High School buddies";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getAdminsByGroupDescription(groupDescription);;
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+
     }
 }
