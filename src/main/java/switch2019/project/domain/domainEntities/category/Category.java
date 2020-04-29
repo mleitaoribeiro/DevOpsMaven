@@ -41,11 +41,20 @@ public class Category implements Entity {
     }
 
     /**
-     * Get account by ID
+     * Get category by ID
      */
     public CategoryID getID() {
         return categoryID;
     }
+
+    /**
+     * Get category by Owner ID
+     */
+
+    public OwnerID getOwnerID() {
+        return this.categoryID.getOwnerID();
+    }
+
 
     /**
      * Get name of the category
