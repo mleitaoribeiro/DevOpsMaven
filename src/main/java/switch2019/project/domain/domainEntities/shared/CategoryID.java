@@ -69,5 +69,12 @@ public class CategoryID implements ID {
         return denomination.toString() + ", " + ownerID.toString();
     }
 
-
+    /**
+     * Method to return ownerID
+     *
+     * @return ownerID
+     */
+    public OwnerID getOwnerID() {
+        return ownerID;
+    }
 }
