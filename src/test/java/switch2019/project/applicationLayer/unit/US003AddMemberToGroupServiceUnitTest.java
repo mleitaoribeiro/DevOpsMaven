@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
+import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
+import switch2019.project.assemblers.PersonDTOAssembler;
+import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -18,6 +21,9 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -186,5 +192,104 @@ public class US003AddMemberToGroupServiceUnitTest {
                 .hasMessage("The description can't be null or empty.");
     }
 
+    @Test
+    @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
+    void getMembersByGroupDescription(){
 
+        // Arrange
+        String groupDescription = "Rick and Morty";
+        Person rickSanchez  = new Person("Richard Sanchez",
+                new DateAndTime(1950, 9, 1),
+                new Address("Seattle"),
+                new Address("Smiths house", "Seattle", "4520-266"),
+                new Email("rick@gmail.com"));
+
+        Group group = new Group(new Description(groupDescription), rickSanchez);
+
+        Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        //Act
+        Set<PersonIDDTO> membersActual = service.getMembersByGroupDescription(groupDescription);
+
+        //Assert
+        assertEquals(membersExpected, membersActual);
+    }
+
+    @Test
+    @DisplayName("Test for getMembersByGroupDescription - Exception - No group found with that description")
+    void getMembersByGroupDescriptionException(){
+
+        // Arrange
+        String groupDescription = "High School buddies";
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenThrow(new ArgumentNotFoundException("No group found with that description."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getMembersByGroupDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("Test for getAdminsByGroupDescription - Main Scenario")
+    void getAdminsByGroupDescription(){
+
+        // Arrange
+        String groupDescription = "Rick and Morty";
+        Person rickSanchez  = new Person("Richard Sanchez",
+                new DateAndTime(1950, 9, 1),
+                new Address("Seattle"),
+                new Address("Smiths house", "Seattle", "4520-266"),
+                new Email("rick@gmail.com"));
+
+        Group group = new Group(new Description(groupDescription), rickSanchez);
+
+        Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        //Act
+        Set<PersonIDDTO> membersActual = service.getAdminsByGroupDescription(groupDescription);
+
+        System.out.println(membersExpected);
+        System.out.println(membersActual);
+        //Assert
+        assertEquals(membersExpected, membersActual);
+    }
+
+    @Test
+    @DisplayName("Test for getAdminsByGroupDescription - Exception - No group found with that description")
+    void getAdminsByGroupDescriptionException(){
+
+        // Arrange
+        String groupDescription = "High School buddies";
+
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenThrow(new ArgumentNotFoundException("No group found with that description."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getAdminsByGroupDescription(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+    }
 }
