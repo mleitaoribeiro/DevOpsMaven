@@ -1,15 +1,21 @@
 package switch2019.project.controllerLayer.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.DTO.serializationDTO.SiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
+import java.util.Set;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class US001AreSiblingsControllerRest {
@@ -25,5 +31,26 @@ public class US001AreSiblingsControllerRest {
         SiblingsDTO result = PersonDTOAssembler.createSiblingsDTO(service.areSiblings(areSiblingsDTO));
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/persons/{personEmail}/siblings")
+    public ResponseEntity<Object> getSiblings(@PathVariable final String personEmail) {
+
+        Set<PersonIDDTO> siblingsList = service.getSiblings(personEmail);
+
+        for (PersonIDDTO id : siblingsList) {
+            Link selfLink = linkTo(methodOn(US001AreSiblingsControllerRest.class)
+                    .getPersonByEmail(personEmail))
+                    .withSelfRel();
+
+            id.add(selfLink);
+        }
+        return new ResponseEntity<>(siblingsList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/persons/{personEmail}")
+    public ResponseEntity<Object> getPersonByEmail(@PathVariable final String personEmail) {
+        PersonIDDTO personIDDTO = service.getPersonByEmail(personEmail);
+        return new ResponseEntity<>(personIDDTO, HttpStatus.OK);
     }
 }

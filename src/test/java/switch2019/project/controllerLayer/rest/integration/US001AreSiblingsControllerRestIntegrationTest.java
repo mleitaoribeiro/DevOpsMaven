@@ -248,4 +248,102 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
          */
     }
 
+    @Test
+    @DisplayName("Test getSiblings - Happy case")
+    public void getSiblings() throws Exception {
+        // Arrange
+        String uri = "/persons/hugo.azevedo@gmail.com/siblings";
+
+        String expected = "[{\"personID\":\"margarida_azevedo@gmail.com\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/hugo.azevedo@gmail.com\"}]}]";
+        // Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        // Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Test getSiblings - Person Not Found")
+    public void getSiblingsPersonNotFound() throws Exception {
+        // Arrange
+        String uri = "/persons/hug.azevedo@gmail.com/siblings";
+
+        String expectedErrorMessage = "{\"timestamp\":\"2020-04-29T17:59\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\",\"error\":\"This resource was not found.\",\"message\":\"No person found with that email.\"}";
+
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Test getPersonEmail- Happy case")
+    public void getPersonEmail() throws Exception {
+        //Arrange
+        String uri = "/persons/hugo.azevedo@gmail.com";
+
+        String expected = "{\"personID\":\"hugo.azevedo@gmail.com\"}";
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Test getPersonEmail- Person Not Found")
+    public void getPersonEmailNotFound() throws Exception {
+        // Arrange
+        String uri = "/persons/h.azevedo@gmail.com";
+
+        String expectedErrorMessage = "{\"timestamp\":\"2020-04-29T18:00\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\",\"error\":\"This resource was not found.\",\"message\":\"No person found with that email.\"}";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result)
+        );
+    }
+
+
 }
