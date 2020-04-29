@@ -6,6 +6,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -104,23 +106,23 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"This resource was not found.\"," +
-                "\"errors\":[\"No person found with that email.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No person found with that email.\"}";
 
         String expectedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No person found with that email.";
 
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
+
     }
 
     @Test
@@ -138,14 +140,14 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((addMemberInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"This resource was not found.\"," +
-                "\"errors\":[\"No group found with that description.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\""+LocalDateTime.now().withSecond(0).withNano(0)+"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No group found with that description.\"}";
 
         String expectedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No group found with that description.";
 
         //ACT
-        /*
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -159,14 +161,13 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
 
     }
 
@@ -179,7 +180,6 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String uri = "/groups/SWITCH/members";
 
         final String personEmail = null;
-        final String groupDescription = "switch";
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
@@ -189,13 +189,13 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson((addMemberInfoDTO));
 
         //Act
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email can't be null.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The email can't be null.\"}";
 
         String expectedException = "java.lang.IllegalArgumentException: The email can't be null.";
 
-/*
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -209,112 +209,14 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
-    }
 
-    @Test
-    @DisplayName("Test if a person is added to a Group - groupDescription is null")
-    void addMemberToGroupNullDescription() throws Exception {
-
-        //Status Request
-        String uri = "/groups/SWITCH/members";
-        ;
-
-        final String personEmail = "rick@gmail.com";
-        final String groupDescription = null;
-
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
-
-
-        String inputJson = super.mapToJson((addMemberInfoDTO));
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The description can't be null or empty.\"]}";
-
-
-        String expectedException = "java.lang.IllegalArgumentException: The description can't be null or empty.";
-
-        //Act
-        /*
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
-                .andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
-
-        //ASSERT:
-        /*
-        Assertions.assertAll(
-                () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
-        );
-
-         */
-    }
-
-    @Test
-    @DisplayName("Test if a person is added to a Group - groupDescription is empty")
-    void addMemberToGroupEmptyDescription() throws Exception {
-
-        //Status Request
-        String uri = "/groups/SWITCH/members";
-
-        final String personEmail = "rick@gmail.com";
-        final String groupDescription = "";
-
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
-        addMemberInfoDTO.setGroupDescription(groupDescription);
-
-
-        String inputJson = super.mapToJson((addMemberInfoDTO));
-
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The description can't be null or empty.\"]}";
-
-
-        String expectedException = "java.lang.IllegalArgumentException: The description can't be null or empty.";
-
-        //Act
-        /*
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
-                .andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
-
-        //ASSERT:
-        /*
-        Assertions.assertAll(
-                () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
-        );
-
-         */
     }
 
 
@@ -349,15 +251,15 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String groupDescription = "switch";
         String uri = "/groups/" + groupDescription + "/members/" + personEmail;
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"That person is not a member of this group.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"That person is not a member of this group.\"}";
 
 
         String expectedException = "java.lang.IllegalArgumentException: That person is not a member of this group.";
 
         //Act
-        /*
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isUnprocessableEntity())
@@ -370,14 +272,14 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
+
     }
 
     @Test
@@ -414,15 +316,15 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String groupDescription = "High School buddies";
         String uri = "/groups/" + groupDescription + "/members/";
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"This resource was not found.\"," +
-                "\"errors\":[\"No group found with that description.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\""+LocalDateTime.now().withSecond(0).withNano(0)+"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No group found with that description.\"}";;
 
         String expectedException = "switch2019.project.utils.customExceptions." +
                 "ArgumentNotFoundException: No group found with that description.";
 
         //Act
-        /*
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isUnprocessableEntity())
@@ -435,14 +337,14 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
+
     }
 
 }

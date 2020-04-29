@@ -2,9 +2,10 @@ package switch2019.project.DTO.ErrorDTO;
 
 import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 
 public class ErrorDTO {
-    private LocalDateTime timestamp;
+    private String timestamp;
     private int statusCode;
     private HttpStatus status;
     private String error;
@@ -16,7 +17,7 @@ public class ErrorDTO {
 
     public ErrorDTO(final HttpStatus status, final String error, final String message) {
         super();
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = LocalDateTime.now().withSecond(0).withNano(0).toString();
         this.statusCode = status.value();
         this.status = status;
         this.message = message;
@@ -24,11 +25,13 @@ public class ErrorDTO {
     }
 
 
+
+
     public HttpStatus getStatus() {
         return status;
     }
 
-    public LocalDateTime getTimestamp() {return timestamp;}
+    public String getTimestamp() {return timestamp;}
 
     public void setStatus(HttpStatus status) {
         this.status = status;
