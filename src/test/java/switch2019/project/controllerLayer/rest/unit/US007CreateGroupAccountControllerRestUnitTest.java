@@ -55,12 +55,11 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
@@ -69,7 +68,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        ResponseEntity<AccountDTO> responseEntityResult = controller.addGroupAccount(groupAccountInfoDTO);
+        ResponseEntity<AccountDTO> responseEntityResult = controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntityResult);
@@ -88,12 +87,11 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
@@ -103,7 +101,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -125,12 +123,11 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(groupDescription, accountDenomination, accountDescription);
@@ -140,7 +137,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -162,7 +159,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
@@ -174,7 +170,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -198,7 +194,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
@@ -211,7 +206,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -234,7 +229,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
@@ -247,7 +241,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -270,19 +264,18 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -304,19 +297,18 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -338,19 +330,18 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -372,19 +363,18 @@ class US007CreateGroupAccountControllerRestUnitTest {
         //Arrange of CreateGroupAccountInfoDTO & CreateGroupAccountDTO
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -406,11 +396,11 @@ class US007CreateGroupAccountControllerRestUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
+        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.
+                transformToCreateGroupAccountDTO(groupDescription, groupAccountInfoDTO);
 
         Mockito.when(service.createGroupAccount(accountControllerDTO)).
                 thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
@@ -418,7 +408,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
+            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -429,69 +419,6 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
     }
 
-    @Test
-    @DisplayName("Test if group Account was created - groupDescription invalid - null")
-    void groupAccountWasCreatedGroupDescriptionNull() {
-
-        //Arrange
-        String personEmail = "1191755@isep.ipp.pt";
-        String accountDenomination = "Grocery";
-        String accountDescription = "Grocery dispenses";
-
-        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
-
-        groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
-        groupAccountInfoDTO.setAccountDescription(accountDescription);
-
-        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
-
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).
-                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
 
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
-        });
-
-        //Assert
-        assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The description can't be null or empty.");
-
-    }
-
-    @Test
-    @DisplayName("Test if group Account was created - groupDescription invalid - empty")
-    void groupAccountWasCreatedGroupDescriptionEmpty() {
-
-        //Arrange
-        String personEmail = "1191755@isep.ipp.pt";
-        String accountDenomination = "Grocery";
-        String accountDescription = "Grocery dispenses";
-
-        CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
-
-        groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setAccountDenomination(accountDenomination);
-        groupAccountInfoDTO.setAccountDescription(accountDescription);
-
-        CreateGroupAccountDTO accountControllerDTO = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupAccountInfoDTO);
-        
-        Mockito.when(service.createGroupAccount(accountControllerDTO)).
-                thenThrow(new IllegalArgumentException("The description can't be null or empty."));
-
-
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupAccountInfoDTO);
-        });
-
-        //Assert
-        assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The description can't be null or empty.");
-
-    }
 }

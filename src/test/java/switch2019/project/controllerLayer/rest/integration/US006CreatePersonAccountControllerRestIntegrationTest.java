@@ -354,34 +354,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
     }
 
-    @Test
-    @DisplayName("Test if an existing person creates a Group and becomes Admin - No Email Input")
-    void createGroupAndBecomeAdminNoEmailInput() throws Exception {
-
-        //Arrange
-        String uri = "/persons//accounts";
-
-        String inputJson = super.mapToJson((null));
-
-        //Act
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string(""))
-                .andReturn();
-
-        //Assert
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(404, status),
-                () -> assertEquals("", result)
-        );
-
-    }
 
 
     /**

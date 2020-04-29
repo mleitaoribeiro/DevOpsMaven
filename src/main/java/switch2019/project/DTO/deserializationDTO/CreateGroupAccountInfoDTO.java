@@ -13,7 +13,6 @@ import java.util.Objects;
 public class CreateGroupAccountInfoDTO {
 
     private String personEmail;
-    private String groupDescription;
     private String accountDenomination;
     private String accountDescription;
 
@@ -27,14 +26,13 @@ public class CreateGroupAccountInfoDTO {
         if (o == null || getClass() != o.getClass()) return false;
         CreateGroupAccountInfoDTO that = (CreateGroupAccountInfoDTO) o;
         return Objects.equals(personEmail, that.personEmail) &&
-                Objects.equals(groupDescription, that.groupDescription) &&
                 Objects.equals(accountDenomination, that.accountDenomination) &&
                 Objects.equals(accountDescription, that.accountDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personEmail, groupDescription, accountDenomination, accountDescription);
+        return Objects.hash(personEmail, accountDenomination, accountDescription);
     }
 
     /**
@@ -46,14 +44,7 @@ public class CreateGroupAccountInfoDTO {
         return personEmail;
     }
 
-    /**
-     * getter for groupDescription
-     *
-     * @return
-     */
-    public String getGroupDescription() {
-        return groupDescription;
-    }
+
 
     /**
      * getter for accountDenomination
@@ -82,14 +73,6 @@ public class CreateGroupAccountInfoDTO {
         this.personEmail = personEmail;
     }
 
-    /**
-     * setter for the groupDescription
-     *
-     * @param groupDescription
-     */
-    public void setGroupDescription(String groupDescription) {
-        this.groupDescription = groupDescription;
-    }
 
     /**
      * setter for accountDenomination

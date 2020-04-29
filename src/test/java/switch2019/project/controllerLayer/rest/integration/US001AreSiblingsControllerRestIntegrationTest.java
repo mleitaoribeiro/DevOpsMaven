@@ -7,6 +7,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -275,7 +276,11 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         // Arrange
         String uri = "/persons/hug.azevedo@gmail.com/siblings";
 
-        String expectedErrorMessage = "{\"timestamp\":\"2020-04-29T17:59\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\",\"error\":\"This resource was not found.\",\"message\":\"No person found with that email.\"}";
+        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No person found with that email.\"}";
+
+
 
 
         //Act
@@ -324,7 +329,11 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         // Arrange
         String uri = "/persons/h.azevedo@gmail.com";
 
-        String expectedErrorMessage = "{\"timestamp\":\"2020-04-29T18:00\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\",\"error\":\"This resource was not found.\",\"message\":\"No person found with that email.\"}";
+        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No person found with that email.\"}";
+
+                
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
