@@ -2,7 +2,7 @@ package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import switch2019.project.DTO.serializationDTO.PersonIDDTO;
+import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
@@ -15,7 +15,6 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
