@@ -504,11 +504,14 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String uri = "/accounts/1191782@isep.ipp.pt";
 
         String expected = "[{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
-                "\"denomination\":\"CTT\"," + "\"description\":\"WORK\"," + "\"links\":[]}," +
+                "\"denomination\":\"CTT\"," + "\"description\":\"WORK\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/accounts/1191782@ISEP.IPP.PT/CTT\"}]}," +
                 "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
-                "\"denomination\":\"MBWAY\"," + "\"description\":\"FRIENDS\"," + "\"links\":[]}," +
+                "\"denomination\":\"MBWAY\"," + "\"description\":\"FRIENDS\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/accounts/1191782@ISEP.IPP.PT/MBWAY\"}]}," +
                 "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
-                "\"denomination\":\"HOME\"," + "\"description\":\"HOME EXPENSES\"," + "\"links\":[]}]" ;
+                "\"denomination\":\"HOME\"," + "\"description\":\"HOME EXPENSES\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/accounts/1191782@ISEP.IPP.PT/HOME\"}]}]" ;
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
