@@ -5,12 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -103,7 +105,7 @@ public class US003AddMemberToGroupServiceTest {
 
         PersonIDDTO personIDDTOactual = service.getPersonByEmail(personEmail, groupDescription);
 
-        PersonIDDTO personIDDTOexpected = new PersonIDDTO(personEmail);
+        PersonIDDTO personIDDTOexpected = new PersonIDDTO(new PersonID(new Email(personEmail)));
 
             assertEquals(personIDDTOexpected, personIDDTOactual);
     }
@@ -116,8 +118,8 @@ public class US003AddMemberToGroupServiceTest {
         String groupDescription = "Rick and Morty";
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("morty@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("morty@gmail.com"))));
 
         // Act
         Set<PersonIDDTO> members = service.getMembersByGroupDescription(groupDescription);
@@ -153,7 +155,7 @@ public class US003AddMemberToGroupServiceTest {
         String groupDescription = "Rick and Morty";
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
 
         // Act
         Set<PersonIDDTO> members = service.getAdminsByGroupDescription(groupDescription);

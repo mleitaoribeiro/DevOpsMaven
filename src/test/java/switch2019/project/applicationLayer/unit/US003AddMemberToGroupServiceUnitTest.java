@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
-import switch2019.project.DTO.SerializationDTO.PersonIDDTO;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -207,7 +207,7 @@ public class US003AddMemberToGroupServiceUnitTest {
         Group group = new Group(new Description(groupDescription), rickSanchez);
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
                 .thenReturn(group);
@@ -255,7 +255,7 @@ public class US003AddMemberToGroupServiceUnitTest {
         Group group = new Group(new Description(groupDescription), rickSanchez);
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
-        membersExpected.add(PersonDTOAssembler.createPersonIDDTO("rick@gmail.com"));
+        membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription)))
                 .thenReturn(group);

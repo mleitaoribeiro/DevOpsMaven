@@ -58,7 +58,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         //Arrange - CreateGroupCategoryInfoDTO & CreateGroupCategoryDTO:
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
@@ -70,7 +69,8 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO)).thenReturn(categoryDTOExpected);
 
         //Act:
-        ResponseEntity<CategoryDTO> responseEntityResult = controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
+        ResponseEntity<CategoryDTO> responseEntityResult = controllerRest.addCategoryToGroup
+                (groupDescription,createGroupCategoryInfoDTO);
 
         //Assert:
         assertEquals(responseEntityExpected, responseEntityResult);
@@ -88,7 +88,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO1 = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO1.setPersonEmail(creatorEmail1);
-        createGroupCategoryInfoDTO1.setGroupDescription(groupDescription1);
         createGroupCategoryInfoDTO1.setCategoryDenomination(categoryDenomination1);
 
         CategoryDTO categoryDTOExpected1 = new CategoryDTO(categoryDenomination1, groupDescription1);
@@ -104,7 +103,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO2 = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO2.setPersonEmail(creatorEmail2);
-        createGroupCategoryInfoDTO2.setGroupDescription(groupDescription2);
         createGroupCategoryInfoDTO2.setCategoryDenomination(categoryDenomination2);
 
         ResponseEntity responseEntityExpected2 = new ResponseEntity<>(categoryDTOExpected2, HttpStatus.CREATED);
@@ -113,8 +111,10 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
         Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO2)).thenReturn(categoryDTOExpected2);
 
         //Act:
-        ResponseEntity<CategoryDTO> responseEntityResult1 = controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO1);
-        ResponseEntity<CategoryDTO> responseEntityResult2 = controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO2);
+        ResponseEntity<CategoryDTO> responseEntityResult1 = controllerRest.addCategoryToGroup
+                (groupDescription1, createGroupCategoryInfoDTO1);
+        ResponseEntity<CategoryDTO> responseEntityResult2 = controllerRest.addCategoryToGroup
+                (groupDescription2,createGroupCategoryInfoDTO2);
 
         //Assert:
         Assertions.assertAll(
@@ -134,7 +134,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
@@ -144,7 +143,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
+            controllerRest.addCategoryToGroup(groupDescription,createGroupCategoryInfoDTO);
         });
 
         //Assert
@@ -164,7 +163,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
@@ -174,7 +172,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
+            controllerRest.addCategoryToGroup(groupDescription,createGroupCategoryInfoDTO);
         });
 
         //Assert
@@ -195,7 +193,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
@@ -205,7 +202,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
+            controllerRest.addCategoryToGroup(groupDescription,createGroupCategoryInfoDTO);
         });
 
         //Assert
@@ -225,7 +222,6 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         CreateGroupCategoryInfoDTO createGroupCategoryInfoDTO = new CreateGroupCategoryInfoDTO();
         createGroupCategoryInfoDTO.setPersonEmail(creatorEmail);
-        createGroupCategoryInfoDTO.setGroupDescription(groupDescription);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
         CreateGroupCategoryDTO createGroupCategoryDTO = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
@@ -235,7 +231,7 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controllerRest.addCategoryToGroup(createGroupCategoryInfoDTO);
+            controllerRest.addCategoryToGroup(groupDescription,createGroupCategoryInfoDTO);
         });
 
         //Assert

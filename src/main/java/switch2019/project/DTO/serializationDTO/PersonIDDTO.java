@@ -1,6 +1,7 @@
-package switch2019.project.DTO.SerializationDTO;
+package switch2019.project.DTO.serializationDTO;
 
 import org.springframework.hateoas.RepresentationModel;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.Objects;
 
@@ -8,8 +9,8 @@ public class PersonIDDTO extends RepresentationModel<PersonIDDTO>{
 
     private String personID;
 
-    public PersonIDDTO(String result) {
-        this.personID = result;
+    public PersonIDDTO(PersonID personID) {
+        this.personID = personID.getEmail();
     }
 
 
@@ -21,7 +22,6 @@ public class PersonIDDTO extends RepresentationModel<PersonIDDTO>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonIDDTO)) return false;
-        if (!super.equals(o)) return false;
         PersonIDDTO that = (PersonIDDTO) o;
         return Objects.equals(personID, that.personID);
     }

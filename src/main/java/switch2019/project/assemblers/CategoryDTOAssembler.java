@@ -35,7 +35,7 @@ public class CategoryDTOAssembler {
      * @param dto
      * @return CreateCategoryInGroupDTO
      */
-    public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(CreateGroupCategoryInfoDTO dto) {
-        return new CreateGroupCategoryDTO(dto.getGroupDescription(), dto.getPersonEmail(), dto.getCategoryDenomination());
+    public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(String groupDescription, CreateGroupCategoryInfoDTO dto) {
+        return new CreateGroupCategoryDTO(groupDescription, dto.getPersonEmail(), dto.getCategoryDenomination());
     }
 }
