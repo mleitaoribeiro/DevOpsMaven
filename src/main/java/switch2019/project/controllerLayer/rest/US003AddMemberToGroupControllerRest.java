@@ -32,9 +32,11 @@ public class US003AddMemberToGroupControllerRest {
      */
 
     @PostMapping("/groups/{groupDescription}/members")
-    public ResponseEntity<Object> addMemberToGroup(@RequestBody AddMemberInfoDTO info){
+    public ResponseEntity<Object> addMemberToGroup(@PathVariable String groupDescription,
+                                                   @RequestBody AddMemberInfoDTO info){
 
-        AddMemberDTO addMemberDTO = GroupDTOAssembler.transformIntoAddMemberDTO(info);
+
+        AddMemberDTO addMemberDTO = GroupDTOAssembler.transformIntoAddMemberDTO(info, groupDescription);
 
         AddedMemberDTO addedMemberDTO = service.addMemberToGroup(addMemberDTO);
 

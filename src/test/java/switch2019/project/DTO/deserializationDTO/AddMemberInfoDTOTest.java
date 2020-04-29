@@ -13,7 +13,6 @@ class AddMemberInfoDTOTest {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
 
         //Act:
         boolean result = addMemberDTO.equals(addMemberDTO);
@@ -28,7 +27,6 @@ class AddMemberInfoDTOTest {
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         AddMemberInfoDTO addMemberDTONull = null;
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
 
         //Act:
         boolean result = addMemberDTO.equals(addMemberDTONull);
@@ -42,7 +40,6 @@ class AddMemberInfoDTOTest {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
 
         AccountDTO accountDTO = new AccountDTO("marta@isep.pt", "savings", "2020 savings");
 
@@ -58,11 +55,10 @@ class AddMemberInfoDTOTest {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
+
 
         AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
         addMemberDTO2.setPersonEmail("marta@isep.pt");
-        addMemberDTO2.setGroupDescription("bashtards");
 
         //Act:
         boolean result = addMemberDTO.equals(addMemberDTO2);
@@ -76,29 +72,11 @@ class AddMemberInfoDTOTest {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
+
 
         AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
         addMemberDTO2.setPersonEmail("pinheiro@isep.pt");
-        addMemberDTO2.setGroupDescription("bashtards");
 
-        //Act:
-        boolean result = addMemberDTO.equals(addMemberDTO2);
-
-        //Assert:
-        assertFalse(result);
-    }
-
-    @Test
-    void testEqualsDifferentParametersDescription() {
-        //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
-        addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
-
-        AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
-        addMemberDTO2.setPersonEmail("marta@isep.pt");
-        addMemberDTO2.setGroupDescription("friends");
 
         //Act:
         boolean result = addMemberDTO.equals(addMemberDTO2);
@@ -112,11 +90,11 @@ class AddMemberInfoDTOTest {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
+
 
         AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
         addMemberDTO2.setPersonEmail("marta@isep.pt");
-        addMemberDTO2.setGroupDescription("bashtards");
+
 
         //Act:
         boolean result = addMemberDTO.hashCode() == addMemberDTO2.hashCode();
@@ -130,11 +108,9 @@ class AddMemberInfoDTOTest {
         //Arrange:
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
-        addMemberDTO.setGroupDescription("bashtards");
 
         AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
         addMemberDTO2.setPersonEmail("pinheiro@isep.pt");
-        addMemberDTO2.setGroupDescription("bashtards");
 
         //Act:
         boolean result = addMemberDTO.hashCode() == addMemberDTO2.hashCode();
@@ -155,7 +131,6 @@ class AddMemberInfoDTOTest {
         AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
         String expected = "raquel@xpto.pt";
         addMemberDTO.setPersonEmail(expected);
-        addMemberDTO.setGroupDescription("runners");
 
         //Act
         String actual = addMemberDTO.getPersonEmail();
@@ -164,21 +139,6 @@ class AddMemberInfoDTOTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("Test to get method groupDescription")
-    void getGroupDescription() {
-        //Arrange
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
-        addMemberDTO.setPersonEmail("raquel@xpto.pt");
-        String expected = "runners";
-        addMemberDTO.setGroupDescription(expected);
-
-        //Act
-        String actual = addMemberDTO.getGroupDescription();
-
-        //Assert
-        assertEquals(expected, actual);
-    }
 
 
 }

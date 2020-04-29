@@ -6,16 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
-import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.customExceptions.ResourceAlreadyExistsException;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

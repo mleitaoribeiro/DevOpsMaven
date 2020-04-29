@@ -70,8 +70,8 @@ public class AccountDTOAssembler {
      * @param dto
      * @return CreateAccountInGroupDTO
      */
-    public static CreateGroupAccountDTO transformToCreateGroupAccountDTO(CreateGroupAccountInfoDTO dto) {
-        return new CreateGroupAccountDTO(dto.getPersonEmail(), dto.getGroupDescription(), dto.getAccountDenomination(), dto.getAccountDescription());
+    public static CreateGroupAccountDTO transformToCreateGroupAccountDTO(String groupDescription, CreateGroupAccountInfoDTO dto) {
+        return new CreateGroupAccountDTO(dto.getPersonEmail(), groupDescription, dto.getAccountDenomination(), dto.getAccountDescription());
     }
 
 }

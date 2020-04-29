@@ -14,13 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
-import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.rest.US006CreatePersonAccountControllerRest;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

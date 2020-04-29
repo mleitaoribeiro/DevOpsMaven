@@ -8,15 +8,21 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.PersonRepository;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -148,6 +154,43 @@ public class US001AreSiblingsServiceUnitTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The email can't be null.");
+    }
+
+    @Test
+    @DisplayName("Test getSiblings - simpsons")
+    public void getSiblings2() {
+        //Arrange
+        String emailSibling = "beatriz.azevedo@gmail.com";
+        String emailRelatedSiblings = "hugo.azevedo@gmail.com";
+
+        PersonID idRelatedSibling = new PersonID(new Email(emailRelatedSiblings));
+
+        Set<PersonIDDTO> expectedSiblingsList = new HashSet<>(Arrays.asList(PersonDTOAssembler.createPersonIDDTO(idRelatedSibling)));
+
+        //Act
+        Mockito.when(personRepository.findPersonByEmail(new Email(emailSibling))).thenReturn(sibling);
+
+        Set<PersonIDDTO> realSiblingList = service.getSiblings(emailSibling);
+
+        //Assert
+        assertEquals(expectedSiblingsList, realSiblingList);
+    }
+
+    @Test
+    @DisplayName("Test getPersonID")
+    public void getPerson() {
+        //Arrange
+        String emailSibling = "beatriz.azevedo@gmail.com";
+
+        PersonIDDTO expectedPersonDTO = new PersonIDDTO(emailSibling);
+
+        //Act
+        Mockito.when(personRepository.findPersonByEmail(new Email(emailSibling))).thenReturn(sibling);
+
+        PersonIDDTO realPersonDTO = service.getPersonByEmail(emailSibling);
+
+        //Assert
+        assertEquals(expectedPersonDTO, realPersonDTO);
     }
 
 }

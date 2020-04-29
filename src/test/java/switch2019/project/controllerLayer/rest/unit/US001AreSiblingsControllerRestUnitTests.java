@@ -11,11 +11,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serializationDTO.SiblingsDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.controllerLayer.rest.US001AreSiblingsControllerRest;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.PersonID;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -212,4 +219,98 @@ public class US001AreSiblingsControllerRestUnitTests {
                 .hasMessage("The email can't be null.");
 
     }
+
+    @Test
+    @DisplayName("Test getSiblings - Happy Case")
+    public void getSiblings() {
+        //Arrange
+        String emailSibling = "beatriz.azevedo@gmail.com";
+        String emailRelatedSiblings = "hugo.azevedo@gmail.com";
+
+        PersonID idRelatedSibling = new PersonID(new Email(emailRelatedSiblings));
+
+        Set<PersonIDDTO> expectedSiblingsList = new HashSet<>(Arrays.asList(PersonDTOAssembler.createPersonIDDTO(idRelatedSibling)));
+
+        //Act
+        Mockito.when(service.getSiblings(emailSibling)).thenReturn(expectedSiblingsList);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(expectedSiblingsList, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> responseEntity = controller.getSiblings(emailSibling);
+
+        //Assert
+        assertEquals(responseEntityExpected, responseEntity);
+    }
+
+    @Test
+    @DisplayName("Test getSiblings - Person Not Found")
+    public void getSiblingsPersonNotFound() {
+        //Arrange
+        String emailSibling = "bea.azevedo@gmail.com";
+        String emailRelatedSiblings = "hugo.azevedo@gmail.com";
+
+        PersonID idRelatedSibling = new PersonID(new Email(emailRelatedSiblings));
+
+        Set<PersonIDDTO> expectedSiblingsList = new HashSet<>(Arrays.asList(PersonDTOAssembler.createPersonIDDTO(idRelatedSibling)));
+
+        //Act
+        Mockito.when(service.getSiblings(emailSibling)).thenThrow(new IllegalArgumentException("No person found with that email."));
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(expectedSiblingsList, HttpStatus.UNPROCESSABLE_ENTITY);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.getSiblings(emailSibling);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Test getPersonEmail - Happy Case")
+    public void getPersonEmail() {
+        //Arrange
+        String emailSibling = "beatriz.azevedo@gmail.com";
+
+        PersonIDDTO expectedPersonIdDTO = new PersonIDDTO(emailSibling);
+
+        //Act
+        Mockito.when(service.getPersonByEmail(emailSibling)).thenReturn(expectedPersonIdDTO);
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(expectedPersonIdDTO, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> responseEntity = controller.getPersonByEmail(emailSibling);
+
+        //Assert
+        assertEquals(responseEntityExpected, responseEntity);
+    }
+
+    @Test
+    @DisplayName("Test getPersonEmail - Person Not Found")
+    public void getPersonEmailPersonNotFound() {
+        //Arrange
+        String emailSibling = "bea.azevedo@gmail.com";
+
+        PersonIDDTO expectedPersonIdDTO = new PersonIDDTO(emailSibling);
+
+        //Act
+        Mockito.when(service.getPersonByEmail(emailSibling)).thenThrow(new IllegalArgumentException("No person found with that email."));
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(expectedPersonIdDTO, HttpStatus.UNPROCESSABLE_ENTITY);
+
+        //Act
+
+
+        Throwable thrown = catchThrowable(() -> {
+            controller.getPersonByEmail(emailSibling);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+
 }

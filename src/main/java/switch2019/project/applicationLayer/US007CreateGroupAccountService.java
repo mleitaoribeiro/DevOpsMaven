@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.assemblers.AccountDTOAssembler;
-import switch2019.project.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;

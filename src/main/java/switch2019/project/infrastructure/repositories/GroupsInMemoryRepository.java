@@ -1,9 +1,9 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.customExceptions.NoPermissionException;
-import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;

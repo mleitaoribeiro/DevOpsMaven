@@ -17,8 +17,8 @@ import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.controllerLayer.rest.US002_1CreateGroupControllerRest;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -305,7 +305,7 @@ public class US002_1CreateGroupControllerRestUnitTest {
         //Arrange
         String groupDescription = "SWITCH";
         GroupDTO outputExpected = new GroupDTO(groupDescription);
-        ResponseEntity expectedResponseEntity = new ResponseEntity<>(outputExpected, HttpStatus.CREATED);
+        ResponseEntity expectedResponseEntity = new ResponseEntity<>(outputExpected, HttpStatus.OK);
 
         //Act
         Mockito.when(service.getGroupByDescription(groupDescription)).thenReturn(outputExpected);

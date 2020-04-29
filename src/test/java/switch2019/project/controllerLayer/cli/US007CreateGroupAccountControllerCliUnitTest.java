@@ -332,7 +332,6 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
@@ -366,7 +365,6 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 
@@ -402,7 +400,6 @@ public class US007CreateGroupAccountControllerCliUnitTest {
         CreateGroupAccountInfoDTO groupAccountInfoDTO = new CreateGroupAccountInfoDTO();
 
         groupAccountInfoDTO.setPersonEmail(personEmail);
-        groupAccountInfoDTO.setGroupDescription(groupDescription);
         groupAccountInfoDTO.setAccountDenomination(accountDenomination);
         groupAccountInfoDTO.setAccountDescription(accountDescription);
 

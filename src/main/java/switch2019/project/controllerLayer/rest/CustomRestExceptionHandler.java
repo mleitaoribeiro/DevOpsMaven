@@ -13,9 +13,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import switch2019.project.DTO.ErrorDTO.ErrorDTO;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.customExceptions.NoPermissionException;
-import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +51,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
 
+        //Construction of the error:
+        String error = errors.toString();
+
         //Construction of the ErrorDTO with all the errors present:
-        final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), errors);
+        final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
 
         //Return of the HandleExceptionInternal:
         return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
@@ -157,7 +160,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final String error = exception.getMessage();
 
         //Construction of the ErrorDTO:
-        final ErrorDTO apiError = new ErrorDTO(HttpStatus.FORBIDDEN, "No permission for this group operation.", error);
+        final ErrorDTO apiError = new ErrorDTO(HttpStatus.FORBIDDEN, "No permission for this operation.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
         return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());

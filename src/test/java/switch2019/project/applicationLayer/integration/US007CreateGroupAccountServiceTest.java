@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
-import switch2019.project.customExceptions.ArgumentNotFoundException;
-import switch2019.project.customExceptions.NoPermissionException;
-import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
