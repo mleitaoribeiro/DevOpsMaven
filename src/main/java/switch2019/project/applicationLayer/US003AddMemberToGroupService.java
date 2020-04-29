@@ -43,7 +43,7 @@ public class US003AddMemberToGroupService {
         PersonID personID = new PersonID(new Email(personEmail));
 
         if (group.isGroupMember(personID)) {
-            return PersonDTOAssembler.createPersonIDDTO(personEmail);
+            return PersonDTOAssembler.createPersonIDDTO(personID);
         }
         throw new IllegalArgumentException("That person is not a member of this group.");
     }

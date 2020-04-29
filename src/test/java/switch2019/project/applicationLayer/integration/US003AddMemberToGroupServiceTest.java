@@ -99,7 +99,7 @@ public class US003AddMemberToGroupServiceTest {
 
         PersonIDDTO personIDDTOactual = service.getPersonByEmail(personEmail, groupDescription);
 
-        PersonIDDTO personIDDTOexpected = new PersonIDDTO(personEmail);
+        PersonIDDTO personIDDTOexpected = new PersonIDDTO(new PersonID(new Email(personEmail)));
 
             assertEquals(personIDDTOexpected, personIDDTOactual);
     }
