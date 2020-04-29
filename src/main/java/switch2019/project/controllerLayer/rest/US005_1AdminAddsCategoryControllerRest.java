@@ -29,10 +29,11 @@ public class US005_1AdminAddsCategoryControllerRest {
      * @param info
      * @return Response Entity with CategoryDTO and HTTPStatus
      */
-    @PostMapping("/categories")
-    public ResponseEntity<CategoryDTO> addCategoryToGroup(@RequestBody CreateGroupCategoryInfoDTO info) {
+    @PostMapping("groups/{groupDescription}/categories")
+    public ResponseEntity<CategoryDTO> addCategoryToGroup(@PathVariable final String groupDescription,
+                                                          @RequestBody CreateGroupCategoryInfoDTO info) {
 
-        CreateGroupCategoryDTO categoryDTO = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(info);
+        CreateGroupCategoryDTO categoryDTO = CategoryDTOAssembler.transformToCreateGroupCategoryDTO(groupDescription, info);
 
         CategoryDTO result = service.addCategoryToGroup(categoryDTO);
 
@@ -49,14 +50,14 @@ public class US005_1AdminAddsCategoryControllerRest {
      * Method to get a category by categoryID
      *
      * @param categoryDescription
-     * @param ownerID
+     * @param groupDescription
      * @return Response Entity with CategoryDTO and HTTPStatus
      */
-    @GetMapping(value = "categories/groups/{ownerID}/{categoryDescription}")
+    @GetMapping(value = "groups/{groupDescription}/categories/{categoryDescription}")
     public ResponseEntity<Object> getCategoryByCategoryID
-            (@PathVariable final String categoryDescription, @PathVariable final String ownerID) {
+            (@PathVariable final String categoryDescription, @PathVariable final String groupDescription) {
 
-        CategoryDTO result = service.getCategoryByCategoryID(categoryDescription, ownerID);
+        CategoryDTO result = service.getCategoryByCategoryID(categoryDescription, groupDescription);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
