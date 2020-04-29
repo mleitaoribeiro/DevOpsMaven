@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.rest.US006CreatePersonAccountControllerRest;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -448,6 +453,39 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The denomination can't be null or empty.");
+    }
+
+    /**
+     * Test if an Account can be found by the ID
+     */
+
+    @Test
+    @DisplayName("Test to get all account by person ID - Happy Case")
+    void getAccountsByPersonID()  {
+
+        //Arrange:
+        String personEmail = "1191782@isep.ipp.pt";
+
+        Set<AccountDTO> expectedAccounts = new LinkedHashSet<>();
+        expectedAccounts.add(new AccountDTO(personEmail,"Mbway","Friends"));
+        expectedAccounts.add(new AccountDTO(personEmail,"CTT","Work"));
+        expectedAccounts.add(new AccountDTO(personEmail,"Home","Home Expenses"));
+
+        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedAccounts, HttpStatus.OK);
+
+        //Act
+        Mockito.when(service.getAccountsByPersonID(personEmail)).thenReturn(expectedAccounts);
+
+        ResponseEntity <Object> responseEntityResult = controller.getAccountsByPersonID(personEmail);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
+                () -> assertEquals(expectedAccounts, responseEntityResult.getBody()),
+                () -> assertNotNull(responseEntityResult)
+        );
+
     }
 
 

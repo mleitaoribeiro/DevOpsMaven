@@ -7,9 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -63,5 +67,24 @@ public class US006CreatePersonAccountControllerRest {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    /**
+     * Method to get an Account by PersonID
+     *
+     * @param personEmail
+     * @return Response Entity with AccountDTO and HTTPStatus
+     */
+
+    @GetMapping(value = "accounts/{personEmail}")
+    public ResponseEntity<Object> getAccountsByPersonID
+    (@PathVariable final String personEmail) {
+
+       Set <AccountDTO> accounts = service.getAccountsByPersonID(personEmail);
+
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+
+
+
 
 }

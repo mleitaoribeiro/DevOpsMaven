@@ -462,5 +462,13 @@ public class Bootstrapper {
         accountRepository.createAccount(new Denomination("Mbway"),
                 new Description("Rides"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
+        // Account of Person - Raquel Santos
+        accountRepository.createAccount(new Denomination("Mbway"),
+                new Description("Friends"), new PersonID(new Email("1191782@isep.ipp.pt")));
+        accountRepository.createAccount(new Denomination("CTT"),
+                new Description("Work"), new PersonID(new Email("1191782@isep.ipp.pt")));
+        accountRepository.createAccount(new Denomination("Home"),
+                new Description("Home Expenses"), new PersonID(new Email("1191782@isep.ipp.pt")));
+
     }
 }

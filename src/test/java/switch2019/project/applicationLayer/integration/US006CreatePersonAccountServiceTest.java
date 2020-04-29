@@ -6,10 +6,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.customExceptions.ArgumentNotFoundException;
 import switch2019.project.customExceptions.ResourceAlreadyExistsException;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.PersonID;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -355,6 +364,30 @@ class US006CreatePersonAccountServiceTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The denomination can't be null or empty.");
+    }
+
+
+    /**
+     * Test if an Account can be found by the Person ID
+     */
+
+    @Test
+    @DisplayName("Test to get all accounts by the Person ID - Happy Case")
+    void getAccountsByPersonID() {
+
+        //Arrange:
+        String personEmail = "1191782@isep.ipp.pt";
+
+        Set<AccountDTO> expectedAccounts = new LinkedHashSet<>();
+        expectedAccounts.add(new AccountDTO(personEmail,"Mbway","Friends"));
+        expectedAccounts.add(new AccountDTO(personEmail,"CTT","Work"));
+        expectedAccounts.add(new AccountDTO(personEmail,"Home","Home Expenses"));
+
+        //Act
+        Set <AccountDTO> realResult = service.getAccountsByPersonID(personEmail);
+
+        //Assert
+        assertEquals(expectedAccounts, realResult);
     }
 
 }
