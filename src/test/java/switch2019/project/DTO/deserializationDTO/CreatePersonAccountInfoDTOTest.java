@@ -7,29 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CreatePersonAccountInfoDTOTest {
 
-    @Test
-    @DisplayName("Test personEmail Getter")
-    void getPersonEmailTest() {
-
-        //Assert
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
-
-        //Act:
-        String personEmail = dto.getPersonEmail();
-
-        //Assert:
-        assertEquals("1191762@isep.ipp.pt", personEmail);
-
-    }
-
 
     @Test
     @DisplayName("Test accountDenomination getter")
     void getAccountDenominationTest() {
 
         //Assert
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
-
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
+        dto.setAccountDenomination("Revolut");
+        dto.setAccountDescription("Online Shopping");
         //Act:
         String denomination = dto.getAccountDenomination();
 
@@ -43,8 +29,9 @@ class CreatePersonAccountInfoDTOTest {
     void getAccountDescriptionTest() {
 
         //Assert
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
-
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
+        dto.setAccountDenomination("Revolut");
+        dto.setAccountDescription("Online Shopping");
         //Act:
         String description = dto.getAccountDescription();
 
@@ -53,29 +40,14 @@ class CreatePersonAccountInfoDTOTest {
 
     }
 
-
-    @Test
-    @DisplayName("Test Person Email setter")
-    void setPersonEmail() {
-        //Assert
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
-        String expected = "1191762@isep.ipp.pt";
-
-        //Act:
-        dto.setPersonEmail("1191762@isep.ipp.pt");
-        String result = dto.getPersonEmail();
-
-        //Assert:
-        assertEquals("1191762@isep.ipp.pt", result);
-
-    }
-
-
     @Test
     @DisplayName("Test accountDenomination setter")
     void setAccountDenomination() {
         //Assert
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
+        dto.setAccountDenomination("Revolut");
+        dto.setAccountDescription("Online Shopping");
+
         String expected = "Revolut";
 
         //Act:
@@ -91,7 +63,9 @@ class CreatePersonAccountInfoDTOTest {
     @DisplayName("Test accountDescription setter")
     void setAccountDescription() {
         //Assert
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO("1191762@isep.ipp.pt", "Revolut", "Online Shopping");
+        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
+        dto.setAccountDenomination("Revolut");
+        dto.setAccountDescription("Online Shopping");
         String expected = "Online Shopping";
 
         //Act:
@@ -112,7 +86,6 @@ class CreatePersonAccountInfoDTOTest {
     void equalsSameObject() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Kelle's Account");
         dto.setAccountDescription("General Expenses");
 
@@ -128,7 +101,6 @@ class CreatePersonAccountInfoDTOTest {
     void equalsNullObject() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Kelle's Account");
         dto.setAccountDescription("General Expenses");
 
@@ -146,7 +118,6 @@ class CreatePersonAccountInfoDTOTest {
     void equalsDifferentObjectClass() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Kelle's Account");
         dto.setAccountDescription("General Expenses");
 
@@ -164,12 +135,10 @@ class CreatePersonAccountInfoDTOTest {
     void equalsSameAttributes() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Kelle's Account");
         dto.setAccountDescription("General Expenses");
 
         CreatePersonAccountInfoDTO dto2 = new CreatePersonAccountInfoDTO();
-        dto2.setPersonEmail("raquel@isep.pt");
         dto2.setAccountDenomination("Kelle's Account");
         dto2.setAccountDescription("General Expenses");
 
@@ -185,12 +154,10 @@ class CreatePersonAccountInfoDTOTest {
     void equalsDifferentAccountDescription() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Kelle's Account");
         dto.setAccountDescription("General Expenses");
 
         CreatePersonAccountInfoDTO dto2 = new CreatePersonAccountInfoDTO();
-        dto2.setPersonEmail("raquel@isep.pt");
         dto2.setAccountDenomination("Kelle's Account");
         dto2.setAccountDescription("Gym Expenses");
 
@@ -206,34 +173,11 @@ class CreatePersonAccountInfoDTOTest {
     void equalsDifferentAccountDenomination() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Family Account");
         dto.setAccountDescription("General Expenses");
 
         CreatePersonAccountInfoDTO dto2 = new CreatePersonAccountInfoDTO();
-        dto2.setPersonEmail("raquel@isep.pt");
         dto2.setAccountDenomination("Kelle's Account");
-        dto2.setAccountDescription("General Expenses");
-
-        //Act
-        boolean actual = dto.equals(dto2);
-
-        //Assert
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("Test to equals - Different Person Email")
-    void equalsDifferentPersonEmail() {
-        //Arrange
-        CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
-        dto.setAccountDenomination("Family Account");
-        dto.setAccountDescription("General Expenses");
-
-        CreatePersonAccountInfoDTO dto2 = new CreatePersonAccountInfoDTO();
-        dto2.setPersonEmail("raquel@xpyo.com");
-        dto2.setAccountDenomination("Family Account");
         dto2.setAccountDescription("General Expenses");
 
         //Act
@@ -252,12 +196,10 @@ class CreatePersonAccountInfoDTOTest {
     void sameHashcode() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Family Account");
         dto.setAccountDescription("General Expenses");
 
         CreatePersonAccountInfoDTO dto2 = new CreatePersonAccountInfoDTO();
-        dto2.setPersonEmail("raquel@isep.pt");
         dto2.setAccountDenomination("Family Account");
         dto2.setAccountDescription("General Expenses");
 
@@ -273,12 +215,10 @@ class CreatePersonAccountInfoDTOTest {
     void differentHashcode() {
         //Arrange
         CreatePersonAccountInfoDTO dto = new CreatePersonAccountInfoDTO();
-        dto.setPersonEmail("raquel@isep.pt");
         dto.setAccountDenomination("Family Account");
         dto.setAccountDescription("General Expenses");
 
         CreatePersonAccountInfoDTO dto2 = new CreatePersonAccountInfoDTO();
-        dto2.setPersonEmail("raquel@xpto.pt");
         dto2.setAccountDenomination("General Account");
         dto2.setAccountDescription("Gym Expenses");
 

@@ -30,7 +30,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void createPersonAccountHappyCase() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/marge@hotmail.com/accounts";
 
             //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -39,7 +39,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
             //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
 
@@ -75,16 +74,14 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIfUserAccountWasCreatedAccountAlreadyExists() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/marge@hotmail.com/accounts";
 
             //arrangement of the account DTO:
-        final String personEmail = "marge@hotmail.com";
         final String accountDenomination = "Homer Snacks";
         final String accountDescription = "Money spent on snacks for homer";
 
             //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
 
@@ -125,16 +122,14 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void testIfUserAccountWasCreatedPersonDoesNotExist() throws Exception {
         //ARRANGE:
             //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/blabla@hotmail.com/accounts";
 
             //arrangement of the account DTO:
-        final String personEmail = "blabla@hotmail.com";
         final String accountDenomination = "Food Expenses";
         final String accountDescription = "Money spent on food";
 
             //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
 
@@ -169,120 +164,20 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
     }
 
-    @DisplayName("Test If User Account was created - email invalid - null")
-    @Test
-    void testIsUserAccountWasCreatedEmailNull() throws Exception {
-        //ARRANGE:
-            //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
-
-            //arrangement of the account DTO:
-        final String personEmail = null;
-        final String accountDenomination = "Food Expenses";
-        final String accountDescription = "Money spent on food";
-
-            //setting information for the DTO:
-        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
-        infoDTO.setAccountDenomination(accountDenomination);
-        infoDTO.setAccountDescription(accountDescription);
-
-            //arrangement of the input:
-        String inputJson = super.mapToJson((infoDTO));
-
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email can't be null.\"]}";
-
-        String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
-
-        //ACT:
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
-                .andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
-
-        //ASSERT:
-        Assertions.assertAll(
-                () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedResolvedException, realResolvedException)
-        );
-
-    }
-
-    @Test
-    @DisplayName("Test If User Account was created  - email invalid - empty")
-    void testIfUserAccountWasCreatedEmailEmpty() throws Exception {
-
-        //Arrange
-        //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
-
-        //arrangement of the account DTO:
-        final String personEmail = "";
-        final String accountDenomination = "Food Expenses";
-        final String accountDescription = "Money spent on food";
-
-        //setting information for the DTO:
-        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
-        infoDTO.setAccountDenomination(accountDenomination);
-        infoDTO.setAccountDescription(accountDescription);
-
-        //arrangement of the input:
-        String inputJson = super.mapToJson((infoDTO));
-
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email is not valid.\"]}";
-
-        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
-
-        //ACT:
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
-                .andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
-
-        //ASSERT:
-        Assertions.assertAll(
-                () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedResolvedException, realResolvedException)
-        );
-    }
-
     @Test
     @DisplayName("Test If User Account was created  - email invalid - invalid format")
     void testIfUserAccountWasCreatedInvalidEmailFormat() throws Exception {
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/mail.com/accounts";
 
         //arrangement of the account DTO:
-        final String personEmail = "mail.com";
         final String accountDenomination = "Food Expenses";
         final String accountDescription = "Money spent on food";
 
         //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
 
@@ -323,7 +218,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/marge@hotmail.com/accounts";
 
         //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
@@ -331,7 +226,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
         infoDTO.setAccountDenomination(null);
         infoDTO.setAccountDescription(accountDescription);
 
@@ -371,15 +265,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //Arrange
         //URI used to call the controller:
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/marge@hotmail.com/accounts";
 
         //arrangement of the account DTO:
-        final String personEmail = "marge@hotmail.com";
         final String accountDenomination = "Food Expenses";
 
         //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
-        infoDTO.setPersonEmail(personEmail);
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(null);
 
@@ -418,7 +310,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void createGroupAndBecomeAdminNullJsonInput() throws Exception {
 
         //Arrange
-        String uri = "/accounts/createPersonAccount";
+        String uri = "/persons/marge@hotmail.com/accounts";
 
         String inputJson = super.mapToJson((null));
 
@@ -441,6 +333,36 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         );
 
     }
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - No Email Input")
+    void createGroupAndBecomeAdminNoEmailInput() throws Exception {
+
+        //Arrange
+        String uri = "/persons//accounts";
+
+        String inputJson = super.mapToJson((null));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(404, status),
+                () -> assertEquals("", result)
+        );
+
+    }
+
 
     /**
      * Test if an Account can be found by the ID

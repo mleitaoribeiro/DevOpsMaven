@@ -50,8 +50,8 @@ public class AccountDTOAssembler {
      * @param createPersonAccountInfoDTO
      * @return
      */
-    public static CreatePersonAccountDTO transformIntoCreatePersonAccountDTO(CreatePersonAccountInfoDTO createPersonAccountInfoDTO) {
-        return new CreatePersonAccountDTO(createPersonAccountInfoDTO.getPersonEmail(), createPersonAccountInfoDTO.getAccountDenomination(), createPersonAccountInfoDTO.getAccountDescription());
+    public static CreatePersonAccountDTO transformIntoCreatePersonAccountDTO(String personEmail, CreatePersonAccountInfoDTO createPersonAccountInfoDTO) {
+        return new CreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO.getAccountDenomination(), createPersonAccountInfoDTO.getAccountDescription());
     }
 
     /**

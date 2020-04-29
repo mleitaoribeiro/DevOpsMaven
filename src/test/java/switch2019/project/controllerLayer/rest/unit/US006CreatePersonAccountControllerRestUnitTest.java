@@ -62,12 +62,11 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Veterinarian dispenses";
 
         CreatePersonAccountInfoDTO personAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        personAccountInfoDTO.setPersonEmail(personEmail);
         personAccountInfoDTO.setAccountDenomination(accountDenomination);
         personAccountInfoDTO.setAccountDescription(accountDescription);
 
         CreatePersonAccountDTO accountControllerDTO = AccountDTOAssembler.
-                transformIntoCreatePersonAccountDTO(personAccountInfoDTO);
+                transformIntoCreatePersonAccountDTO(personEmail, personAccountInfoDTO);
 
         //Expected Results: AccountDTO and ResponseEntity
         AccountDTO accountExpectedDTO = new AccountDTO(personEmail, accountDenomination, accountDescription);
@@ -77,7 +76,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         Mockito.when(service.createPersonAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        ResponseEntity<AccountDTO> responseEntityResult = controller.createPersonAccount(personAccountInfoDTO);
+        ResponseEntity<AccountDTO> responseEntityResult = controller.createPersonAccount(personEmail, personAccountInfoDTO);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntityResult);
@@ -93,11 +92,10 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new ResourceAlreadyExistsException("This account already exists."));
@@ -105,7 +103,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -123,18 +121,17 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO);
         AccountDTO accountCreatedExpected = new AccountDTO(personEmail, accountDenomination, accountDescription);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -151,18 +148,17 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(null);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(null, createPersonAccountInfoDTO);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(
                 new IllegalArgumentException("The email can't be null."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(null, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -181,17 +177,16 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail,createPersonAccountInfoDTO);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail,createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -210,17 +205,16 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -239,17 +233,16 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -268,17 +261,16 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         String accountDescription = "Revolut Account";
 
         CreatePersonAccountInfoDTO createPersonAccountInfoDTO = new CreatePersonAccountInfoDTO();
-        createPersonAccountInfoDTO.setPersonEmail(personEmail);
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -298,7 +290,7 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(null);
+            controller.createPersonAccount(null, null);
         });
 
         //Assert
