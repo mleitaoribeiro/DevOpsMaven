@@ -3,18 +3,18 @@ package switch2019.project.DTO.serializationDTO;
 import java.util.Objects;
 
 public class CategoryDenominationDTO {
-    private String groupDescription;
+    private String categoryDenomination;
 
-    public CategoryDenominationDTO(String groupDescription) {
-        this.groupDescription = groupDescription;
+    public CategoryDenominationDTO(String categoryDenomination) {
+        this.categoryDenomination = categoryDenomination;
     }
 
-    public String getGroupDescription() {
-        return groupDescription;
+    public String getCategoryDenomination() {
+        return categoryDenomination;
     }
 
-    public void setGroupDescription(String groupDescription) {
-        this.groupDescription = groupDescription;
+    public void CategoryDenomination(String categoryDenomination) {
+        this.categoryDenomination = categoryDenomination;
     }
 
     @Override
@@ -22,11 +22,11 @@ public class CategoryDenominationDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CategoryDenominationDTO that = (CategoryDenominationDTO) o;
-        return Objects.equals(groupDescription, that.groupDescription);
+        return Objects.equals(categoryDenomination, that.categoryDenomination);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupDescription);
+        return Objects.hash(categoryDenomination);
     }
 }
