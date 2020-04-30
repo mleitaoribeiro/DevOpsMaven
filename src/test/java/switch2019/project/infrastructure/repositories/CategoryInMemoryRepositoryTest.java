@@ -1,8 +1,10 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -14,10 +16,21 @@ import switch2019.project.domain.repositories.CategoryRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryInMemoryRepositoryTest {
+
+    private CategoryRepository categoryRepository;
+
+    @BeforeEach
+    void universeSetUp() {
+        categoryRepository = new CategoryInMemoryRepository();
+        categoryRepository.createCategory(new Denomination("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
+        categoryRepository.createCategory(new Denomination("BPI"), new PersonID(new Email("amadeu2@gmail.com")));
+        categoryRepository.createCategory(new Denomination("BIC"), new PersonID(new Email("amadeu2@gmail.com")));
+    }
 
     /**
      * Tests for the CategoryRepository method toString
@@ -559,5 +572,66 @@ class CategoryInMemoryRepositoryTest {
         //Assert
         assertFalse(categoryIDExists);
     }
+    /**
+     * Tests to method returnCategoriesByOwnerID
+     */
 
+    @Test
+    @DisplayName("Test if Categories are returned by OwnerID - success case")
+    void returnCategoriesByOwnerIDOneCategorie() {
+        //Arrange
+        Category cgdCategory = new Category(new Denomination("CGD")
+                , new PersonID(new Email("amadeu1@gmail.com")));
+
+        //Expected List of Categories
+        Set<Category> expected = new HashSet<>(Arrays.asList(cgdCategory));
+
+        //Act
+        Set<Category> real = categoryRepository.returnCategoriesByOwnerID(new PersonID(new Email("amadeu1@gmail.com")));
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Test if Categories are returned by OwnerID - success case")
+    void returnCategoriesByOwnerIDSeveralCategories() {
+        //Arrange
+        Category bpiCategory = new Category(new Denomination("BPI"),
+                 new PersonID(new Email("amadeu2@gmail.com")));
+        Category bicCategory = new Category(new Denomination("BIC"),
+                 new PersonID(new Email("amadeu2@gmail.com")));
+
+        //Expected List of Categories
+        Set<Category> expected = new HashSet<>(Arrays.asList(bpiCategory, bicCategory));
+
+        //Act
+        Set<Category> real = categoryRepository.returnCategoriesByOwnerID(new PersonID(new Email("amadeu2@gmail.com")));
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Test if Categories are returned by OwnerID - owner id not exists")
+    void returnCategoriesByOwnerIDDontExistException() {
+        //Arrange
+        PersonID fakeID = (new PersonID(new Email("amadeu5@gmail.com")));
+        try {
+            Set<Category> real = categoryRepository.returnCategoriesByOwnerID(fakeID);
+        } catch (ArgumentNotFoundException ex) {
+            assertEquals("No category found with that ID.", ex.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test if Categories are returned by OwnerID - null ID")
+    void returnCategoriesByOwnerIDNullException() {
+        //Arrange
+        try {
+            Set<Category> real = categoryRepository.returnCategoriesByOwnerID(null);
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Owner ID can't be null.", ex.getMessage());
+        }
+    }
 }
