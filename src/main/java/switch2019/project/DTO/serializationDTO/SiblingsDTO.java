@@ -1,9 +1,10 @@
 package switch2019.project.DTO.serializationDTO;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class SiblingsDTO {
-
+public class SiblingsDTO extends RepresentationModel<PersonIDDTO> {
     final private String siblings;
 
     public SiblingsDTO(boolean siblings) {
@@ -11,17 +12,6 @@ public class SiblingsDTO {
            this.siblings = "They are siblings.";
        } else this.siblings = "They are not siblings.";
     }
-
-
-    /**
-     * get Sibling DTO
-     * @return emailPersonOne
-     */
-
-    public String getSiblings() {
-        return siblings;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -35,4 +25,14 @@ public class SiblingsDTO {
     public int hashCode() {
         return Objects.hash(siblings);
     }
+
+    /**
+     * get Sibling DTO
+     * @return emailPersonOne
+     */
+
+    public String getSiblings() {
+        return siblings;
+    }
+
 }

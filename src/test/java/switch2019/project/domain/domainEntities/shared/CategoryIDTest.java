@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -288,4 +289,35 @@ public class CategoryIDTest {
     }
 
 
-}
+    @Test
+    @DisplayName("Get Owner ID from CategoryID - PersonID")
+    void getOwnerID() {
+
+            //Arrange
+            Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                    new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+            CategoryID categoryID = new CategoryID(new Denomination("switch"), person.getID());
+
+            OwnerID realOwnerID = categoryID.getOwnerID();
+            PersonID expectedOwnerID = person.getID();
+
+            //Assert
+            assertEquals(expectedOwnerID, realOwnerID);
+        }
+
+    @Test
+    @DisplayName("Get Owner ID from categoryID - GroupID")
+    void testIfGetOwnerIDGroup() {
+        //Arrange
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+        Group group = new Group(new Description("Friends with Benefits"),person);
+        CategoryID categoryID = new CategoryID(new Denomination("switch"), group.getID());
+
+        OwnerID realOwnerID = categoryID.getOwnerID();
+        GroupID expectedOwnerID = group.getID();
+
+        //Assert
+        assertEquals(expectedOwnerID, realOwnerID);
+    }
+    }
