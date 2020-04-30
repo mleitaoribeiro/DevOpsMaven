@@ -20,10 +20,12 @@ class CategoryDenominationDTOTest {
         CategoryDenominationDTO categoryDenominationDTO2 =new CategoryDenominationDTO("compras");
         CategoryDenominationDTO categoryDenominationDTO3 =new CategoryDenominationDTO("shop");
         PersonID personID = new PersonID(new Email("email@mail.com"));
+        PersonIDDTO personIDDTO = new PersonIDDTO("email@email.com");
 
         assertEquals(categoryDenominationDTO,categoryDenominationDTO2);
         assertNotEquals(categoryDenominationDTO,categoryDenominationDTO3);
         assertNotEquals(categoryDenominationDTO,personID);
+        assertNotEquals(categoryDenominationDTO,personIDDTO);
     }
 
     @Test
