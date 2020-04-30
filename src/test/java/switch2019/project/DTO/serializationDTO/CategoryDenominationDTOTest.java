@@ -23,6 +23,7 @@ class CategoryDenominationDTOTest {
         PersonIDDTO personIDDTO = new PersonIDDTO("email@email.com");
 
         assertEquals(categoryDenominationDTO,categoryDenominationDTO2);
+        assertEquals(categoryDenominationDTO,categoryDenominationDTO);
         assertNotEquals(categoryDenominationDTO,categoryDenominationDTO3);
         assertNotEquals(categoryDenominationDTO,personID);
         assertNotEquals(categoryDenominationDTO,personIDDTO);
