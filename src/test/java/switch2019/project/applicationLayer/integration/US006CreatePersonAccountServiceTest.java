@@ -448,9 +448,26 @@ class US006CreatePersonAccountServiceTest {
         });
 
         //Assert:
-       // assertThat(thrown)
-         //       .isExactlyInstanceOf(ArgumentNotFoundException.class)
-           //     .hasMessage("No person found with that email.");
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by the Person ID - Accounts Not Found")
+    void getAccountsByPersonIDAccountsNotFound() {
+        //Arrange:
+        String personEmail = "1191755@isep.ipp.pt";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No accounts found with that ID.");
     }
 
 

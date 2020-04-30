@@ -491,7 +491,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountsByPersonIDHappyCase() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/1191782@isep.ipp.pt";
+        String uri = "/persons/1191782@isep.ipp.pt/accounts";
 
         String expected = "[{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
                 "\"denomination\":\"CTT\"," + "\"description\":\"WORK\"," +
@@ -524,7 +524,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountsByPersonIDInvalidEmail() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/1191782isep.ipp.pt";
+        String uri = "/persons/1191782isep.ipp.pt/accounts";
 
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
@@ -557,14 +557,14 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountsByPersonIDPersonNotExists() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/raquel@isep.ipp.pt";
+        String uri = "/persons/raquel@isep.ipp.pt/accounts";
 
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
                 "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No account found with that ID.\"}";
+                "\"message\":\"No person found with that email.\"}";
 
-        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
+        String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -592,14 +592,14 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountsByPersonIDAccountsNotFound() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/1191755@isep.ipp.pt";
+        String uri = "/persons/1191755@isep.ipp.pt/accounts";
 
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
                 "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No account found with that ID.\"}";
+                "\"message\":\"No accounts found with that ID.\"}";
 
-        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
+        String expectedResolvedException = new ArgumentNotFoundException("No accounts found with that ID.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)

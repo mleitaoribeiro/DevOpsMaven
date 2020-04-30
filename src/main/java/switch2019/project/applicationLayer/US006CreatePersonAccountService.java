@@ -88,7 +88,9 @@ public class US006CreatePersonAccountService {
 
     public Set<AccountDTO> getAccountsByPersonID(String personEmail) {
 
-        Set <Account> accounts = accountRepository.returnAccountsByOwnerID(new PersonID(new Email(personEmail)));
+        OwnerID ownerID = personRepository.findPersonByEmail(new Email(personEmail)).getID();
+
+        Set <Account> accounts = accountRepository.returnAccountsByOwnerID(ownerID);
 
         Set<AccountDTO> accountsDTO = new LinkedHashSet<>();
 

@@ -75,7 +75,7 @@ public class US006CreatePersonAccountControllerRest {
      * @return All accounts from person and HTTPStatus
      */
 
-    @GetMapping(value = "accounts/{personEmail}")
+    @GetMapping(value = "persons/{personEmail}/accounts")
     public ResponseEntity<Object> getAccountsByPersonID
     (@PathVariable final String personEmail) {
 

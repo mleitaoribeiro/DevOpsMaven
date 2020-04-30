@@ -586,7 +586,7 @@ class AccountInMemoryRepositoryTest {
         try {
             Set<Account> real = accountRepository.returnAccountsByOwnerID(fakeID);
         } catch (ArgumentNotFoundException ex) {
-            assertEquals("No account found with that ID.", ex.getMessage());
+            assertEquals("No accounts found with that ID.", ex.getMessage());
         }
     }
 

@@ -100,7 +100,7 @@ public class AccountInMemoryRepository implements AccountRepository {
                     listOfAccountsByOwnerID.add(account);
             if (!listOfAccountsByOwnerID.isEmpty())
                 return listOfAccountsByOwnerID;
-            else throw new ArgumentNotFoundException("No account found with that ID.");
+            else throw new ArgumentNotFoundException("No accounts found with that ID.");
         }
         throw new IllegalArgumentException("Owner ID can't be null.");
     }
