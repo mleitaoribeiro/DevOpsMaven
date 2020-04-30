@@ -30,15 +30,15 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     @Test
     void createPersonAccountHappyCase() throws Exception {
         //ARRANGE:
-        //URI used to call the controller:
+            //URI used to call the controller:
         String uri = "/persons/marge@hotmail.com/accounts";
 
-        //arrangement of the account DTO:
+            //arrangement of the account DTO:
         final String personEmail = "marge@hotmail.com";
         final String accountDenomination = "Food Expenses";
         final String accountDescription = "Money spent on food";
 
-        //setting information for the DTO:
+            //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
@@ -47,11 +47,10 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String inputJson = super.mapToJson((infoDTO));
 
         //arrangement of the expected output:
-        String expected = "{\"ownerID\":\"" + personEmail.toUpperCase() +
-                "\",\"denomination\":\"" + accountDenomination.toUpperCase() +
-                "\",\"description\":\"" + accountDescription.toUpperCase() +
-                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/accounts/MARGE@HOTMAIL.COM/FOOD%20EXPENSES\"}}}";
-        ;
+        String expected = "{\"ownerID\":\"" +personEmail.toUpperCase() +
+                "\",\"denomination\":\"" +accountDenomination.toUpperCase() +
+                "\",\"description\":\"" +accountDescription.toUpperCase() +
+                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}}}";;
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -359,7 +358,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountByAccountID() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/MARGE@HOTMAIL.COM/HOMER SNACKS";
+        String uri = "/persons/MARGE@HOTMAIL.COM/accounts/HOMER SNACKS";
 
         String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"," +
                 "\"denomination\":\"HOMER SNACKS\"," +
@@ -386,7 +385,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountByAccountIDPersonDoesNotExists() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/blabla@HOTMAIL.COM/HOMER SNACKS";
+        String uri = "/persons/blabla@HOTMAIL.COM/accounts/HOMER SNACKS";
 
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
@@ -420,7 +419,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountByAccountIDAccountNotFound() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/MARGE@HOTMAIL.COM/SNACKS";
+        String uri = "/persons/MARGE@HOTMAIL.COM/accounts/SNACKS";
 
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
@@ -454,7 +453,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     void getAccountByAccountIDInvalidEmail() throws Exception {
 
         //ARRANGE:
-        String uri = "/accounts/MARGEHOTMAIL.COM/SNACKS";
+        String uri = "/persons/MARGEHOTMAIL.COM/accounts/SNACKS";
 
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
@@ -496,13 +495,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         String expected = "[{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
                 "\"denomination\":\"CTT\"," + "\"description\":\"WORK\"," +
-                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/accounts/1191782@ISEP.IPP.PT/CTT\"}]}," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/1191782@ISEP.IPP.PT/accounts/CTT\"}]}," +
                 "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
                 "\"denomination\":\"MBWAY\"," + "\"description\":\"FRIENDS\"," +
-                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/accounts/1191782@ISEP.IPP.PT/MBWAY\"}]}," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/1191782@ISEP.IPP.PT/accounts/MBWAY\"}]}," +
                 "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
                 "\"denomination\":\"HOME\"," + "\"description\":\"HOME EXPENSES\"," +
-                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/accounts/1191782@ISEP.IPP.PT/HOME\"}]}]";
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/1191782@ISEP.IPP.PT/accounts/HOME\"}]}]";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -563,9 +562,9 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
                 "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No person found with that email.\"}";
+                "\"message\":\"No account found with that ID.\"}";
 
-        String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
+        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -579,13 +578,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
         //ASSERT:
 
-       /* Assertions.assertAll(
+      Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expected, result),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
-         */
+
     }
 
     @Test

@@ -59,7 +59,7 @@ public class US006CreatePersonAccountControllerRest {
      * @return Response Entity with AccountDTO and HTTPStatus
      */
 
-    @GetMapping(value = "accounts/{personEmail}/{accountDenomination}")
+    @GetMapping(value = "persons/{personEmail}/accounts/{accountDenomination}")
     public ResponseEntity<AccountDTO> getAccountByAccountID
     (@PathVariable final String accountDenomination, @PathVariable final String personEmail) {
 
