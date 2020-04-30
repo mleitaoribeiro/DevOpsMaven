@@ -2,7 +2,6 @@ package switch2019.project.DTO.ErrorDTO;
 
 import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalUnit;
 
 public class ErrorDTO {
     private String timestamp;

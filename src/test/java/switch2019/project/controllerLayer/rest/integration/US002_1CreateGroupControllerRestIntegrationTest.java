@@ -10,7 +10,6 @@ import switch2019.project.DTO.deserializationDTO.CreateGroupInfoDTO;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

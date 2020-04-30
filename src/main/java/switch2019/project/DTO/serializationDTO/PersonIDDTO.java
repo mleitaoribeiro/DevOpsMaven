@@ -1,7 +1,6 @@
 package switch2019.project.DTO.serializationDTO;
 
 import org.springframework.hateoas.RepresentationModel;
-import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.Objects;
 
