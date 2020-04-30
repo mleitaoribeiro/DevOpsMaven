@@ -31,7 +31,7 @@ public class PersonDTOAssembler {
     /**
      * Method to create a PersonIDDTO from domain
      * @param personID
-     * @return SiblingsDTO
+     * @return PersonIDDTO
      */
 
     public static PersonIDDTO createPersonIDDTO(PersonID personID) {
