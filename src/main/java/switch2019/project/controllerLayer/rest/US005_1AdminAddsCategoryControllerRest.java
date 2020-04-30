@@ -6,12 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
-
+import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
-import switch2019.project.domain.domainEntities.category.Category;
+
 
 import java.util.Set;
 
@@ -76,11 +76,11 @@ public class US005_1AdminAddsCategoryControllerRest {
     public ResponseEntity<Object> getCategoriesByGroupID
     (@PathVariable final String groupDescription) {
 
-        Set<CategoryDTO> categoriesDTO = service.getCategoriesByGroupID(groupDescription);
+        Set<CategoryDenominationDTO> categoriesDTO = service.getCategoriesByGroupID(groupDescription);
 
-        for (CategoryDTO category : categoriesDTO) {
+        for (CategoryDenominationDTO category : categoriesDTO) {
             Link selfLink = linkTo(methodOn(US005_1AdminAddsCategoryControllerRest.class)
-                    .getCategoryByCategoryID(category.getDenomination(), category.getOwnerID()))
+                    .getCategoryByCategoryID(category.getCategoryDenomination(), groupDescription))
                     .withSelfRel();
 
             category.add(selfLink);
