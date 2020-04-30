@@ -20,6 +20,9 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -136,6 +139,7 @@ public class US006CreatePersonAccountServiceUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The email can't be null.");
     }
+
     @Test
     @DisplayName("Test If person Account is created - Exception - Account denomination is null")
     void testIfPersonAccountWasCreatedAccountDenominationNull() {
@@ -252,7 +256,7 @@ public class US006CreatePersonAccountServiceUnitTest {
         AccountDTO accountDTOExpected = new AccountDTO("rick@gmail.com", "Revolut", "Revolut Account");
 
         //Act
-        AccountDTO accountDTOResult = service.getAccountByAccountID("Revolut", "rick@gmail.com" );
+        AccountDTO accountDTOResult = service.getAccountByAccountID("Revolut", "rick@gmail.com");
 
         //Assert
         assertEquals(accountDTOExpected, accountDTOResult);
@@ -281,7 +285,7 @@ public class US006CreatePersonAccountServiceUnitTest {
         //Act
 
         Throwable thrown = catchThrowable(() -> {
-            service.getAccountByAccountID("Revolut", "NOT_EXISTING_PERSON@GMAIL.COM" );
+            service.getAccountByAccountID("Revolut", "NOT_EXISTING_PERSON@GMAIL.COM");
         });
 
 
@@ -341,7 +345,7 @@ public class US006CreatePersonAccountServiceUnitTest {
         Throwable thrown = catchThrowable(() -> {
             Mockito.when(personRepository.findPersonByEmail(new Email("invalid_email@@GMAIL.COM"))).thenThrow(new IllegalArgumentException("The email is not valid."));
             Mockito.when(accountRepository.getByID(account.getID())).thenReturn(account);
-            service.getAccountByAccountID("Revolut", "invalid_email@@GMAIL.COM" );
+            service.getAccountByAccountID("Revolut", "invalid_email@@GMAIL.COM");
         });
 
 
@@ -365,14 +369,14 @@ public class US006CreatePersonAccountServiceUnitTest {
         Description accountDescription = new Description("Revolut Account");
         Account account = new Account(accountDenomination, accountDescription, personID);
 
-        Mockito.when(personRepository.findPersonByEmail(null)).thenThrow(new IllegalArgumentException("The email is not valid."));
+        Mockito.when(personRepository.findPersonByEmail(null)).thenThrow(new IllegalArgumentException("The email can't be null."));
 
         Mockito.when(accountRepository.getByID(account.getID())).thenReturn(account);
 
         //Act
         Throwable thrown = catchThrowable(() -> {
 
-            service.getAccountByAccountID("Revolut", null );
+            service.getAccountByAccountID("Revolut", null);
         });
 
 
@@ -400,8 +404,8 @@ public class US006CreatePersonAccountServiceUnitTest {
         Throwable thrown = catchThrowable(() -> {
             Mockito.when(personRepository.findPersonByEmail(new Email(""))).thenThrow(new IllegalArgumentException("The email is not valid."));
             Mockito.when(accountRepository.getByID(account.getID())).thenReturn(account);
-            service.getAccountByAccountID("Revolut", "invalid_email@@GMAIL.COM" );
-            service.getAccountByAccountID("Revolut", null );
+            service.getAccountByAccountID("Revolut", "invalid_email@@GMAIL.COM");
+            service.getAccountByAccountID("Revolut", null);
         });
 
 
@@ -425,7 +429,7 @@ public class US006CreatePersonAccountServiceUnitTest {
         //Act
         Throwable thrown = catchThrowable(() -> {
 
-            service.getAccountByAccountID(null, "rick@gmail.com" );
+            service.getAccountByAccountID(null, "rick@gmail.com");
         });
 
 
@@ -450,7 +454,7 @@ public class US006CreatePersonAccountServiceUnitTest {
         //Act
         Throwable thrown = catchThrowable(() -> {
             Mockito.when(accountRepository.getByID(new AccountID(new Denomination(""), personID))).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
-            service.getAccountByAccountID("", "rick@gmail.com" );
+            service.getAccountByAccountID("", "rick@gmail.com");
         });
 
         //Assert
@@ -460,5 +464,165 @@ public class US006CreatePersonAccountServiceUnitTest {
 
     }
 
+    /**
+     * Test to get all accounts from personID
+     */
+
+    @Test
+    @DisplayName("Test to get all accounts by personID - Happy Case")
+    void getAccountsByPersonID() {
+
+        //Arrange
+        String personEmail = "1191782@isep.ipp.pt";
+        Person person = new Person("Raquel Santos", new DateAndTime(1993, 9, 1),
+                new Address("Porto"), new Address("Rua das Flores", "Porto", "4050-262"),
+                new Email("1191782@isep.ipp.pt"));
+        PersonID personID = person.getID();
+
+        //Arrange - Accounts
+        Account account1 = new Account(new Denomination("Mbway"), new Description("Friends"), personID);
+        Account account2 = new Account(new Denomination("CTT"), new Description("Work"), personID);
+        Account account3 = new Account(new Denomination("Home"), new Description("Home Expenses"), personID);
+
+        Set<Account> expectedAccounts = new LinkedHashSet<>();
+        expectedAccounts.add(account1);
+        expectedAccounts.add(account2);
+        expectedAccounts.add(account3);
+
+        //Arrange - AccountsDTO
+        AccountDTO accountDTO1 = new AccountDTO(personEmail, "Mbway", "Friends");
+        AccountDTO accountDTO2 = new AccountDTO(personEmail, "CTT", "Work");
+        AccountDTO accountDTO3 = new AccountDTO(personEmail, "Home", "Home Expenses");
+
+        Set<AccountDTO> expectedDTOAccounts = new LinkedHashSet<>();
+        expectedDTOAccounts.add(accountDTO1);
+        expectedDTOAccounts.add(accountDTO2);
+        expectedDTOAccounts.add(accountDTO3);
+
+        //Arrange - Mockitos
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail))).thenReturn(person);
+        Mockito.when(accountRepository.returnAccountsByOwnerID(personID)).thenReturn(expectedAccounts);
+
+        //Act
+        Set<AccountDTO> accountsDTOResult = service.getAccountsByPersonID(personEmail);
+
+        //Assert
+        assertEquals(expectedDTOAccounts, accountsDTOResult);
+
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by personID - Person Does Not Exists")
+    void getAccountsByPersonIDPersonDoesNotExists() {
+
+        //Arrange
+        String notExistingPersonEmail = "not_existing_person@gmail.com";
+
+        //Arrange - Mockitos
+        Mockito.when(personRepository.findPersonByEmail(new Email(notExistingPersonEmail)))
+                .thenThrow(new ArgumentNotFoundException("No person found with that email."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(notExistingPersonEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by personID - Accounts Not Found")
+    void getAccountsByPersonIDAccountsNotFound() {
+
+        //Arrange
+        String personEmail = "1191755@isep.ipp.pt";
+        Person person = new Person("Diana Dias", new DateAndTime(1993, 9, 1),
+                new Address("Porto"), new Address("Rua das Flores", "Porto", "4050-262"),
+                new Email("1191755@isep.ipp.pt"));
+        PersonID personID = person.getID();
+
+        Set<Account> expectedAccounts = new LinkedHashSet<>();
+
+
+        //Arrange - Mockitos
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenThrow(new ArgumentNotFoundException("No accounts found with that ID."));
+        Mockito.when(accountRepository.returnAccountsByOwnerID(personID)).thenReturn(expectedAccounts);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No accounts found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by personID - Invalid Email")
+    void getAccountsByPersonIDInvalidEmail() {
+
+        //Arrange
+        String personEmail = "1191755isep.ipp.pt";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                    .thenThrow(new IllegalArgumentException("The email is not valid."));
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by personID - Empty Email")
+    void getAccountsByPersonIDEmptyEmail() {
+
+        //Arrange
+        String personEmail = "";
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                    .thenThrow(new IllegalArgumentException("The email is not valid."));
+            service.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+
+    }
+
+    @Test
+    @DisplayName("Test to get all accounts by personID - Null Email")
+    void getAccountsByPersonIDNullEmail() {
+
+        //Arrange
+        Mockito.when(personRepository.findPersonByEmail(null))
+                .thenThrow(new IllegalArgumentException("The email can't be null."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getAccountsByPersonID(null);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+    }
 
 }

@@ -179,13 +179,13 @@ public class US006CreatePersonAccountControllerRestUnitTest {
         createPersonAccountInfoDTO.setAccountDenomination(accountDenomination);
         createPersonAccountInfoDTO.setAccountDescription(accountDescription);
 
-        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail,createPersonAccountInfoDTO);
+        CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.transformIntoCreatePersonAccountDTO(personEmail, createPersonAccountInfoDTO);
 
         Mockito.when(service.createPersonAccount(createPersonAccountDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.createPersonAccount(personEmail,createPersonAccountInfoDTO);
+            controller.createPersonAccount(personEmail, createPersonAccountInfoDTO);
         });
 
         //Assert
@@ -304,19 +304,19 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Happy Case")
-    void getAccountByAccountID()  {
+    void getAccountByAccountID() {
 
         AccountDTO accountDTOExpected = new AccountDTO(
                 "MARGE@HOTMAIL.COM",
                 "HOMER SNACKS",
                 "MONEY SPENT ON SNACKS FOR HOMER");
 
-        ResponseEntity <AccountDTO> expectedResponseEntity = new ResponseEntity<>(accountDTOExpected, HttpStatus.OK);
+        ResponseEntity<AccountDTO> expectedResponseEntity = new ResponseEntity<>(accountDTOExpected, HttpStatus.OK);
 
-        Mockito.when(service.getAccountByAccountID("HOMER SNACKS","MARGE@HOTMAIL.COM" )).thenReturn(accountDTOExpected);
+        Mockito.when(service.getAccountByAccountID("HOMER SNACKS", "MARGE@HOTMAIL.COM")).thenReturn(accountDTOExpected);
 
         //Act
-        ResponseEntity<AccountDTO> actualResponseEntity = controller.getAccountByAccountID("HOMER SNACKS","MARGE@HOTMAIL.COM");
+        ResponseEntity<AccountDTO> actualResponseEntity = controller.getAccountByAccountID("HOMER SNACKS", "MARGE@HOTMAIL.COM");
 
         //Assert
         assertEquals(expectedResponseEntity, actualResponseEntity);
@@ -325,30 +325,30 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Person Does Not Exists")
-    void getAccountByAccountIDPersonDoesNotExists()  {
+    void getAccountByAccountIDPersonDoesNotExists() {
 
-        Mockito.when(service.getAccountByAccountID("HOMER SNACKS","NOT_EXISTING_PERSON@GMAIL.COM" )).thenThrow(new ArgumentNotFoundException("No person found with that email."));
+        Mockito.when(service.getAccountByAccountID("HOMER SNACKS", "NOT_EXISTING_PERSON@GMAIL.COM")).thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID("HOMER SNACKS","NOT_EXISTING_PERSON@GMAIL.COM");
+            controller.getAccountByAccountID("HOMER SNACKS", "NOT_EXISTING_PERSON@GMAIL.COM");
         });
 
         //Assert
-                assertThat(thrown)
-                        .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                        .hasMessage("No person found with that email.");
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
     }
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Account Does Not Exists")
-    void getAccountByAccountIDAccountDoesNotExists()  {
+    void getAccountByAccountIDAccountDoesNotExists() {
 
-        Mockito.when(service.getAccountByAccountID("HOMERS","MARGE@GMAIL.COM" )).thenThrow(new ArgumentNotFoundException("No account found with that ID."));
+        Mockito.when(service.getAccountByAccountID("HOMERS", "MARGE@GMAIL.COM")).thenThrow(new ArgumentNotFoundException("No account found with that ID."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID("HOMERS","MARGE@GMAIL.COM");
+            controller.getAccountByAccountID("HOMERS", "MARGE@GMAIL.COM");
         });
 
         //Assert
@@ -360,14 +360,14 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Invalid Email")
-    void getAccountByAccountIDInvalidEmail()  {
+    void getAccountByAccountIDInvalidEmail() {
 
 
-        Mockito.when(service.getAccountByAccountID("HOMER SNACKS","MARGEGMAIL.COM" )).thenThrow(new IllegalArgumentException("The email is not valid."));
+        Mockito.when(service.getAccountByAccountID("HOMER SNACKS", "MARGEGMAIL.COM")).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID("HOMER SNACKS","MARGEGMAIL.COM");
+            controller.getAccountByAccountID("HOMER SNACKS", "MARGEGMAIL.COM");
         });
 
         //Assert
@@ -379,14 +379,14 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Email null")
-    void getAccountByAccountIDEmailNull()  {
+    void getAccountByAccountIDEmailNull() {
 
 
-        Mockito.when(service.getAccountByAccountID("HOMER SNACKS",null)).thenThrow(new IllegalArgumentException("The email can't be null."));
+        Mockito.when(service.getAccountByAccountID("HOMER SNACKS", null)).thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID("HOMER SNACKS",null);
+            controller.getAccountByAccountID("HOMER SNACKS", null);
         });
 
         //Assert
@@ -397,13 +397,13 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Email Empty")
-    void getAccountByAccountIDEmailEmpty()  {
+    void getAccountByAccountIDEmailEmpty() {
 
-        Mockito.when(service.getAccountByAccountID("HOMER SNACKS","")).thenThrow(new IllegalArgumentException("The email is not valid."));
+        Mockito.when(service.getAccountByAccountID("HOMER SNACKS", "")).thenThrow(new IllegalArgumentException("The email is not valid."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID("HOMER SNACKS","");
+            controller.getAccountByAccountID("HOMER SNACKS", "");
         });
 
         //Assert
@@ -414,13 +414,13 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Account Denomination Null")
-    void getAccountByAccountIDDenominationNull()  {
+    void getAccountByAccountIDDenominationNull() {
 
-        Mockito.when(service.getAccountByAccountID(null,"MARGE@GMAIL.COM")).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+        Mockito.when(service.getAccountByAccountID(null, "MARGE@GMAIL.COM")).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID(null,"MARGE@GMAIL.COM");
+            controller.getAccountByAccountID(null, "MARGE@GMAIL.COM");
         });
 
         //Assert
@@ -431,13 +431,13 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Account Denomination Empty")
-    void getAccountByAccountIDDenominationEmpty()  {
+    void getAccountByAccountIDDenominationEmpty() {
 
-        Mockito.when(service.getAccountByAccountID("","MARGE@GMAIL.COM")).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+        Mockito.when(service.getAccountByAccountID("", "MARGE@GMAIL.COM")).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getAccountByAccountID("","MARGE@GMAIL.COM");
+            controller.getAccountByAccountID("", "MARGE@GMAIL.COM");
         });
 
         //Assert
@@ -452,32 +452,130 @@ public class US006CreatePersonAccountControllerRestUnitTest {
 
     @Test
     @DisplayName("Test to get all account by person ID - Happy Case")
-    void getAccountsByPersonID()  {
+    void getAccountsByPersonID() {
 
         //Arrange:
         String personEmail = "1191782@isep.ipp.pt";
 
         Set<AccountDTO> expectedAccounts = new LinkedHashSet<>();
-        expectedAccounts.add(new AccountDTO(personEmail,"Mbway","Friends"));
-        expectedAccounts.add(new AccountDTO(personEmail,"CTT","Work"));
-        expectedAccounts.add(new AccountDTO(personEmail,"Home","Home Expenses"));
+        expectedAccounts.add(new AccountDTO(personEmail, "Mbway", "Friends"));
+        expectedAccounts.add(new AccountDTO(personEmail, "CTT", "Work"));
+        expectedAccounts.add(new AccountDTO(personEmail, "Home", "Home Expenses"));
 
-        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedAccounts, HttpStatus.OK);
+        ResponseEntity<Object> responseEntityExpected = new ResponseEntity<>(expectedAccounts, HttpStatus.OK);
 
         //Act
         Mockito.when(service.getAccountsByPersonID(personEmail)).thenReturn(expectedAccounts);
 
-        ResponseEntity <Object> responseEntityResult = controller.getAccountsByPersonID(personEmail);
+        ResponseEntity<Object> responseEntityResult = controller.getAccountsByPersonID(personEmail);
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(responseEntityExpected, responseEntityResult),
-                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
-                () -> assertEquals(expectedAccounts, responseEntityResult.getBody()),
-                () -> assertNotNull(responseEntityResult)
-        );
-
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode())
+                );
     }
+
+    @Test
+    @DisplayName("Test to get all account by person ID - Person Does Not Exists")
+    void getAccountsByPersonIDPersonDoesNotExists() {
+
+        //Arrange:
+        String personEmail = "11917888@isep.ipp.pt";
+
+        Mockito.when(service.getAccountsByPersonID(personEmail)).thenThrow(new ArgumentNotFoundException("No person found with that email."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Test to get all account by person ID - Accounts Not Found")
+    void getAccountsByPersonIDAccountsNotFound() {
+
+        //Arrange:
+        String personEmail = "1191787@isep.ipp.pt";
+
+        Mockito.when(service.getAccountsByPersonID(personEmail)).thenThrow(new ArgumentNotFoundException("No accounts found with that ID."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No accounts found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test to get all account by person ID - Invalid Email")
+    void getAccountsByPersonIDInvalidEmail() {
+
+        //Arrange:
+        String personEmail = "1191787isep.ipp.pt";
+
+        Mockito.when(service.getAccountsByPersonID(personEmail)).thenThrow(new IllegalArgumentException("The email is not valid."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test to get all account by person ID - Empty Email")
+    void getAccountsByPersonIDEmptyEmail() {
+
+        //Arrange:
+        String personEmail = "";
+
+        Mockito.when(service.getAccountsByPersonID(personEmail)).thenThrow(new IllegalArgumentException("The email is not valid."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test to get all account by person ID - Null Email")
+    void getAccountsByPersonIDNullEmail() {
+
+        //Arrange:
+        String personEmail = null;
+
+        Mockito.when(service.getAccountsByPersonID(personEmail)).thenThrow(new IllegalArgumentException("The email can't be null."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.getAccountsByPersonID(personEmail);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email can't be null.");
+    }
+
 
 
 }
