@@ -31,8 +31,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         // Arrange
         String uri = "/persons/antonio@isep.ipp.pt/siblings/manuel@isep.ipp.pt";
-        String expected = "{\"siblings\":\"They are siblings.\"}";
-
+        String expected = "{\"siblings\":\"They are siblings.\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/antonio@isep.ipp.pt/siblings\"}}}";
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -53,7 +52,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         // Arrange
         String uri = "/persons/antonio@isep.ipp.pt/siblings/roberto@isep.ipp.pt";
-        String expected = "{\"siblings\":\"They are siblings.\"}";
+        String expected = "{\"siblings\":\"They are siblings.\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/antonio@isep.ipp.pt/siblings\"}}}";
 
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -75,7 +74,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         // Arrange
         String uri = "/persons/antonio@isep.ipp.pt/siblings/amalia@isep.ipp.pt";
-        String expected = "{\"siblings\":\"They are siblings.\"}";
+        String expected = "{\"siblings\":\"They are siblings.\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/antonio@isep.ipp.pt/siblings\"}}}";
 
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -97,8 +96,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         // Arrange
         String uri = "/persons/father1@isep.ipp.pt/siblings/father2@isep.ipp.pt";
-        String expected = "{\"siblings\":\"They are siblings.\"}";
-
+        String expected = "{\"siblings\":\"They are siblings.\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/father1@isep.ipp.pt/siblings\"}}}";
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -119,7 +117,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         // Arrange
         String uri = "/persons/mother1@isep.ipp.pt/siblings/mother2@isep.ipp.pt";
-        String expected = "{\"siblings\":\"They are not siblings.\"}";
+        String expected = "{\"siblings\":\"They are not siblings.\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/mother1@isep.ipp.pt/siblings\"}}}";
 
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)

@@ -30,6 +30,12 @@ public class US001AreSiblingsControllerRest {
 
         SiblingsDTO result = PersonDTOAssembler.createSiblingsDTO(service.areSiblings(areSiblingsDTO));
 
+        Link selfLink = linkTo((methodOn(US001AreSiblingsControllerRest.class)
+                .getSiblings(personEmail1)))
+                .withSelfRel();
+
+        result.add(selfLink);
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
