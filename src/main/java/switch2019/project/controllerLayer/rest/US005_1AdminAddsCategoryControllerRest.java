@@ -80,7 +80,7 @@ public class US005_1AdminAddsCategoryControllerRest {
 
         for (CategoryDenominationDTO category : categoriesDTO) {
             Link selfLink = linkTo(methodOn(US005_1AdminAddsCategoryControllerRest.class)
-                    .getCategoryByCategoryID(category.getCategoryDenomination(), groupDescription))
+                    .getCategoryByCategoryID(groupDescription, category.getCategoryDenomination()))
                     .withSelfRel();
 
             category.add(selfLink);
