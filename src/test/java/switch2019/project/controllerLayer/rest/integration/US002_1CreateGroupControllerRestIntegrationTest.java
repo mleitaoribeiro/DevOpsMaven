@@ -7,6 +7,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupInfoDTO;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,12 +78,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"This resource was not found.\"," +
-                "\"errors\":[\"No person found with that email.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No person found with that email.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -94,13 +95,11 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         String result = mvcResult.getResponse().getContentAsString();
 
         //Assert
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
         );
-
-         */
     }
 
 
@@ -120,12 +119,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"CONFLICT\"," +
-                "\"message\":\"This resource already exists.\"," +
-                "\"errors\":[\"This group description already exists.\"]}";
+        String expectedErrorMessage =  "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":409,\"status\":\"CONFLICT\"," +
+                "\"error\":\"This resource already exists.\"," +
+                "\"message\":\"This group description already exists.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -138,14 +137,10 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
 
         //Assert
-        /*
         Assertions.assertAll(
                 () -> assertEquals(409, status),
                 () -> assertEquals(expectedErrorMessage, result)
         );
-
-         */
-
     }
 
 
@@ -165,12 +160,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email can't be null.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The email can't be null.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -182,13 +177,10 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         String result = mvcResult.getResponse().getContentAsString();
 
         //Assert
-        /*
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
         );
-
-         */
 
     }
 
@@ -208,12 +200,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email is not valid.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The email is not valid.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -227,13 +219,10 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
-        /*
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
         );
-
-         */
     }
 
     @Test
@@ -252,12 +241,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email is not valid.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The email is not valid.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -269,13 +258,13 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         String result = mvcResult.getResponse().getContentAsString();
 
         //Assert
-        /*
+
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
         );
 
-         */
+
     }
 
     @Test
@@ -294,12 +283,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The description can't be null or empty.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The description can't be null or empty.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -313,13 +302,11 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
-        /*
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
                 );
 
-         */
     }
 
     @Test
@@ -338,12 +325,12 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The description can't be null or empty.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The description can't be null or empty.\"}";
 
         //Act
-        /*
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -356,14 +343,11 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-        /*
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
         );
-
-         */
     }
 
     @Test
@@ -432,10 +416,11 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         //Arrange
         String uri = "/groups/SuicideSquad";
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"This resource was not found.\"," +
-                "\"errors\":[\"No group found with that description.\"]}";
-        //Act
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No group found with that description.\"}";
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -444,13 +429,10 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         String result = mvcResult.getResponse().getContentAsString();
 
         //ASSERT:
-        /*
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
 
         );
-
-         */
     }
 }
