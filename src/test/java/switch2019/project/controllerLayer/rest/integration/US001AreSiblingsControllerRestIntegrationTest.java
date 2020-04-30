@@ -4,14 +4,12 @@ import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.util.NestedServletException;
 import switch2019.project.AbstractTest;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -137,17 +135,17 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test if two people are siblings - Person Email not found on Person Repository")
     public void checkIfTwoPeopleAreSiblingsPersonEmailNotFound() throws Exception {
 
-        // Arrange
+        //Arrange
         String uri = "/persons/404@isep.ipp.pt/siblings/father2@isep.ipp.pt";
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"This resource was not found.\"," +
-                "\"errors\":[\"No person found with that email.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No person found with that email.\"}";
 
-        String expectedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No person found with that email.";
+        String expectedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
-        //ACT:
-        /*
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnprocessableEntity())
@@ -160,70 +158,30 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-        /*
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
-    }
-
-    @Test
-    @DisplayName("Test if two people are siblings - Null First Person Email")
-    public void checkIfTwoPeopleAreSiblingsNullFirstPersonEmail() throws Exception {
-
-        // Arrange
-        String uri = "/persons/null/siblings/father2@isep.ipp.pt";
-
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email is not valid.\"]}";
-
-        String expectedException = "java.lang.IllegalArgumentException: The email is not valid.";
-
-        //Act:
-        /*
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
-                .andReturn();
-
-
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
-
-        //Assert:
-        /*
-        Assertions.assertAll(
-                () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedException, realException)
-        );
-
-         */
     }
 
     @Test
     @DisplayName("Test if two people are siblings - Invalid Person Email")
     public void checkIfTwoPeopleAreSiblingsNullSecondPersonEmail() throws Exception {
 
-        // Arrange
+        //Arrange
         String uri = "/persons/father1@isep.ipp.pt/siblings/raquelisep.pt";
 
-        String expectedErrorMessage = "{\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"message\":\"One of the parameters is invalid or is missing.\"," +
-                "\"errors\":[\"The email is not valid.\"]}";
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"One of the parameters is invalid or is missing.\"," +
+                "\"message\":\"The email is not valid.\"}";
 
-        String expectedException = "java.lang.IllegalArgumentException: The email is not valid.";
+        String expectedException = new IllegalArgumentException("The email is not valid.").toString();
 
-        //Act:
-        /*
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnprocessableEntity())
@@ -236,15 +194,14 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
 
         String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //Assert:
-        /*
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
 
-         */
+
     }
 
     @Test
@@ -271,15 +228,12 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     @Test
     @DisplayName("Test getSiblings - Person Not Found")
     public void getSiblingsPersonNotFound() throws Exception {
-        // Arrange
+        //Arrange
         String uri = "/persons/hug.azevedo@gmail.com/siblings";
 
-        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withSecond(0).withNano(0) + "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
                 "\"error\":\"This resource was not found.\"," +
                 "\"message\":\"No person found with that email.\"}";
-
-
-
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -292,8 +246,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
-
-        //ASSERT:
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(expectedErrorMessage, result)
@@ -307,6 +260,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         String uri = "/persons/hugo.azevedo@gmail.com";
 
         String expected = "{\"personID\":\"hugo.azevedo@gmail.com\"}";
+
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -327,11 +281,9 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         // Arrange
         String uri = "/persons/h.azevedo@gmail.com";
 
-        String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withSecond(0).withNano(0) + "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
                 "\"error\":\"This resource was not found.\"," +
                 "\"message\":\"No person found with that email.\"}";
-
-                
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
