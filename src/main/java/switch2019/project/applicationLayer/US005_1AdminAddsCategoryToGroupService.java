@@ -3,6 +3,7 @@ package switch2019.project.applicationLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.shared.*;
@@ -80,15 +81,15 @@ public class US005_1AdminAddsCategoryToGroupService {
      * @return CategoryDTO representing an Account
      */
 
-    public Set<CategoryDTO> getCategoriesByGroupID(String groupDescription) {
+    public Set<CategoryDenominationDTO> getCategoriesByGroupID(String groupDescription) {
 
-        Set <Category> categories = categoryRepository.returnCategoriesByOwnerID(new GroupID(new Description(groupDescription)));
+        Set<Category> categories = categoryRepository.returnCategoriesByOwnerID(new GroupID(new Description(groupDescription)));
 
-        Set<CategoryDTO> categoriesDTO = new LinkedHashSet<>();
+        Set<CategoryDenominationDTO> categoriesDTO = new LinkedHashSet<>();
 
-        for (Category category : categories)
-            categoriesDTO.add(CategoryDTOAssembler.createCategoryDTOFromCategory((category)));
-
+        for (Category category : categories) {
+            categoriesDTO.add(CategoryDTOAssembler.createCategoryDenominationDTO(category));
+        }
         return categoriesDTO;
     }
 }

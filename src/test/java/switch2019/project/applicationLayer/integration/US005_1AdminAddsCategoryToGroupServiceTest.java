@@ -6,12 +6,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
+import switch2019.project.assemblers.CategoryDTOAssembler;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.shared.*;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -316,4 +322,81 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The description can't be null or empty.");
     }
+
+    /**
+     * Test if an Category can be found by the Group ID
+     */
+
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - Happy Case")
+    void getCategoriesByGroupID() {
+
+        //Arrange:
+        String groupDescrption = "Switch";;
+        Category category = new Category(new Denomination("Gym"),new GroupID(new Description("Switch")));
+        Category category2 = new Category(new Denomination("ISEP"),new GroupID(new Description("Switch")));
+
+        Set<CategoryDenominationDTO> expectedCategories = new LinkedHashSet<>();
+        expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO(category));
+        expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO(category2));
+
+        //Act
+        Set<CategoryDenominationDTO> categories = service.getCategoriesByGroupID(groupDescrption);
+
+        //Assert
+        assertEquals(expectedCategories, categories);
+    }
+
+
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - GroupDescription does not exists")
+    void getCategoriesByGroupIDInvalidGroupDescription()  throws ArgumentNotFoundException{
+        //Arrange:
+        String groupDescription= "cantarolar";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No category found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - Null groupDescription")
+    void getCategoriesByGroupIDNullDescription() {
+        //Arrange:
+        String groupDescription = null;
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - Empty groupDescription")
+    void getCategoriesByGroupIDEmptyGroupDescription() {
+        //Arrange:
+        String groupDescription = "";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
 }
