@@ -210,7 +210,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         // Arrange
         String uri = "/persons/hugo.azevedo@gmail.com/siblings";
 
-        String expected = "[{\"personID\":\"margarida_azevedo@gmail.com\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/hugo.azevedo@gmail.com\"}]}]";
+        String expected = "[{\"personID\":\"margarida_azevedo@gmail.com\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/margarida_azevedo@gmail.com\"}]}]";
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();

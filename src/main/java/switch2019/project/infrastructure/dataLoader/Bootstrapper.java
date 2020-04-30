@@ -389,8 +389,8 @@ public class Bootstrapper {
         familySimpsonGroup.addMember(margaretSimpson);
         //Siblings
         bartolomewSimpson.addSibling(elizabetSimpson);
-        bartolomewSimpson.addSibling(elizabetSimpson);
         bartolomewSimpson.addSibling(margaretSimpson);
+        margaretSimpson.addSibling(elizabetSimpson);
 
         //Family group - Family Cardoso - All members are Group Admin
         Group familyCardosoGroup = groupRepository.createGroup( new Description("Family Cardoso"),

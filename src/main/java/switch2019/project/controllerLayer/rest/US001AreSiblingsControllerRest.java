@@ -46,9 +46,8 @@ public class US001AreSiblingsControllerRest {
 
         for (PersonIDDTO id : siblingsList) {
             Link selfLink = linkTo(methodOn(US001AreSiblingsControllerRest.class)
-                    .getPersonByEmail(personEmail))
+                    .getPersonByEmail(id.getPersonID()))
                     .withSelfRel();
-
             id.add(selfLink);
         }
         return new ResponseEntity<>(siblingsList, HttpStatus.OK);
