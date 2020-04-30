@@ -124,7 +124,6 @@ class US005_1AdminAddsCategoryControllerCliUnitTest {
         String groupDescription = "Family Azevedo";
         String categoryDenomination = "GYM";
 
-        CategoryDTO CategoryDTOExpected1 = new CategoryDTO(categoryDenomination, groupDescription);
         CreateGroupCategoryDTO createGroupCategoryDTO1 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         Mockito.when(service.addCategoryToGroup(createGroupCategoryDTO1)).

@@ -348,6 +348,84 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
 
     }
 
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - Invalid URI")
+    void createGroupAndBecomeAdminInvalidURI() throws Exception {
+
+        //Arrange
+        String uri = "/persons//accounts";
+
+        //arrangement of the account DTO:
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+        //setting information for the DTO:
+        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+        //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isMethodNotAllowed())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(405, status),
+                () -> assertEquals("", result)
+        );
+
+    }
+
+    @Test
+    @DisplayName("Test if an existing person creates a Group and becomes Admin - URI Invalid")
+    void createGroupAndBecomeAdminInvalidURIInput() throws Exception {
+
+        //Arrange
+        String uri = "/p/marge@hotmail.com/accounts";
+
+        //arrangement of the account DTO:
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+        //setting information for the DTO:
+        CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+        //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(404, status),
+                () -> assertEquals("", result)
+        );
+
+    }
+
 
     /**
      * Test if an Account can be found by the ID
