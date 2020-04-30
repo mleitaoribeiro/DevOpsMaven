@@ -56,7 +56,7 @@ public class US006CreatePersonAccountService {
     }
 
     /**
-     * method that finds a category by category ID
+     * method that finds a account by account ID
      *
      * @param personEmail
      * @param accountDenomination
@@ -80,10 +80,10 @@ public class US006CreatePersonAccountService {
 
 
     /**
-     * method that finds a category by person ID
+     * method that finds all accounts by person ID
      *
      * @param personEmail
-     * @return AccountDTO representing an Account
+     * @return all accounts from the person
      */
 
     public Set<AccountDTO> getAccountsByPersonID(String personEmail) {
