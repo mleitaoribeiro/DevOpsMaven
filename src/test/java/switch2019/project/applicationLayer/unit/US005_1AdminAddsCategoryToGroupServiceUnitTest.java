@@ -8,8 +8,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
+import switch2019.project.assemblers.CategoryDTOAssembler;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
@@ -24,6 +27,9 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -337,6 +343,54 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test for getCategoriesByGroupDescription - Main Scenario")
+    void getCategoriesByGroupDescription(){
+
+        // Arrange
+        String groupDescription = "Switch";
+        Category category = new Category(new Denomination("Gym"),new GroupID(new Description("Switch")));
+        Category category2 = new Category(new Denomination("ISEP"),new GroupID(new Description("Switch")));
+
+        Set<Category> categories = new LinkedHashSet<>();
+        categories.add(category);
+        categories.add(category2);
+
+        Set<CategoryDenominationDTO> expectedCategories = new LinkedHashSet<>();
+        expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO(category));
+        expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO(category2));
+
+        Mockito.when(categoryRepository.returnCategoriesByOwnerID(new GroupID(new Description(groupDescription))))
+                .thenReturn(categories);
+
+        //Act
+        Set<CategoryDenominationDTO> categoriesActual = service.getCategoriesByGroupID(groupDescription);
+
+        //Assert
+        assertEquals(expectedCategories, categoriesActual);
+    }
+    @Test
+    @DisplayName("Test for getCategoriesByGroupDescription - Exception - No group found with that description")
+    void getCategoriesByGroupDescriptionException() throws ArgumentNotFoundException{
+
+        // Arrange
+        String groupDescription = "pig";
+        Mockito.when(categoryRepository.returnCategoriesByOwnerID(new GroupID(new Description(groupDescription))))
+                .thenThrow(new ArgumentNotFoundException("No group found with that description."));
+
+        //Act
+
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+
     }
 
 }

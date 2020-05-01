@@ -15,9 +15,6 @@ public class CategoryDenominationDTO extends RepresentationModel<CategoryDenomin
         return categoryDenomination;
     }
 
-    public void CategoryDenomination(String categoryDenomination) {
-        this.categoryDenomination = categoryDenomination;
-    }
 
     @Override
     public boolean equals(Object o) {

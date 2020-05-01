@@ -624,4 +624,30 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 () -> assertEquals(expectedException, realException)
         );
     }
+
+    @Test
+    @DisplayName("Test for getCategoriesByGroupID - Main Scenario")
+    void getCategoriesByGroupDescriptionException() throws Exception {
+
+        //Status Request
+        String groupDescription = "Switch";
+        String uri="/categories/" + groupDescription;
+        String expected="[{\"categoryDenomination\":\"ISEP\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/ISEP/categories/Switch\"}]},{\"categoryDenomination\":\"GYM\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/GYM/categories/Switch\"}]}]";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+
+
 }

@@ -326,6 +326,75 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
     /**
      * Test if an Category can be found by the Group ID
      */
+@Test
+    @DisplayName ("Test to get all categories by the GroupID-Main scenario")
+    void getCategoriesByGroupID(){
 
+    //Arrange
+    String groupDescription="Switch";
+    Category category= new Category(new Denomination("GYM"), new GroupID(new Description ("Switch")));
+    Category category2= new Category(new Denomination("Isep"),new GroupID(new Description("SWITCH")));
+
+    Set<CategoryDenominationDTO> expectedCategories=new LinkedHashSet<>();
+
+    expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO((category)));
+    expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO((category2)));
+
+    //Act
+    Set<CategoryDenominationDTO >categories= service.getCategoriesByGroupID(groupDescription);
+
+    //Assert
+    assertEquals(expectedCategories,categories);
+}
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - GroupDescription does not exists")
+    void getCategoriesByGroupIDInvalidGroupDescription()  throws ArgumentNotFoundException{
+        //Arrange:
+        String groupDescription= "cantarolar";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No category found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - Null groupDescription")
+    void getCategoriesByGroupIDNullDescription() {
+        //Arrange:
+        String groupDescription = null;
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test to get all categories by the Group ID - Empty groupDescription")
+    void getCategoriesByGroupIDEmptyGroupDescription() {
+        //Arrange:
+        String groupDescription = "";
+
+        //Act:
+        Throwable thrown = catchThrowable(() -> {
+            service.getCategoriesByGroupID(groupDescription);
+        });
+
+        //Assert:
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
 
 }

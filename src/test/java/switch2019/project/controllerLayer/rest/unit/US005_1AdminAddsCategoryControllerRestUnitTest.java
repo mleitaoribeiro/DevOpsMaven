@@ -14,12 +14,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
+import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.controllerLayer.rest.US005_1AdminAddsCategoryControllerRest;
+import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -357,5 +366,33 @@ class US005_1AdminAddsCategoryControllerRestUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The description can't be null or empty.");
     }
+    @Test
+    @DisplayName ("Test to get all categories by the GroupID-Main scenario")
+    void getCategoriesByGroupID(){
+
+        //Arrange
+        String groupDescription="Switch";
+        Category category= new Category(new Denomination("GYM"), new GroupID(new Description ("Switch")));
+        Category category2= new Category(new Denomination("Isep"),new GroupID(new Description("SWITCH")));
+
+        Set<CategoryDenominationDTO> expectedCategories=new LinkedHashSet<>();
+        Mockito.when(service.getCategoriesByGroupID(groupDescription))
+                .thenReturn(expectedCategories);
+
+        Set<CategoryDenominationDTO >categories= service.getCategoriesByGroupID(groupDescription);
+        expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO((category)));
+        expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO((category2)));
+
+        ResponseEntity responseEntityExpected = new ResponseEntity<>(categories, HttpStatus.OK);
+
+        //Act
+        ResponseEntity<Object> responseEntity = controllerRest.getCategoriesByGroupID(groupDescription);
+
+        //Assert
+        assertEquals(responseEntityExpected, responseEntity);
+    }
+
+
+
 
 }
