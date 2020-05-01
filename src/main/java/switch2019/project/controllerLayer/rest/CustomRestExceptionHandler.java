@@ -170,7 +170,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      *
-     * Handle HttpRequestMethodNotSupportedException - occurs when the client sends a request with an unsupported HTTP method
+     * Handle HttpMediaTypeNotSupportedException – occurs when the client sends a request with unsupported media type
      *
      * @param ex
      * @param headers
@@ -197,7 +197,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      *
-     * Handle HttpMediaTypeNotSupportedException – occurs when the client sends a request with unsupported media type
+     * Handle HttpRequestMethodNotSupportedException - occurs when the client sends a request with an unsupported HTTP method
      *
      * @param ex
      * @param headers
