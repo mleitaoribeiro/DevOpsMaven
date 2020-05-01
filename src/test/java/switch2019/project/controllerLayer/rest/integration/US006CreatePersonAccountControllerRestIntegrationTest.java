@@ -49,7 +49,8 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"" +
                 ","+"\"denomination\":\"" +accountDenomination.toUpperCase() +
                 "\",\"description\":\"" +accountDescription.toUpperCase() +
-                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}}}";;
+                "\",\"_links\":{\"self\":[{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}" +
+                ",{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts\"}]}}";;
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)

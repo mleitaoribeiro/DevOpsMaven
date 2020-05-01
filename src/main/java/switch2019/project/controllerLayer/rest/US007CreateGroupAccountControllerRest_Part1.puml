@@ -59,6 +59,8 @@ autonumber 3.3.3
 deactivate "service:US007CreateGroupAccountService" #FFBBBB
 "restController:\nUS007CreateGroupAccountControllerRest"->"restController:\nUS007CreateGroupAccountControllerRest": selfLink = /groups/{ownerID}/accounts/{accountDenomination}
 "restController:\nUS007CreateGroupAccountControllerRest"-> "accountDTO:AccountDTO": add(selfLink)
+"restController:\nUS007CreateGroupAccountControllerRest"->"restController:\nUS007CreateGroupAccountControllerRest": accountsLink = /groups/{groupDescription}/accounts
+"restController:\nUS007CreateGroupAccountControllerRest"-> "accountDTO:AccountDTO": add(accountsLink)
 "restController:\nUS007CreateGroupAccountControllerRest"--> "mvc:MockMvc":responseEntity=responseEntity<>(accountDTO,HttpStatus.CREATED)
 deactivate "restController:\nUS007CreateGroupAccountControllerRest"
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity

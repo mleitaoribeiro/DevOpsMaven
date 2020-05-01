@@ -45,7 +45,12 @@ public class US006CreatePersonAccountControllerRest {
                 .getAccountByAccountID(result.getDenomination(), result.getOwnerID()))
                 .withSelfRel();
 
+        Link allAccountsLink = linkTo(methodOn(US006CreatePersonAccountControllerRest.class)
+                .getAccountsByPersonID(result.getOwnerID()))
+                .withSelfRel();
+
         result.add(selfLink);
+        result.add(allAccountsLink);
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
 
