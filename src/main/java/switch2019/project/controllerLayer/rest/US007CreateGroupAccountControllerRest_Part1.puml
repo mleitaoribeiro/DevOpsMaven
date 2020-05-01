@@ -49,7 +49,7 @@ autonumber 3.3.1.5
 "AccountDTOAssembler" --> "restController:\nUS007CreateGroupAccountControllerRest" : createGroupAccountDTO
 deactivate "AccountDTOAssembler"
 autonumber 3.3.2
-"restController:\nUS007CreateGroupAccountControllerRest"->"service:US007CreateGroupAccountService": addAccountDTOGroup(createGroupAccountDTO)
+"restController:\nUS007CreateGroupAccountControllerRest"->"service:US007CreateGroupAccountService": createGroupAccount(createGroupAccountDTO)
 activate "service:US007CreateGroupAccountService" #FFBBBB
 autonumber 3.3.2.1
 |||
