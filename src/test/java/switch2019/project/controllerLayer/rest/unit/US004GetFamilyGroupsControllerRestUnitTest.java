@@ -15,8 +15,13 @@ import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.controllerLayer.rest.US004GetFamilyGroupsControllerRest;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -32,7 +37,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
     private US004GetFamilyGroupsControllerRest controllerRest;
 
     @BeforeEach
-    public void setup() throws Exception {
+    public void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -87,48 +92,32 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
     }
 
     @Test
-    @DisplayName("Get groups - type empty - empty result")
+    @DisplayName("Get groups - type empty - Exception")
     void getGroupsTypeEmpty() {
 
-        //Arrange
-        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
+        // Arrange & Act
+        Throwable thrown = catchThrowable(() -> {
+            controllerRest.getFamilyGroups("");
+        });
 
-        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
-
-        //Act
-        Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
-
-        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups("");
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(responseEntityExpected, responseEntityResult),
-                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
-                () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
-                () -> assertNotNull(responseEntityResult)
-        );
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The type can't be empty.");
     }
 
     @Test
-    @DisplayName("Get groups - type different from family - empty result")
+    @DisplayName("Get groups - type different from family - Exception")
     void getGroupsTypeDifferentFromFamily() {
 
-        //Arrange
-        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
+        // Arrange & Act
+        Throwable thrown = catchThrowable(() -> {
+            controllerRest.getFamilyGroups("friends");
+        });
 
-        ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
-
-        //Act
-        Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
-
-        ResponseEntity <Object> responseEntityResult = controllerRest.getFamilyGroups("friends");
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(responseEntityExpected, responseEntityResult),
-                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode()),
-                () -> assertEquals(expectedFamilyGroup, responseEntityResult.getBody()),
-                () -> assertNotNull(responseEntityResult)
-        );
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No groups found with that type.");
     }
 }
