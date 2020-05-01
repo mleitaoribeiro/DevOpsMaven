@@ -11,6 +11,8 @@ import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 
+import java.util.Set;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -58,6 +60,26 @@ public class US007CreateGroupAccountControllerRest {
         AccountDTO result = service.getAccountByAccountID(accountDenomination,ownerID);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
+    /**
+     * Method to get all accounts associated with a GroupID
+     *
+     * @param groupDescription
+     * @return All accounts associated with a group and their HTTPStatus
+     */
+    @GetMapping(value = "/groups/{groupDescription}/accounts")
+    public ResponseEntity<Object> getAccountsByGroupID
+    (@PathVariable final String groupDescription) {
+
+        Set<AccountDTO> accounts = service.getAccountsByGroupID(groupDescription);
+
+        for (AccountDTO account : accounts) {
+            Link selfLink = linkTo(methodOn(US007CreateGroupAccountControllerRest.class)
+                    .getAccountByAccountID(account.getDenomination(), account.getOwnerID()))
+                    .withSelfRel();
+            account.add(selfLink);
+        }
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 }

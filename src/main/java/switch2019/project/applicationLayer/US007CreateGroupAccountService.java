@@ -90,7 +90,7 @@ public class US007CreateGroupAccountService {
      * @return all accounts from a specific group
      */
 
-    public Set<AccountDTO> getAllAccountsByGroupID(String groupDescription) {
+    public Set<AccountDTO> getAccountsByGroupID(String groupDescription) {
 
         //Find the ownerID (groupID):
         OwnerID groupID = groupsRepository.findGroupByDescription(new Description(groupDescription)).getID();
