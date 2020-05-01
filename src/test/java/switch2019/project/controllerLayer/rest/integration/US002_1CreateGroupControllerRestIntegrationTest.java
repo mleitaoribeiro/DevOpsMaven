@@ -391,7 +391,9 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String groupDescription = "SMITH FAMILY";
 
-        String expectedJson = "{\"groupDescription\":\"" + groupDescription + "\"}";
+        String expectedJson = "{\"groupDescription\":\"" + groupDescription + "\",\"_links\":{" +
+                "\"Members\":{\"href\":\"http://localhost/groups/SMITH%20FAMILY/members\"}," +
+                "\"Admins\":{\"href\":\"http://localhost/groups/SMITH%20FAMILY/admins\"}}}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)

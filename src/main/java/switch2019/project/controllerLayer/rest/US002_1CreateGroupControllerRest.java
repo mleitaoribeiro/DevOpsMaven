@@ -47,6 +47,17 @@ public class US002_1CreateGroupControllerRest {
     @GetMapping(value = "groups/{groupDescription}")
     public ResponseEntity<Object> getGroupByDescription(@PathVariable final String groupDescription) {
         GroupDTO newGroupDTO = service.getGroupByDescription(groupDescription);
+
+        Link members = linkTo(methodOn(US003AddMemberToGroupControllerRest.class)
+                .getMembersByGroupDescription(newGroupDTO.getGroupDescription()))
+                .withRel("Members");
+        newGroupDTO.add(members);
+
+        Link admins = linkTo(methodOn(US003AddMemberToGroupControllerRest.class)
+                .getAdminsByGroupDescription(newGroupDTO.getGroupDescription()))
+                .withRel("Admins");
+        newGroupDTO.add(admins);
+
         return new ResponseEntity<>(newGroupDTO, HttpStatus.OK);
     }
 }
