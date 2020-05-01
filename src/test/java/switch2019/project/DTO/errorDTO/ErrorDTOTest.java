@@ -1,4 +1,4 @@
-package switch2019.project.DTO.ErrorDTO;
+package switch2019.project.DTO.errorDTO;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

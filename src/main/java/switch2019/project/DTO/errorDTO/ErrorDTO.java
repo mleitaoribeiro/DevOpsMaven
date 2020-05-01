@@ -1,4 +1,4 @@
-package switch2019.project.DTO.ErrorDTO;
+package switch2019.project.DTO.errorDTO;
 
 import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
