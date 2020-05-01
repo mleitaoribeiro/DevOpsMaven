@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -32,9 +33,15 @@ public class US004GetFamilyGroupsControllerRest {
     @GetMapping("/groups")
     public ResponseEntity <Object> getFamilyGroups(@RequestParam(value = "type") String type) {
 
-        Set<GroupDTO> groups = new LinkedHashSet<>();
+        Set<GroupDTO> groups;
 
-        if(type.equals("family")) {
+        if(type.equals(""))
+            throw new IllegalArgumentException("The type can't be empty.");
+
+        else if(!type.equals("family"))
+            throw new ArgumentNotFoundException("No groups found with that type.");
+
+        else {
             groups = service.getFamilyGroups();
 
             for (GroupDTO groupDTO : groups) {
