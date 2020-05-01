@@ -328,7 +328,7 @@ class US007CreateGroupAccountServiceTest {
 
     @Test
     @DisplayName("Test if an Account can be found by the ID - Happy Case")
-    void getAccountByGroupID() {
+    void getAccountByAccountID() {
         //Arrange:
         String groupDescription = "family cardoso";
         String accountDenomination = "Revolut";
@@ -338,7 +338,7 @@ class US007CreateGroupAccountServiceTest {
         AccountDTO expectedOutput = new AccountDTO(groupDescription, accountDenomination, accountDescription);
 
         //Act:
-        AccountDTO realOutput = service.getAccountByGroupID(accountDenomination, groupDescription);
+        AccountDTO realOutput = service.getAccountByAccountID(accountDenomination, groupDescription);
 
         //Assert:
         assertEquals(expectedOutput, realOutput);
