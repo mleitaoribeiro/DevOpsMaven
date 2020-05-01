@@ -165,6 +165,10 @@
                         <param>switch2019.project.DTO.*</param>
                         <param>switch2019.project.infrastructure.*</param>
                     </targetTests>
+                    <excludedClasses>
+                        <param>switch2019.project.controllerLayer.rest.integration.US005_1AdminAddsCategoryControllerRestIntegrationTest</param>
+                        <param>switch2019.project.applicationLayer.integration.US005_1AdminAddsCategoryToGroupServiceTest</param>
+                    </excludedClasses>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
