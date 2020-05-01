@@ -631,7 +631,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         //Status Request
         String groupDescription = "Switch";
-        String uri="/categories/" + groupDescription;
+        String uri="/groups/" + groupDescription + "/categories/";
         String expected="[{\"categoryDenomination\":\"ISEP\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/ISEP/categories/Switch\"}]},{\"categoryDenomination\":\"GYM\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/GYM/categories/Switch\"}]}]";
 
         //Act

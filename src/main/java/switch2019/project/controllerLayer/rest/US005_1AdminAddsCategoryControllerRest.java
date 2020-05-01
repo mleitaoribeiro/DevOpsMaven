@@ -72,7 +72,7 @@ public class US005_1AdminAddsCategoryControllerRest {
      * @return All categories from group and HTTPStatus
      */
 
-    @GetMapping(value = "categories/{groupDescription}")
+    @GetMapping(value = "groups/{groupDescription}/categories")
     public ResponseEntity<Object> getCategoriesByGroupID
     (@PathVariable final String groupDescription) {
 
