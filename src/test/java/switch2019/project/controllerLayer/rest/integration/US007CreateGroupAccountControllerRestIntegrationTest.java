@@ -280,12 +280,18 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":405," +
+                "\"status\":\"METHOD_NOT_ALLOWED\"," +
+                "\"error\":\"Request method 'POST' not supported\"," +
+                "\"message\":\"POST method is not supported for this request. Supported methods are GET \"}";
+
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isMethodNotAllowed())
-                .andExpect(content().string(""))
+                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         //Assert
@@ -295,7 +301,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(405, status),
-                () -> assertEquals("", result)
+                () -> assertEquals(expectedErrorMessage, result)
         );
 
     }

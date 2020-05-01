@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -165,6 +167,82 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
         return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
     }
+
+    /**
+     *
+     * Handle HttpRequestMethodNotSupportedException - occurs when the client sends a request with an unsupported HTTP method
+     *
+     * @param ex
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(
+            HttpMediaTypeNotSupportedException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(ex.getContentType());
+        builder.append(" media type is not supported. Supported media types are ");
+        ex.getSupportedMediaTypes().forEach(t -> builder.append(t + ", "));
+
+        ErrorDTO apiError = new ErrorDTO(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+                ex.getLocalizedMessage(), builder.substring(0, builder.length() - 2));
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    /**
+     *
+     * Handle HttpMediaTypeNotSupportedException – occurs when the client sends a request with unsupported media type
+     *
+     * @param ex
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
+
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
+            HttpRequestMethodNotSupportedException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(ex.getMethod());
+        builder.append(
+                " method is not supported for this request. Supported methods are ");
+        ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
+
+        ErrorDTO apiError = new ErrorDTO(HttpStatus.METHOD_NOT_ALLOWED,
+                ex.getLocalizedMessage(), builder.toString());
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    /**
+     *
+     * Deals with all other exceptions that don't have specific handlers
+     *
+     * @param ex
+     * @param request
+     * @return
+     */
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
+        ErrorDTO apiError = new ErrorDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+
+
+
+
 }
 
 
