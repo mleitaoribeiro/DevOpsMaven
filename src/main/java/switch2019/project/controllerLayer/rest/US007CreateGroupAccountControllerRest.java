@@ -35,7 +35,7 @@ public class US007CreateGroupAccountControllerRest {
         AccountDTO result = service.createGroupAccount(dto);
 
         Link selfLink = linkTo(methodOn(US007CreateGroupAccountControllerRest.class)
-                .getAccountByGroupID(result.getDenomination(),result.getOwnerID()))
+                .getAccountByAccountID(result.getDenomination(),result.getOwnerID()))
                 .withSelfRel();
 
         result.add(selfLink);
@@ -52,7 +52,7 @@ public class US007CreateGroupAccountControllerRest {
      * @return Response Entity with AccountDTO and HTTPStatus
      */
     @GetMapping(value = "/groups/{ownerID}/accounts/{accountDenomination}")
-    public ResponseEntity<Object> getAccountByGroupID
+    public ResponseEntity<Object> getAccountByAccountID
             (@PathVariable final String accountDenomination, @PathVariable String ownerID){
 
         AccountDTO result = service.getAccountByGroupID(accountDenomination,ownerID);
