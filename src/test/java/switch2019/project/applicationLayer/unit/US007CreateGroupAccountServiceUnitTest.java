@@ -20,6 +20,10 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -418,5 +422,101 @@ public class US007CreateGroupAccountServiceUnitTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("This account already exists.");
+    }
+
+    /**
+     * Testing getAllAccountsByGroupID method
+     */
+
+    @Test
+    @DisplayName("Test if the Set includes all the AccountDTOs associated with the Accounts in a GroupID - Happy Case")
+    void getAllAccountsByGroupIDTest() {
+
+        //ARRANGE:
+        String groupDescription = "Rick and Morty";
+
+        //Arrange group creator(person)
+        Person groupCreator = new Person (
+                "Richard Sanchez",
+                new DateAndTime(1950, 9, 1),
+                new Address("Seattle"),
+                new Address("Smiths house", "Seattle", "4520-266"),
+                new Email("rick@gmail.com"));
+
+        //Arrange Group:
+        Group group = new Group(new Description(groupDescription), groupCreator);
+
+        //Arrange GroupID:
+        GroupID groupID = group.getID();
+
+        //Arrange Accounts:
+        Account account1 = new Account(new Denomination("Money for Morty"), new Description("Money to compensate morty"), groupID);
+        Account account2 = new Account(new Denomination("Fuel"), new Description("Ship fuel station"), groupID);
+        Account account3 = new Account(new Denomination("Alcohol"), new Description("Important for adventures"), groupID);
+
+        //Arrange set of accounts
+        Set<Account> expectedGroupAccounts = new LinkedHashSet<>();
+        expectedGroupAccounts.add(account1);
+        expectedGroupAccounts.add(account2);
+        expectedGroupAccounts.add(account3);
+
+        //Arrange AccountDTO:
+        AccountDTO accountDTO1 = new AccountDTO(groupDescription, "Money for Morty", "Money to compensate morty");
+        AccountDTO accountDTO2 = new AccountDTO(groupDescription, "Fuel", "Ship fuel station");
+        AccountDTO accountDTO3 = new AccountDTO(groupDescription, "Alcohol", "Important for adventures");
+
+        //Arrange set of accountDTOs
+        Set<AccountDTO> expectedAccountDTOs = new LinkedHashSet<>();
+        expectedAccountDTOs.add(accountDTO1);
+        expectedAccountDTOs.add(accountDTO2);
+        expectedAccountDTOs.add(accountDTO3);
+
+        //Arrange Mockito
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription))).thenReturn(group);
+        Mockito.when(accountRepository.returnAccountsByOwnerID(groupID)).thenReturn(expectedGroupAccounts);
+
+        //ACT:
+        Set<AccountDTO> actualAccountDTOs = service.getAllAccountsByGroupID(groupDescription);
+
+        //ASSERT:
+        assertEquals(expectedAccountDTOs, actualAccountDTOs);
+    }
+
+    @Test
+    @DisplayName("groupDescription does not exists")
+    void getAllAccountsByGroupIDGroupNotPresent() {
+        //ARRANGE:
+        String groupDescription = "blabla";
+
+        //Arrange Mockito
+        Mockito.when(groupsRepository.findGroupByDescription(new Description(groupDescription))).thenThrow(new ArgumentNotFoundException("No group found with that description."));
+
+        //ACT:
+        Throwable thrown = catchThrowable(() -> {
+            service.getAllAccountsByGroupID(groupDescription);
+        });
+
+        //ASSERT:
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("groupDescription is null")
+    void getAllAccountsByGroupIDNullDescription() {
+        //Arrange
+        Mockito.when(groupsRepository.findGroupByDescription(null))
+                .thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getAllAccountsByGroupID(null);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
     }
 }
