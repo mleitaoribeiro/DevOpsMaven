@@ -11,6 +11,9 @@ import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -343,5 +346,31 @@ class US007CreateGroupAccountServiceTest {
         //Assert:
         assertEquals(expectedOutput, realOutput);
     }
+
+    /**
+     * Test if all the Accounts associated with a GroupID can be retrieved
+     */
+    @Test
+    @DisplayName("Happy Case")
+    void getAllAccountsByGroupIDHappyCaseTest() {
+
+        //ARRANGE:
+        //arrange the account description:
+        String groupDescription = "Rick and Morty";
+
+        //Arrange all the required DTOs in the expected list:
+        Set<AccountDTO> expectedResult = new LinkedHashSet<>();
+        expectedResult.add(new AccountDTO(groupDescription, "Money for Morty", "Money to compensate morty"));
+        expectedResult.add(new AccountDTO(groupDescription, "Fuel", "Ship fuel station"));
+        expectedResult.add(new AccountDTO(groupDescription, "Alcohol", "Important for adventures"));
+
+        //ACT:
+        Set<AccountDTO> actualResult = service.getAllAccountsByGroupID(groupDescription);
+
+        //ASSERT:
+        assertEquals(expectedResult,actualResult);
+    }
+
+
 
 }
