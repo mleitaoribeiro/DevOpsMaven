@@ -180,6 +180,114 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
     }
 
+    @Test
+    @DisplayName("Test Group Account creation - null input")
+    void createGroupAndBecomeAdminNullJsonInput() throws Exception {
+
+        //Arrange
+        String uri = "/groups/marge@hotmail.com/accounts";
+
+        String inputJson = super.mapToJson((null));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(400, status),
+                () -> assertEquals("", result)
+        );
+
+    }
+
+    @Test
+    @DisplayName("Test Group Account creation - Invalid URI")
+    void createGroupAndBecomeAdminInvalidURI() throws Exception {
+
+        //Arrange
+        String uri = "/groups//accounts";
+
+        //arrangement of the account DTO:
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+        //setting information for the DTO:
+        CreateGroupAccountInfoDTO infoDTO = new CreateGroupAccountInfoDTO();
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+        //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isMethodNotAllowed())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(405, status),
+                () -> assertEquals("", result)
+        );
+
+    }
+
+    @Test
+    @DisplayName("Test Group Account creation - URI Invalid")
+    void createGroupAndBecomeAdminInvalidURIInput() throws Exception {
+
+        //Arrange
+        String uri = "/g/marge@hotmail.com/accounts";
+
+        //arrangement of the account DTO:
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+        //setting information for the DTO:
+        CreateGroupAccountInfoDTO infoDTO = new CreateGroupAccountInfoDTO();
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+        //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(404, status),
+                () -> assertEquals("", result)
+        );
+
+    }
+
+
 
     @Test
     @DisplayName("Test Group Account creation -  group account already exists - test if output and HTTP response are expected ")
