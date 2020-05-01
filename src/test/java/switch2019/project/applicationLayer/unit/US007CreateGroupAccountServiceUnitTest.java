@@ -476,7 +476,7 @@ public class US007CreateGroupAccountServiceUnitTest {
         Mockito.when(accountRepository.returnAccountsByOwnerID(groupID)).thenReturn(expectedGroupAccounts);
 
         //ACT:
-        Set<AccountDTO> actualAccountDTOs = service.getAllAccountsByGroupID(groupDescription);
+        Set<AccountDTO> actualAccountDTOs = service.getAccountsByGroupID(groupDescription);
 
         //ASSERT:
         assertEquals(expectedAccountDTOs, actualAccountDTOs);
@@ -493,7 +493,7 @@ public class US007CreateGroupAccountServiceUnitTest {
 
         //ACT:
         Throwable thrown = catchThrowable(() -> {
-            service.getAllAccountsByGroupID(groupDescription);
+            service.getAccountsByGroupID(groupDescription);
         });
 
         //ASSERT:
@@ -511,7 +511,7 @@ public class US007CreateGroupAccountServiceUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            service.getAllAccountsByGroupID(null);
+            service.getAccountsByGroupID(null);
         });
 
         //Assert

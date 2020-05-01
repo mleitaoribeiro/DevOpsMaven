@@ -365,7 +365,7 @@ class US007CreateGroupAccountServiceTest {
         expectedResult.add(new AccountDTO(groupDescription, "Alcohol", "Important for adventures"));
 
         //ACT:
-        Set<AccountDTO> actualResult = service.getAllAccountsByGroupID(groupDescription);
+        Set<AccountDTO> actualResult = service.getAccountsByGroupID(groupDescription);
 
         //ASSERT:
         assertEquals(expectedResult,actualResult);
