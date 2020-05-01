@@ -34,7 +34,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String uri = "/persons/marge@hotmail.com/accounts";
 
             //arrangement of the account DTO:
-        final String personEmail = "marge@hotmail.com";
         final String accountDenomination = "Food Expenses";
         final String accountDescription = "Money spent on food";
 
@@ -47,8 +46,8 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String inputJson = super.mapToJson((infoDTO));
 
         //arrangement of the expected output:
-        String expected = "{\"ownerID\":\"" +personEmail.toUpperCase() +
-                "\",\"denomination\":\"" +accountDenomination.toUpperCase() +
+        String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"" +
+                ","+"\"denomination\":\"" +accountDenomination.toUpperCase() +
                 "\",\"description\":\"" +accountDescription.toUpperCase() +
                 "\",\"_links\":{\"self\":{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}}}";;
 

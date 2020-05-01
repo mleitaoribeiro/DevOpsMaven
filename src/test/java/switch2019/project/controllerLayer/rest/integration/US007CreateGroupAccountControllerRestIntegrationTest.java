@@ -126,6 +126,58 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     }
 
     @Test
+    @DisplayName("Test Group Account creation -  group account already exists - test if output and HTTP response are expected ")
+    void addGroupAccountGroupAccountAlreadyExistsException() throws Exception {
+
+        //Arrange
+        String uri = "/groups/Family Cardoso/accounts";
+
+        final String personEmail = "1191780@isep.ipp.pt";
+        final String accountDenomination = "Revolut";
+        final String accountDescription = "Online Expenses";
+
+        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
+
+        createGroupAccountInfoDTO.setPersonEmail(personEmail);
+        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
+        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
+
+        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":409,\"status\":\"CONFLICT\"," +
+                "\"error\":\"This resource already exists.\"," +
+                "\"message\":\"This account already exists.\"}";
+
+
+        String expectedResolvedException = new ResourceAlreadyExistsException("This account already exists.").toString();
+
+        //ACT:
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isConflict())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT:
+
+        Assertions.assertAll(
+                () -> assertEquals(409, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+
+
+    }
+
+    @Test
     @DisplayName("Test Group Account creation -  person does not exists on Person Repository")
     void addGroupAccountPersonDoesNotExists() throws Exception {
 
@@ -285,59 +337,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
     }
 
-
-
-    @Test
-    @DisplayName("Test Group Account creation -  group account already exists - test if output and HTTP response are expected ")
-    void addGroupAccountGroupAccountAlreadyExistsException() throws Exception {
-
-        //Arrange
-        String uri = "/groups/Family Cardoso/accounts";
-
-        final String personEmail = "1191780@isep.ipp.pt";
-        final String accountDenomination = "Revolut";
-        final String accountDescription = "Online Expenses";
-
-        CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
-
-        createGroupAccountInfoDTO.setPersonEmail(personEmail);
-        createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
-        createGroupAccountInfoDTO.setAccountDescription(accountDescription);
-
-        String inputJson = super.mapToJson((createGroupAccountInfoDTO));
-
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":409,\"status\":\"CONFLICT\"," +
-                "\"error\":\"This resource already exists.\"," +
-                "\"message\":\"This account already exists.\"}";
-
-
-        String expectedResolvedException = new ResourceAlreadyExistsException("This account already exists.").toString();
-
-        //ACT:
-
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isConflict())
-                .andExpect(content().string(expectedErrorMessage))
-                .andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
-
-        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
-
-        //ASSERT:
-
-        Assertions.assertAll(
-                () -> assertEquals(409, status),
-                () -> assertEquals(expectedErrorMessage, result),
-                () -> assertEquals(expectedResolvedException, realResolvedException)
-        );
-
-
-    }
+///////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Test Group Account creation -  group does not exists - test if output and HTTP response are expected ")
