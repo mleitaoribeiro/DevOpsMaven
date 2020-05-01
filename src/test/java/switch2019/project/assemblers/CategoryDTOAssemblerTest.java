@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
+import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -143,5 +144,23 @@ public class CategoryDTOAssemblerTest {
         );
 
     }
+
+    @Test
+    @DisplayName("Test for createCategoryDenominationDTO")
+    void createCategoryDenominationDTO(){
+        Category cat = new Category(new Denomination("CategoryName"),
+                new PersonID(new Email("email@email.com")));
+
+        CategoryDenominationDTO categoryDenominationDTO1 = new CategoryDenominationDTO("CategoryName".toUpperCase());
+        CategoryDenominationDTO categoryDenominationDTO2 = new CategoryDenominationDTO("CategoryNameNot".toUpperCase());
+
+        CategoryDenominationDTO categoryDenominationDTO =
+                CategoryDTOAssembler.createCategoryDenominationDTO(cat);
+
+        assertEquals(categoryDenominationDTO1 ,categoryDenominationDTO);
+        assertNotEquals(categoryDenominationDTO1,categoryDenominationDTO2);
+
+    }
+
 
 }
