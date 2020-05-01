@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,7 +50,8 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         String expected = "{\"ownerID\":\"FAMILY SIMPSON\"" +
                 ","+  "\"denomination\":\"" + accountDenomination.toUpperCase() +
                 "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() +
-                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts/KWIK%20E%20MART\"}}}";
+                "\",\"_links\":{\"self\":[{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts/KWIK%20E%20MART\"}," +
+                "{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts\"}]}}";
 
         //Act
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
@@ -729,7 +731,76 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(200, status),
                 () -> assertEquals(expected, result)
         );
-
     }
 
+    /**
+     * Test to get all accounts associated with a GroupID
+     */
+
+    @Test
+    @DisplayName("Test getting all the accounts associated with a GroupID - Happy Case")
+    void getAccountsByGroupIDHappyCase() throws Exception {
+
+        //ARRANGE:
+        //Arrange the uri used to consult all the accounts associated with a group:
+        String uri = "/groups/Rick and Morty/accounts";
+
+        //Arrange the expected string that will be returned:
+        String expected = "[{\"ownerID\":\"RICK AND MORTY\"," +
+                "\"denomination\":\"FUEL\"," + "\"description\":\"SHIP FUEL STATION\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/RICK%20AND%20MORTY/accounts/FUEL\"}]}," +
+                "{\"ownerID\":\"RICK AND MORTY\"," +
+                "\"denomination\":\"ALCOHOL\"," + "\"description\":\"IMPORTANT FOR ADVENTURES\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/RICK%20AND%20MORTY/accounts/ALCOHOL\"}]}," +
+                "{\"ownerID\":\"RICK AND MORTY\"," +
+                "\"denomination\":\"MONEY FOR MORTY\"," + "\"description\":\"MONEY TO COMPENSATE MORTY\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/RICK%20AND%20MORTY/accounts/MONEY%20FOR%20MORTY\"}]}]";
+
+        //ACT:
+        //Getting the MvcResult:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        //Actual status that is returned
+        int status = mvcResult.getResponse().getStatus();
+
+        //Actual string that is returned:
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //ASSERT: (assert if the status is the expected (200 = OK), and assert if the returned String is equal to the expected one:
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Test getting all the accounts associated with a GroupID - Different String")
+    void getAccountsByGroupIDFailCase() throws Exception {
+
+        //ARRANGE:
+        //Arrange the uri used to consult all the accounts associated with a group:
+        String uri = "/groups/Rick and Morty/accounts";
+
+        //Arrange the expected string that will be returned:
+        String expected = "[{\"ownerID\":\"RICK AND MORTY\"," +
+                "\"denomination\":\"FUEL\"," + "\"description\":\"SHIP FUEL STATION\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/RICK%20AND%20MORTY/accounts/FUEL\"}]}," +
+                "{\"ownerID\":\"RICK AND MORTY\"," +
+                "\"denomination\":\"ALCOHOL\"," + "\"description\":\"IMPORTANT FOR ADVENTURES\"," +
+                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/RICK%20AND%20MORTY/accounts/ALCOHOL\"}]}]";
+
+        //ACT:
+        //Getting the MvcResult:
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        //Actual string that is returned:
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //ASSERT: (assert if the status is the expected (200 = OK), and assert if the returned String is equal to the expected one:
+        assertFalse(expected == result);
+    }
 }

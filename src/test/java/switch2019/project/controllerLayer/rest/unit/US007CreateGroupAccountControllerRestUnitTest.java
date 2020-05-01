@@ -1,5 +1,6 @@
 package switch2019.project.controllerLayer.rest.unit;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,9 @@ import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 import switch2019.project.controllerLayer.rest.US007CreateGroupAccountControllerRest;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -419,6 +423,37 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
     }
 
+    /**
+     * Testing if all accounts associated with a GroupID can be retrieved
+     */
+    @Test
+    @DisplayName("Test getting all accounts associated with a GroupID")
+    void getAccountsByGroupID() {
+
+        //ARRANGE:
+        //Arrange the Group Description:
+        String groupDescription = "Rick and Morty";
+
+        //Arrange the expected set of AccountDTOs with the associated accounts:
+        Set<AccountDTO> expectedGroupAccounts = new LinkedHashSet<>();
+        expectedGroupAccounts.add(new AccountDTO(groupDescription, "Money for Morty", "Money to compensate morty"));
+        expectedGroupAccounts.add(new AccountDTO(groupDescription, "Fuel", "Ship fuel station"));
+        expectedGroupAccounts.add(new AccountDTO(groupDescription, "Alcohol", "Important for adventures"));
+
+        //Arrange the expected response entity
+        ResponseEntity<Object> responseEntityExpected = new ResponseEntity<>(expectedGroupAccounts, HttpStatus.OK);
+
+        //ACT:
+        Mockito.when(service.getAccountsByGroupID(groupDescription)).thenReturn(expectedGroupAccounts);
+
+        ResponseEntity<Object> responseEntityResult = controller.getAccountsByGroupID(groupDescription);
+
+        //ASSERT:
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.OK, responseEntityResult.getStatusCode())
+        );
+    }
 
 
 }

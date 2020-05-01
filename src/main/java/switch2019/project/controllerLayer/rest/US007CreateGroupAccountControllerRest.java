@@ -42,6 +42,12 @@ public class US007CreateGroupAccountControllerRest {
 
         result.add(selfLink);
 
+        Link allAccountsLink = linkTo(methodOn(US007CreateGroupAccountControllerRest.class)
+                .getAccountsByGroupID(result.getOwnerID()))
+                .withSelfRel();
+
+        result.add(allAccountsLink);
+
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
