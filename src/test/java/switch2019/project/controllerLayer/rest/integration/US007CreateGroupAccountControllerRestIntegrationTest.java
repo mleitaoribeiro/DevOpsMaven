@@ -71,8 +71,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(201, status),
                 () -> assertEquals(expected, result)
         );
-
-
     }
 
     @Test
