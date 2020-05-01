@@ -5,11 +5,10 @@ skinparam DefaultFontSize 20
 title US003 Sequence Diagram - Happy Case
 
 participant "HTTP Client (Test)"
-participant "resultAction:ResultAction"
 participant "inputDTO:\naddMemberInfoDTO"
-participant "postRequest:\nRequestBuilder"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
+participant "infoDTO:CreatePersonAccountInfoDTO"
 participant "restController:US003AddMemberToGroupControllerRest"
 participant "service:US003AddMemberToGroupService"
 participant ":GroupDTOAssembler"
@@ -17,36 +16,31 @@ participant "personRep:PersonRepository"
 participant "groupsRep:GroupsRepository"
 participant "group:Group"
 
-
-
+autonumber 1
 create "inputDTO:\naddMemberInfoDTO"
 activate "HTTP Client (Test)" #FFBBBB
-"HTTP Client (Test)" -> "inputDTO:\naddMemberInfoDTO": inputDTO = new AddMemberInfoDTO\n(personEmail, groupDescription);
+"HTTP Client (Test)" -> "inputDTO:\naddMemberInfoDTO": inputDTO = new AddMemberInfoDTO\n(personEmail);
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
 == Act ==
 
-create "postRequest:\nRequestBuilder"
-"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = POST=/addMember {inputJson}
-
-create "mvc:MockMvc"
-"HTTP Client (Test)" -> "mvc:MockMvc" : perform(postRequest)
+"HTTP Client (Test)" -> "mvc:MockMvc" : POST /groups/{groupDescription}/members {inputJson}
 activate "mvc:MockMvc"  #FFBBBB
 
-autonumber 4.1
+autonumber 3.1
 "mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
 
 create "infoDTO:CreatePersonAccountInfoDTO"
 "mvc:MockMvc"->"infoDTO:CreatePersonAccountInfoDTO": create
 
 create "restController:US003AddMemberToGroupControllerRest"
-"mvc:MockMvc"-> "restController:US003AddMemberToGroupControllerRest" : addMember (addMemberInfoDTO)
+"mvc:MockMvc"-> "restController:US003AddMemberToGroupControllerRest" : addMember(groupDescription, addMemberInfoDTO)
 
-autonumber 1.2.1
+autonumber 3.3.1
 activate "restController:US003AddMemberToGroupControllerRest" #FFBBBB
-"restController:US003AddMemberToGroupControllerRest" -> ":GroupDTOAssembler": addMemberDTO = transformIntoAddMemberDTO(addMemberInfoDTO)
+"restController:US003AddMemberToGroupControllerRest" -> ":GroupDTOAssembler": addMemberDTO = transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription)
 
-autonumber 1.2.1.1
+autonumber 3.3.1.1
 
 activate ":GroupDTOAssembler" #FFBBBB
 
@@ -55,19 +49,15 @@ activate ":GroupDTOAssembler" #FFBBBB
 activate "addMemberInfoDTO: AddMemberInfoDTO" #FFBBBB
 deactivate "addMemberInfoDTO: AddMemberInfoDTO" #FFBBBB
 
-":GroupDTOAssembler" -> "addMemberInfoDTO: AddMemberInfoDTO": groupDescription = getGroupDescription()
-activate "addMemberInfoDTO: AddMemberInfoDTO" #FFBBBB
-deactivate "addMemberInfoDTO: AddMemberInfoDTO" #FFBBBB
-
 create "addMemberDTO:AddMemberDTO"
-":GroupDTOAssembler" -> "addMemberDTO:AddMemberDTO": addMemberDTO = new AddMemberDTO(personEmail,groupDescription)
+":GroupDTOAssembler" -> "addMemberDTO:AddMemberDTO": addMemberDTO = new AddMemberDTO(personEmail, groupDescription)
 deactivate ":GroupDTOAssembler"
 
-autonumber 1.2.2
+autonumber 3.3.2
 "restController:US003AddMemberToGroupControllerRest" -> "service:US003AddMemberToGroupService" : addedMemberDTO = createGroup(addMemberDTO)
 
 
-autonumber 1.2.2.1
+autonumber 3.3.2.1
 activate "service:US003AddMemberToGroupService" #FFBBBB
 "service:US003AddMemberToGroupService" -> "addMemberDTO:AddMemberDTO" : personEmail = getPersonEmail()
 activate "addMemberDTO:AddMemberDTO" #FFBBBB
@@ -84,48 +74,36 @@ deactivate "addMemberDTO:AddMemberDTO"
 "service:US003AddMemberToGroupService" -> "groupsRep:GroupsRepository" : group = findGroupByDescription(groupDescription)
 activate "groupsRep:GroupsRepository" #FFBBBB
 
-autonumber 1.2.2.4.1
+autonumber 3.3.2.4.1
 
 "groupsRep:GroupsRepository" -> "group:Group" : boolean wasMemberAdded = add(person)
 activate "group:Group" #FFBBBB
 deactivate "groupsRep:GroupsRepository" #FFBBBB
 deactivate "group:Group" #FFBBBB
 
-autonumber 1.2.2.5
+autonumber 3.3.2.5
 "service:US003AddMemberToGroupService" -> ":GroupDTOAssembler" : addedMemberDTO = addMemberDTO (groupID)
 activate ":GroupDTOAssembler" #FFBBBB
 
-autonumber 1.2.2.5.1
+autonumber 3.3.2.5.1
 create "addedMemberDTO:AddedMemberDTO"
 ":GroupDTOAssembler" -> "addedMemberDTO:AddedMemberDTO" : new AddedMemberDTO(wasMemberAdded, person, group)
 
 deactivate ":GroupDTOAssembler"
 deactivate "service:US003AddMemberToGroupService"
 
-autonumber 1.3
+autonumber 3.3.3
 return responseEntity = responseEntity<> (addedMemberDTO, HttpStatus.CREATED)
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 
 deactivate "restController:US003AddMemberToGroupControllerRest"
 
-autonumber 4.4
-"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
-create "resultAction:ResultAction"
-"resultAction:ResultAction" <-- "mvc:MockMvc" : create
-activate "resultAction:ResultAction" #FFBBBB
-deactivate "mvc:MockMvc"
-
-autonumber 5
-"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
+autonumber 3.3.5
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
 
 create "mvcResult :MvcResult"
-autonumber 5.1
-"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
-deactivate "resultAction:ResultAction"
-
-autonumber 6
-"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
-activate "mvcResult :MvcResult" #FFBBBB
-deactivate "mvcResult :MvcResult"
+autonumber 4
+"HTTP Client (Test)" --> "mvcResult :MvcResult" : create
 
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
 activate "mvcResult :MvcResult" #FFBBBB
