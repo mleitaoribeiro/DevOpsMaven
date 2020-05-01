@@ -15,6 +15,9 @@ import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 
 @Service
 public class US007CreateGroupAccountService {
@@ -80,5 +83,29 @@ public class US007CreateGroupAccountService {
         return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
     }
 
+    /**
+     * method that finds all accounts by group ID
+     *
+     * @param groupDescription
+     * @return all accounts from a specific group
+     */
 
+    public Set<AccountDTO> getAllAccountsByGroupID(String groupDescription) {
+
+        //Find the ownerID (groupID):
+        OwnerID groupID = groupsRepository.findGroupByDescription(new Description(groupDescription)).getID();
+
+        //Getting all accounts associated with a groupID:
+        Set<Account> accounts = accountRepository.returnAccountsByOwnerID(groupID);
+
+        //Create a new set to receive all the AccountDTOs associated with the groupID:
+        Set<AccountDTO> accountDTOSet = new LinkedHashSet<>();
+
+        //Creating an accountDTO in the new set for each entry in the accounts set:
+        for (Account i : accounts)
+            accountDTOSet.add(AccountDTOAssembler.createAccountDTOFromDomainObject(i));
+
+        //returning the ser with the information of the accounts of a group:
+        return accountDTOSet;
+    }
 }

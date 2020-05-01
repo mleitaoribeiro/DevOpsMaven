@@ -478,5 +478,18 @@ public class Bootstrapper {
         accountRepository.createAccount(new Denomination("Home"),
                 new Description("Home Expenses"), new PersonID(new Email("1191782@isep.ipp.pt")));
 
+        // Accounts for Group - rickAndMortyGroup:
+        accountRepository.createAccount(new Denomination("Money for Morty"),
+                new Description("Money to compensate morty"),
+                new GroupID(new Description("Rick and Morty")));
+
+        accountRepository.createAccount(new Denomination("Fuel"),
+                new Description("Ship fuel station"),
+                new GroupID(new Description("Rick and Morty")));
+
+        accountRepository.createAccount(new Denomination("Alcohol"),
+                new Description("Important for adventures"),
+                new GroupID(new Description("Rick and Morty")));
+
     }
 }
