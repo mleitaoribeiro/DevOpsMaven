@@ -4,12 +4,11 @@ skinparam DefaultFontSize 25
 title US006 Sequence Diagram - Happy Case  #6495ED
 
 participant "HTTP Client (Test)"
-participant "resultAction:ResultAction"
 participant "inputDTO:\ncreatePersonAccountInfoDTO"
-participant "postRequest:\nRequestBuilder"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
 participant "restController:US006CreatePersonAccountControllerRest"
+participant "accountDTO:AccountDTO"
 participant ":AccountDTOAssembler"
 participant "service:US006CreatePersonAccountService"
 participant "infoDTO:CreatePersonAccountInfoDTO"
@@ -18,38 +17,30 @@ participant "infoDTO:CreatePersonAccountInfoDTO"
 autonumber
 
 create "inputDTO:\ncreatePersonAccountInfoDTO"
+"HTTP Client (Test)" -> "inputDTO:\ncreatePersonAccountInfoDTO": inputDTO = new CreatePersonAccountInfoDTO\n(accountDenomination, accountDescription);
 activate "HTTP Client (Test)" #FFBBBB
-"HTTP Client (Test)" -> "inputDTO:\ncreatePersonAccountInfoDTO": inputDTO = new CreatePersonAccountInfoDTO\n(personEmail, accountDenomination, accountDescription);
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
 == Act ==
 
-create "postRequest:\nRequestBuilder"
-"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : postRequest = POST=/createPersonAccount {inputJson}
-
 create "mvc:MockMvc"
-"HTTP Client (Test)" -> "mvc:MockMvc" : perform(postRequest)
+"HTTP Client (Test)" -> "mvc:MockMvc" :POST /person/{personEmail}/accounts {inputJson}
 activate "mvc:MockMvc"  #FFBBBB
 
-autonumber 4.1
+autonumber 3.1
 "mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
 
 create "infoDTO:CreatePersonAccountInfoDTO"
-"mvc:MockMvc"->"infoDTO:CreatePersonAccountInfoDTO": create
+"mvc:MockMvc"-->"infoDTO:CreatePersonAccountInfoDTO": create
 
-create "restController:US006CreatePersonAccountControllerRest"
-"mvc:MockMvc"-> "restController:US006CreatePersonAccountControllerRest": createPersonAccount(infoDTO)
+"mvc:MockMvc"-> "restController:US006CreatePersonAccountControllerRest": createPersonAccount(personEmail, infoDTO)
 activate "restController:US006CreatePersonAccountControllerRest" #FFBBBB
 
-autonumber 4.3.1
-"restController:US006CreatePersonAccountControllerRest"-> ":AccountDTOAssembler": createPersonAccountDTO =\ntransformIntoCreatePersonAccountDTO(infoDTO)
+autonumber 3.3.1
+"restController:US006CreatePersonAccountControllerRest"-> ":AccountDTOAssembler": createPersonAccountDTO = transformIntoCreate\nPersonAccountDTO(personEmail, infoDTO)
 activate ":AccountDTOAssembler"  #FFBBBB
 
-autonumber 4.3.1.1
-":AccountDTOAssembler" -> "infoDTO:CreatePersonAccountInfoDTO" : personEmail = getPersonEmail();
-activate "infoDTO:CreatePersonAccountInfoDTO"  #FFBBBB
-deactivate "infoDTO:CreatePersonAccountInfoDTO"
-
+autonumber 3.3.1.1
 ":AccountDTOAssembler" -> "infoDTO:CreatePersonAccountInfoDTO" : accountDescription = getAccountDescription();
 activate "infoDTO:CreatePersonAccountInfoDTO"  #FFBBBB
 deactivate "infoDTO:CreatePersonAccountInfoDTO"
@@ -62,11 +53,11 @@ create "createPersonAccountDTO:CreatePersonAccountDTO"
 ":AccountDTOAssembler" -> "createPersonAccountDTO:CreatePersonAccountDTO": new CreatePersonAccountDTO\n(personEmail, accountDenomination, accountDescription)
 deactivate ":AccountDTOAssembler"
 
-autonumber 4.3.2
-"restController:US006CreatePersonAccountControllerRest"->"service:US006CreatePersonAccountService": accountDTO = createPersonAccount(createPersonAccountDTO)
+autonumber 3.3.2
+"restController:US006CreatePersonAccountControllerRest"->"service:US006CreatePersonAccountService": createPersonAccount(createPersonAccountDTO)
 activate "service:US006CreatePersonAccountService" #FFBBBB
 
-autonumber 4.3.2.1
+autonumber 3.3.2.1
 "service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : personEmail = getPersonEmail()
 activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
 deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
@@ -86,14 +77,18 @@ deactivate "personRepo:PersonRepository"
 "service:US006CreatePersonAccountService" -> "accountRepo:AccountRepository" : createAccount(accountDenomination, accountDescription, personID)
 activate "accountRepo:AccountRepository" #FFBBBB
 
-autonumber 4.3.2.5.1
+autonumber 3.3.2.5.1
 "accountRepo:AccountRepository" -> "accountRepo:AccountRepository" : add(account)
 
 "accountRepo:AccountRepository" --> "service:US006CreatePersonAccountService" : account
 deactivate "accountRepo:AccountRepository" #FFBBBB
 
-activate  ":AccountDTOAssembler" #FFBBBB
 "service:US006CreatePersonAccountService" -> ":AccountDTOAssembler": createAccountDTOFromDomainObject(account)
+activate  ":AccountDTOAssembler" #FFBBBB
+
+autonumber 3.3.2.5.3.1
+create "accountDTO:AccountDTO"
+":AccountDTOAssembler" --> "accountDTO:AccountDTO" : create
 
 ":AccountDTOAssembler" --> "service:US006CreatePersonAccountService" : accountDTO
 deactivate ":AccountDTOAssembler"
@@ -101,40 +96,40 @@ deactivate ":AccountDTOAssembler"
 "service:US006CreatePersonAccountService" --> "restController:US006CreatePersonAccountControllerRest" : accountDTO
 deactivate "service:US006CreatePersonAccountService"
 
-"restController:US006CreatePersonAccountControllerRest" -> "mvc:MockMvc": responseEntity = responseEntity<>\n(accountDTO,HttpStatus.CREATED)
+autonumber 3.3.3
+|||
+"restController:US006CreatePersonAccountControllerRest"->"restController:US006CreatePersonAccountControllerRest": selfLink = /persons/{ownerID}/accounts/{accountDenomination}
+"restController:US006CreatePersonAccountControllerRest"-> "accountDTO:AccountDTO": add(selfLink)
+activate "accountDTO:AccountDTO" #FFBBBB
+deactivate "accountDTO:AccountDTO" #FFBBBB
+"restController:US006CreatePersonAccountControllerRest"->"restController:US006CreatePersonAccountControllerRest": accountsLink = /persons/{ownerID}/accounts
+"restController:US006CreatePersonAccountControllerRest"-> "accountDTO:AccountDTO": add(accountsLink)
+activate "accountDTO:AccountDTO" #FFBBBB
+deactivate "accountDTO:AccountDTO" #FFBBBB
+
+"restController:US006CreatePersonAccountControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(accountDTO,HttpStatus.CREATED)
 deactivate "restController:US006CreatePersonAccountControllerRest"
 
-autonumber 4.4
+autonumber 3.4
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
-create "resultAction:ResultAction"
-"resultAction:ResultAction" <-- "mvc:MockMvc" : create
-activate "resultAction:ResultAction" #FFBBBB
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
 deactivate "mvc:MockMvc"
 
-autonumber 5
-"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
-
+|||
+autonumber 4
 create "mvcResult :MvcResult"
-autonumber 5.1
-"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
-deactivate "resultAction:ResultAction"
-
-autonumber 6
-"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : create
 activate "mvcResult :MvcResult" #FFBBBB
-deactivate "mvcResult :MvcResult"
 
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
-activate "mvcResult :MvcResult" #FFBBBB
-deactivate "mvcResult :MvcResult"
-
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
-activate "mvcResult :MvcResult" #FFBBBB
-deactivate "mvcResult :MvcResult"
+deactivate "mvcResult :MvcResult" #FFBBBB
+
 
 == Assert ==
 
 "HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
-"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expected, result)
+deactivate "HTTP Client (Test)" #FFBBBB
 
 @enduml
