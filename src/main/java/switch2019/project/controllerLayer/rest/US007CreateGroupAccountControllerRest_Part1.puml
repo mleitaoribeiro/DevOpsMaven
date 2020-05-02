@@ -30,7 +30,7 @@ autonumber 3.1
 create "info:createGroupAccountInfoDTO"
 "mvc:MockMvc"-->"info:createGroupAccountInfoDTO" :create
 
-"mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": addGroupAccount(groupDescription, info)
+"mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": responseEntity = addGroupAccount(groupDescription, info)
 activate "restController:\nUS007CreateGroupAccountControllerRest" #FFBBBB
 autonumber 3.3.1
 "restController:\nUS007CreateGroupAccountControllerRest"-> "AccountDTOAssembler":transformToCreateGroupAccountDTO(groupDescription, info)
@@ -54,13 +54,16 @@ autonumber 3.3.2.1
 |||
 ref over "service:US007CreateGroupAccountService": US007CreateGroupAccountControllerRest_Part2
 "service:US007CreateGroupAccountService" --> "restController:\nUS007CreateGroupAccountControllerRest" : accountDTO
+|||
 autonumber 3.3.3
 deactivate "service:US007CreateGroupAccountService" #FFBBBB
 "restController:\nUS007CreateGroupAccountControllerRest"->"restController:\nUS007CreateGroupAccountControllerRest": selfLink = /groups/{ownerID}/accounts/{accountDenomination}
 "restController:\nUS007CreateGroupAccountControllerRest"-> "accountDTO:AccountDTO": add(selfLink)
 "restController:\nUS007CreateGroupAccountControllerRest"->"restController:\nUS007CreateGroupAccountControllerRest": accountsLink = /groups/{groupDescription}/accounts
 "restController:\nUS007CreateGroupAccountControllerRest"-> "accountDTO:AccountDTO": add(accountsLink)
-"restController:\nUS007CreateGroupAccountControllerRest"--> "mvc:MockMvc":responseEntity=responseEntity<>(accountDTO,HttpStatus.CREATED)
+|||
+create "responseEntity:ResponseEntity"
+"restController:\nUS007CreateGroupAccountControllerRest" --> "responseEntity:ResponseEntity":create (accountDTO,HttpStatus.CREATED)
 deactivate "restController:\nUS007CreateGroupAccountControllerRest"
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 
