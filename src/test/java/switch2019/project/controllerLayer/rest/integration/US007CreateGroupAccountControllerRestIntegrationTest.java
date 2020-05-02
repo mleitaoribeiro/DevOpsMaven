@@ -47,31 +47,30 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        String expected = "{\"ownerID\":\"FAMILY SIMPSON\"" +
+        String expectedResult = "{\"ownerID\":\"FAMILY SIMPSON\"" +
                 ","+  "\"denomination\":\"" + accountDenomination.toUpperCase() +
                 "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() +
                 "\",\"_links\":{\"self\":[{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts/KWIK%20E%20MART\"}," +
                 "{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts\"}]}}";
 
-        //Act
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        RequestBuilder postRequest = MockMvcRequestBuilders.post(uri)
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson);
+                .content(inputJson))
+                .andExpect(status().isCreated())
+                .andExpect(content().string(expectedResult))
+                .andReturn();
 
-        ResultActions resultAction = mvc.perform(postRequest);
-        MvcResult mvcResult = resultAction.andReturn();
-        MockHttpServletResponse response = mvcResult.getResponse();
-
-        int status = response.getStatus();
-        String result = response.getContentAsString();
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
 
         //Assert
 
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(expectedResult, result)
         );
     }
 
