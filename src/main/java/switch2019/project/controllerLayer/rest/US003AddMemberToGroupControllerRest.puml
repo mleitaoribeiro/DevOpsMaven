@@ -93,7 +93,7 @@ deactivate ":GroupDTOAssembler"
 deactivate "service:US003AddMemberToGroupService"
 
 autonumber 3.3.3
-return responseEntity = responseEntity<> (addedMemberDTO, HttpStatus.CREATED)
+return responseEntity = ResponseEntity<> (addedMemberDTO, HttpStatus.CREATED)
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 
 deactivate "restController:US003AddMemberToGroupControllerRest"

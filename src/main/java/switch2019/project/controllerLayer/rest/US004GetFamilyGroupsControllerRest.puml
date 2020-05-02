@@ -14,90 +14,81 @@ participant "service:US004GetFamilyGroupsService"
 participant ":GroupDTOAssembler"
 participant "groupsRepo:GroupsRepository"
 
-
 autonumber
 activate "HTTP Client (Test)" #FFBBBB
 
 == Act ==
 
 create "postRequest:\nRequestBuilder"
-"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : request = get ("/getFamilyGroups")
-create "mvc:MockMvc"
+"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : GET /groups?type=family
+
 "HTTP Client (Test)" -> "mvc:MockMvc" : perform(request)
 activate "mvc:MockMvc"  #FFBBBB
 
 autonumber 2.1
 create "restController:US004GetFamilyGroupsControllerRest"
-"mvc:MockMvc"-->"restController:US004GetFamilyGroupsControllerRest" :responseEntity = getFamilyGroups()
+"mvc:MockMvc"-->"restController:US004GetFamilyGroupsControllerRest" : getFamilyGroups()
+activate "restController:US004GetFamilyGroupsControllerRest" #FFBBBB
 
 autonumber 2.1.1
-activate "restController:US004GetFamilyGroupsControllerRest" #FFBBBB
-"restController:US004GetFamilyGroupsControllerRest" -> "service:US004GetFamilyGroupsService": familyGroupsDTO = getFamilyGroups()
+"restController:US004GetFamilyGroupsControllerRest" -> "service:US004GetFamilyGroupsService": getFamilyGroups()
 activate "service:US004GetFamilyGroupsService" #FFBBBB
 
-autonumber
-"service:US004GetFamilyGroupsService" -> "groupsRepo:GroupsRepository" : families = returnOnlyFamilies()
+"service:US004GetFamilyGroupsService" -> "groupsRepo:GroupsRepository" : returnOnlyFamilies()
 activate "groupsRepo:GroupsRepository" #FFBBBB
 
-participant "group:Group"
-
-
-
+autonumber 2.1.2.1
+create "familyGroups:Set<Group>"
+"groupsRepo:GroupsRepository" -> "familyGroups:Set<Group>": create
 
 "groupsRepo:GroupsRepository" -> "group:Group" : family = isFamily()
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
+
+"groupsRepo:GroupsRepository" -> "familyGroups:Set<Group>" : add(group)
+activate "familyGroups:Set<Group>" #FFBBBB
+deactivate "familyGroups:Set<Group>"
+
+"groupsRepo:GroupsRepository" --> "service:US004GetFamilyGroupsService" : familyGroups
 deactivate "groupsRepo:GroupsRepository"
-"service:US004GetFamilyGroupsService" --> ":GroupDTOAssembler" : familyGroupsDTO = \n create(groupID())
-activate ":GroupDTOAssembler" #FFBBBB
+
+autonumber 2.1.3
 create "familyGroupsDTO:Set<GroupDTO>"
-":GroupDTOAssembler" --> "familyGroupsDTO:Set<GroupDTO>" : create ()
-deactivate ":GroupDTOAssembler" #FFBBBB
+"service:US004GetFamilyGroupsService" -> "familyGroupsDTO:Set<GroupDTO>": create
+
 "service:US004GetFamilyGroupsService" --> "group:Group" : groupID = getID ()
 activate "group:Group" #FFBBBB
 deactivate "group:Group"
-"service:US004GetFamilyGroupsService" --> ":GroupDTOAssembler" : groupDTO = \n createGroupDTO(groupID())
 
+"service:US004GetFamilyGroupsService" --> ":GroupDTOAssembler" : createGroupDTO(groupID)
 activate ":GroupDTOAssembler" #FFBBBB
+
+autonumber 2.1.5.1
 create "groupDTO:GroupDTO"
-":GroupDTOAssembler" --> "groupDTO:GroupDTO" :create()
-deactivate ":GroupDTOAssembler" #FFBBBB
-"service:US004GetFamilyGroupsService" --> "groupDTO:GroupDTO" : add (groupID)
+":GroupDTOAssembler" -> "groupDTO:GroupDTO" : create(groupID)
+":GroupDTOAssembler" --> "service:US004GetFamilyGroupsService" : groupDTO
+deactivate ":GroupDTOAssembler"
 
-activate "groupDTO:GroupDTO" #FFBBBB
-deactivate "groupDTO:GroupDTO" #FFBBBB
+autonumber 2.1.6
+"service:US004GetFamilyGroupsService" -> "familyGroupsDTO:Set<GroupDTO>" : add(groupDTO)
+activate "familyGroupsDTO:Set<GroupDTO>" #FFBBBB
+deactivate "familyGroupsDTO:Set<GroupDTO>"
 
+"service:US004GetFamilyGroupsService" --> "restController:US004GetFamilyGroupsControllerRest": familyGroupsDTO
 deactivate "service:US004GetFamilyGroupsService"
 
-
-autonumber 2.1.4
-create "responseEntity:ResponseEntity"
-"restController:US004GetFamilyGroupsControllerRest" --> "responseEntity:ResponseEntity": create(familyGroupsDTO, HttpStatus.OK)
-
+"restController:US004GetFamilyGroupsControllerRest" --> "mvc:MockMvc": responseEntity = ResponseEntity<> \n(familyGroupsDTO, HttpStatus.OK)
 deactivate "restController:US004GetFamilyGroupsControllerRest"
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 
 autonumber 2.2
-"mvc:MockMvc" -> "mvc:MockMvc": serialize responseEntity
-
-autonumber 2.3
-create "resultAction:ResultAction"
-"mvc:MockMvc" -> "resultAction:ResultAction" : create
-activate "resultAction:ResultAction" #FFBBBB
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
 deactivate "mvc:MockMvc"
 
 autonumber 3
-
-"HTTP Client (Test)" -> "resultAction:ResultAction" : mvcResult = andReturn()
-
 create "mvcResult :MvcResult"
-autonumber 3.1
-"resultAction:ResultAction" -> "mvcResult :MvcResult" : create
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : create
 deactivate "resultAction:ResultAction"
-
-autonumber 4
-"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse
-activate "mvcResult :MvcResult" #FFBBBB
-deactivate "mvcResult :MvcResult"
 
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
 activate "mvcResult :MvcResult" #FFBBBB

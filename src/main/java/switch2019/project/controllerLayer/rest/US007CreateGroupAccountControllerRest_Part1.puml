@@ -3,7 +3,6 @@ skinparam DefaultFontSize 25
 title US007 Sequence Diagram - Happy Case
 
 participant "HTTP Client (Test)"
-participant "resultAction:ResultActions"
 participant "inputDTO:\ncreateGroupAccountInfoDTO"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
