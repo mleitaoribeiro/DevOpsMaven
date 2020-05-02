@@ -72,7 +72,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
         Mockito.when(service.createGroupAccount(accountControllerDTO)).thenReturn(accountExpectedDTO);
 
         //Act
-        ResponseEntity<AccountDTO> responseEntityResult = controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+        ResponseEntity<AccountDTO> responseEntityResult = controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntityResult);
@@ -105,7 +105,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -141,7 +141,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -174,7 +174,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -210,7 +210,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -245,7 +245,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -279,7 +279,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -312,7 +312,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -345,7 +345,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -378,7 +378,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert
@@ -412,7 +412,7 @@ class US007CreateGroupAccountControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addGroupAccount(groupDescription, groupAccountInfoDTO);
+            controller.createGroupAccount(groupDescription, groupAccountInfoDTO);
         });
 
         //Assert

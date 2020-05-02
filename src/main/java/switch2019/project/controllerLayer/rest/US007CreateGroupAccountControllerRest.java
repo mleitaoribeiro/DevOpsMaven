@@ -28,7 +28,7 @@ public class US007CreateGroupAccountControllerRest {
      * @return
      */
     @PostMapping("/groups/{groupDescription}/accounts")
-    public ResponseEntity<AccountDTO> addGroupAccount(@PathVariable String groupDescription, @RequestBody CreateGroupAccountInfoDTO info)  {
+    public ResponseEntity<AccountDTO> createGroupAccount(@PathVariable String groupDescription, @RequestBody CreateGroupAccountInfoDTO info)  {
 
         //Arrange the entry dto with the given strings:
         CreateGroupAccountDTO dto = AccountDTOAssembler.transformToCreateGroupAccountDTO(groupDescription, info);
