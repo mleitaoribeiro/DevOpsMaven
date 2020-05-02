@@ -46,6 +46,7 @@ public class US005_1AdminAddsCategoryControllerRest {
 
         result.add(selfLink);
 
+
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
@@ -58,7 +59,7 @@ public class US005_1AdminAddsCategoryControllerRest {
      */
     @GetMapping(value = "groups/{groupDescription}/categories/{categoryDescription}")
     public ResponseEntity<Object> getCategoryByCategoryID
-            (@PathVariable final String categoryDescription, @PathVariable final String groupDescription) {
+    (@PathVariable final String categoryDescription, @PathVariable final String groupDescription) {
 
         CategoryDTO result = service.getCategoryByCategoryID(categoryDescription, groupDescription);
 

@@ -631,8 +631,8 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         //Status Request
         String groupDescription = "Switch";
-        String uri="/groups/" + groupDescription + "/categories/";
-        String expected="[{\"categoryDenomination\":\"ISEP\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/ISEP/categories/Switch\"}]},{\"categoryDenomination\":\"GYM\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/GYM/categories/Switch\"}]}]";
+        String uri = "/groups/" + groupDescription + "/categories/";
+        String expected = "[{\"categoryDenomination\":\"ISEP\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/ISEP/categories/Switch\"}]},{\"categoryDenomination\":\"GYM\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/GYM/categories/Switch\"}]}]";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -648,6 +648,30 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         );
     }
 
+    @Test
+    @DisplayName("Test for getCategoriesByGroupID - Not Found")
+    void getCategoriesByGroupDescriptionNotFound() throws Exception {
 
+        //Status Request
+
+        String uri = "/groups/SpiceGirls/categories/";
+
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
+                "\"error\":\"This resource was not found.\"," +
+                "\"message\":\"No category found with that ID.\"}";
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(expectedErrorMessage, result)
+        );
+    }
 
 }
