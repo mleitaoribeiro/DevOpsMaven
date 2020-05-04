@@ -2,7 +2,11 @@ package switch2019.project.controllerLayer.rest.integration;
 
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -255,8 +259,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         //Assert
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
-
-        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
         Assertions.assertAll(

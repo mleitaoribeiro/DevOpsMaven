@@ -68,8 +68,19 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
     }
 
+    /**
+     *
+     * Handler for HttpMessageNotReadableException - occurs when the required request body is missing.
+     *
+     * @param exception
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
+
     @Override
-    protected ResponseEntity<Object>  handleHttpMessageNotReadable(
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException exception,
             HttpHeaders headers,
             HttpStatus status,
@@ -81,9 +92,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, message, error);
 
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
 
 
     /**
