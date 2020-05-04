@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import switch2019.project.DTO.errorDTO.ErrorDTO;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
@@ -64,6 +65,28 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         //Return of the HandleExceptionInternal:
         return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
+    }
+
+    /**
+     * Handler for HttpRequestMethodNotSupportedException - occurs when a request is sent with an unsupported HTTP method
+     *
+     * @param ex
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
+
+    @Override //status 404 - Error Handling
+    protected ResponseEntity<Object> handleNoHandlerFoundException(
+            NoHandlerFoundException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
+
+        ErrorDTO apiError = new ErrorDTO(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), error);
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -120,7 +143,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 exception.getLocalizedMessage(), builder.toString());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
 
     /**
      *
