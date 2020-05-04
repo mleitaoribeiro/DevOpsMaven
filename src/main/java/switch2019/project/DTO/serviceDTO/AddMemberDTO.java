@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class AddMemberDTO {
 
-    final String personEmail;
-    final String groupDescription;
+    private final String personEmail;
+    private final String groupDescription;
 
     public AddMemberDTO(String personEmail, String groupDescription) {
         this.personEmail = personEmail;

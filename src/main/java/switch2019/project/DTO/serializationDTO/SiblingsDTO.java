@@ -5,7 +5,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.util.Objects;
 
 public class SiblingsDTO extends RepresentationModel<PersonIDDTO> {
-    final private String siblings;
+    private final String siblings;
 
     public SiblingsDTO(boolean siblings) {
        if (siblings) {

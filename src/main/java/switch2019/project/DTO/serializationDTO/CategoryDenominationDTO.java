@@ -5,7 +5,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.util.Objects;
 
 public class CategoryDenominationDTO extends RepresentationModel<CategoryDenominationDTO> {
-    private String categoryDenomination;
+    private final String categoryDenomination;
 
     public CategoryDenominationDTO(String categoryDenomination) {
         this.categoryDenomination = categoryDenomination;
