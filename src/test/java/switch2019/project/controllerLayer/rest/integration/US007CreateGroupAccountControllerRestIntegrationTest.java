@@ -7,9 +7,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.time.LocalDateTime;
@@ -98,7 +100,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 "\"error\":\"No permission for this operation.\"," +
                 "\"message\":\"This person is not admin of this group.\"}";
 
-        String expectedResolvedException = "switch2019.project.utils.customExceptions.NoPermissionException: This person is not admin of this group.";
+        String expectedResolvedException = new NoPermissionException ("This person is not admin of this group.").toString();
 
         //Act
 
@@ -204,7 +206,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 "\"message\":\"No person found with that email.\"}";
 
 
-        String expectedResolvedException = "switch2019.project.utils.customExceptions.ArgumentNotFoundException: No person found with that email.";
+        String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
         //Act
 
@@ -252,6 +254,8 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(400, status),
@@ -261,7 +265,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     }
 
     @Test
-    @DisplayName("Test Group Account creation - Invalid URI")
+    @DisplayName("Test Group Account creation - Invalid POST Method")
     void createGroupAndBecomeAdminInvalidURI() throws Exception {
 
         //Arrange
@@ -278,6 +282,8 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
+
+        String expectedResolvedException = new HttpRequestMethodNotSupportedException("POST").toString();
 
         String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
                 "\",\"statusCode\":405," +
@@ -297,10 +303,13 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(405, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
     }
