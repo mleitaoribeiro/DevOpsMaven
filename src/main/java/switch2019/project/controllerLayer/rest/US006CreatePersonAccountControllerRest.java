@@ -7,12 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import switch2019.project.DTO.deserializationDTO.CreatePersonAccountInfoDTO;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
-import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
 import switch2019.project.applicationLayer.US006CreatePersonAccountService;
 import switch2019.project.assemblers.AccountDTOAssembler;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

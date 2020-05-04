@@ -52,8 +52,8 @@ public class AccountInMemoryRepository implements AccountRepository {
      */
 
     public boolean isIDOnRepository(ID accountID) {
-        for (Account accounts : accounts)
-            if (accounts.getID().equals(accountID))
+        for (Account account : accounts)
+            if (account.getID().equals(accountID))
                 return true;
         return false;
     }
