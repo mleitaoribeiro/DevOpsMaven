@@ -21,20 +21,6 @@ public class Group implements Owner {
     private Set<Person> admins;
     private Ledger ledger;
 
-    /**
-     * Default Group constructor
-     *
-     * @param description
-     * @param groupCreator
-     */
-
-    /*public Group(Description description) {
-        setGroupID(description);
-        startingDate = new DateAndTime();
-        members = new HashSet<>();
-        admins = new HashSet<>();
-        ledger = new Ledger();
-    }*/
 
     public Group(Description description, Person groupCreator) {
         setGroupID(description);

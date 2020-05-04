@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class PersonIDDTO extends RepresentationModel<PersonIDDTO>{
 
-    private String personID;
+    private final String personID;
 
     public PersonIDDTO(String personID) {
         this.personID = personID;

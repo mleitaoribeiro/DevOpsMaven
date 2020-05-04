@@ -45,7 +45,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpStatus status,
             final WebRequest request) {
 
-        final List<String> errors = new ArrayList<String>();
+        final List<String> errors = new ArrayList<>();
 
         //Obtaining the errors for each field:
         for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
@@ -86,7 +86,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), error);
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -113,7 +113,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                 exception.getLocalizedMessage(), builder.substring(0, builder.length() - 2));
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -141,7 +141,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.METHOD_NOT_ALLOWED,
                 exception.getLocalizedMessage(), builder.toString());
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -165,7 +165,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -189,7 +189,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "One of the parameters is invalid or is missing.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -213,7 +213,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.CONFLICT, "This resource already exists.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -237,7 +237,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "This resource was not found.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -261,7 +261,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.FORBIDDEN, "No permission for this operation.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<Object>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
     }
 
     /**
@@ -277,7 +277,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAll(Exception someException, WebRequest request) {
         ErrorDTO apiError = new ErrorDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR, someException.getLocalizedMessage(), "error occurred");
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
 }
