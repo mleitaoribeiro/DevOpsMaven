@@ -46,15 +46,44 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpStatus status,
             final WebRequest request) {
 
+        final List<String> errors = new ArrayList<>();
 
-        final String message = "The request body needed to perform the operation is missing";
+        //Obtaining the errors for each field:
+        for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
+            errors.add(error.getField() + ": " +error.getDefaultMessage());
+        }
 
-        final String error = "Required request body is missing";
+        //Obtaining the errors for the objects associated with the fields:
+        for (final ObjectError error : exception.getBindingResult().getFieldErrors()) {
+            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+        }
+
+        //Construction of the error:
+        String error = errors.toString();
+
+        //Construction of the ErrorDTO with all the errors present:
+        final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
+
+        //Return of the HandleExceptionInternal:
+        return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
+    }
+
+    @Override
+    protected ResponseEntity<Object>  handleHttpMessageNotReadable(
+            HttpMessageNotReadableException exception,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+
+        final String message = "The request body needed to perform the operation is missing.";
+
+        final String error = "Required request body is missing.";
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, message, error);
 
-        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
+
 
 
     /**

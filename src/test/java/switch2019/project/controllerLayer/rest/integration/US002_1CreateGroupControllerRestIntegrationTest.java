@@ -358,12 +358,18 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((null));
 
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":400," +
+                "\"status\":\"BAD_REQUEST\"," +
+                "\"error\":\"The request body needed to perform the operation is missing.\"," +
+                "\"message\":\"Required request body is missing.\"}";
+
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(""))
+                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         //Assert
@@ -373,7 +379,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(400, status),
-                () -> assertEquals("", result)
+                () -> assertEquals(expectedErrorMessage,result)
         );
 
     }
