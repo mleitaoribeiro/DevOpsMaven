@@ -261,7 +261,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     }
 
     @Test
-    @DisplayName("Test Group Account creation - Invalid URI")
+    @DisplayName("Test Group Account creation - Invalid POST Method")
     void createGroupAndBecomeAdminInvalidURI() throws Exception {
 
         //Arrange
