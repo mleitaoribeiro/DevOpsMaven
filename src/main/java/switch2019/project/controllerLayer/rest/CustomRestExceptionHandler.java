@@ -78,14 +78,12 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      */
 
     @Override //status 404 - Error Handling
-    protected ResponseEntity<Object> handleNoHandlerFoundException(
-            NoHandlerFoundException ex,
-            HttpHeaders headers,
-            HttpStatus status,
-            WebRequest request) {
-        String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
+    protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex,
+                                                                   HttpHeaders headers,
+                                                                   HttpStatus status,
+                                                                   WebRequest request) { ;
 
-        ErrorDTO apiError = new ErrorDTO(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), error);
+        ErrorDTO apiError = new ErrorDTO(HttpStatus.NOT_FOUND, "URI does not exist", "The URI you entered cannot be found");
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
