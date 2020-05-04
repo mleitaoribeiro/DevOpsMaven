@@ -491,5 +491,25 @@ public class Bootstrapper {
                 new Description("Important for adventures"),
                 new GroupID(new Description("Rick and Morty")));
 
+        accountRepository.createAccount(new Denomination("School"),
+                new Description("Materials for school"),
+                new GroupID(new Description("Switch")));
+
+        accountRepository.createAccount(new Denomination("Parties"),
+                new Description("Money for partying"),
+                new GroupID(new Description("Switch")));
+
+        accountRepository.createAccount(new Denomination("Pets"),
+                new Description("Money for pet's expenses"),
+                new GroupID(new Description("Switch")));
+
+        accountRepository.createAccount(new Denomination("Games"),
+                new Description("Computer and board games"),
+                new GroupID(new Description("Switch")));
+
+        accountRepository.createAccount(new Denomination("House"),
+                new Description("Food and cleaning produts"),
+                new GroupID(new Description("Switch")));
+
     }
 }
