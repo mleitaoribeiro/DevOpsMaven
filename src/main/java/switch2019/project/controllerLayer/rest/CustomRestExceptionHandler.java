@@ -39,7 +39,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @Override // status 400 - Errors Handling
+    @Override // status 400
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             final MethodArgumentNotValidException exception,
             final HttpHeaders headers,
@@ -79,7 +79,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @Override
+    @Override //status 400
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException exception,
             HttpHeaders headers,
@@ -106,7 +106,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @Override //status 404 - Error Handling
+    @Override //status 404
     protected ResponseEntity<Object> handleNoHandlerFoundException(
             NoHandlerFoundException ex,
             HttpHeaders headers,
@@ -128,19 +128,18 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @Override
+    @Override //status 415
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(
             HttpMediaTypeNotSupportedException exception,
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(exception.getContentType());
-        builder.append(" media type is not supported. Supported media types are ");
-        exception.getSupportedMediaTypes().forEach(t -> builder.append(t).append(", "));
+
+        String builder = exception.getContentType() + " media type is not supported.";
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-                exception.getLocalizedMessage(), builder.substring(0, builder.length() - 2));
+                exception.getLocalizedMessage(), builder);
+
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
@@ -155,7 +154,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @Override //status 405 - Error Handling
+    @Override //status 405
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
             HttpRequestMethodNotSupportedException exception,
             HttpHeaders headers,
@@ -181,7 +180,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class }) //status 400
     public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
             final MethodArgumentTypeMismatchException exception,
             final WebRequest request) {
@@ -205,7 +204,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @ExceptionHandler({ IllegalArgumentException.class })
+    @ExceptionHandler({ IllegalArgumentException.class }) //status 422
     public ResponseEntity<Object> handleIllegalArgumentException(
             final IllegalArgumentException exception,
             final WebRequest request) {
@@ -229,7 +228,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @ExceptionHandler({ ResourceAlreadyExistsException.class })
+    @ExceptionHandler({ ResourceAlreadyExistsException.class }) //status 409
     public ResponseEntity<Object> handleResourceAlreadyExistsException(
             final ResourceAlreadyExistsException exception,
             final WebRequest request) {
@@ -253,7 +252,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @ExceptionHandler({ ArgumentNotFoundException.class })
+    @ExceptionHandler({ ArgumentNotFoundException.class }) //status 422
     public ResponseEntity<Object> handleArgumentNotFoundException(
             final ArgumentNotFoundException exception,
             final WebRequest request) {
@@ -277,7 +276,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
 
-    @ExceptionHandler({ NoPermissionException.class })
+    @ExceptionHandler({ NoPermissionException.class }) //status 403
     public ResponseEntity<Object> handleNoPermissionException(
             final NoPermissionException exception,
             final WebRequest request) {

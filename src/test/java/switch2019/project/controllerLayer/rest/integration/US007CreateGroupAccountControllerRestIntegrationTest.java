@@ -382,10 +382,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 "\",\"statusCode\":415," +
                 "\"status\":\"UNSUPPORTED_MEDIA_TYPE\"," +
                 "\"error\":\"Content type 'application/xml' not supported\"," +
-                "\"message\":\"application/xml media type is not supported. Supported media types are " +
-                "application/hal+json, application/octet-stream, text/plain, application/xml, text/xml, " +
-                "application/x-www-form-urlencoded, application/*+xml, multipart/form-data, multipart/mixed," +
-                " application/json, application/*+json, */*\"}";
+                "\"message\":\"application/xml media type is not supported.\"}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
