@@ -1,7 +1,9 @@
 package switch2019.project.controllerLayer.rest.integration;
 
 import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
@@ -252,14 +254,14 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(expectedErrorMessage, result)
         );
     }
-/*
+
     @Test
     @DisplayName("Test getPersonEmail- Happy case")
     public void getPersonEmail() throws Exception {
         //Arrange
-        String uri = "/persons/hugo.azevedo@gmail.com";
+        String uri = "/persons/1110120@isep.ipp.pt";
 
-        String expected = "{\"personID\":\"hugo.azevedo@gmail.com\"}";
+        String expected = "{\"personID\":\"1110120@isep.ipp.pt\"}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -274,13 +276,13 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(expected, result)
         );
     }
-*/
-/*
+
+
     @Test
     @DisplayName("Test getPersonEmail- Person Not Found")
     public void getPersonEmailNotFound() throws Exception {
         // Arrange
-        String uri = "/persons/h.azevedo@gmail.com";
+        String uri = "/persons/o@isep.ipp.pt";
 
         String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withSecond(0).withNano(0) + "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
                 "\"error\":\"This resource was not found.\"," +
@@ -305,5 +307,4 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         );
     }
 
-*/
 }

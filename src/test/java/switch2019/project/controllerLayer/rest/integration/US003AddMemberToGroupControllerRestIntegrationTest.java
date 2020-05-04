@@ -217,15 +217,14 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
     }
 
-/*
     @Test
     @DisplayName("Test for get person - not member of group")
     void getPersonByIDHappyCase() throws Exception {
         //Status Request
-        String personEmail = "morty@gmail.com";
-        String groupDescription = "Rick And Morty";
+        String personEmail = "1110120@isep.ipp.pt";
+        String groupDescription = "SWitCH";
         String uri = "/groups/" + groupDescription + "/members/" + personEmail;
-        String expected = "{\"personID\":\"morty@gmail.com\"}";
+        String expected = "{\"personID\":\"1110120@isep.ipp.pt\"}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -240,14 +239,14 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expected, result)
         );
     }
-*/
-/*
+
+
     @Test
     @DisplayName("Test for get person - not member of group")
     void getPersonByID() throws Exception {
         //Status Request
-        String personEmail = "morty@gmail.com";
-        String groupDescription = "switch";
+        String personEmail = "1110120@isep.ipp.pt";
+        String groupDescription = "Rick and Morty";
         String uri = "/groups/" + groupDescription + "/members/" + personEmail;
 
         String expectedErrorMessage = "{\"timestamp\":\""+ LocalDateTime.now().withSecond(0).withNano(0) +"\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
@@ -280,7 +279,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
 
     }
-/*
+
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
     void getMembersByGroupDescriptionException() throws Exception {
@@ -306,7 +305,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expected, result)
         );
     }
-*/
+
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Exception - No group found with that description")
     void getAdminsByGroupDescriptionException() throws Exception {
