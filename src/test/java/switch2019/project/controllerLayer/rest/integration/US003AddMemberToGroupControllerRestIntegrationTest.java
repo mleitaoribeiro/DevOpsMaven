@@ -167,8 +167,6 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedException, realException)
         );
-
-
     }
 
 
@@ -219,7 +217,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
     }
 
-
+/*
     @Test
     @DisplayName("Test for get person - not member of group")
     void getPersonByIDHappyCase() throws Exception {
@@ -242,7 +240,8 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expected, result)
         );
     }
-
+*/
+/*
     @Test
     @DisplayName("Test for get person - not member of group")
     void getPersonByID() throws Exception {
@@ -281,7 +280,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
 
     }
-
+/*
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
     void getMembersByGroupDescriptionException() throws Exception {
@@ -307,7 +306,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expected, result)
         );
     }
-
+*/
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Exception - No group found with that description")
     void getAdminsByGroupDescriptionException() throws Exception {

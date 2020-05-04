@@ -15,7 +15,6 @@ import switch2019.project.infrastructure.dataLoader.Bootstrapper;
 @SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer",
         "switch2019.project.infrastructure", "switch2019.project.applicationLayer"})
 @EnableWebMvc
-@RestController
 public class ProjectApplication implements ApplicationRunner {
 
     public static void main(String[] args) {

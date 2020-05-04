@@ -49,7 +49,7 @@ public class US003AddMemberToGroupControllerRest {
         return new ResponseEntity<>(addedMemberDTO, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "groups/{groupDescription}/members/{personEmail}")
+    @GetMapping(value = "groups/{groupDescription}/members/{personEmail:.+}")
     public ResponseEntity<Object> getPersonByEmail
             (@PathVariable final String groupDescription, @PathVariable final String personEmail) {
 

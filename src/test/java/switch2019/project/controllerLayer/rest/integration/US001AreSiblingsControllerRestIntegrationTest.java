@@ -252,7 +252,7 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(expectedErrorMessage, result)
         );
     }
-
+/*
     @Test
     @DisplayName("Test getPersonEmail- Happy case")
     public void getPersonEmail() throws Exception {
@@ -274,7 +274,8 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(expected, result)
         );
     }
-
+*/
+/*
     @Test
     @DisplayName("Test getPersonEmail- Person Not Found")
     public void getPersonEmailNotFound() throws Exception {
@@ -304,5 +305,5 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
         );
     }
 
-
+*/
 }

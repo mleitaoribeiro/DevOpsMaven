@@ -23,7 +23,7 @@ public class US001AreSiblingsControllerRest {
     @Autowired
     US001AreSiblingsService service;
 
-    @GetMapping("/persons/{personEmail1}/siblings/{personEmail2}")
+    @GetMapping("/persons/{personEmail1:.+}/siblings/{personEmail2:.+}")
     public ResponseEntity<SiblingsDTO> areSiblings(@PathVariable String personEmail1, @PathVariable String personEmail2) {
 
         AreSiblingsDTO areSiblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(personEmail1, personEmail2);
@@ -39,7 +39,7 @@ public class US001AreSiblingsControllerRest {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/persons/{personEmail}/siblings")
+    @GetMapping(value = "/persons/{personEmail:.+}/siblings")
     public ResponseEntity<Object> getSiblings(@PathVariable final String personEmail) {
 
         Set<PersonIDDTO> siblingsList = service.getSiblings(personEmail);
@@ -53,7 +53,7 @@ public class US001AreSiblingsControllerRest {
         return new ResponseEntity<>(siblingsList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/persons/{personEmail}")
+    @GetMapping(value = "/persons/{personEmail:.+}")
     public ResponseEntity<Object> getPersonByEmail(@PathVariable final String personEmail) {
         PersonIDDTO personIDDTO = service.getPersonByEmail(personEmail);
         return new ResponseEntity<>(personIDDTO, HttpStatus.OK);
