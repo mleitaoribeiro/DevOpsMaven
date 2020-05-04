@@ -2,11 +2,9 @@ package switch2019.project.controllerLayer.rest.integration;
 
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
@@ -229,8 +227,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals(expectedErrorMessage, result),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
     }
 
     @Test
@@ -349,6 +345,59 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         Assertions.assertAll(
                 () -> assertEquals(404, status),
                 () -> assertEquals("", result)
+        );
+
+    }
+
+    @Test
+    @DisplayName("Test Group Account creation - Invalid MediaType")
+    void createGroupAndBecomeAdminInvalidMediaType() throws Exception {
+
+        //Arrange
+        String uri = "/groups/Family Simpson/accounts";
+
+        //arrangement of the account DTO:
+        final String accountDenomination = "Food Expenses";
+        final String accountDescription = "Money spent on food";
+
+        //setting information for the DTO:
+        CreateGroupAccountInfoDTO infoDTO = new CreateGroupAccountInfoDTO();
+        infoDTO.setAccountDenomination(accountDenomination);
+        infoDTO.setAccountDescription(accountDescription);
+
+        //arrangement of the input:
+        String inputJson = super.mapToJson((infoDTO));
+
+        String expectedResolvedException = new HttpMediaTypeNotSupportedException("Content type 'application/xml' not supported").toString();
+
+        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
+                "\",\"statusCode\":415," +
+                "\"status\":\"UNSUPPORTED_MEDIA_TYPE\"," +
+                "\"error\":\"Content type 'application/xml' not supported\"," +
+                "\"message\":\"application/xml media type is not supported. Supported media types are " +
+                "application/hal+json, application/octet-stream, text/plain, application/xml, text/xml, " +
+                "application/x-www-form-urlencoded, application/*+xml, multipart/form-data, multipart/mixed," +
+                " application/json, application/*+json, */*\"}";
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnsupportedMediaType())
+                .andExpect(content().string(expectedErrorMessage))
+                .andReturn();
+
+        //Assert
+        int status = mvcResult.getResponse().getStatus();
+        String result = mvcResult.getResponse().getContentAsString();
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(415, status),
+                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
     }
