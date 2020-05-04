@@ -11,9 +11,9 @@ public class CreateGroupCategoryDTO {
     categoryDenomination - this String will become the denominationValue of the Denomination which is essentially the name of the Category that will be created.
      */
 
-    private String groupDescription;
-    private String personEmail;
-    private String categoryDenomination;
+    private final String groupDescription;
+    private final String personEmail;
+    private final String categoryDenomination;
 
     public CreateGroupCategoryDTO(String groupDescription, String personEmail, String categoryDenomination) {
         this.groupDescription = groupDescription;

@@ -45,7 +45,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpStatus status,
             final WebRequest request) {
 
-        final List<String> errors = new ArrayList<String>();
+        final List<String> errors = new ArrayList<>();
 
         //Obtaining the errors for each field:
         for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
@@ -78,10 +78,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      */
 
     @Override //status 404 - Error Handling
-    protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex,
-                                                                   HttpHeaders headers,
-                                                                   HttpStatus status,
-                                                                   WebRequest request) { ;
+    protected ResponseEntity<Object> handleNoHandlerFoundException(
+            NoHandlerFoundException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
 
         ErrorDTO apiError = new ErrorDTO(HttpStatus.NOT_FOUND, "URI does not exist", "The URI you entered cannot be found");
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
