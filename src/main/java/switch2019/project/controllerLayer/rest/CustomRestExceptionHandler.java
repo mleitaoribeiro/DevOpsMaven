@@ -46,27 +46,16 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             final HttpStatus status,
             final WebRequest request) {
 
-        final List<String> errors = new ArrayList<>();
 
-        //Obtaining the errors for each field:
-        for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " +error.getDefaultMessage());
-        }
+        final String message = "The request body needed to perform the operation is missing";
 
-        //Obtaining the errors for the objects associated with the fields:
-        for (final ObjectError error : exception.getBindingResult().getFieldErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-        }
+        final String error = "Required request body is missing";
 
-        //Construction of the error:
-        String error = errors.toString();
+        ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, message, error);
 
-        //Construction of the ErrorDTO with all the errors present:
-        final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
-
-        //Return of the HandleExceptionInternal:
-        return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
+
 
     /**
      * Handler for NoHandlerFoundException - Occurs when a URI does not exist.
