@@ -16,14 +16,14 @@ participant "service:\nUS005_1AdminAddsCategoryToGroupService"
 == Arrange ==
 autonumber
 create "inputDTO:\ncreateGroupCategoryInfoDTO"
-"HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(groupDescription,\n personEmail, accountDenomination, accountDescription);
+"HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(\n personEmail, accountDenomination, accountDescription);
 activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
 
 == Act ==
 
-"HTTP Client (Test)" -> "mvc:MockMvc" : POST /addGroupCategory {inputJson}
+"HTTP Client (Test)" -> "mvc:MockMvc" : POST /groups/{groupDescription}/category {inputJson}
 activate "mvc:MockMvc"  #FFBBBB
 
 autonumber 3.1
