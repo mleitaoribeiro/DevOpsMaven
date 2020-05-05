@@ -54,7 +54,7 @@ create "addMemberDTO:AddMemberDTO"
 deactivate ":GroupDTOAssembler"
 
 autonumber 3.3.2
-"restController:US003AddMemberToGroupControllerRest" -> "service:US003AddMemberToGroupService" : addedMemberDTO = createGroup(addMemberDTO)
+"restController:US003AddMemberToGroupControllerRest" -> "service:US003AddMemberToGroupService" : createGroup(addMemberDTO)
 
 
 autonumber 3.3.2.1
@@ -88,11 +88,17 @@ activate ":GroupDTOAssembler" #FFBBBB
 autonumber 3.3.2.5.1
 create "addedMemberDTO:AddedMemberDTO"
 ":GroupDTOAssembler" -> "addedMemberDTO:AddedMemberDTO" : new AddedMemberDTO(wasMemberAdded, person, group)
-
 deactivate ":GroupDTOAssembler"
+
+"service:US003AddMemberToGroupService" --> "restController:US003AddMemberToGroupControllerRest": addedMemberDTO
 deactivate "service:US003AddMemberToGroupService"
 
 autonumber 3.3.3
+"restController:US003AddMemberToGroupControllerRest"->"restController:US003AddMemberToGroupControllerRest": selfLink = /groups/{groupDescription}/members/{personEmail}
+"restController:US003AddMemberToGroupControllerRest"-> "addedMemberDTO:AddedMemberDTO": add(selfLink)
+activate "addedMemberDTO:AddedMemberDTO" #FFBBBB
+deactivate "addedMemberDTO:AddedMemberDTO"
+
 return responseEntity = ResponseEntity<> (addedMemberDTO, HttpStatus.CREATED)
 "mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
 
@@ -113,9 +119,12 @@ deactivate "mvcResult :MvcResult"
 activate "mvcResult :MvcResult" #FFBBBB
 deactivate "mvcResult :MvcResult"
 
+deactivate "mvc:MockMvc"
+
 == Assert ==
 
 "HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
 "HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+deactivate "HTTP Client (Test)"
 
 @enduml
