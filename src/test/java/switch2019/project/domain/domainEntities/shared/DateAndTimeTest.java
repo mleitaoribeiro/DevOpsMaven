@@ -253,6 +253,17 @@ class DateAndTimeTest {
         DateAndTime birthDate = new DateAndTime();
         DateAndTime birthDateCopy = new DateAndTime();
 
+        //Act & Assert
+        assertEquals(birthDate.hashCode(),birthDateCopy.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test hashcode empty Constructor - yearMonthDayHourMinute")
+    public void validateHashcodeEmptyConstructorYearMonthDayHourMinute() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime();
+        DateAndTime birthDateCopy = new DateAndTime();
+
         //Act
         boolean result = birthDate.hashCode() == (birthDateCopy.hashCode());
 
