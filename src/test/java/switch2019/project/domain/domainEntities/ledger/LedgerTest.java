@@ -642,7 +642,7 @@ class LedgerTest {
         //Act
         ledger.sortLedgerByTransactionDateAscending();
         //Assert
-        // assertEquals(expected, ledger.getLedgerTransactions());
+        assertEquals(expected, ledger.getLedgerTransactions());
     }
 
     @Test

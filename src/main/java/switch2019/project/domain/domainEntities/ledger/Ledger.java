@@ -136,9 +136,8 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDateAscending() {
-        //to change:
-        ledgerTransactions.sort((transaction2, transaction1) -> transaction1.getDate().getYearMonthDayHourMinute()
-                .compareTo(transaction2.getDate().getYearMonthDayHourMinute()));
+        sortLedgerByTransactionDateDescending();
+        Collections.reverse(ledgerTransactions);
     }
 
     /**
