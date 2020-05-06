@@ -1,6 +1,8 @@
 package switch2019.project.controllerLayer.rest.integration;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.*;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -19,8 +21,7 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -51,6 +52,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
+
         String expectedResult = "{\"ownerID\":\"FAMILY SIMPSON\"" +
                 ","+  "\"denomination\":\"" + accountDenomination.toUpperCase() +
                 "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() +
@@ -68,13 +70,16 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
-
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(expectedResult, result)
+                () -> assertEquals(result.getString("ownerID"), "FAMILY SIMPSON"),
+                () -> assertEquals(result.getString("denomination"), accountDenomination.toUpperCase()),
+                () -> assertEquals(result.getString("description"), accountDescription.toUpperCase()),
+                () -> assertTrue (result.has("_links"))
         );
     }
 
