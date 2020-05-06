@@ -2,22 +2,13 @@ package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
-import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.repositories.GroupRepository;
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -123,20 +114,5 @@ public class GroupsInMemoryRepository implements GroupRepository {
             }
         }
         return groupsFamily;
-    }
-
-
-    /**
-     * Method to check if a person is admin on a group
-     *
-     * @param groupID
-     * @param person
-     */
-    public boolean checkIfAPersonIsAdminInAGivenGroup(GroupID groupID, Person person) {
-        for (Group group : groups) {
-            if (group.getGroupID().equalsIgnoreCase(groupID.toString()))
-                return group.isGroupAdmin(person);
-        }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 }

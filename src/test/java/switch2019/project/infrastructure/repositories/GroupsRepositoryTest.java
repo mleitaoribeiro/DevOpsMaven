@@ -5,12 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -18,7 +13,6 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -324,60 +318,6 @@ class GroupsRepositoryTest {
         assertEquals(expectedResult, realResult);
     }
 
-    /**
-     * checkIfAPersonIsAdminInAGivenGroup method Tested
-     */
-
-    @Test
-    @DisplayName("Happy Case - Person is Admin")
-    void isPersonAdminOfAGivenGroupTrue() {
-
-        //Arrange:
-        GroupRepository testGroupList = new GroupsInMemoryRepository();
-
-            //Arrange Groups:
-        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
-                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group testGroup = new Group(new Description("test group"),person);
-        testGroupList.addGroupToRepository(testGroup);
-
-            //Arrange Admin:
-        Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        testGroup.addMember(testGroupAdmin);
-
-        //Act:
-        boolean result = testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("test group")),testGroupAdmin);
-
-        //Assert:
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Group Description is not found")
-    void isPersonAdminOfAGivenGroupException() {
-
-        //Arrange:
-        GroupRepository testGroupList = new GroupsInMemoryRepository();
-
-        //Arrange Groups:
-        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
-                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group testGroup = new Group(new Description("test group"),person);
-        testGroupList.addGroupToRepository(testGroup);
-
-        //Arrange Admin:
-        Person testGroupAdmin = new Person("Francisco", new DateAndTime(1999, 7, 22),
-                new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        testGroup.addMember(testGroupAdmin);
-
-        //Act:
-        try {
-            testGroupList.checkIfAPersonIsAdminInAGivenGroup(new GroupID(new Description("blabla")), testGroupAdmin);
-        } catch (ArgumentNotFoundException groupNotFound) {
-            assertEquals("No group found with that description.", groupNotFound.getMessage());
-        }
-    }
 
     @Test
     @DisplayName("getting group by its description")

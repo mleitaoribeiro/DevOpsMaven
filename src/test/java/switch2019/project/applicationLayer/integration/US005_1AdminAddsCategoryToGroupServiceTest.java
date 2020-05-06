@@ -338,14 +338,9 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         //Act
         Set<CategoryDenominationDTO> categories = service.getCategoriesByGroupID(groupDescription);
 
-        //int categoriesAdded = categories.size();
-
-
         Assertions.assertAll(
                 () -> assertTrue(categories.contains(CategoryDTOAssembler.createCategoryDenominationDTO((category)))),
                 () -> assertTrue(categories.contains(CategoryDTOAssembler.createCategoryDenominationDTO((category2))))
-               // () -> assertEquals(2, categoriesAdded)
-
         );
     }
 

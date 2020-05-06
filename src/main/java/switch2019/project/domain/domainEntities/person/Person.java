@@ -105,15 +105,6 @@ public class Person implements Owner {
     }
 
     /**
-     * Develop method to return the ledger size
-     *
-     * @return ledger size
-     */
-    public int ledgerSize() {
-        return ledger.getLedgerSize();
-    }
-
-    /**
      * Getter function for the sibling's list
      *
      * @return siblingList

@@ -1,16 +1,9 @@
 package switch2019.project.domain.domainEntities.group;
 
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.frameworks.Owner;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
-import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Person;
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Group implements Owner {
@@ -66,15 +59,6 @@ public class Group implements Owner {
      */
     public GroupID getID() {
         return groupID;
-    }
-
-    /**
-     * Method used to get group description
-     *
-     * @return description
-     */
-    public String getGroupID() {
-        return groupID.getDescription();
     }
 
     /**
