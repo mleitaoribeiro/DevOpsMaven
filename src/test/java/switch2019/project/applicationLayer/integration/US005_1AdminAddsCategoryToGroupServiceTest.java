@@ -40,7 +40,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String groupDescription = "SWITCH";
         String categoryDenomination = "MONTADITOS";
 
-        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Arrangement of the output DTO:
         CategoryDTO outputDtoExpected = new CategoryDTO(inputDto.getCategoryDenomination(), inputDto.getGroupDescription());
@@ -63,7 +63,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String categoryDenomination = "RIDES";
         String categoryDenomination2 = "CINEMA";
 
-        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO inputDto = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Arrangement of the output DTO:
         CategoryID catID = new CategoryID(new Denomination(categoryDenomination), new GroupID(new Description(groupDescription)));
@@ -85,7 +85,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String groupDescription = "FRIENDS";
         String categoryDenomination = "GYM";
 
-        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Act:
         try {
@@ -106,7 +106,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "bart.simpson@gmail.com";
         String groupDescription = "FAMILY SIMPSON";
         String categoryDenomination = "vacations";
-        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Act:
         try {
@@ -130,8 +130,8 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         //Two Denominations (one for each Dto)
         String categoryDenomination1 = "CANDIES";
         String categoryDenomination2 = "BOWLING";
-        CreateGroupCategoryDTO inputDto1 = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination1);
-        CreateGroupCategoryDTO inputDto2 = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination2);
+        CreateGroupCategoryDTO inputDto1 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination1);
+        CreateGroupCategoryDTO inputDto2 = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination2);
 
 
         //Arrangement of the expected output DTOs:
@@ -162,7 +162,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "1191743@isep.ipp.pt";
         String groupDescription = "SWITCH";
         String categoryDenomination = null;
-        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Act:
         try {
@@ -183,7 +183,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
         String creatorEmail = "1191743@isep.ipp.pt"; // Not a Group admin.
         String groupDescription = "SWITCH";
         String categoryDenomination = "GYM";
-        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription,creatorEmail,categoryDenomination);
+        CreateGroupCategoryDTO dto = new CreateGroupCategoryDTO(groupDescription, creatorEmail, categoryDenomination);
 
         //Act:
         try {
@@ -253,7 +253,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
 
     @Test
     @DisplayName("Test if a category can be found by the ID - category null")
-    void getCategoryByCategoryIDCategoryNull () {
+    void getCategoryByCategoryIDCategoryNull() {
         //Arrange:
         String groupDescription = "SWITCH";
         String categoryDescription = null;
@@ -271,7 +271,7 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
 
     @Test
     @DisplayName("Test if a category can be found by the ID - category empty")
-    void getCategoryByCategoryIDCategoryEmpty () {
+    void getCategoryByCategoryIDCategoryEmpty() {
         //Arrange:
         String groupDescription = "SWITCH";
         String categoryDescription = "";
@@ -326,31 +326,34 @@ public class US005_1AdminAddsCategoryToGroupServiceTest {
     /**
      * Test if an Category can be found by the Group ID
      */
-@Test
-    @DisplayName ("Test to get all categories by the GroupID-Main scenario")
-    void getCategoriesByGroupID(){
+    @Test
+    @DisplayName("Test to get all categories by the GroupID-Main scenario")
+    void getCategoriesByGroupID() {
 
-    //Arrange
-    String groupDescription="Switch";
-    Category category= new Category(new Denomination("GYM"), new GroupID(new Description ("Switch")));
-    Category category2= new Category(new Denomination("Isep"),new GroupID(new Description("SWITCH")));
+        //Arrange
+        String groupDescription = "Switch";
+        Category category = new Category(new Denomination("GYM"), new GroupID(new Description("Switch")));
+        Category category2 = new Category(new Denomination("Isep"), new GroupID(new Description("SWITCH")));
 
-    Set<CategoryDenominationDTO> expectedCategories=new LinkedHashSet<>();
+        //Act
+        Set<CategoryDenominationDTO> categories = service.getCategoriesByGroupID(groupDescription);
 
-    expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO((category)));
-    expectedCategories.add(CategoryDTOAssembler.createCategoryDenominationDTO((category2)));
+        //int categoriesAdded = categories.size();
 
-    //Act
-    Set<CategoryDenominationDTO >categories= service.getCategoriesByGroupID(groupDescription);
 
-    //Assert
-    assertEquals(expectedCategories,categories);
-}
+        Assertions.assertAll(
+                () -> assertTrue(categories.contains(CategoryDTOAssembler.createCategoryDenominationDTO((category)))),
+                () -> assertTrue(categories.contains(CategoryDTOAssembler.createCategoryDenominationDTO((category2))))
+               // () -> assertEquals(2, categoriesAdded)
+
+        );
+    }
+
     @Test
     @DisplayName("Test to get all categories by the Group ID - GroupDescription does not exists")
-    void getCategoriesByGroupIDInvalidGroupDescription()  throws ArgumentNotFoundException{
+    void getCategoriesByGroupIDInvalidGroupDescription() throws ArgumentNotFoundException {
         //Arrange:
-        String groupDescription= "cantarolar";
+        String groupDescription = "cantarolar";
 
         //Act:
         Throwable thrown = catchThrowable(() -> {
