@@ -291,11 +291,12 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("payment"), dateNow, category, account1, account2, new Type (false));
 
+
         //Act
         boolean result = transaction.equals(transaction2);
 
         //Assert
-        //assertEquals(true, result);
+        assertEquals(true, result);
 
     }
 

@@ -44,7 +44,7 @@ public class DateAndTime {
      */
     public DateAndTime() {
         yearMonthDay = LocalDate.now();
-        yearMonthDayHourMinute = LocalDateTime.now();
+        yearMonthDayHourMinute = LocalDateTime.now().withSecond(0).withNano(0);
     }
 
     @Override
@@ -53,7 +53,8 @@ public class DateAndTime {
         if (o == null || getClass() != o.getClass()) return false;
         DateAndTime that = (DateAndTime) o;
         return Objects.equals(yearMonthDay, that.yearMonthDay) &&
-                Objects.equals(yearMonthDayHourMinute, that.yearMonthDayHourMinute);
+                Objects.equals(yearMonthDayHourMinute,
+                        that.yearMonthDayHourMinute);
     }
 
     @Override
