@@ -107,13 +107,13 @@ class LedgerIDTest {
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
                 , new Email("1234@isep.pt"));
         Person person2 = new Person("Ana", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365")
-                , new Email("1234@isep.pt"));
+                new Address("Feira"), new Address("Rua X", "Porto", "4450-365")
+                , new Email("123@isep.pt"));
         LedgerID ledgerID = new LedgerID(person.getID());
         LedgerID ledgerID2 = new LedgerID(person2.getID());
 
         //Act e Assert
-        assertEquals(ledgerID.hashCode(), ledgerID2.hashCode());
+        assertNotEquals(ledgerID.hashCode(), ledgerID2.hashCode());
     }
 
     @Test
