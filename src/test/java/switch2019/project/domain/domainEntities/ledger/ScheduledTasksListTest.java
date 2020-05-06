@@ -4,11 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
-import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.domainEntities.shared.*;
 
 import java.util.Currency;
 
@@ -22,7 +20,9 @@ class ScheduledTasksListTest {
 
         //Arrange
         ScheduledTasksList scheduledTasksList = new ScheduledTasksList();
-        Ledger ledger = new Ledger();
+
+        OwnerID ownerID = new GroupID(new Description("switch"));
+        Ledger ledger = new Ledger(ownerID);
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
