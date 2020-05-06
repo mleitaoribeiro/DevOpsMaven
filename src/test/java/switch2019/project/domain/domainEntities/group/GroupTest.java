@@ -170,35 +170,6 @@ class GroupTest {
         assertFalse(result);
     }
 
-    @Test
-    @DisplayName("Person is not member")
-    public void isGroupMemberFalseCase() {
-        //Arrange
-        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
-                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group = new Group(new Description("Mary"), person);
-        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        //Act
-        boolean isGroupMember = group.isGroupMember(person2.getID());
-
-        //Assert
-        assertFalse(isGroupMember);
-    }
-
-    @Test
-    @DisplayName("Person is not member - null case")
-    public void isGroupMemberNullCase() {
-        //Arrange
-        Person person = null;
-        Group group = new Group(new Description("Mary"),person);
-
-        //Act
-        boolean isGroupMember = group.isGroupMember(person);
-
-        //Assert
-        assertFalse(isGroupMember);
-    }
 
     /**
      * US003 (add a member to a group)
@@ -239,7 +210,6 @@ class GroupTest {
 
         //Assert
         assertFalse(isMemberAddedToGroup);
-
     }
 
     /**
@@ -1201,6 +1171,23 @@ class GroupTest {
         assertFalse(isMember);
     }
 
+    @DisplayName("Check if a person is not in the Group Member List")
+    @Test
+    void isGroupMemberIDNull() {
+        //Arrange:
+        Person admin = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
+        PersonID personID = null;
+
+        Group group1 = new Group(new Description("Group"),admin);
+
+        //Act
+        boolean isMember = group1.isGroupMember(personID);
+
+        //Assert
+        assertFalse(isMember);
+    }
+
 
     /**
      * Test if a person is a Group Member with ID
@@ -1230,6 +1217,7 @@ class GroupTest {
         assertTrue(isMember);
     }
 
+
     @DisplayName("Check if a person is not in the Group Member List")
     @Test
     void isGroupMemberFalse() {
@@ -1254,13 +1242,11 @@ class GroupTest {
     @Test
     void isGroupMemberNull() {
         //Arrange:
-        Person father = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
+        Person admin = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person mother = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
         Person person = null;
 
-        Group group1 = new Group(new Description("Group"),father);
+        Group group1 = new Group(new Description("Group"),admin);
 
         //Act
         boolean isMember = group1.isGroupMember(person);
