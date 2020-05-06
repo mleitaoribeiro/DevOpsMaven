@@ -1,8 +1,10 @@
 package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.LedgerID;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.domainEntities.category.Category;
 
@@ -12,6 +14,7 @@ import java.util.*;
 public class Ledger {
 
     //Private Ledger variables
+    private LedgerID ledgerID;
     private List<Transaction> ledgerTransactions;
     private ScheduledTasksList scheduledTasksList;
 
@@ -23,14 +26,38 @@ public class Ledger {
      * Ledger Constructor
      */
 
-    public Ledger() {
+    public Ledger(OwnerID ownerID) {
+        ledgerID = new LedgerID(ownerID);
         ledgerTransactions = new ArrayList<>();
         scheduledTasksList = new ScheduledTasksList();
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ledger)) return false;
+        Ledger ledger = (Ledger) o;
+        return Objects.equals(ledgerID, ledger.ledgerID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ledgerID);
+    }
+
+    @Override
     public String toString() {
         return "Ledger:" + ledgerTransactions + ".";
+    }
+
+    /**
+     * Get LedgerID
+     *
+     * @return ledger ID
+     */
+
+    public LedgerID getID() {
+        return ledgerID;
     }
 
     /**

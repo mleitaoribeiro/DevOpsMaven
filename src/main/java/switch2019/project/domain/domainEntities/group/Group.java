@@ -20,7 +20,6 @@ public class Group implements Owner {
         startingDate = new DateAndTime();
         members = new HashSet<>();
         admins = new HashSet<>();
-        ledger = new Ledger();
         this.addMember(groupCreator);
     }
 

@@ -10,6 +10,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.domainEntities.frameworks.Owner;
+import switch2019.project.domain.repositories.LedgerRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -45,7 +46,6 @@ public class Person implements Owner {
         this.birthPlace = birthPlace;
         this.birthDate = birthDate;
         siblingList = new HashSet<>();
-        ledger = new Ledger();
         address = homeAddress;
     }
 
@@ -70,7 +70,6 @@ public class Person implements Owner {
         this.mother = mother;
         this.father = father;
         this.siblingList = new HashSet<>();
-        ledger = new Ledger();
     }
 
 
