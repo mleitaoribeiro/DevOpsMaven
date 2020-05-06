@@ -1,20 +1,17 @@
 package switch2019.project.controllerLayer.rest.integration;
 
 import org.junit.jupiter.api.*;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest {
@@ -259,9 +256,9 @@ public class US001AreSiblingsControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test getPersonEmail- Happy case")
     public void getPersonEmail() throws Exception {
         //Arrange
-        String uri = "/persons/1110120@isep.ipp.pt";
+        String uri = "/persons/rick@gmail.com";
 
-        String expected = "{\"personID\":\"1110120@isep.ipp.pt\"}";
+        String expected = "{\"personID\":\"rick@gmail.com\"}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
