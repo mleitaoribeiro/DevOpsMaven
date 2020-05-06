@@ -1377,7 +1377,7 @@ class GroupTest {
         String expected = "TARZAN";
 
         //Act
-        String result = group.getGroupID();
+        String result = group.getID().toString();
 
         //Assert
         assertEquals(expected, result);

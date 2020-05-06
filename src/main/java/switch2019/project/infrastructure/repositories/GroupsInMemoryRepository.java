@@ -115,19 +115,4 @@ public class GroupsInMemoryRepository implements GroupRepository {
         }
         return groupsFamily;
     }
-
-
-    /**
-     * Method to check if a person is admin on a group
-     *
-     * @param groupID
-     * @param person
-     */
-    public boolean checkIfAPersonIsAdminInAGivenGroup(GroupID groupID, Person person) {
-        for (Group group : groups) {
-            if (group.getGroupID().equalsIgnoreCase(groupID.toString()))
-                return group.isGroupAdmin(person);
-        }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
-    }
 }

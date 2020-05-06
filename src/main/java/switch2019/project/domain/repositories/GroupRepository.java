@@ -3,7 +3,6 @@ import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
 import java.util.Set;
 
 public interface GroupRepository extends Repository {
@@ -48,12 +47,5 @@ public interface GroupRepository extends Repository {
      * Method to return Only Families
      */
     Set<Group> returnOnlyFamilies();
-
-    /**
-     * Method to check if a person is admin on a group
-     * @param groupID
-     * @param person
-     */
-    boolean checkIfAPersonIsAdminInAGivenGroup(GroupID groupID, Person person);
 
 }

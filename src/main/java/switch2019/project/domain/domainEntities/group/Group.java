@@ -62,15 +62,6 @@ public class Group implements Owner {
     }
 
     /**
-     * Method used to get group description
-     *
-     * @return description
-     */
-    public String getGroupID() {
-        return groupID.getDescription();
-    }
-
-    /**
      * Add a new person to a group
      *
      * @param person
