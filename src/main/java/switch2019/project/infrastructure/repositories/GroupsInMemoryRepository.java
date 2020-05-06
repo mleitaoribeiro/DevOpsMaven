@@ -125,77 +125,6 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return groupsFamily;
     }
 
-    /**
-     * Method to create a transaction on a specific group
-     *
-     * @param groupDescription
-     * @param amount
-     * @param transactionDescription
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-    public boolean createTransactionOnSpecificGroup(Person person, String groupDescription,
-                                                    MonetaryValue amount, String transactionDescription,
-                                                    LocalDateTime localDate, Category category,
-                                                    Account accountFrom, Account accountTo, Type type) {
-        for (Group group : groups) {
-            if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
-                if (group.isGroupMember(person))
-                    return group.createGroupTransaction(amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
-                else throw new IllegalArgumentException(NOT_A_MEMBER);
-            }
-        }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
-    }
-
-    /**
-     * Method to create a transaction on a specific group
-     *
-     * @param groupDescription
-     * @param amount
-     * @param transactionDescription
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-    public boolean createScheduleOnSpecificGroup(Person person, String groupDescription, Periodicity periodicity, MonetaryValue amount, String transactionDescription,
-                                                 LocalDateTime localDate, Category category,
-                                                 Account accountFrom, Account accountTo, Type type) {
-        for (Group group : groups) {
-            if (group.getGroupID().equalsIgnoreCase(groupDescription)) {
-                if (group.isGroupMember(person))
-                    return group.scheduleNewTransaction(periodicity, amount, transactionDescription, localDate, category, accountFrom, accountTo, type);
-                else throw new NoPermissionException(NOT_A_MEMBER);
-            }
-        }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
-    }
-
-    /**
-     * Method to return the transactions of all the groups a given person is a member on, in a selected date range
-     *
-     * @param person
-     * @param initialDate
-     * @param finalDate
-     */
-    public List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate) {
-        List<Transaction> groupTransactions = new ArrayList<>();
-        Set<Group> groupSet = new HashSet<>();
-        for (Group group : this.groups) {
-            if (group.isGroupMember(person))
-                groupSet.add(group);
-        }
-        for (Group group : groupSet) {
-            groupTransactions.addAll(group.returnGroupLedgerInDateRange(initialDate, finalDate, person));
-        }
-        groupTransactions.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
-        return groupTransactions;
-    }
 
     /**
      * Method to check if a person is admin on a group
@@ -210,18 +139,4 @@ public class GroupsInMemoryRepository implements GroupRepository {
         }
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
-
-    /**
-     * Method to check a specific group ledger size
-     *
-     * @param groupDescription
-     */
-    public int checkAGroupsLedgerSize(String groupDescription) {
-        for (Group group : groups) {
-            if (group.getGroupID().equalsIgnoreCase(groupDescription))
-                return group.ledgerSize();
-        }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
-    }
-
 }

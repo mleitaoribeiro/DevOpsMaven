@@ -60,62 +60,10 @@ public interface GroupRepository extends Repository {
     Set<Group> returnOnlyFamilies();
 
     /**
-     * Method to create a transaction on a specific group
-     * @param person
-     * @param groupDescription
-     * @param amount
-     * @param transactionDescription
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-
-    boolean createTransactionOnSpecificGroup(Person person, String groupDescription,
-                                             MonetaryValue amount, String transactionDescription,
-                                             LocalDateTime localDate, Category category,
-                                             Account accountFrom, Account accountTo, Type type);
-
-    /**
-     * Method to create a transaction on a specific group
-     * @param person
-     * @param groupDescription
-     * @param periodicity
-     * @param amount
-     * @param transactionDescription
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-
-    boolean createScheduleOnSpecificGroup(Person person, String groupDescription, Periodicity periodicity, MonetaryValue amount, String transactionDescription,
-                                          LocalDateTime localDate, Category category,
-                                          Account accountFrom, Account accountTo, Type type);
-
-    /**
-     * Method to return the transactions of all the groups a given person is a member on, in a selected date range
-     * @param person
-     * @param initialDate
-     * @param finalDate
-     */
-
-    List<Transaction> returnTransactionsFromAllGroupsAPersonIsIn(Person person, LocalDateTime initialDate, LocalDateTime finalDate);
-
-
-    /**
      * Method to check if a person is admin on a group
      * @param groupID
      * @param person
      */
     boolean checkIfAPersonIsAdminInAGivenGroup(GroupID groupID, Person person);
 
-    /**
-     * Method to check a specific group ledger size
-     * @param groupDescription
-     */
-
-    int checkAGroupsLedgerSize(String groupDescription);
 }
