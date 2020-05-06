@@ -34,7 +34,7 @@ class ScheduledTasksListTest {
 
         //Act
         boolean result = scheduledTasksList.addNewSchedule(ledger, new Periodicity("daily"), amount,
-                description, null, category, from, to, new Type(false));
+                new Description(description), null, category, from, to, new Type(false));
 
         //Assert
         assertTrue(result);

@@ -2,6 +2,8 @@ package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 
 import java.time.LocalDateTime;
@@ -25,7 +27,7 @@ public class Schedule {
      * @param accountTo
      * @param type
      */
-    public Schedule(Ledger ledger, Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    public Schedule(Ledger ledger, Periodicity periodicity, MonetaryValue amount, Description description, DateAndTime date,
                     Category category, Account accountFrom, Account accountTo, Type type) {
         this.periodicity = periodicity;
         Timer timer = new Timer();

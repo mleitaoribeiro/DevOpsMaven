@@ -2,6 +2,8 @@ package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 
 import java.time.LocalDateTime;
@@ -12,8 +14,8 @@ public class Transaction {
 
     // Private Transaction variables
     private final MonetaryValue amount;
-    private final String description; //we need to change this
-    private final LocalDateTime date;
+    private final Description description;
+    private DateAndTime date;
     private final Category category;
     private final Account accountFrom;
     private final Account accountTo;
@@ -31,14 +33,14 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, String description, LocalDateTime date, Category category, Account accountFrom, Account accountTo, Type type) {
+    public Transaction(MonetaryValue amount, Description description, DateAndTime date, Category category, Account accountFrom, Account accountTo, Type type) {
         this.amount = setValidMonetaryValue(amount);
-        this.description = setValidDescription(description);
+        this.description = description;
         this.category = setValidCategory(category);
         this.accountFrom = setValidAccount(accountFrom);
         this.accountTo = setValidAccount(accountTo);
         this.type = type;
-        this.date = setDate(date);
+        setDate(date);
     }
 
     @Override
@@ -78,8 +80,7 @@ public class Transaction {
      * Method toString() of date
      */
     public String dateToString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return date.format(formatter);
+        return date.getYearMonthDayHourMinute();
     }
 
 
@@ -93,12 +94,6 @@ public class Transaction {
         if (newAmount == null || !newAmount.validateIfAmountIsPositive())
             throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
         else return newAmount;
-    }
-
-    public String setValidDescription(String newDescription) {
-        if (newDescription == null)
-            throw new IllegalArgumentException("The description can´t be null. Please try again.");
-        else return newDescription;
     }
 
     public Category setValidCategory(Category newCategory) {
@@ -119,19 +114,18 @@ public class Transaction {
      *
      * @param date
      */
-    public LocalDateTime setDate(LocalDateTime date) {
+    public void setDate(DateAndTime date) {
         if (date == null) {
-            LocalDateTime dateNow = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            date = LocalDateTime.parse(dateNow.format(formatter), formatter);
-            return date;
-        } else return date;
+            DateAndTime dateNow = new DateAndTime();
+            this.date = dateNow;
+        } else
+            this.date = date;
     }
 
     /**
      * Get date
      */
-    public LocalDateTime getDate() {
+    public DateAndTime getDate() {
         return this.date;
     }
 

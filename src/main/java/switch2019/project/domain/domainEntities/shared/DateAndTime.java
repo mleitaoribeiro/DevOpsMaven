@@ -11,7 +11,7 @@ public class DateAndTime {
     private final LocalDateTime yearMonthDayHourMinute;
 
     /**
-     *Public constructor to yearMonthDay
+     * Public constructor to yearMonthDay
      *
      * @param year
      * @param month
@@ -36,14 +36,15 @@ public class DateAndTime {
         yearMonthDay = null;
     }
 
+
     /**
      * Public construtor empty
      *
      * @return localDateTimeNow
      */
-    public DateAndTime(){
+    public DateAndTime() {
         yearMonthDay = LocalDate.now();
-        yearMonthDayHourMinute = null;
+        yearMonthDayHourMinute = LocalDateTime.now();
     }
 
     @Override
@@ -65,17 +66,32 @@ public class DateAndTime {
      * Method to check if the date is in the future
      */
     public boolean isInTheFuture() {
-        if(yearMonthDay != null) return yearMonthDay.isAfter(LocalDate.now());
+        if (yearMonthDay != null) return yearMonthDay.isAfter(LocalDate.now());
         else return yearMonthDayHourMinute.isAfter(LocalDateTime.now());
     }
 
     /**
      * Method to check if the date is in the past
      */
+    public boolean isInThePast(LocalDateTime date) {
+        return yearMonthDayHourMinute.isBefore(date);
+    }
+
+    /**
+     * Method to check if the date is in the future
+     */
+    public boolean isInTheFuture(LocalDateTime date) {
+        return yearMonthDayHourMinute.isAfter(date);
+    }
+
+    /**
+     * Method to check if the date is in the past
+     */
     public boolean isInThePast() {
-        if(yearMonthDay != null) return yearMonthDay.isBefore(LocalDate.now());
+        if (yearMonthDay != null) return yearMonthDay.isBefore(LocalDate.now());
         else return yearMonthDayHourMinute.isBefore(LocalDateTime.now());
     }
+
 
     /**
      * Method toString() of yearMonthDay

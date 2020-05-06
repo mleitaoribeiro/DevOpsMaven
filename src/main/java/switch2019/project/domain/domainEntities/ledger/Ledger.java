@@ -1,6 +1,8 @@
 package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.domainEntities.category.Category;
 
@@ -76,7 +78,7 @@ public class Ledger {
      * @return
      */
 
-    public boolean addTransactionToLedger(MonetaryValue amount, String description, LocalDateTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
+    public boolean addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         boolean transactionAdded = ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();
@@ -96,7 +98,7 @@ public class Ledger {
      * @return
      */
 
-    public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, String description, LocalDateTime date,
+    public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, Description description, DateAndTime date,
                                           Category category, Account accountFrom, Account accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
@@ -107,7 +109,9 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDateAscending() {
-        ledgerTransactions.sort(Comparator.comparing(Transaction::getDate));
+        //to change:
+        ledgerTransactions.sort((transaction2, transaction1) -> transaction1.getDate().getYearMonthDayHourMinute()
+                .compareTo(transaction2.getDate().getYearMonthDayHourMinute()));
     }
 
     /**
@@ -115,7 +119,8 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDateDescending() {
-        ledgerTransactions.sort((transaction1, transaction2) -> transaction2.getDate().compareTo(transaction1.getDate()));
+        ledgerTransactions.sort((transaction1, transaction2) -> transaction2.getDate().getYearMonthDayHourMinute()
+                .compareTo(transaction1.getDate().getYearMonthDayHourMinute()));
     }
 
     /**
@@ -143,7 +148,7 @@ public class Ledger {
 
         List<Transaction> myTransactions = new ArrayList<>();
         for (Transaction transactions : ledgerTransactions) {
-            if ((transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) ||
+            if ((transactions.getDate().isInTheFuture(initialDate) && transactions.getDate().isInThePast(finalDate)) ||
                     (transactions.getDate().equals(initialDate) || transactions.getDate().equals(finalDate)))
                 myTransactions.add(transactions);
         }
@@ -197,7 +202,7 @@ public class Ledger {
         }
         //Check if transaction is in that range
         for (Transaction transactions : ledgerTransactions) {
-            if (transactions.getDate().isAfter(initialDate) && transactions.getDate().isBefore(finalDate)) {
+            if (transactions.getDate().isInTheFuture(initialDate) && transactions.getDate().isInThePast(finalDate)) {
                 if (transactions.getType()) {
                     balance = balance + transactions.getAmount();
                 } else if (!transactions.getType()) {
