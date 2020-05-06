@@ -279,6 +279,7 @@ public class Person implements Owner {
         return (personExistsOnSiblingsList(otherPerson) ||
                 checkSameFather(otherPerson) || checkSameMother(otherPerson));
     }
+
 }
 
 
