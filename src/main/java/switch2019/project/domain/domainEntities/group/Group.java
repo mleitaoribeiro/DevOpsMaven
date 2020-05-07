@@ -162,31 +162,6 @@ public class Group implements Owner {
         return auxMembers;
     }
 
-    /**
-     * Validate if a group is a family
-     *
-     * @return boolean
-     */
-    public boolean isFamily() {
-        PersonID dadPerson = null;
-        PersonID momPerson = null;
-        for (Person person : members) {
-            for (Person person2 : members) {
-                if (!person.equals(person2)) {
-                    if (person.isFather(person2.getID()))
-                        dadPerson = person2.getID();
-                    else if (person.isMother(person2.getID()))
-                        momPerson = person2.getID();
-                }
-            }
-        } if (dadPerson == null || momPerson == null) return false;
-
-        for (Person person : members) {
-            if (!person.getID().equals(dadPerson) && !person.getID().equals(momPerson) &&
-                    (!person.isMother(momPerson) || !person.isFather(dadPerson)))
-                return false;
-        } return true;
-    }
 
     /**
      * Demote group admin to group member only.

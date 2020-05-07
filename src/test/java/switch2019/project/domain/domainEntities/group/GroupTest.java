@@ -34,7 +34,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Amigos"),person1);
+        Group group1 = new Group(new Description("Amigos"), person1);
         group1.addMember(person1);
         group1.addMember(person2);
 
@@ -57,7 +57,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Amigos"),person1);
+        Group group1 = new Group(new Description("Amigos"), person1);
         group1.addMember(person1);
         group1.addMember(person2);
         Group group2 = null;
@@ -84,10 +84,10 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
         Person person4 = new Person("Vasylia", new DateAndTime(1995, 12, 13), new Address("California"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("0@isep.pt"));
-        Group group1 = new Group(new Description("Amigos"),person1);
+        Group group1 = new Group(new Description("Amigos"), person1);
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 = new Group(new Description("Amigos"),person3);
+        Group group2 = new Group(new Description("Amigos"), person3);
         group2.addMember(person3);
         group2.addMember(person4);
 
@@ -109,10 +109,10 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Mary's Gift"),person1);
+        Group group1 = new Group(new Description("Mary's Gift"), person1);
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 = new Group(new Description("School Trip"),person2);
+        Group group2 = new Group(new Description("School Trip"), person2);
         group2.addMember(person1);
         group2.addMember(person2);
 
@@ -136,10 +136,10 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Frank", new DateAndTime(1995, 12, 13), new Address("Washington D.C."),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Mary's Gift"),person1);
+        Group group1 = new Group(new Description("Mary's Gift"), person1);
         group1.addMember(person1);
         group1.addMember(person2);
-        Group group2 = new Group(new Description("Mary's Gift"),person2);
+        Group group2 = new Group(new Description("Mary's Gift"), person2);
         group2.addMember(person1);
         group2.addMember(person2);
 
@@ -159,7 +159,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Mary's Gift"),person);
+        Group group1 = new Group(new Description("Mary's Gift"), person);
         Account group2 = new Account(new Denomination("Mary"),
                 new Description("Mary Gift"), new GroupID(new Description("Gift")));
 
@@ -188,7 +188,7 @@ class GroupTest {
 
         HashSet<Person> setOfMembers = new HashSet<>(Arrays.asList(person1, person2));
 
-        Group group1 = new Group(new Description("OsMaisFixes"),person1);
+        Group group1 = new Group(new Description("OsMaisFixes"), person1);
 
         //Act
         boolean areMembersAddedToGroup = (group1.isGroupMember(person1.getID()) && group1.addMember(person2));
@@ -203,7 +203,7 @@ class GroupTest {
 
         //Arrange
         Person person1 = null;
-        Group group1 = new Group(new Description("OsMaisFixes"),person1);
+        Group group1 = new Group(new Description("OsMaisFixes"), person1);
 
         //Act
         boolean isMemberAddedToGroup = group1.addMember(person1);
@@ -215,14 +215,14 @@ class GroupTest {
     /**
      * Test if a member added to the group is automatically promoted to admin if the group is empty
      */
-   @Test
+    @Test
     @DisplayName("Member added to an empty group and Set as Admin")
     void promoteToAdminMemberAddedToAnEmptyTrue() {
 
         //Arrange
         Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Group with no members"),person1);
+        Group group1 = new Group(new Description("Group with no members"), person1);
 
         //Act
         boolean isMemberAddedToEmpyGroup = group1.addMember(person1);
@@ -239,7 +239,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Group with no members"),person);
+        Group group1 = new Group(new Description("Group with no members"), person);
 
         Person person1 = new Person("Juan", new DateAndTime(1995, 12, 13), new Address("Toledo"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
@@ -264,7 +264,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Maria's Group"),person);
+        Group group1 = new Group(new Description("Maria's Group"), person);
 
         Person person1 = new Person("Maria", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
@@ -289,7 +289,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"),person);
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"), person);
         Person admin = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         group1.addMember(admin);
@@ -317,7 +317,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"),person);
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"), person);
         Person personAdmin = new Person("António", new DateAndTime(1995, 12, 13), new Address("Guimarães"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
@@ -352,7 +352,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("13@isep.pt"));
         Person person3 = null;
-        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"),personAdmin);
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"), personAdmin);
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
         group1.addMember(personAdmin);
         group1.addMultipleMembers(putMembers);
@@ -377,7 +377,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("OS FIXES"),person);
+        Group group1 = new Group(new Description("OS FIXES"), person);
 
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
@@ -405,7 +405,7 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("OS FIXES"),person);
+        Group group1 = new Group(new Description("OS FIXES"), person);
 
         Person person1 = new Person("João", new DateAndTime(1995, 12, 13), new Address("Paranhos"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
@@ -439,7 +439,7 @@ class GroupTest {
         Person person2 = new Person("Elsa", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
-        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"),personAdmin);
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"), personAdmin);
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
 
         //Act
@@ -468,7 +468,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
 
         HashSet<Person> putMembers = new HashSet<>(Arrays.asList(person1, person2));
-        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"),personAdmin);
+        Group group1 = new Group(new Description("Grupo a ser submetido aos testes"), personAdmin);
         group1.addMultipleMembers(putMembers);
 
         //Act
@@ -493,7 +493,7 @@ class GroupTest {
         Person person3 = new Person("Laurinda", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
 
-        Group group1 = new Group(new Description("123 são os primeiros três números inteiros"),person1);
+        Group group1 = new Group(new Description("123 são os primeiros três números inteiros"), person1);
         HashSet<Person> setOfPeopleToAddToGroup = new HashSet<>(Arrays.asList(person3, person2));
 
         //Act
@@ -504,153 +504,6 @@ class GroupTest {
         assertTrue(areBothMembersRemoved);
     }
 
-
-    /**
-     * Test if a Group is a family
-     */
-
-    @Test
-    @DisplayName("Validate if a group is a family - All Family")
-    void ifGroupIsFamilyAllFamily() {
-
-        //Arrange
-        Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1@isep.pt"));
-        Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12345@isep.pt"));
-        HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5));
-
-        person1.setMother(person4.getID());
-        person1.setFather(person5.getID());
-        person2.setMother(person4.getID());
-        person2.setFather(person5.getID());
-        person3.setMother(person4.getID());
-        person3.setFather(person5.getID());
-
-        Group group1 = new Group(new Description("Family"),person4);
-        // Act
-        group1.addMultipleMembers(familyList);
-
-        // Assert
-        assertTrue(group1.isFamily());
-    }
-
-    @Test
-    @DisplayName("Validate if a group is a family - All except one")
-    void ifGroupIsFamilyAllFamilyExceptOne() {
-
-        //Arrange
-        Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
-        Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("14@isep.pt"));
-        Person person6 = new Person("Diana", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("34@isep.pt"));
-        HashSet<Person> familyList = new HashSet<>(Arrays.asList(person1, person2, person3, person4, person5, person6));
-
-        person1.setMother(person4.getID());
-        person1.setFather(person5.getID());
-        person2.setMother(person4.getID());
-        person2.setFather(person5.getID());
-        person3.setMother(person4.getID());
-        person3.setFather(person5.getID());
-
-        Group group1 = new Group(new Description("Family"),person1);
-        // Act
-        group1.addMultipleMembers(familyList);
-
-        // Assert
-        assertFalse(group1.isFamily());
-    }
-
-    @Test
-    @DisplayName("Validate if a group is a family - No one is family")
-    void ifGroupIsFamilyNoneFamily() {
-
-        //Arrange
-        Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("14@isep.pt"));
-        Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
-
-        Group group1 = new Group(new Description("Family"),person1);
-
-        // Act
-        group1.addMultipleMembers(familyList);
-
-        // Assert
-        assertFalse(group1.isFamily());
-    }
-
-    @Test
-    @DisplayName("Validate if a group is a family - No Mother")
-    void ifGroupIsFamilyFamilyButNoMother() {
-
-        //Arrange
-        Person person1 = new Person("Oscar", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Person person2 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Person person3 = new Person("Joao", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
-        Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("34@isep.pt"));
-        Person person5 = new Person("Carlos", new DateAndTime(1995, 12, 13), new Address("Porto"),
-                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        HashSet<Person> familyList = new HashSet<>(Arrays.asList(person2, person3, person4, person5));
-
-        person1.setFather(person5.getID());
-        person2.setFather(person5.getID());
-        person3.setFather(person5.getID());
-
-        Group group1 = new Group(new Description("Family"),person1);
-
-
-        // Act
-        group1.addMultipleMembers(familyList);
-
-        // Assert
-        assertFalse(group1.isFamily());
-    }
-
-    /**
-     * Test Equals method for the Group class
-     */
-    @Test
-    @DisplayName("Two group are the same")
-    void equalsGroupClassJustGroupTrue() {
-
-        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
-                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Familia"),person);
-        Group group2 = new Group(new Description("Familia"),person);
-
-        //Act
-        boolean result = group1.equals(group2);
-
-        //Assert
-        assertTrue(result);
-
-    }
 
     /**
      * Check if a person is directly added to a group as both member and admin
@@ -665,7 +518,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person groupAdmin = new Person("João", new DateAndTime(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"),person1);
+        Group group1 = new Group(new Description("Test Group"), person1);
 
         //Act:
         boolean result = group1.setAdmin(person1);
@@ -682,7 +535,7 @@ class GroupTest {
         Person groupAdmin = new Person("Francisco", new DateAndTime(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person1 = null;
-        Group group1 = new Group(new Description("Test Group"),groupAdmin);
+        Group group1 = new Group(new Description("Test Group"), groupAdmin);
 
         //Act:
         boolean result = group1.setAdmin(person1);
@@ -700,7 +553,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person groupAdmin = new Person("João", new DateAndTime(1995, 12, 13), new Address("Braga"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"),groupAdmin);
+        Group group1 = new Group(new Description("Test Group"), groupAdmin);
 
         //Act:
 
@@ -725,7 +578,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Albert", new DateAndTime(1995, 12, 13), new Address("Bristol"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act
         group1.addMember(person1);
@@ -748,7 +601,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("124@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act
         group1.addMember(person1);
@@ -768,7 +621,7 @@ class GroupTest {
         //Arrange
         Person person1 = new Person("Francis", new DateAndTime(1995, 12, 13), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person1);
+        Group group1 = new Group(new Description("Francis Group"), person1);
 
         //Act
 
@@ -793,7 +646,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act
         group1.addMember(person1);
@@ -816,7 +669,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act
         group1.addMember(person1);
@@ -838,7 +691,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act:
         group1.addMember(person1);
@@ -862,7 +715,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
         Person person3 = new Person("Vladimir", new DateAndTime(1995, 12, 13), new Address("Moscow"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("12@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act:
         group1.addMember(person1); // Torna-se admin automaticamente
@@ -888,9 +741,9 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Test Group 1"),person);
-        Group group2 = new Group(new Description("Test Group 2"),person);
-        Group group3 = new Group(new Description("Test Group 3"),person);
+        Group group1 = new Group(new Description("Test Group 1"), person);
+        Group group2 = new Group(new Description("Test Group 2"), person);
+        Group group3 = new Group(new Description("Test Group 3"), person);
 
         //Act:
         group1.addMember(person1); // admin automatically
@@ -921,7 +774,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
         Person person2 = new Person("Jaques", new DateAndTime(1995, 12, 13), new Address("Paris"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
-        Group group1 = new Group(new Description("Test Group"),person);
+        Group group1 = new Group(new Description("Test Group"), person);
 
         //Act:
         group1.addMember(person1); //Automatically promoted to admin
@@ -945,7 +798,7 @@ class GroupTest {
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act
         boolean isMemberAddedAsAdmin = group1.setAdmin(person1);
@@ -962,7 +815,7 @@ class GroupTest {
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Person person1 = new Person("Francis", new DateAndTime(2000, 12, 12), new Address("London"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Francis Group"),person);
+        Group group1 = new Group(new Description("Francis Group"), person);
 
         //Act
         group1.addMember(person1);
@@ -985,7 +838,7 @@ class GroupTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("qwerty@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("321@isep.pt"));
-        Group group1 = new Group(new Description("Maria's Group"),person3);
+        Group group1 = new Group(new Description("Maria's Group"), person3);
 
 
         //Act
@@ -1009,7 +862,7 @@ class GroupTest {
                 new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("12@isep.pt"));
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), person2.getID(), person3.getID(), new Email("1@isep.pt"));
-        Group group1 = new Group(new Description("Maria's Group"),person);
+        Group group1 = new Group(new Description("Maria's Group"), person);
         group1.addMember(person3);
         group1.addMember(person4);
 
@@ -1037,7 +890,7 @@ class GroupTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("234@isep.pt"));
-        Group oneGroup = new Group(new Description("XPTO"),person);
+        Group oneGroup = new Group(new Description("XPTO"), person);
 
         oneGroup.addMember(person2);
         oneGroup.addMember(person3);
@@ -1064,7 +917,7 @@ class GroupTest {
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("dasdas@isep.pt"));
 
-        Group oneGroup = new Group(new Description("XPTO"),person);
+        Group oneGroup = new Group(new Description("XPTO"), person);
 
         oneGroup.addMember(person2);
         oneGroup.addMember(person3);
@@ -1091,7 +944,7 @@ class GroupTest {
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), person2.getID(), person1.getID(), new Email("sd@isep.pt"));
 
-        Group oneGroup = new Group(new Description("XPTO"),person);
+        Group oneGroup = new Group(new Description("XPTO"), person);
         oneGroup.addMember(person2);
         oneGroup.addMember(person3);
 
@@ -1112,7 +965,7 @@ class GroupTest {
 
         PersonID personID = null;
 
-        Group group1 = new Group(new Description("Group"),person);
+        Group group1 = new Group(new Description("Group"), person);
 
 
         //Act
@@ -1137,7 +990,7 @@ class GroupTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("134@isep.pt"));
         Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), person2.getID(), mother.getID(), new Email("34@isep.pt"));
-        Group group1 = new Group(new Description("Group"),father);
+        Group group1 = new Group(new Description("Group"), father);
 
         group1.addMember(person3);
         group1.addMember(person2);
@@ -1163,7 +1016,7 @@ class GroupTest {
         Person person4 = new Person("João", new DateAndTime(2000, 12, 12), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), mother.getID(), person3.getID(), new Email("1@isep.pt"));
 
-        Group group = new Group(new Description("Group"),father);
+        Group group = new Group(new Description("Group"), father);
         group.addMember(person4);
         group.addMember(mother);
 
@@ -1182,7 +1035,7 @@ class GroupTest {
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
         PersonID personID = null;
 
-        Group group1 = new Group(new Description("Group"),admin);
+        Group group1 = new Group(new Description("Group"), admin);
 
         //Act
         boolean isMember = group1.isGroupMember(personID);
@@ -1208,7 +1061,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
         Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Group group1 = new Group(new Description("Maria's Group"),person1);
+        Group group1 = new Group(new Description("Maria's Group"), person1);
 
         group1.addMember(person2);
         group1.setAdmin(person2);
@@ -1235,7 +1088,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("134@isep.pt"));
         Person person4 = new Person("Manuela", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("234@isep.pt"));
-        Group group1 = new Group(new Description("Maria's Group"),person1);
+        Group group1 = new Group(new Description("Maria's Group"), person1);
 
         group1.addMember(person2);
         group1.setAdmin(person2);
@@ -1260,8 +1113,8 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Talho do Amadeu"),person);
-        Group group2 = new Group(new Description("Talho do Amadeu"),person);
+        Group group1 = new Group(new Description("Talho do Amadeu"), person);
+        Group group2 = new Group(new Description("Talho do Amadeu"), person);
 
         //Act
         int g1 = group1.hashCode();
@@ -1279,8 +1132,8 @@ class GroupTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Talho do Amadeu"),person);
-        Group group2 = new Group(new Description("Talho do João"),person);
+        Group group1 = new Group(new Description("Talho do Amadeu"), person);
+        Group group2 = new Group(new Description("Talho do João"), person);
 
         //Act
         int g1 = group1.hashCode();
@@ -1296,7 +1149,7 @@ class GroupTest {
     void getGroupDescription() {
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group = new Group(new Description("tarzan"),person);
+        Group group = new Group(new Description("tarzan"), person);
         String expected = "TARZAN";
 
         //Act
@@ -1311,7 +1164,7 @@ class GroupTest {
     void getID() {
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Gym Buddies"),person);
+        Group group1 = new Group(new Description("Gym Buddies"), person);
         GroupID expected = new GroupID(new Description("Gym Buddies"));
 
         //Act
@@ -1351,10 +1204,12 @@ class GroupTest {
         //Arrange:
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group = new Group(new Description("grupo de rafting"),person);
+        Group group = new Group(new Description("grupo de rafting"), person);
 
         //Act:
-        try {group.setGroupID(null);}
+        try {
+            group.setGroupID(null);
+        }
 
         //Assert:
         catch (IllegalArgumentException nullDescription) {
