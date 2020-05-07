@@ -2,7 +2,6 @@ package switch2019.project.domain.domainEntities.group;
 
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.frameworks.Owner;
-import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.person.Person;
 import java.util.*;
 
@@ -12,8 +11,6 @@ public class Group implements Owner {
     private final DateAndTime startingDate;
     private Set<Person> members;
     private Set<Person> admins;
-    private Ledger ledger;
-
 
     public Group(Description description, Person groupCreator) {
         setGroupID(description);
@@ -87,17 +84,6 @@ public class Group implements Owner {
         else return false;
     }
 
-    /**
-     * Validate if a person is a Group Admin
-     *
-     * @param isAdmin
-     * @return true if is group admin, false if isn't
-     */
-    public boolean isGroupAdmin(Person isAdmin) {
-        if (isAdmin != null)
-            return this.admins.contains(isAdmin);
-        else return false;
-    }
 
     /**
      * Validate if a personID is a Group Admin
@@ -110,18 +96,6 @@ public class Group implements Owner {
             if (person.getID().equals(personID))
                 return true;
         return false;
-    }
-
-    /**
-     * Validate if a person is a Group member
-     *
-     * @param isMember
-     * @return boolean
-     */
-    public boolean isGroupMember(Person isMember) {
-        if (isMember != null)
-            return this.members.contains(isMember);
-        else return false;
     }
 
     /**

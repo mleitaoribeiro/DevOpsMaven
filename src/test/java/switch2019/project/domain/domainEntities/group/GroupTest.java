@@ -250,7 +250,7 @@ class GroupTest {
                 new Address("Rua dos Flores", "Porto", "4450-852"), new Email("123@isep.pt"));
 
         //Act
-        boolean isPerson2AddedButNotToSettledAsAdmin = group1.addMember(person2) && !group1.isGroupAdmin(person2);
+        boolean isPerson2AddedButNotToSettledAsAdmin = group1.addMember(person2) && !group1.isGroupAdmin(person2.getID());
 
         //Assert
         assertTrue(isPerson2AddedButNotToSettledAsAdmin);
@@ -989,7 +989,7 @@ class GroupTest {
 
 
         //Act
-        boolean isAdmin = group1.isGroupAdmin(person3);
+        boolean isAdmin = group1.isGroupAdmin(person3.getID());
 
         //Assert
         assertTrue(isAdmin);
@@ -1014,7 +1014,7 @@ class GroupTest {
         group1.addMember(person4);
 
         //Act
-        boolean isAdmin = group1.isGroupAdmin(person4);
+        boolean isAdmin = group1.isGroupAdmin(person4.getID());
 
         //Assert
         assertFalse(isAdmin);
@@ -1103,17 +1103,20 @@ class GroupTest {
 
     }
 
-
     @DisplayName("Check if a person null can be a Group Admin")
     @Test
     void isGroupAdminNull() {
-        //Arrange:
-        Person person1 = null;
-        Group group1 = new Group(new Description("Group"),person1);
+        //Arrange
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+
+        PersonID personID = null;
+
+        Group group1 = new Group(new Description("Group"),person);
 
 
         //Act
-        boolean isAdmin = group1.isGroupAdmin(person1);
+        boolean isAdmin = group1.isGroupAdmin(personID);
 
         //Assert
         assertFalse(isAdmin);
@@ -1188,72 +1191,6 @@ class GroupTest {
         assertFalse(isMember);
     }
 
-
-    /**
-     * Test if a person is a Group Member with ID
-     */
-    @DisplayName("Check if a person is in the Group Member List")
-    @Test
-    void isGroupMember() {
-        //Arrange:
-        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
-                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Person father = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person mother = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("134@isep.pt"));
-        Person person3 = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), mother.getID(), father.getID(), new Email("34@isep.pt"));
-        Group group = new Group(new Description("Group"),person);
-
-        group.addMember(father);
-        group.addMember(mother);
-        group.addMember(person3);
-
-        //Act
-        boolean isMember = group.isGroupMember(father);
-
-        //Assert
-        assertTrue(isMember);
-    }
-
-
-    @DisplayName("Check if a person is not in the Group Member List")
-    @Test
-    void isGroupMemberFalse() {
-        //Arrange:
-        Person person1 = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person mother = new Person("Elsa", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("123@isep.pt"));
-        Person father = new Person("Maria", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), mother.getID(), person1.getID(), new Email("12@isep.pt"));
-
-        Group group1 = new Group(new Description("Group"),person1);
-
-        //Act
-        boolean isMember = group1.isGroupMember(father);
-
-        //Assert
-        assertFalse(isMember);
-    }
-
-    @DisplayName("Check if a person is not in the Group Member List")
-    @Test
-    void isGroupMemberNull() {
-        //Arrange:
-        Person admin = new Person("Alexandre", new DateAndTime(2000, 12, 12), new Address("Porto"),
-                new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Person person = null;
-
-        Group group1 = new Group(new Description("Group"),admin);
-
-        //Act
-        boolean isMember = group1.isGroupMember(person);
-
-        //Assert
-        assertFalse(isMember);
-    }
 
     /**
      * Get admins and members
