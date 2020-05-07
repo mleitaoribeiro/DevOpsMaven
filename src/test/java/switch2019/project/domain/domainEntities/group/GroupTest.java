@@ -633,7 +633,25 @@ class GroupTest {
         assertFalse(wasPromoted);
     }
 
+    /**
+     * Test Equals method for the Group class
+     */
+    @Test
+    @DisplayName("Two group are the same")
+    void equalsGroupClassJustGroupTrue() {
 
+        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
+                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
+        Group group1 = new Group(new Description("Familia"),person.getID());
+        Group group2 = new Group(new Description("Familia"),person.getID());
+
+        //Act
+        boolean result = group1.equals(group2);
+
+        //Assert
+        assertTrue(result);
+
+    }
     /**
      * Check if member was demoted from group admin
      */
