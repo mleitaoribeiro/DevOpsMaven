@@ -93,35 +93,34 @@ public class DateAndTime {
         else return yearMonthDayHourMinute.isBefore(LocalDateTime.now());
     }
 
-
     /**
      * Method toString() of yearMonthDay
      */
-    public String dateToString(LocalDate date) {
+    public String yearMonthDayToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(formatter);
+        return yearMonthDay.format(formatter);
     }
 
     /**
      * Method toString() of yearMonthDayHourMinute
      */
-    public String dateHourMinuteToString(LocalDateTime date) {
+    public String yearMonthDayHourMinuteToString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return date.format(formatter);
+        return yearMonthDayHourMinute.format(formatter);
     }
 
     /**
      * Get yearMonthDay
      */
-    public String getYearMonthDay() {
-        return dateToString(this.yearMonthDay);
+    public LocalDate getYearMonthDay() {
+        return yearMonthDay;
     }
 
     /**
      * Get yearMonthDayHourMinute
      */
-    public String getYearMonthDayHourMinute() {
-        return dateHourMinuteToString(this.yearMonthDayHourMinute);
+    public LocalDateTime getYearMonthDayHourMinute() {
+        return yearMonthDayHourMinute;
     }
 
 

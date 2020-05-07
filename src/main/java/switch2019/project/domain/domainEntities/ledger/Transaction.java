@@ -6,8 +6,6 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Transaction {
@@ -80,9 +78,8 @@ public class Transaction {
      * Method toString() of date
      */
     public String dateToString() {
-        return date.getYearMonthDayHourMinute();
+        return date.yearMonthDayHourMinuteToString();
     }
-
 
     /**
      * Verify is a given transaction is valid or not
@@ -108,7 +105,6 @@ public class Transaction {
         else return newAccount;
     }
 
-
     /**
      * Set and format date
      *
@@ -116,8 +112,7 @@ public class Transaction {
      */
     public void setDate(DateAndTime date) {
         if (date == null) {
-            DateAndTime dateNow = new DateAndTime();
-            this.date = dateNow;
+            this.date = new DateAndTime();
         } else
             this.date = date;
     }

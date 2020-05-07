@@ -1330,6 +1330,34 @@ class LedgerTest {
     }
 
     @Test
+    @DisplayName("Schedule a Transaction")
+    void scheduleNewTransaction() throws InterruptedException {
+
+        // Arrange
+        OwnerID ownerID = new GroupID(new Description("switch"));
+        Ledger ledger = new Ledger(ownerID);
+        int before = ledger.getLedgerSize();
+
+        // Act
+        boolean newTransactionScheduled = ledger.scheduleNewTransaction(new Periodicity("daily"), new MonetaryValue(5, Currency.getInstance("EUR")),
+                new Description("lunch at work"), new DateAndTime(2020, 1, 1, 13, 5),
+                        new Category(new Denomination("food"), new PersonID(new Email("marta@email.com"))),
+                        new Account(new Denomination("Millenium"), new Description("Only for Food"),
+                        new PersonID(new Email("marta@email.pt"))), new Account(new Denomination("Continente"),
+                        new Description("Despesas do Continente"), new PersonID(new Email("marta@email.pt"))),
+                        new Type(false));
+
+        Thread.sleep(2100); // daily = 500
+        int after = ledger.getLedgerSize();
+
+        //Assert
+        assertEquals(0, before);
+        assertEquals(5, after);
+        assertTrue(newTransactionScheduled);
+
+    }
+
+    @Test
     @DisplayName("Get the Ledger Size - Empty")
     void getLedgerSizeEmpty() {
 

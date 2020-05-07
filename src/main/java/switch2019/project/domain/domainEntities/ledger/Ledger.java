@@ -175,7 +175,8 @@ public class Ledger {
         List<Transaction> myTransactions = new ArrayList<>();
         for (Transaction transactions : ledgerTransactions) {
             if ((transactions.getDate().isInTheFuture(initialDate) && transactions.getDate().isInThePast(finalDate)) ||
-                    (transactions.getDate().equals(initialDate) || transactions.getDate().equals(finalDate)))
+                    (transactions.getDate().getYearMonthDayHourMinute().equals(initialDate) ||
+                            transactions.getDate().getYearMonthDayHourMinute().equals(finalDate)))
                 myTransactions.add(transactions);
         }
         return myTransactions;

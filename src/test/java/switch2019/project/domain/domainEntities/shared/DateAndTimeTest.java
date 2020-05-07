@@ -18,7 +18,7 @@ class DateAndTimeTest {
         String expected = "1991-05-06";
 
         //Act
-        String result = birthDate.getYearMonthDay();
+        String result = birthDate.yearMonthDayToString();
 
         //Assert
         assertEquals(expected, result);
@@ -35,7 +35,7 @@ class DateAndTimeTest {
         String expected = "1991-05-06 00:00";
 
         //Act
-        String result = birthDate.getYearMonthDayHourMinute();
+        String result = birthDate.yearMonthDayHourMinuteToString();
 
         //Assert
         assertEquals(expected, result);
