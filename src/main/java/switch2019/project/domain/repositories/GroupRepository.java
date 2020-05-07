@@ -3,6 +3,8 @@ import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.PersonID;
+
 import java.util.Set;
 
 public interface GroupRepository extends Repository {
@@ -12,7 +14,7 @@ public interface GroupRepository extends Repository {
      * @param groupDescription
      * @param groupCreator
      */
-    Group createGroup(Description groupDescription, Person groupCreator);
+    Group createGroup(Description groupDescription, PersonID groupCreator);
 
 
     /**
@@ -43,9 +45,5 @@ public interface GroupRepository extends Repository {
     boolean isIDOnRepository(ID groupID);
 
 
-    /**
-     * Method to return Only Families
-     */
-    Set<Group> returnOnlyFamilies();
 
 }

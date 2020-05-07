@@ -159,7 +159,7 @@ class DenominationTest {
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Denomination denomination = new Denomination("Dinner");
-        Group group = new Group(new Description("Friends"),person);
+        Group group = new Group(new Description("Friends"),person.getID());
 
         //Act:
         boolean result = denomination.equals(group);

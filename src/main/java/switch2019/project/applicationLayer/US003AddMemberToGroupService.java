@@ -36,7 +36,7 @@ public class US003AddMemberToGroupService {
     public AddedMemberDTO addMemberToGroup(AddMemberDTO addMemberDTO) {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
-        boolean wasMemberAdded = group.addMember(person);
+        boolean wasMemberAdded = group.addMember(person.getID());
         return GroupDTOAssembler.createAddedMemberDTO(wasMemberAdded, person, group);
 
     }

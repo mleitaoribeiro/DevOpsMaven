@@ -74,7 +74,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), creator));
+                .thenReturn(new Group(new Description(groupDescription), creator.getID()));
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
                 new GroupID(new Description(groupDescription)))).thenReturn(account);
@@ -255,7 +255,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), creator));
+                .thenReturn(new Group(new Description(groupDescription), creator.getID()));
 
         Mockito.when(accountRepository.createAccount(null, new Description(accountDescription),
                 new GroupID(new Description(groupDescription)))).
@@ -291,7 +291,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), creator));
+                .thenReturn(new Group(new Description(groupDescription), creator.getID()));
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), null,
                 new GroupID(new Description(groupDescription)))).
@@ -332,7 +332,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), creator));
+                .thenReturn(new Group(new Description(groupDescription), creator.getID()));
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
                 new GroupID(new Description(groupDescription)))).
@@ -369,7 +369,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), creator));
+                .thenReturn(new Group(new Description(groupDescription), creator.getID()));
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
                 new GroupID(new Description(groupDescription)))).
@@ -407,7 +407,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 .thenReturn(creator);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), creator));
+                .thenReturn(new Group(new Description(groupDescription), creator.getID()));
 
         Mockito.when(accountRepository.createAccount(new Denomination(accountDenomination), new Description(accountDescription),
                 new GroupID(new Description(groupDescription)))).
@@ -444,7 +444,7 @@ public class US007CreateGroupAccountServiceUnitTest {
                 new Email("rick@gmail.com"));
 
         //Arrange Group:
-        Group group = new Group(new Description(groupDescription), groupCreator);
+        Group group = new Group(new Description(groupDescription), groupCreator.getID());
 
         //Arrange GroupID:
         GroupID groupID = group.getID();

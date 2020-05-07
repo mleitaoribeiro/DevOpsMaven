@@ -9,10 +9,10 @@ public class Group implements Owner {
 
     private GroupID groupID;
     private final DateAndTime startingDate;
-    private Set<Person> members;
-    private Set<Person> admins;
+    private Set<PersonID> members;
+    private Set<PersonID> admins;
 
-    public Group(Description description, Person groupCreator) {
+    public Group(Description description, PersonID groupCreator) {
         setGroupID(description);
         startingDate = new DateAndTime();
         members = new HashSet<>();
@@ -63,7 +63,7 @@ public class Group implements Owner {
      * @param person
      * @return true if member was added, false if it wasn't
      */
-    public boolean addMember(Person person) {
+    public boolean addMember(PersonID person) {
         if (person != null && this.members.isEmpty()) {
             members.add(person);
             return setAdmin(person);
@@ -78,8 +78,8 @@ public class Group implements Owner {
      * @param person
      * @return true if person was promoted, false if it wasn't
      */
-    public boolean setAdmin(Person person) {
-        if (person != null && isGroupMember(person.getID()))
+    public boolean setAdmin(PersonID person) {
+        if (person != null && isGroupMember(person))
             return this.admins.add(person);
         else return false;
     }
@@ -92,8 +92,8 @@ public class Group implements Owner {
      * @return true if is group admin, false if isn't
      */
     public boolean isGroupAdmin(PersonID personID) {
-        for (Person person : admins)
-            if (person.getID().equals(personID))
+        for (PersonID person : admins)
+            if (person.equals(personID))
                 return true;
         return false;
     }
@@ -105,8 +105,8 @@ public class Group implements Owner {
      * @return boolean
      */
     public boolean isGroupMember(PersonID personID) {
-        for (Person person : members)
-            if (person.getID().equals(personID))
+        for (PersonID person : members)
+            if (person.equals(personID))
                 return true;
         return false;
     }
@@ -117,7 +117,7 @@ public class Group implements Owner {
      * @param memberToRemove
      * @return true if member was removed, false if it wasn't
      */
-    public boolean removeMember(Person memberToRemove) {
+    public boolean removeMember(PersonID memberToRemove) {
         if (memberToRemove != null) {
             if (admins.contains(memberToRemove) && admins.size() > 1)
                 return admins.remove(memberToRemove) && members.remove(memberToRemove);
@@ -133,10 +133,9 @@ public class Group implements Owner {
      * @param newMembers
      * @return true if multiple members were added, false if they weren't
      */
-    public boolean addMultipleMembers(Set<Person> newMembers) {
+    public boolean addMultipleMembers(Set<PersonID> newMembers) {
         if (!members.isEmpty())
-            for (Person member : newMembers)
-                members.add(member);
+            members.addAll(newMembers);
         return members.containsAll(newMembers);
     }
 
@@ -146,8 +145,7 @@ public class Group implements Owner {
      */
     public Set<PersonID> getAdmins() {
        Set<PersonID> auxAdmins =  new HashSet<>();
-        for(Person p: this.admins)
-            auxAdmins.add(p.getID());
+        auxAdmins.addAll(this.admins);
         return auxAdmins;
     }
 
@@ -157,8 +155,7 @@ public class Group implements Owner {
      */
     public Set<PersonID> getMembers() {
         Set<PersonID> auxMembers =  new HashSet<>();
-        for(Person p: this.members)
-            auxMembers.add(p.getID());
+        auxMembers.addAll(this.members);
         return auxMembers;
     }
 
@@ -169,7 +166,7 @@ public class Group implements Owner {
      * @param member
      * @return true if group admin was demoted, false if it wasn't
      */
-    public boolean demoteMemberFromAdmin(Person member) {
+    public boolean demoteMemberFromAdmin(PersonID member) {
         if (this.admins.contains(member) && this.admins.size() >= 2)
             return this.admins.remove(member);
         return false;

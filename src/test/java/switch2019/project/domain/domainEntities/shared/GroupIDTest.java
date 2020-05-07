@@ -67,7 +67,7 @@ class GroupIDTest {
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
 
-        Group group1 = new Group(new Description("Linkin Park Fans"),person);
+        Group group1 = new Group(new Description("Linkin Park Fans"),person.getID());
 
         //Act:
         boolean result = groupID1.equals(group1);

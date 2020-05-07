@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.repositories;
 
 import org.springframework.stereotype.Component;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -31,7 +32,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
      * @param groupDescription
      * @param groupCreator
      */
-    public Group createGroup(Description groupDescription, Person groupCreator) {
+    public Group createGroup(Description groupDescription, PersonID groupCreator) {
         if(!isIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
             groups.add(group1);
@@ -101,18 +102,4 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return groups.size();
     }
 
-    /**
-     * Method to return Only Families
-     *
-     * @return groups that are all family
-     */
-    public Set<Group> returnOnlyFamilies() {
-        Set<Group> groupsFamily = new LinkedHashSet<>();
-        for (Group group : groups) {
-            if (group.isFamily()) {
-                groupsFamily.add(group);
-            }
-        }
-        return groupsFamily;
-    }
 }

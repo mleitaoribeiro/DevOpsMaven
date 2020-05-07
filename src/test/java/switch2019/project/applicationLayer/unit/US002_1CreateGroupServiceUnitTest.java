@@ -56,7 +56,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         groupDescriptionToMock = new Description("TEAM KIM");
 
-        groupToMock = new Group (groupDescriptionToMock, admin);
+        groupToMock = new Group (groupDescriptionToMock, admin.getID());
     }
 
 
@@ -79,7 +79,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).thenReturn(admin);
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).thenReturn(groupToMock);
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).thenReturn(groupToMock);
 
         //Act
         GroupDTO groupCreated = service.createGroup(createGroupDTO);
@@ -102,7 +102,7 @@ public class US002_1CreateGroupServiceUnitTest {
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).
                 thenThrow(new ArgumentNotFoundException("No person found with that email."));
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).thenReturn(groupToMock);
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).thenReturn(groupToMock);
 
         //Act
         Throwable exception = catchThrowable(() -> {
@@ -128,7 +128,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).thenReturn(admin);
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).
                 thenThrow(new ResourceAlreadyExistsException("This group description already exists."));
 
         //Act
@@ -156,7 +156,7 @@ public class US002_1CreateGroupServiceUnitTest {
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(null)).
                 thenThrow(new IllegalArgumentException("The email can't be null."));
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).
                 thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //Act
@@ -183,7 +183,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).thenReturn(admin);
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).
                 thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //Act
@@ -211,7 +211,7 @@ public class US002_1CreateGroupServiceUnitTest {
 
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).thenReturn(admin);
-        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin)).
+        Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).
                 thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //Act
@@ -236,7 +236,7 @@ public class US002_1CreateGroupServiceUnitTest {
     public void getGroupByDescription() {
         //Arrange
         String groupDescription = "TEAM AWESOME";
-        Group group = new Group(new Description(groupDescription), admin);
+        Group group = new Group(new Description(groupDescription), admin.getID());
         GroupDTO outputExpected = new GroupDTO(group.getID().toString());
 
         //Act

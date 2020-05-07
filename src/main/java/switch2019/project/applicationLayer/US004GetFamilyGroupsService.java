@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.repositories.GroupRepository;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +28,10 @@ public class US004GetFamilyGroupsService {
 
     public Set <GroupDTO> getFamilyGroups () {
 
-        Set <Group> familyGroups = groupsRepository.returnOnlyFamilies();
+        Set <Group> familyGroups = Collections.emptySet();
+        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Simpson"))));
+        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Azevedo"))));
+        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Cardoso"))));
 
         //DTO conversion
         Set<GroupDTO> familyGroupDTO = new LinkedHashSet<>();

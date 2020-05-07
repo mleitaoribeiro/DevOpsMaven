@@ -32,7 +32,7 @@ public class US002_1CreateGroupService {
         Person admin = personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()));
         Description groupDescription = new Description(createGroupDTO.getGroupDescription());
 
-        Group groupCreated = groupsRepository.createGroup(groupDescription, admin);
+        Group groupCreated = groupsRepository.createGroup(groupDescription, admin.getID());
 
         return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
     }

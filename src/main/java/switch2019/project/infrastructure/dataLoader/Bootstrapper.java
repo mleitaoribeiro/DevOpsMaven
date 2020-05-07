@@ -313,80 +313,80 @@ public class Bootstrapper {
         //Group SWitCH - All members are Group Admin
 
         Group switchGroup = groupRepository.createGroup( new Description("SWitCH"),
-                personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")));
+                personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
-        switchGroup.addMember(alexandreOliveira);
-        switchGroup.setAdmin(alexandreOliveira);
+        switchGroup.addMember(alexandreOliveira.getID());
+        switchGroup.setAdmin(alexandreOliveira.getID());
 
-        switchGroup.addMember(dianaDias);
-        switchGroup.setAdmin(dianaDias);
+        switchGroup.addMember(dianaDias.getID());
+        switchGroup.setAdmin(dianaDias.getID());
 
-        switchGroup.addMember(elsaAlmeida);
-        switchGroup.setAdmin(elsaAlmeida);
+        switchGroup.addMember(elsaAlmeida.getID());
+        switchGroup.setAdmin(elsaAlmeida.getID());
 
-        switchGroup.addMember(gabrielMoco);
-        switchGroup.setAdmin(gabrielMoco);
+        switchGroup.addMember(gabrielMoco.getID());
+        switchGroup.setAdmin(gabrielMoco.getID());
 
-        switchGroup.addMember(martaCardoso);
-        switchGroup.setAdmin(martaCardoso);
+        switchGroup.addMember(martaCardoso.getID());
+        switchGroup.setAdmin(martaCardoso.getID());
 
-        switchGroup.addMember(martaPinheiro);
-        switchGroup.setAdmin(martaPinheiro);
+        switchGroup.addMember(martaPinheiro.getID());
+        switchGroup.setAdmin(martaPinheiro.getID());
 
-        switchGroup.addMember(martaRibeiro);
-        switchGroup.setAdmin(martaRibeiro);
+        switchGroup.addMember(martaRibeiro.getID());
+        switchGroup.setAdmin(martaRibeiro.getID());
 
-        switchGroup.addMember(raquelSantos);
-        switchGroup.setAdmin(raquelSantos);
+        switchGroup.addMember(raquelSantos.getID());
+        switchGroup.setAdmin(raquelSantos.getID());
 
         //Group Friends - 1 Admin - Two members are family but the other member is not
 
         Group friendsGroup = groupRepository.createGroup( new Description("Friends"),
-                personRepository.findPersonByEmail(new Email("hugo.azevedo@gmail.com")));
-        friendsGroup.addMember(beatrizAzevedo);
-        friendsGroup.addMember(joaoCardoso);
+                personRepository.findPersonByEmail(new Email("hugo.azevedo@gmail.com")).getID());
+        friendsGroup.addMember(beatrizAzevedo.getID());
+        friendsGroup.addMember(joaoCardoso.getID());
 
         //Group Split Expenses - 2 Admin
 
         Group splitExpensesGroup = groupRepository.createGroup( new Description("Split Expenses"),
-                personRepository.findPersonByEmail(new Email("bart.simpson@gmail.com")));
+                personRepository.findPersonByEmail(new Email("bart.simpson@gmail.com")).getID());
 
-        splitExpensesGroup.addMember(alexandreOliveira);
-        splitExpensesGroup.setAdmin(alexandreOliveira);
-        splitExpensesGroup.addMember(gabrielMoco);
-        splitExpensesGroup.addMember(hugoAzevedo);
+        splitExpensesGroup.addMember(alexandreOliveira.getID());
+        splitExpensesGroup.setAdmin(alexandreOliveira.getID());
+        splitExpensesGroup.addMember(gabrielMoco.getID());
+        splitExpensesGroup.addMember(hugoAzevedo.getID());
 
         //Group Rick and Morty - 1 Admin - 2 Members
 
         Group rickAndMortyGroup = groupRepository.createGroup( new Description("Rick and Morty"),
-                personRepository.findPersonByEmail(new Email("rick@gmail.com")));
+                personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
-        rickAndMortyGroup.addMember(mortySmith);
+        rickAndMortyGroup.addMember(mortySmith.getID());
 
         //Group morty - 1 Admin - 1 Member
 
         Group intergalacticGroup = groupRepository.createGroup( new Description("Intergalactic"),
-                personRepository.findPersonByEmail(new Email("mortimer.smith@hotmail.com")));
+                personRepository.findPersonByEmail(new Email("mortimer.smith@hotmail.com")).getID());
 
         //NOT FAMILY - Smith Family - With Grandpa Rick (admin)
 
         Group smithFamilyGroup = groupRepository.createGroup( new Description("Smith Family"),
-                personRepository.findPersonByEmail(new Email("rick@gmail.com")));
+                personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
-        smithFamilyGroup.addMember(jerrySmith);
-        smithFamilyGroup.addMember(bethSmith);
-        smithFamilyGroup.addMember(summerSmith);
-        smithFamilyGroup.addMember(mortySmith);
+        smithFamilyGroup.addMember(jerrySmith.getID());
+        smithFamilyGroup.addMember(bethSmith.getID());
+        smithFamilyGroup.addMember(summerSmith.getID());
+        smithFamilyGroup.addMember(mortySmith.getID());
 
         //Family group - Family Simpson - 2 Admin
         Group familySimpsonGroup = groupRepository.createGroup( new Description("Family Simpson"),
-                personRepository.findPersonByEmail(new Email("marge@hotmail.com")));
+                personRepository.findPersonByEmail(new Email("marge@hotmail.com")).getID());
 
-        familySimpsonGroup.addMember(fatherHomerSimpson);
-        familySimpsonGroup.setAdmin(fatherHomerSimpson);
-        familySimpsonGroup.addMember(bartolomewSimpson);
-        familySimpsonGroup.addMember(elizabetSimpson);
-        familySimpsonGroup.addMember(margaretSimpson);
+        familySimpsonGroup.addMember(fatherHomerSimpson.getID());
+        familySimpsonGroup.setAdmin(fatherHomerSimpson.getID());
+        familySimpsonGroup.addMember(bartolomewSimpson.getID());
+        familySimpsonGroup.addMember(elizabetSimpson.getID());
+        familySimpsonGroup.addMember(margaretSimpson.getID());
         //Siblings
         bartolomewSimpson.addSibling(elizabetSimpson);
         bartolomewSimpson.addSibling(margaretSimpson);
@@ -394,27 +394,27 @@ public class Bootstrapper {
 
         //Family group - Family Cardoso - All members are Group Admin
         Group familyCardosoGroup = groupRepository.createGroup( new Description("Family Cardoso"),
-                personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")));
+                personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
-        familyCardosoGroup.addMember(martaCardoso);
-        familyCardosoGroup.setAdmin(martaCardoso);
+        familyCardosoGroup.addMember(martaCardoso.getID());
+        familyCardosoGroup.setAdmin(martaCardoso.getID());
 
-        familyCardosoGroup.addMember(fatherAntonioCardoso);
-        familyCardosoGroup.setAdmin(fatherAntonioCardoso);
+        familyCardosoGroup.addMember(fatherAntonioCardoso.getID());
+        familyCardosoGroup.setAdmin(fatherAntonioCardoso.getID());
 
-        familyCardosoGroup.addMember(motherMariaCardoso);
-        familyCardosoGroup.setAdmin(motherMariaCardoso);
+        familyCardosoGroup.addMember(motherMariaCardoso.getID());
+        familyCardosoGroup.setAdmin(motherMariaCardoso.getID());
         //Siblings
         martaCardoso.addSibling(joaoCardoso);
 
         //Family group - Family Azevedo - 1 Admin (Group creator)
         Group familyAzevedoGroup = groupRepository.createGroup( new Description("Family Azevedo"),
-                personRepository.findPersonByEmail(new Email("beatriz.azevedo@gmail.com")));
+                personRepository.findPersonByEmail(new Email("beatriz.azevedo@gmail.com")).getID());
 
-        familyAzevedoGroup.addMember(fatherRobertoAzevedo);
-        familyAzevedoGroup.addMember(motherMargaridaAzevedo);
-        familyAzevedoGroup.addMember(margaridaAzevedo);
-        familyAzevedoGroup.addMember(hugoAzevedo);
+        familyAzevedoGroup.addMember(fatherRobertoAzevedo.getID());
+        familyAzevedoGroup.addMember(motherMargaridaAzevedo.getID());
+        familyAzevedoGroup.addMember(margaridaAzevedo.getID());
+        familyAzevedoGroup.addMember(hugoAzevedo.getID());
         //Siblings
         margaridaAzevedo.addSibling(hugoAzevedo);
 

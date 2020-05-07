@@ -153,7 +153,7 @@ class AccountIDTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group = new Group(new Description("Friends with Benefits"),person);
+        Group group = new Group(new Description("Friends with Benefits"),person.getID());
         AccountID accountID = new AccountID(new Denomination("switch"), group.getID());
 
         OwnerID realOwnerID = accountID.getOwnerID();
@@ -173,7 +173,7 @@ class AccountIDTest {
         //Arrange:
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group = new Group(new Description("Running Team"),person);
+        Group group = new Group(new Description("Running Team"),person.getID());
         //Act:
         try {
             AccountID accountID = new AccountID(null, group.getID());

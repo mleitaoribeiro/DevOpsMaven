@@ -66,7 +66,7 @@ public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
         creator = new Person("Marta", new DateAndTime(1996, 4, 27), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("rick@gmail.com"));
 
-        group = new Group(new Description(groupDescription), creator);
+        group = new Group(new Description(groupDescription), creator.getID());
     }
 
     /**

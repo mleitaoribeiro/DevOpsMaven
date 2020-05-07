@@ -68,7 +68,7 @@ public class US003AddMemberToGroupServiceUnitTest {
                 .thenReturn(member);
 
         Mockito.when(groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription())))
-                .thenReturn(new Group(new Description(groupDescription), admin));
+                .thenReturn(new Group(new Description(groupDescription), admin.getID()));
 
         //Act
         AddedMemberDTO addedMemberDTOresult = service.addMemberToGroup(addMemberDTO);
@@ -204,7 +204,7 @@ public class US003AddMemberToGroupServiceUnitTest {
                 new Address("Smiths house", "Seattle", "4520-266"),
                 new Email("rick@gmail.com"));
 
-        Group group = new Group(new Description(groupDescription), rickSanchez);
+        Group group = new Group(new Description(groupDescription), rickSanchez.getID());
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
         membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
@@ -252,7 +252,7 @@ public class US003AddMemberToGroupServiceUnitTest {
                 new Address("Smiths house", "Seattle", "4520-266"),
                 new Email("rick@gmail.com"));
 
-        Group group = new Group(new Description(groupDescription), rickSanchez);
+        Group group = new Group(new Description(groupDescription), rickSanchez.getID());
 
         Set<PersonIDDTO> membersExpected = new LinkedHashSet<>();
         membersExpected.add(PersonDTOAssembler.createPersonIDDTO(new PersonID(new Email("rick@gmail.com"))));
