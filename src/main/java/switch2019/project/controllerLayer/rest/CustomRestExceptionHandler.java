@@ -28,45 +28,6 @@ import java.util.List;
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    /**
-     *
-     * Handler for MethodArgumentNotValidException - occurs when validation on an argument annotated with @Valid fails
-     *
-     * @param exception
-     * @param headers
-     * @param status
-     * @param request
-     * @return
-     */
-
-    @Override // status 400
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            final MethodArgumentNotValidException exception,
-            final HttpHeaders headers,
-            final HttpStatus status,
-            final WebRequest request) {
-
-        final List<String> errors = new ArrayList<>();
-
-        //Obtaining the errors for each field:
-        for (final FieldError error : exception.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " +error.getDefaultMessage());
-        }
-
-        //Obtaining the errors for the objects associated with the fields:
-        for (final ObjectError error : exception.getBindingResult().getFieldErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-        }
-
-        //Construction of the error:
-        String error = errors.toString();
-
-        //Construction of the ErrorDTO with all the errors present:
-        final ErrorDTO apiError = new ErrorDTO (HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
-
-        //Return of the HandleExceptionInternal:
-        return handleExceptionInternal(exception, apiError, headers, apiError.getStatus(), request);
-    }
 
     /**
      *
@@ -171,29 +132,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    /**
-     *
-     * Handler for MethodArgumentTypeMismatchException - occurs when the method argument has not the expected type
-     *
-     * @param exception
-     * @param request
-     * @return
-     */
-
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class }) //status 400
-    public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
-            final MethodArgumentTypeMismatchException exception,
-            final WebRequest request) {
-
-        //Construction of the error message:
-        final String error = exception.getName() + " should be of of type " + exception.getRequiredType().getName();
-
-        //Construction of the ErrorDTO:
-        final ErrorDTO apiError = new ErrorDTO(HttpStatus.BAD_REQUEST, exception.getLocalizedMessage(), error);
-
-        //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
-    }
 
     /**
      *
@@ -299,7 +237,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request
      * @return
      */
-
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(Exception someException, WebRequest request) {
         ErrorDTO apiError = new ErrorDTO(
