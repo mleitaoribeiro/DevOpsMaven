@@ -28,11 +28,11 @@ public class US001AreSiblingsControllerRest {
 
         SiblingsDTO result = PersonDTOAssembler.createSiblingsDTO(service.areSiblings(areSiblingsDTO));
 
-        Link selfLink = linkTo((methodOn(US001AreSiblingsControllerRest.class)
+        Link siblingsListLink = linkTo((methodOn(US001AreSiblingsControllerRest.class)
                 .getSiblings(personEmail1)))
-                .withSelfRel();
+                .withRel("Siblings List:");
 
-        result.add(selfLink);
+        result.add(siblingsListLink);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -43,10 +43,10 @@ public class US001AreSiblingsControllerRest {
         Set<PersonIDDTO> siblingsList = service.getSiblings(personEmail);
 
         for (PersonIDDTO id : siblingsList) {
-            Link selfLink = linkTo(methodOn(US001AreSiblingsControllerRest.class)
+            Link personDetailLink = linkTo(methodOn(US001AreSiblingsControllerRest.class)
                     .getPersonByEmail(id.getPersonID()))
                     .withSelfRel();
-            id.add(selfLink);
+            id.add(personDetailLink);
         }
         return new ResponseEntity<>(siblingsList, HttpStatus.OK);
     }
