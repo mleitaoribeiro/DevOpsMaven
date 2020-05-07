@@ -136,7 +136,6 @@ public class Ledger {
      */
 
     public void sortLedgerByTransactionDateAscending() {
-        sortLedgerByTransactionDateDescending();
         Collections.reverse(ledgerTransactions);
     }
 
