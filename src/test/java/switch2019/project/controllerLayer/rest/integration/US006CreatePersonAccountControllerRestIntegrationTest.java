@@ -1,6 +1,9 @@
 package switch2019.project.controllerLayer.rest.integration;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
@@ -34,6 +37,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String uri = "/persons/marge@hotmail.com/accounts";
 
             //arrangement of the account DTO:
+        final String personEmail = "marge@hotmail.com";
         final String accountDenomination = "Food Expenses";
         final String accountDescription = "Money spent on food";
 
@@ -46,27 +50,27 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         String inputJson = super.mapToJson((infoDTO));
 
         //arrangement of the expected output:
-        String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"" +
-                ","+"\"denomination\":\"" +accountDenomination.toUpperCase() +
-                "\",\"description\":\"" +accountDescription.toUpperCase() +
-                "\",\"_links\":{\"self\":[{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts/FOOD%20EXPENSES\"}" +
-                ",{\"href\":\"http://localhost/persons/MARGE@HOTMAIL.COM/accounts\"}]}}";;
+        String expectedLinks = "{\"self\":" +
+                "[{\"href\":\"http:\\/\\/localhost\\/persons\\/MARGE@HOTMAIL.COM\\/accounts\\/FOOD%20EXPENSES\"}," +
+                "{\"href\":\"http:\\/\\/localhost\\/persons\\/MARGE@HOTMAIL.COM\\/accounts\"}]}";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
-                .andExpect(content().string(expected))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
-        //ASSERT:
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(personEmail.toUpperCase(),result.getString("ownerID")),
+                () -> assertEquals(accountDenomination.toUpperCase(), result.getString("denomination")),
+                () -> assertEquals(accountDescription.toUpperCase(), result.getString("description")),
+                () -> assertEquals(expectedLinks, result.getString("_links"))
         );
     }
 
@@ -89,11 +93,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":409,\"status\":\"CONFLICT\"," +
-                "\"error\":\"This resource already exists.\"," +
-                "\"message\":\"This account already exists.\"}";
-
         String expectedResolvedException = new ResourceAlreadyExistsException("This account already exists.").toString();
 
         //ACT:
@@ -101,22 +100,23 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isConflict())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(409, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("409", result.getString("statusCode")),
+                () -> assertEquals("CONFLICT", result.getString("status")),
+                () -> assertEquals ("This resource already exists.", result.getString("error")),
+                () -> assertEquals ("This account already exists.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
 
 
@@ -139,34 +139,30 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No person found with that email.\"}";
-
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
-        //ACT:
 
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No person found with that email.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
     }
 
     @Test
@@ -189,12 +185,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email is not valid.\"}";
-
-
         String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
         //ACT:
@@ -202,23 +192,24 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
-
 
     @Test
     @DisplayName("Test If User Account was created  - account invalid - null")
@@ -240,12 +231,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The denomination can't be null or empty.\"}";
-
-
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
         //ACT:
@@ -254,21 +239,23 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The denomination can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
 
     @Test
@@ -290,11 +277,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //arrangement of the input:
         String inputJson = super.mapToJson((infoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The description can't be null or empty.\"}";
-
         String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
         //ACT:
@@ -302,21 +284,23 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The description can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
 
     /**
@@ -330,9 +314,9 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/MARGE@HOTMAIL.COM/accounts/HOMER SNACKS";
 
-        String expected = "{\"ownerID\":\"MARGE@HOTMAIL.COM\"," +
-                "\"denomination\":\"HOMER SNACKS\"," +
-                "\"description\":\"MONEY SPENT ON SNACKS FOR HOMER\"}";
+        String personEmail = "MARGE@HOTMAIL.COM";
+        String accountDenomination = "HOMER SNACKS";
+        String accountDescription = "MONEY SPENT ON SNACKS FOR HOMER";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -340,14 +324,15 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
-        //ASSERT:
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(personEmail.toUpperCase(),result.getString("ownerID")),
+                () -> assertEquals(accountDenomination.toUpperCase(), result.getString("denomination")),
+                () -> assertEquals(accountDescription.toUpperCase(), result.getString("description"))
         );
-
     }
 
     @Test
@@ -357,10 +342,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/blabla@HOTMAIL.COM/accounts/HOMER SNACKS";
 
-        String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No person found with that email.\"}";
 
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
@@ -370,17 +351,20 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expected, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No person found with that email.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
 
 
@@ -391,11 +375,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/MARGE@HOTMAIL.COM/accounts/SNACKS";
 
-        String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No account found with that ID.\"}";
-
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
         //ACT:
@@ -404,15 +383,18 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expected, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No account found with that ID.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
@@ -438,18 +420,20 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expected, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
 
     /**
@@ -463,15 +447,13 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/1191782@isep.ipp.pt/accounts";
 
-        String expected = "[{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
-                "\"denomination\":\"CTT\"," + "\"description\":\"WORK\"," +
-                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/1191782@ISEP.IPP.PT/accounts/CTT\"}]}," +
-                "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
-                "\"denomination\":\"MBWAY\"," + "\"description\":\"FRIENDS\"," +
-                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/1191782@ISEP.IPP.PT/accounts/MBWAY\"}]}," +
-                "{\"ownerID\":\"1191782@ISEP.IPP.PT\"," +
-                "\"denomination\":\"HOME\"," + "\"description\":\"HOME EXPENSES\"," +
-                "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/persons/1191782@ISEP.IPP.PT/accounts/HOME\"}]}]";
+        //Arrange the expected links that will be returned:
+        String expectedLink1 = "[{\"rel\":\"self\"," +
+                "\"href\":\"http:\\/\\/localhost\\/persons\\/1191782@ISEP.IPP.PT\\/accounts\\/CTT\"}]";
+        String expectedLink2 = "[{\"rel\":\"self\"," +
+                "\"href\":\"http:\\/\\/localhost\\/persons\\/1191782@ISEP.IPP.PT\\/accounts\\/MBWAY\"}]";
+        String expectedLink3 = "[{\"rel\":\"self\"," +
+                "\"href\":\"http:\\/\\/localhost\\/persons\\/1191782@ISEP.IPP.PT\\/accounts\\/HOME\"}]";
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -479,12 +461,30 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+
+        //Actual string that is returned:
         String result = mvcResult.getResponse().getContentAsString();
 
-        //ASSERT:
+        JSONArray jArray = (JSONArray) new JSONTokener(result).nextValue();
+
+        //ASSERT: (assert if the status is the expected (200 = OK), and assert if the returned String is equal to the expected one:
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertEquals(expected, result)
+
+                () -> assertEquals("1191782@ISEP.IPP.PT",jArray.getJSONObject(0).getString("ownerID")),
+                () -> assertEquals("CTT",jArray.getJSONObject(0).getString("denomination")),
+                () -> assertEquals("WORK",jArray.getJSONObject(0).getString("description")),
+                () -> assertEquals(expectedLink1, jArray.getJSONObject(0).getString("links")),
+
+                () -> assertEquals("1191782@ISEP.IPP.PT",jArray.getJSONObject(1).getString("ownerID")),
+                () -> assertEquals("MBWAY",jArray.getJSONObject(1).getString("denomination")),
+                () -> assertEquals("FRIENDS",jArray.getJSONObject(1).getString("description")),
+                () -> assertEquals(expectedLink2, jArray.getJSONObject(1).getString("links")),
+
+                () -> assertEquals("1191782@ISEP.IPP.PT",jArray.getJSONObject(2).getString("ownerID")),
+                () -> assertEquals("HOME",jArray.getJSONObject(2).getString("denomination")),
+                () -> assertEquals("HOME EXPENSES",jArray.getJSONObject(2).getString("description")),
+                () -> assertEquals(expectedLink3, jArray.getJSONObject(2).getString("links"))
         );
 
     }
@@ -496,11 +496,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/1191782isep.ipp.pt/accounts";
 
-        String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email is not valid.\"}";
-
         String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
         //ACT:
@@ -509,15 +504,18 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expected, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
@@ -529,11 +527,6 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/raquel@isep.ipp.pt/accounts";
 
-        String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No person found with that email.\"}";
-
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
         //ACT:
@@ -542,19 +535,20 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
-      Assertions.assertAll(
+        //Assert:
+        Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expected, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No person found with that email.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
     }
 
     @Test
@@ -577,15 +571,18 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expected, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No accounts found with that ID.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
