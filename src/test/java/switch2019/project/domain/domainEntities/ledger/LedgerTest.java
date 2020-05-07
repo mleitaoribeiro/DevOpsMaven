@@ -1372,4 +1372,52 @@ class LedgerTest {
         assertEquals(0, ledgerSize);
     }
 
+    @Test
+    @DisplayName("hashcode test equal ledger")
+    void equalsTestHashcode(){
+        OwnerID ownerID = new GroupID(new Description("switch"));
+        Ledger ledger = new Ledger(ownerID);
+        Ledger ledger1 = new Ledger(ownerID);
+
+        boolean resultHash = ledger.hashCode() == ledger1.hashCode();
+
+        assertTrue(resultHash);
+    }
+
+    @Test
+    @DisplayName("Equals test same object")
+    void equalsTestSameObj(){
+        OwnerID ownerID = new GroupID(new Description("switch"));
+        Ledger ledger = new Ledger(ownerID);
+
+        boolean resultTrue = ledger.equals(ledger);
+
+        assertTrue(resultTrue);
+
+    }
+
+    @Test
+    @DisplayName("Equals test, instance of")
+    void equalsTestInstance(){
+        OwnerID ownerID = new GroupID(new Description("switch"));
+        Ledger ledger = new Ledger(ownerID);
+
+        boolean result = ledger.equals(ownerID);
+
+        assertFalse(result);
+
+    }
+
+    @Test
+    @DisplayName("hashcode test equal ledger")
+    void equalsTestHashcodeFalse(){
+        OwnerID ownerID = new GroupID(new Description("switch"));
+        Ledger ledger = new Ledger(ownerID);
+        Ledger ledger1 = new Ledger(new GroupID(new Description("amigos")));
+
+        boolean resultHash = ledger.hashCode() == ledger1.hashCode();
+
+        assertFalse(resultHash);
+    }
+
 }
