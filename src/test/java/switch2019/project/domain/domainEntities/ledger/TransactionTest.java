@@ -482,7 +482,7 @@ class TransactionTest {
      * Tests to validate if a transaction was created
      */
     @Test
-    @DisplayName("Test for validating transaction - sucess case")
+    @DisplayName("Test for validating transaction - success case")
     void isAValidTransactionTrue() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));

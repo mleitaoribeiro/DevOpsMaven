@@ -129,10 +129,23 @@ class DateAndTimeTest {
 
 
     @Test
-    @DisplayName("Test equals for the same object")
-    public void equalsSameObject() {
+    @DisplayName("Test equals for the same object - yearMonthDay")
+    public void equalsSameObjectYearMonthDay() {
         //Arrange
         DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+
+        //Act
+        boolean result = birthDate.equals(birthDate);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test equals for the same object - yearMonthDayHourMinute")
+    public void equalsSameObjectYearMonthDayHourMinute() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27,13,5);
 
         //Act
         boolean result = birthDate.equals(birthDate);
@@ -145,8 +158,22 @@ class DateAndTimeTest {
      * Equals Different Object Type
      */
     @Test
-    @DisplayName("Test equals for different object type")
-    public void equalsDifferentObjectType() {
+    @DisplayName("Test equals for different object type - yearMonthDay")
+    public void equalsDifferentObjectTypeYearMonthDay() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+        Denomination denomination = new Denomination("example");
+
+        //Act
+        boolean result = birthDate.equals(denomination);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test equals for different object type - yearMonthDayHourMinute")
+    public void equalsDifferentObjectTypeYearMonthDayHourMinute() {
         //Arrange
         DateAndTime birthDate = new DateAndTime(1996, 4, 27);
         Denomination denomination = new Denomination("example");
@@ -162,10 +189,24 @@ class DateAndTimeTest {
      * Equals Null Object
      */
     @Test
-    @DisplayName("Test equals for null object")
-    public void equalsForNullObject() {
+    @DisplayName("Test equals for null object - - yearMonthDay")
+    public void equalsForNullObjectYearMonthDay() {
         //Arrange
         DateAndTime birthDate = new DateAndTime(1996, 4, 27);
+        DateAndTime nullDate = null;
+
+        //Act
+        boolean result = birthDate.equals(nullDate);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test equals for null object - - yearMonthDayHourMinute")
+    public void equalsForNullObjectYearMonthDayHourMinute() {
+        //Arrange
+        DateAndTime birthDate = new DateAndTime(1996, 4, 27,13,5);
         DateAndTime nullDate = null;
 
         //Act
