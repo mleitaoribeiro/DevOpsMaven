@@ -42,31 +42,27 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         //Arrange
         String uri = "/groups/Family Simpson/accounts";
 
+        final String groupDescription = "Family Simpson";
         final String personEmail = "homer@hotmail.com";
         final String accountDenomination = "Kwik E Mart";
         final String accountDescription = "Duff Beer Expenses";
-
 
         CreateGroupAccountInfoDTO createGroupAccountInfoDTO = new CreateGroupAccountInfoDTO();
         createGroupAccountInfoDTO.setPersonEmail(personEmail);
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
-
-        String expectedResult = "{\"ownerID\":\"FAMILY SIMPSON\"" +
-                ","+  "\"denomination\":\"" + accountDenomination.toUpperCase() +
-                "\"" + "," + "\"description\":\"" + accountDescription.toUpperCase() +
-                "\",\"_links\":{\"self\":[{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts/KWIK%20E%20MART\"}," +
-                "{\"href\":\"http://localhost/groups/FAMILY%20SIMPSON/accounts\"}]}}";
-
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
+
+        String expectedLinks = "{\"self\":" +
+                "[{\"href\":\"http:\\/\\/localhost\\/groups\\/FAMILY%20SIMPSON\\/accounts\\/KWIK%20E%20MART\"}," +
+                "{\"href\":\"http:\\/\\/localhost\\/groups\\/FAMILY%20SIMPSON\\/accounts\"}]}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
-                .andExpect(content().string(expectedResult))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
@@ -76,10 +72,10 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(result.getString("ownerID"), "FAMILY SIMPSON"),
-                () -> assertEquals(result.getString("denomination"), accountDenomination.toUpperCase()),
-                () -> assertEquals(result.getString("description"), accountDescription.toUpperCase()),
-                () -> assertTrue (result.has("_links"))
+                () -> assertEquals(groupDescription.toUpperCase(),result.getString("ownerID")),
+                () -> assertEquals(accountDenomination.toUpperCase(), result.getString("denomination")),
+                () -> assertEquals(accountDescription.toUpperCase(), result.getString("description")),
+                () -> assertEquals (expectedLinks, result.getString("_links"))
         );
     }
 
@@ -102,11 +98,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":403,\"status\":\"FORBIDDEN\"," +
-                "\"error\":\"No permission for this operation.\"," +
-                "\"message\":\"This person is not admin of this group.\"}";
-
         String expectedResolvedException = new NoPermissionException ("This person is not admin of this group.").toString();
 
         //Act
@@ -115,11 +106,11 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isForbidden())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
@@ -127,11 +118,13 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("403", result.getString("statusCode")),
+                () -> assertEquals("FORBIDDEN", result.getString("status")),
+                () -> assertEquals ("No permission for this operation.", result.getString("error")),
+                () -> assertEquals ("This person is not admin of this group.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
 
     }
 
