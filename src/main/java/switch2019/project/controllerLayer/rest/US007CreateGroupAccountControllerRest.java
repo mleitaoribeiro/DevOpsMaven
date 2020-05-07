@@ -44,7 +44,7 @@ public class US007CreateGroupAccountControllerRest {
 
         Link accountsLink = linkTo(methodOn(US007CreateGroupAccountControllerRest.class)
                 .getAccountsByGroupID(result.getOwnerID()))
-                .withSelfRel();
+                .withRel("accounts");
 
         result.add(accountsLink);
 
