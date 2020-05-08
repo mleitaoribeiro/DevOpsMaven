@@ -9,10 +9,7 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.repositories.GroupRepository;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class US004GetFamilyGroupsService {
@@ -28,10 +25,12 @@ public class US004GetFamilyGroupsService {
 
     public Set <GroupDTO> getFamilyGroups () {
 
-        Set <Group> familyGroups = Collections.emptySet();
-        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Simpson"))));
-        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Azevedo"))));
-        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Cardoso"))));
+        //SUBSTITUIR PELO CODIGO DO ISFAMILY
+        Set <Group> familyGroups = new LinkedHashSet<>();
+
+        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Family Simpson"))));
+        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Family Cardoso"))));
+        familyGroups.add(groupsRepository.getByID(new GroupID(new Description("Family Azevedo"))));
 
         //DTO conversion
         Set<GroupDTO> familyGroupDTO = new LinkedHashSet<>();
