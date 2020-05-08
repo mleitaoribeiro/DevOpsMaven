@@ -191,6 +191,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 () -> assertEquals(403, status),
                 () -> assertEquals(expectedError, result),
                 () -> assertEquals(expectedException, realException)
+
         );
     }
 

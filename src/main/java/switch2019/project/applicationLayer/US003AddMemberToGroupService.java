@@ -14,6 +14,7 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -38,7 +39,6 @@ public class US003AddMemberToGroupService {
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         boolean wasMemberAdded = group.addMember(person.getID());
         return GroupDTOAssembler.createAddedMemberDTO(wasMemberAdded, person, group);
-
     }
 
     public PersonIDDTO getPersonByEmail(String personEmail, String groupDescription){
@@ -47,8 +47,7 @@ public class US003AddMemberToGroupService {
 
         if (group.isGroupMember(personID)) {
             return PersonDTOAssembler.createPersonIDDTO(personID);
-        }
-        throw new IllegalArgumentException("That person is not a member of this group.");
+        } throw new NoPermissionException("This person is not member of this group.");
     }
 
     public Set<PersonIDDTO> getMembersByGroupDescription(String groupDescription) {

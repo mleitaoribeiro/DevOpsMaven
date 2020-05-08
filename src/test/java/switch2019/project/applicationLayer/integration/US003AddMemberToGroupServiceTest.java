@@ -13,6 +13,7 @@ import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -67,6 +68,7 @@ public class US003AddMemberToGroupServiceTest {
     @Test
     @DisplayName("Test if a member was added to group-Invalid Person ID")
     void addMemberToGroupInvalidPersonID() {
+
         //Arrange
         String personEmail = "jp@ip.pt";
         String groupDescription = "familia";
@@ -85,34 +87,44 @@ public class US003AddMemberToGroupServiceTest {
 
     @Test
     @DisplayName("Test to getPersonByEmail not valid")
-    void getPersonByEmail(){
+    void getPersonByEmail() {
+
+        // Arrange
         String personEmail = "1191743@isep.ipp.pt";
         String groupDescription = "friends";
 
+        // Act
         try {
             service.getPersonByEmail(personEmail, groupDescription);
         }
-        catch (IllegalArgumentException e)  {
-            assertEquals("That person is not a member of this group.", e.getMessage());
-        };
+
+        // Assert
+        catch (NoPermissionException e) {
+            assertEquals("This person is not member of this group.", e.getMessage());
+        }
+        ;
     }
 
     @Test
     @DisplayName("Test to getPersonByEmail")
-    void getPersonByEmailEquals(){
+    void getPersonByEmailEquals() {
+
+        // Arrange
         String personEmail = "1191743@isep.ipp.pt";
         String groupDescription = "switch";
 
-        PersonIDDTO personIDDTOactual = service.getPersonByEmail(personEmail, groupDescription);
+        PersonIDDTO personIDDTOExpected = new PersonIDDTO(personEmail);
 
-        PersonIDDTO personIDDTOexpected = new PersonIDDTO(personEmail);
+        // Act
+        PersonIDDTO personIDDTOActual = service.getPersonByEmail(personEmail, groupDescription);
 
-            assertEquals(personIDDTOexpected, personIDDTOactual);
+        // Assert
+        assertEquals(personIDDTOExpected, personIDDTOActual);
     }
 
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
-    void getMembersByGroupDescription(){
+    void getMembersByGroupDescription() {
 
         // Arrange
         String groupDescription = "Rick and Morty";
@@ -130,17 +142,18 @@ public class US003AddMemberToGroupServiceTest {
 
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Exception - No group found with that description")
-    void getMembersByGroupDescriptionException() throws ArgumentNotFoundException{
+    void getMembersByGroupDescriptionException() throws ArgumentNotFoundException {
 
         // Arrange
         String groupDescription = "High School buddies";
 
-        //Act
+        // Act
         Throwable thrown = catchThrowable(() -> {
-            service.getMembersByGroupDescription(groupDescription);;
+            service.getMembersByGroupDescription(groupDescription);
+            ;
         });
 
-        //Assert
+        // Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No group found with that description.");
@@ -149,7 +162,7 @@ public class US003AddMemberToGroupServiceTest {
 
     @Test
     @DisplayName("Test for getAdminssByGroupDescription - Main Scenario")
-    void getAdminsByGroupDescription(){
+    void getAdminsByGroupDescription() {
 
         // Arrange
         String groupDescription = "Rick and Morty";
@@ -166,14 +179,15 @@ public class US003AddMemberToGroupServiceTest {
 
     @Test
     @DisplayName("Test for getAdminsByGroupDescription - Exception - No group found with that description")
-    void getAdminsByGroupDescriptionException() throws ArgumentNotFoundException{
+    void getAdminsByGroupDescriptionException() throws ArgumentNotFoundException {
 
         // Arrange
         String groupDescription = "High School buddies";
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            service.getAdminsByGroupDescription(groupDescription);;
+            service.getAdminsByGroupDescription(groupDescription);
+            ;
         });
 
         //Assert
