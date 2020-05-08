@@ -1,11 +1,14 @@
 package switch2019.project.controllerLayer.rest.integration;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupInfoDTO;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -30,33 +33,33 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         //Arrange
         String uri = "/groups";
 
-        final String groupDescriptionStr = "Online Shopping";
+        final String groupDescription = "Online Shopping";
         final String personEmail = "1110120@isep.ipp.pt";
 
         CreateGroupInfoDTO createGroupInfoDTO = new CreateGroupInfoDTO ();
-        createGroupInfoDTO.setGroupDescription(groupDescriptionStr);
+        createGroupInfoDTO.setGroupDescription(groupDescription);
         createGroupInfoDTO.setPersonEmail(personEmail);
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expected = "{\"groupDescription\":\"" +groupDescriptionStr.toUpperCase() +
-                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/ONLINE%20SHOPPING\"}}}";
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/ONLINE%20SHOPPING\"}}";
 
        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
-                .andExpect(content().string(expected))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(groupDescription.toUpperCase(),result.getString("groupDescription")),
+                () -> assertEquals (expectedLinks, result.getString("_links"))
         );
     }
 
@@ -77,27 +80,30 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No person found with that email.\"}";
+        String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
-
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No person found with that email.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
 
@@ -118,27 +124,31 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage =  "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":409,\"status\":\"CONFLICT\"," +
-                "\"error\":\"This resource already exists.\"," +
-                "\"message\":\"This group description already exists.\"}";
+        String expectedResolvedException = new ResourceAlreadyExistsException("This group description already exists.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isConflict())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(409, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("409", result.getString("statusCode")),
+                () -> assertEquals("CONFLICT", result.getString("status")),
+                () -> assertEquals ("This resource already exists.", result.getString("error")),
+                () -> assertEquals ("This group description already exists.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
 
@@ -159,26 +169,30 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email can't be null.\"}";
+        String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
-        //Assert
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email can't be null.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
 
     }
@@ -199,28 +213,30 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email is not valid.\"}";
+        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
-        //Assert
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
 
@@ -240,29 +256,31 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email is not valid.\"}";
+        String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
-        //Assert
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
 
     }
 
@@ -282,28 +300,30 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The description can't be null or empty.\"}";
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The description can't be null or empty.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
                 );
 
     }
@@ -324,28 +344,30 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The description can't be null or empty.\"}";
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
-        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The description can't be null or empty.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
 
@@ -358,28 +380,25 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((null));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":400," +
-                "\"status\":\"BAD_REQUEST\"," +
-                "\"error\":\"The request body needed to perform the operation is missing.\"," +
-                "\"message\":\"Required request body is missing.\"}";
-
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
-        //Assert
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(400, status),
-                () -> assertEquals(expectedErrorMessage,result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("400", result.getString("statusCode")),
+                () -> assertEquals("BAD_REQUEST", result.getString("status")),
+                () -> assertEquals ("The request body needed to perform the operation is missing.", result.getString("error")),
+                () -> assertEquals ("Required request body is missing.", result.getString("message"))
         );
 
     }
@@ -389,7 +408,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
      */
 
     @Test
-    @DisplayName("Test if a groupDTO is returned given its description  Hapyy Case")
+    @DisplayName("Test if a groupDTO is returned given its description  - Happy Case")
     public void getGroupByDescription() throws Exception {
 
         //Arrange
@@ -397,9 +416,8 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String groupDescription = "SMITH FAMILY";
 
-        String expectedJson = "{\"groupDescription\":\"" + groupDescription + "\",\"_links\":{" +
-                "\"Members\":{\"href\":\"http://localhost/groups/SMITH%20FAMILY/members\"}," +
-                "\"Admins\":{\"href\":\"http://localhost/groups/SMITH%20FAMILY/admins\"}}}";
+        String expectedLinks = "{\"Admins\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SMITH%20FAMILY\\/admins\"}," +
+                "\"Members\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SMITH%20FAMILY\\/members\"}}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -407,12 +425,14 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String resultJson = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertEquals(expectedJson, resultJson)
+                () -> assertEquals(groupDescription.toUpperCase(),result.getString("groupDescription")),
+                () -> assertEquals (expectedLinks, result.getString("_links"))
         );
     }
 
@@ -423,23 +443,27 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         //Arrange
         String uri = "/groups/SuicideSquad";
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No group found with that description.\"}";
+        String expectedResolvedException = new ArgumentNotFoundException("No group found with that description.").toString();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
-        //ASSERT:
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
-
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No group found with that description.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
 }
