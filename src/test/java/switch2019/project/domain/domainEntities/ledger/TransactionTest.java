@@ -542,7 +542,31 @@ class TransactionTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
+            assertEquals("The monetary value cannot be null.", description.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Test for validating transaction - negative monetary value")
+    void isAValidTransactionFalseNuegativeMonetaryValue() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(-200, Currency.getInstance("EUR"));
+        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+
+
+        //Act
+        try {
+            new Transaction(monetaryValue, new Description("payment"), localDateTime, category, account1, account2, new Type (true));
+        }
+
+        //Assert
+        catch (IllegalArgumentException description) {
+            assertEquals("The monetary value cannot be negative.", description.getMessage());
         }
     }
 
@@ -565,7 +589,7 @@ class TransactionTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The category can´t be null. Please try again.", description.getMessage());
+            assertEquals("The category cannot be null.", description.getMessage());
         }
     }
 
@@ -587,7 +611,7 @@ class TransactionTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
+            assertEquals("The accounts cannot be null.", description.getMessage());
         }
     }
 
@@ -609,7 +633,7 @@ class TransactionTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
+            assertEquals("The accounts cannot be null.", description.getMessage());
         }
     }
 

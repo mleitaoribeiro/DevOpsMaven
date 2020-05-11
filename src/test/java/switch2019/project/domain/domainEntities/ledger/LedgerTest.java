@@ -98,7 +98,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The monetary value can´t be null or negative. Please try again.", description.getMessage());
+            assertEquals("The monetary value cannot be null.", description.getMessage());
         }
     }
 
@@ -161,7 +161,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The category can´t be null. Please try again.", description.getMessage());
+            assertEquals("The category cannot be null.", description.getMessage());
         }
     }
 
@@ -191,7 +191,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException description) {
-            assertEquals("The accounts can´t be null. Please try again.", description.getMessage());
+            assertEquals("The accounts cannot be null.", description.getMessage());
         }
     }
 
@@ -419,7 +419,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsInDateRange) {
-            assertEquals("One of the submitted dates is not valid.", getTransactionsInDateRange.getMessage());
+            assertEquals("One of the specified dates is not valid.", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -461,7 +461,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsInDateRange) {
-            assertEquals("One of the submitted dates is not valid.", getTransactionsInDateRange.getMessage());
+            assertEquals("One of the specified dates is not valid.", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -502,7 +502,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsInDateRange) {
-            assertEquals("The dates can´t be null", getTransactionsInDateRange.getMessage());
+            assertEquals("The specified dates cannot be null.", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -543,7 +543,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getTransactionsInDateRange) {
-            assertEquals("The dates can´t be null", getTransactionsInDateRange.getMessage());
+            assertEquals("The specified dates cannot be null.", getTransactionsInDateRange.getMessage());
         }
     }
 
@@ -792,7 +792,7 @@ class LedgerTest {
 
         //Assert
         catch (IllegalArgumentException getMovementsFromOneAccount) {
-            assertEquals("The account can't be null", getMovementsFromOneAccount.getMessage());
+            assertEquals("The account cannot be null.", getMovementsFromOneAccount.getMessage());
         }
     }
 
@@ -1007,7 +1007,7 @@ class LedgerTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+            assertEquals("One of the specified dates is not valid.", result.getMessage());
         }
     }
 
@@ -1050,7 +1050,7 @@ class LedgerTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+            assertEquals("One of the specified dates is not valid.", result.getMessage());
         }
     }
 
@@ -1095,7 +1095,7 @@ class LedgerTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+            assertEquals("One of the specified dates is not valid.", result.getMessage());
         }
     }
 
@@ -1117,7 +1117,7 @@ class LedgerTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("The ledger is Empty.", result.getMessage());
+            assertEquals("The ledger has no Transactions.", result.getMessage());
         }
     }
 
@@ -1162,7 +1162,7 @@ class LedgerTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("One of the submitted dates is not valid.", result.getMessage());
+            assertEquals("One of the specified dates is not valid.", result.getMessage());
         }
     }
 
@@ -1184,7 +1184,7 @@ class LedgerTest {
         }
         //Assert
         catch (IllegalArgumentException result) {
-            assertEquals("The ledger is Empty.", result.getMessage());
+            assertEquals("The ledger has no Transactions.", result.getMessage());
         }
     }
 
