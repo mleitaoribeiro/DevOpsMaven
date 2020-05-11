@@ -88,20 +88,22 @@ public class Transaction {
      */
 
     public MonetaryValue setValidMonetaryValue(MonetaryValue newAmount) {
-        if (newAmount == null || !newAmount.validateIfAmountIsPositive())
-            throw new IllegalArgumentException("The monetary value can´t be null or negative. Please try again.");
+        if (newAmount == null )
+            throw new IllegalArgumentException("The monetary value cannot be null.");
+        if(!newAmount.validateIfAmountIsPositive())
+            throw new IllegalArgumentException("The monetary value cannot be negative.");
         else return newAmount;
     }
 
     public Category setValidCategory(Category newCategory) {
         if (newCategory == null)
-            throw new IllegalArgumentException("The category can´t be null. Please try again.");
+            throw new IllegalArgumentException("The category cannot be null.");
         else return newCategory;
     }
 
     public Account setValidAccount(Account newAccount) {
         if (newAccount == null)
-            throw new IllegalArgumentException("The accounts can´t be null. Please try again.");
+            throw new IllegalArgumentException("The accounts cannot be null.");
         else return newAccount;
     }
 
