@@ -19,8 +19,8 @@ public class Ledger {
     private ScheduledTasksList scheduledTasksList;
 
     //String literals should not be duplicated
-    private static final String DATE_NOT_VALID = "One of the submitted dates is not valid.";
-    private static final String DATE_CANT_NULL = "The dates can´t be null";
+    private static final String DATE_NOT_VALID = "One of the specified dates is not valid.";
+    private static final String DATE_CANT_NULL = "The specified dates cannot be null.";
 
     /**
      * Ledger Constructor
@@ -198,7 +198,7 @@ public class Ledger {
             }
             return listOfTransactionsFromOneAccount;
         } else
-            throw new IllegalArgumentException("The account can't be null");
+            throw new IllegalArgumentException("The account cannot be null.");
     }
 
 
@@ -218,7 +218,7 @@ public class Ledger {
             throw new IllegalArgumentException(DATE_NOT_VALID);
 
         else if (ledgerTransactions.isEmpty())
-            throw new IllegalArgumentException("The ledger is Empty.");
+            throw new IllegalArgumentException("The ledger has no Transactions.");
 
             //Validate if Date is in the correct order
         else if (initialDate.isAfter(finalDate)) {
