@@ -1,5 +1,6 @@
 package switch2019.project.domain.domainEntities.person;
 
+import lombok.Getter;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
@@ -71,7 +72,6 @@ public class Person implements Owner {
         this.father = father;
         this.siblingList = new HashSet<>();
     }
-
 
     @Override
     public boolean equals(Object o) {

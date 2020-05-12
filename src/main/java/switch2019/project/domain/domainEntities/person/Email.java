@@ -1,9 +1,10 @@
 package switch2019.project.domain.domainEntities.person;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class Email {
+public class Email implements Serializable {
 
     private final String emailAddress;
 
