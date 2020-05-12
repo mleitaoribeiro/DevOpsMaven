@@ -13,16 +13,47 @@ public class AddressJpa {
 
     //@OneToOne
     //@JoinColumn(name = "persons", nullable=false)
-    //because it is in the same aggregate, a foreign key constraint is used
     //private PersonJpa person;
 
     protected AddressJpa() {};
 
-    public AddressJpa(String street, String city, String postalCode, PersonJpa personJpa) {
+    public AddressJpa(String street, String city, String postalCode) {
         this.street = street;
         this.city = city;
         this.postalCode = postalCode;
         //this.person = personJpa;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 }
+

@@ -1,4 +1,6 @@
 package switch2019.project.dataModel.entities;
+import switch2019.project.utils.dataConverter.AddressConverter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,13 +13,19 @@ public class PersonJpa {
     private String birthDate;
     private String birthPlace;
 
+    @Convert(converter = AddressConverter.class)
+   //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "address_id", referencedColumnName = "id")
+    private AddressJpa address;
+
     protected PersonJpa() {};
 
-    public PersonJpa(String id, String name, String birthDate, String birthPlace) {
+    public PersonJpa(String id, String name, String birthDate, String birthPlace, AddressJpa address) {
         this.email = id;
         this.name = name;
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
+        this.address = address;
     }
 
     @Override
@@ -30,7 +38,7 @@ public class PersonJpa {
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, name, birthDate, birthPlace);
+        return Objects.hash(email);
     }
 
     public String getEmail() {
@@ -47,5 +55,9 @@ public class PersonJpa {
 
     public String getBirthPlace() {
         return birthPlace;
+    }
+
+    public AddressJpa getAddress() {
+        return address;
     }
 }
