@@ -10,7 +10,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class PersonDataAssembler {
+public class PersonDomainDataAssembler {
 
     public static PersonJpa toData(Person person ) {
         return new PersonJpa( person.getID().toString(), person.getName(), person.getBirthDate(),

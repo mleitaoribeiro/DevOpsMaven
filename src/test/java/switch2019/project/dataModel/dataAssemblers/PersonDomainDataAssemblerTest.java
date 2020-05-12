@@ -11,7 +11,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PersonDataAssemblerTest {
+class PersonDomainDataAssemblerTest {
 
     /**
      * Test if the toData method can transform an object Person to a PersonJpa
@@ -28,7 +28,7 @@ class PersonDataAssemblerTest {
                 "Seattle", new AddressJpa("Requeixos", "Vizela", "4620-585"));
 
         //Act
-        PersonJpa result = PersonDataAssembler.toData(jerrySmith);
+        PersonJpa result = PersonDomainDataAssembler.toData(jerrySmith);
 
         //Assert
         assertEquals(expected, result);
@@ -46,7 +46,7 @@ class PersonDataAssemblerTest {
                 "Seattle", new AddressJpa( "Requeixos", "Vizela", "4620-585"));
 
         //Act
-        PersonJpa result = PersonDataAssembler.toData(jerrySmith);
+        PersonJpa result = PersonDomainDataAssembler.toData(jerrySmith);
 
         //Assert
         assertNotEquals(expected, result);
@@ -67,7 +67,7 @@ class PersonDataAssemblerTest {
                 "Seattle", new AddressJpa( "Requeixos", "Vizela", "4620-585"));
 
         //Act
-        Person result = PersonDataAssembler.toDomain(jerrySmithJpa);
+        Person result = PersonDomainDataAssembler.toDomain(jerrySmithJpa);
 
         //Assert
         assertEquals(expected, result);
@@ -85,7 +85,7 @@ class PersonDataAssemblerTest {
                 "Seattle", new AddressJpa( "Requeixos", "Vizela", "4620-585"));
 
         //Act
-        Person result = PersonDataAssembler.toDomain(jerrySmithJpa);
+        Person result = PersonDomainDataAssembler.toDomain(jerrySmithJpa);
 
         //Assert
         assertNotEquals(expected, result);

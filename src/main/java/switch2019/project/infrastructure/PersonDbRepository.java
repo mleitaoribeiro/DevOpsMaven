@@ -2,7 +2,7 @@ package switch2019.project.infrastructure;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.dataAssemblers.PersonDataAssembler;
+import switch2019.project.dataModel.dataAssemblers.PersonDomainDataAssembler;
 import switch2019.project.dataModel.entities.PersonJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -33,7 +33,7 @@ public class PersonDbRepository implements PersonRepository {
      */
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         Person person = new Person(name, birthDate, birthPlace, homeAddress, email);
-        personJpaRepository.save(PersonDataAssembler.toData(person));
+        personJpaRepository.save(PersonDomainDataAssembler.toData(person));
         return person;
     }
 
@@ -52,7 +52,7 @@ public class PersonDbRepository implements PersonRepository {
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                PersonID mother, PersonID father, Email email) {
         Person person = new Person(name, birthDate, birthPlace, homeAddress, mother, father, email);
-        personJpaRepository.save(PersonDataAssembler.toData(person));
+        personJpaRepository.save(PersonDomainDataAssembler.toData(person));
         return person;
     }
 
@@ -65,7 +65,7 @@ public class PersonDbRepository implements PersonRepository {
     public Person getByID(ID personID) {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
         if(personJpa.isPresent())
-            return PersonDataAssembler.toDomain(personJpa.get());
+            return PersonDomainDataAssembler.toDomain(personJpa.get());
         else throw new ArgumentNotFoundException("No person found with that ID.");
     }
 
@@ -78,7 +78,7 @@ public class PersonDbRepository implements PersonRepository {
     public Person findPersonByEmail(Email personEmail) {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
         if(personJpa.isPresent())
-            return PersonDataAssembler.toDomain(personJpa.get());
+            return PersonDomainDataAssembler.toDomain(personJpa.get());
         throw new ArgumentNotFoundException("No person found with that email.");
     }
 

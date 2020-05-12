@@ -19,5 +19,8 @@ public class CategoryJpa {
         categoryKeyJpa = new CategoryKeyJpa(owner, denomination);
     }
 
+    public CategoryKeyJpa getCategoryKeyJPA() {
+        return categoryKeyJpa;
+    }
 }
 
