@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
+
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -17,7 +19,7 @@ public class US004GetFamilyGroupsController {
      * @return family groups
      */
 
-    public Set <GroupDTO> getFamilyGroups() {
+    public List<GroupDTO> getFamilyGroups() {
         return service.getFamilyGroups();
     }
 }

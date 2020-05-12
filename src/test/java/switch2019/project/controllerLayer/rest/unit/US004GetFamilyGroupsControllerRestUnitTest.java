@@ -17,7 +17,9 @@ import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.controllerLayer.rest.US004GetFamilyGroupsControllerRest;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,7 +48,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
     void getGroupsTypeFamily() {
 
         //Arrange
-        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
+        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
 
         expectedFamilyGroup.add(new GroupDTO("FAMILY CARDOSO"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY SIMPSON"));
@@ -73,7 +75,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
     void getGroupsTypeFamilyEmptyResult() {
 
         //Arrange
-        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
+        List<GroupDTO> expectedFamilyGroup = new ArrayList<>(); // Empty Set
 
         ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
 

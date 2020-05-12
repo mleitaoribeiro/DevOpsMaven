@@ -92,6 +92,11 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return false;
     }
 
+    @Override
+    public Set<Group> getAllGroups() {
+        return null;
+    }
+
     /**
      * Method to check the number of Groups inside the Repository.
      *

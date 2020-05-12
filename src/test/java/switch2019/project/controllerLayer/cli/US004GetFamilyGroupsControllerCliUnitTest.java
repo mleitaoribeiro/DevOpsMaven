@@ -12,7 +12,9 @@ import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +40,7 @@ public class US004GetFamilyGroupsControllerCliUnitTest {
     public void returnFamilyGroups() {
 
         //Arrange
-        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
+        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
         expectedFamilyGroup.add(new GroupDTO("FAMILY CARDOSO"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY SIMPSON"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY AZEVEDO"));
@@ -46,7 +48,7 @@ public class US004GetFamilyGroupsControllerCliUnitTest {
         Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
 
         //Act
-        Set <GroupDTO> realResult = controller.getFamilyGroups();
+        List<GroupDTO> realResult = controller.getFamilyGroups();
 
         //Assert
         assertEquals(expectedFamilyGroup, realResult);

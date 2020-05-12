@@ -1,6 +1,9 @@
 package switch2019.project.domain.repositories;
 
 import switch2019.project.domain.domainEntities.frameworks.ID;
+import switch2019.project.domain.domainEntities.group.Group;
+
+import java.util.Set;
 
 public interface Repository {
 
@@ -12,7 +15,7 @@ public interface Repository {
      * @return
      */
 
-    Object getByID (ID id);
+    Object getByID(ID id);
 
 
     /**
@@ -22,7 +25,7 @@ public interface Repository {
      * @return
      */
 
-    boolean isIDOnRepository (ID id);
+    boolean isIDOnRepository(ID id);
 
 
     /**
@@ -33,6 +36,5 @@ public interface Repository {
 
     int repositorySize();
 
-
-
 }
+

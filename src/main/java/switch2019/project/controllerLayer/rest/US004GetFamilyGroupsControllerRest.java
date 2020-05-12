@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+
+import java.util.List;
 import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -31,7 +33,7 @@ public class US004GetFamilyGroupsControllerRest {
     @GetMapping("/groups")
     public ResponseEntity <Object> getFamilyGroups(@RequestParam(value = "type") String type) {
 
-        Set<GroupDTO> groups;
+        List<GroupDTO> groups;
 
         if(type.equals(""))
             throw new IllegalArgumentException("The type can't be empty.");
