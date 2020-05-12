@@ -92,9 +92,8 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return false;
     }
 
-    @Override
     public Set<Group> getAllGroups() {
-        return null;
+        return groups;
     }
 
     /**

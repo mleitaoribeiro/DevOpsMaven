@@ -48,7 +48,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
     void getGroupsTypeFamily() {
 
         //Arrange
-        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
 
         expectedFamilyGroup.add(new GroupDTO("FAMILY CARDOSO"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY SIMPSON"));
@@ -75,7 +75,7 @@ public class US004GetFamilyGroupsControllerRestUnitTest {
     void getGroupsTypeFamilyEmptyResult() {
 
         //Arrange
-        List<GroupDTO> expectedFamilyGroup = new ArrayList<>(); // Empty Set
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>(); // Empty Set
 
         ResponseEntity<Object> responseEntityExpected =  new ResponseEntity<>(expectedFamilyGroup, HttpStatus.OK);
 

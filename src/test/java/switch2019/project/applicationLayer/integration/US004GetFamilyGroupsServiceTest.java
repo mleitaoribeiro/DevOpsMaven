@@ -9,14 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
-import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.repositories.GroupRepository;
-import switch2019.project.domain.repositories.PersonRepository;
 
 
 import java.util.*;
@@ -31,7 +27,7 @@ class US004GetFamilyGroupsServiceTest {
 
     @Autowired
     private GroupRepository groupRepository;
-    
+
     /**
      * Test if a Group is a family
      */
@@ -49,32 +45,32 @@ class US004GetFamilyGroupsServiceTest {
 
     }
 
-//    @Test
-//    @DisplayName("Validate if a group is a family - All except one")
-//    void ifGroupIsFamilyAllFamilyExceptOne() {
-//        //Arrange
-//
-//        Group group = groupRepository.getByID(new GroupID(new Description("friends")));
-//
-//        //Act & Assert
-//        assertFalse(service.isFamily(group));
-//    }
-//
-//
-//    @Test
-//    @DisplayName("Validate if a group is a family - All except one")
-//    void all() {
-//        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
-//        expectedFamilyGroup.add(new GroupDTO("family Cardoso"));
-//        expectedFamilyGroup.add(new GroupDTO("family azevedo"));
-//        expectedFamilyGroup.add(new GroupDTO("family Simpson"));
-//        //Act
-//        List<GroupDTO> realResult = service.getFamilyGroups();
-//
-//        //Assert
-//        assertEquals(expectedFamilyGroup, realResult);
-//    }
-//
+    @Test
+    @DisplayName("Validate if a group is a family - All except one")
+    void ifGroupIsFamilyAllFamilyExceptOne() {
+        //Arrange
+
+        Group group = groupRepository.getByID(new GroupID(new Description("friends")));
+
+        //Act & Assert
+        assertFalse(service.isFamily(group));
+    }
+
+
+    @Test
+    @DisplayName("Validate if a group is a family - All except one")
+    void all() {
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
+        expectedFamilyGroup.add(new GroupDTO("family Cardoso"));
+        expectedFamilyGroup.add(new GroupDTO("family azevedo"));
+        expectedFamilyGroup.add(new GroupDTO("family Simpson"));
+        //Act
+        Set<GroupDTO> realResult = service.getFamilyGroups();
+
+        //Assert
+        assertEquals(expectedFamilyGroup, realResult);
+    }
+
 
 //        Description groupID1description = new Description("FAMILY CARDOSO");
 //        GroupID groupID1 = new GroupID(groupID1description);

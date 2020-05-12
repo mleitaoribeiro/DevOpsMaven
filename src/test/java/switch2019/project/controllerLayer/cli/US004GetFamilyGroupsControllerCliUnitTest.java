@@ -40,7 +40,7 @@ public class US004GetFamilyGroupsControllerCliUnitTest {
     public void returnFamilyGroups() {
 
         //Arrange
-        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
+        Set<GroupDTO> expectedFamilyGroup = new LinkedHashSet<>();
         expectedFamilyGroup.add(new GroupDTO("FAMILY CARDOSO"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY SIMPSON"));
         expectedFamilyGroup.add(new GroupDTO("FAMILY AZEVEDO"));
@@ -48,7 +48,7 @@ public class US004GetFamilyGroupsControllerCliUnitTest {
         Mockito.when(service.getFamilyGroups()).thenReturn(expectedFamilyGroup);
 
         //Act
-        List<GroupDTO> realResult = controller.getFamilyGroups();
+        Set<GroupDTO> realResult = controller.getFamilyGroups();
 
         //Assert
         assertEquals(expectedFamilyGroup, realResult);

@@ -26,39 +26,39 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
      * @throws Exception
      */
 
-//    @Test
-//    @DisplayName("Get groups - type family - Main Scenario")
-//    void getGroupsTypeFamily() throws Exception {
-//
-//        // Status Request
-//        String uri = "/groups?type=family";
-//
-//        String expected = "[{\"groupDescription\":\"" + "FAMILY SIMPSON\",\"links\":" +
-//                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20SIMPSON\"}]}," +
-//                "{\"groupDescription\":\"FAMILY CARDOSO\",\"links\":" +
-//                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20CARDOSO\"}]}," +
-//                "{\"groupDescription\":\"FAMILY AZEVEDO\",\"links\":" +
-//                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20AZEVEDO\"}]}]";
-//
-//        // Act
-//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andReturn();
-//
-//        // Status Response
-//        int status = mvcResult.getResponse().getStatus();
-//
-//        // OutputDTO
-//        String result = mvcResult.getResponse().getContentAsString();
-//
-//        // Assert
-//        Assertions.assertAll(
-//                () -> assertEquals(200, status),
-//                () -> assertEquals(expected, result)
-//        );
-//    }
-//
-//
+    @Test
+    @DisplayName("Get groups - type family - Main Scenario")
+    void getGroupsTypeFamily() throws Exception {
+
+        // Status Request
+        String uri = "/groups?type=family";
+
+        String expected = "[{\"groupDescription\":\"" + "FAMILY SIMPSON\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20SIMPSON\"}]}," +
+                "{\"groupDescription\":\"FAMILY CARDOSO\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20CARDOSO\"}]}," +
+                "{\"groupDescription\":\"FAMILY AZEVEDO\",\"links\":" +
+                "[{\"rel\":\"self\",\"href\":\"http://localhost/groups/FAMILY%20AZEVEDO\"}]}]";
+
+        // Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        // Status Response
+        int status = mvcResult.getResponse().getStatus();
+
+        // OutputDTO
+        String result = mvcResult.getResponse().getContentAsString();
+
+        // Assert
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+                () -> assertEquals(expected, result)
+        );
+    }
+
+
 
     @Test
     @DisplayName("Get groups - type empty - Exception")

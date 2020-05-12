@@ -33,7 +33,7 @@ public class US004GetFamilyGroupsControllerRest {
     @GetMapping("/groups")
     public ResponseEntity <Object> getFamilyGroups(@RequestParam(value = "type") String type) {
 
-        List<GroupDTO> groups;
+        Set<GroupDTO> groups;
 
         if(type.equals(""))
             throw new IllegalArgumentException("The type can't be empty.");

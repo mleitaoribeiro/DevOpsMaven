@@ -19,7 +19,7 @@ public class US004GetFamilyGroupsController {
      * @return family groups
      */
 
-    public List<GroupDTO> getFamilyGroups() {
+    public Set<GroupDTO> getFamilyGroups() {
         return service.getFamilyGroups();
     }
 }

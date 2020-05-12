@@ -6,8 +6,6 @@ import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
@@ -48,8 +46,6 @@ public class US004GetFamilyGroupsService {
                             momPerson = person2.getID();
                     }
                 }
-                return true;
-
             }
             if (dadPerson == null || momPerson == null) return false;
 
@@ -62,9 +58,9 @@ public class US004GetFamilyGroupsService {
             return true;
         }
 
-        public List<GroupDTO> getFamilyGroups() {
+        public Set<GroupDTO> getFamilyGroups() {
             Set<Group> allGroups = groupsRepository.getAllGroups();
-            List<GroupDTO> familyGroups = new ArrayList<>();
+            Set<GroupDTO> familyGroups = new LinkedHashSet<>();
 
             for (Group group : allGroups) {
                 if (isFamily(group)) {
