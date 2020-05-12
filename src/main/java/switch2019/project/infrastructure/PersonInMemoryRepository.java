@@ -1,6 +1,10 @@
-package switch2019.project.infrastructure.repositories;
+package switch2019.project.infrastructure;
 
-import org.springframework.stereotype.Component;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import switch2019.project.dataModel.entities.PersonJpa;
+import switch2019.project.infrastructure.jpa.PersonJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -13,8 +17,11 @@ import switch2019.project.domain.repositories.PersonRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Repository
 public class PersonInMemoryRepository implements PersonRepository {
+
+    @Autowired
+    PersonJpaRepository personJpaRepository;
 
     // Private instance variable
     private final Set<Person> listOfPersons;
@@ -28,6 +35,12 @@ public class PersonInMemoryRepository implements PersonRepository {
     //This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
+
+
+        PersonJpa personSaved = new PersonJpa(email.toString(), name, "SILVA");
+
+        personJpaRepository.save(personSaved);
+
         return this.getByID(new PersonID(email));
     }
 

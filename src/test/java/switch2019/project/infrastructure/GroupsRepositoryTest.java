@@ -1,9 +1,10 @@
-package switch2019.project.infrastructure.repositories;
+package switch2019.project.infrastructure;
 
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.infrastructure.GroupsInMemoryRepository;
+import switch2019.project.infrastructure.PersonInMemoryRepository;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;

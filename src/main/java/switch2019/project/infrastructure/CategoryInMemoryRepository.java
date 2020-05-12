@@ -1,4 +1,4 @@
-package switch2019.project.infrastructure.repositories;
+package switch2019.project.infrastructure;
 
 import org.springframework.stereotype.Component;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;

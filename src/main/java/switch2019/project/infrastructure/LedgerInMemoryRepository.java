@@ -1,4 +1,4 @@
-package switch2019.project.infrastructure.repositories;
+package switch2019.project.infrastructure;
 
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;

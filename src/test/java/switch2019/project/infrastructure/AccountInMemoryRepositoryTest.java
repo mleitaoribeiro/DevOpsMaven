@@ -1,10 +1,12 @@
-package switch2019.project.infrastructure.repositories;
+package switch2019.project.infrastructure;
 
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.infrastructure.AccountInMemoryRepository;
+import switch2019.project.infrastructure.CategoryInMemoryRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
