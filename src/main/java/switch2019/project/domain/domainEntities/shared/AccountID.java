@@ -3,10 +3,6 @@ package switch2019.project.domain.domainEntities.shared;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 
-import javax.persistence.Embeddable;
-import javax.persistence.IdClass;
-import javax.persistence.SecondaryTable;
-import java.io.Serializable;
 import java.util.Objects;
 
 public class AccountID implements ID {

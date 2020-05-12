@@ -8,36 +8,17 @@ import lombok.ToString;
 @Entity(name ="accounts")
 public class AccountJpa {
 
-    @Id
-    private String denomination;
-    // @Id
-    private String owner;
+    @EmbeddedId
+    private AccountKeyJpa accountKeyJpa;
     private String description;
     private String balance;
 
     protected AccountJpa() {};
 
     public AccountJpa(String owner, String denomination, String description, String balance) {
-        this.owner = owner;
-        this.denomination = denomination;
+        accountKeyJpa = new AccountKeyJpa(owner, denomination);
         this.description = description;
         this.balance = balance;
-    }
-
-    public String getDenomination() {
-        return denomination;
-    }
-
-    public void setDenomination(String denomination) {
-        this.denomination = denomination;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     public String getDescription() {
