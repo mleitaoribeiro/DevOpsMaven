@@ -3,12 +3,17 @@ package switch2019.project.domain.domainEntities.shared;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CategoryID implements ID {
+@Embeddable
+public class CategoryID implements ID, Serializable {
 
-    private final Denomination denomination;
-    private final OwnerID ownerID;
+    private Denomination denomination;
+    private OwnerID ownerID;
+
+    protected CategoryID() {};
 
     public CategoryID(Denomination denomination, OwnerID ownerID) {
         if (denomination == null || ownerID == null) {
