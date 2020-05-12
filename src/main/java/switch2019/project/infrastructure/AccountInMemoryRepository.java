@@ -64,7 +64,7 @@ public class AccountInMemoryRepository implements AccountRepository {
      * @return int
      */
 
-    public int repositorySize () {
+    public long repositorySize () {
         return this.accounts.size();
     }
 

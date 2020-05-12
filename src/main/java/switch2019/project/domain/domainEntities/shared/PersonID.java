@@ -2,13 +2,9 @@ package switch2019.project.domain.domainEntities.shared;
 
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
-
-import javax.persistence.Embeddable;
-import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
-public class PersonID implements OwnerID, Serializable {
+public class PersonID implements OwnerID {
 
     // Private PersonID attributes
     private Email email;

@@ -11,7 +11,6 @@ import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.domain.repositories.PersonRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -27,9 +26,6 @@ public class US001AreSiblingsServiceTest {
 
     @Autowired
     private US001AreSiblingsService service;
-
-    @Autowired
-    private PersonRepository personRepository;
 
     /**
      * US001

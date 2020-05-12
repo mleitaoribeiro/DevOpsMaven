@@ -1,6 +1,7 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
@@ -18,6 +19,7 @@ public class US002_1CreateGroupService {
     @Autowired
     private GroupRepository groupsRepository;
     @Autowired
+    @Qualifier("PersonInMemoryRepository")
     private PersonRepository personRepository;
 
     /**

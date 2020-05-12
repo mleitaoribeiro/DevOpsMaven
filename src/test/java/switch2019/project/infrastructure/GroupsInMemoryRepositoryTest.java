@@ -148,7 +148,7 @@ class GroupsInMemoryRepositoryTest {
         //Act
         groupList.addGroupToRepository(group1);
         groupList.addGroupToRepository(group2);
-        int result = groupList.repositorySize();
+        long result = groupList.repositorySize();
 
         //Assert
         assertEquals(2, result);

@@ -2,10 +2,6 @@ package switch2019.project.dataModel.entities;
 
 import javax.persistence.*;
 
-import lombok.Data;
-
-@Data
-
 @Entity(name = "addresses")
 public class AddressJpa {
     @Id

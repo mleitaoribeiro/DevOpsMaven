@@ -16,7 +16,7 @@ public class PersonDataAssembler {
                 person.getBirthPlace());
     }
 
-    public Person toDomain( PersonJpa personJpa ) {
+    public static Person toDomain( PersonJpa personJpa ) {
 
         String birhtDateJpa = personJpa.getBirthDate();
 

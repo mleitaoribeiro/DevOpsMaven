@@ -1,7 +1,9 @@
 package switch2019.project.infrastructure;
-import org.springframework.context.annotation.Primary;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.dataModel.dataAssemblers.PersonDataAssembler;
+import switch2019.project.dataModel.entities.PersonJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -9,35 +11,34 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.infrastructure.jpa.PersonJpaRepository;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 
-@Primary
-@Component("PersonInMemoryRepository")
-public class PersonInMemoryRepository implements PersonRepository {
+@Component("PersonDbRepository")
+public class PersonDbRepository implements PersonRepository {
 
-    // Private instance variable
-    private final Set<Person> listOfPersons;
+    @Autowired
+    PersonJpaRepository personJpaRepository;
 
-    //1st Constructor
-    public PersonInMemoryRepository() {
-        listOfPersons = new HashSet<>();
-    }
-
-    //2nd Constructor
-    //This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
-        listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
-        return this.getByID(new PersonID(email));
+        Person person = new Person(name, birthDate, birthPlace, homeAddress, email);
+
+        personJpaRepository.save(PersonDataAssembler.toData(person));
+
+        return person;
     }
 
-    //3rd constructor - Alternative constructor for people with mother and father
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                PersonID mother, PersonID father, Email email) {
-        listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, mother, father, email));
-        return this.getByID(new PersonID(email));
+        Person person = new Person(name, birthDate, birthPlace, homeAddress, mother, father, email);
+
+        personJpaRepository.save(PersonDataAssembler.toData(person));
+
+        return person;
     }
+
 
     /**
      * Method to return the person corespondent to the given PersonID
@@ -45,10 +46,10 @@ public class PersonInMemoryRepository implements PersonRepository {
      * @param personID
      */
     public Person getByID(ID personID) {
-        for (Person person : listOfPersons) {
-            if (person.getID().equals(personID))
-                return person;
-        } throw new ArgumentNotFoundException("No person found with that ID.");
+        Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
+        if(personJpa.isPresent())
+            return PersonDataAssembler.toDomain(personJpa.get());
+        else throw new ArgumentNotFoundException("No person found with that ID.");
     }
 
     /**
@@ -58,10 +59,9 @@ public class PersonInMemoryRepository implements PersonRepository {
      * @param personEmail
      */
     public Person findPersonByEmail(Email personEmail) {
-        for (Person person : listOfPersons) {
-            if (person.getID().getEmail().equals(personEmail.getEmailAddress()))
-                return person;
-        }
+        Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
+        if(personJpa.isPresent())
+            return PersonDataAssembler.toDomain(personJpa.get());
         throw new ArgumentNotFoundException("No person found with that email.");
     }
 
@@ -70,24 +70,23 @@ public class PersonInMemoryRepository implements PersonRepository {
      * @param personEmail
      * @return
      */
-
     public boolean isPersonEmailOnRepository(Email personEmail) {
-        for (Person person : listOfPersons)
-            if (person.getID().getEmail().equals(personEmail.getEmailAddress()))
-                return true;
-            return false;
-        }
+        Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
+        if(personJpa.isPresent())
+            return true;
+        return false;
+    }
 
     /**
      * Verify if ID exists on person Repository
      * @param personID
      * @return
      */
-
+    @Override
     public boolean isIDOnRepository (ID personID) {
-        for (Person person : listOfPersons)
-            if (person.getID().equals(personID))
-                return true;
+        Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
+        if(personJpa.isPresent())
+            return true;
         return false;
     }
 
@@ -97,9 +96,7 @@ public class PersonInMemoryRepository implements PersonRepository {
      *
      * @return
      */
-
     public long repositorySize () {
-        return listOfPersons.size();
+        return personJpaRepository.count();
     }
-
 }

@@ -318,7 +318,7 @@ class CategoryInMemoryRepositoryTest {
         //Add several categories simultaneously to Category Repository with method under test
         newCategoryInMemoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheList = newCategoryInMemoryRepository.repositorySize();
+        long realNumberOfCategoriesOfTheList = newCategoryInMemoryRepository.repositorySize();
 
         //Assert
         assertEquals(2, realNumberOfCategoriesOfTheList);
@@ -345,7 +345,7 @@ class CategoryInMemoryRepositoryTest {
         //Add everal categories simultaneously to Category Repository with method under test
         newCategoryInMemoryRepository.addMultipleCategories(setOfCategories, person1.getID());
 
-        int realNumberOfCategoriesOfTheList = newCategoryInMemoryRepository.repositorySize();
+        long realNumberOfCategoriesOfTheList = newCategoryInMemoryRepository.repositorySize();
 
         assertEquals(2, realNumberOfCategoriesOfTheList);
     }
@@ -523,7 +523,7 @@ class CategoryInMemoryRepositoryTest {
         categoryRepository.createCategory(new Denomination("Transports"), person1.getID());
         categoryRepository.createCategory(new Denomination("House"), person1.getID());
 
-        int actual = categoryRepository.repositorySize();
+        long actual = categoryRepository.repositorySize();
         //Assert
         assertEquals(2, actual);
     }
@@ -537,7 +537,7 @@ class CategoryInMemoryRepositoryTest {
         CategoryRepository categoryRepository = new CategoryInMemoryRepository(); //empty Category Repository
 
         //Act
-        int actual = categoryRepository.repositorySize();
+        long actual = categoryRepository.repositorySize();
 
         //Assert
         assertEquals(0, actual);

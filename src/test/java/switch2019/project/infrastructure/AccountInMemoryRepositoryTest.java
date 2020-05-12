@@ -249,7 +249,7 @@ class AccountInMemoryRepositoryTest {
                 new Description("one account"), new PersonID(new Email("martacarda@live.pt.pt")));
         accountRepository.createAccount(new Denomination("xyz"),
                 new Description("other Account"), new GroupID(new Description("Business")));
-        int result = accountRepository.repositorySize();
+        long result = accountRepository.repositorySize();
 
         //Assert
         assertEquals(2, result);

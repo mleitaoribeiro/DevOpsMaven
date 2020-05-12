@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -19,6 +20,7 @@ import switch2019.project.domain.repositories.PersonRepository;
 public class Bootstrapper {
 
     @Autowired
+    @Qualifier("PersonInMemoryRepository")
     PersonRepository personRepository;
     @Autowired
     GroupRepository groupRepository;

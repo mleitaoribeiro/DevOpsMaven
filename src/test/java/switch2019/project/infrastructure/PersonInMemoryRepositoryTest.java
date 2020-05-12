@@ -187,7 +187,7 @@ class PersonInMemoryRepositoryTest {
                 new Address("Rua das Flores", "Porto", "4000-189"), new Email("jose.cardoso@hotmail.com"));
 
         //Act
-        int realResult = personRepository.repositorySize();
+        long realResult = personRepository.repositorySize();
 
         //Assert
         assertEquals(expected, realResult);

@@ -102,7 +102,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
      * @return size of the groupsList
      */
 
-    public int repositorySize () {
+    public long repositorySize () {
         return groups.size();
     }
 

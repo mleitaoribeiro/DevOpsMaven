@@ -29,7 +29,7 @@ public interface LedgerRepository extends Repository {
      * @return
      */
 
-    int repositorySize();
+    long repositorySize();
 
     /**
      * Add a new ledger to Ledger Repository

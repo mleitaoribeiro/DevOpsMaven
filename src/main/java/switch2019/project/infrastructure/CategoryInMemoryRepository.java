@@ -63,7 +63,7 @@ public class CategoryInMemoryRepository implements CategoryRepository {
      * @return category
      */
 
-    public int repositorySize () {
+    public long repositorySize () {
         return this.categories.size();
     }
 

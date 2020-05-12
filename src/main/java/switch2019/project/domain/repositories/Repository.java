@@ -34,7 +34,7 @@ public interface Repository {
      * @return
      */
 
-    int repositorySize();
+    long repositorySize();
 
 }
 

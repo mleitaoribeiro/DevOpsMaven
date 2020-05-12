@@ -54,7 +54,7 @@ public class LedgerInMemoryRepository implements LedgerRepository {
      * @return ledger size
      */
 
-    public int repositorySize() {
+    public long repositorySize() {
         return ledgers.size();
     }
 

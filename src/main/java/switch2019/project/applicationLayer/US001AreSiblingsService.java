@@ -1,6 +1,7 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
@@ -17,6 +18,7 @@ import java.util.Set;
 public class US001AreSiblingsService {
 
     @Autowired
+    @Qualifier("PersonInMemoryRepository")
     private PersonRepository repository;
 
     /**

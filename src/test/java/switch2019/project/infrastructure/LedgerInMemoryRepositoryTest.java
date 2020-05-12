@@ -139,7 +139,7 @@ class LedgerInMemoryRepositoryTest {
         ledgerInMemoryRepository.createLedger(ownerID3);
 
         // Act
-        int ledgerSize = ledgerInMemoryRepository.repositorySize();
+        long ledgerSize = ledgerInMemoryRepository.repositorySize();
 
         // Assert
         assertEquals(3, ledgerSize);
@@ -153,7 +153,7 @@ class LedgerInMemoryRepositoryTest {
         LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         // Act
-        int ledgerSize = ledgerInMemoryRepository.repositorySize();
+        long ledgerSize = ledgerInMemoryRepository.repositorySize();
 
         // Assert
         assertEquals(0, ledgerSize);
