@@ -1,22 +1,11 @@
 package switch2019.project.domain.domainEntities.person;
 
-import lombok.Getter;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.domainEntities.frameworks.Owner;
-import switch2019.project.domain.repositories.LedgerRepository;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
