@@ -1,6 +1,7 @@
 package switch2019.project.domain.domainEntities.person;
 
 import lombok.Getter;
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
@@ -34,6 +35,22 @@ public class Person implements Owner {
 
     /**
      * Default Person constructor
+     *
+     * @param name
+     * @param birthDate
+     * @param birthPlace
+     */
+
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Email email) {
+        personID = new PersonID(email);
+        this.name = new PersonName(name);
+        this.birthPlace = birthPlace;
+        this.birthDate = birthDate;
+        siblingList = new HashSet<>();
+    }
+
+    /**
+     * Overload Person constructor
      *
      * @param name
      * @param birthDate
@@ -101,6 +118,34 @@ public class Person implements Owner {
 
     public PersonID getID() {
         return personID;
+    }
+
+
+    /**
+     * Method to get PersonName
+     * @return persons name
+     */
+    public PersonName getName() {
+        return name;
+    }
+
+    /**
+     * Return birthPlace as a String
+     *
+     * @return String birthPlace
+     */
+
+    public String getBirthPlace() {
+        return this.birthPlace.toString();
+    }
+
+    /**
+     * Return birtDate as a String
+     *
+     * @return String birthDate
+     */
+    public String getBirthDate() {
+        return birthDate.yearMonthDayToString();
     }
 
     /**

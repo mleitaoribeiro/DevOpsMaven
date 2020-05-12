@@ -20,9 +20,6 @@ import java.util.Set;
 @Repository
 public class PersonInMemoryRepository implements PersonRepository {
 
-    @Autowired
-    PersonJpaRepository personJpaRepository;
-
     // Private instance variable
     private final Set<Person> listOfPersons;
 
@@ -35,12 +32,6 @@ public class PersonInMemoryRepository implements PersonRepository {
     //This is to be updated later but for now, the creator of the Person Objects is the PersonRepository
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         listOfPersons.add(new Person(name, birthDate, birthPlace, homeAddress, email));
-
-
-        PersonJpa personSaved = new PersonJpa(email.toString(), name, "SILVA");
-
-        personJpaRepository.save(personSaved);
-
         return this.getByID(new PersonID(email));
     }
 
@@ -113,6 +104,5 @@ public class PersonInMemoryRepository implements PersonRepository {
     public int repositorySize () {
         return listOfPersons.size();
     }
-
 
 }

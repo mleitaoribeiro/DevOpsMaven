@@ -11,8 +11,8 @@ import switch2019.project.domain.repositories.PersonRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PersonRepositoryTest {
-/*
+class PersonInMemoryRepositoryTest {
+
     @Test
     @DisplayName("Create new Person - Main scenario")
     void createPerson() {
@@ -191,5 +191,5 @@ class PersonRepositoryTest {
 
         //Assert
         assertEquals(expected, realResult);
-    }*/
+    }
 }

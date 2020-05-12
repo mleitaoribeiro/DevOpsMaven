@@ -18,7 +18,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GroupsRepositoryTest {
+class GroupsInMemoryRepositoryTest {
 
     /**
      * As user , I Want to Creat a group and be admin (US002.1)

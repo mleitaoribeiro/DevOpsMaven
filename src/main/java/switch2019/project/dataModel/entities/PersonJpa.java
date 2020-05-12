@@ -1,37 +1,47 @@
 package switch2019.project.dataModel.entities;
 import javax.persistence.*;
 import lombok.Data;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.PersonID;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.ToString;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
 @Data
+@ToString
 @Entity(name ="persons")
 public class PersonJpa {
 
-    @EmbeddedId
-    private PersonID id;
-    private String firstName;
-    private String lastName;
+    @Id
+    @Column(name ="ID")
+    private String email;
+    private String name;
+    private String birthDate;
+    private String birthPlace;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private List<AddressJpa> addresses;
+    //@OneToOne(mappedBy = "persons", cascade = CascadeType.ALL)
+    //private Address address;
 
     protected PersonJpa() {};
 
-    public PersonJpa(String id, String firstName, String lastName) {
-        this.id = new PersonID(new Email(id));
-        this.firstName = firstName;
-        this.lastName = lastName;
-        addresses = new ArrayList<AddressJpa>();
+    public PersonJpa(String id, String name, String birthDate, String birthPlace) {
+        this.email = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.birthPlace = birthPlace;
     }
 
-    public String toString() {
-        return "Person {" +
-                "id='" + id.toString() + '\'' +
-                '}';
+    public String getEmail() {
+        return email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public String getBirthPlace() {
+        return birthPlace;
+    }
 }
