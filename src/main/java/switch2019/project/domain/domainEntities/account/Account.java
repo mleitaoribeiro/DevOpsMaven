@@ -18,7 +18,6 @@ public class Account implements Entity {
     private Description description;
     private MonetaryValue balance;
 
-
     /**
      * Constructor of Account
      *
@@ -68,6 +67,14 @@ public class Account implements Entity {
 
     public OwnerID getOwnerID() {
         return this.accountID.getOwnerID();
+    }
+
+    /**
+     * Get account balance
+     */
+
+    public MonetaryValue getBalance() {
+        return balance;
     }
 
     /**

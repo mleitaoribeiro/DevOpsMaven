@@ -1,9 +1,13 @@
 package switch2019.project.domain.domainEntities.shared;
 
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.text.Normalizer;
 import java.util.Objects;
 
-public class Denomination {
+@Embeddable
+public class Denomination implements Serializable {
 
     //Private instance of denomination
     private final String denominationValue;

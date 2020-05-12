@@ -3,6 +3,10 @@ package switch2019.project.domain.domainEntities.shared;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 
+import javax.persistence.Embeddable;
+import javax.persistence.IdClass;
+import javax.persistence.SecondaryTable;
+import java.io.Serializable;
 import java.util.Objects;
 
 public class AccountID implements ID {
@@ -12,9 +16,9 @@ public class AccountID implements ID {
     private final OwnerID ownerID;
 
     public AccountID(Denomination denomination, OwnerID ownerID) {
-        if (denomination == null || ownerID == null) {
+        if (denomination == null || ownerID == null)
             throw new IllegalArgumentException("Neither the Denomination nor OwnerID can be null.");
-        } else {
+        else {
             this.denomination = denomination;
             this.ownerID = ownerID;
         }

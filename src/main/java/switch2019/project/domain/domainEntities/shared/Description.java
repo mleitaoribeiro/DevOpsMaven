@@ -1,8 +1,13 @@
 package switch2019.project.domain.domainEntities.shared;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Description {
+@Embeddable
+public class Description implements Serializable {
+
     //Private Description instance variable
     private final String descriptionValue;
 
@@ -34,17 +39,15 @@ public class Description {
      * @param description
      */
     private String setValidDescription(String description) {
-        if (description == null || description.isEmpty()){
+        if (description == null || description.isEmpty())
             throw new IllegalArgumentException("The description can't be null or empty.");
-        }
-        else {
-            return description.toUpperCase();
-        }
+        else return description.toUpperCase();
     }
 
     /**
      * getter for Description
-     * @return
+     *
+     * @return description
      */
     public String getDescription() {
         return descriptionValue;

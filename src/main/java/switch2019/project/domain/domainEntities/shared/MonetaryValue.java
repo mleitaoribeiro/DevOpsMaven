@@ -1,8 +1,11 @@
 package switch2019.project.domain.domainEntities.shared;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Currency;
 
-public class MonetaryValue {
+@Embeddable
+public class MonetaryValue implements Serializable {
 
     //Private MonetaryValue instance Variables
     private final double amount;
@@ -12,8 +15,7 @@ public class MonetaryValue {
         if (currency!= null){
             this.amount = amount;
             this.currency = currency;
-        }
-        else throw new IllegalArgumentException("The currency can't be null.");
+        } else throw new IllegalArgumentException("The currency can't be null.");
     }
 
     @Override
