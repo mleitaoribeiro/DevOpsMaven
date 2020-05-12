@@ -1,23 +1,26 @@
 package switch2019.project.infrastructure;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.entities.GroupJpa;
-import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.infrastructure.jpa.GroupJpaRepository;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
-import java.util.*;
+import switch2019.project.infrastructure.jpa.GroupJpaRepository;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
-@Primary
-@Component("GroupInMemoryRepository")
-public class GroupsInMemoryRepository implements GroupRepository {
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Component("GroupDbRepository")
+public class GroupDbRepository implements GroupRepository {
+
+    @Autowired
+    GroupJpaRepository groupJpaRepository;
 
     // Private instance variables
     private Set<Group> groups;
@@ -27,7 +30,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
 
     //Constructor
-    public GroupsInMemoryRepository() {
+    public GroupDbRepository() {
         groups = new LinkedHashSet<>();
     }
 
@@ -41,6 +44,12 @@ public class GroupsInMemoryRepository implements GroupRepository {
         if(!isIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
             groups.add(group1);
+
+            GroupJpa groupJpa = new GroupJpa(groupDescription.getDescription(), groupCreator.getEmail(),
+                    group1.getStartingDate());
+
+            groupJpaRepository.save(groupJpa);
+
             return group1;
         } else throw new ResourceAlreadyExistsException("This group description already exists.");
     }

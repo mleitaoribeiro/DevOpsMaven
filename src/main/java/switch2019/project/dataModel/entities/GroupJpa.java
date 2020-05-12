@@ -1,23 +1,22 @@
-/*
+
 package switch2019.project.dataModel.entities;
 import javax.persistence.*;
-import lombok.Data;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
 
-@Data
-//@Entity(name ="groups")
+
+@Entity(name ="groups")
 public class GroupJpa {
 
-    //@EmbeddedId
-    private GroupID id;
+    @Id
+    private String id;
+    private String groupCreator;
+    private String creationDate;
 
     protected GroupJpa() {};
 
-    public GroupJpa(String groupDescription) {
-        this.id = new GroupID(new Description(groupDescription));
+    public GroupJpa(String groupDescription, String groupCreator, String creationDate) {
+        this.id = groupDescription;
+        this.groupCreator = groupCreator;
+        this.creationDate = creationDate;
     }
 
-
-
- }*/
+ }

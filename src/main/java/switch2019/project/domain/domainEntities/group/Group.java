@@ -172,6 +172,10 @@ public class Group implements Owner {
         return false;
     }
 
+    public String getStartingDate(){
+        return this.startingDate.yearMonthDayToString();
+    }
+
 }
 
 

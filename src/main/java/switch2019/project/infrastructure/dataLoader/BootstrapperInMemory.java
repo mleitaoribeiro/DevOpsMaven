@@ -15,19 +15,23 @@ import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.infrastructure.AccountInMemoryRepository;
+import switch2019.project.infrastructure.CategoryInMemoryRepository;
+import switch2019.project.infrastructure.GroupsInMemoryRepository;
+import switch2019.project.infrastructure.PersonInMemoryRepository;
+import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 
 @Component
-public class Bootstrapper {
+public class BootstrapperInMemory {
 
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
-    PersonRepository personRepository;
+    PersonInMemoryRepository personRepository;
     @Autowired
-    GroupRepository groupRepository;
+    GroupsInMemoryRepository groupRepository;
     @Autowired
-    AccountRepository accountRepository;
+    AccountInMemoryRepository accountRepository;
     @Autowired
-    CategoryRepository categoriesRepository;
+    CategoryInMemoryRepository categoriesRepository;
 
     public void bootstrapping() {
 
