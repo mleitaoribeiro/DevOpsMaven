@@ -19,5 +19,9 @@ public class CategoryJpa {
     public CategoryJpa(CategoryID categoryID) {
         this.categoryID = categoryID;
     }
+
+    public CategoryID getID() {
+        return categoryID;
+    }
 }
 
