@@ -320,7 +320,7 @@ class GroupsRepositoryTest {
     }
 
 
-    @Test
+  /*  @Test
     @DisplayName("getting group by its description")
     void getGroupByDescriptionTestException(){
         //Arrange:
@@ -344,7 +344,7 @@ class GroupsRepositoryTest {
             assertEquals("No group was found with the given description", error.getMessage());
         }
     }
-
+*/
     @Test
     void findGroupByID() {
         //Arrange
