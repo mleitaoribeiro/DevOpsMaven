@@ -1,27 +1,23 @@
 package switch2019.project.dataModel.entities;
 
 import lombok.Data;
-import switch2019.project.domain.domainEntities.shared.CategoryID;
 
 import javax.persistence.*;
 
 @Data
-//@Entity
-//@Table(name="categories")
+@Entity
+@Table(name="categories")
 public class CategoryJpa {
-    @Id
-    @Embedded
-    private CategoryID categoryID;
+
+    @EmbeddedId
+    private CategoryKeyJpa categoryKeyJpa;
 
     protected CategoryJpa() {
     };
 
-    public CategoryJpa(CategoryID categoryID) {
-        this.categoryID = categoryID;
+    public CategoryJpa(String owner, String denomination) {
+        categoryKeyJpa = new CategoryKeyJpa(owner, denomination);
     }
 
-    public CategoryID getID() {
-        return categoryID;
-    }
 }
 
