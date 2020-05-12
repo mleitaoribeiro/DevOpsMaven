@@ -1,5 +1,6 @@
 package switch2019.project.dataModel.entities;
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name ="persons")
 public class PersonJpa {
@@ -17,6 +18,19 @@ public class PersonJpa {
         this.name = name;
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonJpa personJpa = (PersonJpa) o;
+        return Objects.equals(email, personJpa.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, name, birthDate, birthPlace);
     }
 
     public String getEmail() {
