@@ -1,5 +1,6 @@
 package switch2019.project.domain.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -9,7 +10,6 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import java.util.Set;
 
 public interface AccountRepository extends Repository {
-
 
     /**
      * Find an Account by it´s id

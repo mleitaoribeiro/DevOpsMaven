@@ -1,14 +1,15 @@
 package switch2019.project.infrastructure;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.entities.AccountJpa;
+import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.infrastructure.jpa.AccountJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
-import switch2019.project.domain.domainEntities.shared.AccountID;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.repositories.AccountRepository;
 
 import java.util.HashSet;
@@ -16,6 +17,9 @@ import java.util.Set;
 
 @Component
 public class AccountInMemoryRepository implements AccountRepository {
+
+    @Autowired
+    AccountJpaRepository accountJpaRepository;
 
     //Private instance variables
     private Set<Account> accounts;
@@ -81,7 +85,13 @@ public class AccountInMemoryRepository implements AccountRepository {
         if (!isIDOnRepository(new AccountID(accountDenomination, ownerID))) {
             Account accountToAdd = new Account(accountDenomination, accountDescription, ownerID);
             this.accounts.add(accountToAdd);
+
+            AccountJpa accountJpa = new AccountJpa(ownerID.toString(), accountDenomination.toString(),
+                    accountDescription.toString(), accountToAdd.getBalance().toString());
+
+            // accountJpaRepository.save(accountJpa);
             return accountToAdd;
+
         } else throw new ResourceAlreadyExistsException("This account already exists.");
     }
 
@@ -101,8 +111,7 @@ public class AccountInMemoryRepository implements AccountRepository {
             if (!listOfAccountsByOwnerID.isEmpty())
                 return listOfAccountsByOwnerID;
             else throw new ArgumentNotFoundException("No accounts found with that ID.");
-        }
-        throw new IllegalArgumentException("Owner ID can't be null.");
+        } throw new IllegalArgumentException("Owner ID can't be null.");
     }
 
     /**
@@ -113,9 +122,8 @@ public class AccountInMemoryRepository implements AccountRepository {
      */
 
     public boolean removeAccount(Account accountToBeRemoved) {
-        if (accountToBeRemoved != null) {
+        if (accountToBeRemoved != null)
             return accounts.remove(accountToBeRemoved);
-        } else
-            return false;
+        else return false;
     }
 }

@@ -1,9 +1,12 @@
 package switch2019.project.domain.domainEntities.shared;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GroupID implements OwnerID {
+@Embeddable
+public class GroupID implements OwnerID, Serializable {
 
     private final Description description;
 
