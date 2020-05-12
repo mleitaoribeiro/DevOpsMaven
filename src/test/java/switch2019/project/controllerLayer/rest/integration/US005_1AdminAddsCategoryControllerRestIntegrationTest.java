@@ -1,5 +1,8 @@
 package switch2019.project.controllerLayer.rest.integration;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
@@ -49,9 +52,8 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expected = "{\"denomination\":\"" + categoryDenomination.toUpperCase() + "\"" + "," + "\"ownerID\":\"" +
-                groupDescriptionStr.toUpperCase() +
-                "\",\"_links\":{\"self\":{\"href\":\"http://localhost/groups/SMITH%20FAMILY/categories/SHOPPING\"}}}";
+        String expected = "{\"self\":" +
+                "{\"href\":\"http:\\/\\/localhost\\/groups\\/SMITH%20FAMILY\\/categories\\/SHOPPING\"}}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -60,12 +62,15 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(201, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(categoryDenomination.toUpperCase(), result.getString("denomination")),
+                () -> assertEquals(groupDescriptionStr.toUpperCase(),result.getString("ownerID")),
+                () -> assertEquals (expected, result.getString("_links"))
         );
     }
 
@@ -85,10 +90,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No person found with that email.\"}";
 
         String expectedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
@@ -99,13 +100,17 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No person found with that email.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
         );
     }
@@ -127,10 +132,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":403,\"status\":\"FORBIDDEN\"," +
-                "\"error\":\"No permission for this operation.\"," +
-                "\"message\":\"This person is not member of this group.\"}";
 
         String expectedException = new NoPermissionException("This person is not member of this group.").toString();
 
@@ -141,14 +142,18 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("403", result.getString("statusCode")),
+                () -> assertEquals("FORBIDDEN", result.getString("status")),
+                () -> assertEquals ("No permission for this operation.", result.getString("error")),
+                () -> assertEquals ("This person is not member of this group.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
         );
     }
@@ -169,10 +174,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":403,\"status\":\"FORBIDDEN\"," +
-                "\"error\":\"No permission for this operation.\"," +
-                "\"message\":\"This person is not admin of this group.\"}";
 
         String expectedException = new NoPermissionException("This person is not admin of this group.").toString();
 
@@ -183,13 +184,17 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("403", result.getString("statusCode")),
+                () -> assertEquals("FORBIDDEN", result.getString("status")),
+                () -> assertEquals ("No permission for this operation.", result.getString("error")),
+                () -> assertEquals ("This person is not admin of this group.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
 
         );
@@ -211,11 +216,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":403,\"status\":\"FORBIDDEN\"," +
-                "\"error\":\"No permission for this operation.\"," +
-                "\"message\":\"This person is not member of this group.\"}";
-
         String expectedException = new NoPermissionException("This person is not member of this group.").toString();
 
         //Act
@@ -225,13 +225,17 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("403", result.getString("statusCode")),
+                () -> assertEquals("FORBIDDEN", result.getString("status")),
+                () -> assertEquals ("No permission for this operation.", result.getString("error")),
+                () -> assertEquals ("This person is not member of this group.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
         );
     }
@@ -252,11 +256,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No group found with that description.\"}";
-
         String expectedException = new ArgumentNotFoundException("No group found with that description.").toString();
 
         //Act
@@ -266,13 +265,17 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No group found with that description.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
         );
     }
@@ -310,14 +313,18 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(409, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("409", result.getString("statusCode")),
+                () -> assertEquals("CONFLICT", result.getString("status")),
+                () -> assertEquals ("This resource already exists.", result.getString("error")),
+                () -> assertEquals ("This category already exists.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
@@ -338,10 +345,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email can't be null.\"}";
 
         String expectedException = new IllegalArgumentException("The email can't be null.").toString();
 
@@ -352,7 +355,7 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
@@ -360,7 +363,11 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email can't be null.", result.getString("message")),
                 () -> assertEquals(expectedException, realResolvedException)
         );
     }
@@ -381,10 +388,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email is not valid.\"}";
 
         String expectedException = new IllegalArgumentException("The email is not valid.").toString();
 
@@ -395,14 +398,18 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
                 () -> assertEquals(expectedException, realResolvedException)
         );
     }
@@ -423,10 +430,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The email is not valid.\"}";
 
         String expectedException = new IllegalArgumentException("The email is not valid.").toString();
 
@@ -437,14 +440,18 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The email is not valid.", result.getString("message")),
                 () -> assertEquals(expectedException, realResolvedException)
         );
     }
@@ -465,10 +472,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The denomination can't be null or empty.\"}";
 
         String expectedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -479,14 +482,18 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The denomination can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedException, realResolvedException)
         );
     }
@@ -507,10 +514,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expectedMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The denomination can't be null or empty.\"}";
 
         String expectedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -521,14 +524,18 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //ASSERT:
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The denomination can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedException, realResolvedException)
         );
     }
@@ -543,11 +550,9 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         //Arrange
         String uri = "/groups/Smith Family/categories/Online";
 
-        String categoryDescription = "ONLINE";
+        String categoryDenomination = "ONLINE";
         String ownerID = "SMITH FAMILY";
 
-        String expected = "{\"denomination\":\"" + categoryDescription + "\"" + "," + "\"ownerID\":\"" +
-                ownerID + "\"}";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -555,12 +560,13 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertEquals(expected, result)
+                () -> assertEquals(categoryDenomination.toUpperCase(), result.getString("denomination")),
+                () -> assertEquals(ownerID.toUpperCase(),result.getString("ownerID"))
         );
     }
 
@@ -571,11 +577,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         //Arrange
         String uri = "/groups/Just4Fun/categories/Online";
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No group found with that description.\"}";
-
         String expectedException = new ArgumentNotFoundException("No group found with that description.").toString();
 
         //Act
@@ -584,13 +585,17 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No group found with that description.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
         );
     }
@@ -602,11 +607,6 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         //Arrange
         String uri = "/groups/SMITH FAMILY/categories/Dispenses";
 
-        String expectedError = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No category found with that ID.\"}";
-
         String expectedException = new ArgumentNotFoundException("No category found with that ID.").toString();
 
         //Act
@@ -615,13 +615,17 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
         String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedError, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No category found with that ID.", result.getString("message")),
                 () -> assertEquals(expectedException, realException)
         );
     }
@@ -631,9 +635,11 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void getCategoriesByGroupDescriptionException() throws Exception {
 
         //Status Request
-        String groupDescription = "Switch";
-        String uri = "/groups/" + groupDescription + "/categories/";
-        String expected = "[{\"categoryDenomination\":\"ISEP\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/ISEP/categories/Switch\"}]},{\"categoryDenomination\":\"GYM\",\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/GYM/categories/Switch\"}]}]";
+        String uri = "/groups/Switch/categories/";
+
+        String expectedLink1 = "[{\"rel\":\"self\",\"href\":\"http:\\/\\/localhost\\/groups\\/ISEP\\/categories\\/Switch\"}]";
+        String expectedLink2 = "[{\"rel\":\"self\",\"href\":\"http:\\/\\/localhost\\/groups\\/GYM\\/categories\\/Switch\"}]";
+
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -642,11 +648,20 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         int status = mvcResult.getResponse().getStatus();
         String result = mvcResult.getResponse().getContentAsString();
 
+        JSONArray jArray = (JSONArray) new JSONTokener(result).nextValue();
+
+
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertEquals(expected, result)
-        );
+
+                () -> assertEquals("ISEP",jArray.getJSONObject(0).getString("categoryDenomination")),
+                () -> assertEquals(expectedLink1, jArray.getJSONObject(0).getString("links")),
+
+                () -> assertEquals("GYM",jArray.getJSONObject(1).getString("categoryDenomination")),
+                () -> assertEquals(expectedLink2, jArray.getJSONObject(1).getString("links"))
+
+                );
     }
 
     @Test
@@ -657,21 +672,24 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         String uri = "/groups/SpiceGirls/categories/";
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No category found with that ID.\"}";
+        String expectedException = new ArgumentNotFoundException("No category found with that ID.").toString();
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException().toString());
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result)
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No category found with that ID.", result.getString("message")),
+                () -> assertEquals(expectedException, realException)
         );
     }
 

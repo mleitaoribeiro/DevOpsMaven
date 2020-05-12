@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity(name = "addresses")
 public class AddressJpa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String street;
     private String city;
