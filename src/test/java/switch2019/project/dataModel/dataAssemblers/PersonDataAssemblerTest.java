@@ -2,6 +2,7 @@ package switch2019.project.dataModel.dataAssemblers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.dataModel.entities.AddressJpa;
 import switch2019.project.dataModel.entities.PersonJpa;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -21,10 +22,10 @@ class PersonDataAssemblerTest {
 
         //Arrange
         Person jerrySmith  = new Person ("Jerry Smith", new DateAndTime(1967, 02, 03),
-                new Address("Seattle"), new Email("jerry.smith@gmail.com"));
+                new Address("Seattle"), new Address("Requeixos", "Vizela", "4620-585"), new Email("jerry.smith@gmail.com"));
 
-        PersonJpa expected = new PersonJpa("jerry.smith@gmail.com", "Jerry Smith", "1967/02/03",
-                "Seattle");
+        PersonJpa expected = new PersonJpa("jerry.smith@gmail.com", "Jerry Smith", "1967-02-03",
+                "Seattle", new AddressJpa("Requeixos", "Vizela", "4620-585"));
 
         //Act
         PersonJpa result = PersonDataAssembler.toData(jerrySmith);
@@ -39,10 +40,10 @@ class PersonDataAssemblerTest {
 
         //Arrange
         Person jerrySmith  = new Person ("Jerry Smith", new DateAndTime(1967, 02, 03),
-                new Address("Seattle"), new Email("jerry.smith@gmail.com"));
+                new Address("Seattle"),new Address( "Requeixos", "Vizela", "4620-585"), new Email("jerry.smith@gmail.com"));
 
-        PersonJpa expected = new PersonJpa("maggie.smith@gmail.com", "Jerry Smith", "1967/02/03",
-                "Seattle");
+        PersonJpa expected = new PersonJpa("maggie.smith@gmail.com", "Jerry Smith", "1967-02-03",
+                "Seattle", new AddressJpa( "Requeixos", "Vizela", "4620-585"));
 
         //Act
         PersonJpa result = PersonDataAssembler.toData(jerrySmith);
@@ -60,10 +61,10 @@ class PersonDataAssemblerTest {
 
         //Arrange
         Person expected  = new Person ("Jerry Smith", new DateAndTime(1967, 02, 03),
-                new Address("Seattle"), new Email("jerry.smith@gmail.com"));
+                new Address("Seattle"),new Address( "Requeixos", "Vizela", "4620-585"), new Email("jerry.smith@gmail.com"));
 
-        PersonJpa jerrySmithJpa = new PersonJpa("jerry.smith@gmail.com", "Jerry Smith", "1967/02/03",
-                "Seattle");
+        PersonJpa jerrySmithJpa = new PersonJpa("jerry.smith@gmail.com", "Jerry Smith", "1967-02-03",
+                "Seattle", new AddressJpa( "Requeixos", "Vizela", "4620-585"));
 
         //Act
         Person result = PersonDataAssembler.toDomain(jerrySmithJpa);
@@ -78,10 +79,10 @@ class PersonDataAssemblerTest {
 
         //Arrange
         Person expected = new Person ("Jerry Smith", new DateAndTime(1967, 02, 03),
-                new Address("Seattle"), new Email("jerry.smith@gmail.com"));
+                new Address("Seattle"), new Address( "Requeixos", "Vizela", "4620-585"), new Email("jerry.smith@gmail.com"));
 
-        PersonJpa jerrySmithJpa = new PersonJpa("maggie.smith@gmail.com", "Jerry Smith", "1967/02/03",
-                "Seattle");
+        PersonJpa jerrySmithJpa = new PersonJpa("maggie.smith@gmail.com", "Jerry Smith", "1967-02-03",
+                "Seattle", new AddressJpa( "Requeixos", "Vizela", "4620-585"));
 
         //Act
         Person result = PersonDataAssembler.toDomain(jerrySmithJpa);

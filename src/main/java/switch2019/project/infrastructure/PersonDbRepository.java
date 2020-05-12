@@ -22,20 +22,37 @@ public class PersonDbRepository implements PersonRepository {
     @Autowired
     PersonJpaRepository personJpaRepository;
 
+    /**
+     * Method do create Person without mother/father
+     * @param name
+     * @param birthDate
+     * @param birthPlace
+     * @param homeAddress
+     * @param email
+     * @return
+     */
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         Person person = new Person(name, birthDate, birthPlace, homeAddress, email);
-
         personJpaRepository.save(PersonDataAssembler.toData(person));
-
         return person;
     }
+
+    /**
+     * Method do create Person with mother/father
+     * @param name
+     * @param birthDate
+     * @param birthPlace
+     * @param homeAddress
+     * @param mother
+     * @param father
+     * @param email
+     * @return
+     */
 
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                PersonID mother, PersonID father, Email email) {
         Person person = new Person(name, birthDate, birthPlace, homeAddress, mother, father, email);
-
         personJpaRepository.save(PersonDataAssembler.toData(person));
-
         return person;
     }
 

@@ -114,8 +114,8 @@ public class Person implements Owner {
      * Method to get PersonName
      * @return persons name
      */
-    public PersonName getName() {
-        return name;
+    public String getName() {
+        return name.toString();
     }
 
     /**
@@ -124,8 +124,8 @@ public class Person implements Owner {
      * @return String birthPlace
      */
 
-    public String getBirthPlace() {
-        return this.birthPlace.toString();
+    public Address getBirthPlace() {
+        return this.birthPlace;
     }
 
     /**
@@ -137,6 +137,13 @@ public class Person implements Owner {
         return birthDate.yearMonthDayToString();
     }
 
+    /**
+     * Return Address VO
+     * @return
+     */
+    public Address getAddress() {
+        return address;
+    }
     /**
      * Getter function for the sibling's list
      *

@@ -26,6 +26,9 @@ public class PersonName {
         return Objects.hash(name);
     }
 
+    @Override
+    public String toString() { return name;}
+
     /**
      * Get Full Person Name
      * @return personName
