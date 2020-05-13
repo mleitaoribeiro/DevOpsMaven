@@ -69,30 +69,6 @@ public class GroupDbRepository implements GroupRepository {
         else throw new ResourceAlreadyExistsException(GROUP_ALREADY_EXISTS);
     }
 
-    /**
-     * As a user I want to create a group becoming a group administrator(US02.1)
-     *
-     * @param groupDescription
-     * @param groupCreator
-     * @param creationDate
-     */
-
-    public Group createGroup(Description groupDescription, PersonID groupCreator, DateAndTime creationDate) {
-
-        Group group = new Group(groupDescription, groupCreator, creationDate);
-        GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
-
-        groupJpaRepository.save(groupJpa);
-
-        MembersJpa memberJpa = new MembersJpa(groupJpa, groupCreator.toString());
-        AdminsJpa adminsJpa = new AdminsJpa(groupJpa, groupCreator.toString());
-
-        membersJpaRepository.save(memberJpa);
-        adminsJpaRepository.save(adminsJpa);
-
-        return group;
-    }
-
 
     /**
      * Method used to find a specific group by its Description
