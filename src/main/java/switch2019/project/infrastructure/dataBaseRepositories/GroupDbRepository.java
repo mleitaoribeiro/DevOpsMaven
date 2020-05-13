@@ -16,6 +16,8 @@ import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 import switch2019.project.infrastructure.jpa.MembersJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +31,11 @@ public class GroupDbRepository implements GroupRepository {
     @Autowired
     MembersJpaRepository membersJpaRepository;
 
-    //String literals should not be duplicated
+    //String literals - Exceptions
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
     private static final String NO_GROUPS_FOUND_ID = "No group found with that ID.";
+    private static final String GROUP_ALREADY_EXISTS= "This group description already exists.";
+
 
     //Constructor
     public GroupDbRepository() {
@@ -45,12 +49,12 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
-
-        Group group = new Group(groupDescription, groupCreator);
-
-        GroupJpa groupJpa = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
-
-        return GroupDomainDataAssembler.toDomain(groupJpa);
+        if(!isIDOnRepository(new GroupID(groupDescription))) {
+            Group group = new Group(groupDescription, groupCreator);
+            GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+            return GroupDomainDataAssembler.toDomain(newGroup);
+        }
+        else throw new ResourceAlreadyExistsException(GROUP_ALREADY_EXISTS);
     }
 
     /**
