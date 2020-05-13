@@ -1,4 +1,4 @@
-/*
+
 package switch2019.project.applicationLayer.integration;
 
 import org.junit.jupiter.api.DisplayName;
@@ -23,12 +23,10 @@ class US002_1CreateGroupServiceTest {
     @Autowired
     private US002_1CreateGroupService service;
 
-
-    */
-/**
+    /*
      * US002.1
      * Test if a group was created and person is admin
-     *//*
+     */
 
 
     @Test
@@ -120,11 +118,10 @@ class US002_1CreateGroupServiceTest {
         }
     }
 
-    */
-/**
+    /*
      * US002.1
      * Test if a groupDTO is returned given its description
-     *//*
+     */
 
 
     @Test
@@ -155,7 +152,7 @@ class US002_1CreateGroupServiceTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No group found with that description.");
+                .hasMessage("No group found with that ID.");
     }
 
     @Test
@@ -193,4 +190,3 @@ class US002_1CreateGroupServiceTest {
     }
 }
 
-*/
