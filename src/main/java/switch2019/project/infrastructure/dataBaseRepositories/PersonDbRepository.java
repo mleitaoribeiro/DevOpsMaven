@@ -1,4 +1,4 @@
-package switch2019.project.infrastructure;
+package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,6 @@
 package switch2019.project.infrastructure.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -11,15 +10,10 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.repositories.AccountRepository;
-import switch2019.project.domain.repositories.CategoryRepository;
-import switch2019.project.domain.repositories.GroupRepository;
-import switch2019.project.domain.repositories.PersonRepository;
-import switch2019.project.infrastructure.AccountInMemoryRepository;
-import switch2019.project.infrastructure.CategoryInMemoryRepository;
-import switch2019.project.infrastructure.GroupsInMemoryRepository;
-import switch2019.project.infrastructure.PersonInMemoryRepository;
-import switch2019.project.infrastructure.jpa.GroupJpaRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.AccountInMemoryRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.CategoryInMemoryRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.GroupsInMemoryRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.PersonInMemoryRepository;
 
 @Component
 public class BootstrapperInMemory {

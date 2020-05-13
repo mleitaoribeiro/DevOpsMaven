@@ -1,4 +1,4 @@
-package switch2019.project.infrastructure;
+package switch2019.project.infrastructure.inMemoryRepositories;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,7 @@ import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.LedgerID;
-import switch2019.project.infrastructure.LedgerInMemoryRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.LedgerInMemoryRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 

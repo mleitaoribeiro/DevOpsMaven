@@ -1,4 +1,4 @@
-package switch2019.project.infrastructure;
+package switch2019.project.infrastructure.inMemoryRepositories;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,6 +8,7 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.PersonInMemoryRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
