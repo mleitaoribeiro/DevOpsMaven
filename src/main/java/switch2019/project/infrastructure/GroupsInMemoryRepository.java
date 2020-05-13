@@ -1,11 +1,9 @@
 package switch2019.project.infrastructure;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.entities.GroupJpa;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -45,16 +43,6 @@ public class GroupsInMemoryRepository implements GroupRepository {
         } else throw new ResourceAlreadyExistsException("This group description already exists.");
     }
 
-    /**
-     * method to add group to the Repository
-     * @param group
-     * @return boolean
-     */
-    public boolean addGroupToRepository(Group group) {
-        if (group != null) {
-            return groups.add(group);
-        } else return false;
-    }
 
     /**
      * Method used to find a specific group by its Description
