@@ -70,30 +70,4 @@ class US004GetFamilyGroupsServiceTest {
         //Assert
         assertEquals(expectedFamilyGroup, realResult);
     }
-
-
-//        Description groupID1description = new Description("FAMILY CARDOSO");
-//        GroupID groupID1 = new GroupID(groupID1description);
-//        Description groupID2description = new Description("FAMILY AZEVEDO");
-//        GroupID groupID2 = new GroupID(groupID2description);
-//        Description groupID3description = new Description("FAMILY SIMPSON");
-//        GroupID groupID3 = new GroupID(groupID3description);
-
-
-//        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
-//        expectedFamilyGroup.add(GroupDTOAssembler.createGroupDTO(groupID1));
-//        expectedFamilyGroup.add(GroupDTOAssembler.createGroupDTO(groupID2));
-//        expectedFamilyGroup.add(GroupDTOAssembler.createGroupDTO(groupID3));
-
-//
-//        List<GroupDTO> expectedFamilyGroup = new ArrayList<>();
-//        expectedFamilyGroup.add(new GroupDTO("family Cardoso"));
-//        expectedFamilyGroup.add(new GroupDTO("family azevedo"));
-//        expectedFamilyGroup.add(new GroupDTO("family Simpson"));
-//        //Act
-//        List<GroupDTO> realResult = service.getFamilyGroups();
-//
-//        //Assert
-//        assertEquals(expectedFamilyGroup, realResult);
-//    }
 }
