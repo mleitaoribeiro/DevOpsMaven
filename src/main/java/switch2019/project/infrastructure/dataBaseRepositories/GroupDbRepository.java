@@ -137,7 +137,7 @@ public class GroupDbRepository implements GroupRepository {
         return getAllGroups().size();
     }
 
-    public boolean addMemberToGroup(Group group, String personID) {
+    public boolean addMember(Group group, String personID) {
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
 
