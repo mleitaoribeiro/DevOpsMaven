@@ -11,6 +11,7 @@ public class Group implements Owner {
     private final DateAndTime startingDate;
     private Set<PersonID> members;
     private Set<PersonID> admins;
+    private PersonID groupCreator;
 
     public Group(Description description, PersonID groupCreator) {
         setGroupID(description);
@@ -18,6 +19,7 @@ public class Group implements Owner {
         members = new HashSet<>();
         admins = new HashSet<>();
         this.addMember(groupCreator);
+        this.groupCreator=groupCreator;
     }
 
     @Override
@@ -176,6 +178,11 @@ public class Group implements Owner {
         return this.startingDate.yearMonthDayToString();
     }
 
+    public PersonID getGroupCreator() {
+        return groupCreator;
+    }
+
 }
+
 
 
