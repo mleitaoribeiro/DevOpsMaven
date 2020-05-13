@@ -1,4 +1,4 @@
-/*
+
 package switch2019.project.controllerLayer.rest.integration;
 
 import org.json.JSONObject;
@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -404,10 +403,9 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
     }
 
-    */
-/**
+    /*
      * Test if a groupDTO is returned given its description
-     *//*
+     */
 
 
     @Test
@@ -446,7 +444,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         //Arrange
         String uri = "/groups/SuicideSquad";
 
-        String expectedResolvedException = new ArgumentNotFoundException("No group found with that description.").toString();
+        String expectedResolvedException = new ArgumentNotFoundException("No group found with that ID.").toString();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -465,8 +463,8 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No group found with that description.", result.getString("message")),
+                () -> assertEquals ("No group found with that ID.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-}*/
+}
