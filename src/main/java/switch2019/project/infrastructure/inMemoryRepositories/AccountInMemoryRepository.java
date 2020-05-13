@@ -15,7 +15,7 @@ import switch2019.project.domain.repositories.AccountRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Component("AccountInMemoryRepository")
 public class AccountInMemoryRepository implements AccountRepository {
 
     @Autowired
@@ -85,13 +85,7 @@ public class AccountInMemoryRepository implements AccountRepository {
         if (!isIDOnRepository(new AccountID(accountDenomination, ownerID))) {
             Account accountToAdd = new Account(accountDenomination, accountDescription, ownerID);
             this.accounts.add(accountToAdd);
-
-            AccountJpa accountJpa = new AccountJpa(ownerID.toString(), accountDenomination.toString(),
-                    accountDescription.toString(), accountToAdd.getBalance().toString());
-
-            // accountJpaRepository.save(accountJpa);
             return accountToAdd;
-
         } else throw new ResourceAlreadyExistsException("This account already exists.");
     }
 
