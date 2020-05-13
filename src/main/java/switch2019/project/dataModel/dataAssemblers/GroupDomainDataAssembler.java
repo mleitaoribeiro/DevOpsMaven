@@ -8,7 +8,7 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 
 public class GroupDomainDataAssembler {
 
-    public GroupJpa toData(Group group) {
+    public static GroupJpa toData(Group group) {
 
         PersonID personID=group.getGroupCreator();
 
@@ -17,7 +17,7 @@ public class GroupDomainDataAssembler {
         return new GroupJpa(group.getID().getDescription(),groupCreator, group.getStartingDate());
     }
 
-    public Group toDomain(GroupJpa groupJPA) {
+    public static Group toDomain(GroupJpa groupJPA) {
 
         Description groupDescription = new Description(groupJPA.getId());
 
