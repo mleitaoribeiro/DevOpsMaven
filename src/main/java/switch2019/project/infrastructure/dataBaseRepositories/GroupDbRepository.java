@@ -3,6 +3,7 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.GroupDomainDataAssembler;
+import switch2019.project.dataModel.entities.AdminsJpa;
 import switch2019.project.dataModel.entities.GroupJpa;
 import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -13,6 +14,7 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.infrastructure.jpa.AdminsJpaRepository;
 import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 import switch2019.project.infrastructure.jpa.MembersJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
@@ -28,6 +30,9 @@ public class GroupDbRepository implements GroupRepository {
 
     @Autowired
     MembersJpaRepository membersJpaRepository;
+
+    @Autowired
+    AdminsJpaRepository adminsJpaRepository;
 
     //String literals should not be duplicated
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
@@ -64,8 +69,15 @@ public class GroupDbRepository implements GroupRepository {
     public Group createGroup(Description groupDescription, PersonID groupCreator, DateAndTime creationDate) {
 
         Group group = new Group(groupDescription, groupCreator, creationDate);
+        GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
 
-        groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+        groupJpaRepository.save(groupJpa);
+
+        MembersJpa memberJpa = new MembersJpa(groupJpa, groupCreator.toString());
+        AdminsJpa adminsJpa = new AdminsJpa(groupJpa, groupCreator.toString());
+
+        membersJpaRepository.save(memberJpa);
+        adminsJpaRepository.save(adminsJpa);
 
         return group;
     }
@@ -137,19 +149,37 @@ public class GroupDbRepository implements GroupRepository {
         return getAllGroups().size();
     }
 
+
     public boolean addMember(Group group, String personID) {
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
 
         MembersJpa memberJpa = new MembersJpa(groupJpa, personID);
 
-        membersJpaRepository.save( memberJpa );
+        membersJpaRepository.save(memberJpa);
 
         return true;
     }
 
+
     public List<MembersJpa> findMembersById(GroupID id) {
         return membersJpaRepository.findAllById_GroupID (id);
+    }
+
+
+    public boolean setAdmin(Group group, String personID) {
+
+        GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
+
+        AdminsJpa adminsJpa = new AdminsJpa(groupJpa, personID);
+
+        adminsJpaRepository.save(adminsJpa);
+
+        return true;
+    }
+
+    public List<AdminsJpa> findAdminsById(GroupID id) {
+        return adminsJpaRepository.findAllById_GroupID (id);
     }
 
 }
