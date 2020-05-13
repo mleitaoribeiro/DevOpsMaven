@@ -9,7 +9,6 @@ import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
@@ -18,7 +17,6 @@ import switch2019.project.infrastructure.jpa.AdminsJpaRepository;
 import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 import switch2019.project.infrastructure.jpa.MembersJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,7 @@ public class GroupDbRepository implements GroupRepository {
         if (groupJpa.isPresent()) {
             return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
         }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND_ID);
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
     /**

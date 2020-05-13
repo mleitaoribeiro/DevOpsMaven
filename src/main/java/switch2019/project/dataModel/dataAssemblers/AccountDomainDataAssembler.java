@@ -53,17 +53,16 @@ public class AccountDomainDataAssembler {
         Description description = new Description(accountJpa.getDescription());
 
         //Assembling MonetaryValue: (A second constructor for the account was used here to replicate an account).
-        double balance = Double.parseDouble(accountJpa.getBalance());
+        double balance = Double.parseDouble(accountJpa.getAmount());
 
         if (balance != 0.0){
-
             MonetaryValue monetaryValue = new MonetaryValue(balance, Currency.getInstance("EUR"));
 
             //Assembling Account with MonetaryValue:
             return new Account(denomination, description, ownerId, monetaryValue);
         }
         //Assembling Account without MonetaryValue:
-        return new Account (denomination,description,ownerId);
+        else return new Account (denomination, description, ownerId);
     }
 
     /**

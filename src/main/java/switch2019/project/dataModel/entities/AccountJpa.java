@@ -2,10 +2,6 @@ package switch2019.project.dataModel.entities;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.ToString;
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.person.Person;
-
-import java.util.Objects;
 
 import java.util.Objects;
 
@@ -45,6 +41,10 @@ public class AccountJpa {
 
     public String getBalance() {
         return balance;
+    }
+
+    public String getAmount() {
+        return balance.split(" ")[0];
     }
 
     public void setBalance(String balance) {

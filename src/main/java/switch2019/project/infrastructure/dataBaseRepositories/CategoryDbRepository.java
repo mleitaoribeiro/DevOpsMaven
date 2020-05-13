@@ -42,7 +42,7 @@ public class CategoryDbRepository implements CategoryRepository {
 
     public Category getByID(ID categoryID) {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[0], split[1]));
+        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
         if (categoryJpa.isPresent())
             return CategoryDomainDataAssembler.toDomain(categoryJpa.get());
         else throw new ArgumentNotFoundException("No category found with that ID.");
@@ -86,11 +86,8 @@ public class CategoryDbRepository implements CategoryRepository {
 
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
-
             Category category = new Category(nameOfCategory, ownerID);
-
             categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
-
             return category;
 
         } else throw new ResourceAlreadyExistsException("This category already exists.");
