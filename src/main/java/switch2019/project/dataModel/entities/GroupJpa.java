@@ -1,6 +1,7 @@
 
 package switch2019.project.dataModel.entities;
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity(name ="groups")
@@ -30,5 +31,18 @@ public class GroupJpa {
         return groupCreator;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupJpa groupJpa = (GroupJpa) o;
+        return Objects.equals(id, groupJpa.id) &&
+                Objects.equals(groupCreator, groupJpa.groupCreator) &&
+                Objects.equals(creationDate, groupJpa.creationDate);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, groupCreator, creationDate);
+    }
 }

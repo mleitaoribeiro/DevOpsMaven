@@ -3,7 +3,9 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.dataAssemblers.AccountDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.CategoryDomainDataAssembler;
+import switch2019.project.dataModel.entities.CategoryIdJpa;
 import switch2019.project.dataModel.entities.CategoryJpa;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -25,8 +27,6 @@ public class CategoryDbRepository implements CategoryRepository {
     @Autowired
     CategoryJpaRepository categoryJpaRepository;
 
-    public CategoryDbRepository() {
-    }
 
     @Override
     public String toString() {
@@ -41,10 +41,11 @@ public class CategoryDbRepository implements CategoryRepository {
      */
 
     public Category getByID(ID categoryID) {
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findById(categoryID.toString());
+        String[] split = categoryID.toString().replace(", ", ",").split(",");
+        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[0], split[1]));
         if (categoryJpa.isPresent())
             return CategoryDomainDataAssembler.toDomain(categoryJpa.get());
-        throw new ArgumentNotFoundException("No category found with that ID.");
+        else throw new ArgumentNotFoundException("No category found with that ID.");
     }
 
 
@@ -56,7 +57,8 @@ public class CategoryDbRepository implements CategoryRepository {
      */
 
     public boolean isIDOnRepository(ID categoryID) {
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findById(categoryID.toString());
+        String[] split = categoryID.toString().replace(", ", ",").split(",");
+        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[0], split[1]));
         if (categoryJpa.isPresent())
             return true;
         return false;
@@ -85,11 +87,9 @@ public class CategoryDbRepository implements CategoryRepository {
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
 
-            Category category = getByID(new CategoryID(nameOfCategory, ownerID));
+            Category category = new Category(nameOfCategory, ownerID);
 
-            CategoryJpa categoryJpa = new CategoryJpa(nameOfCategory.getDenominationValue(), ownerID.toString());
-
-            categoryJpaRepository.save(categoryJpa);
+            categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
 
             return category;
 
@@ -143,7 +143,7 @@ public class CategoryDbRepository implements CategoryRepository {
         Set<Category> listOfCategoriesByOwnerID = new HashSet<>();
         if (ownerID != null) {
             for (CategoryJpa categoryJpa : categoryJpaRepository.findAllByCategoryIdJpa_Owner(ownerID.toString()))
-                    listOfCategoriesByOwnerID.add(CategoryDomainDataAssembler.toDomain(categoryJpa));
+                listOfCategoriesByOwnerID.add(CategoryDomainDataAssembler.toDomain(categoryJpa));
             if (!listOfCategoriesByOwnerID.isEmpty())
                 return listOfCategoriesByOwnerID;
             else throw new ArgumentNotFoundException("No category found with that ID.");

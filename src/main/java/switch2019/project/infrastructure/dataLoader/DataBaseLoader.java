@@ -11,6 +11,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.dataBaseRepositories.AccountDbRepository;
+import switch2019.project.infrastructure.dataBaseRepositories.CategoryDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
 
@@ -26,8 +27,8 @@ public class DataBaseLoader {
     @Autowired
     AccountDbRepository accountRepository;
 
-    //@Autowired
-    //CategoryDbRepository categoriesRepository;
+    @Autowired
+    CategoryDbRepository categoriesRepository;
 
     public void bootstrapping () {
 
@@ -456,9 +457,14 @@ public class DataBaseLoader {
 
         //Group SWitCH - Added some categories
 
-        // categoriesRepository.createCategory(new Denomination("GYM"), switchGroup.getID());
-        // categoriesRepository.createCategory(new Denomination("ISEP"), switchGroup.getID());
-        // categoriesRepository.createCategory(new Denomination("ONLINE"), smithFamilyGroup.getID());
+        categoriesRepository.createCategory(new Denomination("GYM"), new GroupID(new Description("Switch")));
+        categoriesRepository.createCategory(new Denomination("ISEP"), new GroupID(new Description("Switch")));
+        categoriesRepository.createCategory(new Denomination("ONLINE"), new GroupID(new Description("Switch")));
+
+        //Persons  - Added some categories
+        categoriesRepository.createCategory(new Denomination("HOUSE"),  new PersonID(new Email("marge@hotmail.com")));
+        categoriesRepository.createCategory(new Denomination("SPORTS"),  new PersonID(new Email("1191780@isep.ipp.pt")));
+
 
         /*Add Accounts to Owner ID*/
 

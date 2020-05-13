@@ -9,6 +9,7 @@ import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
@@ -55,19 +56,16 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
-        if(!isIDOnRepository(new GroupID(groupDescription))) {
-            Group group = new Group(groupDescription, groupCreator);
-            GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+        Group group = new Group(groupDescription, groupCreator);
+        GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-            MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
-            AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
+        MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
+        AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
 
-            membersJpaRepository.save(memberJpa);
-            adminsJpaRepository.save(adminsJpa);
+        membersJpaRepository.save(memberJpa);
+        adminsJpaRepository.save(adminsJpa);
 
-            return GroupDomainDataAssembler.toDomain(newGroup);
-        }
-        else throw new ResourceAlreadyExistsException(GROUP_ALREADY_EXISTS);
+        return GroupDomainDataAssembler.toDomain(newGroup);
     }
 
     /**
@@ -153,6 +151,7 @@ public class GroupDbRepository implements GroupRepository {
 
         return true;
     }
+
 
     /**
      * Method to find all the members of a Group
