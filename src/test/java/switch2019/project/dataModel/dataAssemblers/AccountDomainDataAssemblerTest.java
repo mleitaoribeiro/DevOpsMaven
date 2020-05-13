@@ -3,16 +3,13 @@ package switch2019.project.dataModel.dataAssemblers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.dataModel.entities.AccountJpa;
-import switch2019.project.dataModel.entities.AccountKeyJpa;
 import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
 
 import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AccountDomainDataAssemblerTest {
 

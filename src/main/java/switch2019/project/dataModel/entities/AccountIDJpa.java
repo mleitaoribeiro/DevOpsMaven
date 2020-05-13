@@ -14,12 +14,12 @@ public class AccountIDJpa implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccountKeyJpa key = (AccountKeyJpa) o;
+        AccountIDJpa key = (AccountIDJpa) o;
         return Objects.equals(denomination, key.denomination)
                 && Objects.equals(owner, key.owner);
     }
 
-    public AccountKeyJpa(String owner, String denomination) {
+    public AccountIDJpa(String owner, String denomination) {
         this.owner = owner;
         this.denomination = denomination;
     }
