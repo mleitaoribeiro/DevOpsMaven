@@ -323,55 +323,54 @@ public class DataBaseLoader {
         Group switchGroup = groupRepository.createGroup( new Description("SWitCH"),
                 personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
-        switchGroup.addMember(alexandreOliveira.getID());
+        groupRepository.addMember(switchGroup, alexandreOliveira.getID().toString());
         switchGroup.setAdmin(alexandreOliveira.getID());
 
-        switchGroup.addMember(dianaDias.getID());
+        groupRepository.addMember(switchGroup, dianaDias.getID().toString());
         switchGroup.setAdmin(dianaDias.getID());
 
-        switchGroup.addMember(elsaAlmeida.getID());
+        groupRepository.addMember(switchGroup, elsaAlmeida.getID().toString());
         switchGroup.setAdmin(elsaAlmeida.getID());
 
-        switchGroup.addMember(gabrielMoco.getID());
+        groupRepository.addMember(switchGroup, gabrielMoco.getID().toString());
         switchGroup.setAdmin(gabrielMoco.getID());
 
-        switchGroup.addMember(martaCardoso.getID());
+        groupRepository.addMember(switchGroup, martaCardoso.getID().toString());
         switchGroup.setAdmin(martaCardoso.getID());
 
-        switchGroup.addMember(martaPinheiro.getID());
+        groupRepository.addMember(switchGroup, martaPinheiro.getID().toString());
         switchGroup.setAdmin(martaPinheiro.getID());
 
-        switchGroup.addMember(martaRibeiro.getID());
+        groupRepository.addMember(switchGroup, martaRibeiro.getID().toString());
         switchGroup.setAdmin(martaRibeiro.getID());
 
-        switchGroup.addMember(raquelSantos.getID());
+        groupRepository.addMember(switchGroup, raquelSantos.getID().toString());
         switchGroup.setAdmin(raquelSantos.getID());
 
         //Group Friends - 1 Admin - Two members are family but the other member is not
 
         Group friendsGroup = groupRepository.createGroup( new Description("Friends"),
                 personRepository.findPersonByEmail(new Email("hugo.azevedo@gmail.com")).getID());
-        friendsGroup.addMember(beatrizAzevedo.getID());
-        friendsGroup.addMember(joaoCardoso.getID());
+        groupRepository.addMember(friendsGroup, beatrizAzevedo.getID().toString());
+        groupRepository.addMember(friendsGroup, joaoCardoso.getID().toString());
 
         //Group Split Expenses - 2 Admin
 
         Group splitExpensesGroup = groupRepository.createGroup( new Description("Split Expenses"),
                 personRepository.findPersonByEmail(new Email("bart.simpson@gmail.com")).getID());
 
-        splitExpensesGroup.addMember(alexandreOliveira.getID());
+        groupRepository.addMember(splitExpensesGroup, alexandreOliveira.getID().toString());
         splitExpensesGroup.setAdmin(alexandreOliveira.getID());
-        splitExpensesGroup.addMember(gabrielMoco.getID());
-        splitExpensesGroup.addMember(hugoAzevedo.getID());
+        groupRepository.addMember(splitExpensesGroup, gabrielMoco.getID().toString());
+        groupRepository.addMember(splitExpensesGroup, hugoAzevedo.getID().toString());
 
         //Group Rick and Morty - 1 Admin - 2 Members
 
         Group rickAndMortyGroup = groupRepository.createGroup( new Description("Rick and Morty"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
-        groupRepository.addMemberToGroup(rickAndMortyGroup, "rick@gmail.com");
+        groupRepository.addMember(rickAndMortyGroup, rickSanchez.getID().toString());
 
-        List<MembersJpa> membersJpa = membersJpaRepository.findAll();
         //List<MembersJpa> membersJpasGroup = membersJpaRepository.findAllById_GroupID(new GroupID
         //(new Description("Rick & Morty")));
 
@@ -385,20 +384,20 @@ public class DataBaseLoader {
         Group smithFamilyGroup = groupRepository.createGroup( new Description("Smith Family"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
-        smithFamilyGroup.addMember(jerrySmith.getID());
-        smithFamilyGroup.addMember(bethSmith.getID());
-        smithFamilyGroup.addMember(summerSmith.getID());
-        smithFamilyGroup.addMember(mortySmith.getID());
+        groupRepository.addMember(smithFamilyGroup, jerrySmith.getID().toString());
+        groupRepository.addMember(smithFamilyGroup, bethSmith.getID().toString());
+        groupRepository.addMember(smithFamilyGroup, summerSmith.getID().toString());
+        groupRepository.addMember(smithFamilyGroup, mortySmith.getID().toString());
 
         //Family group - Family Simpson - 2 Admin
         Group familySimpsonGroup = groupRepository.createGroup( new Description("Family Simpson"),
                 personRepository.findPersonByEmail(new Email("marge@hotmail.com")).getID());
 
-        familySimpsonGroup.addMember(fatherHomerSimpson.getID());
+        groupRepository.addMember(familySimpsonGroup, fatherHomerSimpson.getID().toString());
         familySimpsonGroup.setAdmin(fatherHomerSimpson.getID());
-        familySimpsonGroup.addMember(bartolomewSimpson.getID());
-        familySimpsonGroup.addMember(elizabetSimpson.getID());
-        familySimpsonGroup.addMember(margaretSimpson.getID());
+        groupRepository.addMember(familySimpsonGroup, bartolomewSimpson.getID().toString());
+        groupRepository.addMember(familySimpsonGroup, elizabetSimpson.getID().toString());
+        groupRepository.addMember(familySimpsonGroup, margaretSimpson.getID().toString());
         //Siblings
         bartolomewSimpson.addSibling(elizabetSimpson);
         bartolomewSimpson.addSibling(margaretSimpson);
@@ -408,13 +407,13 @@ public class DataBaseLoader {
         Group familyCardosoGroup = groupRepository.createGroup( new Description("Family Cardoso"),
                 personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
-        familyCardosoGroup.addMember(martaCardoso.getID());
+        groupRepository.addMember(familyCardosoGroup, martaCardoso.getID().toString());
         familyCardosoGroup.setAdmin(martaCardoso.getID());
 
-        familyCardosoGroup.addMember(fatherAntonioCardoso.getID());
+        groupRepository.addMember(familyCardosoGroup, fatherAntonioCardoso.getID().toString());
         familyCardosoGroup.setAdmin(fatherAntonioCardoso.getID());
 
-        familyCardosoGroup.addMember(motherMariaCardoso.getID());
+        groupRepository.addMember(familyCardosoGroup, motherMariaCardoso.getID().toString());
         familyCardosoGroup.setAdmin(motherMariaCardoso.getID());
         //Siblings
         martaCardoso.addSibling(joaoCardoso);
@@ -423,10 +422,11 @@ public class DataBaseLoader {
         Group familyAzevedoGroup = groupRepository.createGroup( new Description("Family Azevedo"),
                 personRepository.findPersonByEmail(new Email("beatriz.azevedo@gmail.com")).getID());
 
-        familyAzevedoGroup.addMember(fatherRobertoAzevedo.getID());
-        familyAzevedoGroup.addMember(motherMargaridaAzevedo.getID());
-        familyAzevedoGroup.addMember(margaridaAzevedo.getID());
-        familyAzevedoGroup.addMember(hugoAzevedo.getID());
+        groupRepository.addMember(familyAzevedoGroup, fatherRobertoAzevedo.getID().toString());
+        groupRepository.addMember(familyAzevedoGroup, motherMargaridaAzevedo.getID().toString());
+        groupRepository.addMember(familyAzevedoGroup, margaridaAzevedo.getID().toString());
+        groupRepository.addMember(familyAzevedoGroup, hugoAzevedo.getID().toString());
+
         //Siblings
         margaridaAzevedo.addSibling(hugoAzevedo);
 
