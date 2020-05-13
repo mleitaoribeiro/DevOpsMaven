@@ -8,6 +8,8 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 
 public class GroupDomainDataAssembler {
 
+    private GroupDomainDataAssembler(){}
+
     public static GroupJpa toData(Group group) {
 
         PersonID personID=group.getGroupCreator();

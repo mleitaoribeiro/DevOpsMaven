@@ -12,12 +12,15 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 
 @Service
 public class US002_1CreateGroupService {
 
     @Autowired
     private GroupRepository groupsRepository;
+    @Autowired
+    private GroupDbRepository groupDbRepository;
     @Autowired
     @Qualifier("PersonInMemoryRepository")
     private PersonRepository personRepository;
@@ -35,6 +38,8 @@ public class US002_1CreateGroupService {
         Description groupDescription = new Description(createGroupDTO.getGroupDescription());
 
         Group groupCreated = groupsRepository.createGroup(groupDescription, admin.getID());
+
+        groupDbRepository.createGroup(groupDescription, admin.getID());
 
         return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
     }

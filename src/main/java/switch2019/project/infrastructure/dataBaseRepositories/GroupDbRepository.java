@@ -14,8 +14,6 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +39,7 @@ public class GroupDbRepository implements GroupRepository {
      * @param groupDescription
      * @param groupCreator
      */
+
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
 
         Group group = new Group(groupDescription, groupCreator);
@@ -49,6 +48,14 @@ public class GroupDbRepository implements GroupRepository {
 
         return group;
     }
+
+    /**
+     * As a user I want to create a group becoming a group administrator(US02.1)
+     *
+     * @param groupDescription
+     * @param groupCreator
+     * @param creationDate
+     */
 
     public Group createGroup(Description groupDescription, PersonID groupCreator, DateAndTime creationDate) {
 
@@ -100,6 +107,12 @@ public class GroupDbRepository implements GroupRepository {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
         return groupJpa.isPresent();
     }
+
+    /**
+     * method get All the groups
+     *
+     * @return List<Group>
+     */
 
     public List<Group> getAllGroups() {
         List<GroupJpa> groupJpa = groupJpaRepository.findAll();
