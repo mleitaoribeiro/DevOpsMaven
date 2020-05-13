@@ -1,4 +1,4 @@
-package switch2019.project.infrastructure;
+package switch2019.project.infrastructure.inMemoryRepositories;
 
 
 import org.springframework.context.annotation.Primary;

@@ -1,10 +1,9 @@
-package switch2019.project.infrastructure;
+package switch2019.project.infrastructure.inMemoryRepositories;
 
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.infrastructure.GroupsInMemoryRepository;
-import switch2019.project.infrastructure.PersonInMemoryRepository;
+import switch2019.project.infrastructure.inMemoryRepositories.GroupsInMemoryRepository;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -12,7 +11,6 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.GroupRepository;
-import switch2019.project.domain.repositories.PersonRepository;
 
 import java.util.*;
 
