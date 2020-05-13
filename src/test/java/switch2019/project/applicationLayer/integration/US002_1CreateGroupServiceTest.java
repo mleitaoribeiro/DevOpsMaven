@@ -79,7 +79,7 @@ class US002_1CreateGroupServiceTest {
             service.createGroup(new CreateGroupDTO(groupDescription, personID));
         }
         catch (ResourceAlreadyExistsException ex) {
-            assertEquals("No group found with that description.", ex.getMessage());
+            assertEquals("This group already exists.", ex.getMessage());
         }
     }
 

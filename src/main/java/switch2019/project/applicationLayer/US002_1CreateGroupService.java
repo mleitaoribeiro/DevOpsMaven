@@ -44,7 +44,7 @@ public class US002_1CreateGroupService {
 
             return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
         }
-            else throw new ResourceAlreadyExistsException("No group found with that description.");
+            else throw new ResourceAlreadyExistsException("This group already exists.");
 
     }
 
