@@ -1,3 +1,4 @@
+/*
 package switch2019.project.controllerLayer.rest.integration;
 
 import org.json.JSONObject;
@@ -403,9 +404,11 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
     }
 
-    /**
+    */
+/**
      * Test if a groupDTO is returned given its description
-     */
+     *//*
+
 
     @Test
     @DisplayName("Test if a groupDTO is returned given its description  - Happy Case")
@@ -466,4 +469,4 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-}
+}*/

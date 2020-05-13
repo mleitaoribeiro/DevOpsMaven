@@ -44,9 +44,9 @@ public class GroupDbRepository implements GroupRepository {
 
         Group group = new Group(groupDescription, groupCreator);
 
-        groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+        GroupJpa groupJpa = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-        return group;
+        return GroupDomainDataAssembler.toDomain(groupJpa);
     }
 
     /**
