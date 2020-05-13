@@ -3,6 +3,7 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.dataAssemblers.AccountDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.CategoryDomainDataAssembler;
 import switch2019.project.dataModel.entities.CategoryJpa;
 import switch2019.project.domain.domainEntities.category.Category;
@@ -25,8 +26,6 @@ public class CategoryDbRepository implements CategoryRepository {
     @Autowired
     CategoryJpaRepository categoryJpaRepository;
 
-    public CategoryDbRepository() {
-    }
 
     @Override
     public String toString() {
@@ -56,9 +55,9 @@ public class CategoryDbRepository implements CategoryRepository {
      */
 
     public boolean isIDOnRepository(ID categoryID) {
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findById(categoryID.toString());
+      /*  Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findById(categoryID.toString());
         if (categoryJpa.isPresent())
-            return true;
+            return true;*/
         return false;
     }
 
@@ -85,11 +84,9 @@ public class CategoryDbRepository implements CategoryRepository {
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
 
-            Category category = getByID(new CategoryID(nameOfCategory, ownerID));
+            Category category = new Category(nameOfCategory, ownerID);
 
-            CategoryJpa categoryJpa = new CategoryJpa(nameOfCategory.getDenominationValue(), ownerID.toString());
-
-            categoryJpaRepository.save(categoryJpa);
+            categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
 
             return category;
 
