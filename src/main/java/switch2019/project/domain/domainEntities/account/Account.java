@@ -35,6 +35,25 @@ public class Account implements Entity {
         }
     }
 
+    /**
+     * Constructor with a given balance used to replicate an account
+     * @param accountDenomination
+     * @param accountDescription
+     * @param ownerID
+     * @param monetaryValue
+     *
+     * @return
+     */
+    public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID, MonetaryValue monetaryValue) {
+        if (accountDescription == null) throw new IllegalArgumentException("Account description can't be null.");
+        else {
+            accountID = new AccountID(accountDenomination, ownerID);
+            description = accountDescription;
+            balance = monetaryValue;
+        }
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

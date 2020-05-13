@@ -9,7 +9,7 @@ public class MonetaryValue implements Serializable {
 
     //Private MonetaryValue instance Variables
     private final double amount;
-    private final Currency currency;
+    private Currency currency;
 
     public MonetaryValue(double amount, Currency currency) {
         if (currency!= null){
@@ -39,6 +39,15 @@ public class MonetaryValue implements Serializable {
      */
     public double getAmount() {
         return amount;
+    }
+
+    /**
+     * Method to get currency
+     *
+     * @return currency
+     */
+    public Currency getCurrency() {
+        return currency;
     }
 
 }
