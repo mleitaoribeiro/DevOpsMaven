@@ -49,4 +49,22 @@ public interface GroupRepository extends Repository {
      */
     List<Group> getAllGroups();
 
+    /**
+     * Method to add a member to a Group
+     *
+     * @param group
+     * @param personID
+     * @return
+     */
+    boolean addMember(Group group, String personID);
+
+    /**
+     * Method to add an admin to a Group
+     *
+     * @param group
+     * @param personID
+     * @return
+     */
+    boolean setAdmin(Group group, String personID);
+
 }
