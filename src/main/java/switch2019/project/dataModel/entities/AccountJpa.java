@@ -36,4 +36,6 @@ public class AccountJpa {
     public void setBalance(String balance) {
         this.balance = balance;
     }
+
+    public AccountKeyJpa getAccountKeyJpa() { return accountKeyJpa; }
 }
