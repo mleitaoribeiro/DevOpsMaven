@@ -444,7 +444,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
         //Arrange
         String uri = "/groups/SuicideSquad";
 
-        String expectedResolvedException = new ArgumentNotFoundException("No group found with that ID.").toString();
+        String expectedResolvedException = new ArgumentNotFoundException("No group found with that description.").toString();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -463,7 +463,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No group found with that ID.", result.getString("message")),
+                () -> assertEquals ("No group found with that description.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }

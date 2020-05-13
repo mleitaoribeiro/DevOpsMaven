@@ -152,7 +152,7 @@ class US002_1CreateGroupServiceTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No group found with that ID.");
+                .hasMessage("No group found with that description.");
     }
 
     @Test
