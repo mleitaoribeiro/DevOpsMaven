@@ -8,14 +8,13 @@ import java.util.Objects;
 public class PersonJpa {
 
     @Id
+    @Column(name ="person_id")
     private String email;
     private String name;
     private String birthDate;
     private String birthPlace;
 
     @Convert(converter = AddressConverter.class)
-   //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "address_id", referencedColumnName = "id")
     private AddressJpa address;
 
     protected PersonJpa() {};
