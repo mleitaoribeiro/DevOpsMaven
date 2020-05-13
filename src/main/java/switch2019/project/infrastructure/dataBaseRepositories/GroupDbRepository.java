@@ -54,19 +54,16 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
-        if(!isIDOnRepository(new GroupID(groupDescription))) {
-            Group group = new Group(groupDescription, groupCreator);
-            GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+        Group group = new Group(groupDescription, groupCreator);
+        GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-            MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
-            AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
+        MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
+        AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
 
-            membersJpaRepository.save(memberJpa);
-            adminsJpaRepository.save(adminsJpa);
+        membersJpaRepository.save(memberJpa);
+        adminsJpaRepository.save(adminsJpa);
 
-            return GroupDomainDataAssembler.toDomain(newGroup);
-        }
-        else throw new ResourceAlreadyExistsException(GROUP_ALREADY_EXISTS);
+        return GroupDomainDataAssembler.toDomain(newGroup);
     }
 
 
