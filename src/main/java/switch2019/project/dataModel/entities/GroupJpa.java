@@ -7,7 +7,9 @@ import javax.persistence.*;
 public class GroupJpa {
 
     @Id
+    @Column(name = "group_id")
     private String id;
+    @Column(name = "person_id")
     private String groupCreator;
     private String creationDate;
 
@@ -19,4 +21,14 @@ public class GroupJpa {
         this.creationDate = creationDate;
     }
 
- }
+    public String getId() {
+        return id;
+    }
+
+
+    public String getGroupCreator() {
+        return groupCreator;
+    }
+
+
+}

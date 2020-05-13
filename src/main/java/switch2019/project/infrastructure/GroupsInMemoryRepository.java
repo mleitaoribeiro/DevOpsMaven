@@ -20,7 +20,7 @@ import java.util.*;
 public class GroupsInMemoryRepository implements GroupRepository {
 
     // Private instance variables
-    private Set<Group> groups;
+    private List <Group> groups;
 
     //String literals should not be duplicated
     private static final String NOT_A_MEMBER = "This person is not a member of this group.";
@@ -28,7 +28,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
 
     //Constructor
     public GroupsInMemoryRepository() {
-        groups = new LinkedHashSet<>();
+        groups = new ArrayList<>();
     }
 
     /**
@@ -97,7 +97,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return false;
     }
 
-    public Set<Group> getAllGroups() {
+    public List <Group> getAllGroups() {
         return groups;
     }
 
