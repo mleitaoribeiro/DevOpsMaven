@@ -108,7 +108,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     }
 
 
-    @Test
+  /*  @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - group Already Exists")
     void createGroupAndBecomeAdminGroupAlreadyExists() throws Exception {
 
@@ -151,7 +151,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-
+*/
 
     @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid email - null")
