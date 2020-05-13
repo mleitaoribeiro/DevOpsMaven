@@ -1,11 +1,13 @@
-package switch2019.project.infrastructure;
+package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.dataAssemblers.GroupDomainDataAssembler;
 import switch2019.project.dataModel.entities.GroupJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
@@ -27,9 +29,11 @@ public class GroupDbRepository implements GroupRepository {
 
     //String literals should not be duplicated
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
+    private static final String NO_GROUPS_FOUND_ID = "No group found with that ID.";
 
     //Constructor
-    public GroupDbRepository(){}
+    public GroupDbRepository() {
+    }
 
     /**
      * As a user I want to create a group becoming a group administrator(US02.1)
@@ -38,45 +42,51 @@ public class GroupDbRepository implements GroupRepository {
      * @param groupCreator
      */
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
-        if(!isIDOnRepository(new GroupID(groupDescription))) {
 
-            Group group1 = getByID(new GroupID(groupDescription));
+        Group group = new Group(groupDescription, groupCreator);
 
-            GroupJpa groupJpa = new GroupJpa(groupDescription.getDescription(), groupCreator.getEmail(),
-                    group1.getStartingDate());
+        groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-            groupJpaRepository.save(groupJpa);
-
-            return group1;
-        } else throw new ResourceAlreadyExistsException("This group description already exists.");
+        return group;
     }
 
+    public Group createGroup(Description groupDescription, PersonID groupCreator, DateAndTime creationDate) {
 
+        Group group = new Group(groupDescription, groupCreator, creationDate);
+
+        groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+
+        return group;
+    }
 
 
     /**
      * Method used to find a specific group by its Description
+     *
      * @param groupDescription
      * @return group
      */
 
     public Group findGroupByDescription(Description groupDescription) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupDescription.getDescription());
-        if (groupJpa.isPresent()){
+        if (groupJpa.isPresent()) {
             return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
-        } throw new ArgumentNotFoundException("No group found with that ID.");
+        }
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND_ID);
     }
 
     /**
      * Method to return the group corespondent to the given GroupID
+     *
      * @param groupID
      * @return group
      */
-    public Group getByID (ID groupID) {
+    public Group getByID(ID groupID) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
-        if (groupJpa.isPresent()){
+        if (groupJpa.isPresent()) {
             return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
-        } throw new ArgumentNotFoundException("No group found with that ID.");
+        }
+        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
     /**
@@ -92,9 +102,9 @@ public class GroupDbRepository implements GroupRepository {
     }
 
     public List<Group> getAllGroups() {
-        List <GroupJpa> groupJpa = groupJpaRepository.findAll();
-        List <Group> groups = new ArrayList<>();
-        for (GroupJpa groupJpa1 : groupJpa){
+        List<GroupJpa> groupJpa = groupJpaRepository.findAll();
+        List<Group> groups = new ArrayList<>();
+        for (GroupJpa groupJpa1 : groupJpa) {
             groups.add(getByID(new GroupID(new Description(groupJpa1.getId()))));
         }
         return groups;
@@ -106,7 +116,7 @@ public class GroupDbRepository implements GroupRepository {
      * @return size of the groupsList
      */
 
-    public long repositorySize () {
+    public long repositorySize() {
         return getAllGroups().size();
     }
 

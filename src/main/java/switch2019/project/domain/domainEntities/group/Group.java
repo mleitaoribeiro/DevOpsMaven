@@ -22,6 +22,15 @@ public class Group implements Owner {
         this.groupCreator=groupCreator;
     }
 
+    public Group(Description description, PersonID groupCreator, DateAndTime dateAndTime) {
+        setGroupID(description);
+        startingDate = dateAndTime;
+        members = new HashSet<>();
+        admins = new HashSet<>();
+        this.addMember(groupCreator);
+        this.groupCreator=groupCreator;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
