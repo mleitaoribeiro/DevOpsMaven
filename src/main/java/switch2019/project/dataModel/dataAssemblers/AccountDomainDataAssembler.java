@@ -14,13 +14,16 @@ import java.util.regex.Pattern;
 
 public class AccountDomainDataAssembler {
 
+    private AccountDomainDataAssembler (){}
+
     /**
      * Method that transforms an Account into AccountJpa
      * @param account
      * @return
      */
     public AccountJpa toData (Account account) {
-        return new AccountJpa(account.getOwnerID().toString(),
+        return new AccountJpa(
+                account.getOwnerID().toString(),
                 account.denominationToString(),
                 account.descriptionToString(),
                 account.getBalance().toString());
@@ -31,7 +34,7 @@ public class AccountDomainDataAssembler {
      * @param accountJpa
      * @return
      */
-    public Account toDomain (AccountJpa accountJpa) {
+    public static Account toDomain (AccountJpa accountJpa) {
 
         //Assembling OwnerID:
         String owner = accountJpa.getAccountKeyJpa().getOwner();
@@ -68,7 +71,7 @@ public class AccountDomainDataAssembler {
      * @param string
      * @return
      */
-    private boolean isEmail(String string) {
+    private static boolean isEmail(String string) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
