@@ -24,10 +24,10 @@ public class US006CreatePersonAccountService {
 
     @Autowired
     @Qualifier("PersonInMemoryRepository")
-
     private PersonRepository personRepository;
 
     @Autowired
+    @Qualifier("AccountInMemoryRepository")
     private AccountRepository accountRepository;
 
     /**
