@@ -2,12 +2,13 @@ package switch2019.project.infrastructure.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 
-import switch2019.project.infrastructure.GroupDbRepository;
+import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
 
 @Component
@@ -65,10 +66,11 @@ public class DataBaseLoader {
         Person joaoCardoso = personRepository.createPerson("João Cardoso", new DateAndTime(1993, 9, 1),
                 new Address("Porto"), new Address("Rua de Requeixos", "Vizela", "4620-580"),
                 new Email("joao@isep.ipp.pt"));
-/*
+
         //Group Creation
         Group switchG2 = groupRepository.createGroup(new Description("SWITCH G2"),
-                personRepository.findPersonByEmail(new Email("joao@isep.ipp.pt")).getID());
+                personRepository.findPersonByEmail(new Email("joao@isep.ipp.pt")).getID(),
+                new DateAndTime(2019, 10, 7));
 
         switchG2.addMember(alexandreOliveira.getID());
         switchG2.setAdmin(alexandreOliveira.getID());
@@ -79,7 +81,7 @@ public class DataBaseLoader {
         switchG2.addMember(martaPinheiro.getID());
         switchG2.addMember(martaRibeiro.getID());
         switchG2.addMember(raquelSantos.getID());
-*/
+
 
       /*  //Categories
         //Group
@@ -115,7 +117,8 @@ public class DataBaseLoader {
                 new DateAndTime(1964, 1, 19), new Address("Porto"),
                 new Address("Rua de Requeixos", "Vizela", "4620-580"),
                 new Email("maria.cardoso_1@gmail.com"));
- /*       //Group Creation
+
+        //Group Creation
         Group familyCardosoGroup = groupRepository.createGroup(new Description("CARDOSO'S FAMILY"),
                 personRepository.findPersonByEmail(new Email("antonio.cardoso@gmail.com")).getID());
 
@@ -129,7 +132,7 @@ public class DataBaseLoader {
         familyCardosoGroup.addMember(joaoCardoso.getID());
         joaoCardoso.setMother(motherMariaCardoso.getID());
         joaoCardoso.setFather(fatherAntonioCardoso.getID());
-        martaCardoso.addSibling(joaoCardoso);*/
+        martaCardoso.addSibling(joaoCardoso);
 /*
 
         //Categories
@@ -159,11 +162,12 @@ public class DataBaseLoader {
                 new DateAndTime(1950, 9, 1), new Address("Seattle"),
                 new Address("Smiths house", "Seattle", "4520-266"), new Email("rick@gmail.com"));
 
-     /*   //Group Creation
+       //Group Creation
         Group rickMortyGroup = groupRepository.createGroup(new Description("Rick & Morty"),
-                personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
+                personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID(),
+                new DateAndTime(2013, 12, 2));
 
-        rickMortyGroup.addMember(mortySmith.getID());*/
+        rickMortyGroup.addMember(mortySmith.getID());
 /*
         //Categories
         categoryRepository.createCategory(new Denomination("Adventures"), new GroupID(new Description("Rick & Morty")));
@@ -189,12 +193,13 @@ public class DataBaseLoader {
                 new DateAndTime(1950, 9, 1), new Address("Kanto"),
                 new Address("Pokemon Street", "Johto", "4000-000"), new Email("james@pokemon.com"));
 
-      /*  //Group Creation
+        //Group Creation
         Group teamRocket = groupRepository.createGroup(new Description("TEAM ROCKET"),
-                personRepository.findPersonByEmail(new Email("james@pokemon.com")).getID());
+                personRepository.findPersonByEmail(new Email("james@pokemon.com")).getID(),
+                new DateAndTime(1997, 4, 8));
 
         teamRocket.addMember(jessie.getID());
-        teamRocket.setAdmin(jessie.getID());*/
+        teamRocket.setAdmin(jessie.getID());
 /*
 
         //Categories
@@ -223,12 +228,12 @@ public class DataBaseLoader {
                 new DateAndTime(1950, 9, 1), new Address("Kansas"),
                 new Address("Bienville Parish Street", "Louisiana", "4000-000"), new Email("clyde@hotmail.com"));
 
-    /*    //Group Creation
+        //Group Creation
         Group bonnieAndClyde = groupRepository.createGroup(new Description("Bonnie and Clyde"),
                 personRepository.findPersonByEmail(new Email("clyde@hotmail.com")).getID());
 
         bonnieAndClyde.addMember(bonnie.getID());
-        bonnieAndClyde.setAdmin(bonnie.getID());*/
+        bonnieAndClyde.setAdmin(bonnie.getID());
 /*
         //Categories
         categoryRepository.createCategory(new Denomination("SMALL ROBBERIES"), new GroupID(new Description("Bonnie and Clyde")));
