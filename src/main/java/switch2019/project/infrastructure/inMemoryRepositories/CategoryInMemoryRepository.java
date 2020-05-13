@@ -1,5 +1,6 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
@@ -12,7 +13,8 @@ import switch2019.project.domain.repositories.CategoryRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Primary
+@Component("CategoryInMemoryRepository")
 public class CategoryInMemoryRepository implements CategoryRepository {
 
     // Private instance variables
