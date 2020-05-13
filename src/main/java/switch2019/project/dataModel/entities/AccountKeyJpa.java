@@ -1,6 +1,7 @@
 package switch2019.project.dataModel.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class AccountKeyJpa implements Serializable {
 
@@ -8,6 +9,15 @@ public class AccountKeyJpa implements Serializable {
     private String owner;
 
     protected AccountKeyJpa() {};
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountKeyJpa key = (AccountKeyJpa) o;
+        return Objects.equals(denomination, key.denomination)
+                && Objects.equals(owner, key.owner);
+    }
 
     public AccountKeyJpa(String owner, String denomination) {
         this.owner = owner;

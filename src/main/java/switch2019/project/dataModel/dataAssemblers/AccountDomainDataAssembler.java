@@ -21,7 +21,7 @@ public class AccountDomainDataAssembler {
      * @param account
      * @return
      */
-    public AccountJpa toData (Account account) {
+    public static AccountJpa toData (Account account) {
         return new AccountJpa(
                 account.getOwnerID().toString(),
                 account.denominationToString(),
