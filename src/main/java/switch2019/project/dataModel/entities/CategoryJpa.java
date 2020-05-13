@@ -13,7 +13,7 @@ public class CategoryJpa {
     private CategoryKeyJpa categoryKeyJpa;
 
     protected CategoryJpa() {
-    };
+    }
 
     public CategoryJpa(String owner, String denomination) {
         categoryKeyJpa = new CategoryKeyJpa(owner, denomination);

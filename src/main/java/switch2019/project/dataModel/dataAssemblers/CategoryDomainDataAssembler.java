@@ -14,6 +14,11 @@ import java.util.regex.Pattern;
 
 public class CategoryDomainDataAssembler {
 
+    /**
+     * Private constructor to hide the implicit public one
+     */
+
+    private CategoryDomainDataAssembler (){}
 
     /**
      *
