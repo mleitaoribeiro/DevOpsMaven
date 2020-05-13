@@ -1,3 +1,4 @@
+/*
 package switch2019.project.controllerLayer.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,16 @@ public class US003AddMemberToGroupDBControllerRest {
     @Autowired
     US003AddMemberToGroupDBService service;
 
-    /**
+    */
+/**
      * US003
      * method that sends an HTTP responsive for a POST request to add a Member to a group
      *
      * @param info
      * @return dto addedMember and 201 CREATED status
-     */
+     *//*
+
+
 
     @PostMapping("/groups/{groupDescription}/members")
     public ResponseEntity<Object> addMemberToGroup(@PathVariable String groupDescription,
@@ -88,3 +92,4 @@ public class US003AddMemberToGroupDBControllerRest {
         return new ResponseEntity<>(admins, HttpStatus.OK);
     }
 }
+*/
