@@ -20,8 +20,8 @@ public class CategoryIdJpa implements Serializable {
         if (this == o) return true;
         if (!(o instanceof CategoryIdJpa)) return false;
         CategoryIdJpa that = (CategoryIdJpa) o;
-        return Objects.equals(owner, that.owner) &&
-                Objects.equals(denomination, that.denomination);
+        return owner.equalsIgnoreCase(that.owner) &&
+                denomination.equalsIgnoreCase(that.denomination);
     }
 
     @Override
