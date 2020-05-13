@@ -8,7 +8,7 @@ import java.util.Objects;
 public class PersonJpa {
 
     @Id
-    @Column(name ="id")
+    @Column(name ="person_id")
     private String email;
     private String name;
     private String birthDate;
