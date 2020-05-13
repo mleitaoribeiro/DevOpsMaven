@@ -2,14 +2,14 @@ package switch2019.project.dataModel.entities;
 
 import java.io.Serializable;
 
-public class AccountKeyJpa implements Serializable {
+public class AccountIDJpa implements Serializable {
 
     private String denomination;
     private String owner;
 
-    protected AccountKeyJpa() {};
+    protected AccountIDJpa() {};
 
-    public AccountKeyJpa(String owner, String denomination) {
+    public AccountIDJpa(String owner, String denomination) {
         this.owner = owner;
         this.denomination = denomination;
     }
