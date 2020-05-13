@@ -27,7 +27,6 @@ public class CategoryDomainDataAssembler {
         return new CategoryJpa(category.getID().getOwnerIDString(), category.getNameOfCategory());
     }
 
-
     /**
      *
      * Method for transforming an CategoryJPA object into a Category object
@@ -65,8 +64,8 @@ public class CategoryDomainDataAssembler {
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                 "A-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex);
-        return pat.matcher(owner).matches();
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(owner).matches();
     }
 
 
