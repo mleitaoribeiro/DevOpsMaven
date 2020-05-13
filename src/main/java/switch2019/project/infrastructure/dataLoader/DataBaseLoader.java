@@ -2,6 +2,7 @@ package switch2019.project.infrastructure.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -13,6 +14,9 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.dataBaseRepositories.AccountDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
+import switch2019.project.infrastructure.jpa.MembersJpaRepository;
+
+import java.util.List;
 
 @Component
 public class DataBaseLoader {
@@ -29,7 +33,10 @@ public class DataBaseLoader {
     //@Autowired
     //CategoryDbRepository categoriesRepository;
 
-    public void dataBaseLoader() {
+    @Autowired
+    private MembersJpaRepository membersJpaRepository;
+
+    public void bootstrapping () {
 
         /* Add people to the Repository */
 
@@ -362,7 +369,11 @@ public class DataBaseLoader {
         Group rickAndMortyGroup = groupRepository.createGroup( new Description("Rick and Morty"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
-        rickAndMortyGroup.addMember(mortySmith.getID());
+        groupRepository.addMemberToGroup(rickAndMortyGroup, "rick@gmail.com");
+
+        List<MembersJpa> membersJpa = membersJpaRepository.findAll();
+        //List<MembersJpa> membersJpasGroup = membersJpaRepository.findAllById_GroupID(new GroupID
+        //(new Description("Rick & Morty")));
 
         //Group morty - 1 Admin - 1 Member
 

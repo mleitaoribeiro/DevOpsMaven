@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import switch2019.project.infrastructure.dataLoader.BootstrapperInMemory;
+import switch2019.project.infrastructure.dataLoader.DataInMemoryLoader;
 import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
 
 
@@ -27,7 +27,7 @@ public class ProjectApplication implements ApplicationRunner {
     }
 
     @Autowired
-    BootstrapperInMemory bootstrapperInMemory;
+    DataInMemoryLoader dataInMemoryLoader;
 
     @Autowired
     DataBaseLoader dataBaseLoader;
@@ -35,8 +35,8 @@ public class ProjectApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
         System.out.println("ApplicationRunner - Started");
-        bootstrapperInMemory.bootstrapping();
-        dataBaseLoader.dataBaseLoader();
+        dataInMemoryLoader.bootstrapping();
+        dataBaseLoader.bootstrapping();
         System.out.println("ApplicationRunner - Finished");
     }
 }
