@@ -13,7 +13,6 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.infrastructure.dataBaseRepositories.AccountDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
-import switch2019.project.infrastructure.jpa.MembersJpaRepository;
 
 @Component
 public class DataBaseLoader {
@@ -29,9 +28,6 @@ public class DataBaseLoader {
 
     //@Autowired
     //CategoryDbRepository categoriesRepository;
-
-    @Autowired
-    private MembersJpaRepository membersJpaRepository;
 
     public void bootstrapping () {
 
