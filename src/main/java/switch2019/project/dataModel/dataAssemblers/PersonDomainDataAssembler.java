@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 
 public class PersonDomainDataAssembler {
 
+    private PersonDomainDataAssembler() {};
+
     public static PersonJpa toData(Person person ) {
         return new PersonJpa( person.getID().toString(), person.getName(), person.getBirthDate(),
                 person.getBirthPlace().getBirthPlace(), new AddressJpa(person.getAddress().getStreet(), person.getAddress().getCity(),

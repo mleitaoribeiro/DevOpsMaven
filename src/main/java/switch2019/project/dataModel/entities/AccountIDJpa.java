@@ -3,12 +3,12 @@ package switch2019.project.dataModel.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class AccountKeyJpa implements Serializable {
+public class AccountIDJpa implements Serializable {
 
     private String denomination;
     private String owner;
 
-    protected AccountKeyJpa() {};
+    protected AccountIDJpa() {};
 
     @Override
     public boolean equals(Object o) {

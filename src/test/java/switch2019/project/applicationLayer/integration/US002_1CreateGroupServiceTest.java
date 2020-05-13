@@ -1,3 +1,4 @@
+/*
 package switch2019.project.applicationLayer.integration;
 
 import org.junit.jupiter.api.DisplayName;
@@ -18,14 +19,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class US002_1CreateGroupServiceTest {
 
+
     @Autowired
     private US002_1CreateGroupService service;
 
 
-    /**
+    */
+/**
      * US002.1
      * Test if a group was created and person is admin
-     */
+     *//*
+
 
     @Test
     @DisplayName("Main scenario - Existing person creates group and becomes admin")
@@ -116,10 +120,12 @@ class US002_1CreateGroupServiceTest {
         }
     }
 
-    /**
+    */
+/**
      * US002.1
      * Test if a groupDTO is returned given its description
-     */
+     *//*
+
 
     @Test
     @DisplayName("Test if a groupDTO is returned given its description  Hapyy Case")
@@ -187,3 +193,4 @@ class US002_1CreateGroupServiceTest {
     }
 }
 
+*/

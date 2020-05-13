@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.GroupDomainDataAssembler;
 import switch2019.project.dataModel.entities.GroupJpa;
+import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -13,6 +14,7 @@ import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.infrastructure.jpa.GroupJpaRepository;
+import switch2019.project.infrastructure.jpa.MembersJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ public class GroupDbRepository implements GroupRepository {
     @Autowired
     GroupJpaRepository groupJpaRepository;
 
+    @Autowired
+    MembersJpaRepository membersJpaRepository;
 
     //String literals should not be duplicated
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
@@ -44,9 +48,9 @@ public class GroupDbRepository implements GroupRepository {
 
         Group group = new Group(groupDescription, groupCreator);
 
-        groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+        GroupJpa groupJpa = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-        return group;
+        return GroupDomainDataAssembler.toDomain(groupJpa);
     }
 
     /**
@@ -131,6 +135,21 @@ public class GroupDbRepository implements GroupRepository {
 
     public long repositorySize() {
         return getAllGroups().size();
+    }
+
+    public boolean addMemberToGroup(Group group, String personID) {
+
+        GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
+
+        MembersJpa memberJpa = new MembersJpa(groupJpa, personID);
+
+        membersJpaRepository.save( memberJpa );
+
+        return true;
+    }
+
+    public List<MembersJpa> findMembersById(GroupID id) {
+        return membersJpaRepository.findAllById_GroupID (id);
     }
 
 }

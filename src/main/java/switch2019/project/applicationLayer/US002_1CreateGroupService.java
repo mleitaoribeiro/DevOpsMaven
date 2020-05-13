@@ -18,11 +18,11 @@ import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 public class US002_1CreateGroupService {
 
     @Autowired
+    @Qualifier("GroupDbRepository")
     private GroupRepository groupsRepository;
+
     @Autowired
-    private GroupDbRepository groupDbRepository;
-    @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
     /**
@@ -38,8 +38,6 @@ public class US002_1CreateGroupService {
         Description groupDescription = new Description(createGroupDTO.getGroupDescription());
 
         Group groupCreated = groupsRepository.createGroup(groupDescription, admin.getID());
-
-        groupDbRepository.createGroup(groupDescription, admin.getID());
 
         return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
     }

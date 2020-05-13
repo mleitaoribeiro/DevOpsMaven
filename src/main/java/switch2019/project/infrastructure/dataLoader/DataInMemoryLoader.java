@@ -16,7 +16,7 @@ import switch2019.project.infrastructure.inMemoryRepositories.GroupsInMemoryRepo
 import switch2019.project.infrastructure.inMemoryRepositories.PersonInMemoryRepository;
 
 @Component
-public class BootstrapperInMemory {
+public class DataInMemoryLoader {
 
     @Autowired
     PersonInMemoryRepository personRepository;

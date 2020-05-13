@@ -26,9 +26,13 @@ public class US007CreateGroupAccountService {
     @Autowired
     @Qualifier("PersonInMemoryRepository")
     private PersonRepository personRepository;
+
     @Autowired
+    @Qualifier("GroupInMemoryRepository")
     private GroupRepository groupsRepository;
+
     @Autowired
+    @Qualifier("AccountInMemoryRepository")
     private AccountRepository accountRepository;
 
     /**
