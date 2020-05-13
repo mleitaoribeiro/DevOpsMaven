@@ -10,17 +10,18 @@ import javax.persistence.*;
 public class CategoryJpa {
 
     @EmbeddedId
-    private CategoryKeyJpa categoryKeyJpa;
+    private CategoryIdJpa categoryIdJpa;
 
     protected CategoryJpa() {
     }
 
     public CategoryJpa(String owner, String denomination) {
-        categoryKeyJpa = new CategoryKeyJpa(owner, denomination);
+        categoryIdJpa = new CategoryIdJpa(owner, denomination);
     }
 
-    public CategoryKeyJpa getCategoryKeyJPA() {
-        return categoryKeyJpa;
+    public CategoryIdJpa getCategoryKeyJPA() {
+        return categoryIdJpa;
     }
+
 }
 

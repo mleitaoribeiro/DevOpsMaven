@@ -1,14 +1,14 @@
 package switch2019.project.infrastructure.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import switch2019.project.dataModel.entities.CategoryJpa;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface CategoryJpaRepository extends JpaRepository<CategoryJpa, Long> {
+public interface CategoryJpaRepository extends JpaRepository<CategoryJpa, String> {
     List<CategoryJpa> findAll();
+    Optional<CategoryJpa> findById(String id);
 }
 
 

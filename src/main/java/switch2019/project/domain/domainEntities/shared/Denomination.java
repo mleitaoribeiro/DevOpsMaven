@@ -75,4 +75,14 @@ public class Denomination implements Serializable {
         sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
         return sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
     }
+
+    /**
+     * method to get denomination
+     *
+     * @return denominationValue
+     */
+
+    public String getDenominationValue() {
+        return denominationValue;
+    }
 }

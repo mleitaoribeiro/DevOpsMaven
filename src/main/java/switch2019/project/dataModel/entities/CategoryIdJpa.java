@@ -3,14 +3,14 @@ package switch2019.project.dataModel.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class CategoryKeyJpa implements Serializable {
+public class CategoryIdJpa implements Serializable {
 
     private String denomination;
     private String owner;
 
-    protected CategoryKeyJpa() {};
+    protected CategoryIdJpa() {};
 
-    public CategoryKeyJpa(String owner, String denomination) {
+    public CategoryIdJpa(String owner, String denomination) {
         this.owner = owner;
         this.denomination = denomination;
     }
@@ -18,8 +18,8 @@ public class CategoryKeyJpa implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryKeyJpa)) return false;
-        CategoryKeyJpa that = (CategoryKeyJpa) o;
+        if (!(o instanceof CategoryIdJpa)) return false;
+        CategoryIdJpa that = (CategoryIdJpa) o;
         return Objects.equals(owner, that.owner) &&
                 Objects.equals(denomination, that.denomination);
     }
