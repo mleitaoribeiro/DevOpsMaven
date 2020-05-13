@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GroupJpaRepository extends JpaRepository<GroupJpa, String> {
-    List<GroupJpa> findAll();
+    List <GroupJpa> findAll();
     Optional<GroupJpa> findById(String id);
 }

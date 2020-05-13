@@ -61,7 +61,7 @@ public class US004GetFamilyGroupsService {
         }
 
         public Set<GroupDTO> getFamilyGroups() {
-            Set<Group> allGroups = groupsRepository.getAllGroups();
+            List <Group> allGroups = groupsRepository.getAllGroups();
             Set<GroupDTO> familyGroups = new LinkedHashSet<>();
 
             for (Group group : allGroups) {

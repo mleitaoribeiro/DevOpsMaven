@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.entities.GroupJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
@@ -13,8 +14,9 @@ import switch2019.project.infrastructure.jpa.GroupJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Component("GroupDbRepository")
 public class GroupDbRepository implements GroupRepository {
@@ -22,17 +24,12 @@ public class GroupDbRepository implements GroupRepository {
     @Autowired
     GroupJpaRepository groupJpaRepository;
 
-    // Private instance variables
-    private Set<Group> groups;
 
     //String literals should not be duplicated
-    private static final String NOT_A_MEMBER = "This person is not a member of this group.";
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
 
     //Constructor
-    public GroupDbRepository() {
-        groups = new LinkedHashSet<>();
-    }
+    public GroupDbRepository(){}
 
     /**
      * As a user I want to create a group becoming a group administrator(US02.1)
@@ -42,8 +39,8 @@ public class GroupDbRepository implements GroupRepository {
      */
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
         if(!isIDOnRepository(new GroupID(groupDescription))) {
-            Group group1 = new Group(groupDescription, groupCreator);
-            groups.add(group1);
+
+            Group group1 = getByID(new GroupID(groupDescription));
 
             GroupJpa groupJpa = new GroupJpa(groupDescription.getDescription(), groupCreator.getEmail(),
                     group1.getStartingDate());
@@ -54,16 +51,11 @@ public class GroupDbRepository implements GroupRepository {
         } else throw new ResourceAlreadyExistsException("This group description already exists.");
     }
 
-    /**
-     * method to add group to the Repository
-     * @param group
-     * @return boolean
-     */
+    @Override
     public boolean addGroupToRepository(Group group) {
-        if (group != null) {
-            return groups.add(group);
-        } else return false;
+        return false;
     }
+
 
     /**
      * Method used to find a specific group by its Description
@@ -72,11 +64,10 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public Group findGroupByDescription(Description groupDescription) {
-        for (Group group : groups) {
-            if (group.getID().getDescription().equals(groupDescription.getDescription()))
-                return group;
-        }
-        throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
+        Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupDescription.getDescription());
+        if (groupJpa.isPresent()){
+            return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
+        } throw new ArgumentNotFoundException("No group found with that ID.");
     }
 
     /**
@@ -85,11 +76,10 @@ public class GroupDbRepository implements GroupRepository {
      * @return group
      */
     public Group getByID (ID groupID) {
-        for (Group group : groups) {
-            if (group.getID().equals(groupID))
-                return group;
-        }
-        throw new ArgumentNotFoundException("No group found with that ID.");
+        Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
+        if (groupJpa.isPresent()){
+            return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
+        } throw new ArgumentNotFoundException("No group found with that ID.");
     }
 
     /**
@@ -100,13 +90,16 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public boolean isIDOnRepository(ID groupID) {
-        for (Group groupSet : groups)
-            if (groupSet.getID().equals(groupID))
-                return true;
-        return false;
+        Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
+        return groupJpa.isPresent();
     }
 
-    public Set<Group> getAllGroups() {
+    public List<Group> getAllGroups() {
+        List <GroupJpa> groupJpa = groupJpaRepository.findAll();
+        List <Group> groups = new ArrayList<>();
+        for (GroupJpa groupJpa1 : groupJpa){
+            groups.add(getByID(new GroupID(new Description(groupJpa1.getId()))));
+        }
         return groups;
     }
 
@@ -117,7 +110,7 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public long repositorySize () {
-        return groups.size();
+        return getAllGroups().size();
     }
 
 }
