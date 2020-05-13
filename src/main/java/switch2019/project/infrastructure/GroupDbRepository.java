@@ -51,10 +51,7 @@ public class GroupDbRepository implements GroupRepository {
         } else throw new ResourceAlreadyExistsException("This group description already exists.");
     }
 
-    @Override
-    public boolean addGroupToRepository(Group group) {
-        return false;
-    }
+
 
 
     /**

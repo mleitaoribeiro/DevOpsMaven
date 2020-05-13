@@ -20,13 +20,6 @@ public interface GroupRepository extends Repository {
     Group createGroup(Description groupDescription, PersonID groupCreator);
 
 
-    /**
-     * Method to add group to the Repository
-     *
-     * @param group
-     */
-    boolean addGroupToRepository(Group group);
-
 
     /**
      * Method used to find a specific group by its Description

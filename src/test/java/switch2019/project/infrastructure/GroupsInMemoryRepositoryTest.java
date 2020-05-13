@@ -141,13 +141,11 @@ class GroupsInMemoryRepositoryTest {
         //Arrange
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Amigos"),person.getID());
-        Group group2 = new Group(new Description("Pokémons"),person.getID());
         GroupRepository groupList = new GroupsInMemoryRepository();
 
         //Act
-        groupList.addGroupToRepository(group1);
-        groupList.addGroupToRepository(group2);
+        groupList.createGroup(new Description("Amigos"),person.getID());
+        groupList.createGroup(new Description("Pokémons"),person.getID());
         long result = groupList.repositorySize();
 
         //Assert
@@ -167,45 +165,13 @@ class GroupsInMemoryRepositoryTest {
         GroupRepository groupList = new GroupsInMemoryRepository();
 
         //Act
-        boolean groupAdded = groupList.addGroupToRepository(group1);
+        //boolean groupAdded = groupList.addGroupToRepository(group1);
 
         //Assert
-        assertTrue(groupAdded);
+        //assertTrue(groupAdded);
     }
 
-    @Test
-    @DisplayName("Test if a null group is not added to the list")
-    public void testAddGroupIsNull() {
-        //Arrange
-        GroupRepository groupList = new GroupsInMemoryRepository();
 
-        //Act
-        boolean groupAdded = groupList.addGroupToRepository(null);
-
-        //Assert
-        assertFalse(groupAdded);
-    }
-
-    @Test
-    @DisplayName("Test if more than one group was added is in the list")
-    public void testGroupIsInList_MoreThanOne() {
-        //Arrange
-        Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
-                new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
-        Group group1 = new Group(new Description("Switchieees"),person.getID());
-        Group group2 = new Group(new Description("Clube da Costura"),person.getID());
-        Group group3 = new Group(new Description("Clube dos Livros"),person.getID());
-
-        GroupRepository groupList = new GroupsInMemoryRepository();
-
-        //Act
-        boolean group1added = groupList.addGroupToRepository(group1);
-        boolean group2added = groupList.addGroupToRepository(group2);
-        boolean group3added = groupList.addGroupToRepository(group3);
-
-        //Assert
-        assertTrue(group1added && group2added && group3added);
-    }
 
     /**
      * US004 - Check which groups are family
@@ -237,7 +203,7 @@ class GroupsInMemoryRepositoryTest {
         Group family = new Group(new Description("Family"),manuelaMOM.getID());
         family.addMember(manuelaMOM.getID());
         family.addMultipleMembers(familyMembersToAdd);
-        globalGroupsRepository.addGroupToRepository(family);
+        //globalGroupsRepository.addGroupToRepository(family);
 
         // 2 _________________________________________________________________________________________________________
         // Second global group - All Family 2
@@ -257,7 +223,7 @@ class GroupsInMemoryRepositoryTest {
         Group simpsons = new Group(new Description("Simpsons"),homer.getID());
         simpsons.addMember(homer.getID());
         simpsons.addMultipleMembers(simpsonsMembersToAdd);
-        globalGroupsRepository.addGroupToRepository(simpsons);
+        //globalGroupsRepository.addGroupToRepository(simpsons);
 
         // 3 _________________________________________________________________________________________________________
         // Third global group - No Mom
@@ -275,7 +241,7 @@ class GroupsInMemoryRepositoryTest {
         Group familyWithNoMom = new Group(new Description("Family with no Mom"),joaoDAD.getID());
         familyWithNoMom.addMember(joaoDAD.getID());
         familyWithNoMom.addMultipleMembers(noMomMembersToAdd);
-        globalGroupsRepository.addGroupToRepository(familyWithNoMom);
+        //globalGroupsRepository.addGroupToRepository(familyWithNoMom);
 
         // 4 _________________________________________________________________________________________________________
         // Forth global group - Marta's group
@@ -291,7 +257,7 @@ class GroupsInMemoryRepositoryTest {
         Group martaGroup = new Group(new Description("Marta's group"),martaR.getID());
         martaGroup.addMember(martaR.getID());
         martaGroup.addMultipleMembers(martasGroupMembersToAdd);
-        globalGroupsRepository.addGroupToRepository(martaGroup);
+        //globalGroupsRepository.addGroupToRepository(martaGroup);
 
         // 5 _________________________________________________________________________________________________________
         // Fifth global group - Bojack's Gang ( no relationships )
@@ -309,7 +275,7 @@ class GroupsInMemoryRepositoryTest {
         Group bojackGang = new Group(new Description("Bojack's Gang"),bojack.getID());
         bojackGang.addMember(bojack.getID());
         bojackGang.addMultipleMembers(bojackGangMembersToAdd);
-        globalGroupsRepository.addGroupToRepository(bojackGang);
+        //globalGroupsRepository.addGroupToRepository(bojackGang);
 
         //Act
         //Set<Group> realResult = globalGroupsRepository. //.returnOnlyFamilies();
