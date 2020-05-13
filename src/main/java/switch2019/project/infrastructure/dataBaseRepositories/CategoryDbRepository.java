@@ -42,7 +42,7 @@ public class CategoryDbRepository implements CategoryRepository {
 
     public Category getByID(ID categoryID) {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1],split[0]));
+        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[0], split[1]));
         if (categoryJpa.isPresent())
             return CategoryDomainDataAssembler.toDomain(categoryJpa.get());
         else throw new ArgumentNotFoundException("No category found with that ID.");
@@ -57,10 +57,10 @@ public class CategoryDbRepository implements CategoryRepository {
      */
 
     public boolean isIDOnRepository(ID categoryID) {
-       /* String[] split = categoryID.toString().replace(", ", ",").split(",");
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1],split[0]));
+        String[] split = categoryID.toString().replace(", ", ",").split(",");
+        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[0], split[1]));
         if (categoryJpa.isPresent())
-            return true;*/
+            return true;
         return false;
     }
 
@@ -143,7 +143,7 @@ public class CategoryDbRepository implements CategoryRepository {
         Set<Category> listOfCategoriesByOwnerID = new HashSet<>();
         if (ownerID != null) {
             for (CategoryJpa categoryJpa : categoryJpaRepository.findAllByCategoryIdJpa_Owner(ownerID.toString()))
-                    listOfCategoriesByOwnerID.add(CategoryDomainDataAssembler.toDomain(categoryJpa));
+                listOfCategoriesByOwnerID.add(CategoryDomainDataAssembler.toDomain(categoryJpa));
             if (!listOfCategoriesByOwnerID.isEmpty())
                 return listOfCategoriesByOwnerID;
             else throw new ArgumentNotFoundException("No category found with that ID.");
