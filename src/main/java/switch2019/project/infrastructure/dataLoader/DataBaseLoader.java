@@ -2,7 +2,6 @@ package switch2019.project.infrastructure.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -16,8 +15,6 @@ import switch2019.project.infrastructure.dataBaseRepositories.CategoryDbReposito
 import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
 import switch2019.project.infrastructure.jpa.MembersJpaRepository;
-
-import java.util.List;
 
 @Component
 public class DataBaseLoader {
@@ -325,28 +322,28 @@ public class DataBaseLoader {
                 personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
         groupRepository.addMember(switchGroup, alexandreOliveira.getID().toString());
-        switchGroup.setAdmin(alexandreOliveira.getID());
+        groupRepository.setAdmin(switchGroup, alexandreOliveira.getID().toString());
 
         groupRepository.addMember(switchGroup, dianaDias.getID().toString());
-        switchGroup.setAdmin(dianaDias.getID());
+        groupRepository.setAdmin(switchGroup, dianaDias.getID().toString());
 
         groupRepository.addMember(switchGroup, elsaAlmeida.getID().toString());
-        switchGroup.setAdmin(elsaAlmeida.getID());
+        groupRepository.setAdmin(switchGroup, elsaAlmeida.getID().toString());
 
         groupRepository.addMember(switchGroup, gabrielMoco.getID().toString());
-        switchGroup.setAdmin(gabrielMoco.getID());
+        groupRepository.setAdmin(switchGroup, gabrielMoco.getID().toString());
 
         groupRepository.addMember(switchGroup, martaCardoso.getID().toString());
-        switchGroup.setAdmin(martaCardoso.getID());
+        groupRepository.setAdmin(switchGroup, martaCardoso.getID().toString());
 
         groupRepository.addMember(switchGroup, martaPinheiro.getID().toString());
-        switchGroup.setAdmin(martaPinheiro.getID());
+        groupRepository.setAdmin(switchGroup, martaPinheiro.getID().toString());
 
         groupRepository.addMember(switchGroup, martaRibeiro.getID().toString());
-        switchGroup.setAdmin(martaRibeiro.getID());
+        groupRepository.setAdmin(switchGroup, martaRibeiro.getID().toString());
 
         groupRepository.addMember(switchGroup, raquelSantos.getID().toString());
-        switchGroup.setAdmin(raquelSantos.getID());
+        groupRepository.setAdmin(switchGroup, raquelSantos.getID().toString());
 
         //Group Friends - 1 Admin - Two members are family but the other member is not
 
@@ -361,7 +358,7 @@ public class DataBaseLoader {
                 personRepository.findPersonByEmail(new Email("bart.simpson@gmail.com")).getID());
 
         groupRepository.addMember(splitExpensesGroup, alexandreOliveira.getID().toString());
-        splitExpensesGroup.setAdmin(alexandreOliveira.getID());
+        groupRepository.setAdmin(splitExpensesGroup, alexandreOliveira.getID().toString());
         groupRepository.addMember(splitExpensesGroup, gabrielMoco.getID().toString());
         groupRepository.addMember(splitExpensesGroup, hugoAzevedo.getID().toString());
 
@@ -395,7 +392,7 @@ public class DataBaseLoader {
                 personRepository.findPersonByEmail(new Email("marge@hotmail.com")).getID());
 
         groupRepository.addMember(familySimpsonGroup, fatherHomerSimpson.getID().toString());
-        familySimpsonGroup.setAdmin(fatherHomerSimpson.getID());
+        groupRepository.setAdmin(familySimpsonGroup, fatherHomerSimpson.getID().toString());
         groupRepository.addMember(familySimpsonGroup, bartolomewSimpson.getID().toString());
         groupRepository.addMember(familySimpsonGroup, elizabetSimpson.getID().toString());
         groupRepository.addMember(familySimpsonGroup, margaretSimpson.getID().toString());
@@ -409,13 +406,13 @@ public class DataBaseLoader {
                 personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
         groupRepository.addMember(familyCardosoGroup, martaCardoso.getID().toString());
-        familyCardosoGroup.setAdmin(martaCardoso.getID());
+        groupRepository.setAdmin(familyCardosoGroup, martaCardoso.getID().toString());
 
         groupRepository.addMember(familyCardosoGroup, fatherAntonioCardoso.getID().toString());
-        familyCardosoGroup.setAdmin(fatherAntonioCardoso.getID());
+        groupRepository.setAdmin(familyCardosoGroup, fatherAntonioCardoso.getID().toString());
 
         groupRepository.addMember(familyCardosoGroup, motherMariaCardoso.getID().toString());
-        familyCardosoGroup.setAdmin(motherMariaCardoso.getID());
+        groupRepository.setAdmin(familyCardosoGroup, motherMariaCardoso.getID().toString());
         //Siblings
         martaCardoso.addSibling(joaoCardoso);
 
