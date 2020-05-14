@@ -140,14 +140,15 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public boolean addMember(Group group, String personID) {
+        List<MembersJpa> membersJpasList =  findMembersByGroupId(group.toString());
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
-
         MembersJpa memberJpa = new MembersJpa(groupJpa, personID);
 
-        membersJpaRepository.save(memberJpa);
-
-        return true;
+        if (personID != null && !membersJpasList.contains(memberJpa)) {
+            membersJpaRepository.save(memberJpa);
+            return true;
+        } else return false;
     }
 
 
@@ -169,6 +170,7 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public boolean setAdmin(Group group, String personID) {
+        List<MembersJpa> membersJpasList =  findMembersByGroupId(group.toString());
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
 
