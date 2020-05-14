@@ -46,6 +46,11 @@ public class US004GetFamilyGroupsServiceUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    @Test
+    @DisplayName("Test service-  family groups inside a GroupsRepository")
+    void areFamilyGroups() {
+        //ARRANGE//
+
 //    @Test
 //    @DisplayName("Test if service can get all family groups inside a GroupsRepository")
 //    void returnAllFamilyGroups() {
@@ -107,4 +112,6 @@ public class US004GetFamilyGroupsServiceUnitTest {
 //        //Checking if the expectedReturn is equal to the actualReturn:
 //        assertEquals(expectedReturn,actualReturn);
 //    }
+    }
 }
+
