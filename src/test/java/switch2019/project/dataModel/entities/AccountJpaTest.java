@@ -213,6 +213,7 @@ class AccountJpaTest {
     }
 
     @Test
+    @DisplayName("Test getBalance")
     void getBalance() {
 
         //Arrange
@@ -228,6 +229,7 @@ class AccountJpaTest {
     }
 
     @Test
+    @DisplayName("Test getAmount")
     void getAmount() {
         //Arrange
         AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
@@ -247,6 +249,7 @@ class AccountJpaTest {
      */
 
     @Test
+    @DisplayName("Test setAccountIDJpa")
     void setAccountIDJpa() {
         //Arrange
         AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
@@ -266,6 +269,7 @@ class AccountJpaTest {
 
 
     @Test
+    @DisplayName("Test setDescription")
     void setDescription() {
         //Arrange
         AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
@@ -282,6 +286,7 @@ class AccountJpaTest {
     }
 
     @Test
+    @DisplayName("Test setBalance")
     void setBalance() {
         //Arrange
         AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
