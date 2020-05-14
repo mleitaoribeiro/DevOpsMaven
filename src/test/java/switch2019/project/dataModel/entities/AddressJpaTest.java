@@ -4,9 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.person.Address;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +25,7 @@ class AddressJpaTest {
 
         //Assert
         assertNotEquals(nullAddress, adressjpa);
-    }
+        }
 
     @Test
     @DisplayName("Test equals different object")
@@ -35,8 +33,11 @@ class AddressJpaTest {
         //Arrange
         AddressJpa otherAddress = new AddressJpa("Avenida António Domingues", "Matosinhos", "4200-500");
 
+        //Act
+        boolean result = otherAddress.equals(adressjpa);
+
         //Assert
-        assertNotEquals(otherAddress, adressjpa);
+        assertFalse(result);
     }
 
     @Test
@@ -44,8 +45,13 @@ class AddressJpaTest {
     void testEqualsDifferentClassObject() {
         //Arrange
         Address address = new Address("Rua das Almas", "Coimbra", "4601-501");
+
+        //Act
+        boolean result = address.equals(adressjpa);
+
         //Assert
-        assertNotEquals(address, adressjpa);
+        assertFalse(result);
+
     }
 
     @Test

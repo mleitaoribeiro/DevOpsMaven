@@ -1,7 +1,5 @@
 package switch2019.project.dataModel.entities;
 
-import switch2019.project.domain.domainEntities.person.Address;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

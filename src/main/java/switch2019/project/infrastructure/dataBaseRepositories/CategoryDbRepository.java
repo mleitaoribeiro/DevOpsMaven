@@ -53,9 +53,7 @@ public class CategoryDbRepository implements CategoryRepository {
     public boolean isIDOnRepository(ID categoryID) {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
         Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
-        if (categoryJpa.isPresent())
-            return true;
-        else return false;
+        return categoryJpa.isPresent();
     }
 
 
@@ -78,7 +76,7 @@ public class CategoryDbRepository implements CategoryRepository {
      * @return category
      */
 
-    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) throws ResourceAlreadyExistsException {
+    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
             Category category = new Category(nameOfCategory, ownerID);
             categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));

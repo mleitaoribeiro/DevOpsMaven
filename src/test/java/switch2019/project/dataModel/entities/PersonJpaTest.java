@@ -45,8 +45,11 @@ class PersonJpaTest {
         PersonJpa otherPersonJpa = new PersonJpa("joao@gmail.com", "joao", "12-04-1995", "Porto",
                 new AddressJpa("Avenida António Domingues", "Matosinhos", "4200-500"));
 
+        //Act
+        boolean result = otherPersonJpa.equals(personJpa);
+
         //Assert
-        assertNotEquals(otherPersonJpa, personJpa);
+        assertFalse(result);
     }
 
     @Test
@@ -55,8 +58,12 @@ class PersonJpaTest {
         //Arrange
         Person person = new Person("Marta", new DateAndTime(1995, 04, 12), new Address("Porto"),
                 new Address("Avenida António Domingues", "Matosinhos", "4200-500"), new Email("marta@gmail.com"));
+
+        //Act
+        boolean result = person.equals(personJpa);
+
         //Assert
-        assertNotEquals(person, personJpa);
+        assertFalse(result);
     }
 
     @Test

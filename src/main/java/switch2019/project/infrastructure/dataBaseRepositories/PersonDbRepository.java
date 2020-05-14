@@ -89,9 +89,7 @@ public class PersonDbRepository implements PersonRepository {
      */
     public boolean isPersonEmailOnRepository(Email personEmail) {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
-        if(personJpa.isPresent())
-            return true;
-        return false;
+        return personJpa.isPresent();
     }
 
     /**
@@ -102,9 +100,7 @@ public class PersonDbRepository implements PersonRepository {
     @Override
     public boolean isIDOnRepository (ID personID) {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
-        if(personJpa.isPresent())
-            return true;
-        return false;
+        return personJpa.isPresent();
     }
 
 
