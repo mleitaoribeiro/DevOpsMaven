@@ -27,10 +27,6 @@ public class AddressJpa {
         //this.person = personJpa;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getStreet() {
         return street;
     }
@@ -41,22 +37,6 @@ public class AddressJpa {
 
     public String getPostalCode() {
         return postalCode;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
     }
 }
 
