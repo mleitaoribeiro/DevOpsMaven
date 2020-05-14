@@ -181,6 +181,22 @@ class AdminsJpaTest {
     }
 
     @Test
+    void test135() {
+
+        GroupJpa groupJpa = new GroupJpa("","", "");
+
+        AdminsJpa adminsJpa1 = new AdminsJpa(groupJpa, "Person");
+
+        AdminsJpa adminsJpa2 = new AdminsJpa(groupJpa, "Other");
+
+        String a = adminsJpa1.toString();
+
+        String b = adminsJpa2.toString();
+
+        assertNotEquals(a, b);
+    }
+
+    @Test
     void test14() {
 
         GroupJpa groupJpa = new GroupJpa("","", "");
@@ -213,7 +229,7 @@ class AdminsJpaTest {
         GroupJpa groupJpa = new GroupJpa("","", "");
 
         AdminsJpa.AdminsIdJpa adminsIdJpa = new AdminsJpa.AdminsIdJpa(groupJpa, "Someone");
-        
+
         AdminsJpa.AdminsIdJpa adminsIdJpa2 = new AdminsJpa.AdminsIdJpa(adminsIdJpa.getGroupID(), adminsIdJpa.getPersonID());
 
         String a = adminsIdJpa.toString();
@@ -221,6 +237,22 @@ class AdminsJpaTest {
         String b = adminsIdJpa2.toString();
 
         assertEquals(a, b);
+    }
+
+    @Test
+    void test165() {
+
+        GroupJpa groupJpa = new GroupJpa("","", "");
+
+        AdminsJpa.AdminsIdJpa adminsIdJpa = new AdminsJpa.AdminsIdJpa(groupJpa, "Someone");
+
+        AdminsJpa.AdminsIdJpa adminsIdJpa2 = new AdminsJpa.AdminsIdJpa(adminsIdJpa.getGroupID(), "Other");
+
+        String a = adminsIdJpa.toString();
+
+        String b = adminsIdJpa2.toString();
+
+        assertNotEquals(a, b);
     }
 
 
