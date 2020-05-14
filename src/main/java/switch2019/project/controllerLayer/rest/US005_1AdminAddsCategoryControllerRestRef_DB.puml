@@ -72,6 +72,7 @@ autonumber 1.9.4.1
 activate "categoryJpa:CategoryJpa" #FFBBBB
 ":CategoryDomainDataAssembler"->"categoryJpa:CategoryJpa" : categoryDenomination = getDenomination()
 deactivate "categoryJpa:CategoryJpa"
+participant ":CategoryDTOAssembler"
 create "savedCategory:Category"
 ":CategoryDomainDataAssembler"-->"savedCategory:Category":create(categoryDenomination, groupID)
 ":CategoryDomainDataAssembler"-->"categoryRep:CategoryRepository" : savedCategory
@@ -82,6 +83,19 @@ autonumber 1.9.5
 "service:\nUS005_1AdminAddCategoryToCategoryService"<--"categoryRep:CategoryRepository": savedCategory
 deactivate "categoryRep:CategoryRepository"
 autonumber 1.10
-[<-- "service:\nUS005_1AdminAddCategoryToCategoryService" : savedCategory
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->":CategoryDTOAssembler": createCategoryDTOFromCategory(savedCategory)
+activate ":CategoryDTOAssembler" #FFBBBB
+autonumber 1.10.1
+":CategoryDTOAssembler"->"savedCategory:Category": denomination = getDenomination()
+activate "savedCategory:Category" #FFBBBB
+":CategoryDTOAssembler"->"savedCategory:Category": groupID = getID()
+deactivate "savedCategory:Category"
+create "categoryDTO:CategoryDTO"
+":CategoryDTOAssembler"--> "categoryDTO:CategoryDTO" : create (denomination, groupID)
+"service:\nUS005_1AdminAddCategoryToCategoryService"<--":CategoryDTOAssembler": categoryDTO
+deactivate ":CategoryDTOAssembler" #FFBBBB
+autonumber 1.11
+[<-- "service:\nUS005_1AdminAddCategoryToCategoryService" : categoryDTO
 deactivate "service:\nUS005_1AdminAddCategoryToCategoryService"
 @enduml
