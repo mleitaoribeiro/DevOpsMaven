@@ -7,6 +7,7 @@ import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,8 +32,8 @@ public class Group implements Owner {
                  Set<PersonID> members, Set<PersonID> admins) {
         setGroupID(description);
         startingDate = dateAndTime;
-        this.members = members;
-        this.admins = admins;
+        this.members = new LinkedHashSet<>(members);
+        this.admins = new LinkedHashSet<>(admins);
         this.addMember(groupCreator);
         this.groupCreator=groupCreator;
     }
