@@ -1,9 +1,12 @@
 package switch2019.project.dataModel.entities;
 
+import switch2019.project.domain.domainEntities.person.Address;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity(name = "addresses")
 public class AddressJpa {
@@ -25,6 +28,20 @@ public class AddressJpa {
         this.city = city;
         this.postalCode = postalCode;
         //this.person = personJpa;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) return false;
+        AddressJpa that = (AddressJpa) obj;
+        return Objects.equals(street, that.street) &&
+                Objects.equals(city, that.city)
+                && Objects.equals(postalCode, that.postalCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, city, postalCode);
     }
 
     public String getStreet() {
