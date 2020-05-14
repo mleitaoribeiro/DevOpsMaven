@@ -2,7 +2,6 @@ package switch2019.project.domain.domainEntities.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DenominationTest {
 
     @Test
-    @DisplayName("Validate denomination - Case Insenstive")
+    @DisplayName("Validate denomination - Case Insensitive")
     void validateDenominationUpperCaseInsensitive() {
         //Arrange
         Denomination denomination = new Denomination("Health");
@@ -218,5 +217,25 @@ class DenominationTest {
 
         //Assert
         assertEquals("EXPENSES", denominationResult);
+    }
+
+    @Test
+    @DisplayName("Test for null denomination")
+    public void denominationIsNull() {
+        try {
+            new Denomination(null);
+        } catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can't be null or empty.", denomination.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Testing for empty denomination")
+    public void denominationIsEmpty() {
+        try {
+            new Denomination("");
+        } catch (IllegalArgumentException denomination) {
+            assertEquals("The denomination can't be null or empty.", denomination.getMessage());
+        }
     }
 }
