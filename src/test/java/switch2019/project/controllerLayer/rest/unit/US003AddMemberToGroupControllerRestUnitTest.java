@@ -15,6 +15,7 @@ import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
+import switch2019.project.applicationLayer.US003AddMemberToGroupDBService;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 import switch2019.project.assemblers.PersonDTOAssembler;
@@ -35,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class US003AddMemberToGroupControllerRestUnitTest {
 
     @Mock
-    private US003AddMemberToGroupService service;
+    private US003AddMemberToGroupDBService service;
 
     @InjectMocks
     private US003AddMemberToGroupControllerRest controller;
