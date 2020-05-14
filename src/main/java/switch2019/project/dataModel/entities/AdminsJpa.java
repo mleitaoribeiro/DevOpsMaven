@@ -1,13 +1,8 @@
 package switch2019.project.dataModel.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-
-import javax.persistence.*;
 
 @Entity(name="admins")
 public class AdminsJpa {

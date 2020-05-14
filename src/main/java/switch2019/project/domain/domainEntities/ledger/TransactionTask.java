@@ -6,7 +6,6 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 
-import java.time.LocalDateTime;
 import java.util.TimerTask;
 
 public class TransactionTask extends TimerTask {

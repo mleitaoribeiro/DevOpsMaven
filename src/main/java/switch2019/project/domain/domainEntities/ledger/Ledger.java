@@ -1,15 +1,18 @@
 package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.LedgerID;
 import switch2019.project.domain.domainEntities.shared.MonetaryValue;
-import switch2019.project.domain.domainEntities.category.Category;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class Ledger {
 

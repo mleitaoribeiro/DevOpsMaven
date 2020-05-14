@@ -1,7 +1,8 @@
 package switch2019.project.domain.domainEntities.shared;
 
-import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
+import switch2019.project.domain.domainEntities.person.Email;
+
 import java.util.Objects;
 
 public class PersonID implements OwnerID {

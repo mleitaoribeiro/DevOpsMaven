@@ -1,11 +1,11 @@
 package switch2019.project.domain.domainEntities.account;
 
-import switch2019.project.domain.domainEntities.shared.AccountID;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.domainEntities.frameworks.Entity;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
+import switch2019.project.domain.domainEntities.shared.AccountID;
+import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 
 import java.util.Currency;
 import java.util.Objects;

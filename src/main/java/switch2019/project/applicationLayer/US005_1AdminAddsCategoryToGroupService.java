@@ -7,15 +7,15 @@ import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.assemblers.CategoryDTOAssembler;
-import switch2019.project.domain.domainEntities.shared.*;
-import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

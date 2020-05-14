@@ -1,5 +1,7 @@
 package switch2019.project.dataModel.entities;
-import javax.persistence.*;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity(name ="accounts")

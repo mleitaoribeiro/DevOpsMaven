@@ -2,12 +2,10 @@ package switch2019.project.domain.repositories;
 
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.List;
-import java.util.Set;
 
 public interface GroupRepository extends Repository {
 

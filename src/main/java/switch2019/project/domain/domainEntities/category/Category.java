@@ -1,9 +1,9 @@
 package switch2019.project.domain.domainEntities.category;
 
-import switch2019.project.domain.domainEntities.shared.CategoryID;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.frameworks.Entity;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
+import switch2019.project.domain.domainEntities.shared.CategoryID;
+import switch2019.project.domain.domainEntities.shared.Denomination;
 
 import java.util.Objects;
 

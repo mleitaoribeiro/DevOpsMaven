@@ -1,9 +1,14 @@
 package switch2019.project.domain.domainEntities.group;
 
-import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.frameworks.Owner;
-import switch2019.project.domain.domainEntities.person.Person;
-import java.util.*;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
+import switch2019.project.domain.domainEntities.shared.PersonID;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Group implements Owner {
 
