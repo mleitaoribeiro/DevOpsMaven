@@ -243,10 +243,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         // Assert
-        /*Assertions.assertAll(
+        Assertions.assertAll(
                 () -> assertEquals(200, status),
                 () -> assertEquals(expected, result.getString("personID"))
-        );*/
+        );
     }
 
     @Test
@@ -304,7 +304,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         JSONArray jArray = (JSONArray) new JSONTokener(result).nextValue();
 
         // Assert
-        /*Assertions.assertAll(
+        Assertions.assertAll(
                 () -> assertEquals(200, status),
 
                 () -> assertEquals(mortyID,jArray.getJSONObject(0).getString("personID")),
@@ -320,7 +320,7 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                         .replace("\"}}", "")
                         .replace("\\", "")
                         .replace("\"}]", ""))
-        );*/
+        );
     }
 
     @Test

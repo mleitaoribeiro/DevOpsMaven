@@ -48,7 +48,8 @@ public class US003AddMemberToGroupService {
 
     public PersonIDDTO getPersonByEmail(String personEmail, String groupDescription){
         Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
-        PersonID personID = new PersonID(new Email(personEmail));
+        Person person = personRepository.findPersonByEmail(new Email(personEmail));
+        PersonID personID = person.getID();
 
         if (group.isGroupMember(personID)) {
             return PersonDTOAssembler.createPersonIDDTO(personID);

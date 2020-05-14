@@ -18,34 +18,30 @@ public class CategoryDomainDataAssembler {
      * Private constructor to hide the implicit public one
      */
 
-    private CategoryDomainDataAssembler (){}
+    private CategoryDomainDataAssembler() {}
 
     /**
-     *
      * Method for transforming an Category object into a CategoryJPA object
      *
      * @param category
      * @return categoryJPA
      */
 
-    public static CategoryJpa toData (Category category) {
+    public static CategoryJpa toData(Category category) {
         return new CategoryJpa(category.getID().getOwnerIDString(), category.getNameOfCategory());
     }
 
     /**
-     *
      * Method for transforming an CategoryJPA object into a Category object
      *
      * @param categoryJPA
      * @return category
      */
 
-    public static Category toDomain (CategoryJpa categoryJPA) {
+    public static Category toDomain(CategoryJpa categoryJPA) {
 
         Denomination categoryDenomination = new Denomination(categoryJPA.getCategoryKeyJPA().getDenomination());
-
         String owner = categoryJPA.getCategoryKeyJPA().getOwner();
-
         OwnerID ownerID;
 
         if (isEmail(owner))
@@ -53,11 +49,10 @@ public class CategoryDomainDataAssembler {
         else
             ownerID = new GroupID(new Description(owner));
 
-        return new Category (categoryDenomination, ownerID);
+        return new Category(categoryDenomination, ownerID);
     }
 
     /**
-     *
      * Auxiliary method to check if a string is an email (Person ID)
      *
      * @param owner
@@ -72,7 +67,5 @@ public class CategoryDomainDataAssembler {
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(owner).matches();
     }
-
-
 }
 
