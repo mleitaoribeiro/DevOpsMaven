@@ -34,10 +34,8 @@ public class GroupDbRepository implements GroupRepository {
 
     //String literals - Exceptions
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
-    private static final String NO_GROUPS_FOUND_ID = "No group found with that ID.";
     private static final String GROUP_ALREADY_EXISTS = "This group description already exists.";
-    private static final String NOT_A_MEMBER = "This person is not a member of this group.";
-    private static final String NOT_AN_ADMIN = "This person is not a admin of this group.";
+
 
 
     //Constructor
@@ -52,17 +50,17 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
-        Group group = new Group(groupDescription, groupCreator);
-        GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+            Group group = new Group(groupDescription, groupCreator);
+            GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-        MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
-        AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
+            MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
+            AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
 
-        membersJpaRepository.save(memberJpa);
-        adminsJpaRepository.save(adminsJpa);
+            membersJpaRepository.save(memberJpa);
+            adminsJpaRepository.save(adminsJpa);
 
-        return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
-                this.findAdminsByGroupId(newGroup.getId()));
+            return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
+                    this.findAdminsByGroupId(newGroup.getId()));
     }
 
     /**
