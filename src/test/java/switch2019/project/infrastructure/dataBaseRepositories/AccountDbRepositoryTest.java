@@ -89,7 +89,6 @@ class AccountDbRepositoryTest {
     @DisplayName("Return account by owner ID - sucess")
     void returnAccountsByOwnerID() {
         //Arrange
-
         Set<Account> expected = new HashSet<>(Arrays.asList(cdg, bpi, bic, san));
 
         //Act

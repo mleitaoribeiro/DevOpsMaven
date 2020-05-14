@@ -63,7 +63,7 @@ public class GroupDbRepository implements GroupRepository {
         membersJpaRepository.save(memberJpa);
         adminsJpaRepository.save(adminsJpa);
 
-        return GroupDomainDataAssembler.toDomain(newGroup);
+        return group;
     }
 
     /**
@@ -116,9 +116,8 @@ public class GroupDbRepository implements GroupRepository {
     public List<Group> getAllGroups() {
         List<GroupJpa> groupJpa = groupJpaRepository.findAll();
         List<Group> groups = new ArrayList<>();
-        for (GroupJpa groupJpa1 : groupJpa) {
+        for (GroupJpa groupJpa1 : groupJpa)
             groups.add(getByID(new GroupID(new Description(groupJpa1.getId()))));
-        }
         return groups;
     }
 
