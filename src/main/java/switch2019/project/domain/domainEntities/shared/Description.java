@@ -1,6 +1,5 @@
 package switch2019.project.domain.domainEntities.shared;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;

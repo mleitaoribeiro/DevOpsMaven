@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
 
-import java.util.List;
 import java.util.Set;
 
 @Component

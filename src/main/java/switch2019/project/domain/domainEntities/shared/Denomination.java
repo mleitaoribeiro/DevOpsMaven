@@ -1,7 +1,6 @@
 package switch2019.project.domain.domainEntities.shared;
 
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.text.Normalizer;
 import java.util.Objects;

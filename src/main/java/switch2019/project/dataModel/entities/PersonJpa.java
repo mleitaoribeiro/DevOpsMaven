@@ -1,7 +1,11 @@
 package switch2019.project.dataModel.entities;
+
 import switch2019.project.utils.dataConverter.AddressConverter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity(name ="persons")

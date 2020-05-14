@@ -1,11 +1,10 @@
 package switch2019.project.assemblers;
 
+import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
-import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
 import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.shared.Denomination;
 
 public class CategoryDTOAssembler {
 

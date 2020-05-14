@@ -1,9 +1,6 @@
 package switch2019.project.domain.repositories;
 
 import switch2019.project.domain.domainEntities.frameworks.ID;
-import switch2019.project.domain.domainEntities.group.Group;
-
-import java.util.Set;
 
 public interface Repository {
 

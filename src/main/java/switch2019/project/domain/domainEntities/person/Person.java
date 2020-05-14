@@ -1,9 +1,9 @@
 package switch2019.project.domain.domainEntities.person;
 
+import switch2019.project.domain.domainEntities.frameworks.Owner;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.domain.domainEntities.frameworks.Owner;
 
 import java.util.HashSet;
 import java.util.Objects;
