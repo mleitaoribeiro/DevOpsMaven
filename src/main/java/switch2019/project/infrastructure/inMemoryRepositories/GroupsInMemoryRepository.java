@@ -99,4 +99,26 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return groups.size();
     }
 
+    /**
+     * Method to add a member to a Group
+     *
+     * @param group
+     * @param personID
+     * @return
+     */
+    public boolean addMember(Group group, String personID) {
+        return true;
+    }
+
+    /**
+     * Method to add an admin to a Group
+     *
+     * @param group
+     * @param personID
+     * @return
+     */
+    public boolean setAdmin(Group group, String personID) {
+        return true;
+    }
+
 }

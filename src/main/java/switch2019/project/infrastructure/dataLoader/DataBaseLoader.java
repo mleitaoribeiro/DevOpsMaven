@@ -14,7 +14,6 @@ import switch2019.project.infrastructure.dataBaseRepositories.AccountDbRepositor
 import switch2019.project.infrastructure.dataBaseRepositories.CategoryDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
-import switch2019.project.infrastructure.jpa.MembersJpaRepository;
 
 @Component
 public class DataBaseLoader {
@@ -30,9 +29,6 @@ public class DataBaseLoader {
 
     @Autowired
     CategoryDbRepository categoriesRepository;
-
-    @Autowired
-    private MembersJpaRepository membersJpaRepository;
 
     public void bootstrapping () {
 

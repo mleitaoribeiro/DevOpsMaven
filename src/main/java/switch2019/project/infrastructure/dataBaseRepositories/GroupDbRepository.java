@@ -38,6 +38,8 @@ public class GroupDbRepository implements GroupRepository {
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
     private static final String NO_GROUPS_FOUND_ID = "No group found with that ID.";
     private static final String GROUP_ALREADY_EXISTS= "This group description already exists.";
+    private static final String NOT_A_MEMBER = "This person is not a member of this group.";
+    private static final String NOT_AN_ADMIN = "This person is not a admin of this group.";
 
 
     //Constructor
@@ -63,7 +65,6 @@ public class GroupDbRepository implements GroupRepository {
 
         return GroupDomainDataAssembler.toDomain(newGroup);
     }
-
 
     /**
      * Method used to find a specific group by its Description
@@ -131,7 +132,13 @@ public class GroupDbRepository implements GroupRepository {
         return getAllGroups().size();
     }
 
-
+    /**
+     * Method to add a member to a Group
+     *
+     * @param group
+     * @param personID
+     * @return
+     */
     public boolean addMember(Group group, String personID) {
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
@@ -144,11 +151,23 @@ public class GroupDbRepository implements GroupRepository {
     }
 
 
-    public List<MembersJpa> findMembersById(GroupID id) {
+    /**
+     * Method to find all the members of a Group
+     *
+     * @param id
+     * @return
+     */
+    /*public List<MembersJpa> findMembersById(GroupID id) {
         return membersJpaRepository.findAllById_GroupID (id);
-    }
+    }*/
 
-
+    /**
+     * Method to add a member to a Group
+     *
+     * @param group
+     * @param personID
+     * @return
+     */
     public boolean setAdmin(Group group, String personID) {
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
@@ -160,8 +179,14 @@ public class GroupDbRepository implements GroupRepository {
         return true;
     }
 
-    public List<AdminsJpa> findAdminsById(GroupID id) {
+    /**
+     * Method to find all the admins of a Group
+     *
+     * @param id
+     * @return
+     */
+    /*public List<AdminsJpa> findAdminsById(GroupID id) {
         return adminsJpaRepository.findAllById_GroupID (id);
-    }
+    }*/
 
 }
