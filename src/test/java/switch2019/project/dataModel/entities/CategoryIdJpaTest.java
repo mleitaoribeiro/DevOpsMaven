@@ -122,10 +122,68 @@ public class CategoryIdJpaTest {
         //Arrange
         CategoryIdJpa categoryIdJpa = new CategoryIdJpa("SWITCH", "Montaditos");
         categoryIdJpa.setDenomination("Cinema");
+        CategoryIdJpa categoryIdJpa2 = new CategoryIdJpa("SWITCH", "Cinema");
 
 
         // Act & Assert
-        assertEquals(categoryIdJpa.getDenomination(), "Cinema");
+        assertEquals(categoryIdJpa, categoryIdJpa2);
     }
+
+    /**
+     * Tests for the Hashcode
+     */
+
+    @Test
+    @DisplayName("test if hashcodes are the same")
+    void testHashCodeEqual() {
+
+        //Arrange
+        CategoryIdJpa categoryIdJpa = new CategoryIdJpa("SWITCH", "Montaditos");
+        CategoryIdJpa categoryIdJpa2 = new CategoryIdJpa("SWITCH", "Montaditos");
+
+        // Act & Assert
+        assertEquals(categoryIdJpa.hashCode(), categoryIdJpa2.hashCode());
+    }
+
+    @Test
+    @DisplayName("test if hashcodes are the same")
+    void testHashCodeNotEqual() {
+
+        //Arrange
+        CategoryIdJpa categoryIdJpa = new CategoryIdJpa("SWITCH", "Montaditos");
+        CategoryIdJpa categoryIdJpa2 = new CategoryIdJpa("SWITCH", "Cinema");
+
+        // Act & Assert
+        assertNotEquals(categoryIdJpa.hashCode(), categoryIdJpa2.hashCode());
+    }
+
+    /**
+     * Tests for setOwner
+     */
+
+    @Test
+    @DisplayName("Test setter for the Owner - use getter to obtain expected Owner")
+    void testSetOwner() {
+        //Arrange
+        CategoryIdJpa categoryIdJpa = new CategoryIdJpa("SWITCH", "Montaditos");
+        categoryIdJpa.setOwner("1191765@isep.ipp.pt");
+
+        // Act & Assert
+        assertEquals(categoryIdJpa.getOwner(), "1191765@isep.ipp.pt");
+    }
+
+    @Test
+    @DisplayName("Test setter for the Owner - compare with another object")
+    void testSetOwnerOtherObject() {
+        //Arrange
+        CategoryIdJpa categoryIdJpa = new CategoryIdJpa("SWITCH", "Montaditos");
+        categoryIdJpa.setOwner("1191765@isep.ipp.pt");
+        CategoryIdJpa categoryIdJpa2 = new CategoryIdJpa("1191765@isep.ipp.pt", "Montaditos");
+
+        // Act & Assert
+        assertEquals(categoryIdJpa, categoryIdJpa2);
+    }
+
+
 
 }
