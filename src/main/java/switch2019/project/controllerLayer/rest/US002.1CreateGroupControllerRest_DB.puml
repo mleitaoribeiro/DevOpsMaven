@@ -1,0 +1,203 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+title
+
+ <b>US002.1 Sequence Diagram - Happy Case</b>
+
+
+end title
+
+
+participant "HTTP Client (Test)"
+participant "response :MockHttpServletResponse"
+participant "mvcResult :MvcResult"
+participant "inputDTO:CreateGroupInfoDTO"
+participant "resultAction: ResultActions"
+participant "mvc:MockMvc"
+participant "info:createGroupInfoDTO"
+participant "restController:US2.1CreateGroupControllerRest"
+participant "service:US2.1CreateGroupService"
+participant ":GroupDTOAssembler"
+participant "personRep:PersonRepository"
+participant "groupsRep:GroupsRepository"
+participant "groupID:GroupID"
+
+
+
+
+== Arrange ==
+
+autonumber
+create "inputDTO:CreateGroupInfoDTO"
+"HTTP Client (Test)" --> "inputDTO:CreateGroupInfoDTO": create ()
+activate "HTTP Client (Test)" #FFBBBB
+
+autonumber 1.1
+activate "inputDTO:CreateGroupInfoDTO" #FFBBBB
+"HTTP Client (Test)" -> "inputDTO:CreateGroupInfoDTO": setGroupDescription(groupDescription)
+"HTTP Client (Test)" -> "inputDTO:CreateGroupInfoDTO": setPersonEmail(personEmail)
+
+deactivate "inputDTO:CreateGroupInfoDTO"
+
+|||
+
+autonumber 2
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
+== Act ==
+
+"HTTP Client (Test)" -> "mvc:MockMvc" :POST /groups {inputJson}
+activate "mvc:MockMvc"  #FFBBBB
+
+
+autonumber 4.1
+
+activate "mvc:MockMvc" #FFBBBB
+"mvc:MockMvc" -> "mvc:MockMvc" : deserialize inputJson
+
+autonumber 4.2
+create "info:createGroupInfoDTO"
+"mvc:MockMvc" --> "info:createGroupInfoDTO" : create
+deactivate "mvc:MockMvc"
+
+autonumber 4.3
+"mvc:MockMvc" -> "restController:US2.1CreateGroupControllerRest" : responseEntity = createGroup (createGroupInfoDTO)
+
+autonumber 4.3.1
+activate "restController:US2.1CreateGroupControllerRest" #FFBBBB
+"restController:US2.1CreateGroupControllerRest" -> ":GroupDTOAssembler": createGroupDTO = transformOfCreationOfGroupDTO(createGroupInfoDTO)
+
+autonumber 4.3.1.1
+
+activate ":GroupDTOAssembler" #FFBBBB
+
+":GroupDTOAssembler" -> "createGroupInfoDTO: CreateGroupInfoDTO": groupDescription = getGroupDescription()
+
+activate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+deactivate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+
+":GroupDTOAssembler" -> "createGroupInfoDTO: CreateGroupInfoDTO": personEmail = getPersonEmail()
+activate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+deactivate "createGroupInfoDTO: CreateGroupInfoDTO" #FFBBBB
+
+create "createGroupDTO:CreateGroupDTO"
+":GroupDTOAssembler" --> "createGroupDTO:CreateGroupDTO": create(groupDescription,personEmail)
+deactivate ":GroupDTOAssembler"
+
+autonumber 4.3.2
+"restController:US2.1CreateGroupControllerRest" -> "service:US2.1CreateGroupService" : groupDTO = createGroup(createGroupDTO)
+
+
+autonumber 4.3.2.1
+activate "service:US2.1CreateGroupService" #FFBBBB
+"service:US2.1CreateGroupService" -> "createGroupDTO:CreateGroupDTO" : personEmail = getPersonEmail()
+activate "createGroupDTO:CreateGroupDTO" #FFBBBB
+deactivate "createGroupDTO:CreateGroupDTO"
+
+"service:US2.1CreateGroupService" -> "personRep:PersonRepository" : person = findPersonByEmail (personEmail)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
+
+"service:US2.1CreateGroupService" -> "createGroupDTO:CreateGroupDTO" : groupDescription = getGroupDescription()
+activate "createGroupDTO:CreateGroupDTO" #FFBBBB
+deactivate "createGroupDTO:CreateGroupDTO"
+
+"service:US2.1CreateGroupService" -> "groupsRep:GroupsRepository" : groupCreated = createGroup(groupDescription, person)
+activate "groupsRep:GroupsRepository" #FFBBBB
+
+autonumber 4.3.2.4.1
+create "groupCreated:Group"
+"groupsRep:GroupsRepository" --> "groupCreated:Group" : create(groupDescription, person)
+
+activate "groupCreated:Group" #FFBBBB
+autonumber 4.3.2.4.1.1
+"groupCreated:Group" -> "groupCreated:Group" : addMember(person)
+deactivate "groupCreated:Group"
+
+autonumber 4.3.2.4.2
+"groupsRep:GroupsRepository" -> "groupsRep:GroupsRepository" :save(groupCreated)
+deactivate "groupsRep:GroupsRepository"
+
+autonumber 4.3.2.5
+
+"service:US2.1CreateGroupService" -> "groupCreated:Group" : groupID = getID()
+activate "groupCreated:Group" #FFBBBB
+deactivate "groupCreated:Group"
+
+"service:US2.1CreateGroupService" -> ":GroupDTOAssembler" : groupDTO = createGroupDTO (groupID)
+
+autonumber 4.3.2.6.1
+activate ":GroupDTOAssembler" #FFBBBB
+":GroupDTOAssembler" -> "groupID:GroupID" : groupDescription = getDescription()
+
+create "groupDTO:GroupDTO"
+":GroupDTOAssembler" --> "groupDTO:GroupDTO" : create(groupDescription)
+
+deactivate ":GroupDTOAssembler"
+deactivate "service:US2.1CreateGroupService"
+
+autonumber 4.3.3
+"restController:US2.1CreateGroupControllerRest"->"restController:US2.1CreateGroupControllerRest": selfLink = /groups/{groupsDescription}
+
+autonumber 4.3.4
+"restController:US2.1CreateGroupControllerRest"-> "groupDTO:GroupDTO": add(selfLink)
+
+autonumber 4.3.5
+create "responseEntity:ResponseEntity"
+"restController:US2.1CreateGroupControllerRest" --> "responseEntity:ResponseEntity" : create (groupDTO, HttpStatus.CREATED)
+deactivate "restController:US2.1CreateGroupControllerRest"
+
+
+
+|||
+
+autonumber 4.4
+"mvc:MockMvc" -> "mvc:MockMvc" : [serialize responseEntity]
+activate "mvc:MockMvc" #FFBBBB
+
+autonumber 4.4.1
+create "resultAction: ResultActions"
+
+"mvc:MockMvc" -> "resultAction: ResultActions" : create ()
+
+deactivate "mvc:MockMvc" #FFBBBB
+deactivate "mvc:MockMvc"
+
+autonumber 5
+|||
+
+"HTTP Client (Test)" -> "resultAction: ResultActions" : mvcResult = andReturn()
+activate "resultAction: ResultActions" #FFBBBB
+|||
+create "mvcResult :MvcResult"
+autonumber 5.1
+"resultAction: ResultActions" --> "mvcResult :MvcResult" : create()
+deactivate "resultAction: ResultActions"
+
+|||
+
+autonumber 6
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse()
+
+autonumber 6.1
+|||
+create "response :MockHttpServletResponse"
+activate "mvcResult :MvcResult" #FFBBBB
+"mvcResult :MvcResult" --> "response :MockHttpServletResponse" : create()
+deactivate "mvcResult :MvcResult"
+
+autonumber 7
+"HTTP Client (Test)" -> "response :MockHttpServletResponse" : status = getStatus()
+activate "response :MockHttpServletResponse" #FFBBBB
+"HTTP Client (Test)" -> "response :MockHttpServletResponse" : result = getContentAsString()
+deactivate "response :MockHttpServletResponse" #FFBBBB
+== Assert ==
+
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+deactivate "HTTP Client (Test)"
+
+@enduml
+

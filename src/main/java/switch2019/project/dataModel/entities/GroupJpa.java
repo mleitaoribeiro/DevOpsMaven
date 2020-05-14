@@ -4,10 +4,11 @@ package switch2019.project.dataModel.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity(name ="groups")
-public class GroupJpa {
+public class GroupJpa implements Serializable {
 
     @Id
     @Column(name = "group_id")
