@@ -1,45 +1,137 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class PersonDbRepositoryTest {
 
+    @Autowired
+    private PersonDbRepository repository;
+
+    private Person person;
+    private Person personNotPersisted;
+    private Person father;
+    private Person mother;
+
+    @BeforeEach
+    public void setup() {
+        person =  repository.createPerson ("Marta", new DateAndTime(1995, 11, 12),
+                new Address("Porto"), new Address("Miguel Bombarda", "Porto", "4620-223"),
+                new Email("marta@gmail.com"));
+
+        personNotPersisted = new Person("António", new DateAndTime(1990, 01, 23),
+                new Address("Guimarães"), new Address("Avenida de França", "Porto", "4620-262"),
+                new Email("antonio@gmail.com"));
+
+        father = new Person("Roberto Azevedo", new DateAndTime(1967, 1, 9),
+                new Address("Lisboa"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
+                new Email("roberto@gmail.com"));
+
+        mother = new Person("Margarida Azevedo", new DateAndTime(1964, 12, 1),
+                new Address("Guimarães"), new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
+                new Email("maria@gmail.com"));
+
+    };
 
     @Test
-    void createPerson() {
-     //   Person person = new Person("Marta", , "irthPlace", "homeAddress", "email");
+    @DisplayName("Test if a person is saved in Jpa Repository")
+    void createPerson() throws Exception {
 
+        //Arrange
+        Long expectedSize = repository.repositorySize() + 1;
+
+        //Act
+       repository.createPerson ("João", new DateAndTime(1993, 10, 12),
+                new Address("Porto"), new Address("Avenida Brasil", "Porto", "4620-262"),
+                new Email("joao@gmail.com"));
+
+       ///Assert
+        Assertions.assertAll(
+                () -> Assert.notNull(repository.findPersonByEmail(new Email("joao@gmail.com")), "Persons saved is found"),
+                () -> assertEquals(expectedSize, repository.repositorySize())
+        );
     }
 
     @Test
-    void testCreatePerson() {
+    @DisplayName("Test if a person is saved in Jpa Repository - Person Already Exists - size")
+    void createPersonAlreadyExists() throws Exception {
+
+        //Arrange
+        Long expectedSize = repository.repositorySize();
+
+        //Act
+        repository.createPerson ("Marta", new DateAndTime(1995, 11, 12),
+                new Address("Porto"), new Address("Miguel Bombarda", "Porto", "4620-223"),
+                new Email("marta@gmail.com"));
+
+        ///Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedSize, repository.repositorySize())
+        );
     }
 
     @Test
-    void getByID() {
+    @DisplayName("Test if a person with mother and father is saved in Jpa Repository")
+    void testCreatePerson() throws Exception {
+        //Arrange
+        Long expectedSize = repository.repositorySize() + 1;
+
+        //Act
+        repository.createPerson ("Manuela", new DateAndTime(2000, 12, 13),
+                new Address("Porto"), new Address("Avenida Brasil", "Porto", "4620-262"),
+              father.getID(), mother.getID(),   new Email("manuela@gmail.com"));
+        ///Assert
+        Assertions.assertAll(
+                () -> Assert.notNull(repository.findPersonByEmail(new Email("manuela@gmail.com")), "Persons saved is found"),
+                () -> assertEquals(expectedSize, repository.repositorySize())
+        );
     }
 
     @Test
-    void findPersonByEmail() {
+    @DisplayName("Test if a person is returned form JPA")
+    void getByID() throws Exception {
+        Person expected = person;
+
+        Person result = repository.getByID(new PersonID( new Email("marta@gmail.com")));
+
+        assertEquals(expected, person);
     }
 
     @Test
-    void isPersonEmailOnRepository() {
+    @DisplayName("Test if PersonEmail is on JPA repository")
+    void isPersonEmailOnRepositoryTrue() throws Exception {
+        assertTrue(repository.isPersonEmailOnRepository(new Email(person.getID().toString())));
     }
 
     @Test
-    void isIDOnRepository() {
+    @DisplayName("Test if PersonEmail is not in  the JPA repository")
+    void isPersonEmailOnRepositoryFalse() throws Exception {
+        assertFalse(repository.isPersonEmailOnRepository(new Email(personNotPersisted.getID().toString())));
     }
 
     @Test
-    void repositorySize() {
+    @DisplayName("Test if ID is on JPA repository")
+    void isIDOnRepositoryTrue() throws Exception {
+        assertTrue(repository.isIDOnRepository(person.getID()));
     }
+
+    @Test
+    @DisplayName("Test if ID is on JPA repository")
+    void isIDOnRepositoryFalse() throws Exception {
+        assertFalse(repository.isIDOnRepository(personNotPersisted.getID()));
+    }
+
 }
