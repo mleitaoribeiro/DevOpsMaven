@@ -24,11 +24,11 @@ import java.util.Set;
 public class US003AddMemberToGroupService {
 
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
     @Autowired
-    @Qualifier("GroupInMemoryRepository")
+    @Qualifier("GroupDbRepository")
     private GroupRepository groupsRepository;
 
     /**
@@ -42,7 +42,7 @@ public class US003AddMemberToGroupService {
     public AddedMemberDTO addMemberToGroup(AddMemberDTO addMemberDTO) {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
-        boolean wasMemberAdded = group.addMember(person.getID());
+        boolean wasMemberAdded = groupsRepository.addMember(group, person.getID().toString());
         return GroupDTOAssembler.createAddedMemberDTO(wasMemberAdded, person, group);
     }
 

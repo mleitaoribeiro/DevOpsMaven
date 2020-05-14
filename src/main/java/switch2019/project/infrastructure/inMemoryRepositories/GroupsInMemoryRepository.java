@@ -3,6 +3,7 @@ package switch2019.project.infrastructure.inMemoryRepositories;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
@@ -107,7 +108,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
      * @return
      */
     public boolean addMember(Group group, String personID) {
-        return true;
+        return group.addMember(new PersonID(new Email(personID)));
     }
 
     /**
