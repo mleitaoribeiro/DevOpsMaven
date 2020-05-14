@@ -37,7 +37,7 @@ public class GroupDbRepository implements GroupRepository {
     //String literals - Exceptions
     private static final String NO_GROUPS_FOUND = "No group found with that description.";
     private static final String NO_GROUPS_FOUND_ID = "No group found with that ID.";
-    private static final String GROUP_ALREADY_EXISTS= "This group description already exists.";
+    private static final String GROUP_ALREADY_EXISTS = "This group description already exists.";
     private static final String NOT_A_MEMBER = "This person is not a member of this group.";
     private static final String NOT_AN_ADMIN = "This person is not a admin of this group.";
 
@@ -63,7 +63,8 @@ public class GroupDbRepository implements GroupRepository {
         membersJpaRepository.save(memberJpa);
         adminsJpaRepository.save(adminsJpa);
 
-        return group;
+        return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
+                this.findAdminsByGroupId(newGroup.getId()));
     }
 
     /**
@@ -76,7 +77,8 @@ public class GroupDbRepository implements GroupRepository {
     public Group findGroupByDescription(Description groupDescription) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupDescription.getDescription());
         if (groupJpa.isPresent()) {
-            return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
+            return GroupDomainDataAssembler.toDomain(groupJpa.get(), this.findMembersByGroupId(groupJpa.get().getId()),
+                    this.findAdminsByGroupId(groupJpa.get().getId()));
         }
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
@@ -90,7 +92,8 @@ public class GroupDbRepository implements GroupRepository {
     public Group getByID(ID groupID) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
         if (groupJpa.isPresent()) {
-            return new Group(new Description(groupJpa.get().getId()), new PersonID(new Email(groupJpa.get().getGroupCreator())));
+            return GroupDomainDataAssembler.toDomain(groupJpa.get(), this.findMembersByGroupId(groupJpa.get().getId()),
+                    this.findAdminsByGroupId(groupJpa.get().getId()));
         }
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
@@ -114,10 +117,12 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public List<Group> getAllGroups() {
-        List<GroupJpa> groupJpa = groupJpaRepository.findAll();
+        List<GroupJpa> groupsJpa = groupJpaRepository.findAll();
         List<Group> groups = new ArrayList<>();
-        for (GroupJpa groupJpa1 : groupJpa)
-            groups.add(getByID(new GroupID(new Description(groupJpa1.getId()))));
+        for (GroupJpa groupJpa : groupsJpa) {
+            groups.add(GroupDomainDataAssembler.toDomain(groupJpa, this.findMembersByGroupId(groupJpa.getId()),
+                    this.findAdminsByGroupId(groupJpa.getId())));
+        }
         return groups;
     }
 
@@ -139,7 +144,7 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public boolean addMember(Group group, String personID) {
-        List<MembersJpa> membersJpasList =  findMembersByGroupId(group.toString());
+        List<MembersJpa> membersJpasList = findMembersByGroupId(group.toString());
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
         MembersJpa memberJpa = new MembersJpa(groupJpa, personID);
@@ -158,7 +163,7 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public List<MembersJpa> findMembersByGroupId(String id) {
-        return membersJpaRepository.findAllById_GroupID_Id (id);
+        return membersJpaRepository.findAllById_GroupID_Id(id);
     }
 
     /**
@@ -190,7 +195,7 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public List<AdminsJpa> findAdminsByGroupId(String id) {
-        return adminsJpaRepository.findAllById_GroupID_Id (id);
+        return adminsJpaRepository.findAllById_GroupID_Id(id);
     }
 
 }
