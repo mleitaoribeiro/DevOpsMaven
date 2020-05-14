@@ -29,11 +29,6 @@ public class AccountDbRepository implements AccountRepository {
     private static final String ACCOUNT_ALREADY_EXISTS = "This account already exists.";
     private static final String NULL_OWNER = "Owner ID can't be null.";
 
-    @Override
-    public String toString() {
-        return "Accounts Repository: " + accountJpaRepository.toString();
-    }
-
     /**
      * Method to get the numbers of Accounts in the Repository
      *

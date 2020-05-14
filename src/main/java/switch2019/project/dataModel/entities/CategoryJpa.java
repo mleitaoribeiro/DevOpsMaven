@@ -1,13 +1,9 @@
 package switch2019.project.dataModel.entities;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Objects;
 
-@Data
-@Entity
-@Table(name="categories")
+@Entity(name="categories")
 public class CategoryJpa {
 
     @EmbeddedId
@@ -36,5 +32,11 @@ public class CategoryJpa {
     public int hashCode() {
         return Objects.hash(categoryIdJpa);
     }
+
+    @Override
+    public String toString() {
+        return categoryIdJpa.getDenomination() + ", " + categoryIdJpa.getOwner();
+    }
+
 }
 

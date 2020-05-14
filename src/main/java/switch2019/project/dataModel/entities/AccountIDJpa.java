@@ -1,7 +1,9 @@
 package switch2019.project.dataModel.entities;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+@Embeddable
 public class AccountIDJpa implements Serializable {
 
     private String denomination;

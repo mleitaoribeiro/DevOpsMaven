@@ -3,7 +3,6 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.dataAssemblers.AccountDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.CategoryDomainDataAssembler;
 import switch2019.project.dataModel.entities.CategoryIdJpa;
 import switch2019.project.dataModel.entities.CategoryJpa;
@@ -28,11 +27,6 @@ public class CategoryDbRepository implements CategoryRepository {
     CategoryJpaRepository categoryJpaRepository;
 
 
-    @Override
-    public String toString() {
-        return "Category Repository: " + categoryJpaRepository.toString();
-    }
-
     /**
      * Find category by ID
      *
@@ -40,7 +34,7 @@ public class CategoryDbRepository implements CategoryRepository {
      * @return account
      */
 
-    public Category getByID(ID categoryID) {
+    public Category getByID(ID categoryID)  {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
         Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
         if (categoryJpa.isPresent())
@@ -58,10 +52,10 @@ public class CategoryDbRepository implements CategoryRepository {
 
     public boolean isIDOnRepository(ID categoryID) {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
-        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[0], split[1]));
+        Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
         if (categoryJpa.isPresent())
             return true;
-        return false;
+        else return false;
     }
 
 
@@ -84,12 +78,11 @@ public class CategoryDbRepository implements CategoryRepository {
      * @return category
      */
 
-    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
+    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) throws ResourceAlreadyExistsException {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
             Category category = new Category(nameOfCategory, ownerID);
             categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
             return category;
-
         } else throw new ResourceAlreadyExistsException("This category already exists.");
     }
 
@@ -102,14 +95,11 @@ public class CategoryDbRepository implements CategoryRepository {
      */
 
     public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
-
-        CategoryJpa categoryJpa = new CategoryJpa(categoryToRemove.getDenominationValue(), ownerID.toString());
-
-        if (!isIDOnRepository(new CategoryID(categoryToRemove, ownerID))) {
-            categoryJpaRepository.delete(categoryJpa);
+        if (isIDOnRepository(new CategoryID(categoryToRemove, ownerID))) {
+            CategoryJpa categoryJpa = new CategoryJpa(categoryToRemove.getDenominationValue(), ownerID.toString());
+            categoryJpaRepository.deleteById(categoryJpa.getCategoryKeyJPA().toString());
             return true;
         }
-
         return false;
     }
 
