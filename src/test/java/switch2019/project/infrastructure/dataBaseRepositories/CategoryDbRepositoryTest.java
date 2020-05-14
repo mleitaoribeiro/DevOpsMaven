@@ -106,7 +106,7 @@ class CategoryDbRepositoryTest {
     }
 
     @Test
-    @DisplayName("Verify is Category is saved in jpaRepository - true")
+    @DisplayName("Verify is Category is saved in jpaRepository - exception")
     void createCategoryException() throws Exception{
         //Arrange
         repository.createCategory(new Denomination("ONLINE"), personID);
@@ -120,18 +120,6 @@ class CategoryDbRepositoryTest {
 
     }
 
-    @Test
-    @DisplayName("Verify is Category an existing category is deleted - true")
-    void removeCategory() throws Exception {
-        //Arrange
-        Category category = new Category(new Denomination("MAKE UP"),personID);
-
-        //Act
-        repository.removeCategory(new Denomination("FOOD"),personID);
-
-        //Assert
-        assertFalse(repository.isIDOnRepository(category.getID()));
-    }
 
     @Test
     @DisplayName("Verify if multiple categories are added - true")
