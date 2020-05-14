@@ -383,15 +383,23 @@ class GroupsInMemoryRepositoryTest {
         assertTrue(groupIDexists);
     }
 
+    /**
+     * Validate if an admin was added to the group
+     */
     @Test
+    @DisplayName("Validate if an admin was added to the group - true")
     void setAdminTrue() {
         //Arrange
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
-                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"),
+                new Email("1234@isep.pt"));
+
+        String personID = "maria@isep.ipp.pt";
 
         GroupRepository groupsRepository = new GroupsInMemoryRepository();
         Group group = groupsRepository.createGroup(new Description("Familia"), person.getID());
-        String personID = "11234@isep.ipp.pt";
+        group.addMember(new PersonID(new Email("maria@isep.ipp.pt")));
+
 
         //Act:
 
@@ -402,6 +410,27 @@ class GroupsInMemoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Validate if an admin was added to the group - false")
+    void setAdminFalse() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"),
+                new Email("1234@isep.pt"));
+
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+        Group group = groupsRepository.createGroup(new Description("Familia"), person.getID());
+        String personID = "11234@isep.ipp.pt";
+
+        //Act:
+
+        boolean result = groupsRepository.setAdmin(group, personID);
+
+        //Assert:
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Validate if a member was added to the group - true")
     void addMember() {
         //Arrange
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
@@ -415,5 +444,23 @@ class GroupsInMemoryRepositoryTest {
 
         //Assert
         assertTrue(memberAddded);
+    }
+
+    @Test
+    @DisplayName("Validate if a member was added to the group - false")
+    void addMemberFalse() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+        Group group = groupsRepository.createGroup(new Description("Familia"), person.getID());
+        String personID = "1234@isep.pt";
+
+        //Act
+        boolean memberAddded = groupsRepository.addMember(group, personID);
+
+        //Assert
+        assertFalse(memberAddded);
     }
 }
