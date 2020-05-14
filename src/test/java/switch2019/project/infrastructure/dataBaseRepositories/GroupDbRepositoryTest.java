@@ -1,6 +1,5 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.util.Assert;
 import switch2019.project.dataModel.entities.AdminsJpa;
-import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.dataModel.entities.GroupJpa;
+import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -18,7 +18,8 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -39,24 +40,28 @@ class GroupDbRepositoryTest {
     private Group switchG2;
     private PersonID switchG2Admin;
     private Group switchG3;
-    private PersonID getSwitchG3Admin;
+    private PersonID switchG3Admin;
 
     @BeforeEach
     public void setup() {
         swtichG1Admin = new PersonID(new Email("rita@isep.ip.pt"));
         switchG2Admin = new PersonID(new Email("elsa@isep.ip.pt"));
-        getSwitchG3Admin = new PersonID(new Email("joao@isep.ip.pt"));
+        switchG3Admin = new PersonID(new Email("joao@isep.ip.pt"));
 
         switchG1 = groupDbRepository.createGroup(new Description("switch g1"), swtichG1Admin);
         switchG2 = groupDbRepository.createGroup(new Description("switch g2"), switchG2Admin);
-        switchG3 = groupDbRepository.createGroup(new Description("switch g3"), getSwitchG3Admin);
+        switchG3 = groupDbRepository.createGroup(new Description("switch g3"), switchG3Admin);
+
+        groupDbRepository.addMember(switchG1, switchG2Admin.toString());
+        groupDbRepository.addMember(switchG1, switchG3Admin.toString());
+        groupDbRepository.setAdmin(switchG1, switchG2Admin.toString());
     }
 
     @Test
     @DisplayName("Test if group is created and saved - main scenario")
     public void createGroup() {
         //Arrange
-        Long expectedSize = groupDbRepository.repositorySize() + 1 ;
+        Long expectedSize = groupDbRepository.repositorySize() + 1;
         Group expectedGroup = new Group(new Description("TEAM ROCKET"), new PersonID(new Email("jessie@gmail.com")));
 
         //Act
@@ -88,7 +93,9 @@ class GroupDbRepositoryTest {
     @DisplayName("Test if group is find in jpaRepository - Exception")
     void findGroupByDescriptionException() {
         //Act
-        Throwable thrown = catchThrowable(() -> { groupDbRepository.findGroupByDescription(new Description("team"));});
+        Throwable thrown = catchThrowable(() -> {
+            groupDbRepository.findGroupByDescription(new Description("team"));
+        });
 
         //Assert
         assertThat(thrown)
@@ -100,7 +107,9 @@ class GroupDbRepositoryTest {
     @DisplayName("Test if group is returned from jpaRepository by its id - exception")
     void getByIDException() {
         //Act
-        Throwable thrown = catchThrowable(() -> { groupDbRepository.getByID(new GroupID(new Description("TENNIS")));});
+        Throwable thrown = catchThrowable(() -> {
+            groupDbRepository.getByID(new GroupID(new Description("TENNIS")));
+        });
 
         //Assert
         assertThat(thrown)
@@ -124,7 +133,7 @@ class GroupDbRepositoryTest {
     @Test
     @DisplayName("Test if all groups are returned")
     void getAllGroups() {
-   /*     //Arrange
+    /*   //Arrange
        //SWITCH, FRIENDS, SPLIT EXPENSES, RICK AND MORTY, INTERGALACTIC, SMITH FAMILY, FAMILY SIMPSON, FAMILY CARDOSO, FAMILY AZEVEDO, SWITCH G1, SWITCH G2, SWITCH G3]
 
         List<Group> expectedGroups = new LinkedList<>(Arrays.asList(switchG1, switchG2, switchG3));
@@ -137,9 +146,9 @@ class GroupDbRepositoryTest {
     }
 
 
-        /**
-         * Validate if a member was added to a group
-         */
+    /**
+     * Validate if a member was added to a group
+     */
     @Test
     @DisplayName("Test if a member was added to a group")
     void addMember() {
@@ -191,9 +200,27 @@ class GroupDbRepositoryTest {
         assertFalse(addedMember);
     }
 
+    /**
+     * Validate if method gets all members of a group
+     */
     @Test
     @DisplayName("Find members by group ID")
-    void findMembersByGroupId() {};
+    void findMembersByGroupId() {
+
+        //Arrange
+        GroupJpa group1 = new GroupJpa("switch g1", swtichG1Admin.toString(), "14/05/2020");
+        MembersJpa membersJpa1 = new MembersJpa(group1, switchG2Admin.toString());
+        MembersJpa membersJpa2 = new MembersJpa(group1, switchG3Admin.toString());
+        MembersJpa membersJpa3 = new MembersJpa(group1, swtichG1Admin.toString());
+
+        List<MembersJpa> membersJpaExpectedList = Arrays.asList(membersJpa1, membersJpa2, membersJpa3);
+
+        //Act
+        List<MembersJpa> membersJpaResultList = groupDbRepository.findMembersByGroupId("SWITCH G1");
+
+        //Assert
+        //assertEquals(membersJpaExpectedList, membersJpaResultList);
+    }
 
     /**
      * Validate if an admin was added to a group
@@ -233,8 +260,24 @@ class GroupDbRepositoryTest {
         assertFalse(addedAdmin);
     }
 
+    /**
+     * Validate if method gets all admins of a group
+     */
     @Test
     @DisplayName("Find admins by group ID")
     void findAdminsByGroupId() {
+
+        //Arrange
+        GroupJpa group1 = new GroupJpa("switch g1", swtichG1Admin.toString(), "14/05/2020");
+        AdminsJpa adminsJpa1 = new AdminsJpa(group1, switchG2Admin.toString());
+        AdminsJpa adminsJpa2 = new AdminsJpa(group1, swtichG1Admin.toString());
+
+        List<AdminsJpa> membersJpaExpectedList = Arrays.asList(adminsJpa1, adminsJpa2);
+
+        //Act
+        List<AdminsJpa> membersJpaResultList = groupDbRepository.findAdminsByGroupId("SWITCH G1");
+
+        //Assert
+        //assertEquals(membersJpaExpectedList, membersJpaResultList);
     }
 }

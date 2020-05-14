@@ -67,7 +67,7 @@ public class MembersJpa {
     public MembersJpa() {
     }
 
-    public MembersJpa(GroupJpa groupID, String personID ) {
+    public MembersJpa(GroupJpa groupID, String personID) {
         this.id = new MembersIdJpa(groupID, personID);
     }
 
