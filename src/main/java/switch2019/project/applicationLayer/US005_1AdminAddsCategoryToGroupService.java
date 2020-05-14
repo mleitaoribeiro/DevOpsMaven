@@ -24,13 +24,13 @@ import java.util.Set;
 public class US005_1AdminAddsCategoryToGroupService {
 
     @Autowired
-    @Qualifier ("GroupInMemoryRepository")
+    @Qualifier ("GroupDbRepository")
     private GroupRepository groupsRepository;
     @Autowired
-    @Qualifier ("CategoryInMemoryRepository")
+    @Qualifier ("CategoryDbRepository")
     private CategoryRepository categoryRepository;
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
 
