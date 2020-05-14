@@ -103,4 +103,22 @@ class MonetaryValueTest {
             assertEquals("The currency can't be null.", currency.getMessage());
         }
     }
+
+    /**
+     * Test to getCurrency method
+     */
+
+    @Test
+    @DisplayName("Test for getCurrency method")
+    void getCurrency() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+
+        //Act
+        Currency currency = monetaryValue.getCurrency();
+
+        //Assert
+        assertEquals(Currency.getInstance("EUR"), currency);
+    }
+
 }

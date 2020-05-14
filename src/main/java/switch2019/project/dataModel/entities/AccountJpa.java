@@ -61,7 +61,4 @@ public class AccountJpa {
         this.balance = balance;
     }
 
-    public AccountIDJpa getAccountKeyJpa() { return accountIDJpa; }
-
-
 }

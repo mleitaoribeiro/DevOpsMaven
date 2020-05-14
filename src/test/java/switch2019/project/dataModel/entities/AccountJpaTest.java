@@ -173,37 +173,134 @@ class AccountJpaTest {
 
     }
 
+    /**
+     * Tests to Getters
+     */
+
 
     @Test
+    @DisplayName("Test getAccountIDJpa ")
     void getAccountIDJpa() {
+
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+
+        AccountIDJpa expectedAccountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
+
+        //Act
+        AccountIDJpa realAccountIDJpa = accountJpa.getAccountIDJpa();
+
+        // Assert
+        assertEquals(expectedAccountIDJpa, realAccountIDJpa);
+
     }
 
     @Test
-    void setAccountIDJpa() {
-    }
-
-    @Test
+    @DisplayName("Test getDescription")
     void getDescription() {
+
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+
+        String expectedDescription = "Revolut Account";
+
+        //Act
+        String realDescription = accountJpa.getDescription();
+
+        // Assert
+        assertEquals(expectedDescription, realDescription);
+
     }
 
     @Test
-    void setDescription() {
-    }
-
-    @Test
+    @DisplayName("Test getBalance")
     void getBalance() {
+
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+
+        String expectedBalance = "0";
+
+        //Act
+        String realBalance = accountJpa.getBalance();
+
+        // Assert
+        assertEquals(expectedBalance, realBalance);
     }
 
     @Test
+    @DisplayName("Test getAmount")
     void getAmount() {
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+
+        String expectAmount = "0";
+
+        //Act
+        String realAmount = accountJpa.getBalance();
+
+        // Assert
+        assertEquals(expectAmount, realAmount);
+
+    }
+
+    /**
+     * Tests to Setters
+     */
+
+    @Test
+    @DisplayName("Test setAccountIDJpa")
+    void setAccountIDJpa() {
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+
+        AccountIDJpa expectedAccountIDJpa = new AccountIDJpa("SWITCH", "Revo");
+
+        //Act
+
+        accountJpa.setAccountIDJpa(expectedAccountIDJpa);
+
+        AccountIDJpa realAccountIDJpa = accountJpa.getAccountIDJpa();
+
+        // Assert
+        assertEquals(expectedAccountIDJpa, realAccountIDJpa);
+
+    }
+
+
+    @Test
+    @DisplayName("Test setDescription")
+    void setDescription() {
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+
+        String expectedDescription = "Revo Acc";
+
+        //Act
+        accountJpa.setDescription(expectedDescription);
+
+        String realDescription = accountJpa.getDescription();
+
+        // Assert
+        assertEquals(expectedDescription, realDescription);
     }
 
     @Test
+    @DisplayName("Test setBalance")
     void setBalance() {
-    }
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
 
-    @Test
-    void getAccountKeyJpa() {
+        String expectedBalance = "1";
+
+        //Act
+        accountJpa.setBalance(expectedBalance);
+
+        String realBalance = accountJpa.getBalance();
+
+        // Assert
+        assertEquals(expectedBalance, realBalance);
+
     }
 
 

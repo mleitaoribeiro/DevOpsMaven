@@ -37,7 +37,7 @@ public class AccountDomainDataAssembler {
     public static Account toDomain (AccountJpa accountJpa) {
 
         //Assembling OwnerID:
-        String owner = accountJpa.getAccountKeyJpa().getOwner();
+        String owner = accountJpa.getAccountIDJpa().getOwner();
         OwnerID ownerId;
 
         //Checking if owner is a Group or Person:
@@ -47,7 +47,7 @@ public class AccountDomainDataAssembler {
             ownerId = new GroupID(new Description(owner));
 
         //Assembling Denomination:
-        Denomination denomination = new Denomination(accountJpa.getAccountKeyJpa().getDenomination());
+        Denomination denomination = new Denomination(accountJpa.getAccountIDJpa().getDenomination());
 
         //Assembling Description:
         Description description = new Description(accountJpa.getDescription());
