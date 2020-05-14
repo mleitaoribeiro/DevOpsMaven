@@ -44,6 +44,14 @@ public class AdminsJpa {
             return Objects.hash(groupID, person_ID);
         }
 
+        @Override
+        public String toString() {
+            return "AdminsIdJpa{" +
+                    "groupID=" + groupID.toString() +
+                    ", person_ID='" + person_ID + '\'' +
+                    '}';
+        }
+
         public GroupJpa getGroupID() {
             return groupID;
         }
@@ -61,6 +69,19 @@ public class AdminsJpa {
 
     public AdminsJpa(GroupJpa groupID, String personID ) {
         this.id = new AdminsIdJpa(groupID, personID);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AdminsJpa adminsJpa = (AdminsJpa) o;
+        return Objects.equals(id, adminsJpa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public AdminsIdJpa getId() {

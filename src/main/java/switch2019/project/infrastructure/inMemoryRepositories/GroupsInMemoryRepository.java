@@ -119,7 +119,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
      * @return
      */
     public boolean setAdmin(Group group, String personID) {
-        return true;
+        return group.setAdmin(new PersonID(new Email(personID)));
     }
 
 }

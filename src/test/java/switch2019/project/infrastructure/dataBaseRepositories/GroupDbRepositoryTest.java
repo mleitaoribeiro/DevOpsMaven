@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.util.Assert;
+import switch2019.project.dataModel.dataAssemblers.GroupDomainDataAssembler;
 import switch2019.project.dataModel.entities.AdminsJpa;
 import switch2019.project.dataModel.entities.GroupJpa;
 import switch2019.project.dataModel.entities.MembersJpa;
@@ -18,7 +19,9 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -208,18 +211,21 @@ class GroupDbRepositoryTest {
     void findMembersByGroupId() {
 
         //Arrange
-        GroupJpa group1 = new GroupJpa("switch g1", swtichG1Admin.toString(), "14/05/2020");
+        GroupJpa group1 = GroupDomainDataAssembler.toData(switchG1);
         MembersJpa membersJpa1 = new MembersJpa(group1, switchG2Admin.toString());
         MembersJpa membersJpa2 = new MembersJpa(group1, switchG3Admin.toString());
         MembersJpa membersJpa3 = new MembersJpa(group1, swtichG1Admin.toString());
 
-        List<MembersJpa> membersJpaExpectedList = Arrays.asList(membersJpa1, membersJpa2, membersJpa3);
+        List<MembersJpa> membersJpaExpectedList = new ArrayList<>();
+        membersJpaExpectedList.add(membersJpa1);
+        membersJpaExpectedList.add(membersJpa2);
+        membersJpaExpectedList.add(membersJpa3);
 
         //Act
         List<MembersJpa> membersJpaResultList = groupDbRepository.findMembersByGroupId("SWITCH G1");
 
         //Assert
-        //assertEquals(membersJpaExpectedList, membersJpaResultList);
+        assertEquals(membersJpaExpectedList, membersJpaResultList);
     }
 
     /**
@@ -257,7 +263,7 @@ class GroupDbRepositoryTest {
         boolean addedAdmin = groupDbRepository.setAdmin(group1, personID);
 
         //Assert
-        // assertFalse(addedAdmin);
+        assertFalse(addedAdmin);
     }
 
     /**
@@ -268,16 +274,18 @@ class GroupDbRepositoryTest {
     void findAdminsByGroupId() {
 
         //Arrange
-        GroupJpa group1 = new GroupJpa("switch g1", swtichG1Admin.toString(), "14/05/2020");
+        GroupJpa group1 = GroupDomainDataAssembler.toData(switchG1);
         AdminsJpa adminsJpa1 = new AdminsJpa(group1, switchG2Admin.toString());
         AdminsJpa adminsJpa2 = new AdminsJpa(group1, swtichG1Admin.toString());
 
-        List<AdminsJpa> membersJpaExpectedList = Arrays.asList(adminsJpa1, adminsJpa2);
+        List<AdminsJpa> adminsJpaList = new ArrayList<>();
+        adminsJpaList.add(adminsJpa1);
+        adminsJpaList.add(adminsJpa2);
 
         //Act
-        List<AdminsJpa> membersJpaResultList = groupDbRepository.findAdminsByGroupId("SWITCH G1");
+        List<AdminsJpa> adminsJpaResultList = groupDbRepository.findAdminsByGroupId("SWITCH G1");
 
         //Assert
-        //assertEquals(membersJpaExpectedList, membersJpaResultList);
+        assertEquals(adminsJpaList, adminsJpaResultList);
     }
 }
