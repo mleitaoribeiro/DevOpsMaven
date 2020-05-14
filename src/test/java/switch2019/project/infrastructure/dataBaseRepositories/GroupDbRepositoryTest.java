@@ -64,12 +64,62 @@ class GroupDbRepositoryTest {
     }
 
     @Test
-    void findMembersByGroupId() {
+    @DisplayName("Test if a member was not added to a group - null personID")
+    void addMemberNull() {
+
+        //Arrange
+        Person person1 = personDbRepository.createPerson("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("marta@isep.ipp.pt"));
+        Group group1 = groupDbRepository.createGroup(new Description("OsMaisFixes"), person1.getID());
+        String personID = null;
+
+        //Act
+        boolean addedMember = groupDbRepository.addMember(group1, personID);
+
+        //Assert
+        assertFalse(addedMember);
     }
 
     @Test
+    void findMembersByGroupId() {
+    }
+
+    /**
+     * Validate if an admin was added to a group
+     */
+    @Test
     @DisplayName("Test if am admin was added to a group")
     void setAdmin() {
+
+        //Arrange
+        Person person1 = personDbRepository.createPerson("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("marta@isep.ipp.pt"));
+        Group group1 = groupDbRepository.createGroup(new Description("OsMaisFixes"), person1.getID());
+        String personID = "ricardo@sapo.pt";
+        groupDbRepository.addMember(group1, personID);
+
+        //Act
+        boolean addedAdmin = groupDbRepository.setAdmin(group1, personID);
+
+        //Assert
+        assertTrue(addedAdmin);
+    }
+
+    @Test
+    @DisplayName("Test if am admin was not added to a group - already admin")
+    void setAdminFalse() {
+
+        //Arrange
+        Person person1 = personDbRepository.createPerson("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua dos Flores", "Porto", "4450-852"), new Email("marta@isep.ipp.pt"));
+        Group group1 = groupDbRepository.createGroup(new Description("OsMaisFixes"), person1.getID());
+        String personID = "marta@isep.ipp.pt";
+
+        //Act
+        boolean addedAdmin = groupDbRepository.setAdmin(group1, personID);
+
+        //Assert
+        assertFalse(addedAdmin);
     }
 
     @Test
