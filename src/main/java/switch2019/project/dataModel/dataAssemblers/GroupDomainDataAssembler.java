@@ -17,13 +17,10 @@ import java.util.Set;
 
 public class GroupDomainDataAssembler {
 
-    private GroupDomainDataAssembler() {
-    }
+    private GroupDomainDataAssembler() {}
 
     public static GroupJpa toData(Group group) {
-
         PersonID personID = group.getGroupCreator();
-
         String groupCreator = personID.toString();
 
         return new GroupJpa(group.getID().getDescription(), groupCreator, group.getStartingDate());
@@ -34,20 +31,19 @@ public class GroupDomainDataAssembler {
         Description groupDescription = new Description(groupJPA.getId());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        System.out.println(groupJPA.getCreationDate());
         LocalDate localDateCreationDate = LocalDate.parse(groupJPA.getCreationDate(), formatter);
-        DateAndTime creationDate = new DateAndTime(localDateCreationDate.getYear(), localDateCreationDate.getMonthValue(),
-                localDateCreationDate.getDayOfMonth());
+        DateAndTime creationDate = new DateAndTime(localDateCreationDate.getYear(),
+                localDateCreationDate.getMonthValue(), localDateCreationDate.getDayOfMonth());
 
         PersonID personID = new PersonID(new Email(groupJPA.getGroupCreator()));
 
         Set<PersonID> members = new HashSet<>();
-        for(MembersJpa member : membersJpa) {
+        for (MembersJpa member : membersJpa) {
             members.add(new PersonID(new Email(member.getPersonID())));
         }
 
         Set<PersonID> admins = new HashSet<>();
-        for(AdminsJpa admin : adminsJpa) {
+        for (AdminsJpa admin : adminsJpa) {
             admins.add(new PersonID(new Email(admin.getPersonID())));
         }
 

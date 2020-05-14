@@ -9,19 +9,18 @@ import switch2019.project.domain.domainEntities.shared.*;
 import java.util.Currency;
 import java.util.regex.Pattern;
 
-
 //Assembler used to transform Accounts into accountsJpa and vice-versa:
-
 public class AccountDomainDataAssembler {
 
-    private AccountDomainDataAssembler (){}
+    private AccountDomainDataAssembler() {}
 
     /**
      * Method that transforms an Account into AccountJpa
+     *
      * @param account
      * @return
      */
-    public static AccountJpa toData (Account account) {
+    public static AccountJpa toData(Account account) {
         return new AccountJpa(
                 account.getOwnerID().toString(),
                 account.denominationToString(),
@@ -31,10 +30,11 @@ public class AccountDomainDataAssembler {
 
     /**
      * Method that transforms an AccountJpa into an Account (Domain Object)
+     *
      * @param accountJpa
      * @return
      */
-    public static Account toDomain (AccountJpa accountJpa) {
+    public static Account toDomain(AccountJpa accountJpa) {
 
         //Assembling OwnerID:
         String owner = accountJpa.getAccountIDJpa().getOwner();
@@ -55,18 +55,19 @@ public class AccountDomainDataAssembler {
         //Assembling MonetaryValue: (A second constructor for the account was used here to replicate an account).
         double balance = Double.parseDouble(accountJpa.getAmount());
 
-        if (balance != 0.0){
+        if (balance != 0.0) {
             MonetaryValue monetaryValue = new MonetaryValue(balance, Currency.getInstance("EUR"));
 
             //Assembling Account with MonetaryValue:
             return new Account(denomination, description, ownerId, monetaryValue);
         }
         //Assembling Account without MonetaryValue:
-        else return new Account (denomination, description, ownerId);
+        else return new Account(denomination, description, ownerId);
     }
 
     /**
      * Method used to check if an Account is owned by a Group or a Person
+     *
      * @param string
      * @return
      */
