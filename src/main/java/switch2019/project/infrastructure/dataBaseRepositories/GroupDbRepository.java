@@ -157,9 +157,9 @@ public class GroupDbRepository implements GroupRepository {
      * @param id
      * @return
      */
-    /*public List<MembersJpa> findMembersById(GroupID id) {
-        return membersJpaRepository.findAllById_GroupID (id);
-    }*/
+    public List<MembersJpa> findMembersByGroupId(String id) {
+        return membersJpaRepository.findAllById_GroupID_Id (id);
+    }
 
     /**
      * Method to add a member to a Group
@@ -185,8 +185,8 @@ public class GroupDbRepository implements GroupRepository {
      * @param id
      * @return
      */
-    /*public List<AdminsJpa> findAdminsById(GroupID id) {
-        return adminsJpaRepository.findAllById_GroupID (id);
-    }*/
+    public List<AdminsJpa> findAdminsByGroupId(String id) {
+        return adminsJpaRepository.findAllById_GroupID_Id (id);
+    }
 
 }

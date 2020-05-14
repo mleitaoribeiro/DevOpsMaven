@@ -7,11 +7,11 @@ import switch2019.project.domain.domainEntities.shared.GroupID;
 import java.util.List;
 import java.util.Optional;
 
-public interface MembersJpaRepository extends JpaRepository<MembersJpa, GroupID> {
+public interface MembersJpaRepository extends JpaRepository<MembersJpa, String> {
 
-    Optional<MembersJpa> findById(GroupID id);
+    Optional<MembersJpa> findById(String id);
 
     List<MembersJpa> findAll();
 
-    List<MembersJpa> findAllById_GroupID (GroupID id);
+    List<MembersJpa> findAllById_GroupID_Id (String id);
 }

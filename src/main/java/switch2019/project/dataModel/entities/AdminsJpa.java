@@ -69,6 +69,6 @@ public class AdminsJpa {
 
     @Override
     public String toString() {
-        return "MembersJpa{id=" + id + '}';
+        return "AdminsJpa{id=" + id + '}';
     }
 }
