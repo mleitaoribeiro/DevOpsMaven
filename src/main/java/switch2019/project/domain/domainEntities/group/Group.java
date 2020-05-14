@@ -32,8 +32,9 @@ public class Group implements Owner {
         this.groupCreator = groupCreator;
     }
 
-    //Construtor with 2 list:Admins and members
-    public Group(Set<PersonID> members, Set<PersonID> admins, DateAndTime startingDate) {
+    public Group(Description description, PersonID groupCreator,Set<PersonID> members, Set<PersonID> admins, DateAndTime startingDate) {
+        setGroupID(description);
+        this.addMember(groupCreator);
         this.members = members;
         this.admins = admins;
         this.startingDate = startingDate;
