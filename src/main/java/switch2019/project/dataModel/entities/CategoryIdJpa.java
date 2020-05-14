@@ -1,8 +1,10 @@
 package switch2019.project.dataModel.entities;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class CategoryIdJpa implements Serializable {
 
     private String denomination;

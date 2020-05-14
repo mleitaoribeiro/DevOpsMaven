@@ -44,6 +44,14 @@ public class MembersJpa {
             return Objects.hash(groupID, person_ID);
         }
 
+        @Override
+        public String toString() {
+            return "MembersIdJpa{" +
+                    "groupID=" + groupID.toString() +
+                    ", person_ID='" + person_ID + '\'' +
+                    '}';
+        }
+
         public GroupJpa getGroupID() {
             return groupID;
         }
@@ -63,12 +71,25 @@ public class MembersJpa {
         this.id = new MembersIdJpa(groupID, personID);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MembersJpa that = (MembersJpa) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     public MembersIdJpa getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "MembersJpa{id=" + id + '}';
+        return "MembersJpa{" + id.toString() + "}";
     }
 }

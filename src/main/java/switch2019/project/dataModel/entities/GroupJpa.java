@@ -1,10 +1,7 @@
 
 package switch2019.project.dataModel.entities;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
 
 @Entity(name ="groups")
 public class GroupJpa {

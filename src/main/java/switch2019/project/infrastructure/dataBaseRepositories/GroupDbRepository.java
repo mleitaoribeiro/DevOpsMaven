@@ -63,7 +63,7 @@ public class GroupDbRepository implements GroupRepository {
         membersJpaRepository.save(memberJpa);
         adminsJpaRepository.save(adminsJpa);
 
-        return GroupDomainDataAssembler.toDomain(newGroup);
+        return group;
     }
 
     /**
@@ -116,9 +116,8 @@ public class GroupDbRepository implements GroupRepository {
     public List<Group> getAllGroups() {
         List<GroupJpa> groupJpa = groupJpaRepository.findAll();
         List<Group> groups = new ArrayList<>();
-        for (GroupJpa groupJpa1 : groupJpa) {
+        for (GroupJpa groupJpa1 : groupJpa)
             groups.add(getByID(new GroupID(new Description(groupJpa1.getId()))));
-        }
         return groups;
     }
 
@@ -140,14 +139,15 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public boolean addMember(Group group, String personID) {
+        List<MembersJpa> membersJpasList =  findMembersByGroupId(group.toString());
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
-
         MembersJpa memberJpa = new MembersJpa(groupJpa, personID);
 
-        membersJpaRepository.save(memberJpa);
-
-        return true;
+        if (personID != null && !membersJpasList.contains(memberJpa)) {
+            membersJpaRepository.save(memberJpa);
+            return true;
+        } else return false;
     }
 
 
@@ -169,14 +169,18 @@ public class GroupDbRepository implements GroupRepository {
      * @return
      */
     public boolean setAdmin(Group group, String personID) {
+        List<MembersJpa> membersJpasList =  findMembersByGroupId(group.toString());
+        List<AdminsJpa> adminsJpasList =  findAdminsByGroupId(group.toString());
 
         GroupJpa groupJpa = GroupDomainDataAssembler.toData(group);
-
+        MembersJpa memberJpa = new MembersJpa(groupJpa, personID);
         AdminsJpa adminsJpa = new AdminsJpa(groupJpa, personID);
 
-        adminsJpaRepository.save(adminsJpa);
-
-        return true;
+        if(membersJpasList.contains(memberJpa) && !adminsJpasList.contains(adminsJpa)) {
+            adminsJpaRepository.save(adminsJpa);
+            return true;
+        }
+        return false;
     }
 
     /**

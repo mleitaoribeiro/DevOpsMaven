@@ -1,12 +1,7 @@
 package switch2019.project.dataModel.entities;
 import javax.persistence.*;
-import lombok.Data;
-import lombok.ToString;
-
 import java.util.Objects;
 
-@Data
-@ToString
 @Entity(name ="accounts")
 public class AccountJpa {
 

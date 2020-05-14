@@ -14,6 +14,8 @@ public interface CategoryJpaRepository extends JpaRepository<CategoryJpa, String
     Optional<CategoryJpa> findById(String id);
     Optional<CategoryJpa>  findByCategoryIdJpa (CategoryIdJpa categoryIdjpa);
     List<CategoryJpa> findAllByCategoryIdJpa_Owner (String ownerID);
+
+
 }
 
 
