@@ -3,6 +3,10 @@ package switch2019.project.dataModel.entities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.person.Person;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +20,47 @@ class AddressJpaTest {
     }
 
     @Test
+    @DisplayName("Test equals null object")
+    void testEqualsNullObject() {
+        //Arrange
+        AddressJpa nullAddress = null;
+
+        //Assert
+        assertNotEquals(nullAddress, adressjpa);
+    }
+
+    @Test
+    @DisplayName("Test equals different object")
+    void testEqualsDifferentObject() {
+        //Arrange
+        AddressJpa otherAddress = new AddressJpa("Avenida António Domingues", "Matosinhos", "4200-500");
+
+        //Assert
+        assertNotEquals(otherAddress, adressjpa);
+    }
+
+    @Test
+    @DisplayName("Test equals different class object")
+    void testEqualsDifferentClassObject() {
+        //Arrange
+        Address address = new Address("Rua das Almas", "Coimbra", "4601-501");
+        //Assert
+        assertNotEquals(address, adressjpa);
+    }
+
+    @Test
+    @DisplayName("Test hashcode")
+    void testHashcode() {
+        //Arrange
+        AddressJpa sameAddress = adressjpa;
+        AddressJpa otherAddress = new AddressJpa("Rua da Alegria", "Porto", "4620-555");
+
+        // Assert
+        assertEquals(sameAddress.hashCode(),adressjpa.hashCode());
+        assertNotEquals(sameAddress.hashCode(), otherAddress.hashCode());
+    }
+    @Test
+    @DisplayName("Get street - success ")
     void getStreet() {
         //Arrange
         String expected = "Rua das Almas";
@@ -28,6 +73,7 @@ class AddressJpaTest {
     }
 
     @Test
+    @DisplayName("Get city - success ")
     void getCity() {
         //Arrange
         String expected = "Coimbra";
@@ -41,6 +87,7 @@ class AddressJpaTest {
     }
 
     @Test
+    @DisplayName("Get postal code - success ")
     void getPostalCode() {
         //Arrange
         String expected = "4601-501";
