@@ -35,7 +35,7 @@ class GroupsInMemoryRepositoryTest {
         Group groupCreated = groupsRepository.createGroup(new Description("Test Person"), person1.getID());
 
         //Assert
-        assertEquals(expected,groupCreated);
+        assertEquals(expected, groupCreated);
 
     }
 
@@ -49,9 +49,8 @@ class GroupsInMemoryRepositoryTest {
 
         //Act
         try {
-             groupsRepository.createGroup(null, person1.getID());
-        }
-        catch (IllegalArgumentException ex) {
+            groupsRepository.createGroup(null, person1.getID());
+        } catch (IllegalArgumentException ex) {
             assertEquals("The description can't be null.", ex.getMessage());
         }
     }
@@ -112,7 +111,7 @@ class GroupsInMemoryRepositoryTest {
         Group groupCreated = groupsRepository.createGroup(new Description("Grupo Diferente"), person1.getID());
 
         //Assert
-        assertEquals(expected,groupCreated);
+        assertEquals(expected, groupCreated);
     }
 
     @Test
@@ -142,8 +141,8 @@ class GroupsInMemoryRepositoryTest {
         GroupRepository groupList = new GroupsInMemoryRepository();
 
         //Act
-        groupList.createGroup(new Description("Amigos"),person.getID());
-        groupList.createGroup(new Description("Pokémons"),person.getID());
+        groupList.createGroup(new Description("Amigos"), person.getID());
+        groupList.createGroup(new Description("Pokémons"), person.getID());
         long result = groupList.repositorySize();
 
         //Assert
@@ -168,7 +167,6 @@ class GroupsInMemoryRepositoryTest {
         //Assert
         //assertTrue(groupAdded);
     }
-
 
 
     /**
@@ -198,7 +196,7 @@ class GroupsInMemoryRepositoryTest {
 
         // Group
         Set<PersonID> familyMembersToAdd = new LinkedHashSet<>(Arrays.asList(oscar.getID(), marta.getID(), joao.getID(), carlosDAD.getID()));
-        Group family = new Group(new Description("Family"),manuelaMOM.getID());
+        Group family = new Group(new Description("Family"), manuelaMOM.getID());
         family.addMember(manuelaMOM.getID());
         family.addMultipleMembers(familyMembersToAdd);
         //globalGroupsRepository.addGroupToRepository(family);
@@ -207,7 +205,7 @@ class GroupsInMemoryRepositoryTest {
         // Second global group - All Family 2
         Person homer = new Person("Homer", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("novoMail@isep.pt"));
-        Person marge = new Person("Marge",new DateAndTime(1990, 12, 4), new Address("Springfield"),
+        Person marge = new Person("Marge", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), new Email("novoMail2@isep.pt"));
         Person bart = new Person("Bart", new DateAndTime(1990, 12, 4), new Address("Springfield"),
                 new Address("Rua B", "Porto", "4520-233"), marge.getID(), homer.getID(), new Email("novoMail3@isep.pt"));
@@ -218,7 +216,7 @@ class GroupsInMemoryRepositoryTest {
 
         // Group
         Set<PersonID> simpsonsMembersToAdd = new LinkedHashSet<>(Arrays.asList(marge.getID(), bart.getID(), lisa.getID(), maggie.getID()));
-        Group simpsons = new Group(new Description("Simpsons"),homer.getID());
+        Group simpsons = new Group(new Description("Simpsons"), homer.getID());
         simpsons.addMember(homer.getID());
         simpsons.addMultipleMembers(simpsonsMembersToAdd);
         //globalGroupsRepository.addGroupToRepository(simpsons);
@@ -229,14 +227,14 @@ class GroupsInMemoryRepositoryTest {
                 new Address("Rua B", "Gaia", "4520-233"), new Email("email@isep.pt"));
         Person diana = new Person("Diana", new DateAndTime(1990, 12, 4), new Address("Porto"),
                 new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD.getID(), new Email("email2@isep.pt"));
-        Person elsa = new Person("Elsa",new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
+        Person elsa = new Person("Elsa", new DateAndTime(1990, 12, 4), new Address("Matosinhos"),
                 new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD.getID(), new Email("email3@isep.pt"));
         Person ines = new Person("Ines", new DateAndTime(1990, 12, 4), new Address("Paranhos"),
                 new Address("Rua B", "Gaia", "4520-233"), null, joaoDAD.getID(), new Email("email4@isep.pt"));
 
         // Group
         Set<PersonID> noMomMembersToAdd = new LinkedHashSet<>(Arrays.asList(diana.getID(), elsa.getID(), ines.getID()));
-        Group familyWithNoMom = new Group(new Description("Family with no Mom"),joaoDAD.getID());
+        Group familyWithNoMom = new Group(new Description("Family with no Mom"), joaoDAD.getID());
         familyWithNoMom.addMember(joaoDAD.getID());
         familyWithNoMom.addMultipleMembers(noMomMembersToAdd);
         //globalGroupsRepository.addGroupToRepository(familyWithNoMom);
@@ -252,7 +250,7 @@ class GroupsInMemoryRepositoryTest {
 
         // Group
         Set<PersonID> martasGroupMembersToAdd = new LinkedHashSet<>(Arrays.asList(martaC.getID(), martaP.getID()));
-        Group martaGroup = new Group(new Description("Marta's group"),martaR.getID());
+        Group martaGroup = new Group(new Description("Marta's group"), martaR.getID());
         martaGroup.addMember(martaR.getID());
         martaGroup.addMultipleMembers(martasGroupMembersToAdd);
         //globalGroupsRepository.addGroupToRepository(martaGroup);
@@ -270,7 +268,7 @@ class GroupsInMemoryRepositoryTest {
 
         // Group
         Set<PersonID> bojackGangMembersToAdd = new LinkedHashSet<>(Arrays.asList(carolyn.getID(), todd.getID(), diane.getID()));
-        Group bojackGang = new Group(new Description("Bojack's Gang"),bojack.getID());
+        Group bojackGang = new Group(new Description("Bojack's Gang"), bojack.getID());
         bojackGang.addMember(bojack.getID());
         bojackGang.addMultipleMembers(bojackGangMembersToAdd);
         //globalGroupsRepository.addGroupToRepository(bojackGang);
@@ -284,43 +282,43 @@ class GroupsInMemoryRepositoryTest {
     }
 
 
-  /*  @Test
-    @DisplayName("getting group by its description")
-    void getGroupByDescriptionTestException(){
-        //Arrange:
-        GroupRepository groupsRepository = new GroupsInMemoryRepository();
-        PersonRepository personRepository = new PersonInMemoryRepository();
+    /*  @Test
+      @DisplayName("getting group by its description")
+      void getGroupByDescriptionTestException(){
+          //Arrange:
+          GroupRepository groupsRepository = new GroupsInMemoryRepository();
+          PersonRepository personRepository = new PersonInMemoryRepository();
 
-        personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
-                new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
-
-
-        groupsRepository.createGroup(new Description("BLA BLA"),personRepository.findPersonByEmail(new Email("1234@isep.pt")).getID());
+          personRepository.createPerson("Homer", new DateAndTime(1996, 3, 4),
+                  new Address("Porto"), new Address("Porto", "Rua de Santana", "4465-740"), new Email("1234@isep.pt"));
 
 
-        //Act:
-        try {
-            groupsRepository.findGroupByDescription(new Description("BLA BLA"));
-        }
+          groupsRepository.createGroup(new Description("BLA BLA"),personRepository.findPersonByEmail(new Email("1234@isep.pt")).getID());
 
-        //Assert:
-        catch (IllegalArgumentException error){
-            assertEquals("No group was found with the given description", error.getMessage());
-        }
-    }
-*/
+
+          //Act:
+          try {
+              groupsRepository.findGroupByDescription(new Description("BLA BLA"));
+          }
+
+          //Assert:
+          catch (IllegalArgumentException error){
+              assertEquals("No group was found with the given description", error.getMessage());
+          }
+      }
+  */
     @Test
     void findGroupByID() {
         //Arrange
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupRepository groupsRepository= new GroupsInMemoryRepository();
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person.getID());
-        Group expected= new Group(new Description("Familia"),person.getID());
+        Group expected = new Group(new Description("Familia"), person.getID());
 
         //Act
-        Group actual=groupsRepository.getByID(new GroupID(new Description("Familia")));
+        Group actual = groupsRepository.getByID(new GroupID(new Description("Familia")));
 
         //Assert
         assertEquals(expected, actual);
@@ -333,17 +331,15 @@ class GroupsInMemoryRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupRepository groupsRepository= new GroupsInMemoryRepository();
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person.getID());
-        Group expected= new Group(new Description("Familia"),person.getID());
+        Group expected = new Group(new Description("Familia"), person.getID());
 
         //Act102
 
-        try{groupsRepository.getByID(new GroupID(new Description("Familia")));}
-
-
-
-        catch(IllegalArgumentException error) {    //Assert
+        try {
+            groupsRepository.getByID(new GroupID(new Description("Familia")));
+        } catch (IllegalArgumentException error) {    //Assert
             assertEquals("No group found with that ID.", error);
         }
     }
@@ -360,7 +356,7 @@ class GroupsInMemoryRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupRepository groupsRepository= new GroupsInMemoryRepository();
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person.getID());
 
         //Act
@@ -377,7 +373,7 @@ class GroupsInMemoryRepositoryTest {
         Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
                 new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
 
-        GroupRepository groupsRepository= new GroupsInMemoryRepository();
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
         groupsRepository.createGroup(new Description("Familia"), person.getID());
 
         //Act
@@ -387,4 +383,37 @@ class GroupsInMemoryRepositoryTest {
         assertTrue(groupIDexists);
     }
 
+    @Test
+    void setAdminTrue() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+        Group group = groupsRepository.createGroup(new Description("Familia"), person.getID());
+        String personID = "11234@isep.ipp.pt";
+
+        //Act:
+
+        boolean result = groupsRepository.setAdmin(group, personID);
+
+        //Assert:
+        assertTrue(result);
+    }
+
+    @Test
+    void addMember() {
+        //Arrange
+        Person person = new Person("Marta", new DateAndTime(1996, 4, 27),
+                new Address("Porto"), new Address("Rua X", "Porto", "4450-365"), new Email("1234@isep.pt"));
+
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+        Group group = groupsRepository.createGroup(new Description("Familia"), person.getID());
+        String personID = "12345@isep.pt";
+        //Act
+        boolean memberAddded = groupsRepository.addMember(group, personID);
+
+        //Assert
+        assertTrue(memberAddded);
+    }
 }
