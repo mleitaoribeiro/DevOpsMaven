@@ -363,6 +363,8 @@ public class DataBaseLoader {
         Group rickAndMortyGroup = groupRepository.createGroup( new Description("Rick and Morty"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
+        groupRepository.addMember(rickAndMortyGroup, "morty@gmail.com");
+
         //Group morty - 1 Admin - 1 Member
 
         Group intergalacticGroup = groupRepository.createGroup( new Description("Intergalactic"),

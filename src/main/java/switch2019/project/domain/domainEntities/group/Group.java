@@ -22,11 +22,12 @@ public class Group implements Owner {
         this.groupCreator=groupCreator;
     }
 
-    public Group(Description description, PersonID groupCreator, DateAndTime dateAndTime) {
+    public Group(Description description, PersonID groupCreator, DateAndTime dateAndTime,
+                 Set<PersonID> members, Set<PersonID> admins) {
         setGroupID(description);
         startingDate = dateAndTime;
-        members = new HashSet<>();
-        admins = new HashSet<>();
+        this.members = members;
+        this.admins = admins;
         this.addMember(groupCreator);
         this.groupCreator=groupCreator;
     }

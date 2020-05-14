@@ -88,6 +88,10 @@ public class MembersJpa {
         return id;
     }
 
+    public String getPersonID() {
+        return id.getPersonID();
+    }
+
     @Override
     public String toString() {
         return "MembersJpa{" + id.toString() + "}";

@@ -37,6 +37,10 @@ public class GroupJpa {
         return groupCreator;
     }
 
+    public String getCreationDate() {
+        return creationDate;
+    }
+
     /*public List<MembersJpa> getMembers() {
         return members;
     }

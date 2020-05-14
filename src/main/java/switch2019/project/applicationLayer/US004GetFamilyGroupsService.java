@@ -17,6 +17,7 @@ import java.util.*;
 public class US004GetFamilyGroupsService {
 
     @Autowired
+    @Qualifier("GroupInMemoryRepository")
     private GroupRepository groupsRepository;
 
     @Autowired
