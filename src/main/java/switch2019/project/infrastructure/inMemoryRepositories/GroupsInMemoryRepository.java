@@ -89,7 +89,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
     }
 
     public List <Group> getAllGroups() {
-        return groups;
+        return new ArrayList<>(groups);
     }
 
     /**
