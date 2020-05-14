@@ -2,6 +2,7 @@ package switch2019.project.dataModel.entities;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class AccountIDJpa implements Serializable {
@@ -19,6 +20,12 @@ public class AccountIDJpa implements Serializable {
         return denomination.equalsIgnoreCase(key.denomination)
                 && owner.equalsIgnoreCase(key.owner);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(denomination, owner);
+    }
+
 
     public AccountIDJpa(String owner, String denomination) {
         this.owner = owner;

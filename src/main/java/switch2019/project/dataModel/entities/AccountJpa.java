@@ -18,6 +18,21 @@ public class AccountJpa {
         this.balance = balance;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AccountJpa)) return false;
+        AccountJpa that = (AccountJpa) o;
+        return Objects.equals(accountIDJpa, that.accountIDJpa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountIDJpa);
+    }
+
+
     public AccountIDJpa getAccountIDJpa() {
         return accountIDJpa;
     }
@@ -48,18 +63,5 @@ public class AccountJpa {
 
     public AccountIDJpa getAccountKeyJpa() { return accountIDJpa; }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AccountJpa)) return false;
-        AccountJpa that = (AccountJpa) o;
-        return Objects.equals(accountIDJpa, that.accountIDJpa) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(balance, that.balance);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountIDJpa, description, balance);
-    }
 }
