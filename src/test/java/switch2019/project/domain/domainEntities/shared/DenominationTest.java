@@ -2,6 +2,7 @@ package switch2019.project.domain.domainEntities.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sun.security.krb5.internal.crypto.Des;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -150,6 +151,16 @@ class DenominationTest {
         assertEquals(denomination, denomination);
     }
 
+    @Test
+    @DisplayName("Verify if two denominations are the same - different class")
+    void twoDenominationAreEqualsDifferentClass() {
+        //Arrange
+        Denomination denomination = new Denomination("Health");
+        Description description = new Description("Gym");
+
+        //Assert
+        assertNotEquals(denomination, description);
+    }
 
 
     @Test
@@ -159,7 +170,7 @@ class DenominationTest {
         Person person = new Person("John", new DateAndTime(2000, 12, 4), new Address("London"),
                 new Address("Rua B", "Feira", "4520-233"), new Email("1234@isep.pt"));
         Denomination denomination = new Denomination("Dinner");
-        Group group = new Group(new Description("Friends"),person.getID());
+        Group group = new Group(new Description("Friends"), person.getID());
 
         //Act:
         boolean result = denomination.equals(group);
@@ -196,4 +207,16 @@ class DenominationTest {
         assertNotEquals(denomination.hashCode(), otherDenomination.hashCode());
     }
 
+    @Test
+    @DisplayName("Test to method: getDenomination")
+    void getDenominationValue() {
+        //Arrange:
+        Denomination denomination = new Denomination("Expenses");
+
+        //Act
+        String denominationResult = denomination.getDenominationValue();
+
+        //Assert
+        assertEquals("EXPENSES", denominationResult);
+    }
 }
