@@ -20,10 +20,12 @@ class GroupJpaTest {
 
         //Act
         boolean result = groupJpa.equals(groupJpa2);
+        boolean result1 = groupJpa.equals(groupJpa);
 
         //Assert
-        assertTrue(result);
+        assertTrue(result && result1);
     }
+
     @Test
     void testEqualsNull() {
         //Arrange
@@ -57,9 +59,11 @@ class GroupJpaTest {
         //Arrange
         GroupJpa groupJpa = new GroupJpa("SWITCH", "1191762@isep.ipp.pt", "2002-09-10");
 
-        GroupJpa groupJpa2 = new GroupJpa("SWITCH", "1191762@isep.ipp.pt", "2002-09-10");
+        GroupJpa groupJpa1 = new GroupJpa("SWITCH", "1191762@isep.ipp.pt", "2002-09-10");
 
+        GroupJpa groupJpa2 = new GroupJpa("!Switch", "mail@msil.com", "2002-09-10");
         //Assert
-        assertEquals(groupJpa.hashCode(), groupJpa2.hashCode());
+        assertEquals(groupJpa.hashCode(), groupJpa1.hashCode());
+        assertNotEquals(groupJpa.hashCode(), groupJpa2.hashCode());
     }
 }

@@ -3,7 +3,6 @@ package switch2019.project.domain.domainEntities.group;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.domainEntities.frameworks.Owner;
 import switch2019.project.domain.domainEntities.person.Person;
-
 import java.util.*;
 
 public class Group implements Owner {
@@ -20,7 +19,7 @@ public class Group implements Owner {
         members = new HashSet<>();
         admins = new HashSet<>();
         this.addMember(groupCreator);
-        this.groupCreator = groupCreator;
+        this.groupCreator=groupCreator;
     }
 
     public Group(Description description, PersonID groupCreator, DateAndTime dateAndTime,
@@ -30,7 +29,7 @@ public class Group implements Owner {
         this.members = members;
         this.admins = admins;
         this.addMember(groupCreator);
-        this.groupCreator = groupCreator;
+        this.groupCreator=groupCreator;
     }
 
     @Override
@@ -157,7 +156,7 @@ public class Group implements Owner {
      * @return
      */
     public Set<PersonID> getAdmins() {
-        Set<PersonID> auxAdmins = new HashSet<>();
+       Set<PersonID> auxAdmins =  new HashSet<>();
         auxAdmins.addAll(this.admins);
         return auxAdmins;
     }
@@ -167,7 +166,7 @@ public class Group implements Owner {
      * @return
      */
     public Set<PersonID> getMembers() {
-        Set<PersonID> auxMembers = new HashSet<>();
+        Set<PersonID> auxMembers =  new HashSet<>();
         auxMembers.addAll(this.members);
         return auxMembers;
     }
@@ -185,7 +184,7 @@ public class Group implements Owner {
         return false;
     }
 
-    public String getStartingDate() {
+    public String getStartingDate(){
         return this.startingDate.yearMonthDayToString();
     }
 
