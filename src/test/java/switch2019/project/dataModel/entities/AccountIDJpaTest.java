@@ -100,7 +100,6 @@ class AccountIDJpaTest {
         AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
 
         //Act
-
         boolean equalObjects = accountIDJpa.equals(null);
 
         // Assert
@@ -152,12 +151,38 @@ class AccountIDJpaTest {
      */
 
     @Test
+    @DisplayName("Test getDenomination")
     void getDenomination() {
+
+        //Arrange
+        AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
+
+        String expectedDenomination = "Revolut";
+
+        //Act
+        String realDenomination = accountIDJpa.getDenomination();
+
+        // Assert
+        assertEquals(expectedDenomination, realDenomination);
+
     }
 
 
     @Test
+    @DisplayName("Test getOwner")
     void getOwner() {
+
+        //Arrange
+        AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
+
+        String expectedOwner = "SWITCH";
+
+        //Act
+        String realOwner = accountIDJpa.getOwner();
+
+        // Assert
+        assertEquals(expectedOwner, realOwner);
+
     }
 
 
@@ -166,10 +191,39 @@ class AccountIDJpaTest {
      */
 
     @Test
+    @DisplayName("Test setDenomination")
     void setDenomination() {
+
+        //Arrange
+        AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
+
+        String expectedDenomination = "Revo";
+
+        //Act
+        accountIDJpa.setDenomination(expectedDenomination);
+
+        String realDenomination = accountIDJpa.getDenomination();
+
+        // Assert
+        assertEquals(expectedDenomination, realDenomination);
     }
 
     @Test
+    @DisplayName("Test setOwner")
     void setOwner() {
+
+        //Arrange
+        AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
+
+        String expectedOwner = "blablabla";
+
+        //Act
+        accountIDJpa.setOwner(expectedOwner);
+
+        String realOwner = accountIDJpa.getOwner();
+
+        // Assert
+        assertEquals(expectedOwner, realOwner);
+
     }
 }
