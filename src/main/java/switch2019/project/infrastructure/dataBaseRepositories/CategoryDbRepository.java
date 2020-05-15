@@ -99,7 +99,7 @@ public class CategoryDbRepository implements CategoryRepository {
     public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
         if (isIDOnRepository(new CategoryID(categoryToRemove, ownerID))) {
             CategoryJpa categoryJpa = new CategoryJpa(categoryToRemove.getDenominationValue(), ownerID.toString());
-            categoryJpaRepository.deleteById(categoryJpa.getCategoryKeyJPA().toString());
+            categoryJpaRepository.deleteById(categoryJpa.getCategoryIdJpa().toString());
             return true;
         }
         return false;

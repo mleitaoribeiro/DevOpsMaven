@@ -8,6 +8,7 @@ participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
 participant "info:createGroupCategoryInfoDTO"
 participant "CategoryDTOAssembler"
+participant "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
 participant "restController:\nUS005_1AdminAddsCategoryControllerRest"
 participant "categoryDTO:CategoryDTO"
 participant "service:\nUS005_1AdminAddsCategoryToGroupService"
@@ -15,7 +16,7 @@ participant "service:\nUS005_1AdminAddsCategoryToGroupService"
 == Arrange ==
 autonumber
 create "inputDTO:\ncreateGroupCategoryInfoDTO"
-"HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(\n personEmail, accountDenomination, accountDescription);
+"HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(\n personEmail, categoryDenomination);
 activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
@@ -52,7 +53,7 @@ autonumber 3.3.2
 "restController:\nUS005_1AdminAddsCategoryControllerRest"->"service:\nUS005_1AdminAddsCategoryToGroupService": addCategoryDTOGroup(createGroupCategoryDTO)
 activate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
 autonumber 3.3.2.1
-
+|||
 ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_1AdminAddsCategory_Part2
 "service:\nUS005_1AdminAddsCategoryToGroupService" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : categoryDTO
 
@@ -80,9 +81,6 @@ autonumber 3.4
 "HTTP Client (Test)" <-- "mvc:MockMvc" : {jsonResponse}
 deactivate "mvc:MockMvc"
 
-create "resultAction:ResultAction"
-"resultAction:ResultAction" <-- "mvc:MockMvc" : create
-activate "resultAction:ResultAction" #FFBBBB
 deactivate "mvc:MockMvc"
 
 autonumber 4

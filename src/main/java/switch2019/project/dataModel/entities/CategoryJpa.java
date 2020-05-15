@@ -17,7 +17,7 @@ public class CategoryJpa {
         categoryIdJpa = new CategoryIdJpa(owner, denomination);
     }
 
-    public CategoryIdJpa getCategoryKeyJPA() {
+    public CategoryIdJpa getCategoryIdJpa() {
         return categoryIdJpa;
     }
 
