@@ -13,10 +13,8 @@ participant "mvc:MockMvc"
 participant "info:createGroupInfoDTO"
 participant "restController:US2.1CreateGroupControllerRest"
 participant "service:US2.1CreateGroupService"
+participant "groupDTO:GroupDTO"
 participant ":GroupDTOAssembler"
-participant "personRep:PersonRepository"
-participant "groupsRep:GroupsRepository"
-participant "groupID:GroupID"
 
 == Arrange ==
 
@@ -79,6 +77,7 @@ deactivate ":GroupDTOAssembler"
 
 autonumber 4.3.2
 "restController:US2.1CreateGroupControllerRest" -> "service:US2.1CreateGroupService" : createGroup(createGroupDTO)
+|||
 ref over "service:US2.1CreateGroupService": service:US2.1CreateGroup_Part2
 
 activate "service:US2.1CreateGroupService" #FFBBBB
@@ -100,7 +99,6 @@ deactivate "restController:US2.1CreateGroupControllerRest"
 
 autonumber 4.4
 "mvc:MockMvc" -> "mvc:MockMvc" : [serialize responseEntity]
-activate "mvc:MockMvc" #FFBBBB
 
 autonumber 4.4.1
 create "resultAction: ResultActions"
