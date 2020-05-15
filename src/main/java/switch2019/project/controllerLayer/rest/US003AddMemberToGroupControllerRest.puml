@@ -8,7 +8,7 @@ participant "HTTP Client (Test)"
 participant "inputDTO:\naddMemberInfoDTO"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
-participant "infoDTO:CreatePersonAccountInfoDTO"
+participant "infoDTO:addMemberInfoDTO"
 participant "restController:US003AddMemberToGroupControllerRest"
 participant ":GroupDTOAssembler"
 participant "addMemberInfoDTO:\nAddMemberInfoDTO"
@@ -30,8 +30,8 @@ activate "mvc:MockMvc"  #FFBBBB
 autonumber 3.1
 "mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
 
-create "infoDTO:CreatePersonAccountInfoDTO"
-"mvc:MockMvc"->"infoDTO:CreatePersonAccountInfoDTO": create
+create "infoDTO:addMemberInfoDTO"
+"mvc:MockMvc"->"infoDTO:addMemberInfoDTO": create
 
 create "restController:US003AddMemberToGroupControllerRest"
 "mvc:MockMvc"-> "restController:US003AddMemberToGroupControllerRest" : addMember(groupDescription, addMemberInfoDTO)
@@ -54,7 +54,7 @@ create "addMemberDTO:\nAddMemberDTO"
 deactivate ":GroupDTOAssembler"
 
 autonumber 3.3.2
-"restController:US003AddMemberToGroupControllerRest" -> "service:\nUS003AddMemberToGroupService" : createGroup(addMemberDTO)
+"restController:US003AddMemberToGroupControllerRest" -> "service:\nUS003AddMemberToGroupService" : addMemberToGroup(addMemberDTO)
 activate "service:\nUS003AddMemberToGroupService" #FFBBBB
 |||
 ref over "service:\nUS003AddMemberToGroupService" : US003AddMemberToGroup_Part2
@@ -74,7 +74,7 @@ return responseEntity = ResponseEntity<> (addedMemberDTO, HttpStatus.CREATED)
 
 deactivate "restController:US003AddMemberToGroupControllerRest"
 
-autonumber 3.3.5
+autonumber 3.3.7
 "mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
 deactivate "mvc:MockMvc"
 
