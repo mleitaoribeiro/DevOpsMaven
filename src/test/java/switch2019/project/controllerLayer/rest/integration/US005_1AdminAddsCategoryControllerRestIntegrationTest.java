@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest {
 
     @Override
@@ -548,10 +550,10 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
     void getCategoryByCategoryID() throws Exception {
 
         //Arrange
-        String uri = "/groups/Smith Family/categories/Online";
+        String uri = "/groups/SWITCH/categories/Online";
 
         String categoryDenomination = "ONLINE";
-        String ownerID = "SMITH FAMILY";
+        String ownerID = "SWITCH";
 
 
         //Act
@@ -563,11 +565,11 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
         //Assert
-        // Assertions.assertAll(
-        //        () -> assertEquals(200, status),
-        //        () -> assertEquals(categoryDenomination.toUpperCase(), result.getString("denomination")),
-        //        () -> assertEquals(ownerID.toUpperCase(),result.getString("ownerID"))
-        //);
+        Assertions.assertAll(
+               () -> assertEquals(200, status),
+                () -> assertEquals(categoryDenomination.toUpperCase(), result.getString("denomination")),
+               () -> assertEquals(ownerID.toUpperCase(),result.getString("ownerID"))
+        );
     }
 
     @Test
@@ -638,8 +640,8 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         String uri = "/groups/Switch/categories/";
 
         String expectedLink1 = "[{\"rel\":\"self\",\"href\":\"http:\\/\\/localhost\\/groups\\/ISEP\\/categories\\/Switch\"}]";
-        String expectedLink2 = "[{\"rel\":\"self\",\"href\":\"http:\\/\\/localhost\\/groups\\/GYM\\/categories\\/Switch\"}]";
-
+        String expectedLink2 = "[{\"rel\":\"self\",\"href\":\"http:\\/\\/localhost\\/groups\\/ONLINE\\/categories\\/Switch\"}]";
+        String expectedLink3 = "[{\"rel\":\"self\",\"href\":\"http:\\/\\/localhost\\/groups\\/GYM\\/categories\\/Switch\"}]";
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -652,16 +654,19 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
 
         //Assert
-/*        Assertions.assertAll(
+       Assertions.assertAll(
                 () -> assertEquals(200, status),
 
                 () -> assertEquals("ISEP",jArray.getJSONObject(0).getString("categoryDenomination")),
                 () -> assertEquals(expectedLink1, jArray.getJSONObject(0).getString("links")),
 
-                () -> assertEquals("GYM",jArray.getJSONObject(1).getString("categoryDenomination")),
-                () -> assertEquals(expectedLink2, jArray.getJSONObject(1).getString("links"))
+                () -> assertEquals("ONLINE",jArray.getJSONObject(1).getString("categoryDenomination")),
+                () -> assertEquals(expectedLink2, jArray.getJSONObject(1).getString("links")),
 
-                );*/
+                () -> assertEquals("GYM",jArray.getJSONObject(2).getString("categoryDenomination")),
+                () -> assertEquals(expectedLink3, jArray.getJSONObject(2).getString("links"))
+
+                );
     }
 
     @Test

@@ -26,6 +26,10 @@ public class CategoryDbRepository implements CategoryRepository {
     @Autowired
     CategoryJpaRepository categoryJpaRepository;
 
+    // String literals - Exceptions
+    private static final String NO_CATEGORY_FOUND = "No category found with that ID.";
+    private static final String CATEGORY_ALREADY_EXISTS = "This category already exists.";
+    private static final String NULL_OWNER = "Owner ID can't be null.";
 
     /**
      * Find category by ID
@@ -39,7 +43,7 @@ public class CategoryDbRepository implements CategoryRepository {
         Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
         if (categoryJpa.isPresent())
             return CategoryDomainDataAssembler.toDomain(categoryJpa.get());
-        else throw new ArgumentNotFoundException("No category found with that ID.");
+        else throw new ArgumentNotFoundException(NO_CATEGORY_FOUND);
     }
 
 
@@ -53,9 +57,7 @@ public class CategoryDbRepository implements CategoryRepository {
     public boolean isIDOnRepository(ID categoryID) {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
         Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
-        if (categoryJpa.isPresent())
-            return true;
-        else return false;
+        return categoryJpa.isPresent();
     }
 
 
@@ -78,12 +80,12 @@ public class CategoryDbRepository implements CategoryRepository {
      * @return category
      */
 
-    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) throws ResourceAlreadyExistsException {
+    public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
             Category category = new Category(nameOfCategory, ownerID);
             categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
             return category;
-        } else throw new ResourceAlreadyExistsException("This category already exists.");
+        } else throw new ResourceAlreadyExistsException(CATEGORY_ALREADY_EXISTS);
     }
 
 
@@ -133,9 +135,9 @@ public class CategoryDbRepository implements CategoryRepository {
                 listOfCategoriesByOwnerID.add(CategoryDomainDataAssembler.toDomain(categoryJpa));
             if (!listOfCategoriesByOwnerID.isEmpty())
                 return listOfCategoriesByOwnerID;
-            else throw new ArgumentNotFoundException("No category found with that ID.");
+            else throw new ArgumentNotFoundException(NO_CATEGORY_FOUND);
         }
-        throw new IllegalArgumentException("Owner ID can't be null.");
+        throw new IllegalArgumentException(NULL_OWNER);
     }
 }
 

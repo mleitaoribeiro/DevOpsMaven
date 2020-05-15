@@ -22,6 +22,9 @@ public class PersonDbRepository implements PersonRepository {
     @Autowired
     PersonJpaRepository personJpaRepository;
 
+    //String literal - Exceptions
+    private static final String PERSON_NOT_FOUND = "No person found with that email.";
+
     /**
      * Method do create Person without mother/father
      * @param name
@@ -66,7 +69,7 @@ public class PersonDbRepository implements PersonRepository {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
         if(personJpa.isPresent())
             return PersonDomainDataAssembler.toDomain(personJpa.get());
-        else throw new ArgumentNotFoundException("No person found with that ID.");
+        else throw new ArgumentNotFoundException("PERSON_NOT_FOUND");
     }
 
     /**
@@ -89,9 +92,7 @@ public class PersonDbRepository implements PersonRepository {
      */
     public boolean isPersonEmailOnRepository(Email personEmail) {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
-        if(personJpa.isPresent())
-            return true;
-        return false;
+        return personJpa.isPresent();
     }
 
     /**
@@ -102,9 +103,7 @@ public class PersonDbRepository implements PersonRepository {
     @Override
     public boolean isIDOnRepository (ID personID) {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
-        if(personJpa.isPresent())
-            return true;
-        return false;
+        return personJpa.isPresent();
     }
 
 
