@@ -18,7 +18,7 @@ deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 activate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 
-"service:\nUS005_1AdminAddCategoryToCategoryService" -> "createGroupCategoryDTO: \nCreateGroupCategoryDTO" : categoryDenomination = getAccountDenomination()
+"service:\nUS005_1AdminAddCategoryToCategoryService" -> "createGroupCategoryDTO: \nCreateGroupCategoryDTO" : categoryDenomination = getCategoryDenomination()
 activate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
 
@@ -55,7 +55,7 @@ autonumber 1.9.2.1
 activate ":CategoryDomainDataAssembler" #FFBBBB
 ":CategoryDomainDataAssembler"->"category:Category" : groupID = getID()
 activate "category:Category" #FFBBBB
-":CategoryDomainDataAssembler"->"category:Category" : categoryDenomination = getAccountDenomination()
+":CategoryDomainDataAssembler"->"category:Category" : categoryDenomination = getCategoryDenomination()
 deactivate "category:Category"
 create "categoryJpa:CategoryJpa"
 ":CategoryDomainDataAssembler"-->"categoryJpa:CategoryJpa" : create(groupID,categoryDenomination)
