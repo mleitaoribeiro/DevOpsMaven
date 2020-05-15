@@ -16,6 +16,7 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.utils.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -43,7 +44,12 @@ public class US003AddMemberToGroupService {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         boolean wasMemberAdded = groupsRepository.addMember(group, person.getID().toString());
-        return GroupDTOAssembler.createAddedMemberDTO(wasMemberAdded, person, group);
+
+        if (wasMemberAdded) {
+            return GroupDTOAssembler.createAddedMemberDTO(true, person, group);
+        }
+        else throw new ResourceAlreadyExistsException
+                (GroupDTOAssembler.createAddedMemberDTO(false, person, group).toString());
     }
 
     public PersonIDDTO getPersonByEmail(String personEmail, String groupDescription){

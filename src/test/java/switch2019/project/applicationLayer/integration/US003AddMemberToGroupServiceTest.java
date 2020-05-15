@@ -14,6 +14,7 @@ import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -59,10 +60,14 @@ public class US003AddMemberToGroupServiceTest {
         String expected = "1110120@isep.ipp.pt is already on group friends";
 
         //Act
-        AddedMemberDTO addedMemberDTO = service.addMemberToGroup(addMemberDTO);
+        try {
+            service.addMemberToGroup(addMemberDTO);
+        }
+        catch (ResourceAlreadyExistsException e){
+            //Assert
+            assertEquals("1110120@isep.ipp.pt is already on group friends", e.getLocalizedMessage());
+        }
 
-        //Assert
-        assertEquals(expected, addedMemberDTO.getMemberAdded());
     }
 
     @Test

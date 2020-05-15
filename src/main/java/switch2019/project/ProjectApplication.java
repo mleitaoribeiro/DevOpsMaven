@@ -37,6 +37,6 @@ public class ProjectApplication implements ApplicationRunner {
         System.out.println("ApplicationRunner - Started");
         dataInMemoryLoader.bootstrapping();
         dataBaseLoader.bootstrapping();
-        System.out.println("ApplicationRunner - Finished");
+        System.out.println("ApplicationRunner - Running");
     }
 }
