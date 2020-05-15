@@ -1,6 +1,8 @@
 package switch2019.project.dataModel.entities;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.category.Category;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,12 +11,12 @@ public class CategoryJpaTest {
         @Test
         void testEquals() {
             //Arrange
-            CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt","test");
+            CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt","test");
 
-            CategoryJpa groupJpa2 = new CategoryJpa("1191765@isep.ipp.pt","test");
+            CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt","test");
 
             //Act
-            boolean result = groupJpa.equals(groupJpa2);
+            boolean result = categoryJpa.equals(categoryJpa2);
 
             //Assert
             assertTrue(result);
@@ -22,12 +24,12 @@ public class CategoryJpaTest {
         @Test
         void testEqualsNull() {
             //Arrange
-            CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
+            CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
-            CategoryJpa groupJpa2 = null;
+            CategoryJpa categoryJpa2 = null;
 
             //Act
-            boolean result = groupJpa.equals(groupJpa2);
+            boolean result = categoryJpa.equals(categoryJpa2);
 
             //Assert
             assertFalse(result);
@@ -36,59 +38,107 @@ public class CategoryJpaTest {
         @Test
         void testEqualsDifferentObjects() {
             //Arrange
-            CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt","test");
+            CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt","test");
 
-            CategoryJpa groupJpa2 = new CategoryJpa("rick@gmail.com","test");
+            CategoryJpa categoryJpa2 = new CategoryJpa("rick@gmail.com","test");
 
             //Act
-            boolean result = groupJpa.equals(groupJpa2);
+            boolean result = categoryJpa.equals(categoryJpa2);
 
             //Assert
             assertFalse(result);
         }
 
+    @Test
+    @DisplayName("Test Equals -  Different owner")
+    void testEqualsDifferentOwner() {
+
+        //Arrange
+        CategoryJpa categoryJpa = new CategoryJpa("1191762@isep.ipp.pt","test");
+
+        CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt","test");
+
+        //Act
+        boolean equalObjects = categoryJpa.equals(categoryJpa2);
+
+        // Assert
+        assertFalse(equalObjects);
+
+    }
+    @Test
+    @DisplayName("Test Equals -  Different Denomination")
+    void testEqualsDifferentDenomination() {
+
+        //Arrange
+        CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt","test");
+
+        CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt","shop");
+
+        //Act
+        boolean equalObjects = categoryJpa.equals(categoryJpa2);
+
+        // Assert
+        assertFalse(equalObjects);
+
+    }
+    @Test
+    @DisplayName("Test Equals -  Different Objects")
+    void testEqualsDifferent() {
+
+        //Arrange
+        CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt","test");
+
+        CategoryIdJpa categoryIdJpa2 = new CategoryIdJpa ("1191765@isep.ipp.pt","shop");
+
+        //Act
+        boolean equalObjects = categoryJpa.equals(categoryIdJpa2);
+
+        // Assert
+        assertFalse(equalObjects);
+
+    }
         @Test
         void testHashCode() {
             //Arrange
-            CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
+            CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
-            CategoryJpa groupJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "test");
+            CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
             //Assert
-            assertEquals(groupJpa.hashCode(), groupJpa2.hashCode());
+            assertEquals(categoryJpa.hashCode(), categoryJpa2.hashCode());
 
         }
 
     @Test
     void testHashCodeFalse() {
         //Arrange
-        CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
+        CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
-        CategoryJpa groupJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "gg");
+        CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "gg");
 
         //Assert
-        assertNotEquals(groupJpa.hashCode(), groupJpa2.hashCode());
+        assertNotEquals(categoryJpa.hashCode(), categoryJpa2.hashCode());
     }
 
     @Test
     void testToString() {
         //Arrange
-        CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
+        CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
-        CategoryJpa groupJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "test");
+        CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
         //Assert
-        assertEquals(groupJpa.toString(), groupJpa2.toString());
+        assertEquals(categoryJpa.toString(), categoryJpa2.toString());
     }
 
     @Test
     void testToStringFalse() {
         //Arrange
-        CategoryJpa groupJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
+        CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
-        CategoryJpa groupJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "gg");
+        CategoryJpa categoryJpa2 = new CategoryJpa("1191765@isep.ipp.pt", "gg");
 
         //Assert
-        assertNotEquals(groupJpa.toString(), groupJpa2.toString());
+        assertNotEquals(categoryJpa.toString(), categoryJpa2.toString());
     }
 }
