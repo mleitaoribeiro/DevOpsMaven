@@ -78,7 +78,7 @@ public class US003AddMemberToGroupServiceUnitTest {
         }
         catch (ResourceAlreadyExistsException e){
             //Assert
-            assertEquals("1110120@isep.ipp.pt is already on group friends", e.getLocalizedMessage());
+            assertEquals("beatriz.azevedo@gmail.com is already on group split expenses", e.getLocalizedMessage());
         }
     }
 
