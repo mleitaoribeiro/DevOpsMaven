@@ -68,7 +68,7 @@ autonumber 1.9.3
 "categoryRep:CategoryRepository"->":CategoryDomainDataAssembler":toDomain(categoryJpa)
 activate ":CategoryDomainDataAssembler" #FFBBBB
 autonumber 1.9.4.1
-":CategoryDomainDataAssembler"->"categoryJpa:CategoryJpa" : groupID = getCategoryKeyJPA()
+":CategoryDomainDataAssembler"->"categoryJpa:CategoryJpa" : groupID = getCategoryIdJpa()
 activate "categoryJpa:CategoryJpa" #FFBBBB
 ":CategoryDomainDataAssembler"->"categoryJpa:CategoryJpa" : categoryDenomination = getDenomination()
 deactivate "categoryJpa:CategoryJpa"

@@ -40,8 +40,8 @@ public class CategoryDomainDataAssembler {
 
     public static Category toDomain(CategoryJpa categoryJPA) {
 
-        Denomination categoryDenomination = new Denomination(categoryJPA.getCategoryKeyJPA().getDenomination());
-        String owner = categoryJPA.getCategoryKeyJPA().getOwner();
+        Denomination categoryDenomination = new Denomination(categoryJPA.getCategoryIdJpa().getDenomination());
+        String owner = categoryJPA.getCategoryIdJpa().getOwner();
         OwnerID ownerID;
 
         if (isEmail(owner))
