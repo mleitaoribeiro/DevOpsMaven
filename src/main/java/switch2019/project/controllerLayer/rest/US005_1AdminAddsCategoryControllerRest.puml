@@ -57,7 +57,7 @@ autonumber 3.3.2
 activate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
 autonumber 3.3.2.1
 |||
-ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_1AdminAddsCategoryControllerRest_Part2
+ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_1AdminAddsCategory_Part2
 "service:\nUS005_1AdminAddsCategoryToGroupService" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : categoryDTO
 |||
 autonumber 3.3.3
