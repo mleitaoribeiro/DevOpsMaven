@@ -36,4 +36,8 @@ public class AddedMemberDTO extends RepresentationModel<AddedMemberDTO>  {
         return memberAdded;
     }
 
+    @Override
+    public String toString() {
+        return memberAdded;
+    }
 }

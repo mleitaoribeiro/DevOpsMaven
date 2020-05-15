@@ -21,6 +21,7 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -70,11 +71,15 @@ public class US003AddMemberToGroupServiceUnitTest {
         Mockito.when(groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription())))
                 .thenReturn(new Group(new Description(groupDescription), admin.getID()));
 
-        //Act
-        AddedMemberDTO addedMemberDTOresult = service.addMemberToGroup(addMemberDTO);
 
-        //Assert
-        //assertEquals(addedMemberDTOexpected, addedMemberDTOresult);
+        //Act
+        try {
+            service.addMemberToGroup(addMemberDTO);
+        }
+        catch (ResourceAlreadyExistsException e){
+            //Assert
+            assertEquals("1110120@isep.ipp.pt is already on group friends", e.getLocalizedMessage());
+        }
     }
 
 

@@ -89,21 +89,21 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
-                .andExpect(status().isCreated())
+                .andExpect(status().isConflict())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
 
-        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+        //JSONObject result = new JSONObject(mvcResult.getResponse().getErrorMessage());
 
         // Assert
-        /*Assertions.assertAll(
-                () -> assertEquals(201, status),
-                () -> assertEquals(expected, result.getString("memberAdded")),
-                () -> assertEquals(link, result.getString("_links").substring(35)
-                        .replace("\"}}", "")
-                        .replace("\\", ""))
-        );*/
+        Assertions.assertAll(
+                () -> assertEquals(409, status)
+               // () -> assertEquals(expected, result.getString("memberAdded")),
+                //() -> assertEquals(link, result.getString("_links").substring(35)
+                        //.replace("\"}}", "")
+                        //.replace("\\", ""))
+        );
     }
 
     @Test
