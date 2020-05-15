@@ -45,9 +45,8 @@ public class US003AddMemberToGroupService {
         Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
         boolean wasMemberAdded = groupsRepository.addMember(group, person.getID().toString());
 
-        if (wasMemberAdded) {
+        if (wasMemberAdded)
             return GroupDTOAssembler.createAddedMemberDTO(true, person, group);
-        }
         else throw new ResourceAlreadyExistsException
                 (GroupDTOAssembler.createAddedMemberDTO(false, person, group).toString());
     }

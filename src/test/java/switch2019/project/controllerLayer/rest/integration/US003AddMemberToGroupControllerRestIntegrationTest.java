@@ -11,6 +11,7 @@ import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -82,9 +83,6 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson(addMemberInfoDTO);
 
-        String expected = personEmail + " is already on group " + groupDescription;
-        String link = "/groups/" + groupDescription + "/members/" + personEmail;
-
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -93,16 +91,19 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
-        //JSONObject result = new JSONObject(mvcResult.getResponse().getErrorMessage());
+        String expectedException = new ResourceAlreadyExistsException("1191743@isep.ipp.pt is already on group switch").toString();
+        String realException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         // Assert
         Assertions.assertAll(
-                () -> assertEquals(409, status)
-               // () -> assertEquals(expected, result.getString("memberAdded")),
-                //() -> assertEquals(link, result.getString("_links").substring(35)
-                        //.replace("\"}}", "")
-                        //.replace("\\", ""))
+                () -> assertEquals(409, status),
+                () -> assertEquals("409", result.getString("statusCode")),
+                () -> assertEquals("CONFLICT", result.getString("status")),
+                () -> assertEquals("This resource already exists.", result.getString("error")),
+                () -> assertEquals("1191743@isep.ipp.pt is already on group switch", result.getString("message")),
+                () -> assertEquals(expectedException, realException)
         );
     }
 
