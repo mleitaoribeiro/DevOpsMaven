@@ -12,14 +12,12 @@ participant "restController:\nUS005_1AdminAddsCategoryControllerRest"
 participant "categoryDTO:CategoryDTO"
 participant "service:\nUS005_1AdminAddsCategoryToGroupService"
 
-
 == Arrange ==
 autonumber
 create "inputDTO:\ncreateGroupCategoryInfoDTO"
 "HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(\n personEmail, accountDenomination, accountDescription);
 activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
-
 
 == Act ==
 
@@ -31,14 +29,12 @@ autonumber 3.1
 create "info:createGroupCategoryInfoDTO"
 "mvc:MockMvc"-->"info:createGroupCategoryInfoDTO" :create
 
-
 "mvc:MockMvc"-> "restController:\nUS005_1AdminAddsCategoryControllerRest": addCategoryToGroup(groupDescription, info)
 activate "restController:\nUS005_1AdminAddsCategoryControllerRest" #FFBBBB
 autonumber 3.3.1
-"restController:\nUS005_1AdminAddsCategoryControllerRest"-> "CategoryDTOAssembler":transformToCreateGroupCategorytDTO(groupDescription, info)
+"restController:\nUS005_1AdminAddsCategoryControllerRest"-> "CategoryDTOAssembler":transformToCreateGroupCategorytDTO\n(groupDescription, info)
 activate "CategoryDTOAssembler" #FFBBBB
 autonumber 3.3.1.1
-
 
 "CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : personEmail = getPersonEmail();
 activate "info:createGroupCategoryInfoDTO" #FFBBBB
@@ -46,7 +42,7 @@ activate "info:createGroupCategoryInfoDTO" #FFBBBB
 deactivate "info:createGroupCategoryInfoDTO"
 
 create "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
-"CategoryDTOAssembler" -> "createGroupCategoryDTO:\nCreateGroupCategoryDTO" : CreateGroupCategoryDTO = createGroupCategoryDTO(personEmail,groupDescription, \ncategoryDenomination)
+"CategoryDTOAssembler" -> "createGroupCategoryDTO:\nCreateGroupCategoryDTO" : CreateGroupCategoryDTO = \ncreateGroupCategoryDTO\n(personEmail,groupDescription, \ncategoryDenomination)
 deactivate "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
 autonumber 3.3.1.5
 "CategoryDTOAssembler" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : createGroupCategoryDTO
@@ -56,10 +52,10 @@ autonumber 3.3.2
 "restController:\nUS005_1AdminAddsCategoryControllerRest"->"service:\nUS005_1AdminAddsCategoryToGroupService": addCategoryDTOGroup(createGroupCategoryDTO)
 activate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
 autonumber 3.3.2.1
-|||
+
 ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_1AdminAddsCategory_Part2
 "service:\nUS005_1AdminAddsCategoryToGroupService" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : categoryDTO
-|||
+
 autonumber 3.3.3
 deactivate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
 "restController:\nUS005_1AdminAddsCategoryControllerRest"--> "restController:\nUS005_1AdminAddsCategoryControllerRest": selfLink = /groups/{ownerID}/category/{categoryDenomination}
@@ -71,7 +67,7 @@ deactivate "categoryDTO:CategoryDTO" #FFBBBB
 "restController:\nUS005_1AdminAddsCategoryControllerRest"-> "categoryDTO:CategoryDTO": add(categoryLink)
 activate "categoryDTO:CategoryDTO" #FFBBBB
 deactivate "categoryDTO:CategoryDTO" #FFBBBB
-|||
+
 create "responseEntity:Response Entity"
 "restController:\nUS005_1AdminAddsCategoryControllerRest" --> "responseEntity:Response Entity" : create (categoryDTO,HttpStatus.CREATED)
 "restController:\nUS005_1AdminAddsCategoryControllerRest" --> "mvc:MockMvc": responseEntity
@@ -84,16 +80,12 @@ autonumber 3.4
 "HTTP Client (Test)" <-- "mvc:MockMvc" : {jsonResponse}
 deactivate "mvc:MockMvc"
 
-
 create "resultAction:ResultAction"
 "resultAction:ResultAction" <-- "mvc:MockMvc" : create
 activate "resultAction:ResultAction" #FFBBBB
 deactivate "mvc:MockMvc"
 
-
-
 autonumber 4
-|||
 create "mvcResult :MvcResult"
 "HTTP Client (Test)" --> "mvcResult :MvcResult" : create
 
