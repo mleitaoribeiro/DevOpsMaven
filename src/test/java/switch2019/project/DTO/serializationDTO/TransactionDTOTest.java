@@ -227,7 +227,7 @@ class TransactionDTOTest {
      */
 
     @Test
-    @DisplayName("Tests to HashCode - True")
+    @DisplayName("Test to HashCode - True")
     void testSameHashCode() {
 
         //Arrange
@@ -246,7 +246,7 @@ class TransactionDTOTest {
     }
 
     @Test
-    @DisplayName("Tests to HashCode - True")
+    @DisplayName("Test to HashCode - False")
     void testDifferentHashCode() {
 
         //Arrange
@@ -266,32 +266,129 @@ class TransactionDTOTest {
     }
 
 
+    /**
+     *
+     * Tests to Getters
+     *
+     */
 
     @Test
+    @DisplayName("Test to getAmount")
     void getAmount() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedAmount = "2 EUR";
+
+        //Act
+        String realAmount = transactionDTO.getAmount();
+
+        //Assert
+        assertEquals(expectedAmount,realAmount);
+
     }
 
     @Test
+    @DisplayName("Test to getDescription")
     void getDescription() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedDescription = "PAYMENT";
+
+        //Act
+        String realDescription = transactionDTO.getDescription();
+
+        //Assert
+        assertEquals(expectedDescription,realDescription);
     }
 
     @Test
+    @DisplayName("Test to getDate")
     void getDate() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedDate = "20-3-2020";
+
+        //Act
+        String realDate = transactionDTO.getDate();
+
+        //Assert
+        assertEquals(expectedDate,realDate);
+
     }
 
     @Test
     void getCategory() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedCategory = "ONLINE SHOPPING";
+
+        //Act
+        String realCategory = transactionDTO.getCategory();
+
+        //Assert
+        assertEquals(expectedCategory,realCategory);
+
     }
 
     @Test
     void getAccountFrom() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedAccountFrom = "REVOLUT";
+
+        //Act
+        String realAccountFrom = transactionDTO.getAccountFrom();
+
+        //Assert
+        assertEquals(expectedAccountFrom,realAccountFrom);
+
     }
 
     @Test
     void getAccountTo() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedAccountTo = "ALIEXPRESS";
+
+        //Act
+        String realAccountTo = transactionDTO.getAccountTo();
+
+        //Assert
+        assertEquals(expectedAccountTo,realAccountTo);
+
     }
 
     @Test
     void getType() {
+
+        //Arrange
+        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+
+        String expectedType = "CREDIT";
+
+        //Act
+        String realType = transactionDTO.getType();
+
+        //Assert
+        assertEquals(expectedType,realType);
     }
 }
