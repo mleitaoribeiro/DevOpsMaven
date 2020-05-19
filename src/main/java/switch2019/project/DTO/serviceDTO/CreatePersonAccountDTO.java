@@ -14,11 +14,9 @@ public class CreatePersonAccountDTO {
      *
      **/
 
-
     private final String personEmail;
     private final String accountDenomination;
     private final String accountDescription;
-
 
     public CreatePersonAccountDTO (String personEmail, String accountDenomination, String accountDescription) {
         this.personEmail = personEmail;
@@ -41,9 +39,7 @@ public class CreatePersonAccountDTO {
         return Objects.hash(personEmail, accountDenomination, accountDescription);
     }
 
-
     /** Getters used to obtain the attribute Strings, outside of this class: */
-
 
     public String getPersonEmail() {
         return personEmail;
@@ -56,7 +52,4 @@ public class CreatePersonAccountDTO {
     public String getAccountDescription() {
         return accountDescription;
     }
-
-
-
 }
