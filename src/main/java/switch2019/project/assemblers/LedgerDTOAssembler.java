@@ -22,7 +22,7 @@ public class LedgerDTOAssembler {
                                                 CreateTransactionInfoDTO createTransactionInfoDTO){
 
         return new CreateGroupTransactionDTO(groupDescription, createTransactionInfoDTO.getAmount(),
-                createTransactionInfoDTO.getCurrency(), createTransactionInfoDTO.getDescription(),
+                createTransactionInfoDTO.getCurrency(), createTransactionInfoDTO.getDate(), createTransactionInfoDTO.getDescription(),
                 createTransactionInfoDTO.getCategory(), createTransactionInfoDTO.getAccountFrom(),
                 createTransactionInfoDTO.getAccountTo(), createTransactionInfoDTO.getType());
     }
