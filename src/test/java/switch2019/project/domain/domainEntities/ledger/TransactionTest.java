@@ -1,7 +1,9 @@
 package switch2019.project.domain.domainEntities.ledger;
 
+import javassist.runtime.Desc;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -659,5 +661,89 @@ class TransactionTest {
             assertEquals("The type can´t be null. Please try again.", description.getMessage());
         }
     }
+
+    /**
+     * Validate method to get Description
+     */
+    @Test
+    @DisplayName("Test for getDescription")
+    void getDescription() {
+
+        //Arrange
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
+        Description description = new Description("Payment");
+
+        Transaction transaction = new Transaction(monetaryValue, description, date, category, account1, account2,
+                new Type (false));
+
+        //Act
+        Description result = transaction.getDescription();
+
+        //Assert
+        assertEquals(description, result);
+    }
+
+    /**
+     * Validate method categoryToString
+     */
+    @Test
+    @DisplayName("Test for categoryToString")
+    void categoryToString() {
+
+        //Arrange
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
+        Description description = new Description("Payment");
+
+        Transaction transaction = new Transaction(monetaryValue, description, date, category, account1, account2,
+                new Type (false));
+        String expected = "GROCERY, personemail@email.com";
+
+        //Act
+        String result = transaction.categoryToString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Validate method amountToString
+     */
+    @Test
+    @DisplayName("Test for amountToString")
+    void amountToString() {
+
+        //Arrange
+        Account account1 = new Account(new Denomination("mercearia"),
+                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
+        Account account2 = new Account(new Denomination("transporte"),
+                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
+        Description description = new Description("Payment");
+
+        Transaction transaction = new Transaction(monetaryValue, description, date, category, account1, account2,
+                new Type (false));
+        String expected = "200.0 EUR";
+
+        //Act
+        String result = transaction.amountToString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
 
 }

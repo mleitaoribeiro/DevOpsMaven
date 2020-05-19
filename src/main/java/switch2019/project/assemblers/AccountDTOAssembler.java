@@ -45,7 +45,7 @@ public class AccountDTOAssembler {
     }
 
     /**
-     * This method transformes a CreatePersonAccountnfoDTO into a CreatePersonAccountDTO
+     * This method transforms a CreatePersonAccountInfoDTO into a CreatePersonAccountDTO
      *
      * @param createPersonAccountInfoDTO
      * @return
@@ -65,7 +65,7 @@ public class AccountDTOAssembler {
     }
 
     /**
-     * This method transformes a input DTO to the CreateAccountInGroupDTO.
+     * This method transforms a input DTO to the CreateAccountInGroupDTO.
      *
      * @param dto
      * @return CreateAccountInGroupDTO

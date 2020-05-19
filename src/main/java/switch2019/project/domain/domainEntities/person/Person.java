@@ -20,7 +20,6 @@ public class Person implements Owner {
     private PersonID father;
     private Address address;
     private Address birthPlace;
-    private Ledger ledger;
 
     /**
      * Default Person constructor

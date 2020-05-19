@@ -70,7 +70,7 @@ public class Transaction {
     /**
      * toString() of type
      */
-    private String typeToString() {
+    public String typeToString() {
         return type.toString();
     }
 
@@ -79,6 +79,20 @@ public class Transaction {
      */
     public String dateToString() {
         return date.yearMonthDayHourMinuteToString();
+    }
+
+    /**
+     * toString() of category
+     */
+    public String categoryToString() {
+        return category.toString();
+    }
+
+    /**
+     * toString() of amount
+     */
+    public String amountToString() {
+        return amount.toString();
     }
 
     /**
@@ -117,6 +131,13 @@ public class Transaction {
             this.date = new DateAndTime();
         } else
             this.date = date;
+    }
+
+    /**
+     * Get Description
+     */
+    public Description getDescription() {
+        return description;
     }
 
     /**
