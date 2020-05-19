@@ -19,9 +19,9 @@ public class CreatePersonalTransactionDTO {
 
 
     private final String personEmail;
-    private final String amount;
+    private final double amount;
+    private final String currency;
     private final String description;
-    private final String date;
     private final String category;
     private final String accountFrom;
     private final String accountTo;
@@ -32,34 +32,35 @@ public class CreatePersonalTransactionDTO {
      *
      * @param personEmail
      * @param amount
+     * @param currency
      * @param description
-     * @param date
      * @param category
      * @param accountFrom
      * @param accountTo
      * @param type
      */
 
-    public CreatePersonalTransactionDTO(String personEmail, String amount, String description, String date, String category, String accountFrom, String accountTo, String type) {
+    public CreatePersonalTransactionDTO(String personEmail, double amount, String currency, String description, String category, String accountFrom, String accountTo, String type) {
         this.personEmail = personEmail;
         this.amount = amount;
+        this.currency = currency;
         this.description = description;
-        this.date = date;
         this.category = category;
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.type = type;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreatePersonalTransactionDTO that = (CreatePersonalTransactionDTO) o;
-        return Objects.equals(personEmail, that.personEmail) &&
-                Objects.equals(amount, that.amount) &&
+        return Double.compare(that.amount, amount) == 0 &&
+                Objects.equals(personEmail, that.personEmail) &&
+                Objects.equals(currency, that.currency) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(date, that.date) &&
                 Objects.equals(category, that.category) &&
                 Objects.equals(accountFrom, that.accountFrom) &&
                 Objects.equals(accountTo, that.accountTo) &&
@@ -68,38 +69,78 @@ public class CreatePersonalTransactionDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(personEmail, amount, description, date, category, accountFrom, accountTo, type);
+        return Objects.hash(personEmail, amount, currency, description, category, accountFrom, accountTo, type);
     }
 
+    /**
+     * get Person Email
+     *
+     * @return personEmail
+     */
     public String getPersonEmail() {
         return personEmail;
 
     }
 
-    public String getAmount() {
+    /**
+     * get Transaction Amount
+     *
+     * @return amount
+     */
+    public double getAmount() {
         return amount;
     }
 
+    /**
+     * get Transaction Currency
+     *
+     * @return currency
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * get Transaction Description
+     *
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * get Transaction category
+     *
+     * @return category
+     */
     public String getCategory() {
         return category;
     }
 
-    public String getDate() {
-        return date;
-    }
-
+    /**
+     * get Transaction Account From
+     *
+     * @return accountFrom
+     */
     public String getAccountFrom() {
         return accountFrom;
     }
 
+    /**
+     * get Transaction Account To
+     *
+     * @return accountTo
+     */
     public String getAccountTo() {
         return accountTo;
     }
 
+    /**
+     * get Transaction Type
+     *
+     * @return type
+     */
     public String getType() {
         return type;
     }
