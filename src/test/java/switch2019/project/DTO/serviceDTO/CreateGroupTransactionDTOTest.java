@@ -12,7 +12,7 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50,  "EUR", "beers","drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -28,11 +28,11 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR","beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreateGroupTransactionDTO createGroupTransactionDTOCopy = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -48,11 +48,11 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO1 = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers","drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreateGroupTransactionDTO createGroupTransactionDTO2 = new CreateGroupTransactionDTO("Bashtards",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers","drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -68,11 +68,11 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreateGroupTransactionDTO createGroupTransactionDTOCopy = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -88,11 +88,11 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreateGroupTransactionDTO createGroupTransactionDTOCopy = new CreateGroupTransactionDTO("Bashtards",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -108,7 +108,7 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers",  "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String groupDescriptionExpected = "Switch";
@@ -126,16 +126,34 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
-        String amountExpected = "20";
+        double amountExpected = 20.50;
 
         // Act
-        String amount = createGroupTransactionDTO.getAmount();
+        double amount = createGroupTransactionDTO.getAmount();
 
         // Assert
         assertEquals(amountExpected, amount);
+    }
+
+    @Test
+    @DisplayName("Test for method getCurrency")
+    void getCurrency() {
+
+        // Arrange
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
+                "Isep Bar Account", "debit");
+
+        String currencyExpected = "EUR";
+
+        // Act
+        String currency = createGroupTransactionDTO.getCurrency();
+
+        // Assert
+        assertEquals(currencyExpected, currency);
     }
 
     @Test
@@ -144,7 +162,7 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers",  "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String descriptionExpected = "beers";
@@ -157,30 +175,12 @@ class CreateGroupTransactionDTOTest {
     }
 
     @Test
-    @DisplayName("Test for method getDate")
-    void getDate() {
-
-        // Arrange
-        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
-                "Isep Bar Account", "debit");
-
-        String dateExpected = "19-05-2020";
-
-        // Act
-        String date = createGroupTransactionDTO.getDate();
-
-        // Assert
-        assertEquals(dateExpected, date);
-    }
-
-    @Test
     @DisplayName("Test for method getCategory")
     void getCategory() {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers",  "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String categoryExpected = "drinks";
@@ -198,7 +198,7 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String accountFromExpected = "Switch Account";
@@ -216,7 +216,7 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String accountToExpected = "Isep Bar Account";
@@ -234,7 +234,7 @@ class CreateGroupTransactionDTOTest {
 
         // Arrange
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
-                "20", "beers", "19-05-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String typeExpected = "debit";

@@ -5,21 +5,21 @@ import java.util.Objects;
 public class CreateGroupTransactionDTO {
 
     private final String groupDescription;
-    private final String amount;
+    private final double amount;
+    private final String currency;
     private final String description;
-    private final String date;
     private final String category;
     private final String accountFrom;
     private final String accountTo;
     private final String type;
 
-    public CreateGroupTransactionDTO(String groupDescription, String amount, String description, String date,
+    public CreateGroupTransactionDTO(String groupDescription, double amount, String currency, String description,
                                      String category, String accountFrom, String accountTo, String type) {
 
         this.groupDescription = groupDescription;
         this.amount = amount;
+        this.currency = currency;
         this.description = description;
-        this.date = date;
         this.category = category;
         this.accountFrom = accountFrom;
         this. accountTo = accountTo;
@@ -33,8 +33,8 @@ public class CreateGroupTransactionDTO {
         CreateGroupTransactionDTO that = (CreateGroupTransactionDTO) o;
         return Objects.equals(groupDescription, that.groupDescription) &&
                 Objects.equals(amount, that.amount) &&
+                Objects.equals(currency, that.currency) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(date, that.date) &&
                 Objects.equals(category, that.category) &&
                 Objects.equals(accountFrom, that.accountFrom) &&
                 Objects.equals(accountTo, that.accountTo) &&
@@ -43,7 +43,7 @@ public class CreateGroupTransactionDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupDescription, amount, description, date, category, accountFrom, accountTo, type);
+        return Objects.hash(groupDescription, amount, currency, description, category, accountFrom, accountTo, type);
     }
 
     /**
@@ -60,8 +60,17 @@ public class CreateGroupTransactionDTO {
      *
      * @return amount
      */
-    public String getAmount() {
+    public double getAmount() {
         return amount;
+    }
+
+    /**
+     * get Transaction Currency
+     *
+     * @return currency
+     */
+    public String getCurrency() {
+        return currency;
     }
 
     /**
@@ -71,15 +80,6 @@ public class CreateGroupTransactionDTO {
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * get Transaction date
-     *
-     * @return date
-     */
-    public String getDate() {
-        return date;
     }
 
     /**
