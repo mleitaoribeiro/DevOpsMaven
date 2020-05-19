@@ -3,9 +3,11 @@ package switch2019.project.assemblers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
@@ -26,6 +28,31 @@ class LedgerDTOAssemblerTest {
     /**
      * Validate method that transforms a CreateGroupTransactionInfoDTO into a CreateGroupTransactionDTO
      */
+
+    @Test
+    @DisplayName("Test method transforms a CreateGroupTransactionInfoDTO into a CreateGroupTransactionDTO")
+    void createGroupTransactionDTO() {
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+        createTransactionInfoDTO.setAccountFrom("Conta origem");
+        createTransactionInfoDTO.setAccountTo("Conta destino");
+        createTransactionInfoDTO.setAmount(2.0);
+        createTransactionInfoDTO.setCategory("Comida");
+        createTransactionInfoDTO.setDate("20-05-2020");
+        createTransactionInfoDTO.setType("Debit");
+        createTransactionInfoDTO.setCurrency("Eur");
+        createTransactionInfoDTO.setDescription("descrição");
+
+        CreateGroupTransactionDTO result = LedgerDTOAssembler.transformToCreateGroupTransactionDTO(
+                "Switch", createTransactionInfoDTO);
+
+        CreateGroupTransactionDTO expected = LedgerDTOAssembler.transformToCreateGroupTransactionDTO(
+                "Switch", createTransactionInfoDTO);
+
+        assertEquals(expected, result);
+        assertNotEquals(createTransactionInfoDTO, result);
+
+    }
 
     /**
      * Validate method that creates the TransactionDTO from Domain Object
