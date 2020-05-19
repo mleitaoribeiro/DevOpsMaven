@@ -13,7 +13,7 @@ public class TransactionDTO {
     private final String type;
 
     /**
-     * Constructor for TranscationDTO
+     * Constructor for TransactionDTO
      *
      * @param amount
      * @param description
@@ -23,6 +23,7 @@ public class TransactionDTO {
      * @param accountTo
      * @param type
      */
+
     public  TransactionDTO (String amount, String description, String date, String category,
                             String accountFrom, String accountTo, String type) {
         this.amount = amount;
@@ -39,13 +40,13 @@ public class TransactionDTO {
         if (this == o) return true;
         if (!(o instanceof TransactionDTO)) return false;
         TransactionDTO that = (TransactionDTO) o;
-        return amount.equals(that.amount) &&
-                description.equals(that.description) &&
-                date.equals(that.date) &&
-                category.equals(that.category) &&
-                accountFrom.equals(that.accountFrom) &&
-                accountTo.equals(that.accountTo) &&
-                type.equals(that.type);
+        return amount.equalsIgnoreCase(that.amount) &&
+                description.equalsIgnoreCase(that.description) &&
+                date.equalsIgnoreCase(that.date) &&
+                category.equalsIgnoreCase(that.category) &&
+                accountFrom.equalsIgnoreCase(that.accountFrom) &&
+                accountTo.equalsIgnoreCase(that.accountTo) &&
+                type.equalsIgnoreCase(that.type);
     }
 
     @Override

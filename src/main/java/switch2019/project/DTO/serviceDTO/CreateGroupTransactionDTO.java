@@ -5,7 +5,7 @@ import java.util.Objects;
 public class CreateGroupTransactionDTO {
 
     private final String groupDescription;
-    private final double amount;
+    private final Double amount;
     private final String currency;
     private final String date;
     private final String description;
@@ -14,7 +14,7 @@ public class CreateGroupTransactionDTO {
     private final String accountTo;
     private final String type;
 
-    public CreateGroupTransactionDTO(String groupDescription, double amount, String currency, String date,
+    public CreateGroupTransactionDTO(String groupDescription, Double amount, String currency, String date,
                                      String description, String category, String accountFrom, String accountTo, String type) {
 
         this.groupDescription = groupDescription;
