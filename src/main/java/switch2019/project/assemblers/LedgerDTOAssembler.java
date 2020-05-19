@@ -2,6 +2,7 @@ package switch2019.project.assemblers;
 
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
+import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 
@@ -40,7 +41,15 @@ public class LedgerDTOAssembler {
     }
 
     /**
-     * Method to create the TransactionShortDTO from Domain Object
+     * Method that creates the TransactionShortDTO from the Domain Object (Transaction)
+     *
+     * @param transaction
+     * @return TransactionShortDTO
      */
+    public static TransactionShortDTO createTransactionShortDTOFromDomain (Transaction transaction) {
+
+        return new TransactionShortDTO (transaction.amountToString(), transaction.getAccountFrom().toString(),
+                transaction.getAccountTo().toString(), transaction.typeToString());
+    }
 
 }
