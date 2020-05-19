@@ -35,7 +35,7 @@ public class CategoryDTOAssembler {
     }
 
     /**
-     * This method transformes a input DTO to the CreateCategoryInGroupDTO.
+     * This method transforms a input DTO to the CreateCategoryInGroupDTO.
      *
      * @param dto
      * @return CreateCategoryInGroupDTO
