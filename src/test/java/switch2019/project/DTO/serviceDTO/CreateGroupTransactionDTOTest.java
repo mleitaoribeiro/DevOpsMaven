@@ -2,6 +2,8 @@ package switch2019.project.DTO.serviceDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreateGroupTransactionDTOTest {
@@ -57,6 +59,24 @@ class CreateGroupTransactionDTOTest {
 
         // Act
         boolean result = createGroupTransactionDTO1.equals(createGroupTransactionDTO2);
+
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test for method equals - two objects form different classes")
+    void testEqualsTwoObjectFromDifferentClasses() {
+
+        // Arrange
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
+                20.50, "EUR", "19-05-2020","beers","drinks",
+                "Switch Account", "Isep Bar Account", "debit");
+
+        Denomination denomination = new Denomination("bashtards");
+
+        // Act
+        boolean result = createGroupTransactionDTO.equals(denomination);
 
         // Assert
         assertFalse(result);
