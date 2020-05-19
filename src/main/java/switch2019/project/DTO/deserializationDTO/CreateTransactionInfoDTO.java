@@ -3,7 +3,8 @@ package switch2019.project.DTO.deserializationDTO;
 import java.util.Objects;
 
 public class CreateTransactionInfoDTO {
-    private String amount;
+    private Double amount;
+    private String currency;
     private String description;
     private String date;
     private String category;
@@ -21,6 +22,7 @@ public class CreateTransactionInfoDTO {
         if (o == null || getClass() != o.getClass()) return false;
         CreateTransactionInfoDTO that = (CreateTransactionInfoDTO) o;
         return Objects.equals(amount, that.amount) &&
+                Objects.equals(currency, that.currency) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(category, that.category) &&
@@ -31,7 +33,7 @@ public class CreateTransactionInfoDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount, description, date, category, accountFrom, accountTo, type);
+        return Objects.hash(amount, currency, description, date, category, accountFrom, accountTo, type);
     }
 
     /**
@@ -39,7 +41,8 @@ public class CreateTransactionInfoDTO {
      *
      * @return amount
      */
-    public String getAmount() {
+
+    public Double getAmount() {
         return amount;
     }
 
@@ -48,8 +51,27 @@ public class CreateTransactionInfoDTO {
      *
      * @return amount
      */
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    /**
+     * Getter for currency
+     *
+     * @return currency
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * Setter for currency
+     *
+     * @return currency
+     */
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     /**

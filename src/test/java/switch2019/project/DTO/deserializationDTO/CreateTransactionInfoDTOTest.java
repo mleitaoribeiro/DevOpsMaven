@@ -11,16 +11,33 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test - getAmount & setAmount")
     void getAmount() {
         //Assert
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
 
-        String expectedAmount = "5.00";
+        Double expectedAmount = 5.00;
 
         //Act:
-        String realAmount = dto.getAmount();
+        Double realAmount = dto.getAmount();
 
         //Assert:
         assertEquals(expectedAmount, realAmount);
+
+    }
+
+    @Test
+    @DisplayName("Test - getCurrency & setCurrency")
+    void getCurrency() {
+        //Assert
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setCurrency("EUR");
+
+        String expectedCurrency = "EUR";
+
+        //Act:
+        String realCurrency = dto.getCurrency();
+
+        //Assert:
+        assertEquals(expectedCurrency, realCurrency);
 
     }
 
@@ -29,7 +46,7 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test - getDescription & setDescription")
     void getDescription() {
         //Assert
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
         dto.setDescription("General Expenses");
 
         String expectedDescription = "General Expenses";
@@ -47,13 +64,13 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test - getDate & setDate")
     void getDate() {
         //Assert
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setDescription("18-05-2020");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setDate("18-05-2020");
 
         String expectedDate = "18-05-2020";
 
         //Act:
-        String realDate = dto.getDescription();
+        String realDate = dto.getDate();
 
         //Assert:
         assertEquals(expectedDate, realDate);
@@ -61,10 +78,28 @@ class CreateTransactionInfoDTOTest {
     }
 
     @Test
+    @DisplayName("Test - getType & setType")
+    void getType() {
+        //Assert
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setType("debit");
+
+        String expectedType = "debit";
+
+        //Act:
+        String realType = dto.getType();
+
+        //Assert:
+        assertEquals(expectedType, realType);
+
+    }
+
+
+    @Test
     @DisplayName("Test - getCategory & setCategory")
     void getCategory() {
         //Assert
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
         dto.setCategory("Gym");
 
         String expectedCategory = "Gym";
@@ -82,7 +117,7 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test - getAccountFrom & setAccountFrom")
     void getAccountFrom() {
         //Assert
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
         dto.setAccountFrom("Raquel Account");
 
         String expectedAccountFrom = "Raquel Account";
@@ -96,7 +131,6 @@ class CreateTransactionInfoDTOTest {
     }
 
 
-
     /**
      * Tests for the methods: getAccountTo & setAccountTo:
      */
@@ -105,7 +139,7 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test - Get AccountFrom")
     void getAccountTo() {
         //Assert
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
         dto.setAccountTo("Sofia Account");
 
         String expectedAccountTo = "Sofia Account";
@@ -126,8 +160,9 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to equals - Same Object")
     void equalsSameObject() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
         dto.setCategory("Shopping");
         dto.setDescription("Shopping Expenses");
         dto.setAccountTo("Querido Account");
@@ -146,8 +181,9 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to equals - Null Object")
     void equalsNullObject() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
         dto.setCategory("Shopping");
         dto.setDescription("Shopping Expenses");
         dto.setAccountTo("Querido Account");
@@ -168,8 +204,9 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to equals - Object from different class")
     void equalsDifferentObjectClass() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
         dto.setCategory("Shopping");
         dto.setDescription("Shopping Expenses");
         dto.setAccountTo("Querido Account");
@@ -190,8 +227,9 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to equals - Same attributes")
     void equalsSameAttributes() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
         dto.setCategory("Shopping");
         dto.setDescription("Shopping Expenses");
         dto.setAccountTo("Querido Account");
@@ -199,8 +237,9 @@ class CreateTransactionInfoDTOTest {
         dto.setDate("18-05-2020");
         dto.setType("debit");
 
-        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO ();
-        dto2.setAmount("5.00");
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
         dto2.setCategory("Shopping");
         dto2.setDescription("Shopping Expenses");
         dto2.setAccountTo("Querido Account");
@@ -219,8 +258,9 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to equals - Different Description")
     void equalsDifferentDescription() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
         dto.setCategory("Shopping");
         dto.setDescription("Shopping Expenses");
         dto.setAccountTo("Querido Account");
@@ -228,8 +268,71 @@ class CreateTransactionInfoDTOTest {
         dto.setDate("18-05-2020");
         dto.setType("debit");
 
-        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO ();
-        dto2.setAmount("5.00");
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Querido Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("18-05-2020");
+        dto2.setType("debit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Different Amount")
+    void equalsDifferentAmount() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("Shopping");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Querido Account");
+        dto.setAccountFrom("Raquel Account");
+        dto.setDate("18-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(6.50);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Querido Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("18-05-2020");
+        dto2.setType("debit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Different Currency")
+    void equalsDifferentCurrency() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("Shopping");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Querido Account");
+        dto.setAccountFrom("Raquel Account");
+        dto.setDate("18-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("LIBRA");
         dto2.setCategory("Shopping");
         dto2.setDescription("General Expenses");
         dto2.setAccountTo("Querido Account");
@@ -245,6 +348,166 @@ class CreateTransactionInfoDTOTest {
     }
 
 
+    @Test
+    @DisplayName("Test to equals - Different Category")
+    void equalsDifferentCategory() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("General");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Querido Account");
+        dto.setAccountFrom("Raquel Account");
+        dto.setDate("18-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Querido Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("18-05-2020");
+        dto2.setType("debit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    @Test
+    @DisplayName("Test to equals - Different AccountTo")
+    void equalsDifferentAccountTo() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("Shopping");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Querido Account");
+        dto.setAccountFrom("Raquel Account");
+        dto.setDate("18-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Rodrigues Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("18-05-2020");
+        dto2.setType("debit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    @Test
+    @DisplayName("Test to equals - Different AccountFrom")
+    void equalsDifferentAccountFrom() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("Shopping");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Rodrigues Account");
+        dto.setAccountFrom("Sofia Account");
+        dto.setDate("18-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Rodrigues Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("18-05-2020");
+        dto2.setType("debit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+    @Test
+    @DisplayName("Test to equals - Different Date")
+    void equalsDifferentDate() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("Shopping");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Querido Account");
+        dto.setAccountFrom("Raquel Account");
+        dto.setDate("15-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Querido Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("18-05-2020");
+        dto2.setType("debit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test to equals - Different Type")
+    void equalsDifferentType() {
+        //Arrange
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
+        dto.setCategory("Shopping");
+        dto.setDescription("General Expenses");
+        dto.setAccountTo("Querido Account");
+        dto.setAccountFrom("Raquel Account");
+        dto.setDate("15-05-2020");
+        dto.setType("debit");
+
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
+        dto2.setCategory("Shopping");
+        dto2.setDescription("General Expenses");
+        dto2.setAccountTo("Querido Account");
+        dto2.setAccountFrom("Raquel Account");
+        dto2.setDate("15-05-2020");
+        dto2.setType("credit");
+
+        //Act
+        boolean result = dto.equals(dto2);
+
+        //Assert
+        assertFalse(result);
+    }
+
+
+
     /**
      * Tests for HashCode Method:
      */
@@ -253,8 +516,9 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to HashCode - Same Hashcode")
     void sameHashcode() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
+        dto.setCurrency("EUR");
         dto.setCategory("Shopping");
         dto.setDescription("Gym Expenses");
         dto.setAccountTo("Querido Account");
@@ -262,8 +526,9 @@ class CreateTransactionInfoDTOTest {
         dto.setDate("15-05-2020");
         dto.setType("debit");
 
-        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO ();
-        dto2.setAmount("5.00");
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(5.00);
+        dto2.setCurrency("EUR");
         dto2.setCategory("Shopping");
         dto2.setDescription("Gym Expenses");
         dto2.setAccountTo("Querido Account");
@@ -282,8 +547,8 @@ class CreateTransactionInfoDTOTest {
     @DisplayName("Test to HashCode - Different Hashcode")
     void differentHashcode() {
         //Arrange
-        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO ();
-        dto.setAmount("5.00");
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setAmount(5.00);
         dto.setCategory("Shopping");
         dto.setDescription("Gym Expenses");
         dto.setAccountTo("Querido Account");
@@ -291,8 +556,8 @@ class CreateTransactionInfoDTOTest {
         dto.setDate("15-05-2020");
         dto.setType("debit");
 
-        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO ();
-        dto2.setAmount("13.00");
+        CreateTransactionInfoDTO dto2 = new CreateTransactionInfoDTO();
+        dto2.setAmount(13.00);
         dto2.setCategory("Shopping");
         dto2.setDescription("General Expenses");
         dto2.setAccountTo("Querido Account");
