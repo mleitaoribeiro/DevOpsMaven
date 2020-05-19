@@ -55,8 +55,8 @@ public class AccountDbRepository implements AccountRepository {
             throw new ResourceAlreadyExistsException(ACCOUNT_ALREADY_EXISTS);
         else  {
             Account account = new Account(accountDenomination, accountDescription, ownerID);
-            accountJpaRepository.save(AccountDomainDataAssembler.toData(account));
-            return account;
+            AccountJpa accountJpa = accountJpaRepository.save(AccountDomainDataAssembler.toData(account));
+            return AccountDomainDataAssembler.toDomain(accountJpa);
         }
     }
 

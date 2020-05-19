@@ -83,8 +83,8 @@ public class CategoryDbRepository implements CategoryRepository {
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
             Category category = new Category(nameOfCategory, ownerID);
-            categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
-            return category;
+            CategoryJpa categoryJpa = categoryJpaRepository.save(CategoryDomainDataAssembler.toData(category));
+            return CategoryDomainDataAssembler.toDomain(categoryJpa);
         } else throw new ResourceAlreadyExistsException(CATEGORY_ALREADY_EXISTS);
     }
 

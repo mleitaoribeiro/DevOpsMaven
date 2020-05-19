@@ -55,8 +55,8 @@ public class PersonDbRepository implements PersonRepository {
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                PersonID mother, PersonID father, Email email) {
         Person person = new Person(name, birthDate, birthPlace, homeAddress, mother, father, email);
-        personJpaRepository.save(PersonDomainDataAssembler.toData(person));
-        return person;
+        PersonJpa personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person));
+        return PersonDomainDataAssembler.toDomain(personJpa);
     }
 
 
