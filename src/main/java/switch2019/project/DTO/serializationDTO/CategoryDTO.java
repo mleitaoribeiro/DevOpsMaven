@@ -7,8 +7,8 @@ import java.util.Objects;
 public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 
    /* The Category DTO transfers strings that refer to Category attributes:
-    denomination .- a String refering to the Category Denomination attribute
-    categoryID .- a String refering to the Category Denomination and the OwnerID (which can be either a PersonID or GroupID)*/
+    denomination .- a String referring to the Category Denomination attribute
+    categoryID .- a String referring to the Category Denomination and the OwnerID (which can be either a PersonID or GroupID)*/
 
     private final String denomination;
     private final String ownerID;
