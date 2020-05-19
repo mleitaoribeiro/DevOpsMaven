@@ -9,8 +9,7 @@ import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-
-import java.util.regex.Pattern;
+import switch2019.project.utils.StringUtils;
 
 public class CategoryDomainDataAssembler {
 
@@ -44,28 +43,12 @@ public class CategoryDomainDataAssembler {
         String owner = categoryJPA.getCategoryIdJpa().getOwner();
         OwnerID ownerID;
 
-        if (isEmail(owner))
+        if (StringUtils.isEmail(owner))
             ownerID = new PersonID(new Email(owner));
         else
             ownerID = new GroupID(new Description(owner));
 
         return new Category(categoryDenomination, ownerID);
-    }
-
-    /**
-     * Auxiliary method to check if a string is an email (Person ID)
-     *
-     * @param owner
-     * @return
-     */
-
-    private static boolean isEmail(String owner) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        return pattern.matcher(owner).matches();
     }
 }
 

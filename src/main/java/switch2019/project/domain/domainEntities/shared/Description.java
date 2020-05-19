@@ -1,5 +1,7 @@
 package switch2019.project.domain.domainEntities.shared;
 
+import switch2019.project.utils.StringUtils;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
@@ -40,7 +42,7 @@ public class Description implements Serializable {
     private String setValidDescription(String description) {
         if (description == null || description.isEmpty())
             throw new IllegalArgumentException("The description can't be null or empty.");
-        else return description.toUpperCase();
+        else return StringUtils.removeExtraSpaces(description.toUpperCase());
     }
 
     /**

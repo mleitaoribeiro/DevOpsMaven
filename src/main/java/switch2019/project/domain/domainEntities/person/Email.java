@@ -1,8 +1,9 @@
 package switch2019.project.domain.domainEntities.person;
 
+import switch2019.project.utils.StringUtils;
+
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class Email implements Serializable {
 
@@ -43,7 +44,7 @@ public class Email implements Serializable {
     private String setValidEmail(String email) {
         if (email == null)
             throw new IllegalArgumentException(EMAIL_NULL);
-        else if (isValid(email))
+        else if (StringUtils.isEmail(email))
             return email.toLowerCase();
         else
             throw new IllegalArgumentException(EMAIL_NOT_VALID);
@@ -60,20 +61,4 @@ public class Email implements Serializable {
         return emailAddress;
     }
 
-
-    /**
-     * Auxiliary method to verify if email it´s valid (xxxx@xxxx.xx)
-     *
-     * @param email
-     * @return
-     */
-
-    private boolean isValid(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex);
-        return pat.matcher(email).matches();
-    }
 }

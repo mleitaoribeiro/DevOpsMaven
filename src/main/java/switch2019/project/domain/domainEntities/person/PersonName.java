@@ -1,7 +1,7 @@
 package switch2019.project.domain.domainEntities.person;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import switch2019.project.utils.StringUtils;
+
 import java.util.Objects;
 
 public class PersonName {
@@ -56,49 +56,8 @@ public class PersonName {
     private String standardPersonName(String personName) {
         if(personName == null || personName.isEmpty())
             throw new IllegalArgumentException("The name can't be empty or null.");
-        else {
-            personName = removeAllExtraSpaces(personName);
-            personName = capitalizeEachWord(personName);
-            return exceptionalCases(personName);
-        }
+        else
+            return StringUtils.normalizePersonName(personName);
     }
-
-    /**
-     * Remove all extra spaces of a string
-     * @param personName
-     */
-
-    private String removeAllExtraSpaces(String personName) {
-        return personName.trim().replaceAll(" +", " ");
-    }
-
-    /**
-     * Capitalize all the individual words of a String
-     * @param personName
-     */
-
-    private String capitalizeEachWord(String personName) {
-        personName = personName.toLowerCase();
-        personName = personName.substring(0, 1).toUpperCase() + personName.substring(1);
-        String[] words = personName.split(" ");
-        for(int i = 1 ; i < words.length ; i++) {
-            words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1);
-        } return String.join(" ", words);
-    }
-
-    /**
-     * Exceptional cases so it doesn't capitalize "de", "da", "do", "das" and "dos" and capitalizes a single letter before a break
-     * @param personName
-     */
-
-    private String exceptionalCases(String personName) {
-        ArrayList<String> exceptions = new ArrayList<>(Arrays.asList("De", "Da", "Do", "Das", "Dos"));
-        String[] words = personName.split(" ");
-        for(int i = 0; i < words.length; i++) {
-            if(exceptions.contains(words[i]))
-                words[i] = words[i].toLowerCase();
-        } return String.join(" ", words);
-    }
-
 
 }

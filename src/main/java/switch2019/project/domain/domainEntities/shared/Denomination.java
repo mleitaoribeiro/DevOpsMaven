@@ -1,8 +1,9 @@
 package switch2019.project.domain.domainEntities.shared;
 
+import switch2019.project.utils.StringUtils;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.text.Normalizer;
 import java.util.Objects;
 
 @Embeddable
@@ -44,35 +45,7 @@ public class Denomination implements Serializable {
 
         if (newDenomination == null || newDenomination.isEmpty()){
             throw new IllegalArgumentException("The denomination can't be null or empty.");
-        } else return removeWordAccents(removeSpecialCharacters(newDenomination).toUpperCase());
-    }
-
-    /**
-     * Auxiliary method to remove special Characters
-     *
-     * @param sentence
-     */
-
-    private static String removeSpecialCharacters(String sentence) {
-
-        String[] str = sentence.split("[, &´#!%()`>?+.<@;-]+");
-        StringBuilder buildNewStringArray = new StringBuilder();
-
-        for (String element : str) {
-            buildNewStringArray.append(" ").append(element);
-        } return buildNewStringArray.toString().replaceFirst(" ", "");
-    }
-
-    /**
-     * Auxiliary method to remove word accents
-     *
-     * @param sentence
-     * @return sentence
-     */
-
-    private static String removeWordAccents(String sentence) {
-        sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
-        return sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        } else return StringUtils.normalizeDenomination(newDenomination);
     }
 
     /**

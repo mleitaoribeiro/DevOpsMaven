@@ -5,9 +5,9 @@ import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.utils.StringUtils;
 
 import java.util.Currency;
-import java.util.regex.Pattern;
 
 //Assembler used to transform Accounts into accountsJpa and vice-versa:
 public class AccountDomainDataAssembler {
@@ -41,7 +41,7 @@ public class AccountDomainDataAssembler {
         OwnerID ownerId;
 
         //Checking if owner is a Group or Person:
-        if (isEmail(owner))
+        if (StringUtils.isEmail(owner))
             ownerId = new PersonID(new Email(owner));
         else
             ownerId = new GroupID(new Description(owner));
@@ -63,20 +63,5 @@ public class AccountDomainDataAssembler {
         }
         //Assembling Account without MonetaryValue:
         else return new Account(denomination, description, ownerId);
-    }
-
-    /**
-     * Method used to check if an Account is owned by a Group or a Person
-     *
-     * @param string
-     * @return
-     */
-    private static boolean isEmail(String string) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex);
-        return pat.matcher(string).matches();
     }
 }
