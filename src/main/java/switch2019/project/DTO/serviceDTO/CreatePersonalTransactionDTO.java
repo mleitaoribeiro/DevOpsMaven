@@ -41,7 +41,7 @@ public class CreatePersonalTransactionDTO {
      * @param type
      */
 
-    public CreatePersonalTransactionDTO(String personEmail, double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
+    public CreatePersonalTransactionDTO(String personEmail, Double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
         this.personEmail = personEmail;
         this.amount = amount;
         this.currency = currency;
