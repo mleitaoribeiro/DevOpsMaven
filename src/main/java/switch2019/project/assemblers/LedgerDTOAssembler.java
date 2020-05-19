@@ -1,6 +1,8 @@
 package switch2019.project.assemblers;
 
+import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 
 public class LedgerDTOAssembler {
@@ -10,7 +12,15 @@ public class LedgerDTOAssembler {
 
     /**
      * This method transforms a CreatePersonalTransactionInfoDTO into a CreatePersonalTransactionDTO
+     * @param personEmail
+     * @param infoDTO
+     * @return CreatePersonalTransactionDTO
      */
+    public static CreatePersonalTransactionDTO transformToCreatePersonalTransactionDTO(String personEmail, CreateTransactionInfoDTO infoDTO) {
+        return new CreatePersonalTransactionDTO(personEmail, infoDTO.getAmount(), infoDTO.getCurrency(),
+                infoDTO.getDescription(), infoDTO.getDate(), infoDTO.getCategory(),
+                infoDTO.getAccountFrom(), infoDTO.getAccountTo(), infoDTO.getType());
+    }
 
     /**
      * This method transforms a CreateGroupTransactionInfoDTO into a CreateGroupTransactionDTO

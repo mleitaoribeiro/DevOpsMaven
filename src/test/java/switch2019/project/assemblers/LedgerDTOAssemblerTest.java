@@ -1,10 +1,10 @@
 package switch2019.project.assemblers;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
@@ -21,6 +21,31 @@ class LedgerDTOAssemblerTest {
     /**
      * Validate method that transforms a CreatePersonalTransactionInfoDTO into a CreatePersonalTransactionDTO
      */
+
+    @Test
+    @DisplayName("Validate if CreatePersonalTransactionInfoDTO")
+    public void transformToCreatePersonalTransactionDTO() {
+        //Arrange
+        CreateTransactionInfoDTO infoDTO = new CreateTransactionInfoDTO();
+        infoDTO.setCategory("Work");
+        infoDTO.setDescription("BONUS");
+        infoDTO.setAmount(1000.00);
+        infoDTO.setCurrency("EUR");
+        infoDTO.setAccountFrom("Porto Tech Hub");
+        infoDTO.setAccountTo("MBCP");
+        infoDTO.setType("CREDIT");
+        infoDTO.setDate("2020-01-08");
+
+        CreatePersonalTransactionDTO expectedDTO = new CreatePersonalTransactionDTO("sousa@gmail.com",
+                1000.00, "EUR", "BONUS", "2020-01-08", "Work", "Porto Tech Hub",
+                "MBCP", "CREDIT");
+
+        //Act
+        CreatePersonalTransactionDTO dto = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO("sousa@gmail.com", infoDTO);
+
+        //Assert
+        assertEquals(expectedDTO, dto);
+    }
 
     /**
      * Validate method that transforms a CreateGroupTransactionInfoDTO into a CreateGroupTransactionDTO
