@@ -12,7 +12,8 @@ class CreateGroupAccountDTOTest {
 
     @BeforeAll
     static void setup () {
-        createGroupAccountDTO = new CreateGroupAccountDTO("marta.cardoso@gmail.com", "Family", "Revolut", "Online Expenses");
+        createGroupAccountDTO = new CreateGroupAccountDTO("marta.cardoso@gmail.com",
+                "Family", "Revolut", "Online Expenses");
     }
 
     @Test
