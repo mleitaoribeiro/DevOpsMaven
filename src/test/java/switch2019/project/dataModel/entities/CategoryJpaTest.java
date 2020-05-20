@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryJpaTest {
 
+    /**
+     * Tests to Equals Method
+     */
+
     @Test
     void testEquals() {
         //Arrange
@@ -124,6 +128,10 @@ public class CategoryJpaTest {
         assertFalse(equalObjects);
 
     }
+
+    /**
+     * Tests to compare Hash code
+     */
 
     @Test
     void testHashCode() {
