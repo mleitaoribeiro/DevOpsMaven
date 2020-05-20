@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -12,14 +14,18 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.Assert;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
+import switch2019.project.domain.domainEntities.shared.AccountID;
+import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import javax.print.attribute.standard.Media;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -38,12 +44,22 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     }
 
     @Test
-    @DisplayName("Test Group Account creation - test if outputDTO and HTTP response are expected")
+    @DisplayName("Test Group Account creation - test if outputDTO, HTTP response are expected. Test if account was persisted in Db")
     void addGroupAccountMainScenario() throws Exception {
+        //GET - Before account is created
+        String uriGet = "/groups/Family Simpson/accounts/Kwik E Mart";
 
-        //Arrange
-        String uri = "/groups/Family Simpson/accounts";
+        MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
 
+        int statusBefore = mvcResultGetBefore.getResponse().getStatus();
+        JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
+
+
+        //POST - Create new account
+        String uriPost = "/groups/Family Simpson/accounts";
+
+        //Create input DTO
         final String groupDescription = "Family Simpson";
         final String personEmail = "homer@hotmail.com";
         final String accountDenomination = "Kwik E Mart";
@@ -54,29 +70,45 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
+        //Serialize input Json
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
+        //Expected Links
         String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/FAMILY%20SIMPSON\\/accounts\\/KWIK%20E%20MART\"}," +
                 "\"accounts\":{\"href\":\"http:\\/\\/localhost\\/groups\\/FAMILY%20SIMPSON\\/accounts\"}}";
 
-        //Act
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        //Get - After account is created
+        MvcResult mvcResultGetAfter = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusAfter = mvcResultGetAfter.getResponse().getStatus();
+        JSONObject getAfter = new JSONObject(mvcResultGetAfter.getResponse().getContentAsString());
 
         //Assert
         Assertions.assertAll(
+                //Get before account is created
+                () -> assertEquals(422, statusBefore),
+                () -> assertEquals("No account found with that ID.", getBefore.getString("message")),
+                //Create new account
                 () -> assertEquals(201, status),
                 () -> assertEquals(groupDescription.toUpperCase(),result.getString("ownerID")),
                 () -> assertEquals(accountDenomination.toUpperCase(), result.getString("denomination")),
                 () -> assertEquals(accountDescription.toUpperCase(), result.getString("description")),
-                () -> assertEquals (expectedLinks, result.getString("_links"))
+                () -> assertEquals (expectedLinks, result.getString("_links")),
+                // Get after account is created
+                () -> assertEquals(200, statusAfter),
+                () -> assertEquals(groupDescription.toUpperCase(),getAfter.getString("ownerID")),
+                () -> assertEquals(accountDenomination.toUpperCase(), getAfter.getString("denomination")),
+                () -> assertEquals(accountDescription.toUpperCase(), getAfter.getString("description"))
         );
     }
 
@@ -84,7 +116,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation - person is not Admin")
     void addGroupAccountPersonIsNotAdmin() throws Exception {
 
-        //Arrange
+        //ARRANGE
         String uri = "/groups/Smith Family/accounts";
 
         final String personEmail = "jerry.smith@gmail.com";
@@ -100,8 +132,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new NoPermissionException ("This person is not admin of this group.").toString();
 
-        //Act
-
+        //ACT
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -114,8 +145,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(403, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -131,7 +161,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test Group Account creation -  group account already exists - test if output and HTTP response are expected ")
     void addGroupAccountGroupAccountAlreadyExistsException() throws Exception {
 
-        //Arrange
+        //ARRANGE
         String uri = "/groups/Family Cardoso/accounts";
 
         final String personEmail = "1191780@isep.ipp.pt";
@@ -147,8 +177,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new ResourceAlreadyExistsException("This account already exists.").toString();
 
-        //ACT:
-
+        //ACT
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -161,8 +190,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(409, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -192,7 +220,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         createGroupAccountInfoDTO.setAccountDenomination(accountDenomination);
         createGroupAccountInfoDTO.setAccountDescription(accountDescription);
 
-        //arrangement of the input:
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
@@ -211,8 +238,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -244,8 +270,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
-        //ASSERT:
-
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(400, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -291,8 +316,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(405, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -365,18 +389,10 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new HttpMediaTypeNotSupportedException("Content type 'application/xml' not supported").toString();
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":415," +
-                "\"status\":\"UNSUPPORTED_MEDIA_TYPE\"," +
-                "\"error\":\"Content type 'application/xml' not supported\"," +
-                "\"message\":\"application/xml media type is not supported.\"}";
-
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_XML_VALUE)
                 .content(inputJson))
-                .andExpect(status().isUnsupportedMediaType())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
@@ -385,8 +401,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(415, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -399,7 +414,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
     }
 
-///////////////////////////////////////////////////////////////////////////////
 
     @Test
     @DisplayName("Test Group Account creation -  group does not exists - test if output and HTTP response are expected ")
@@ -422,8 +436,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new ArgumentNotFoundException("No group found with that description.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -436,8 +449,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -471,8 +483,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -485,8 +496,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -520,8 +530,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -534,8 +543,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -569,8 +577,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -583,8 +590,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -594,9 +600,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals ("The denomination can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
-
     }
 
     @Test
@@ -617,37 +620,30 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String inputJson = super.mapToJson((createGroupAccountInfoDTO));
 
-        String expectedErrorMessage = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"One of the parameters is invalid or is missing.\"," +
-                "\"message\":\"The denomination can't be null or empty.\"}";
-
-
-
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(content().string(expectedErrorMessage))
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-        String result = mvcResult.getResponse().getContentAsString();
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //Assert:
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
+        //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(expectedErrorMessage, result),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals ("The denomination can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
 
     }
 
@@ -671,8 +667,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -685,8 +680,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -696,10 +690,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals ("The description can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
-
-
     }
 
     @Test
@@ -722,8 +712,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
-        //Act:
-
+        //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -736,8 +725,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
-        //ASSERT:
-
+        //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
                 () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
@@ -747,8 +735,6 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 () -> assertEquals ("The description can't be null or empty.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
-
     }
 
     /**
@@ -841,7 +827,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
     @DisplayName("Test getting all the accounts associated with a GroupID - Different String")
     void getAccountsByGroupIDFailCase() throws Exception {
 
-        //ARRANGE:
+        //ARRANGE
         //Arrange the uri used to consult all the accounts associated with a group:
         String uri = "/groups/Rick and Morty/accounts";
 
@@ -853,7 +839,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
                 "\"denomination\":\"ALCOHOL\"," + "\"description\":\"IMPORTANT FOR ADVENTURES\"," +
                 "\"links\":[{\"rel\":\"self\",\"href\":\"http://localhost/groups/RICK%20AND%20MORTY/accounts/ALCOHOL\"}]}]";
 
-        //ACT:
+        //ACT
         //Getting the MvcResult:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -862,7 +848,7 @@ class US007CreateGroupAccountControllerRestIntegrationTest extends AbstractTest 
         //Actual string that is returned:
         String result = mvcResult.getResponse().getContentAsString();
 
-        //ASSERT:
+        //ASSERT
         assertNotSame(expected, result);
     }
 }

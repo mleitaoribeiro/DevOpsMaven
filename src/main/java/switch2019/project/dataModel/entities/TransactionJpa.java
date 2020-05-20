@@ -22,7 +22,7 @@ public class TransactionJpa {
     protected TransactionJpa() {
     }
 
-    public TransactionJpa(int id,String ledger_id, Double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
+    public TransactionJpa(long id,String ledger_id, Double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
        transactionIDJpa=new TransactionIDJpa(id, ledger_id);
         this.amount = amount;
         this.currency = currency;
