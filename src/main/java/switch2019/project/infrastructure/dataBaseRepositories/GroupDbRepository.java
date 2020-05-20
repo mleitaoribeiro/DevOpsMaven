@@ -58,6 +58,7 @@ public class GroupDbRepository implements GroupRepository {
 
             membersJpaRepository.save(memberJpa);
             adminsJpaRepository.save(adminsJpa);
+            newGroup.addAdmin(groupCreator.toString());
 
             return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
                     this.findAdminsByGroupId(newGroup.getId()));
@@ -179,6 +180,7 @@ public class GroupDbRepository implements GroupRepository {
 
         if(membersJpasList.contains(memberJpa) && !adminsJpasList.contains(adminsJpa)) {
             adminsJpaRepository.save(adminsJpa);
+            groupJpa.addAdmin(personID);
             return true;
         }
         return false;

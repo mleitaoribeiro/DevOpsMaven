@@ -1,10 +1,12 @@
 
 package switch2019.project.dataModel.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name ="groups")
@@ -17,11 +19,11 @@ public class GroupJpa implements Serializable {
     private String groupCreator;
     private String creationDate;
 
-    //@OneToMany(mappedBy = "id.groupJpa", cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "id.groupJpa", fetch=  FetchType.LAZY)
     //private List<MembersJpa> members;
 
-    //@OneToMany(mappedBy = "id.groupJpa", cascade = CascadeType.ALL)
-    //private List<AdminsJpa> administrators;
+    @OneToMany(mappedBy = "id.groupID", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AdminsJpa> administrators;
 
     protected GroupJpa() {};
 
@@ -29,8 +31,13 @@ public class GroupJpa implements Serializable {
         this.id = groupDescription;
         this.groupCreator = groupCreator;
         this.creationDate = creationDate;
-        //this.members = new ArrayList<MembersJpa>();
-        //this.administrators = new ArrayList<AdminsJpa>();
+        //this.members = new ArrayList<>();
+        this.administrators = new ArrayList<>();
+    }
+
+    public boolean addAdmin(String adminId){
+        AdminsJpa adminsJpa = new AdminsJpa(this, adminId);
+        return this.administrators.add(adminsJpa);
     }
 
     public String getId() {
@@ -45,13 +52,14 @@ public class GroupJpa implements Serializable {
         return creationDate;
     }
 
-    /*public List<MembersJpa> getMembers() {
-        return members;
-    }
+    //public List<MembersJpa> getMembers() {
+      //  return members;
+    //}
 
     public List<AdminsJpa> getAdministrators() {
         return administrators;
-    }*/
+    }
+
 
     @Override
     public boolean equals(Object o) {
