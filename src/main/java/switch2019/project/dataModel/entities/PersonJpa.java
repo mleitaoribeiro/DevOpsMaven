@@ -18,6 +18,8 @@ public class PersonJpa {
     private String birthDate;
     private String birthPlace;
 
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "adress_id", referencedColumnName = "id")
     @Convert(converter = AddressConverter.class)
     private AddressJpa address;
 
