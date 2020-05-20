@@ -37,8 +37,10 @@ public class GroupJpa implements Serializable {
 
     public boolean addAdmin(String adminId){
         AdminsJpa adminsJpa = new AdminsJpa(this, adminId);
-        if(!administrators.contains(adminsJpa) && members.contains(adminId))
+        MembersJpa membersJpa = new MembersJpa(this, adminId);
+        if(members.contains(membersJpa) && !administrators.contains(adminsJpa)) {
             return this.administrators.add(adminsJpa);
+        }
         else return false;
     }
 

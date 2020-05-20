@@ -10,6 +10,7 @@ import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,9 +51,9 @@ class GroupJpaTest {
         //Arrange
         GroupJpa groupJpa = new GroupJpa("SWITCH", "1191762@isep.ipp.pt", "2002-09-10");
 
-        Account oneAccount = new Account(new Denomination("xpto"),new Description("xpto account"), new PersonID(new Email("marco@gmail.com")));
+        Account oneAccount = new Account(new Denomination("xpto"), new Description("xpto account"), new PersonID(new Email("marco@gmail.com")));
 
-                //Act
+        //Act
         boolean result = groupJpa.equals(oneAccount);
 
         //Assert
@@ -88,10 +89,11 @@ class GroupJpaTest {
 
         //Assert
         Assertions.assertAll(
-                () ->  assertEquals(expectedList, groupJpa.getMembers()),
+                () -> assertEquals(expectedList, groupJpa.getMembers()),
                 () -> assertTrue(result)
-                );
+        );
     }
+
     @Test
     @DisplayName("Add member to memberList - in case it already exists")
     void addMemberFalse() {
@@ -111,7 +113,75 @@ class GroupJpaTest {
 
         //Assert
         Assertions.assertAll(
-                () ->  assertEquals(expectedList, groupJpa.getMembers()),
+                () -> assertEquals(expectedList, groupJpa.getMembers()),
+                () -> assertFalse(result)
+        );
+    }
+
+    @Test
+    @DisplayName("Add member to adminList- main scenario")
+    void addAdminTrue() {
+
+        //Arrange
+        GroupJpa groupJpa = new GroupJpa("Elefantes Azuis", "1191743@isep.ipp.pt", "2002-09-10");
+        String adminId = "morty@gmail.com";
+        AdminsJpa adminJpa = new AdminsJpa(groupJpa, adminId);
+        AdminsJpa adminAndMemberJpa = new AdminsJpa(groupJpa, groupJpa.getGroupCreator());
+
+        List<AdminsJpa> expectedList = Arrays.asList(adminAndMemberJpa, adminJpa);
+
+        //Act
+        groupJpa.addMember(adminId);
+        boolean result = groupJpa.addAdmin(adminId);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedList, groupJpa.getAdministrators()),
+                () -> assertTrue(result)
+        );
+    }
+
+    @Test
+    @DisplayName("Add member to adminList- person not member")
+    void addAdminFalseNotMember() {
+
+        //Arrange
+        GroupJpa groupJpa = new GroupJpa("Elefantes Azuis", "1191743@isep.ipp.pt", "2002-09-10");
+        String adminId = "morty@gmail.com";
+        AdminsJpa adminAndMemberJpa = new AdminsJpa(groupJpa, groupJpa.getGroupCreator());
+
+        List<AdminsJpa> expectedList = Collections.singletonList(adminAndMemberJpa);
+
+        //Act
+        boolean result = groupJpa.addAdmin(adminId);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedList, groupJpa.getAdministrators()),
+                () -> assertFalse(result)
+        );
+    }
+
+    @Test
+    @DisplayName("Add member to adminList- already Admin")
+    void addAdminAlreadyAdmin() {
+
+        //Arrange
+        GroupJpa groupJpa = new GroupJpa("Elefantes Azuis", "1191743@isep.ipp.pt", "2002-09-10");
+        String adminId = "morty@gmail.com";
+        AdminsJpa adminJpa = new AdminsJpa(groupJpa, adminId);
+        AdminsJpa adminAndMemberJpa = new AdminsJpa(groupJpa, groupJpa.getGroupCreator());
+
+        List<AdminsJpa> expectedList = Arrays.asList(adminAndMemberJpa, adminJpa);
+
+        //Act
+        groupJpa.addMember(adminId);
+        groupJpa.addAdmin(adminId);
+        boolean result = groupJpa.addAdmin(adminId);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedList, groupJpa.getAdministrators()),
                 () -> assertFalse(result)
         );
     }
