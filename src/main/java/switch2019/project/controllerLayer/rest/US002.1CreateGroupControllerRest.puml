@@ -77,8 +77,8 @@ deactivate ":GroupDTOAssembler"
 
 autonumber 4.3.2
 "restController:US2.1CreateGroupControllerRest" -> "service:US2.1CreateGroupService" : createGroup(createGroupDTO)
-|||
-ref over "service:US2.1CreateGroupService": service:US2.1CreateGroup_Part2
+
+ref over "service:US2.1CreateGroupService": service:US2.1CreateGroupControllerRestRef
 
 activate "service:US2.1CreateGroupService" #FFBBBB
 

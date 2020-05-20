@@ -63,9 +63,9 @@ create "categoryJpa:CategoryJpa"
 deactivate ":CategoryDomainDataAssembler" #FFBBBB
 autonumber 1.9.3
 |||
-"categoryRep:CategoryRepository"->"categoryRep:CategoryRepository": save(categoryJpa)
+"categoryRep:CategoryRepository"->"categoryRep:CategoryRepository": savedCategoryJpa = save(categoryJpa)
 |||
-"categoryRep:CategoryRepository"->":CategoryDomainDataAssembler":toDomain(categoryJpa)
+"categoryRep:CategoryRepository"->":CategoryDomainDataAssembler":toDomain(savedCategoryJpa)
 activate ":CategoryDomainDataAssembler" #FFBBBB
 autonumber 1.9.4.1
 ":CategoryDomainDataAssembler"->"categoryJpa:CategoryJpa" : groupID = getCategoryIdJpa()
