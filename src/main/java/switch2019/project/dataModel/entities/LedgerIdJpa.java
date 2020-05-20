@@ -1,11 +1,12 @@
 package switch2019.project.dataModel.entities;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Objects;
 
 
 @Embeddable
-public class LedgerIdJpa {
+public class LedgerIdJpa implements Serializable {
 
     private String owner;
 
@@ -21,5 +22,20 @@ public class LedgerIdJpa {
     @Override
     public int hashCode() {
         return Objects.hash(owner);
+    }
+
+
+    public LedgerIdJpa(String owner) {
+        this.owner = owner;
+    }
+
+    //Getter and Setter for the owner associated with the LedgerId
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
