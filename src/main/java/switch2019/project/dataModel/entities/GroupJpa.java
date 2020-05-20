@@ -1,8 +1,6 @@
 
 package switch2019.project.dataModel.entities;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,8 +17,8 @@ public class GroupJpa implements Serializable {
     private String groupCreator;
     private String creationDate;
 
-    //@OneToMany(mappedBy = "id.groupJpa", fetch=  FetchType.LAZY)
-    //private List<MembersJpa> members;
+    @OneToMany(mappedBy = "id.groupID", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MembersJpa> members;
 
     @OneToMany(mappedBy = "id.groupID", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AdminsJpa> administrators;
@@ -31,14 +29,32 @@ public class GroupJpa implements Serializable {
         this.id = groupDescription;
         this.groupCreator = groupCreator;
         this.creationDate = creationDate;
-        //this.members = new ArrayList<>();
+        this.members = new ArrayList<>();
+        addMember(groupCreator);
         this.administrators = new ArrayList<>();
         addAdmin(groupCreator);
     }
 
     public boolean addAdmin(String adminId){
         AdminsJpa adminsJpa = new AdminsJpa(this, adminId);
-        return this.administrators.add(adminsJpa);
+        if(!administrators.contains(adminsJpa) && members.contains(adminId))
+            return this.administrators.add(adminsJpa);
+        else return false;
+    }
+
+    public List<AdminsJpa> getAdministrators() {
+        return administrators;
+    }
+
+    public boolean addMember(String memberId) {
+        MembersJpa memberJpa = new MembersJpa(this, memberId);
+        if (!members.contains(memberJpa))
+            return members.add(memberJpa);
+        else return false;
+    }
+
+    public List<MembersJpa> getMembers() {
+        return members;
     }
 
     public String getId() {
@@ -53,15 +69,6 @@ public class GroupJpa implements Serializable {
         return creationDate;
     }
 
-    //public List<MembersJpa> getMembers() {
-      //  return members;
-    //}
-
-    public List<AdminsJpa> getAdministrators() {
-        return administrators;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,5 +82,10 @@ public class GroupJpa implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, groupCreator, creationDate);
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 }

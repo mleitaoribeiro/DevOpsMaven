@@ -1,11 +1,16 @@
 package switch2019.project.dataModel.entities;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,5 +70,49 @@ class GroupJpaTest {
         //Assert
         assertEquals(groupJpa.hashCode(), groupJpa1.hashCode());
         assertNotEquals(groupJpa.hashCode(), groupJpa2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Add member to memberList- main scenario")
+    void addMemberTrue() {
+        //Arrange
+        GroupJpa groupJpa = new GroupJpa("COOL KIDS", "marta@isep.ipp.pt", "2002-09-10");
+        String memberId = "marta@gmail.com";
+        MembersJpa memberJpa = new MembersJpa(groupJpa, memberId);
+        MembersJpa adminAndMemberJpa = new MembersJpa(groupJpa, groupJpa.getGroupCreator());
+
+        List<MembersJpa> expectedList = Arrays.asList(adminAndMemberJpa, memberJpa);
+
+        //Act
+        boolean result = groupJpa.addMember(memberId);
+
+        //Assert
+        Assertions.assertAll(
+                () ->  assertEquals(expectedList, groupJpa.getMembers()),
+                () -> assertTrue(result)
+                );
+    }
+    @Test
+    @DisplayName("Add member to memberList - in case it already exists")
+    void addMemberFalse() {
+        //Arrange
+        GroupJpa groupJpa = new GroupJpa("COOL KIDS", "marta@isep.ipp.pt", "2002-09-10");
+        String memberId = "marta@gmail.com";
+        groupJpa.addMember(memberId);
+
+        MembersJpa memberJpa = new MembersJpa(groupJpa, memberId);
+        MembersJpa adminAndMemberJpa = new MembersJpa(groupJpa, groupJpa.getGroupCreator());
+
+        List<MembersJpa> expectedList = Arrays.asList(adminAndMemberJpa, memberJpa);
+
+        //Act
+        boolean result = groupJpa.addMember(memberId);
+
+
+        //Assert
+        Assertions.assertAll(
+                () ->  assertEquals(expectedList, groupJpa.getMembers()),
+                () -> assertFalse(result)
+        );
     }
 }

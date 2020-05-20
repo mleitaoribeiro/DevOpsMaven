@@ -50,17 +50,17 @@ public class GroupDbRepository implements GroupRepository {
      */
 
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
-            Group group = new Group(groupDescription, groupCreator);
-            GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
+        Group group = new Group(groupDescription, groupCreator);
+        GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
 
-            MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
-            AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
+        MembersJpa memberJpa = new MembersJpa(newGroup, groupCreator.toString());
+        AdminsJpa adminsJpa = new AdminsJpa(newGroup, groupCreator.toString());
 
-            membersJpaRepository.save(memberJpa);
-            adminsJpaRepository.save(adminsJpa);
+        membersJpaRepository.save(memberJpa);
+        adminsJpaRepository.save(adminsJpa);
 
-            return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
-                    this.findAdminsByGroupId(newGroup.getId()));
+        return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
+                this.findAdminsByGroupId(newGroup.getId()));
     }
 
     /**
@@ -147,8 +147,9 @@ public class GroupDbRepository implements GroupRepository {
 
         if (personID != null && !membersJpasList.contains(memberJpa)) {
             membersJpaRepository.save(memberJpa);
+            groupJpa.addMember(memberJpa.getPersonID());
             return true;
-        } else return false;
+        } return false;
     }
 
 
