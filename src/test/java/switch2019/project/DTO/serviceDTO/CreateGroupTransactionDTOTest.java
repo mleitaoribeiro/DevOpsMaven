@@ -127,17 +127,25 @@ class CreateGroupTransactionDTOTest {
     void getGroupDescription() {
 
         // Arrange
-        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
+        CreateGroupTransactionDTO createGroupTransactionDTO1 = new CreateGroupTransactionDTO("Switch",
                 20.50, "EUR", "19-05-2020","beers",  "drinks",
                 "Switch Account", "Isep Bar Account", "debit");
 
-        String groupDescriptionExpected = "Switch";
+        CreateGroupTransactionDTO createGroupTransactionDTO2 = new CreateGroupTransactionDTO("Bashtards",
+                20.50, "EUR", "19-05-2020","beers",  "drinks",
+                "Switch Account", "Isep Bar Account", "debit");
+
+        String groupDescription1Expected = "Switch";
+        String groupDescription2Expected = "Bashtards";
 
         // Act
-        String groupDescription = createGroupTransactionDTO.getGroupDescription();
+        String groupDescription1 = createGroupTransactionDTO1.getGroupDescription();
+        String groupDescription2 = createGroupTransactionDTO2.getGroupDescription();
 
         // Assert
-        assertEquals(groupDescriptionExpected, groupDescription);
+        assertEquals(groupDescription1Expected, groupDescription1);
+        assertEquals(groupDescription2Expected, groupDescription2);
+        assertNotEquals(groupDescription1, groupDescription2);
     }
 
     @Test
