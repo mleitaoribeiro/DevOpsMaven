@@ -23,11 +23,11 @@ import java.util.Set;
 public class US006CreatePersonAccountService {
 
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
     @Autowired
-    @Qualifier("AccountInMemoryRepository")
+    @Qualifier("AccountDbRepository")
     private AccountRepository accountRepository;
 
     /**

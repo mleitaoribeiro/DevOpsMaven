@@ -558,12 +558,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         //ARRANGE:
         String uri = "/persons/1191755@isep.ipp.pt/accounts";
 
-        String expected = "{\"timestamp\":\"" + LocalDateTime.now().withNano(0).withSecond(0) +
-                "\",\"statusCode\":422,\"status\":\"UNPROCESSABLE_ENTITY\"," +
-                "\"error\":\"This resource was not found.\"," +
-                "\"message\":\"No accounts found with that ID.\"}";
-
-        String expectedResolvedException = new ArgumentNotFoundException("No accounts found with that ID.").toString();
+        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
         //ACT:
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -582,7 +577,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No accounts found with that ID.", result.getString("message")),
+                () -> assertEquals ("No account found with that ID.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
