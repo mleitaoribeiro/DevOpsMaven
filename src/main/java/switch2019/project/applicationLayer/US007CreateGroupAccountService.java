@@ -24,15 +24,15 @@ import java.util.Set;
 public class US007CreateGroupAccountService {
 
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
     @Autowired
-    @Qualifier("GroupInMemoryRepository")
+    @Qualifier("GroupDbRepository")
     private GroupRepository groupsRepository;
 
     @Autowired
-    @Qualifier("AccountInMemoryRepository")
+    @Qualifier("AccountDbRepository")
     private AccountRepository accountRepository;
 
     /**
