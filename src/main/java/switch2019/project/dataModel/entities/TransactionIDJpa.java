@@ -7,13 +7,13 @@ import java.util.Objects;
 @Embeddable
 public class TransactionIDJpa implements Serializable {
 
-    private int id;
+    private long id;
     private String ledger_id;
 
     protected TransactionIDJpa() {
     }
 
-    public TransactionIDJpa(int id, String ledger_id) {
+    public TransactionIDJpa(long id, String ledger_id) {
         this.id = id;
         this.ledger_id = ledger_id;
     }
@@ -32,11 +32,11 @@ public class TransactionIDJpa implements Serializable {
         return Objects.hash(id, ledger_id);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

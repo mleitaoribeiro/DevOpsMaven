@@ -135,10 +135,10 @@ class TransactionIDJpaTest {
         //Arrange
 
         TransactionIDJpa transactionIDJpa = new TransactionIDJpa(1, "Switc");
-        int expectedID = 1;
+        long expectedID = 1;
 
         //Act
-        int realID = transactionIDJpa.getId();
+        long realID = transactionIDJpa.getId();
 
         // Assert
         assertEquals(expectedID, realID);
@@ -172,12 +172,12 @@ class TransactionIDJpaTest {
         //Arrange
 
         TransactionIDJpa transactionIDJpa = new TransactionIDJpa(1, "Switc");
-        int expectedID = 1;
+        long expectedID = 1;
 
         //Act
         transactionIDJpa.setId(expectedID);
 
-        int realID = transactionIDJpa.getId();
+        long realID = transactionIDJpa.getId();
         // Assert
         assertEquals(expectedID, realID);
 
