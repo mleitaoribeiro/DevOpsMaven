@@ -58,7 +58,6 @@ public class GroupDbRepository implements GroupRepository {
 
             membersJpaRepository.save(memberJpa);
             adminsJpaRepository.save(adminsJpa);
-            newGroup.addAdmin(groupCreator.toString());
 
             return GroupDomainDataAssembler.toDomain(newGroup, this.findMembersByGroupId(newGroup.getId()),
                     this.findAdminsByGroupId(newGroup.getId()));

@@ -33,6 +33,7 @@ public class GroupJpa implements Serializable {
         this.creationDate = creationDate;
         //this.members = new ArrayList<>();
         this.administrators = new ArrayList<>();
+        addAdmin(groupCreator);
     }
 
     public boolean addAdmin(String adminId){
