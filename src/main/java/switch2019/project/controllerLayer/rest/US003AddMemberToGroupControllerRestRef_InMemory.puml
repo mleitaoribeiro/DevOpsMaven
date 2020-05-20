@@ -35,7 +35,7 @@ activate ":GroupDTOAssembler" #FFBBBB
 
 autonumber 3.3.2.5.1
 create "addedMemberDTO:AddedMemberDTO"
-":GroupDTOAssembler" -> "addedMemberDTO:AddedMemberDTO" : new AddedMemberDTO(wasMemberAdded, person, group)
+":GroupDTOAssembler" -> "addedMemberDTO:AddedMemberDTO" : new AddedMemberDTO\n(wasMemberAdded, person, group)
 deactivate ":GroupDTOAssembler"
 
  <-- "service:US003AddMemberToGroupService" : addedMemberDTO

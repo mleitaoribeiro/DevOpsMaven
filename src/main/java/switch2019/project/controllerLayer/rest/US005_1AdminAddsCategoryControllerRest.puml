@@ -53,8 +53,8 @@ autonumber 3.3.2
 "restController:\nUS005_1AdminAddsCategoryControllerRest"->"service:\nUS005_1AdminAddsCategoryToGroupService": addCategoryDTOGroup(createGroupCategoryDTO)
 activate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
 autonumber 3.3.2.1
-|||
-ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_1AdminAddsCategory_Part2
+
+ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_nUS005_1AdminAddsCategoryControllerRestRef
 "service:\nUS005_1AdminAddsCategoryToGroupService" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : categoryDTO
 
 autonumber 3.3.3

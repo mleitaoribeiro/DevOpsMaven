@@ -37,7 +37,7 @@ create "infoDTO:CreatePersonAccountInfoDTO"
 activate "restController:US006CreatePersonAccountControllerRest" #FFBBBB
 
 autonumber 3.3.1
-"restController:US006CreatePersonAccountControllerRest"-> ":AccountDTOAssembler": createPersonAccountDTO = transformIntoCreate\nPersonAccountDTO(personEmail, infoDTO)
+"restController:US006CreatePersonAccountControllerRest"-> ":AccountDTOAssembler": transformIntoCreate\nPersonAccountDTO(personEmail, infoDTO)
 activate ":AccountDTOAssembler"  #FFBBBB
 
 autonumber 3.3.1.1
@@ -51,53 +51,21 @@ deactivate "infoDTO:CreatePersonAccountInfoDTO"
 
 create "createPersonAccountDTO:CreatePersonAccountDTO"
 ":AccountDTOAssembler" -> "createPersonAccountDTO:CreatePersonAccountDTO": new CreatePersonAccountDTO\n(personEmail, accountDenomination, accountDescription)
+
+":AccountDTOAssembler" -> "restController:US006CreatePersonAccountControllerRest" : createPersonAccountDTO
+
 deactivate ":AccountDTOAssembler"
 
 autonumber 3.3.2
 "restController:US006CreatePersonAccountControllerRest"->"service:US006CreatePersonAccountService": createPersonAccount(createPersonAccountDTO)
 activate "service:US006CreatePersonAccountService" #FFBBBB
 
-autonumber 3.3.2.1
-"service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : personEmail = getPersonEmail()
-activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
-deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
-
-"service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : accountDenomination= getAccountDenomination()
-activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
-deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
-
-"service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : accountDescription = getAccountDescription()
-activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
-deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
-
-"service:US006CreatePersonAccountService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
-activate "personRepo:PersonRepository" #FFBBBB
-deactivate "personRepo:PersonRepository"
-
-"service:US006CreatePersonAccountService" -> "accountRepo:AccountRepository" : createAccount(accountDenomination, accountDescription, personID)
-activate "accountRepo:AccountRepository" #FFBBBB
-
-autonumber 3.3.2.5.1
-"accountRepo:AccountRepository" -> "accountRepo:AccountRepository" : add(account)
-
-"accountRepo:AccountRepository" --> "service:US006CreatePersonAccountService" : account
-deactivate "accountRepo:AccountRepository" #FFBBBB
-
-"service:US006CreatePersonAccountService" -> ":AccountDTOAssembler": createAccountDTOFromDomainObject(account)
-activate  ":AccountDTOAssembler" #FFBBBB
-
-autonumber 3.3.2.5.3.1
-create "accountDTO:AccountDTO"
-":AccountDTOAssembler" --> "accountDTO:AccountDTO" : create
-
-":AccountDTOAssembler" --> "service:US006CreatePersonAccountService" : accountDTO
-deactivate ":AccountDTOAssembler"
+ref over "service:US006CreatePersonAccountService" : US006CreatePersonAccountControllerRestRef
 
 "service:US006CreatePersonAccountService" --> "restController:US006CreatePersonAccountControllerRest" : accountDTO
 deactivate "service:US006CreatePersonAccountService"
 
 autonumber 3.3.3
-|||
 "restController:US006CreatePersonAccountControllerRest"->"restController:US006CreatePersonAccountControllerRest": selfLink = /persons/{ownerID}/accounts/{accountDenomination}
 "restController:US006CreatePersonAccountControllerRest"-> "accountDTO:AccountDTO": add(selfLink)
 activate "accountDTO:AccountDTO" #FFBBBB
@@ -115,7 +83,6 @@ autonumber 3.4
 "mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
 deactivate "mvc:MockMvc"
 
-|||
 autonumber 4
 create "mvcResult :MvcResult"
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : create
@@ -124,7 +91,6 @@ activate "mvcResult :MvcResult" #FFBBBB
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
 "HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
 deactivate "mvcResult :MvcResult" #FFBBBB
-
 
 == Assert ==
 
