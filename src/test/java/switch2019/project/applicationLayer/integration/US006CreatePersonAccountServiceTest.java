@@ -467,7 +467,7 @@ class US006CreatePersonAccountServiceTest {
         //Assert:
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No accounts found with that ID.");
+                .hasMessage("No account found with that ID.");
     }
 
 
