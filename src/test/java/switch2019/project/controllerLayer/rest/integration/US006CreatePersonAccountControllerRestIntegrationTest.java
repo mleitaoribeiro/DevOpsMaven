@@ -29,7 +29,7 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
         super.setUP();
     }
 
-    @DisplayName("Test If User Account is created - Main Scenario")
+    @DisplayName("Test If User Account is created - Main Scenario") 
     @Test
     void createPersonAccountHappyCase() throws Exception {
         //ARRANGE:
