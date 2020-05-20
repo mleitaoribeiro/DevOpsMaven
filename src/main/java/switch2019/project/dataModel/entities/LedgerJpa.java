@@ -36,5 +36,31 @@ public class LedgerJpa {
     public int hashCode() {
         return Objects.hash(ledgerIdJpa, creationDate);
     }
+
+    //GETTERS:
+
+    public LedgerIdJpa getLedgerIdJpa() {
+        return ledgerIdJpa;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    //SETTERS:
+
+    public void setLedgerIdJpa(LedgerIdJpa ledgerIdJpa) {
+        this.ledgerIdJpa = ledgerIdJpa;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+
+    @Override
+    public String toString() {
+        return ledgerIdJpa.getOwner() + ", " + creationDate;
+    }
     
 }
