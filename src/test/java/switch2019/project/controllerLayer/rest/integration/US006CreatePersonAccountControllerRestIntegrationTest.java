@@ -32,45 +32,77 @@ class US006CreatePersonAccountControllerRestIntegrationTest extends AbstractTest
     @DisplayName("Test If User Account is created - Main Scenario") 
     @Test
     void createPersonAccountHappyCase() throws Exception {
-        //ARRANGE:
-            //URI used to call the controller:
-        String uri = "/persons/marge@hotmail.com/accounts";
 
-            //arrangement of the account DTO:
+        // ARRANGE
+        // URI used by the POST
+        String uriPost = "/persons/marge@hotmail.com/accounts";
+
+        // URI used by the GET
+        String uriGet = "/persons/marge@hotmail.com/accounts/FOOD EXPENSES";
+
         final String personEmail = "marge@hotmail.com";
         final String accountDenomination = "Food Expenses";
         final String accountDescription = "Money spent on food";
 
-            //setting information for the DTO:
         CreatePersonAccountInfoDTO infoDTO = new CreatePersonAccountInfoDTO();
         infoDTO.setAccountDenomination(accountDenomination);
         infoDTO.setAccountDescription(accountDescription);
 
-        //arrangement of the input:
-        String inputJson = super.mapToJson((infoDTO));
+        String inputJson = super.mapToJson(infoDTO);
 
-        //arrangement of the expected output:
-        String expectedLinks = "{\"self\":" +
-                "[{\"href\":\"http:\\/\\/localhost\\/persons\\/MARGE@HOTMAIL.COM\\/accounts\\/FOOD%20EXPENSES\"}," +
+        String expectedLinks = "{\"self\":[" +
+                "{\"href\":\"http:\\/\\/localhost\\/persons\\/MARGE@HOTMAIL.COM\\/accounts\\/FOOD%20EXPENSES\"}," +
                 "{\"href\":\"http:\\/\\/localhost\\/persons\\/MARGE@HOTMAIL.COM\\/accounts\"}]}";
 
-        //ACT:
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        // Get before the post
+        MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int statusGetBefore = mvcResultGetBefore.getResponse().getStatus();
+        JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
+
+        // ACT
+        MvcResult mvcResultPost = mvc.perform(MockMvcRequestBuilders.post(uriPost)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        int status = mvcResult.getResponse().getStatus();
-        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+        int status = mvcResultPost.getResponse().getStatus();
+        JSONObject result = new JSONObject(mvcResultPost.getResponse().getContentAsString());
 
-        //Assert
+        // Get after the post
+        MvcResult mvcResultGetAfter = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int statusGetAfter = mvcResultGetAfter.getResponse().getStatus();
+        System.out.println("status: " + statusGetAfter);
+        JSONObject getAfter = new JSONObject(mvcResultGetAfter.getResponse().getContentAsString());
+
+        // ASSERT
+        // Assert Get before Post
+        Assertions.assertAll(
+                () -> assertEquals(422, statusGetBefore),
+                () -> assertEquals ("No account found with that ID.", getBefore.getString("message"))
+        );
+
+        // Assert Post
         Assertions.assertAll(
                 () -> assertEquals(201, status),
                 () -> assertEquals(personEmail.toUpperCase(),result.getString("ownerID")),
                 () -> assertEquals(accountDenomination.toUpperCase(), result.getString("denomination")),
                 () -> assertEquals(accountDescription.toUpperCase(), result.getString("description")),
                 () -> assertEquals(expectedLinks, result.getString("_links"))
+        );
+
+        // Assert Get after Post
+        Assertions.assertAll(
+                () -> assertEquals(200, statusGetAfter),
+                () -> assertEquals(personEmail.toUpperCase(),getAfter.getString("ownerID")),
+                () -> assertEquals(accountDenomination.toUpperCase(), getAfter.getString("denomination")),
+                () -> assertEquals(accountDescription.toUpperCase(), getAfter.getString("description"))
         );
     }
 
