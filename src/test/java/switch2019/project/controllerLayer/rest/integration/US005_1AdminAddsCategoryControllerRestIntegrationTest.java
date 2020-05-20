@@ -39,10 +39,21 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
      * @throws Exception
      */
     @Test
-    @DisplayName("Test if the outputDTO is the expected")
-    void addCategoryToGroupServiceTestEqual() throws Exception {
+    @DisplayName("Add Category To Group - Happy Case")
+    void addCategoryToGroupHappyCase() throws Exception {
 
-        String uri = "/groups/Smith Family/categories";
+        //GET - Before category is created
+        String uriGet = "/groups/Smith Family/categories/shopping";
+
+        MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusBefore = mvcResultGetBefore.getResponse().getStatus();
+        JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
+
+
+        //POST - Create new category
+        String uriPost = "/groups/Smith Family/categories";
 
         final String groupDescriptionStr = "Smith Family";
         final String personEmail = "rick@gmail.com";
@@ -52,13 +63,14 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
         createGroupCategoryInfoDTO.setPersonEmail(personEmail);
         createGroupCategoryInfoDTO.setCategoryDenomination(categoryDenomination);
 
+        //Serialize input Json
         String inputJson = super.mapToJson((createGroupCategoryInfoDTO));
 
-        String expected = "{\"self\":" +
+        //Expected Links
+        String expectedLinks = "{\"self\":" +
                 "{\"href\":\"http:\\/\\/localhost\\/groups\\/SMITH%20FAMILY\\/categories\\/SHOPPING\"}}";
 
-        //Act
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andReturn();
@@ -67,12 +79,29 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
 
+        //Get - After category is created
+        MvcResult mvcResultGetAfter = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusAfter = mvcResultGetAfter.getResponse().getStatus();
+        JSONObject getAfter = new JSONObject(mvcResultGetAfter.getResponse().getContentAsString());
+
+
         //Assert
         Assertions.assertAll(
+                //Get before category is created
+                () -> assertEquals(422, statusBefore),
+                () -> assertEquals("No category found with that ID.", getBefore.getString("message")),
+                //Create new category
                 () -> assertEquals(201, status),
                 () -> assertEquals(categoryDenomination.toUpperCase(), result.getString("denomination")),
                 () -> assertEquals(groupDescriptionStr.toUpperCase(),result.getString("ownerID")),
-                () -> assertEquals (expected, result.getString("_links"))
+                () -> assertEquals (expectedLinks, result.getString("_links")) ,
+                // Get after category is created
+                () -> assertEquals(200, statusAfter),
+                () -> assertEquals(groupDescriptionStr.toUpperCase(),getAfter.getString("ownerID")),
+                () -> assertEquals(categoryDenomination.toUpperCase(), getAfter.getString("denomination"))
+
         );
     }
 
