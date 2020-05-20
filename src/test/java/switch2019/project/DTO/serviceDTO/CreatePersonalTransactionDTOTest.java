@@ -13,7 +13,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50,  "EUR", "beers","19-05-2002", "drinks","Switch Account",
+                20.50, "EUR", "beers", "19-05-2002", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -23,17 +23,32 @@ class CreatePersonalTransactionDTOTest {
         assertTrue(result);
     }
 
+    @DisplayName("Test for method equals - null object")
+    void testEqualsNullbject() {
+
+        // Arrange
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
+                20.50, "EUR", "beers", "19-05-2002", "drinks", "Switch Account",
+                "Isep Bar Account", "debit");
+
+        // Act
+        boolean result = createPersonalTransactionDTO.equals(null);
+
+        // Assert
+        assertFalse(result);
+    }
+
     @Test
     @DisplayName("Test for method equals - two objects with the same parameters")
     void testEqualsTwoObjectSameParameters() {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR","beers","19-05-2002", "drinks","Switch Account",
+                20.50, "EUR", "beers", "19-05-2002", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreatePersonalTransactionDTO createPersonalTransactionDTOCopy = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers", "19-05-2002","drinks", "Switch Account",
+                20.50, "EUR", "beers", "19-05-2002", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -49,11 +64,11 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO1 = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers","15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreatePersonalTransactionDTO createPersonalTransactionDTO2 = new CreatePersonalTransactionDTO("119180@isep.ipp.pt",
-                20.50, "EUR", "beers","15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -69,11 +84,11 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers", "15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreatePersonalTransactionDTO createPersonalTransactionDTOCopy = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers","15-02-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -89,11 +104,11 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers", "15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         CreatePersonalTransactionDTO createPersonalTransactionDTOCopy = new CreatePersonalTransactionDTO("1191780@isep.ipp.pt",
-                20.50, "EUR", "beers", "15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         // Act
@@ -109,7 +124,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers",  "15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String PersonEmailExpected = "1191762@isep.ipp.pt";
@@ -127,7 +142,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers","15-02-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         double amountExpected = 20.50;
@@ -145,7 +160,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers", "15-05-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-05-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String currencyExpected = "EUR";
@@ -158,21 +173,57 @@ class CreatePersonalTransactionDTOTest {
     }
 
     @Test
+    @DisplayName("Test for method getPersonEmail")
+    void getPersonEmail() {
+
+        // Arrange
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
+                "Isep Bar Account", "debit");
+
+        String personEmailExpected = "1191762@isep.ipp.pt";
+
+        // Act
+        String personEmail = createPersonalTransactionDTO.getPersonEmail();
+
+        // Assert
+        assertEquals(personEmailExpected, personEmail);
+    }
+
+    @Test
     @DisplayName("Test for method getDescription")
     void getDescription() {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers","15-02-2020",  "drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
-        String descriptionExpected = "beers";
+        String expectedDescription = "beers";
 
         // Act
         String description = createPersonalTransactionDTO.getDescription();
 
         // Assert
-        assertEquals(descriptionExpected, description);
+        assertEquals(expectedDescription, description);
+    }
+
+    @Test
+    @DisplayName("Test for method getDate")
+    void getDate() {
+
+        // Arrange
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
+                "Isep Bar Account", "debit");
+
+        String dateExpected = "15-02-2020";
+
+        // Act
+        String realDate = createPersonalTransactionDTO.getDate();
+
+        // Assert
+        assertEquals(dateExpected, realDate);
     }
 
     @Test
@@ -199,7 +250,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers", "drinks", "15-02-2020","Switch Account",
+                20.50, "EUR", "beers", "drinks", "15-02-2020", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String accountFromExpected = "Switch Account";
@@ -217,7 +268,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers", "15-02-2020","drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String accountToExpected = "Isep Bar Account";
@@ -235,7 +286,7 @@ class CreatePersonalTransactionDTOTest {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
-                20.50, "EUR", "beers","15-02-2020", "drinks", "Switch Account",
+                20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
         String typeExpected = "debit";
