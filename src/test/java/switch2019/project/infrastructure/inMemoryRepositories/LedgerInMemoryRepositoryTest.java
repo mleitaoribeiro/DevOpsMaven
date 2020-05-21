@@ -4,13 +4,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.LedgerID;
-import switch2019.project.infrastructure.inMemoryRepositories.LedgerInMemoryRepository;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LedgerInMemoryRepositoryTest {
@@ -60,7 +63,10 @@ class LedgerInMemoryRepositoryTest {
         // Arrange
         LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
+        OwnerID ownerID2 = new PersonID(new Email("mm@gmail.com"));
         ledgerInMemoryRepository.createLedger(ownerID);
+        ledgerInMemoryRepository.createLedger(ownerID2);
+
         Ledger ledgerExpected = new Ledger(ownerID);
 
         // Act
@@ -80,15 +86,16 @@ class LedgerInMemoryRepositoryTest {
         OwnerID ownerID = new GroupID(new Description("switch"));
         ledgerInMemoryRepository.createLedger(ownerID);
 
-        // Act
-        try {
-            ledgerInMemoryRepository.getByID(new LedgerID(ownerID));
-        }
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.getByID(new LedgerID(new GroupID(new Description("NOT FOUND"))));
+        });
 
-        // Assert
-        catch (ArgumentNotFoundException exception) {
-            assertEquals("No ledger found with that ID.", exception.getMessage());
-        }
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No ledger found with that ID.");
+
     }
 
     @Test
