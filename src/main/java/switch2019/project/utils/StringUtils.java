@@ -119,9 +119,22 @@ public class StringUtils {
     }
 
     /**
-     * Method to convert string to DateAndTime with hour and minute
+     * Format a String into a LocalDate
+     *
      * @param date
-     * @return DateAndTime
+     * @return formatted LocalDate
+     */
+    public static DateAndTime toDateAndTime(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        return new DateAndTime(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
+    }
+
+    /**
+     * Format a String into a LocalDateTime
+     *
+     * @param date
+     * @return formatted LocalDateTime
      */
     public static DateAndTime toDateHourMinute(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
