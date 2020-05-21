@@ -435,8 +435,6 @@ public class DataBaseLoader {
         // Siblings - are in each other list of siblings
         father.addSibling(father2);
 
-        System.out.println(siblingsJpaRepository.findByOwnerEmailAndAndSiblingEmail(father.getID().toString(),father2.getID().toString()));
-
         // Siblings - same Father and Mother and in each other's list
         Person antonio = personRepository.createPerson("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), mother.getID(), father.getID(), new Email("antonio@isep.ipp.pt"));

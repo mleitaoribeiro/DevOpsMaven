@@ -10,10 +10,8 @@ public class SiblingsJpa {
     @Embeddable
     static class SiblingsIdJpa implements Serializable {
 
-        @Id
         @Column(name = "OwnerID")
         private String ownerEmail;
-
 
         @Column(name = "SiblingID")
         private String siblingEmail;

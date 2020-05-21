@@ -6,5 +6,5 @@ import switch2019.project.dataModel.entities.SiblingsJpa;
 import java.util.Optional;
 
 public interface SiblingsJpaRepository extends JpaRepository<SiblingsJpa, String> {
-    Optional<SiblingsJpa> findByOwnerEmailAndAndSiblingEmail(String ownerEmail, String siblingEmail);
+    Optional<SiblingsJpa> findById_OwnerEmailAndId_SiblingEmail(String ownerEmail, String siblingEmail);
 }
