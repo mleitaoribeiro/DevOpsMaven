@@ -181,7 +181,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("409", result.getString("statusCode")),
                 () -> assertEquals("CONFLICT", result.getString("status")),
                 () -> assertEquals ("This resource already exists.", result.getString("error")),
-                () -> assertEquals ("This group description already exists.", result.getString("message")),
+                () -> assertEquals ("This group already exists.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
