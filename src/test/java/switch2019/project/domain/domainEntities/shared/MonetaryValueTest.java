@@ -128,13 +128,22 @@ class MonetaryValueTest {
 
     @Test
     @DisplayName("Test equals same object")
-    void testEqualsSameObject() {
+    void testEquals() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue1 = new MonetaryValue(5.00, Currency.getInstance("EUR"));
 
         //Assert
         assertEquals(monetaryValue, monetaryValue1);
+    }
+
+    @Test
+    @DisplayName("Test equals same object")
+    void testEqualsSameObject() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+        //Assert
+        assertEquals(monetaryValue, monetaryValue);
     }
 
     @Test
