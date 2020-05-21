@@ -113,11 +113,7 @@ class AddressJpaTest {
         AddressJpa sameAddress = adressjpa;
         AddressJpa otherAddress = new AddressJpa("Rua da Alegria", "Porto", "4620-555");
 
-        //Act
-        boolean result = sameAddress.equals(otherAddress);
-
-        // Assert
-
+        // Act and Assert
         assertEquals(sameAddress.hashCode(),adressjpa.hashCode());
         assertNotEquals(sameAddress.hashCode(), otherAddress.hashCode());
     }
