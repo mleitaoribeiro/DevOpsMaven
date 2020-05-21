@@ -146,6 +146,8 @@ class CreateGroupTransactionDTOTest {
         assertEquals(groupDescription1Expected, groupDescription1);
         assertEquals(groupDescription2Expected, groupDescription2);
         assertNotEquals(groupDescription1, groupDescription2);
+        assertNotNull(groupDescription1);
+        assertNotNull(groupDescription2);
     }
 
     @Test

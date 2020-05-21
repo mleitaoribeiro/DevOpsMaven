@@ -3,9 +3,11 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.dataAssemblers.AccountDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.CategoryDomainDataAssembler;
 import switch2019.project.dataModel.entities.CategoryIdJpa;
 import switch2019.project.dataModel.entities.CategoryJpa;
+import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -97,14 +99,12 @@ public class CategoryDbRepository implements CategoryRepository {
      */
 
     public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
-        if (isIDOnRepository(new CategoryID(categoryToRemove, ownerID))) {
-            CategoryJpa categoryJpa = new CategoryJpa(categoryToRemove.getDenominationValue(), ownerID.toString());
-            categoryJpaRepository.deleteById(categoryJpa.getCategoryIdJpa().toString());
+        if (this.isIDOnRepository(new CategoryID(categoryToRemove, ownerID))) {
+            categoryJpaRepository.delete(CategoryDomainDataAssembler.toData(new Category(categoryToRemove, ownerID)));
             return true;
         }
-        return false;
+        else throw new ArgumentNotFoundException(NO_CATEGORY_FOUND);
     }
-
 
     /**
      * Add multiple categories to CategoryList

@@ -56,7 +56,7 @@ deactivate ":GroupDTOAssembler"
 autonumber 3.3.2
 "restController:US003AddMemberToGroupControllerRest" -> "service:\nUS003AddMemberToGroupService" : addMemberToGroup(addMemberDTO)
 activate "service:\nUS003AddMemberToGroupService" #FFBBBB
-
+|||
 ref over "service:\nUS003AddMemberToGroupService" : US003AddMemberToGroupControllerRestRef
 autonumber 3.3.2.1
 "restController:US003AddMemberToGroupControllerRest" <-- "service:\nUS003AddMemberToGroupService" : addedMemberDTO
