@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class LedgerDomainDataAssembler {
 
-    public Ledger toDomain(LedgerJpa ledgerJpa) {
+    public static Ledger toDomain(LedgerJpa ledgerJpa) {
 
         // Assembling OwnerID
         String owner = ledgerJpa.getLedgerIdJpa().getOwner();
@@ -43,7 +43,7 @@ public class LedgerDomainDataAssembler {
         return new Ledger(ownerId, transactions, creationDate);
     }
 
-    public LedgerJpa toData(Ledger ledger) {
+    public static LedgerJpa toData(Ledger ledger) {
 
         return new LedgerJpa(new LedgerIdJpa(ledger.getID().getOwnerID().toString()), ledger.getCreationDateToString());
     }

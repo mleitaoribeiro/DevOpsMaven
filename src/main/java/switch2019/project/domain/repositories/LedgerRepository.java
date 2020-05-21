@@ -5,6 +5,7 @@ import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 
 public interface LedgerRepository extends Repository {
+
     /**
      * Find Ledger by ID
      *
