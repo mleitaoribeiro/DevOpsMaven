@@ -8,14 +8,14 @@ import java.util.Objects;
 public class TransactionIDJpa implements Serializable {
 
     private long id;
-    private String ledger_id;
+    private String ledgerId;
 
     protected TransactionIDJpa() {
     }
 
-    public TransactionIDJpa(long id, String ledger_id) {
+    public TransactionIDJpa(long id, String ledgerId) {
         this.id = id;
-        this.ledger_id = ledger_id;
+        this.ledgerId = ledgerId;
     }
 
     @Override
@@ -24,12 +24,12 @@ public class TransactionIDJpa implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         TransactionIDJpa that = (TransactionIDJpa) o;
         return id == that.id &&
-                Objects.equals(ledger_id, that.ledger_id);
+                Objects.equals(ledgerId, that.ledgerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ledger_id);
+        return Objects.hash(id, ledgerId);
     }
 
     public long getId() {
@@ -41,10 +41,10 @@ public class TransactionIDJpa implements Serializable {
     }
 
     public String getLedger_id() {
-        return ledger_id;
+        return ledgerId;
     }
 
     public void setLedger_id(String ledger_id) {
-        this.ledger_id = ledger_id;
+        this.ledgerId = ledger_id;
     }
 }

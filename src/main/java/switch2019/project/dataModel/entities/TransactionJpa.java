@@ -22,8 +22,8 @@ public class TransactionJpa {
     protected TransactionJpa() {
     }
 
-    public TransactionJpa(long id,String ledger_id, Double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
-       transactionIDJpa=new TransactionIDJpa(id, ledger_id);
+    public TransactionJpa(long id,String ledgerId, Double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
+       transactionIDJpa=new TransactionIDJpa(id, ledgerId);
         this.amount = amount;
         this.currency = currency;
         this.description = description;

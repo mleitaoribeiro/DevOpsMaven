@@ -8,9 +8,7 @@ import java.util.Optional;
 
 public interface TransactionJpaRepository extends JpaRepository<TransactionJpa, Long> {
     List<TransactionJpa> findAll();
-    Optional<TransactionJpa> findById(Long id);
-   // List<TransactionJpa> findAllById_LedgerID_id (String ledgerID);error
-
-
+    Optional<TransactionJpa> findByTransactionIDJpa_LedgerIdAndTransactionIDJpa_Id(String ledgerId, Long id);
+    List<TransactionJpa> findAllByTransactionIDJpa_LedgerId(String ledgerId);
 
 }
