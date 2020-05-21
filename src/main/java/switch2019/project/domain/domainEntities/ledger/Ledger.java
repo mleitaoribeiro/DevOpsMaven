@@ -18,6 +18,7 @@ public class Ledger {
 
     //Private Ledger variables
     private LedgerID ledgerID;
+    private final DateAndTime creationDate;
     private List<Transaction> ledgerTransactions;
     private ScheduledTasksList scheduledTasksList;
 
@@ -33,6 +34,7 @@ public class Ledger {
         ledgerID = new LedgerID(ownerID);
         ledgerTransactions = new ArrayList<>();
         scheduledTasksList = new ScheduledTasksList();
+        creationDate = new DateAndTime();
     }
 
     @Override
@@ -83,6 +85,11 @@ public class Ledger {
     public int getLedgerSize() {
         return this.ledgerTransactions.size();
     }
+
+    /**
+     * Get the creationDate of the Ledger as String
+     */
+    public String getCreationDateToString() {return this.creationDate.toString(); }
 
     /**
      * Method that checks if a transaction is contained within a Ledger
