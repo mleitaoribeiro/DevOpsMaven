@@ -19,11 +19,11 @@ import java.util.Set;
 public class US004GetFamilyGroupsService {
 
     @Autowired
-    @Qualifier("GroupInMemoryRepository")
+    @Qualifier("GroupDbRepository")
     private GroupRepository groupsRepository;
 
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
     /**
