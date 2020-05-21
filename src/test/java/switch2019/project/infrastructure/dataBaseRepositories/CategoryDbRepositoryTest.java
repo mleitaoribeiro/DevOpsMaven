@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-
 class CategoryDbRepositoryTest {
 
     @Autowired
@@ -47,7 +46,7 @@ class CategoryDbRepositoryTest {
     @DisplayName("Get category in jpaRepository - true")
     void getByIDTrue() throws Exception {
         //Arrange
-        Category category = repository.createCategory(new Denomination("HOME"),personID);
+        Category category = repository.createCategory(new Denomination("HOME"), personID);
 
         //Act
         Category result = repository.getByID(category.getID());
@@ -61,7 +60,9 @@ class CategoryDbRepositoryTest {
     @DisplayName("Get category in jpaRepository - exception")
     void getByIDException() throws Exception {
         //Act
-        Throwable thrown = catchThrowable(() -> { repository.getByID(notPersistedCategory.getID());});
+        Throwable thrown = catchThrowable(() -> {
+            repository.getByID(notPersistedCategory.getID());
+        });
 
         //Assert
         assertThat(thrown)
@@ -74,7 +75,7 @@ class CategoryDbRepositoryTest {
     @DisplayName("Verify is Category Id is on jpaRepository - true")
     void isIDOnRepositoryTrue() throws Exception {
         //Arrange
-        Category category = repository.createCategory(new Denomination("GARDEN"),personID);
+        Category category = repository.createCategory(new Denomination("GARDEN"), personID);
 
         //Assert
         assertTrue(repository.isIDOnRepository(category.getID()));
@@ -88,10 +89,10 @@ class CategoryDbRepositoryTest {
 
     @Test
     @DisplayName("Verify is Category is saved in jpaRepository - true")
-    void createCategory() throws Exception{
+    void createCategory() throws Exception {
         //Arrange
         Category category = new Category(new Denomination("ONLINE"), personID);
-        Long expectedSize = repository.repositorySize() +1;
+        Long expectedSize = repository.repositorySize() + 1;
 
         //Act
         Category result = repository.createCategory(new Denomination("ONLINE"), personID);
@@ -107,16 +108,52 @@ class CategoryDbRepositoryTest {
 
     @Test
     @DisplayName("Verify is Category is saved in jpaRepository - exception")
-    void createCategoryException() throws Exception{
+    void createCategoryException() throws Exception {
         //Arrange
         repository.createCategory(new Denomination("ONLINE"), personID);
         //Act
-        Throwable thrown = catchThrowable(() -> { repository.createCategory(new Denomination("ONLINE"), personID);});
+        Throwable thrown = catchThrowable(() -> {
+            repository.createCategory(new Denomination("ONLINE"), personID);
+        });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
                 .hasMessage("This category already exists.");
+
+    }
+
+    @Test
+    @DisplayName("Verify is Category is removed - happy case")
+    void removeCategoryHappyCase() {
+        //Arrange
+        Long expectedSize = repository.repositorySize() - 1;
+
+        //Act
+        boolean result = repository.removeCategory(new Denomination("GYM"), new GroupID(new Description("Switch")));
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedSize, repository.repositorySize()),
+                () -> assertEquals(true, result)
+        );
+    }
+
+    @Test
+    @DisplayName("Verify is Category is removed - happy case")
+    void removeCategoryException() throws Exception {
+        //Arrange
+        Long expectedSize = repository.repositorySize() - 1;
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            repository.removeCategory(new Denomination("Shopping"), personID);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No category found with that ID.");
 
     }
 
@@ -134,15 +171,16 @@ class CategoryDbRepositoryTest {
 
     }
 
+
     @Test
     @DisplayName("Return categories by Owner ID")
     void returnCategoriesByOwnerID() throws Exception {
         //Arrange
-        Category category0 = repository.createCategory(new Denomination("SPORTS"),personID);
-        Category category1 = repository.createCategory(new Denomination("TECH"),personID);
-        Category category2 = repository.createCategory(new Denomination("CINEMA"),personID);
+        Category category0 = repository.createCategory(new Denomination("SPORTS"), personID);
+        Category category1 = repository.createCategory(new Denomination("TECH"), personID);
+        Category category2 = repository.createCategory(new Denomination("CINEMA"), personID);
 
-        Set<Category> expected = new HashSet<>(Arrays.asList(category0,category1,category2));
+        Set<Category> expected = new HashSet<>(Arrays.asList(category0, category1, category2));
 
         //Act
         Set<Category> result = repository.returnCategoriesByOwnerID(personID);
@@ -153,20 +191,25 @@ class CategoryDbRepositoryTest {
 
     @Test
     @DisplayName("Return categories by Owner ID - no categories")
-    void returnCategoriesByOwnerIDENoCategoriesxcetpion() throws Exception{
+    void returnCategoriesByOwnerIDENoCategoriesxcetpion() throws Exception {
         //Act
-        Throwable thrown = catchThrowable(() -> { repository.returnCategoriesByOwnerID(personID);});
+        Throwable thrown = catchThrowable(() -> {
+            repository.returnCategoriesByOwnerID(personID);
+        });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No category found with that ID.");
     }
+
     @Test
     @DisplayName("Return categories by Owner ID - owner id null")
-    void returnCategoriesByOwnerIDNullOwnerIDExcetpion() throws Exception{
+    void returnCategoriesByOwnerIDNullOwnerIDExcetpion() throws Exception {
         //Act
-        Throwable thrown = catchThrowable(() -> { repository.returnCategoriesByOwnerID(null);});
+        Throwable thrown = catchThrowable(() -> {
+            repository.returnCategoriesByOwnerID(null);
+        });
 
         //Assert
         assertThat(thrown)
