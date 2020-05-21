@@ -1,0 +1,43 @@
+@startuml
+
+->"accountRep:AccountRepository": createAccount(accountDenomination, accountDescription, groupID);
+activate "accountRep:AccountRepository" #FFBBBB
+
+participant ":AccountDomainDataAssembler"
+autonumber 1.9.1
+create "account:Account"
+"accountRep:AccountRepository"-->"account:Account": create(accountDenomination, accountDescription, groupID)
+"accountRep:AccountRepository"->":AccountDomainDataAssembler": toData(account)
+autonumber 1.9.2.1
+activate ":AccountDomainDataAssembler" #FFBBBB
+":AccountDomainDataAssembler"->"account:Account" : groupID = getOwnerID()
+activate "account:Account" #FFBBBB
+":AccountDomainDataAssembler"->"account:Account" : accountDenomination = getDenomination()
+":AccountDomainDataAssembler"->"account:Account" : accountDescription = getDescription()
+":AccountDomainDataAssembler"->"account:Account" : accountBalance= getBalance();
+deactivate "account:Account"
+create "accountJpa:AccountJpa"
+":AccountDomainDataAssembler"-->"accountJpa:AccountJpa" : create(groupID, accountDenomination, accountDescription, accountBalance)
+":AccountDomainDataAssembler"-->"accountRep:AccountRepository" : accountJPA
+deactivate ":AccountDomainDataAssembler" #FFBBBB
+autonumber 1.9.3
+|||
+"accountRep:AccountRepository"->"accountRep:AccountRepository": savedAccountJpa = save(accountJPA)
+|||
+"accountRep:AccountRepository"->":AccountDomainDataAssembler":toDomain(savedAccountJpa)
+activate ":AccountDomainDataAssembler" #FFBBBB
+autonumber 1.9.4.1
+":AccountDomainDataAssembler"->"accountJpa:AccountJpa" : groupID = getAccountIDJpa().getOwnerID();
+activate "accountJpa:AccountJpa" #FFBBBB
+":AccountDomainDataAssembler"->"accountJpa:AccountJpa" : accountDenomination = getDenomination()
+":AccountDomainDataAssembler"->"accountJpa:AccountJpa" : accountDescription = getDescription()
+":AccountDomainDataAssembler"->"accountJpa:AccountJpa" : accountBalance = getAmount()
+deactivate "accountJpa:AccountJpa"
+create "savedAccount:Account"
+":AccountDomainDataAssembler"-->"savedAccount:Account": create(accountDenomination, accountDescription, groupID, accountBalance)
+":AccountDomainDataAssembler"-->"accountRep:AccountRepository" : savedAccount
+
+autonumber 1.9.5
+<--"accountRep:AccountRepository": savedAccount
+
+@enduml
