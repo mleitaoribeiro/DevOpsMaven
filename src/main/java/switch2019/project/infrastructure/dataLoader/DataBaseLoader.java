@@ -11,6 +11,7 @@ import switch2019.project.infrastructure.dataBaseRepositories.AccountDbRepositor
 import switch2019.project.infrastructure.dataBaseRepositories.CategoryDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.GroupDbRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
+import switch2019.project.infrastructure.jpa.SiblingsJpaRepository;
 
 @Component
 public class DataBaseLoader {
@@ -26,6 +27,9 @@ public class DataBaseLoader {
 
     @Autowired
     CategoryDbRepository categoriesRepository;
+
+    @Autowired
+    SiblingsJpaRepository siblingsJpaRepository;
 
     public void bootstrapping () {
 
@@ -430,6 +434,8 @@ public class DataBaseLoader {
 
         // Siblings - are in each other list of siblings
         father.addSibling(father2);
+
+        System.out.println(siblingsJpaRepository.findByOwnerEmailAndAndSiblingEmail(father.getID().toString(),father2.getID().toString()));
 
         // Siblings - same Father and Mother and in each other's list
         Person antonio = personRepository.createPerson("António", new DateAndTime(1995, 12, 13), new Address("Porto"),

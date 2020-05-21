@@ -1,31 +1,62 @@
 package switch2019.project.dataModel.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity (name = "siblings")
+@Entity(name = "siblings")
 public class SiblingsJpa {
 
-    @Id
-    @Column(name = "OwnerID")
-    private String ownerEmail;
+    @Embeddable
+    static class SiblingsIdJpa implements Serializable {
+
+        @Id
+        @Column(name = "OwnerID")
+        private String ownerEmail;
 
 
-    @Column(name = "SiblingID")
-    private String siblingEmail;
+        @Column(name = "SiblingID")
+        private String siblingEmail;
 
+        public SiblingsIdJpa() {
+        }
 
-    public SiblingsJpa (String id, String id_2){
-        this.ownerEmail = id;
-        this.siblingEmail= id_2;
+        public SiblingsIdJpa(String ownerEmail, String siblingEmail) {
+            this.ownerEmail = ownerEmail;
+            this.siblingEmail = siblingEmail;
+        }
+
+        public String getOwnerEmail() {
+            return ownerEmail;
+        }
+
+        public String getSiblingEmail() {
+            return siblingEmail;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SiblingsIdJpa that = (SiblingsIdJpa) o;
+            return Objects.equals(ownerEmail, that.ownerEmail) &&
+                    Objects.equals(siblingEmail, that.siblingEmail);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(ownerEmail, siblingEmail);
+        }
     }
 
-    public String getEmailPersonOne() {
-        return ownerEmail;
+    @EmbeddedId
+    SiblingsIdJpa id;
+
+    public SiblingsJpa() {
     }
 
-    public String getEmailPersonTwo() {
-        return siblingEmail;
+    public SiblingsJpa(String ownerId, String siblingId) {
+        this.id = new SiblingsIdJpa(ownerId, siblingId);
     }
 
     @Override
@@ -33,12 +64,15 @@ public class SiblingsJpa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SiblingsJpa that = (SiblingsJpa) o;
-        return Objects.equals(ownerEmail, that.ownerEmail) &&
-                Objects.equals(siblingEmail, that.siblingEmail);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ownerEmail, siblingEmail);
+        return Objects.hash(id);
+    }
+
+    public SiblingsIdJpa getId() {
+        return id;
     }
 }
