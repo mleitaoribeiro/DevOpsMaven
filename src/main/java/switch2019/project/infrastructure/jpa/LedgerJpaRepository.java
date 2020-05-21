@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface LedgerJpaRepository  extends JpaRepository <LedgerJpa, String>{
 
     List<LedgerJpa> findAll();
-    Optional<LedgerJpa> findById(String id);
+    Optional<LedgerJpa> findByLedgerIdJpa_Owner(String owner);
 
 }

@@ -3,6 +3,8 @@ package switch2019.project.infrastructure.inMemoryRepositories;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Type;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
@@ -74,4 +76,28 @@ public class LedgerInMemoryRepository implements LedgerRepository {
             return ledger;
         }
     }
+
+    /**
+     *
+     * Method to Add Transactions to Ledger
+     *
+     * @param ledger
+     * @param serialNumber
+     * @param amount
+     * @param description
+     * @param localDate
+     * @param category
+     * @param accountFrom
+     * @param accountTo
+     * @param type
+     * @return boolen
+     */
+
+    public boolean addTransactionToLedger(Ledger ledger, Long serialNumber, MonetaryValue amount, Description description, DateAndTime localDate,
+                                   CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
+
+        return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
+    }
+
+
 }
