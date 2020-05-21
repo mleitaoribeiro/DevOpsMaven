@@ -207,6 +207,22 @@ public class LedgerJpaTest {
         assertEquals(expectedCreationDate, ledgerJpa.getCreationDate());
     }
 
+    @Test
+    @DisplayName("test for the both Setter methods")
+    void testBothSetters() {
+
+        //Arrange:
+        LedgerJpa ledgerJpa1 = new LedgerJpa();
+        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+
+        //Act:
+        ledgerJpa1.setLedgerIdJpa(new LedgerIdJpa("test@gmail.com"));
+        ledgerJpa1.setCreationDate("2019-12-10");
+
+        //Assert:
+        assertEquals(ledgerJpa2,ledgerJpa1);
+    }
+
     /**
      * Test for the toString method
      */
