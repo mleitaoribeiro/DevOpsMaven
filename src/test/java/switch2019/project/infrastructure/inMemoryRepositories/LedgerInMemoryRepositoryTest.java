@@ -1,16 +1,17 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
-import switch2019.project.domain.domainEntities.shared.LedgerID;
-import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
+
+import java.util.Currency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -165,4 +166,77 @@ class LedgerInMemoryRepositoryTest {
         // Assert
         assertEquals(0, ledgerSize);
     }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - True")
+    public void addTransactionToLedgerTrue() {
+
+        // Arrange
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        OwnerID ownerID = new GroupID(new Description("switch"));
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                    new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+        Ledger ledgerExpected = new Ledger(ownerID);
+
+        int sizeExpected = 1;
+
+        // Act
+        Ledger ledgerReal = ledgerInMemoryRepository.createLedger(ownerID);
+
+        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledgerReal, 123L,
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        int sizeReal = ledgerReal.getLedgerSize();
+
+        // Assert
+        Assertions.assertAll(
+                () -> assertTrue(transactionAdded),
+                () -> assertEquals(ledgerExpected, ledgerReal),
+                () -> assertEquals(sizeExpected, sizeReal)
+
+        );
+    }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - False - No ledger in Repository")
+    public void addTransactionToLedgerFalseNoLedgerInRepo() {
+
+        // Arrange
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        OwnerID ownerID = new GroupID(new Description("switch"));
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+        Ledger ledger = new Ledger(ownerID);
+
+        // Act
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger, 123L,
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledger, 123L,
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        // Assert
+        assertFalse(transactionAdded);
+    }
+
+
 }

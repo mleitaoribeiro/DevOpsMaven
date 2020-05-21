@@ -96,7 +96,9 @@ public class LedgerInMemoryRepository implements LedgerRepository {
     public boolean addTransactionToLedger(Ledger ledger, Long serialNumber, MonetaryValue amount, Description description, DateAndTime localDate,
                                    CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
-        return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
+        if (isIDOnRepository(ledger.getID()))
+            return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
+        return false;
     }
 
 
