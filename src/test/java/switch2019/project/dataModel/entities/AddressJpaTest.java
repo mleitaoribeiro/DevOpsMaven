@@ -32,6 +32,32 @@ class AddressJpaTest {
     }
 
     @Test
+    @DisplayName("Test equals equal object - city")
+    void testEqualsCity() {
+        //Arrange
+        AddressJpa otherAddress = new AddressJpa("Rua x", "Coimbra", "4601-501");
+
+        //Act
+        boolean result = otherAddress.equals(adressjpa);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test equals equal object - postalCode")
+    void testEqualsPostalCode() {
+        //Arrange
+        AddressJpa otherAddress = new AddressJpa("Rua x", "Porto", "4601-501");
+
+        //Act
+        boolean result = otherAddress.equals(adressjpa);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
     @DisplayName("Test equals same object")
     void testEqualsSame() {
         //Act
@@ -51,8 +77,8 @@ class AddressJpaTest {
         boolean result = adressjpa.equals(nullAddress);
 
         //Assert
-        assertNotEquals(result, adressjpa);
-        }
+        assertFalse(result);
+    }
 
     @Test
     @DisplayName("Test equals different object")
