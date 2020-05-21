@@ -3,6 +3,7 @@ package switch2019.project.domain.domainEntities.shared;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Currency;
+import java.util.Objects;
 
 public class MonetaryValue {
 
@@ -15,6 +16,20 @@ public class MonetaryValue {
             this.amount = amount;
             this.currency = currency;
         } else throw new IllegalArgumentException("The currency can't be null.");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        MonetaryValue that = (MonetaryValue) obj;
+        return Objects.equals(amount, that.amount) &&
+                Objects.equals(currency, that.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount, currency);
     }
 
     @Override

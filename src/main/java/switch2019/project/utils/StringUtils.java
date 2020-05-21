@@ -1,6 +1,11 @@
 package switch2019.project.utils;
 
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+
 import java.text.Normalizer;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -111,5 +116,16 @@ public class StringUtils {
     private static String removeWordAccents(String sentence) {
         sentence = Normalizer.normalize(sentence, Normalizer.Form.NFD);
         return sentence.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+    }
+
+    /**
+     * Method to convert string to DateAndTime with hour and minute
+     * @param date
+     * @return DateAndTime
+     */
+    public static DateAndTime toDateHourMinute(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime localDate = LocalDateTime.parse(date, formatter);
+        return new DateAndTime(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), localDate.getHour(), localDate.getMinute());
     }
 }

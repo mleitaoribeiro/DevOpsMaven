@@ -1,6 +1,8 @@
 package switch2019.project.utils;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,5 +65,18 @@ class StringUtilsTest {
 
         // Assert
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Test if string is converted to date and time with hour and minute")
+    void toDateHourMinute() {
+        //Arrange
+        DateAndTime expectedDate = new DateAndTime(2020, 1, 13, 11, 00);
+
+        //Act
+        DateAndTime resultDate = StringUtils.toDateHourMinute("2020-01-13 11:00");
+
+        //Assert
+        assertEquals(expectedDate, resultDate);
     }
 }

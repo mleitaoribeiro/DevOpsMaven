@@ -2,6 +2,7 @@ package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.shared.*;
 
+import java.util.Currency;
 import java.util.Objects;
 
 public class Transaction {
@@ -155,6 +156,14 @@ public class Transaction {
      */
     public double getAmount() {
         return amount.getAmount();
+    }
+
+    /**
+     * Get currency
+     * @return currency
+     */
+    public Currency getCurrency() {
+        return amount.getCurrency();
     }
 
     /**
