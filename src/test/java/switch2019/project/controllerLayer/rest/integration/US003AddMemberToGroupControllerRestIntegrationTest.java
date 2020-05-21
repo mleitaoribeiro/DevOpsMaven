@@ -13,11 +13,9 @@ import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -37,7 +35,17 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String personEmail = "rick@gmail.com";
         String groupDescription = "switch";
 
-        String uri = "/groups/" + groupDescription + "/members";
+        //GET - Before adding member
+        String uriGet = "/groups/" + groupDescription + "/members/" + personEmail;
+
+        MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusBefore = mvcResultGetBefore.getResponse().getStatus();
+        JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
+
+        //POST - Add new member
+        String uriPost = "/groups/" + groupDescription + "/members";
 
         AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
         addMemberInfoDTO.setPersonEmail(personEmail);
@@ -48,23 +56,36 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         String link = "/groups/" + groupDescription + "/members/" + personEmail;
 
         // Act
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
                 .andReturn();
 
         int status = mvcResult.getResponse().getStatus();
-
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        //Get - After member was added
+        MvcResult mvcResultGetAfter = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusAfter = mvcResultGetAfter.getResponse().getStatus();
+        JSONObject getAfter = new JSONObject(mvcResultGetAfter.getResponse().getContentAsString());
 
         // Assert
         Assertions.assertAll(
+                //Get before member is added
+                () -> assertEquals(403, statusBefore),
+                () -> assertEquals("This person is not member of this group.", getBefore.getString("message")),
+                //Add member
                 () -> assertEquals(201, status),
                 () -> assertEquals(expected, result.getString("memberAdded")),
                 () -> assertEquals(link, result.getString("_links").substring(35)
                         .replace("\"}}", "")
-                        .replace("\\", ""))
+                        .replace("\\", "")),
+                // Get after member was added
+                () -> assertEquals(200, statusAfter),
+                () -> assertEquals(personEmail, getAfter.getString("personID"))
         );
     }
 
@@ -224,6 +245,9 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+    /**
+     * Test if an member can be found by the ID
+     */
     @Test
     @DisplayName("Test for get Group Member - Main Scenario")
     void getPersonByIDHappyCase() throws Exception {
@@ -282,6 +306,9 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+    /**
+     * Test if the list of members of a group can be found by the group ID
+     */
     @Test
     @DisplayName("Test for getMembersByGroupDescription - Main Scenario")
     void getMembersByGroupDescription() throws Exception {
@@ -355,6 +382,9 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+    /**
+     * Test if the list of admins of a group can be found by the group ID
+     */
     @Test
     @DisplayName("Test for getAdminsByGroupDescription - Main Scenario")
     void getAdminsByGroupDescription() throws Exception {

@@ -6,8 +6,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
-public class Denomination implements Serializable {
+public class Denomination {
 
     //Private instance of denomination
     private final String denominationValue;

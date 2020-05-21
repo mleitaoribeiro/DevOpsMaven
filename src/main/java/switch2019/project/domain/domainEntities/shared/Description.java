@@ -6,8 +6,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
-public class Description implements Serializable {
+public class Description {
 
     //Private Description instance variable
     private final String descriptionValue;
