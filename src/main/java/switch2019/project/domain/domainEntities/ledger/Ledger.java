@@ -89,7 +89,7 @@ public class Ledger {
     /**
      * Get the creationDate of the Ledger as String
      */
-    public String getCreationDateToString() {return this.creationDate.toString(); }
+    public String getCreationDateToString() {return this.creationDate.yearMonthDayToString(); }
 
     /**
      * Method that checks if a transaction is contained within a Ledger
