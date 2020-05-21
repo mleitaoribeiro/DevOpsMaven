@@ -2,9 +2,9 @@ package switch2019.project.assemblers;
 
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
-import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 
 public class LedgerDTOAssembler {

@@ -26,11 +26,9 @@ class ScheduledTasksListTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         String description = "payment";
-        Category category = new Category(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
-        Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"), new PersonID(new Email("personEmail@email.pt")));
-        Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("General"),new PersonID(new Email("personEmail@email.com")));
+        AccountID from = new AccountID(new Denomination("Wallet"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID to = new AccountID(new Denomination("TransportAccount"), new PersonID(new Email("personEmail@email.pt")));
 
         //Act
         boolean result = scheduledTasksList.addNewSchedule(ledger, new Periodicity("daily"), amount,

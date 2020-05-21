@@ -1,10 +1,6 @@
 package switch2019.project.domain.domainEntities.ledger;
 
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
+import switch2019.project.domain.domainEntities.shared.*;
 
 import java.util.Objects;
 
@@ -14,9 +10,9 @@ public class Transaction {
     private final MonetaryValue amount;
     private final Description description;
     private DateAndTime date;
-    private final Category category;
-    private final Account accountFrom;
-    private final Account accountTo;
+    private final CategoryID category;
+    private final AccountID accountFrom;
+    private final AccountID accountTo;
     private final Type type;
 
     /**
@@ -31,7 +27,7 @@ public class Transaction {
      */
 
 
-    public Transaction(MonetaryValue amount, Description description, DateAndTime date, Category category, Account accountFrom, Account accountTo, Type type) {
+    public Transaction(MonetaryValue amount, Description description, DateAndTime date, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         this.amount = setValidMonetaryValue(amount);
         this.description = description;
         this.category = setValidCategory(category);
@@ -63,8 +59,8 @@ public class Transaction {
     @Override
     public String toString() {
         return dateToString() + " | " + amount + " " + typeToString() + " | " +
-                accountFrom.denominationToString() + " -> " + accountTo.denominationToString()
-                + " | Description: \"" + description + "\" " + " | " + category.getNameOfCategory();
+                accountFrom.getDenominationToString() + " -> " + accountTo.getDenominationToString()
+                + " | Description: \"" + description + "\" " + " | " + category.getDenominationString();
     }
 
     /**
@@ -109,13 +105,13 @@ public class Transaction {
         else return newAmount;
     }
 
-    public Category setValidCategory(Category newCategory) {
+    public CategoryID setValidCategory(CategoryID newCategory) {
         if (newCategory == null)
             throw new IllegalArgumentException("The category cannot be null.");
         else return newCategory;
     }
 
-    public Account setValidAccount(Account newAccount) {
+    public AccountID setValidAccount(AccountID newAccount) {
         if (newAccount == null)
             throw new IllegalArgumentException("The accounts cannot be null.");
         else return newAccount;
@@ -164,16 +160,22 @@ public class Transaction {
     /**
      * Get AccountFrom
      */
-    public Account getAccountFrom() {
-        return accountFrom.getCopyOfAccount();
+    public AccountID getAccountFrom() {
+        return accountFrom.getCopyOfAccountID();
     }
 
     /**
      * Get AccountTo
      */
-    public Account getAccountTo() {
-        return accountTo.getCopyOfAccount();
+    public AccountID getAccountTo() {
+        return accountTo.getCopyOfAccountID();
     }
 
+    /**
+     *
+     *
+     */
+
+    public CategoryID getCategoryID() { return category.getCopyOfCategory(); }
 
 }

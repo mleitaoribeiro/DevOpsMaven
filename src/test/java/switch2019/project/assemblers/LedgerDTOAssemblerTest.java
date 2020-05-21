@@ -91,11 +91,9 @@ class LedgerDTOAssemblerTest {
     void createTransactionDTOFromDomain() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Description description = new Description("Payment");
@@ -123,13 +121,11 @@ class LedgerDTOAssemblerTest {
 
         //ARRANGE:
         //Arrange Accounts:
-        Account accountFrom = new Account(new Denomination("groceries"),
-                new Description("food"), new PersonID(new Email("test@gmail.com")));
-        Account accountTo = new Account(new Denomination("meals"),
-                new Description("lunch and dinner expenses"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID accountFrom = new AccountID(new Denomination("groceries"), new PersonID(new Email("test@gmail.com")));
+        AccountID accountTo = new AccountID(new Denomination("meals"), new PersonID(new Email("personEmail@email.pt")));
 
         //Arrange Category:
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
 
         //Arrange MonetaryValue:
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));

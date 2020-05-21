@@ -103,7 +103,7 @@ public class Account implements Entity {
      */
 
     public String denominationToString() {
-        return this.getID().getDenomination();
+        return this.getID().getDenominationToString();
     }
 
     /**
@@ -123,6 +123,6 @@ public class Account implements Entity {
      */
 
     public Account getCopyOfAccount() {
-        return new Account(new Denomination(accountID.getDenomination()), description, accountID.getOwnerID());
+        return new Account(new Denomination(accountID.getDenominationToString()), description, accountID.getOwnerID());
     }
 }

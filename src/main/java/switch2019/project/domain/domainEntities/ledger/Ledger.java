@@ -1,12 +1,7 @@
 package switch2019.project.domain.domainEntities.ledger;
 
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.LedgerID;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
+import switch2019.project.domain.domainEntities.shared.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -115,7 +110,7 @@ public class Ledger {
      * @return
      */
 
-    public boolean addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, Category category, Account accountFrom, Account accountTo, Type type) {
+    public boolean addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         boolean transactionAdded = ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();
@@ -136,7 +131,7 @@ public class Ledger {
      */
 
     public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, Description description, DateAndTime date,
-                                          Category category, Account accountFrom, Account accountTo, Type type) {
+                                          CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
     }
@@ -198,7 +193,7 @@ public class Ledger {
      * @param account1
      * @param listOfTransactions
      */
-    public List<Transaction> getTransactionsFromOneAccount(Account account1, List<Transaction> listOfTransactions) {
+    public List<Transaction> getTransactionsFromOneAccount(AccountID account1, List<Transaction> listOfTransactions) {
         List<Transaction> listOfTransactionsFromOneAccount = new ArrayList<>();
         if (account1 != null) {
             for (Transaction transaction : listOfTransactions) {

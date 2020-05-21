@@ -37,12 +37,21 @@ public class AccountID implements ID {
     public String toString() { return  denomination.toString() + ", " + ownerID.toString(); }
 
     /**
-     * Method to return Denomination
+     * Method to return String Denomination
+     *
+     * @return string
+     */
+    public String getDenominationToString() {
+        return denomination.toString();
+    }
+
+    /**
+     * Method to return String Denomination
      *
      * @return denomination
      */
-    public String getDenomination() {
-        return denomination.toString();
+    public Denomination getDenomination() {
+        return denomination;
     }
 
     /**
@@ -54,6 +63,12 @@ public class AccountID implements ID {
         return ownerID;
     }
 
-
+    /**
+     * Method to return accountID
+     * @return
+     */
+    public AccountID getCopyOfAccountID() {
+        return new AccountID(new Denomination(this.getDenominationToString()), this.getOwnerID());
+    }
 
 }

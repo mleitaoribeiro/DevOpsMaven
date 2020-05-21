@@ -79,4 +79,6 @@ public class CategoryID implements ID {
     public OwnerID getOwnerID() {
         return ownerID;
     }
+
+    public CategoryID getCopyOfCategory() { return new CategoryID(this.getDenomination(), this.getOwnerID()); }
 }

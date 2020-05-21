@@ -23,11 +23,9 @@ class ScheduleTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Description description = new Description("Food");
-        Category category = new Category(new Denomination("General"), ownerID);
-        Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"), ownerID);
-        Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"), ownerID);
+        CategoryID category = new CategoryID(new Denomination("General"), ownerID);
+        AccountID from = new AccountID(new Denomination("Wallet"), ownerID);
+        AccountID to = new AccountID(new Denomination("TransportAccount"), ownerID);
         Type type = new Type(false); //debit
 
         //Act
@@ -50,11 +48,9 @@ class ScheduleTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Description description = new Description("Food");
-        Category category = new Category(new Denomination("General"), ownerID);
-        Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"), ownerID);
-        Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"), ownerID);
+        CategoryID category = new CategoryID(new Denomination("General"), ownerID);
+        AccountID from = new AccountID(new Denomination("Wallet"), ownerID);
+        AccountID to = new AccountID(new Denomination("TransportAccount"), ownerID);
         Type type = new Type(false); //debit
 
         //Act
@@ -77,11 +73,9 @@ class ScheduleTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Description description = new Description("Food");
-        Category category = new Category(new Denomination("General"), ownerID);
-        Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"), ownerID);
-        Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"), ownerID);
+        CategoryID category = new CategoryID(new Denomination("General"), ownerID);
+        AccountID from = new AccountID(new Denomination("Wallet"), ownerID);
+        AccountID to = new AccountID(new Denomination("TransportAccount"), ownerID);
         Type type = new Type(false); //debit
 
         //Act
@@ -104,11 +98,9 @@ class ScheduleTest {
 
         MonetaryValue amount = new MonetaryValue(20, Currency.getInstance("EUR"));
         Description description = new Description("Food");
-        Category category = new Category(new Denomination("General"), ownerID);
-        Account from = new Account(new Denomination("Wallet"),
-                new Description("General expenses"), ownerID);
-        Account to = new Account(new Denomination("TransportAccount"),
-                new Description("Transport expenses"), ownerID);
+        CategoryID category = new CategoryID(new Denomination("General"), ownerID);
+        AccountID from = new AccountID(new Denomination("Wallet"), ownerID);
+        AccountID to = new AccountID(new Denomination("TransportAccount"), ownerID);
         Type type = new Type(false); //debit
 
         //Act

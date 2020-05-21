@@ -22,7 +22,7 @@ class AccountIDTest {
         String expected = "SWITCH";
 
         //Act:
-        String result = accountID.getDenomination();
+        String result = accountID.getDenominationToString();
 
         //Assert:
         assertEquals(expected, result);

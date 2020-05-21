@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -25,11 +26,10 @@ class LedgerTest {
     void addTransactionToLedgerOneTransaction() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+               new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -52,12 +52,10 @@ class LedgerTest {
     void addTransactionToLedgerTwoTransaction() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category1 = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
-        Category category2 = new Category(new Denomination("transport"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category1 = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID category2 = new CategoryID(new Denomination("transport"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -82,11 +80,9 @@ class LedgerTest {
     void addTransactionToLedgerTransactionNullMonetaryValue() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledger = new Ledger(ownerID);
@@ -112,11 +108,9 @@ class LedgerTest {
     void addTransactionToLedgerTransactionNullDescription() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -144,10 +138,8 @@ class LedgerTest {
     void addTransactionToLedgerTransactionNullCategory() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -175,9 +167,8 @@ class LedgerTest {
     void addTransactionToLedgerTransactionNullAccount() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -204,15 +195,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriod() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -263,15 +251,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodSameDay() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -304,15 +289,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodNoTransactions() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -343,15 +325,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodFalse() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -386,15 +365,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodInitialDateSuperiorActualDate() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -428,15 +404,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodFinalDateSuperiorActualDate() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -470,15 +443,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodInitialDateNull() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -511,15 +481,12 @@ class LedgerTest {
     void getLedgerTransactionsInPeriodFinalDateNull() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -559,11 +526,9 @@ class LedgerTest {
         Ledger ledger = new Ledger(ownerID);
 
         MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category1 = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category1 = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
         Transaction transaction1 = new Transaction(monetaryValue1, new Description("payment"), new DateAndTime(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
 
         ledger.addTransactionToLedger(monetaryValue1, new Description("payment"), new DateAndTime(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
@@ -585,11 +550,9 @@ class LedgerTest {
 
         MonetaryValue monetaryValue1 = new MonetaryValue(175, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue2 = new MonetaryValue(225, Currency.getInstance("EUR"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category1 = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category1 = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
 
         Transaction transaction1 = new Transaction(monetaryValue2, new Description("payment"), new DateAndTime(2020, 1, 14, 13, 05), category1, account1, account2, new Type(true));
@@ -608,15 +571,12 @@ class LedgerTest {
     void sortTransactionsInAscendingOrderByDate() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -650,15 +610,12 @@ class LedgerTest {
     void sortTransactionsInDescendingOrderByDate() {
 
         //Arrange
-        Account oneAccount = new Account(new Denomination("myxpto"),
-                new Description("xpto Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account otherAccount = new Account(new Denomination("xyz"),
-                new Description("xyz Account"), new PersonID(new Email("personEmail@email.pt")));
-        Account anotherAccount = new Account(new Denomination("abc"),
-                new Description("abc Account"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID oneAccount = new AccountID(new Denomination("myxpto"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID otherAccount = new AccountID(new Denomination("xyz"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID anotherAccount = new AccountID(new Denomination("abc"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category oneCategory = new Category(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
-        Category otherCategory = new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID oneCategory = new CategoryID(new Denomination("ASD"), new PersonID(new Email("personEmail@email.com")));
+        CategoryID otherCategory = new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue oneMonetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue otherMonetaryValue = new MonetaryValue(10, Currency.getInstance("EUR"));
@@ -695,8 +652,7 @@ class LedgerTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account = new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries"), person.getID());
+        AccountID account = new AccountID(new Denomination("Millenium"), person.getID());
 
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledger = new Ledger(ownerID);
@@ -704,49 +660,37 @@ class LedgerTest {
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), person.getID()),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), person.getID()),
+                new CategoryID(new Denomination("grocery"), person.getID()), new AccountID(new Denomination("Millenium"), person.getID()),
+                new AccountID(new Denomination("Continente"), person.getID()),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries"), person.getID()),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), person.getID()),
+                new CategoryID(new Denomination("grocery"), person.getID()), new AccountID(new Denomination("Millenium"), person.getID()),
+                new AccountID(new Denomination("Continente"), person.getID()),
                 new Type(false));
 
         //Arrange-Transaction2
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 2, 14, 11),
-                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("BNI"),
-                        new Description("General"), person.getID()),
-                new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), person.getID()),
+                new CategoryID(new Denomination("grocery"), person.getID()), new AccountID(new Denomination("BNI"), person.getID()),
+                new AccountID(new Denomination("Millenium"), person.getID()),
                 new Type(false));
         Transaction transaction2 = new Transaction(new MonetaryValue(5.4, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 2, 14, 11),
-                new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("BNI"),
-                new Description("General"), person.getID()),
-                new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), person.getID()),
+                new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("BNI"), person.getID()),
+                new AccountID(new Denomination("Millenium"), person.getID()),
                 new Type(false));
 
         //Arrange-Transaction3
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("car gas"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), person.getID()),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), person.getID()),
+                new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), person.getID()),
+                new AccountID(new Denomination("BP"), person.getID()),
                 new Type(false));
         Transaction transaction3 = new Transaction(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("car gas"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                new Description("Only Gas Expenses"), person.getID()),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), person.getID()),
+                new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), person.getID()),
+                new AccountID(new Denomination("BP"), person.getID()),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
@@ -766,21 +710,18 @@ class LedgerTest {
         //Arrange
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledger = new Ledger(ownerID);
-        Account account = null;
+        AccountID account = null;
 
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("QWERTY"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"),
+                new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
@@ -803,8 +744,7 @@ class LedgerTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account = new Account(new Denomination("CaixaGeral"),
-                new Description("General"), person.getID());
+        AccountID account = new AccountID(new Denomination("CaixaGeral"), person.getID());
 
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledger = new Ledger(ownerID);
@@ -812,17 +752,13 @@ class LedgerTest {
         //Arrange-Transaction1
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), person.getID()),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), person.getID()),
+                new CategoryID(new Denomination("grocery"), person.getID()), new AccountID(new Denomination("Millenium"), person.getID()),
+                new AccountID(new Denomination("Continente"), person.getID()),
                 new Type(false));
         Transaction transaction1 = new Transaction(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), person.getID()), new Account(new Denomination("Millenium"),
-                new Description("Only for Groceries"), person.getID()),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), person.getID()),
+                new CategoryID(new Denomination("grocery"), person.getID()), new AccountID(new Denomination("Millenium"), person.getID()),
+                new AccountID(new Denomination("Continente"), person.getID()),
                 new Type(false));
 
         List<Transaction> allTransactions = new ArrayList<>(Arrays.asList(transaction1));
@@ -850,24 +786,20 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"),
+                        new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(true));
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("car gas"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"),
+                       new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 1, 00, 00);
@@ -893,22 +825,17 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(250, Currency.getInstance("EUR")), new Description("Hostel Barcelona"),
                 new DateAndTime(2020, 1, 13, 13, 05),
-                new Category(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Revolut"),
-                        new Description("For trips expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Friends & Company"), new Description("Holidays")
-                        , new PersonID(new Email("personEmail@email.pt"))), new Type(true));
+                new CategoryID(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Revolut"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Friends & Company"), new PersonID(new Email("personEmail@email.pt"))), new Type(true));
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("Pack of Super Bock"),
                 new DateAndTime(2020, 1, 13, 14, 11),
-                new Category(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(60, Currency.getInstance("EUR")), new Description("Car Gas"),
                 new DateAndTime(2020, 1, 18, 17, 23),
-                new Category(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"), new Description("Gas"),
+                new CategoryID(new Denomination("general"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"),
                         new PersonID(new Email("personEmail@email.pt"))), new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 13, 00, 00);
@@ -935,24 +862,18 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"),  new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(5.4, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime finalDate = LocalDateTime.of(2020, 1, 6, 00, 00);
@@ -977,24 +898,18 @@ class LedgerTest {
 
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"),new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
@@ -1021,24 +936,18 @@ class LedgerTest {
 
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"), new Description("Gas"),
-                        new PersonID(new Email("personEmail@email.pt"))), new Type(false));
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))), new Type(false));
 
         LocalDateTime initialDate = null;
         LocalDateTime finalDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -1064,24 +973,18 @@ class LedgerTest {
 
         ledger.addTransactionToLedger(new MonetaryValue(20, Currency.getInstance("EUR")), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger(new MonetaryValue(70, Currency.getInstance("EUR")), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2021, 1, 27, 00, 00);
@@ -1132,24 +1035,20 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"),
+                  new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium")
+                        , new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2020, 1, 27, 00, 00);
@@ -1199,24 +1098,18 @@ class LedgerTest {
         //Init Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"),new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         LocalDateTime initialDate = LocalDateTime.of(2019, 10, 27, 00, 00);
@@ -1238,11 +1131,9 @@ class LedgerTest {
     void addTransactionToLedgerChangeSize() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
@@ -1267,11 +1158,9 @@ class LedgerTest {
     void testToStringMethod() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2019, 10, 27, 00, 00);
@@ -1302,24 +1191,18 @@ class LedgerTest {
         //Transactions
         ledger.addTransactionToLedger((new MonetaryValue(20, Currency.getInstance("EUR"))), new Description("2 pacs of Gurosan"),
                 new DateAndTime(2020, 1, 1, 13, 05),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(5.4, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 1, 14, 11),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("Millenium"),
-                        new Description("Only for Groceries"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("Continente"),
-                        new Description("Food Expenses"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("Millenium"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("Continente"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
         ledger.addTransactionToLedger((new MonetaryValue(70, Currency.getInstance("EUR"))), new Description("schweppes"),
                 new DateAndTime(2020, 1, 5, 17, 23),
-                new Category(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new Account(new Denomination("CGD"),
-                        new Description("Only Gas Expenses"), new PersonID(new Email("personEmail@email.pt"))),
-                new Account(new Denomination("BP"),
-                        new Description("Gas"), new PersonID(new Email("personEmail@email.pt"))),
+                new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com"))), new AccountID(new Denomination("CGD"), new PersonID(new Email("personEmail@email.pt"))),
+                new AccountID(new Denomination("BP"), new PersonID(new Email("personEmail@email.pt"))),
                 new Type(false));
 
         //Act
@@ -1341,10 +1224,9 @@ class LedgerTest {
         // Act
         boolean newTransactionScheduled = ledger.scheduleNewTransaction(new Periodicity("daily"), new MonetaryValue(5, Currency.getInstance("EUR")),
                 new Description("lunch at work"), new DateAndTime(2020, 1, 1, 13, 5),
-                        new Category(new Denomination("food"), new PersonID(new Email("marta@email.com"))),
-                        new Account(new Denomination("Millenium"), new Description("Only for Food"),
-                        new PersonID(new Email("marta@email.pt"))), new Account(new Denomination("Continente"),
-                        new Description("Despesas do Continente"), new PersonID(new Email("marta@email.pt"))),
+                        new CategoryID(new Denomination("food"), new PersonID(new Email("marta@email.com"))),
+                        new AccountID(new Denomination("Millenium"),
+                        new PersonID(new Email("marta@email.pt"))), new AccountID(new Denomination("Continente"), new PersonID(new Email("marta@email.pt"))),
                         new Type(false));
 
         Thread.sleep(2100); // daily = 500

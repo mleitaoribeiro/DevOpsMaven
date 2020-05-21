@@ -1,18 +1,13 @@
 package switch2019.project.domain.domainEntities.ledger;
 
-import javassist.runtime.Desc;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.serializationDTO.AccountDTO;
-import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 
-import java.time.LocalDateTime;
-import java.time.Month;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 
@@ -28,11 +23,9 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - true")
     public void testIfTwoTransactionsAreEqualsTrue() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
 
@@ -53,11 +46,9 @@ class TransactionTest {
 
     public void testIfDatesAreTheSameWithToString() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13,13,02);
 
@@ -79,11 +70,9 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the same - true")
     public void testIfTwoTransactionsAreTheSame() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
 
@@ -105,13 +94,10 @@ class TransactionTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), person.getID());
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), person.getID());
-        Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"), person.getID());
-        Category category = new Category(new Denomination("grocery"), person.getID());
+        AccountID account1 = new AccountID(new Denomination("mercearia"), person.getID());
+        AccountID account2 = new AccountID(new Denomination("transporte"), person.getID());
+        AccountID account3 = new AccountID(new Denomination("bowling"), person.getID());
+        CategoryID category = new CategoryID(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -131,14 +117,11 @@ class TransactionTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), person.getID());
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), person.getID());
-        Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"), person.getID());
+        AccountID account1 = new AccountID(new Denomination("mercearia"), person.getID());
+        AccountID account2 = new AccountID(new Denomination("transporte"), person.getID());
+        AccountID account3 = new AccountID(new Denomination("bowling"), person.getID());
 
-        Category category = new Category(new Denomination("grocery"), person.getID());
+        CategoryID category = new CategoryID(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -160,12 +143,10 @@ class TransactionTest {
         //Arrange
         Person person1 = new Person("Alexandre", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),person1.getID());
-        Category category2 = new Category(new Denomination("transport"),person1.getID());
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),person1.getID());
+        CategoryID category2 = new CategoryID(new Denomination("transport"),person1.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -185,11 +166,9 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different monetary value")
     public void testIfTwoTransactionsAreEqualsFalseDifferentMonetaryValue() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue2 = new MonetaryValue(30, Currency.getInstance("EUR"));
 
@@ -210,11 +189,9 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - false - different description")
     public void testIfTwoTransactionsAreEqualsFalseDifferentDescription() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -235,11 +212,9 @@ class TransactionTest {
     public void testIfTwoTransactionsAreEqualsFalseDifferentDate() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("Health"),
-                new Description("Health Maria"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("Transport"),
-                new Description("Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("Health"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("Transport"),new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -258,12 +233,10 @@ class TransactionTest {
     public void testIfTwoTransactionsAreEqualsDifferentTypes() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category category = new Category(new Denomination("House"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("House"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
@@ -282,11 +255,9 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - True - system date")
     public void testIfTwoTransactionsAreEqualsTrueSystemDate() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("House"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("House"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime dateNow = new DateAndTime();
 
@@ -306,12 +277,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - one is null")
     public void testIfTwoTransactionsAreEqualsOneIsNull() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -330,12 +299,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions are the equals - different objects")
     public void testIfTwoTransactionsAreEqualsDifferentObjects() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -357,14 +324,11 @@ class TransactionTest {
         //Arrange
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), person.getID());
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), person.getID());
-        Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"), person.getID());
+        AccountID account1 = new AccountID(new Denomination("mercearia"), person.getID());
+        AccountID account2 = new AccountID(new Denomination("transporte"), person.getID());
+        AccountID account3 = new AccountID(new Denomination("bowling"), person.getID());
 
-        Category category = new Category(new Denomination("grocery"), person.getID());
+        CategoryID category = new CategoryID(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
@@ -385,12 +349,10 @@ class TransactionTest {
     @DisplayName("Test if method toString returns String Transaction")
     public void validateToString() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
 
@@ -409,12 +371,10 @@ class TransactionTest {
     @DisplayName("Test if method toString returns String Transaction for Credit")
     public void validateToStringCredit() {
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail2@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail2@email.pt")));
 
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
 
@@ -436,12 +396,10 @@ class TransactionTest {
     @DisplayName("Test if two transactions have the same hashcode - true")
     public void testIfTwoTransactionsHaveTheSameHashcode() {
         //Arrange & Act
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
 
@@ -460,13 +418,10 @@ class TransactionTest {
         //Arrange & Act
         Person person = new Person("Jose", new DateAndTime(1995, 12, 13),
                 new Address("Lisboa"), new Address("Rua X", "Porto", "4520-266"), new Email("1234@isep.pt"));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), person.getID());
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), person.getID());
-        Account account3 = new Account(new Denomination("bowling"),
-                new Description("bowling NorteShopping"), person.getID());
-        Category category = new Category(new Denomination("grocery"), person.getID());
+        AccountID account1 = new AccountID(new Denomination("mercearia"),person.getID());
+        AccountID account2 = new AccountID(new Denomination("transporte"), person.getID());
+        AccountID account3 = new AccountID(new Denomination("bowling"), person.getID());
+        CategoryID category = new CategoryID(new Denomination("grocery"), person.getID());
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
 
@@ -488,12 +443,10 @@ class TransactionTest {
     void isAValidTransactionTrue() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"),new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -508,12 +461,11 @@ class TransactionTest {
     void isAValidTransactionWithNoAutomaticDate() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"),
+                 new PersonID(new Email("personEmail@email.pt")));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
@@ -529,12 +481,10 @@ class TransactionTest {
     @DisplayName("Test for validating transaction - null monetary value")
     void isAValidTransactionFalseNullMonetaryValue() {
         //Arrange
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"),new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -553,12 +503,10 @@ class TransactionTest {
     void isAValidTransactionFalseNuegativeMonetaryValue() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(-200, Currency.getInstance("EUR"));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -578,10 +526,8 @@ class TransactionTest {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -601,9 +547,8 @@ class TransactionTest {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
-        Account account2 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account2 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -623,9 +568,8 @@ class TransactionTest {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
 
 
         //Act
@@ -644,11 +588,9 @@ class TransactionTest {
     void isAValidTransactionFalseNullType() {
         //Arrange
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
 
         //Act
@@ -670,11 +612,9 @@ class TransactionTest {
     void getDescription() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Description description = new Description("Payment");
@@ -697,11 +637,9 @@ class TransactionTest {
     void categoryToString() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Description description = new Description("Payment");
@@ -725,11 +663,9 @@ class TransactionTest {
     void amountToString() {
 
         //Arrange
-        Account account1 = new Account(new Denomination("mercearia"),
-                new Description("mercearia Continente"), new PersonID(new Email("personEmail@email.pt")));
-        Account account2 = new Account(new Denomination("transporte"),
-                new Description("transporte Metro"), new PersonID(new Email("personEmail@email.pt")));
-        Category category = new Category(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Description description = new Description("Payment");
