@@ -1,5 +1,6 @@
 package switch2019.project.dataModel.entities;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddressJpaTest {
 
-    private AddressJpa adressjpa;
+    private static AddressJpa adressjpa;
 
-    @BeforeEach
-    public void setup() {
+    @BeforeAll
+    public static void setup() {
         adressjpa = new AddressJpa("Rua das Almas", "Coimbra", "4601-501");
     }
 
@@ -46,8 +47,11 @@ class AddressJpaTest {
         //Arrange
         AddressJpa nullAddress = null;
 
+        //Act
+        boolean result = adressjpa.equals(nullAddress);
+
         //Assert
-        assertNotEquals(nullAddress, adressjpa);
+        assertNotEquals(result, adressjpa);
         }
 
     @Test
@@ -74,7 +78,6 @@ class AddressJpaTest {
 
         //Assert
         assertFalse(result);
-
     }
 
     @Test
@@ -84,22 +87,13 @@ class AddressJpaTest {
         AddressJpa sameAddress = adressjpa;
         AddressJpa otherAddress = new AddressJpa("Rua da Alegria", "Porto", "4620-555");
 
+        //Act
+        boolean result = sameAddress.equals(otherAddress);
+
         // Assert
+
         assertEquals(sameAddress.hashCode(),adressjpa.hashCode());
         assertNotEquals(sameAddress.hashCode(), otherAddress.hashCode());
-    }
-
-    @Test
-    @DisplayName("Get ID - not equals")
-    void getID() {
-        //Arrange
-        Long expected = 1L;
-
-        //Act
-        Long result = adressjpa.getId();
-
-        //Assert
-        assertNotEquals(expected, result);
     }
 
     @Test
