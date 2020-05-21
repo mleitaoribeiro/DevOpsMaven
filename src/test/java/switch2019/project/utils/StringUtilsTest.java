@@ -79,4 +79,17 @@ class StringUtilsTest {
         //Assert
         assertEquals(expectedDate, resultDate);
     }
+
+    @Test
+    @DisplayName("Test if string is converted to date and time with hour and minute")
+    void toDateHourMinuteFalse() {
+        //Arrange
+        DateAndTime expectedDate = new DateAndTime(2020, 1, 13, 11, 00);
+
+        //Act
+        DateAndTime resultDate = StringUtils.toDateHourMinute("2021-01-13 11:00");
+
+        //Assert
+        assertNotEquals(expectedDate, resultDate);
+    }
 }

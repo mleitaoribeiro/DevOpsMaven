@@ -209,4 +209,19 @@ class AccountIDTest {
             assertEquals("Neither the Denomination nor OwnerID can be null.", accountID.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("Test getDenomination")
+    void testGetDenomination() {
+        //Arrange
+        PersonID id = new PersonID(new Email("marta@gmail.com"));
+        AccountID accountID = new AccountID(new Denomination("switch"), id);
+        Denomination expected = new Denomination("switch");
+
+        //Act
+        Denomination result = accountID.getDenomination();
+
+        //Assert
+        assertEquals(result, expected);
+    }
 }

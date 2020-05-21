@@ -33,7 +33,7 @@ public class TransactionDomainDataAssembler {
         AccountID accountTo = new AccountID(new Denomination(transactionJpa.getAccountTo()),ownerId);
 
         Type type;
-        if(transactionJpa.getType().toUpperCase() == "CREDIT")
+        if(transactionJpa.getType().toUpperCase().equals("CREDIT"))
             type = new Type(true);
         else type = new Type(false);
 
@@ -50,7 +50,7 @@ public class TransactionDomainDataAssembler {
             type = "CREDIT";
         else type = "DEBIT";
 
-        return new TransactionJpa(1,id.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
+        return new TransactionJpa(transaction.getSerialNumber(),id.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
                 transaction.getDescription().toString(), transaction.getDate().toString(), transaction.getCategoryID().getDenominationString(),
                 transaction.getAccountFrom().toString(), transaction.getAccountTo().toString(), type);
     }

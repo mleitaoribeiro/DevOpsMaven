@@ -115,14 +115,4 @@ public class Account implements Entity {
         return description.toString();
     }
 
-
-    /**
-     * Public get to access a clone of Account
-     *
-     * @return copy of Account
-     */
-
-    public Account getCopyOfAccount() {
-        return new Account(new Denomination(accountID.getDenominationToString()), description, accountID.getOwnerID());
-    }
 }

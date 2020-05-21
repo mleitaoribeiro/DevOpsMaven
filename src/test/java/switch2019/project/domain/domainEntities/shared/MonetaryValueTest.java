@@ -2,6 +2,11 @@ package switch2019.project.domain.domainEntities.shared;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.dataModel.entities.AddressJpa;
+import switch2019.project.dataModel.entities.PersonJpa;
+import switch2019.project.domain.domainEntities.person.Address;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.person.Person;
 
 import java.util.Currency;
 
@@ -119,6 +124,72 @@ class MonetaryValueTest {
 
         //Assert
         assertEquals(Currency.getInstance("EUR"), currency);
+    }
+
+    @Test
+    @DisplayName("Test equals same object")
+    void testEqualsSameObject() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue1 = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+
+        //Assert
+        assertEquals(monetaryValue, monetaryValue1);
+    }
+
+    @Test
+    @DisplayName("Test equals null object")
+    void testEqualsNullObject() {
+        //Arrange
+        MonetaryValue monetaryValueNull = null;
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+
+        //Assert
+        assertNotEquals(monetaryValueNull, monetaryValue);
+    }
+
+    @Test
+    @DisplayName("Test equals different object")
+    void testEqualsDifferentObject() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue1 = new MonetaryValue(5.00, Currency.getInstance("USD"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(10.00, Currency.getInstance("EUR"));
+
+        //Act
+        boolean result = monetaryValue.equals(monetaryValue1);
+        boolean result2 = monetaryValue.equals(monetaryValue2);
+
+        //Assert
+        assertFalse(result);
+        assertFalse(result2);
+    }
+
+    @Test
+    @DisplayName("Test equals different class object")
+    void testEqualsDifferentClassObject() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+
+        Currency currency = Currency.getInstance("EUR");
+
+        //Act
+        boolean result = monetaryValue.equals(currency);
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Test hashcode")
+    void testHashcode() {
+        //Arrange
+        MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue1 = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+        MonetaryValue monetaryValue2 = new MonetaryValue(10.00, Currency.getInstance("EUR"));
+        //Assert
+        assertEquals(monetaryValue.hashCode(), monetaryValue1.hashCode());
+        assertNotEquals(monetaryValue.hashCode(), monetaryValue2.hashCode());
     }
 
 }
