@@ -6,16 +6,27 @@ import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PersonDomainDataAssembler {
 
-    private PersonDomainDataAssembler() {};
+    private PersonDomainDataAssembler() {
+    }
+
+    ;
 
     public static PersonJpa toData(Person person) {
+
+        if (person.getMother() != null && person.getFather() != null){
         return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
+                person.getBirthPlace().getBirthPlace(), new AddressJpa(person.getAddress().getStreet(),
+                person.getAddress().getCity(), person.getAddress().getPostalCode()),
+                person.getMother().toString(), person.getFather().toString());}
+
+        else return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
                 person.getBirthPlace().getBirthPlace(), new AddressJpa(person.getAddress().getStreet(),
                 person.getAddress().getCity(), person.getAddress().getPostalCode()));
     }
@@ -27,7 +38,14 @@ public class PersonDomainDataAssembler {
         //convert String to LocalDate
         LocalDate birthPlace = LocalDate.parse(birthDateJpa, formatter);
 
-        return new Person(personJpa.getName(), new DateAndTime(birthPlace.getYear(), birthPlace.getMonthValue(),
+        if (personJpa.getFatherId() != null && personJpa.getMotherId() != null) {
+            return new Person(personJpa.getName(), new DateAndTime(birthPlace.getYear(), birthPlace.getMonthValue(),
+                    birthPlace.getDayOfMonth()), new Address(personJpa.getBirthPlace()),
+                    new Address(personJpa.getAddress().getStreet(), personJpa.getAddress().getCity(),
+                            personJpa.getAddress().getPostalCode()), new PersonID(new Email(personJpa.getMotherId())),
+                    new PersonID(new Email(personJpa.getFatherId())), new Email(personJpa.getEmail()));
+
+        } else return new Person(personJpa.getName(), new DateAndTime(birthPlace.getYear(), birthPlace.getMonthValue(),
                 birthPlace.getDayOfMonth()), new Address(personJpa.getBirthPlace()),
                 new Address(personJpa.getAddress().getStreet(), personJpa.getAddress().getCity(),
                         personJpa.getAddress().getPostalCode()), new Email(personJpa.getEmail()));

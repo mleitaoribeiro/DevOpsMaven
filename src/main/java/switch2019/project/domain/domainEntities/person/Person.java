@@ -309,6 +309,13 @@ public class Person implements Owner {
                 checkSameFather(otherPerson) || checkSameMother(otherPerson));
     }
 
+    public PersonID getMother() {
+        return mother;
+    }
+
+    public PersonID getFather() {
+        return father;
+    }
 }
 
 
