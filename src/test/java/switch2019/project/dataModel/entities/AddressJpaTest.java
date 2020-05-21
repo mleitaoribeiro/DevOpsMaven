@@ -18,6 +18,29 @@ class AddressJpaTest {
     }
 
     @Test
+    @DisplayName("Test equals equal object")
+    void testEquals() {
+        //Arrange
+        AddressJpa otherAddress = new AddressJpa("Rua das Almas", "Coimbra", "4601-501");
+
+        //Act
+        boolean result = otherAddress.equals(adressjpa);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test equals same object")
+    void testEqualsSame() {
+        //Act
+        boolean result = adressjpa.equals(adressjpa);
+
+        //Assert
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Test equals null object")
     void testEqualsNullObject() {
         //Arrange
@@ -65,8 +88,22 @@ class AddressJpaTest {
         assertEquals(sameAddress.hashCode(),adressjpa.hashCode());
         assertNotEquals(sameAddress.hashCode(), otherAddress.hashCode());
     }
+
     @Test
-    @DisplayName("Get street - success ")
+    @DisplayName("Get ID - not equals")
+    void getID() {
+        //Arrange
+        Long expected = 1L;
+
+        //Act
+        Long result = adressjpa.getId();
+
+        //Assert
+        assertNotEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get street - success")
     void getStreet() {
         //Arrange
         String expected = "Rua das Almas";
@@ -79,7 +116,7 @@ class AddressJpaTest {
     }
 
     @Test
-    @DisplayName("Get city - success ")
+    @DisplayName("Get city - success")
     void getCity() {
         //Arrange
         String expected = "Coimbra";
