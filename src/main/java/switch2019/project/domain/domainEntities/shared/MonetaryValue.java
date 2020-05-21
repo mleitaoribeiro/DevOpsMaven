@@ -4,8 +4,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Currency;
 
-@Embeddable
-public class MonetaryValue implements Serializable {
+public class MonetaryValue {
 
     //Private MonetaryValue instance Variables
     private final double amount;

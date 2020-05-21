@@ -53,10 +53,10 @@ create "groupJpa:GroupJpa"
 deactivate ":GroupDomainDataAssembler"
 
 autonumber 1.4.2
-"groupsRep:GroupsRepository" -> "groupsRep:GroupsRepository" :save(groupJPA)
+"groupsRep:GroupsRepository" -> "groupsRep:GroupsRepository" : groupSaved = save(groupJPA)
 
 autonumber 1.4.3
-"groupsRep:GroupsRepository"->":GroupDomainDataAssembler":toDomain(group)
+"groupsRep:GroupsRepository"->":GroupDomainDataAssembler":toDomain(groupSaved)
 activate ":GroupDomainDataAssembler" #FFBBBB
 
 autonumber 1.4.3.1
