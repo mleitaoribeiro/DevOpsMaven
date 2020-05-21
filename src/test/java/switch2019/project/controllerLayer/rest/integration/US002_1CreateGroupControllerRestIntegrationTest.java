@@ -31,7 +31,11 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminHappyCase() throws Exception {
 
         //Arrange
-        String uri = "/groups";
+        String uriPost = "/groups";
+
+        // URI used by the GET
+        String uriGet = "/groups/Online Shopping/";
+
 
         final String groupDescription = "Online Shopping";
         final String personEmail = "1110120@isep.ipp.pt";
@@ -44,22 +48,52 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/ONLINE%20SHOPPING\"}}";
 
-       //Act
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+        // Get before the post
+        MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int statusGetBefore = mvcResultGetBefore.getResponse().getStatus();
+        JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
+
+        // ACT
+        MvcResult mvcResultPost = mvc.perform(MockMvcRequestBuilders.post(uriPost)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        int status = mvcResult.getResponse().getStatus();
+        int status = mvcResultPost.getResponse().getStatus();
+        JSONObject result = new JSONObject(mvcResultPost.getResponse().getContentAsString());
 
-        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+        // Get after the post
+        MvcResult mvcResultGetAfter = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
 
-        //Assert
+        int statusGetAfter = mvcResultGetAfter.getResponse().getStatus();
+        System.out.println("status: " + statusGetAfter);
+        JSONObject getAfter = new JSONObject(mvcResultGetAfter.getResponse().getContentAsString());
+
+
+        // ASSERT
+        // Assert Get before Post
+        Assertions.assertAll(
+                () -> assertEquals(422, statusGetBefore),
+                () -> assertEquals ("No group found with that description.", getBefore.getString("message"))
+        );
+
+        // Assert Post
         Assertions.assertAll(
                 () -> assertEquals(201, status),
                 () -> assertEquals(groupDescription.toUpperCase(),result.getString("groupDescription")),
-                () -> assertEquals (expectedLinks, result.getString("_links"))
+                () -> assertEquals(expectedLinks, result.getString("_links"))
+        );
+
+        // Assert Get after Post
+        Assertions.assertAll(
+                () -> assertEquals(200, statusGetAfter),
+                () -> assertEquals(groupDescription.toUpperCase(),getAfter.getString("groupDescription"))
         );
     }
 
@@ -108,7 +142,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
     }
 
 
-  /*  @Test
+    @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - group Already Exists")
     void createGroupAndBecomeAdminGroupAlreadyExists() throws Exception {
 
@@ -124,7 +158,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
 
         String inputJson = super.mapToJson((createGroupInfoDTO));
 
-        String expectedResolvedException = new ResourceAlreadyExistsException("This group description already exists.").toString();
+        String expectedResolvedException = new ResourceAlreadyExistsException("This group already exists.").toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -151,7 +185,7 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-*/
+
 
     @Test
     @DisplayName("Test if an existing person creates a Group and becomes Admin - invalid email - null")
