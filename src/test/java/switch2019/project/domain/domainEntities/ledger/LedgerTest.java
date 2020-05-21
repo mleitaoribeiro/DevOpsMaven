@@ -281,7 +281,7 @@ class LedgerTest {
         List<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2018, 10, 2, 9, 10),
                 LocalDateTime.of(2018, 10, 2, 9, 10));
         //Assert
-        //assertEquals(expected, real);
+        assertEquals(expected, real);
     }
 
     @Test

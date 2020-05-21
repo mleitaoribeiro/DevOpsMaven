@@ -68,6 +68,19 @@ class StringUtilsTest {
     }
 
     @Test
+    @DisplayName("Test if string is converted to date and time")
+    void toDateAndTime() {
+        //Arrange
+        DateAndTime expectedDate = new DateAndTime(2020, 5, 21);
+
+        //Act
+        DateAndTime resultDate = StringUtils.toDateAndTime("2020-05-21");
+
+        //Assert
+        assertEquals(expectedDate, resultDate);
+    }
+
+    @Test
     @DisplayName("Test if string is converted to date and time with hour and minute")
     void toDateHourMinute() {
         //Arrange

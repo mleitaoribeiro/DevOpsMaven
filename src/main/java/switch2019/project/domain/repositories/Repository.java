@@ -26,7 +26,7 @@ public interface Repository {
 
 
     /**
-     * Method to get the numbers of Objects in the Repository
+     * Method to get the number of Objects in the Repository
      *
      * @return
      */
