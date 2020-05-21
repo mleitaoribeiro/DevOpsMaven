@@ -33,7 +33,7 @@ public class TransactionDomainDataAssembler {
         AccountID accountTo = new AccountID(new Denomination(transactionJpa.getAccountTo()),ownerId);
 
         Type type;
-        if(transactionJpa.getType().toUpperCase() == "CREDIT")
+        if(transactionJpa.getType().toUpperCase().equals("CREDIT"))
             type = new Type(true);
         else type = new Type(false);
 

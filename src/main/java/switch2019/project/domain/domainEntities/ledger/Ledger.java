@@ -32,6 +32,13 @@ public class Ledger {
         creationDate = new DateAndTime();
     }
 
+    public Ledger(OwnerID ownerID, ArrayList<Transaction> transactions, DateAndTime creationDate) {
+        ledgerID = new LedgerID(ownerID);
+        ledgerTransactions = transactions;
+        scheduledTasksList = new ScheduledTasksList(); // change later
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
