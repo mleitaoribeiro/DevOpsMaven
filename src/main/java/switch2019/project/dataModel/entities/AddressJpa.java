@@ -36,10 +36,6 @@ public class AddressJpa {
         return Objects.hash(street, city, postalCode);
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getStreet() {
         return street;
     }
