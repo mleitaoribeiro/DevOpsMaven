@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import switch2019.project.AbstractTest;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
 
@@ -53,7 +55,7 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
 
         // OutputDTO
         String result = mvcResult.getResponse().getContentAsString();
-/*
+
         JSONArray jArray = (JSONArray) new JSONTokener(result).nextValue();
 
         // Assert
@@ -66,7 +68,6 @@ class US004GetFamilyGroupsControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expectedLink1, jArray.getJSONObject(1).getString("links")),
                 () -> assertEquals(expectedLink2, jArray.getJSONObject(2).getString("links"))
                 );
-                */
 
     }
 
