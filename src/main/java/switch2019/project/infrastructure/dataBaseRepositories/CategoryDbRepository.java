@@ -92,21 +92,6 @@ public class CategoryDbRepository implements CategoryRepository {
 
 
     /**
-     * Remove a category from CategoryList
-     *
-     * @param categoryToRemove
-     * @return boolean
-     */
-
-    public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
-        if (this.isIDOnRepository(new CategoryID(categoryToRemove, ownerID))) {
-            categoryJpaRepository.delete(CategoryDomainDataAssembler.toData(new Category(categoryToRemove, ownerID)));
-            return true;
-        }
-        else throw new ArgumentNotFoundException(NO_CATEGORY_FOUND);
-    }
-
-    /**
      * Add multiple categories to CategoryList
      *
      * @return boolean

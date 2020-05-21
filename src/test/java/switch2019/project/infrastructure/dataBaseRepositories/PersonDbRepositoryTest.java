@@ -12,7 +12,10 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -101,14 +104,56 @@ class PersonDbRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test if a person is returned form JPA")
+    @DisplayName("Test if a person is returned form JPA - TRUE")
     void getByID() throws Exception {
+        //Arrange
         Person expected = person;
 
+        //Act
         Person result = repository.getByID(new PersonID( new Email("marta@gmail.com")));
 
+        //Assert
         assertEquals(expected, person);
     }
+
+    @Test
+    @DisplayName("Test if a person is returned form JPA - Exception")
+    void getByIDException() throws Exception {
+        //Act
+        Throwable thrown = catchThrowable(() -> { repository.getByID(new PersonID( new Email("exception@gmail.com")));});
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Find person by Email - true")
+    void findByEmail() {
+        //Arrange
+        Person expected = person;
+
+        //Act
+        Person result = repository.findPersonByEmail(new Email("marta@gmail.com"));
+
+        //Arrange
+        assertEquals(expected, result);
+    }
+
+
+    @Test
+    @DisplayName("Find person by Email - Exception")
+    void findByEmailException() {
+        //Act
+        Throwable thrown = catchThrowable(() -> { repository.findPersonByEmail(new Email("exception@gmail.com"));});
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
 
     @Test
     @DisplayName("Test if PersonEmail is on JPA repository")

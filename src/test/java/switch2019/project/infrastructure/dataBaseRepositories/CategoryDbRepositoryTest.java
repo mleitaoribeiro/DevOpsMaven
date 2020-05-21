@@ -124,41 +124,6 @@ class CategoryDbRepositoryTest {
     }
 
     @Test
-    @DisplayName("Verify is Category is removed - happy case")
-    void removeCategoryHappyCase() {
-        //Arrange
-        Long expectedSize = repository.repositorySize() - 1;
-
-        //Act
-        boolean result = repository.removeCategory(new Denomination("GYM"), new GroupID(new Description("Switch")));
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(expectedSize, repository.repositorySize()),
-                () -> assertEquals(true, result)
-        );
-    }
-
-    @Test
-    @DisplayName("Verify is Category is removed - happy case")
-    void removeCategoryException() throws Exception {
-        //Arrange
-        Long expectedSize = repository.repositorySize() - 1;
-
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            repository.removeCategory(new Denomination("Shopping"), personID);
-        });
-
-        //Assert
-        assertThat(thrown)
-                .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No category found with that ID.");
-
-    }
-
-
-    @Test
     @DisplayName("Verify if multiple categories are added - true")
     void addMultipleCategories() throws Exception {
         //Arrange

@@ -29,15 +29,6 @@ public interface CategoryRepository extends Repository {
     Category createCategory (Denomination nameOfCategory, OwnerID ownerID);
 
     /**
-     * Remove one category from the Repository
-     *
-     * @param categoryToRemove
-     *
-     */
-
-    boolean removeCategory (Denomination categoryToRemove, OwnerID ownerID);
-
-    /**
      * Get list of Categories By Owner ID
      *
      * @param ownerID

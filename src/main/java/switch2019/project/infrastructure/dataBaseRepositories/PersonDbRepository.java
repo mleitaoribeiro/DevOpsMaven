@@ -69,7 +69,7 @@ public class PersonDbRepository implements PersonRepository {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
         if(personJpa.isPresent())
             return PersonDomainDataAssembler.toDomain(personJpa.get());
-        else throw new ArgumentNotFoundException("PERSON_NOT_FOUND");
+        else throw new ArgumentNotFoundException(PERSON_NOT_FOUND);
     }
 
     /**
@@ -82,7 +82,7 @@ public class PersonDbRepository implements PersonRepository {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
         if(personJpa.isPresent())
             return PersonDomainDataAssembler.toDomain(personJpa.get());
-        throw new ArgumentNotFoundException("No person found with that email.");
+        throw new ArgumentNotFoundException(PERSON_NOT_FOUND);
     }
 
     /**

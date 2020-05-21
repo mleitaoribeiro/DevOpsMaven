@@ -87,20 +87,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         }
     }
 
-    /**
-     * Remove a category from CategoryList
-     *
-     * @param categoryToRemove
-     * @return boolean
-     */
-
-    public boolean removeCategory(Denomination categoryToRemove, OwnerID ownerID) {
-        Category category = new Category(categoryToRemove, ownerID);
-        if (this.categories.contains(category)) {
-            return categories.remove(category);
-        }
-        return false;
-    }
 
     /**
      * Add multiple categories to CategoryList
@@ -115,19 +101,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
             this.createCategory(category, ownerID);
         }
         return this.categories.size() == sizeBefore + categories.size();
-    }
-
-    /**
-     * Remove multiple categories from CategoryList
-     *
-     * @param categories<Category> categories
-     * @return boolean
-     */
-
-    public boolean removeMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
-        for (Denomination category : categories)
-            this.removeCategory(category, ownerID);
-        return !this.categories.containsAll(categories);
     }
 
     /**
