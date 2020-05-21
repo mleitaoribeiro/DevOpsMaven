@@ -17,6 +17,8 @@ public class PersonJpa {
     private String name;
     private String birthDate;
     private String birthPlace;
+    private String motherId;
+    private String fatherId;
 
     //@OneToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "adress_id", referencedColumnName = "id")
@@ -31,6 +33,38 @@ public class PersonJpa {
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         this.address = address;
+    }
+
+    public PersonJpa(String id, String name, String birthDate, String birthPlace, AddressJpa address,
+                     String motherId, String fatherId){
+        this.email = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.birthPlace = birthPlace;
+        this.address = address;
+        setMotherId(motherId);
+        setFatherId(fatherId);
+
+    }
+
+    public String getMotherId() {
+        return motherId;
+    }
+
+    public String getFatherId() {
+        return fatherId;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setMotherId(String motherId) {
+        this.motherId = motherId;
+    }
+
+    public void setFatherId(String fatherId) {
+        this.fatherId = fatherId;
     }
 
     @Override
