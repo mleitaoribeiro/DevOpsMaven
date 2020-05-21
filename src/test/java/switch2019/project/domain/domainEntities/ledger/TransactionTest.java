@@ -38,7 +38,6 @@ class TransactionTest {
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -58,11 +57,9 @@ class TransactionTest {
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"),date, category, account1, account2,new Type (false));
 
-
         String test = transaction.dateToString();
 
         //Act
-
         boolean result = test.equals("2020-01-13 13:02");
 
         //Assert
@@ -82,9 +79,7 @@ class TransactionTest {
 
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction);
 
         //Assert
@@ -131,9 +126,7 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("payment"), null, category, account3, account2, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -156,9 +149,7 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("payment"), null, category2, account1, account2, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -179,9 +170,7 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue2, new Description("payment"), null, category, account1, account2, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -201,9 +190,7 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), null, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("transportation"), null, category, account1, account2, new Type (false));
 
-
         //Act
-
         boolean result = transaction.equals(transaction2);
 
         //Assert
@@ -410,7 +397,6 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
 
-
         //Assert
         assertEquals(transaction.hashCode(), transaction2.hashCode());
 
@@ -432,7 +418,6 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account3, new Type (false));
 
-
         //Assert
         assertNotEquals(transaction.hashCode(), transaction2.hashCode());
 
@@ -451,7 +436,6 @@ class TransactionTest {
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
         AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
         AccountID account2 = new AccountID(new Denomination("transporte"),new PersonID(new Email("personEmail@email.pt")));
-
 
         //Act
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), localDateTime, category, account1, account2, new Type (true));
@@ -472,8 +456,6 @@ class TransactionTest {
                  new PersonID(new Email("personEmail@email.pt")));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-
-
         //Act
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), localDateTime, category, account1, account2, new Type (false));
 
@@ -489,7 +471,6 @@ class TransactionTest {
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
         AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
         AccountID account2 = new AccountID(new Denomination("transporte"),new PersonID(new Email("personEmail@email.pt")));
-
 
         //Act
         try {
@@ -512,7 +493,6 @@ class TransactionTest {
         AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
         AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
 
-
         //Act
         try {
             new Transaction(monetaryValue, new Description("payment"), localDateTime, category, account1, account2, new Type (true));
@@ -532,7 +512,6 @@ class TransactionTest {
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
         AccountID account1 = new AccountID(new Denomination("mercearia"),new PersonID(new Email("personEmail@email.pt")));
         AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
-
 
         //Act
         try {
@@ -554,7 +533,6 @@ class TransactionTest {
         CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         AccountID account2 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
 
-
         //Act
         try {
             new Transaction(monetaryValue, new Description("payment"), localDateTime, category, null, account2, new Type (true));
@@ -574,7 +552,6 @@ class TransactionTest {
         DateAndTime localDateTime = new DateAndTime(2010, 07, 10, 20, 30);
         CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
         AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
-
 
         //Act
         try {
@@ -684,6 +661,4 @@ class TransactionTest {
         //Assert
         assertEquals(expected, result);
     }
-
-
 }

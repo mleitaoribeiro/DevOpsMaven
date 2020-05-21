@@ -136,7 +136,7 @@ public class LedgerIdJpaTest {
 
     @Test
     @DisplayName("getOwner method tested")
-    void testSetOwner() {
+    void testSetOwner1() {
 
         //Arrange:
         LedgerIdJpa ledgerIdJpa = new LedgerIdJpa("test@email.com");
@@ -147,7 +147,26 @@ public class LedgerIdJpaTest {
 
         String actualOwner = ledgerIdJpa.getOwner();
 
-        // Assert:
+        //Assert:
         assertEquals(expectedOwner, actualOwner);
+    }
+
+    /**
+     * Test for the empty constructor
+     */
+
+    @Test
+    @DisplayName("testing empty constructor with setOwner")
+    void testSetOwner2() {
+
+        //Arrange:
+        LedgerIdJpa ledgerIdJpa1 = new LedgerIdJpa();
+        LedgerIdJpa ledgerIdJpa2 = new LedgerIdJpa("test@email.com");
+
+        //Act:
+        ledgerIdJpa1.setOwner("test@email.com");
+
+        //Assert:
+        assertEquals(ledgerIdJpa1,ledgerIdJpa2);
     }
 }

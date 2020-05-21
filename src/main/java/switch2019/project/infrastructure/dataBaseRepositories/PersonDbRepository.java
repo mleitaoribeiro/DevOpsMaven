@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.PersonDomainDataAssembler;
 import switch2019.project.dataModel.entities.PersonJpa;
+import switch2019.project.dataModel.entities.SiblingsJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -12,6 +13,7 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.infrastructure.jpa.PersonJpaRepository;
+import switch2019.project.infrastructure.jpa.SiblingsJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.util.Optional;
@@ -21,6 +23,9 @@ public class PersonDbRepository implements PersonRepository {
 
     @Autowired
     PersonJpaRepository personJpaRepository;
+
+    @Autowired
+    SiblingsJpaRepository siblingsJpaRepository;
 
     //String literal - Exceptions
     private static final String PERSON_NOT_FOUND = "No person found with that email.";
@@ -61,7 +66,7 @@ public class PersonDbRepository implements PersonRepository {
 
 
     /**
-     * Method to return the person corespondent to the given PersonID
+     * Method to return the person correspondent to the given PersonID
      *
      * @param personID
      */
@@ -73,7 +78,7 @@ public class PersonDbRepository implements PersonRepository {
     }
 
     /**
-     * Method to return the person corespondent to the given attributes
+     * Method to return the person correspondent to the given attributes
      * This is to be updated later but for now, the only attribute being used is the name
      *
      * @param personEmail
@@ -115,4 +120,8 @@ public class PersonDbRepository implements PersonRepository {
     public long repositorySize () {
         return personJpaRepository.count();
     }
+
+
+
+
 }
