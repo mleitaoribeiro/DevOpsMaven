@@ -185,4 +185,18 @@ class GroupJpaTest {
                 () -> assertFalse(result)
         );
     }
+
+    @Test
+    @DisplayName("Test toString method")
+     void toStringTest() {
+        //Arrange
+        GroupJpa groupJpa = new GroupJpa("COOL KIDS", "marta@isep.ipp.pt", "2002-09-10");
+        String expected = "Group ID: COOL KIDS; Group Creator: marta@isep.ipp.pt; Creation Date: 2002-09-10";
+
+        //Act
+        String result = groupJpa.toString();
+
+        //Assert
+        assertEquals(expected, result);
+    }
 }

@@ -88,6 +88,6 @@ public class GroupJpa implements Serializable {
 
     @Override
     public String toString() {
-        return id;
+        return "Group ID: " + id + "; Group Creator: " + groupCreator + "; Creation Date: " + creationDate;
     }
 }
