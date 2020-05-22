@@ -45,7 +45,7 @@ public class GroupJpa implements Serializable {
     }
 
     public List<AdminsJpa> getAdministrators() {
-        return administrators;
+        return new ArrayList<>(administrators);
     }
 
     public boolean addMember(String memberId) {
@@ -56,7 +56,7 @@ public class GroupJpa implements Serializable {
     }
 
     public List<MembersJpa> getMembers() {
-        return members;
+        return new ArrayList<>(members);
     }
 
     public String getId() {
