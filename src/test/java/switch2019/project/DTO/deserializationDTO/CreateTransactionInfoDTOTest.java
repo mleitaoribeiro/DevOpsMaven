@@ -153,6 +153,26 @@ class CreateTransactionInfoDTOTest {
     }
 
     /**
+     * Tests for the methods: getPersonEmail & setPersonEmail
+     */
+
+    @Test
+    @DisplayName("Test - Get personEmail")
+    void getPersonEmail() {
+        //Assert
+        CreateTransactionInfoDTO dto = new CreateTransactionInfoDTO();
+        dto.setPersonEmail("sofia@sapo.pt");
+
+        String expectedPersonEmail = "sofia@sapo.pt";
+
+        //Act:
+        String realPersonEmail = dto.getPersonEmail();
+
+        //Assert:
+        assertEquals(expectedPersonEmail, realPersonEmail);
+    }
+
+    /**
      * Tests for Equals Method:
      */
 
