@@ -3,6 +3,7 @@ package switch2019.project.DTO.deserializationDTO;
 import java.util.Objects;
 
 public class CreateTransactionInfoDTO {
+
     private Double amount;
     private String currency;
     private String description;
@@ -11,6 +12,7 @@ public class CreateTransactionInfoDTO {
     private String accountFrom;
     private String accountTo;
     private String type;
+    private String personEmail;
 
     public CreateTransactionInfoDTO() {
     }
@@ -49,7 +51,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for amount
      *
-     * @return amount
+     * @param amount
      */
     public void setAmount(Double amount) {
         this.amount = amount;
@@ -67,7 +69,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for currency
      *
-     * @return currency
+     * @param currency
      */
 
     public void setCurrency(String currency) {
@@ -86,7 +88,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for description
      *
-     * @return description
+     * @param description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -104,7 +106,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for date
      *
-     * @return date
+     * @param date
      */
     public void setDate(String date) {
         this.date = date;
@@ -122,7 +124,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for category
      *
-     * @return category
+     * @param category
      */
     public void setCategory(String category) {
         this.category = category;
@@ -140,7 +142,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for accountFrom
      *
-     * @return accountFrom
+     * @param accountFrom
      */
     public void setAccountFrom(String accountFrom) {
         this.accountFrom = accountFrom;
@@ -158,7 +160,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for accountTo
      *
-     * @return accountTo
+     * @param accountTo
      */
     public void setAccountTo(String accountTo) {
         this.accountTo = accountTo;
@@ -176,9 +178,27 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for type
      *
-     * @return type
+     * @param type
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * Getter for personEmail
+     *
+     * @return personEmail
+     */
+    public String getPersonEmail() {
+        return personEmail;
+    }
+
+    /**
+     * Setter for personEmail
+     *
+     * @param personEmail
+     */
+    public void setPersonEmail(String personEmail) {
+        this.personEmail = personEmail;
     }
 }

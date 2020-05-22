@@ -31,8 +31,9 @@ public class LedgerDTOAssembler {
     public static CreateGroupTransactionDTO transformToCreateGroupTransactionDTO(String groupDescription,
                                                 CreateTransactionInfoDTO createTransactionInfoDTO){
 
-        return new CreateGroupTransactionDTO(groupDescription, createTransactionInfoDTO.getAmount(),
-                createTransactionInfoDTO.getCurrency(), createTransactionInfoDTO.getDate(), createTransactionInfoDTO.getDescription(),
+        return new CreateGroupTransactionDTO(groupDescription, createTransactionInfoDTO.getPersonEmail(),
+                createTransactionInfoDTO.getAmount(), createTransactionInfoDTO.getCurrency(),
+                createTransactionInfoDTO.getDate(), createTransactionInfoDTO.getDescription(),
                 createTransactionInfoDTO.getCategory(), createTransactionInfoDTO.getAccountFrom(),
                 createTransactionInfoDTO.getAccountTo(), createTransactionInfoDTO.getType());
     }
