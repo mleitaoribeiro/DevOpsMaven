@@ -71,11 +71,14 @@ public class US008CreateTransactionService {
             throw new NoPermissionException("This person is not member of this group.");
         }
         else {
-            Ledger ledger = ledgerRepository.getByID(personID);
+            Ledger ledger = ledgerRepository.getByID(groupID);
+
             //o metodo feito pelo João returna boleano, no entanto temos de retornar um DTO no final do metodo!!!!!
             boolean wasTransactionAdded = ledgerRepository.addTransactionToLedger(ledger, 123L, amount,
                     description, date, categoryID, accountFrom, accountTo, type);
+
             Transaction transaction = new Transaction (amount, description, date, categoryID, accountFrom, accountTo, type);
+
             if (wasTransactionAdded) {
                 return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
             }
