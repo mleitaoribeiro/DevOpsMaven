@@ -1,11 +1,6 @@
 package switch2019.project.dataModel.entities;
 
-import switch2019.project.utils.dataConverter.AddressConverter;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name ="persons")
@@ -20,9 +15,8 @@ public class PersonJpa {
     private String motherId;
     private String fatherId;
 
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "adress_id", referencedColumnName = "id")
-    @Convert(converter = AddressConverter.class)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private AddressJpa address;
 
     protected PersonJpa() {};
@@ -44,27 +38,6 @@ public class PersonJpa {
         this.address = address;
         setMotherId(motherId);
         setFatherId(fatherId);
-
-    }
-
-    public String getMotherId() {
-        return motherId;
-    }
-
-    public String getFatherId() {
-        return fatherId;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setMotherId(String motherId) {
-        this.motherId = motherId;
-    }
-
-    public void setFatherId(String fatherId) {
-        this.fatherId = fatherId;
     }
 
     @Override
@@ -98,5 +71,21 @@ public class PersonJpa {
 
     public AddressJpa getAddress() {
         return address;
+    }
+
+    public String getMotherId() {
+        return motherId;
+    }
+
+    public String getFatherId() {
+        return fatherId;
+    }
+
+    public void setMotherId(String motherId) {
+        this.motherId = motherId;
+    }
+
+    public void setFatherId(String fatherId) {
+        this.fatherId = fatherId;
     }
 }

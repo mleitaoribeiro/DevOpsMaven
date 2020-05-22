@@ -7,7 +7,7 @@ import java.util.Objects;
 public class AddressJpa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String street;
     private String city;
@@ -36,6 +36,10 @@ public class AddressJpa {
         return Objects.hash(street, city, postalCode);
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getStreet() {
         return street;
     }
@@ -47,4 +51,5 @@ public class AddressJpa {
     public String getPostalCode() {
         return postalCode;
     }
+
 }
