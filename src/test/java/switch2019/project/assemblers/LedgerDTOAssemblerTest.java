@@ -75,6 +75,7 @@ class LedgerDTOAssemblerTest {
 
         assertEquals(expected, result);
         assertNotEquals(createTransactionInfoDTO, result);
+        assertNotNull(result);
 
     }
 
