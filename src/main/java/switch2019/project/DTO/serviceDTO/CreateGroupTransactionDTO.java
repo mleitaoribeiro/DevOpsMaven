@@ -5,6 +5,7 @@ import java.util.Objects;
 public class CreateGroupTransactionDTO {
 
     private final String groupDescription;
+    private final String personEmail;
     private final Double amount;
     private final String currency;
     private final String date;
@@ -14,10 +15,11 @@ public class CreateGroupTransactionDTO {
     private final String accountTo;
     private final String type;
 
-    public CreateGroupTransactionDTO(String groupDescription, Double amount, String currency, String date,
+    public CreateGroupTransactionDTO(String groupDescription, String personEmail, Double amount, String currency, String date,
                                      String description, String category, String accountFrom, String accountTo, String type) {
 
         this.groupDescription = groupDescription;
+        this.personEmail = personEmail;
         this.amount = amount;
         this.currency = currency;
         this.date = date;
@@ -34,6 +36,7 @@ public class CreateGroupTransactionDTO {
         if (!(o instanceof CreateGroupTransactionDTO)) return false;
         CreateGroupTransactionDTO that = (CreateGroupTransactionDTO) o;
         return Objects.equals(groupDescription, that.groupDescription) &&
+                Objects.equals(personEmail, that.personEmail) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(currency, that.currency) &&
                 Objects.equals(date, that.date) &&
@@ -46,7 +49,7 @@ public class CreateGroupTransactionDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupDescription, amount, currency, date, description, category, accountFrom, accountTo, type);
+        return Objects.hash(groupDescription, personEmail, amount, currency, date, description, category, accountFrom, accountTo, type);
     }
 
     /**
@@ -56,6 +59,15 @@ public class CreateGroupTransactionDTO {
      */
     public String getGroupDescription() {
         return groupDescription;
+    }
+
+    /**
+     * Getter for personEmail
+     *
+     * @return personEmail
+     */
+    public String getPersonEmail() {
+        return personEmail;
     }
 
     /**
