@@ -34,7 +34,7 @@ public class Ledger {
 
     public Ledger(OwnerID ownerID, ArrayList<Transaction> transactions, DateAndTime creationDate) {
         ledgerID = new LedgerID(ownerID);
-        ledgerTransactions = transactions;
+        ledgerTransactions = new ArrayList<>(transactions);
         scheduledTasksList = new ScheduledTasksList(); // change later
         this.creationDate = creationDate;
     }
