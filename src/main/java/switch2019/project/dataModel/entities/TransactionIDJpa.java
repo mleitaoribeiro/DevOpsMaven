@@ -16,7 +16,6 @@ public class TransactionIDJpa implements Serializable {
     public TransactionIDJpa(long id, String ledgerId) {
         this.id = id;
         this.ledgerId = ledgerId;
-        System.out.println(ledgerId);
     }
 
     @Override
