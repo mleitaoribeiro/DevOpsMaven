@@ -295,7 +295,7 @@ class CreateGroupTransactionDTOTest {
     }
 
     @Test
-    @DisplayName("Test for method getType")
+    @DisplayName("Test for method getType - debit")
     void getType() {
 
         // Arrange
@@ -303,10 +303,28 @@ class CreateGroupTransactionDTOTest {
                 "sofia@sapo.pt", 20.50, "EUR", "19-05-2020","beers", "drinks",
                 "Switch Account", "Isep Bar Account", "debit");
 
-        String typeExpected = "debit";
+        boolean typeExpected = false;
 
         // Act
-        String type = createGroupTransactionDTO.getType();
+        boolean type = createGroupTransactionDTO.getType();
+
+        // Assert
+        assertEquals(typeExpected, type);
+    }
+
+    @Test
+    @DisplayName("Test for method getType - credit")
+    void getTypeFalse() {
+
+        // Arrange
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO("Switch",
+                "sofia@sapo.pt", 20.50, "EUR", "19-05-2020","beers", "drinks",
+                "Switch Account", "Isep Bar Account", "credit");
+
+        boolean typeExpected = true;
+
+        // Act
+        boolean type = createGroupTransactionDTO.getType();
 
         // Assert
         assertEquals(typeExpected, type);
