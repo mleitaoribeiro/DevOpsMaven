@@ -44,7 +44,7 @@ class LedgerDomainDataAssemblerTest {
 
         // Arrange
         Ledger ledger = new Ledger(new PersonID(new Email("marta@gmail.com")));
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("marta@gmail.com"), "2020-05-21");
+        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("marta@gmail.com"), "2020-05-22");
 
         // Act
         LedgerJpa ledgerFromDomain = LedgerDomainDataAssembler.toData(ledger);

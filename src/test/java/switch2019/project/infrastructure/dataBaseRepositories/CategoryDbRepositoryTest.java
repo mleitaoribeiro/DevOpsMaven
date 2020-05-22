@@ -111,6 +111,7 @@ class CategoryDbRepositoryTest {
     void createCategoryException() throws Exception {
         //Arrange
         repository.createCategory(new Denomination("ONLINE"), personID);
+
         //Act
         Throwable thrown = catchThrowable(() -> {
             repository.createCategory(new Denomination("ONLINE"), personID);
@@ -130,10 +131,17 @@ class CategoryDbRepositoryTest {
         gym = new Denomination("GYM");
         savings = new Denomination("SAVINGS");
         Set<Denomination> setOfCategories = new HashSet<>(Arrays.asList(gym, savings));
+        Long sizeBefore = repository.repositorySize();
+        long expectedSize = sizeBefore + setOfCategories.size();
 
         //Act
-        assertTrue(repository.addMultipleCategories(setOfCategories, personID));
+        boolean result = repository.addMultipleCategories(setOfCategories, personID);
 
+        //Assert
+        Assertions.assertAll(
+                () -> assertTrue(result),
+                () -> assertEquals(expectedSize, repository.repositorySize())
+        );
     }
 
 

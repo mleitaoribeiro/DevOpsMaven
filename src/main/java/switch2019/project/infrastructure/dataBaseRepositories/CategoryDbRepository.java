@@ -3,11 +3,9 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.dataAssemblers.AccountDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.CategoryDomainDataAssembler;
 import switch2019.project.dataModel.entities.CategoryIdJpa;
 import switch2019.project.dataModel.entities.CategoryJpa;
-import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
