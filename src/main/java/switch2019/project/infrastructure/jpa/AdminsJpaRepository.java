@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface AdminsJpaRepository extends JpaRepository<AdminsJpa, GroupID> {
 
-    Optional<AdminsJpa> findById(String id);
 
     List<AdminsJpa> findAll();
 

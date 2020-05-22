@@ -57,7 +57,7 @@ class ScheduleTest {
         new Schedule(ledger, new Periodicity("working days"),
                 amount, description, null, category, from, to, type);
 
-        Thread.sleep(3100); // working days = 1000
+        Thread.sleep(3900); // working days = 1000
 
         //Assert
         assertEquals(4, ledger.getLedgerSize());
@@ -82,7 +82,7 @@ class ScheduleTest {
         new Schedule(ledger, new Periodicity("weekly"),
                 amount, description, null, category, from, to, type);
 
-        Thread.sleep(3100); // weekly = 1500
+        Thread.sleep(4000); // weekly = 1500
 
         //Assert
         assertEquals(3, ledger.getLedgerSize());
@@ -107,7 +107,7 @@ class ScheduleTest {
         new Schedule(ledger, new Periodicity("monthly"),
                 amount, description, null, category, from, to, type);
 
-        Thread.sleep(2100); // monthly = 2000
+        Thread.sleep(3000); // monthly = 2000
 
         //Assert
         assertEquals(2, ledger.getLedgerSize());

@@ -19,10 +19,10 @@ public class TransactionJpa {
     private String accountTo;
     private String type;
 
-    protected TransactionJpa() {
-    }
+    protected TransactionJpa() {}
 
-    public TransactionJpa(long id,String ledgerId, Double amount, String currency, String description, String date, String category, String accountFrom, String accountTo, String type) {
+    public TransactionJpa(long id, String ledgerId, Double amount, String currency, String description, String date,
+                          String category, String accountFrom, String accountTo, String type) {
        transactionIDJpa=new TransactionIDJpa(id, ledgerId);
         this.amount = amount;
         this.currency = currency;

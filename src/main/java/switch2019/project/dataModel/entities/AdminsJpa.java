@@ -15,14 +15,14 @@ public class AdminsJpa {
         private GroupJpa groupID;
 
         @Column(nullable = false, updatable = false)
-        private String person_ID;
+        private String personID;
 
         public AdminsIdJpa() {
         }
 
         public AdminsIdJpa(GroupJpa groupID, String personID) {
             this.groupID = groupID;
-            this.person_ID = personID;
+            this.personID = personID;
         }
 
         @Override
@@ -31,19 +31,19 @@ public class AdminsJpa {
             if (o == null || getClass() != o.getClass()) return false;
             AdminsIdJpa that = (AdminsIdJpa) o;
             return Objects.equals(groupID, that.groupID) &&
-                    Objects.equals(person_ID, that.person_ID);
+                    Objects.equals(personID, that.personID);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(groupID, person_ID);
+            return Objects.hash(groupID, personID);
         }
 
         @Override
         public String toString() {
             return "AdminsIdJpa{" +
                     "groupID=" + groupID.toString() +
-                    ", person_ID='" + person_ID + '\'' +
+                    ", person_ID='" + personID + '\'' +
                     '}';
         }
 
@@ -52,7 +52,7 @@ public class AdminsJpa {
         }
 
         public String getPersonID() {
-            return person_ID;
+            return personID;
         }
     }
 

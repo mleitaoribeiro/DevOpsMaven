@@ -3,8 +3,8 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.PersonDomainDataAssembler;
+import switch2019.project.dataModel.entities.AddressJpa;
 import switch2019.project.dataModel.entities.PersonJpa;
-import switch2019.project.dataModel.entities.SiblingsJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -12,6 +12,7 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.infrastructure.jpa.AddressJpaRepository;
 import switch2019.project.infrastructure.jpa.PersonJpaRepository;
 import switch2019.project.infrastructure.jpa.SiblingsJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
@@ -27,6 +28,9 @@ public class PersonDbRepository implements PersonRepository {
     @Autowired
     SiblingsJpaRepository siblingsJpaRepository;
 
+    @Autowired
+    AddressJpaRepository addressJpaRepository;
+
     //String literal - Exceptions
     private static final String PERSON_NOT_FOUND = "No person found with that email.";
 
@@ -40,8 +44,18 @@ public class PersonDbRepository implements PersonRepository {
      * @return
      */
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
+
+        Optional<AddressJpa> addressJpa = addressJpaRepository.findByCityAndStreetAndPostalCode
+                (homeAddress.getCity(), homeAddress.getStreet(), homeAddress.getPostalCode());
+
         Person person = new Person(name, birthDate, birthPlace, homeAddress, email);
-        PersonJpa personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person));
+        PersonJpa personJpa;
+
+        if(addressJpa.isPresent())
+            personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person, addressJpa.get()));
+
+        else personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person));
+
         return PersonDomainDataAssembler.toDomain(personJpa);
     }
 
@@ -59,8 +73,18 @@ public class PersonDbRepository implements PersonRepository {
 
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                PersonID mother, PersonID father, Email email) {
+
+        Optional<AddressJpa> addressJpa = addressJpaRepository.findByCityAndStreetAndPostalCode
+                (homeAddress.getCity(), homeAddress.getStreet(), homeAddress.getPostalCode());
+
         Person person = new Person(name, birthDate, birthPlace, homeAddress, mother, father, email);
-        PersonJpa personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person));
+        PersonJpa personJpa;
+
+        if(addressJpa.isPresent())
+            personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person, addressJpa.get()));
+
+        else personJpa = personJpaRepository.save(PersonDomainDataAssembler.toData(person));
+
         return PersonDomainDataAssembler.toDomain(personJpa);
     }
 

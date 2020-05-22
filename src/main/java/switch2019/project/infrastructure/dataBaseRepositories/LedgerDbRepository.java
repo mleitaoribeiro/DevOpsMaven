@@ -76,8 +76,9 @@ public class LedgerDbRepository implements LedgerRepository {
 
         LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
 
-        TransactionJpa transactionJpa = new TransactionJpa(serialNumber, ledger.getID().toString(), amount.getAmount(), amount.getCurrency().toString(),
-                description.getDescription(), localDate.yearMonthDayHourMinuteToString(), category.getOwnerIDString(),
+        TransactionJpa transactionJpa = new TransactionJpa(serialNumber, ledger.getID().getOwnerID().toString(),
+                amount.getAmount(), amount.getCurrency().toString(), description.getDescription(),
+                localDate.yearMonthDayHourMinuteToString(), category.getDenomination().toString(),
                 accountFrom.getDenominationToString(), accountTo.getDenominationToString(), type.toString());
 
         if (!transactionJpaList.contains(transactionJpa)) {
@@ -99,16 +100,29 @@ public class LedgerDbRepository implements LedgerRepository {
         return transactionJpaRepository.findAllByTransactionIDJpa_LedgerId(ledgerID);
     }
 
+
+    /**
+     *
+     * Method to find all transactions
+     *
+     * @return List<TransactionJpa>
+     */
+
+    public List<TransactionJpa> findAllTransactions () {
+        return transactionJpaRepository.findAll();
+    }
+
+
     /**
      *
      * Find a Ledger by it´s ID
      *
-     * @param ledgerID
+     * @param owner
      * @return
      */
 
-    public Ledger getByID(ID ledgerID) {
-      Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(ledgerID.toString());
+    public Ledger getByID(ID owner) {
+      Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(owner.toString());
         if (ledgerJpa.isPresent()) {
             return LedgerDomainDataAssembler.toDomain(ledgerJpa.get());
         }

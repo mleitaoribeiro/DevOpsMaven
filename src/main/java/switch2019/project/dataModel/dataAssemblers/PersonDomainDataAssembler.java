@@ -17,7 +17,7 @@ public class PersonDomainDataAssembler {
 
     public static PersonJpa toData(Person person) {
 
-        if (person.getMother() != null && person.getFather() != null){
+        if (person.getMother() != null){
         return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
                 person.getBirthPlace().getBirthPlace(), new AddressJpa(person.getAddress().getStreet(),
                 person.getAddress().getCity(), person.getAddress().getPostalCode()),
@@ -28,20 +28,31 @@ public class PersonDomainDataAssembler {
                 person.getAddress().getCity(), person.getAddress().getPostalCode()));
     }
 
+    public static PersonJpa toData(Person person, AddressJpa addressJpa) {
+
+        if (person.getMother() != null){
+            return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
+                    person.getBirthPlace().getBirthPlace(), addressJpa,
+                    person.getMother().toString(), person.getFather().toString());}
+
+        else return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
+                person.getBirthPlace().getBirthPlace(), addressJpa);
+    }
+
     public static Person toDomain(PersonJpa personJpa) {
 
-        DateAndTime birthPlaceDateAndTime = StringUtils.toDateAndTime(personJpa.getBirthDate());
-        LocalDate birthPlace = birthPlaceDateAndTime.getYearMonthDay();
+        DateAndTime birthDateDateAndTime = StringUtils.toDateAndTime(personJpa.getBirthDate());
+        LocalDate birthDate = birthDateDateAndTime.getYearMonthDay();
 
-        if (personJpa.getFatherId() != null && personJpa.getMotherId() != null) {
-            return new Person(personJpa.getName(), new DateAndTime(birthPlace.getYear(), birthPlace.getMonthValue(),
-                    birthPlace.getDayOfMonth()), new Address(personJpa.getBirthPlace()),
+        if (personJpa.getFatherId() != null) {
+            return new Person(personJpa.getName(), new DateAndTime(birthDate.getYear(), birthDate.getMonthValue(),
+                    birthDate.getDayOfMonth()), new Address(personJpa.getBirthPlace()),
                     new Address(personJpa.getAddress().getStreet(), personJpa.getAddress().getCity(),
                             personJpa.getAddress().getPostalCode()), new PersonID(new Email(personJpa.getMotherId())),
                     new PersonID(new Email(personJpa.getFatherId())), new Email(personJpa.getEmail()));
 
-        } else return new Person(personJpa.getName(), new DateAndTime(birthPlace.getYear(), birthPlace.getMonthValue(),
-                birthPlace.getDayOfMonth()), new Address(personJpa.getBirthPlace()),
+        } else return new Person(personJpa.getName(), new DateAndTime(birthDate.getYear(), birthDate.getMonthValue(),
+                birthDate.getDayOfMonth()), new Address(personJpa.getBirthPlace()),
                 new Address(personJpa.getAddress().getStreet(), personJpa.getAddress().getCity(),
                         personJpa.getAddress().getPostalCode()), new Email(personJpa.getEmail()));
     }
