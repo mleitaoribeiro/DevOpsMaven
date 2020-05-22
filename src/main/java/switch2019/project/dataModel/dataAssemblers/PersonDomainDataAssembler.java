@@ -7,16 +7,13 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.utils.StringUtils;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class PersonDomainDataAssembler {
 
-    private PersonDomainDataAssembler() {
-    }
-
-    ;
+    private PersonDomainDataAssembler() {};
 
     public static PersonJpa toData(Person person) {
 
@@ -33,10 +30,8 @@ public class PersonDomainDataAssembler {
 
     public static Person toDomain(PersonJpa personJpa) {
 
-        String birthDateJpa = personJpa.getBirthDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //convert String to LocalDate
-        LocalDate birthPlace = LocalDate.parse(birthDateJpa, formatter);
+        DateAndTime birthPlaceDateAndTime = StringUtils.toDateAndTime(personJpa.getBirthDate());
+        LocalDate birthPlace = birthPlaceDateAndTime.getYearMonthDay();
 
         if (personJpa.getFatherId() != null && personJpa.getMotherId() != null) {
             return new Person(personJpa.getName(), new DateAndTime(birthPlace.getYear(), birthPlace.getMonthValue(),
