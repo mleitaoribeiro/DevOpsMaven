@@ -28,6 +28,17 @@ public class PersonDomainDataAssembler {
                 person.getAddress().getCity(), person.getAddress().getPostalCode()));
     }
 
+    public static PersonJpa toData(Person person, AddressJpa addressJpa) {
+
+        if (person.getMother() != null && person.getFather() != null){
+            return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
+                    person.getBirthPlace().getBirthPlace(), addressJpa,
+                    person.getMother().toString(), person.getFather().toString());}
+
+        else return new PersonJpa(person.getID().toString(), person.getName(), person.getBirthDate(),
+                person.getBirthPlace().getBirthPlace(), addressJpa);
+    }
+
     public static Person toDomain(PersonJpa personJpa) {
 
         DateAndTime birthPlaceDateAndTime = StringUtils.toDateAndTime(personJpa.getBirthDate());

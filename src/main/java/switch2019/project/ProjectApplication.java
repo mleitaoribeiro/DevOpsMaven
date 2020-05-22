@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
 import switch2019.project.infrastructure.dataLoader.DataInMemoryLoader;
 
-
 @SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer",
         "switch2019.project.infrastructure", "switch2019.project.applicationLayer",
         "switch2019.project.utils.projectApplicationConfiguration"})

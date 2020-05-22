@@ -65,8 +65,8 @@ public class Person implements Owner {
      * @param father
      */
 
-    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, PersonID mother, PersonID father,
-                  Email email) {
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
+                  PersonID mother, PersonID father, Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
         this.birthDate = birthDate;
