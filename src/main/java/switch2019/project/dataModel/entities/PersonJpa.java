@@ -36,8 +36,8 @@ public class PersonJpa {
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         this.address = address;
-        setMotherId(motherId);
-        setFatherId(fatherId);
+        this.fatherId = fatherId;
+        this.motherId = motherId;
     }
 
     @Override
@@ -81,11 +81,4 @@ public class PersonJpa {
         return fatherId;
     }
 
-    public void setMotherId(String motherId) {
-        this.motherId = motherId;
-    }
-
-    public void setFatherId(String fatherId) {
-        this.fatherId = fatherId;
-    }
 }
