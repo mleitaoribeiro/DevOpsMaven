@@ -76,8 +76,9 @@ public class LedgerDbRepository implements LedgerRepository {
 
         LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
 
-        TransactionJpa transactionJpa = new TransactionJpa(serialNumber, ledger.getID().toString(), amount.getAmount(), amount.getCurrency().toString(),
-                description.getDescription(), localDate.yearMonthDayHourMinuteToString(), category.getOwnerIDString(),
+        TransactionJpa transactionJpa = new TransactionJpa(serialNumber, ledger.getID().getOwnerID().toString(),
+                amount.getAmount(), amount.getCurrency().toString(), description.getDescription(),
+                localDate.yearMonthDayHourMinuteToString(), category.getDenomination().toString(),
                 accountFrom.getDenominationToString(), accountTo.getDenominationToString(), type.toString());
 
         if (!transactionJpaList.contains(transactionJpa)) {
