@@ -148,8 +148,7 @@ public class CreatePersonalTransactionDTO {
      *
      * @return type
      */
-    public String getType() {
-        return type;
+    public boolean getType() {
+        return this.type.equalsIgnoreCase("credit");
     }
-
 }

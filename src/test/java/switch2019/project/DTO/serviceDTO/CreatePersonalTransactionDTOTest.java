@@ -289,10 +289,10 @@ class CreatePersonalTransactionDTOTest {
                 20.50, "EUR", "beers", "15-02-2020", "drinks", "Switch Account",
                 "Isep Bar Account", "debit");
 
-        String typeExpected = "debit";
+        boolean typeExpected = false;
 
         // Act
-        String type = createPersonalTransactionDTO.getType();
+        boolean type = createPersonalTransactionDTO.getType();
 
         // Assert
         assertEquals(typeExpected, type);

@@ -139,9 +139,6 @@ public class CreateGroupTransactionDTO {
      * @return type
      */
     public boolean getType() {
-        if (this.type.equalsIgnoreCase("debit")) {
-            return false;
-        }
-        else return true;
+        return this.type.equalsIgnoreCase("credit");
     }
 }
