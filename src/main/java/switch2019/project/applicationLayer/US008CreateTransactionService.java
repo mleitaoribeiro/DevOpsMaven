@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.assemblers.LedgerDTOAssembler;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
@@ -85,6 +86,34 @@ public class US008CreateTransactionService {
             //para já ficou assim para não dar erro, depois tenho de rever com o João como fazemos!!!!
             else return new TransactionShortDTO("", "", "", "");
         }
+    }
+
+    /**
+     * US008 - I want to create a personal transaction.
+     *
+     * @param createPersonalTransactionDTO
+     * @return TransactionShortDTO
+     */
+    public TransactionShortDTO addPersonalTransaction(CreatePersonalTransactionDTO createPersonalTransactionDTO) {
+
+        PersonID personID = personRepository.findPersonByEmail(new Email(createPersonalTransactionDTO.getPersonEmail())).getID();
+        Ledger ledger = ledgerRepository.getByID(personID);
+
+        MonetaryValue amount = new MonetaryValue(createPersonalTransactionDTO.getAmount(),
+                Currency.getInstance(createPersonalTransactionDTO.getCurrency()));
+        Description description = new Description(createPersonalTransactionDTO.getDescription());
+        DateAndTime date = StringUtils.toDateHourMinute(createPersonalTransactionDTO.getDate());
+        CategoryID category = new CategoryID(new Denomination(createPersonalTransactionDTO.getCategory()), personID);
+        AccountID accountFrom = new AccountID(new Denomination(createPersonalTransactionDTO.getAccountFrom()), personID);
+        AccountID accountTo = new AccountID(new Denomination(createPersonalTransactionDTO.getAccountTo()), personID);
+        Type type = new Type(createPersonalTransactionDTO.getType());
+
+        // TODO change return variable
+        ledgerRepository.addTransactionToLedger(ledger, amount, description, date, category, accountFrom, accountTo, type);
+        // temporary
+        Transaction transaction = new Transaction(amount, description, date, category, accountFrom, accountTo, type);
+
+        return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
     }
 
     /**
