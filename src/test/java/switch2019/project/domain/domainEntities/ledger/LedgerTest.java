@@ -1407,7 +1407,7 @@ class LedgerTest {
 
         //Arrange:
         Ledger ledger = new Ledger(new PersonID(new Email("test@gmail.com")));
-        String expectedCreationDate = "2020-05-24";
+        String expectedCreationDate = new DateAndTime().yearMonthDayToString();
 
         //Act:
         String actualCreationDate = ledger.getCreationDateToString();
