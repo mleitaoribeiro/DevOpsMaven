@@ -95,7 +95,7 @@ class TransactionJpaTest {
         TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act
 

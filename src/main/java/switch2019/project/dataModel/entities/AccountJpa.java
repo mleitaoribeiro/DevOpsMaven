@@ -10,14 +10,16 @@ public class AccountJpa {
     @EmbeddedId
     private AccountIDJpa accountIDJpa;
     private String description;
-    private String balance;
+    private Double amount;
+    private String currency;
 
     protected AccountJpa() {};
 
-    public AccountJpa(String owner, String denomination, String description, String balance) {
+    public AccountJpa(String owner, String denomination, String description, Double amount, String currency) {
         accountIDJpa = new AccountIDJpa(owner, denomination);
         this.description = description;
-        this.balance = balance;
+        this.amount = amount;
+        this.currency = currency;
     }
 
 
@@ -51,16 +53,19 @@ public class AccountJpa {
         this.description = description;
     }
 
-    public String getBalance() {
-        return balance;
+    public Double getAmount() {
+        return amount;
     }
 
-    public String getAmount() {
-        return balance.split(" ")[0];
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance;
+    public String getCurrency() {
+        return currency;
     }
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

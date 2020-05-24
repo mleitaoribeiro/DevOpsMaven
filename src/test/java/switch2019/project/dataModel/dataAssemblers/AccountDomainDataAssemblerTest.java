@@ -30,7 +30,7 @@ public class AccountDomainDataAssemblerTest {
                 new PersonID(new Email("teste@gmail.com")));
 
         //Arrange AccountJpa (expected):
-        AccountJpa accountJpaExpected = new AccountJpa(personEmail, denomination, description, "0.0 EUR");
+        AccountJpa accountJpaExpected = new AccountJpa(personEmail, denomination, description, 0.0, "EUR");
 
         //Act:
         //Arrange Account Jpa (actual):
@@ -52,7 +52,7 @@ public class AccountDomainDataAssemblerTest {
         String description = "COMPUTER AND BOARD GAMES";
 
         //Arrange AccountJpa:
-        AccountJpa accountJpa= new AccountJpa(personEmail, denomination, description, "0.0");
+        AccountJpa accountJpa= new AccountJpa(personEmail, denomination, description, 0.0, "EUR");
 
         //Arrange Account (expected):
         Account accountExpected = new Account(new Denomination(denomination), new Description(description), new PersonID(new Email(personEmail)));
@@ -77,7 +77,7 @@ public class AccountDomainDataAssemblerTest {
         String description = "COMPUTER AND BOARD GAMES";
 
         //Arrange AccountJpa:
-        AccountJpa accountJpa= new AccountJpa(groupDescription, denomination, description, "0.0");
+        AccountJpa accountJpa= new AccountJpa(groupDescription, denomination, description, 0.0, "EUR");
 
         //Arrange Account (expected):
         Account accountExpected = new Account(new Denomination(denomination), new Description(description), new GroupID(new Description(groupDescription)));
@@ -102,10 +102,11 @@ public class AccountDomainDataAssemblerTest {
         String description = "COMPUTER AND BOARD GAMES";
 
         //Arrange AccountJpa:
-        AccountJpa accountJpa= new AccountJpa(groupDescription, denomination, description, "5.0");
+        AccountJpa accountJpa= new AccountJpa(groupDescription, denomination, description, 5.0, "EUR");
 
         //Arrange Account (expected):
-        Account accountExpected = new Account(new Denomination(denomination), new Description(description), new GroupID(new Description(groupDescription)),new MonetaryValue(5.0, Currency.getInstance("EUR")));
+        Account accountExpected = new Account(new Denomination(denomination), new Description(description),
+                new GroupID(new Description(groupDescription)),new MonetaryValue(5.0, Currency.getInstance("EUR")));
 
         //Act:
         //Obtain Account (actual):
@@ -114,6 +115,4 @@ public class AccountDomainDataAssemblerTest {
         //Assert:
         assertEquals(accountExpected,accountActual);
     }
-
-
 }

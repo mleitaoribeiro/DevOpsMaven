@@ -18,7 +18,7 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act & Assert
 
@@ -31,8 +31,8 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act
 
@@ -49,8 +49,8 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-        AccountJpa accountJpa2 = new AccountJpa("Family", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+        AccountJpa accountJpa2 = new AccountJpa("Family", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act
 
@@ -66,8 +66,8 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revo", "Revolut Account", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revo", "Revolut Account", 0.0, "EUR");
 
         //Act
 
@@ -83,8 +83,8 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revolut", "Revos", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revolut", "Revos", 0.0, "EUR");
 
         //Act
 
@@ -100,7 +100,7 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act
 
@@ -117,7 +117,7 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
         AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
 
         //Act
@@ -140,8 +140,8 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+        AccountJpa accountJpa2 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act
 
@@ -160,8 +160,8 @@ class AccountJpaTest {
 
         //Arrange
 
-        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-        AccountJpa accountJpa2 = new AccountJpa("Family", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa1 = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+        AccountJpa accountJpa2 = new AccountJpa("Family", "Revolut", "Revolut Account", 0.0, "EUR");
 
         //Act
 
@@ -183,7 +183,7 @@ class AccountJpaTest {
     void getAccountIDJpa() {
 
         //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         AccountIDJpa expectedAccountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
 
@@ -200,7 +200,7 @@ class AccountJpaTest {
     void getDescription() {
 
         //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         String expectedDescription = "Revolut Account";
 
@@ -213,35 +213,35 @@ class AccountJpaTest {
     }
 
     @Test
-    @DisplayName("Test getBalance")
-    void getBalance() {
-
-        //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
-
-        String expectedBalance = "0";
-
-        //Act
-        String realBalance = accountJpa.getBalance();
-
-        // Assert
-        assertEquals(expectedBalance, realBalance);
-    }
-
-    @Test
     @DisplayName("Test getAmount")
     void getAmount() {
         //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
-        String expectAmount = "0";
+        double expectAmount = 0;
 
         //Act
-        String realAmount = accountJpa.getBalance();
+        double realAmount = accountJpa.getAmount();
 
         // Assert
         assertEquals(expectAmount, realAmount);
 
+    }
+
+    @Test
+    @DisplayName("Test getCurrency")
+    void getCurrency() {
+
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
+
+        String expectedBalance = "EUR";
+
+        //Act
+        String realBalance = accountJpa.getCurrency();
+
+        // Assert
+        assertEquals(expectedBalance, realBalance);
     }
 
     /**
@@ -252,7 +252,7 @@ class AccountJpaTest {
     @DisplayName("Test setAccountIDJpa")
     void setAccountIDJpa() {
         //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         AccountIDJpa expectedAccountIDJpa = new AccountIDJpa("SWITCH", "Revo");
 
@@ -272,7 +272,7 @@ class AccountJpaTest {
     @DisplayName("Test setDescription")
     void setDescription() {
         //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
         String expectedDescription = "Revo Acc";
 
@@ -286,22 +286,38 @@ class AccountJpaTest {
     }
 
     @Test
-    @DisplayName("Test setBalance")
-    void setBalance() {
+    @DisplayName("Test setAmount")
+    void setAmount() {
         //Arrange
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
-        String expectedBalance = "1";
+        double expectedBalance = 1;
 
         //Act
-        accountJpa.setBalance(expectedBalance);
+        accountJpa.setAmount(expectedBalance);
 
-        String realBalance = accountJpa.getBalance();
+        double realBalance = accountJpa.getAmount();
 
         // Assert
         assertEquals(expectedBalance, realBalance);
 
     }
 
+    @Test
+    @DisplayName("Test setCurrency")
+    void setCurrency() {
+        //Arrange
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
+        String expectedCurrency = "USD";
+
+        //Act
+        accountJpa.setCurrency(expectedCurrency);
+
+        String realBalance = accountJpa.getCurrency();
+
+        // Assert
+        assertEquals(expectedCurrency, realBalance);
+
+    }
 }

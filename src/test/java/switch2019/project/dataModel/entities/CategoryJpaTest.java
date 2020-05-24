@@ -59,7 +59,7 @@ public class CategoryJpaTest {
         //Arrange
         CategoryJpa categoryJpa = new CategoryJpa("1191765@isep.ipp.pt", "test");
 
-        AccountJpa accountJpa = new AccountJpa("owner","denomination","description","0.0");
+        AccountJpa accountJpa = new AccountJpa("owner","denomination","description",0.0, "EUR");
 
         //Act
         boolean result = categoryJpa.equals(accountJpa);

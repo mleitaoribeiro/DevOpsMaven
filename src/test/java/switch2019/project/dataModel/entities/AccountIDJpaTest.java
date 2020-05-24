@@ -81,7 +81,7 @@ class AccountIDJpaTest {
 
         //Arrange
         AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
-        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
+        AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", 0.0, "EUR");
 
 
         //Act
