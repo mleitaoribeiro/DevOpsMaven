@@ -1,7 +1,5 @@
 package switch2019.project.dataModel.entities;
 
-import switch2019.project.domain.domainEntities.ledger.Ledger;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

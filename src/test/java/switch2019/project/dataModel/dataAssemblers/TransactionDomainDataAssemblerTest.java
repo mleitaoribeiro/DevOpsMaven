@@ -32,22 +32,21 @@ class TransactionDomainDataAssemblerTest {
         CategoryID personCategory = new CategoryID(new Denomination("Grocery"),new PersonID(new Email("person@email.pt")));
         MonetaryValue monetaryValue = new MonetaryValue(200.0, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 11, 00);
-        long serialNumber = 1;
-        debitPersonalTransaction = new Transaction(serialNumber, monetaryValue, new Description("payment"), date, personCategory, personAccountFrom, personAccountTo, new Type(false));
-        debitPersonalTransactionJpa = new TransactionJpa(1, "person@email.pt", 200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
+        debitPersonalTransaction = new Transaction( monetaryValue, new Description("payment"), date, personCategory, personAccountFrom, personAccountTo, new Type(false));
+        debitPersonalTransactionJpa = new TransactionJpa("person@email.pt", 200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
                 "BPI", "Continente Supermarket", "DEBIT");
 
         //Group Account
         AccountID groupAccountFrom = new AccountID(new Denomination("BPI"), new GroupID(new Description("SWITCH")));
         AccountID groupAccountTo = new AccountID(new Denomination("Continente Supermarket"), new GroupID(new Description("SWITCH")));
         CategoryID groupCategory = new CategoryID(new Denomination("Grocery"), new GroupID(new Description("SWITCH")));
-        debitGroupTransaction = new Transaction(serialNumber, monetaryValue, new Description("payment"), date, groupCategory, groupAccountFrom, groupAccountTo, new Type(false));
-        debitGroupTransactionJpa = new TransactionJpa(1, "SWITCH", 200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
+        debitGroupTransaction = new Transaction( monetaryValue, new Description("payment"), date, groupCategory, groupAccountFrom, groupAccountTo, new Type(false));
+        debitGroupTransactionJpa = new TransactionJpa("SWITCH", 200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
                 "BPI", "Continente Supermarket", "DEBIT");
 
         //Credit transaciton
-        creditTransaction = new Transaction(serialNumber, monetaryValue, new Description("payment"), date, personCategory, personAccountFrom, personAccountTo, new Type(true));
-        creditTransactionJpa = new TransactionJpa(1, "person@email.pt", 200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
+        creditTransaction = new Transaction(monetaryValue, new Description("payment"), date, personCategory, personAccountFrom, personAccountTo, new Type(true));
+        creditTransactionJpa = new TransactionJpa( "person@email.pt", 200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
                 "BPI", "Continente Supermarket", "CREDIT");
     }
 

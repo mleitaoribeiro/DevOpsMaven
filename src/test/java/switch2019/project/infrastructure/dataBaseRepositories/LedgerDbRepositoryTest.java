@@ -63,7 +63,6 @@ class LedgerDbRepositoryTest {
     @BeforeEach
     public void setup() {
 
-
         //Create Persons
         someone = personDbRepository.createPerson("Someone", new DateAndTime(1993, 3, 1),
                 new Address("Porto"),new Address("Rua 1", "Porto", "4620-580"), new Email("someone_email@gmail.pt"));
@@ -73,7 +72,6 @@ class LedgerDbRepositoryTest {
 
         groupMember = personDbRepository.createPerson("Someone", new DateAndTime(1993, 3, 1),
                 new Address("Porto"),new Address("Rua 3", "Porto", "4620-580"), new Email("groupMember@gmail.pt"));
-
 
         //Create Group
         someGroup = groupDbRepository.createGroup(new Description("Switch Group"), groupCreator.getID());
@@ -96,7 +94,7 @@ class LedgerDbRepositoryTest {
 
         //Add Transaction To Ledger
 
-        ledgerDbRepository.addTransactionToLedger(someoneLedger, 123456L, new MonetaryValue(2, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(someoneLedger, new MonetaryValue(2, Currency.getInstance("EUR")),
                 new Description("XPTO"), date, someoneCategory.getID(), someoneAccount1.getID(), someoneAccount2.getID(), new Type(true));
 
     }
@@ -148,7 +146,7 @@ class LedgerDbRepositoryTest {
 
         int realNumberOfTransactionsBefore = realTransactionsBefore.size();
 
-        boolean transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger, 987654321L,
+        boolean transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger,
                 new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                 date, someGroupCategory.getID(), groupAccount1.getID(), groupAccount2.getID(), new Type(true));
 
@@ -177,7 +175,7 @@ class LedgerDbRepositoryTest {
 
         //Arrange
 
-        TransactionJpa expectedTransactionJpa = new TransactionJpa(123456L,"someone_email@gmail.pt",
+        TransactionJpa expectedTransactionJpa = new TransactionJpa("someone_email@gmail.pt",
                 2D, "EUR", "XPTO", date.yearMonthDayHourMinuteToString(), "SOMEONE CATEGORY",
                 "ACCOUNT1","ACCOUNT2","DEBIT");
 

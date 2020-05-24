@@ -49,7 +49,6 @@ public interface LedgerRepository extends Repository {
      * Method to Add Transactions to Ledger
      *
      * @param ledger
-     * @param serialNumber
      * @param amount
      * @param description
      * @param localDate
@@ -60,7 +59,7 @@ public interface LedgerRepository extends Repository {
      * @return boolen
      */
 
-    boolean addTransactionToLedger(Ledger ledger, Long serialNumber, MonetaryValue amount, Description description, DateAndTime localDate,
+    boolean addTransactionToLedger(Ledger ledger, MonetaryValue amount, Description description, DateAndTime localDate,
                                    CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
 }

@@ -66,7 +66,7 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return boolean
      */
 
-    public boolean addTransactionToLedger(Ledger ledger, Long serialNumber, MonetaryValue amount, Description description, DateAndTime localDate,
+    public boolean addTransactionToLedger(Ledger ledger, MonetaryValue amount, Description description, DateAndTime localDate,
                                           CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
         if (!isIDOnRepository(ledger.getID()))
@@ -74,9 +74,9 @@ public class LedgerDbRepository implements LedgerRepository {
 
         List<TransactionJpa> transactionJpaList = findAllTransactionsByLedgerID(ledger.getID().toString());
 
-        LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
+        LedgerDomainDataAssembler.toData(ledger);
 
-        TransactionJpa transactionJpa = new TransactionJpa(serialNumber, ledger.getID().getOwnerID().toString(),
+        TransactionJpa transactionJpa = new TransactionJpa(ledger.getID().getOwnerID().toString(),
                 amount.getAmount(), amount.getCurrency().toString(), description.getDescription(),
                 localDate.yearMonthDayHourMinuteToString(), category.getDenomination().toString(),
                 accountFrom.getDenominationToString(), accountTo.getDenominationToString(), type.toString());
@@ -97,7 +97,7 @@ public class LedgerDbRepository implements LedgerRepository {
      */
 
     public List<TransactionJpa> findAllTransactionsByLedgerID (String ledgerID) {
-        return transactionJpaRepository.findAllByTransactionIDJpa_LedgerId(ledgerID);
+        return transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
     }
 
 

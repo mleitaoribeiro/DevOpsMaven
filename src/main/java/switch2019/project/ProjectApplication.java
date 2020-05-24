@@ -32,6 +32,7 @@ public class ProjectApplication implements ApplicationRunner {
     DataBaseLoader dataBaseLoader;
 
     @Override
+
     public void run(ApplicationArguments arg0) throws Exception {
         System.out.println("ApplicationRunner - Started");
         dataInMemoryLoader.bootstrapping();

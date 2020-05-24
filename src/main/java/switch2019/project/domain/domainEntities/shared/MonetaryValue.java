@@ -1,7 +1,5 @@
 package switch2019.project.domain.domainEntities.shared;
 
-import javax.persistence.Embeddable;
-import java.io.Serializable;
 import java.util.Currency;
 import java.util.Objects;
 

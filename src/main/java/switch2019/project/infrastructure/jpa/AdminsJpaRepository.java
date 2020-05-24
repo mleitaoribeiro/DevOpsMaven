@@ -5,7 +5,6 @@ import switch2019.project.dataModel.entities.AdminsJpa;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AdminsJpaRepository extends JpaRepository<AdminsJpa, GroupID> {
 

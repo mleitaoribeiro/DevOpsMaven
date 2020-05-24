@@ -2,8 +2,6 @@ package switch2019.project.domain.domainEntities.shared;
 
 import switch2019.project.utils.StringUtils;
 
-import javax.persistence.Embeddable;
-import java.io.Serializable;
 import java.util.Objects;
 
 public class Description {

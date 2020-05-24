@@ -576,7 +576,7 @@ public class DataBaseLoader {
         ledgerDbRepository.createLedger(new GroupID(new Description("Intergalatic")));
         ledgerDbRepository.createLedger(new GroupID(new Description("Smith Family")));
         ledgerDbRepository.createLedger(new GroupID(new Description("Family Simpson")));
-       Ledger familyCardosoLegder = ledgerDbRepository.createLedger(new GroupID(new Description("Family Cardoso")));
+        Ledger familyCardosoLegder = ledgerDbRepository.createLedger(new GroupID(new Description("Family Cardoso")));
         ledgerDbRepository.createLedger(new GroupID(new Description("Family Azevedo")));
 
         //Persons Ledger
@@ -623,48 +623,39 @@ public class DataBaseLoader {
         //Transactions
         //Marge Transactions
         //Ikea shopping
-        long serialNumber = 1;
-        ledgerDbRepository.addTransactionToLedger(margeLedger, serialNumber, new MonetaryValue(100.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(margeLedger, new MonetaryValue(100.00, Currency.getInstance("EUR")),
                 new Description("Bought a cheap sofa"), new DateAndTime(2020, 2, 14, 11, 24),
                 margeHouseCategory.getID(), margeGoldCardAccount.getID(), margeIkeaAccount.getID(), new Type(false) );
 
         //Supermarket shopping
-        long serialNumber2 = 2;
-
-        ledgerDbRepository.addTransactionToLedger(margeLedger, serialNumber2, new MonetaryValue(50.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(margeLedger, new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Grocery for baking cookies"), new DateAndTime(2020, 3, 20, 13, 04),
                 margeHouseCategory.getID(), margeMasterCardAccount.getID(), margeSupermaketAccount.getID(), new Type(false) );
 
         //Marta Transactions
         //Gym subscription payment
-        long serialNumber3 = 3;
-        ledgerDbRepository.addTransactionToLedger(martaLedger, serialNumber3, new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(martaLedger, new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("Monthly subscription"), new DateAndTime(2020, 5, 13, 17, 00),
                 martaSportCategory.getID(), martaMoeyAccount.getID(), martaFitnessUpAccount.getID(), new Type(false) );
 
         //Decathlon Payment
-        long serialNumber4 = 4;
-        ledgerDbRepository.addTransactionToLedger(martaLedger, serialNumber4, new MonetaryValue(150.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(martaLedger, new MonetaryValue(150.00, Currency.getInstance("EUR")),
                 new Description("Bought dumbbells"), new DateAndTime(2020, 4, 13, 18, 15),
                 martaSportCategory.getID(), martaMoeyAccount.getID(), martaDecathlonAccount.getID(), new Type(false));
 
         //Family Cardoso
-        long serialNumber5 = 5;
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, serialNumber5, new MonetaryValue(50.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Netflix subscritption"), new DateAndTime(2020, 5, 4, 22, 00),
                 cardososHouseCategory.getID(), familyCardosoRevolutAccount.getID(), familyCardosoNetflixAccount.getID(), new Type(false));
 
         //Switch
-        long serialNumber6 = 6;
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, serialNumber6, new MonetaryValue(10.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(10.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 1"), new DateAndTime(2020, 3, 4, 18, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        long serialNumber7 = 7;
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, serialNumber7, new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 2"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        long serialNumber8 = 8;
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, serialNumber8, new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 3"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
     }

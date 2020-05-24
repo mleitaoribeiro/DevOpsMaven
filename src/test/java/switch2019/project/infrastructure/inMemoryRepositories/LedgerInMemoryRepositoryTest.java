@@ -192,7 +192,7 @@ class LedgerInMemoryRepositoryTest {
         // Act
         Ledger ledgerReal = ledgerInMemoryRepository.createLedger(ownerID);
 
-        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledgerReal, 123L,
+        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledgerReal,
                 monetaryValue, description, dateAndTime, category, account1, account2, type);
 
         int sizeReal = ledgerReal.getLedgerSize();
@@ -228,10 +228,10 @@ class LedgerInMemoryRepositoryTest {
 
         // Act
 
-        ledgerInMemoryRepository.addTransactionToLedger(ledger, 123L,
+        ledgerInMemoryRepository.addTransactionToLedger(ledger,
                 monetaryValue, description, dateAndTime, category, account1, account2, type);
 
-        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledger, 123L,
+        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledger,
                 monetaryValue, description, dateAndTime, category, account1, account2, type);
 
         // Assert

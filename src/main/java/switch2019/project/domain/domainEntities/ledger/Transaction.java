@@ -1,13 +1,13 @@
 package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.shared.*;
+
 import java.util.Currency;
 import java.util.Objects;
 
 public class Transaction {
 
     // Private Transaction variables
-    private Long serialNumber;
     private final MonetaryValue amount;
     private final Description description;
     private DateAndTime date;
@@ -36,11 +36,6 @@ public class Transaction {
         this.accountTo = setValidAccount(accountTo);
         this.type = type;
         setDate(date);
-    }
-
-    public Transaction(Long serialNumber, MonetaryValue amount, Description description, DateAndTime date, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
-        this(amount, description,date, category, accountFrom, accountTo, type);
-        this.serialNumber = serialNumber;
     }
 
     @Override
@@ -192,13 +187,4 @@ public class Transaction {
      */
 
     public CategoryID getCategoryID() { return category.getCopyOfCategory(); }
-
-    /**
-     * Get serial Number
-     * @return Long
-     */
-    public Long getSerialNumber() {
-        return serialNumber;
-    }
-
 }

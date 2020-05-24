@@ -24,6 +24,10 @@ public class LedgerIdJpa implements Serializable {
         return Objects.hash(owner);
     }
 
+    @Override
+    public String toString() {
+        return owner;
+    }
 
     public LedgerIdJpa(String owner) {
         this.owner = owner;

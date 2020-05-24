@@ -16,7 +16,7 @@ class TransactionJpaTest {
     void testEqualsExactlyTheSameObject() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act & Assert
@@ -29,10 +29,10 @@ class TransactionJpaTest {
     void testEqualsSame() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionJpa transactionJpa2 = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa2 = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act & Assert
@@ -45,10 +45,10 @@ class TransactionJpaTest {
     void testEqualsDifferentID() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switcher", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionJpa transactionJpa2 = new TransactionJpa(2, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa2 = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act & Assert
@@ -61,10 +61,10 @@ class TransactionJpaTest {
     void testEqualDifferentLedger_ID() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionJpa transactionJpa2 = new TransactionJpa(1, "Simpsons", 10.0, "euros",
+        TransactionJpa transactionJpa2 = new TransactionJpa("Simpsons", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act & Assert
@@ -76,7 +76,7 @@ class TransactionJpaTest {
     @DisplayName("Test equals - Null")
     void testEqualNull() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act
@@ -92,7 +92,7 @@ class TransactionJpaTest {
     void testEqualDiferentObject() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         AccountJpa accountJpa = new AccountJpa("SWITCH", "Revolut", "Revolut Account", "0");
@@ -115,10 +115,10 @@ class TransactionJpaTest {
     void testSameHashCode() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionJpa transactionJpa2 = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa2 = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         // Act & Assert
@@ -130,11 +130,10 @@ class TransactionJpaTest {
     void testDifferentHashCode() {
 
         //Arrange
-
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switcher", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionJpa transactionJpa2 = new TransactionJpa(2, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa2 = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         // Act & Assert
@@ -146,17 +145,17 @@ class TransactionJpaTest {
      */
 
     @Test
-    @DisplayName("Test getTransactionID")
-    void getTransactionID() {
+    @DisplayName("Test get Transaction Ledger ID")
+    void getTransactionLegderID() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionIDJpa expectedTransactionIDJpa = new TransactionIDJpa(1, "Switch");
+        String expectedTransactionIDJpa = "Switch";
 
         //Act
-        TransactionIDJpa realTransactionIDJpa = transactionJpa.getTransactionIDJpa();
+        String realTransactionIDJpa = transactionJpa.getLedgerIdJpaToString();
 
         // Assert
         assertEquals(expectedTransactionIDJpa, realTransactionIDJpa);
@@ -164,10 +163,10 @@ class TransactionJpaTest {
     }
 
     @Test
-    @DisplayName("Test getAmount")
+    @DisplayName("Test get Amount")
     void getAmount() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         Double expectedAmount = 10.0;
@@ -184,7 +183,7 @@ class TransactionJpaTest {
     @DisplayName("Test getCurrency")
     void getCurrency() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedCurrency = "euros";
@@ -201,7 +200,7 @@ class TransactionJpaTest {
     @DisplayName("Test getDescription")
     void getDescription() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedDescription = "HomeShopping";
@@ -218,7 +217,7 @@ class TransactionJpaTest {
     @DisplayName("Test getDate")
     void getDate() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedDate = "20-05-2020";
@@ -234,7 +233,7 @@ class TransactionJpaTest {
     @DisplayName("Test getCategory")
     void getCategory() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedCategory = "shop";
@@ -250,7 +249,7 @@ class TransactionJpaTest {
     @DisplayName("Test getAccountFrom")
     void getAccountFrom() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedAccountFrom = "bcp";
@@ -266,7 +265,7 @@ class TransactionJpaTest {
     @DisplayName("Test getAccountTo")
     void getAccountTo() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedAccountTo = "bpi";
@@ -282,7 +281,7 @@ class TransactionJpaTest {
     @DisplayName("Test getType")
     void getType() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedType = "true";
@@ -299,19 +298,19 @@ class TransactionJpaTest {
      */
 
     @Test
-    @DisplayName("Test getTransactionID")
-    void setTransactionID() {
+    @DisplayName("Test getTransactionLedgerID")
+    void setTransactionLegderID() {
 
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
-        TransactionIDJpa expectedTransactionIDJpa = new TransactionIDJpa(1, "Switch");
+        LedgerIdJpa expectedTransactionIDJpa = new LedgerIdJpa("Switch");
 
         //Act
-        TransactionIDJpa realTransactionIDJpa = transactionJpa.getTransactionIDJpa();
+        LedgerIdJpa realTransactionIDJpa = transactionJpa.getLedgerIdJpa();
 
-        transactionJpa.setTransactionIDJpa(expectedTransactionIDJpa);
+        transactionJpa.setLedgerIdJpa(expectedTransactionIDJpa);
 
         // Assert
         assertEquals(expectedTransactionIDJpa, realTransactionIDJpa);
@@ -322,7 +321,7 @@ class TransactionJpaTest {
     @DisplayName("Test setAmount")
     void setAmount() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         Double expectedAmount = 10.0;
@@ -341,7 +340,7 @@ class TransactionJpaTest {
     @DisplayName("Test setCurrency")
     void setCurrency() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedCurrency = "euros";
@@ -360,7 +359,7 @@ class TransactionJpaTest {
     @DisplayName("Test setDescription")
     void setDescription() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedDescription = "HomeShopping";
@@ -379,7 +378,7 @@ class TransactionJpaTest {
     @DisplayName("Test setDate")
     void setDate() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedDate = "20-05-2020";
@@ -398,7 +397,7 @@ class TransactionJpaTest {
     @DisplayName("Test setCategory")
     void setCategory() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedCategory = "shop";
@@ -417,7 +416,7 @@ class TransactionJpaTest {
     @DisplayName("Test setAccountFrom")
     void setAccountFrom() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedAccountFrom = "bcp";
@@ -436,7 +435,7 @@ class TransactionJpaTest {
     @DisplayName("Test setAccountTo")
     void setAccountTo() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedAccountTo = "bpi";
@@ -455,7 +454,7 @@ class TransactionJpaTest {
     @DisplayName("Test setType")
     void setType() {
         //Arrange
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa("Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         String expectedType = "true";

@@ -17,7 +17,7 @@ public class TransactionDomainDataAssembler {
     public static Transaction toDomain(TransactionJpa transactionJpa) {
 
         //Assembling OwnerID
-        String owner = transactionJpa.getTransactionIDJpa().getLedger_id();
+        String owner = transactionJpa.getLedgerIdJpaToString().toString();
         OwnerID ownerId;
 
         //Checking if owner is a Group or Person:
@@ -50,7 +50,7 @@ public class TransactionDomainDataAssembler {
             type = "CREDIT";
         else type = "DEBIT";
 
-        return new TransactionJpa(transaction.getSerialNumber(),id.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
+        return new TransactionJpa(id.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
                 transaction.getDescription().toString(), transaction.getDate().toString(), transaction.getCategoryID().getDenominationString(),
                 transaction.getAccountFrom().toString(), transaction.getAccountTo().toString(), type);
     }

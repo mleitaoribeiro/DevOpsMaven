@@ -2,6 +2,7 @@ package switch2019.project.domain.domainEntities.ledger;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.dataModel.entities.LedgerIdJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -34,7 +35,7 @@ class TransactionTest {
         Transaction transaction = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
         Transaction transaction2 = new Transaction(monetaryValue, new Description("payment"), date, category, account1, account2, new Type (false));
 
-        TransactionJpa transactionJpa = new TransactionJpa(1, "Switch", 10.0, "euros",
+        TransactionJpa transactionJpa = new TransactionJpa( "Switch", 10.0, "euros",
                 "HomeShopping", "20-05-2020", "shop", "bcp", "bpi", "true");
 
         //Act
