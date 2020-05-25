@@ -47,7 +47,7 @@ public class LedgerDbRepository implements LedgerRepository {
 
     public Ledger createLedger(OwnerID ownerID) {
 
-        if (!isIDOnRepository(new LedgerID(ownerID))) {
+        if (!isIDOnRepository(new LedgerID(ownerID).getOwnerID())) {
             Ledger ledger = new Ledger(ownerID);
             LedgerJpa newLedgerJPA = ledgerJpaRepository.save(LedgerDomainDataAssembler.toData(ledger));
             return LedgerDomainDataAssembler.toDomain(newLedgerJPA);
@@ -77,7 +77,7 @@ public class LedgerDbRepository implements LedgerRepository {
 
         Ledger ledger;
 
-        if (!isIDOnRepository(ledgerID))
+        if (!isIDOnRepository(ledgerID.getOwnerID()))
            ledger = createLedger(owner);
         else ledger = getByID(owner);
 
