@@ -7,10 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
+import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
@@ -223,53 +226,56 @@ class US008CreateTransactionServiceTest {
 
     @Test
     @DisplayName("Get Transactions By ledgerID - happy case")
-    void getTrasactionsByLedgerIdHappyCase() {
+    void getTransactionsByLedgerIdHappyCase() {
 
+        //Arrange
         String email = "marge@hotmail.com";
 
-        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+        TransactionShortDTO transactionDTO = new TransactionShortDTO("100.0 EUR",
+                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "DEBIT");
 
-        TransactionDTO transactionDTO = new TransactionDTO("100.0 EUR", "Bought a cheap sofa".toUpperCase(),
-                "2020-02-14 11:24", "HOUSE, marge@hotmail.com", "GOLD CARD, marge@hotmail.com",
-                "IKEA, marge@hotmail.com", "DEBIT");
+        TransactionShortDTO transactionDTO1 = new TransactionShortDTO("50.0 EUR",
+                "MASTERCARD, marge@hotmail.com", "KWIK E MART, marge@hotmail.com", "DEBIT");
 
-        TransactionDTO transactionDTO1 = new TransactionDTO("50.0 EUR", "Grocery for baking cookies".toUpperCase(),
-                "2020-03-20 13:04", "HOUSE, marge@hotmail.com", "MASTERCARD, marge@hotmail.com",
-                "KWIK E MART, marge@hotmail.com", "DEBIT");
+        List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
-        List<TransactionDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
+        //Act
+        List<TransactionShortDTO> result = service.getTransactionsByLedgerId(email);
 
-
+        //Assert
         assertEquals(expected, result);
     }
-/*
+
+
     @Test
     @DisplayName("Get Transactions By ledgerID - empty ledger")
-    void getTrasactionsByLedgerIdEmptyLedger() {
+    void getTransactionsByLedgerIdEmptyLedger() {
 
-        String email = "bart.simpson@hotmail.com";
+        //Arrange
+        String email = "bart.simpson@gmail.com";
 
-        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+        List<TransactionShortDTO> expected = Collections.emptyList();
 
-        List<TransactionDTO> expected = Collections.emptyList();
+        //Act
+        List<TransactionShortDTO> result = service.getTransactionsByLedgerId(email);
 
+        //Assert
         assertEquals(expected, result);
     }
-    
- */
-
-
 
 
     @Test
     @DisplayName("Get Transactions By ledgerID - not found")
     void getTransactionsByLedgerIdException() {
 
+        //Arrange
         String email = "pikachu@hotmail.com";
+
+        PersonID personID = new PersonID(new Email(email));
 
         // Act
         Throwable thrown = catchThrowable(() -> {
-            service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+            service.getTransactionsByLedgerId(personID.toString());
 
         });
 
@@ -278,4 +284,43 @@ class US008CreateTransactionServiceTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
     }
+
+    @Test
+    @DisplayName("Get Transactions By ledgerID - empty ledger")
+    void getGroupTransactionsByLedgerEmptyLedger() {
+
+        //Arrange
+        String groupDescription = "Switch";
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        List<TransactionShortDTO> expected = Collections.emptyList();
+
+        List<TransactionShortDTO> result = service.getTransactionsByLedgerId(groupID.toString());
+
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    @DisplayName("Get Transactions By ledgerID - not found")
+    void getGroupTransactionsByLedgerIdException() {
+
+        //Arrange
+        String groupDescription = "Rick & Rock";
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionsByLedgerId(groupID.toString());
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No Ledger found with that ID.");
+    }
+
 }

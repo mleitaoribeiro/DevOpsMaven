@@ -102,7 +102,7 @@ class LedgerDbRepositoryTest {
 
     @Test
     @DisplayName("Test if ledger is created - True")
-    void createLedger() {
+    void createLedgerTrue() {
 
         //Arrange
 
@@ -116,12 +116,30 @@ class LedgerDbRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("Test if ledger is created - False - Ledger Already Exists")
+    void createLedgerFalse() {
+
+        //Arrange
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.createLedger(someone.getID());
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
+                .hasMessage("This Ledger already exists.");
+    }
+
     /**
      * Test if Transaction is added to Ledger
      */
 
     @Test
-    @DisplayName("Test add Transaction to Ledger - True - ledger is also created")
+    @DisplayName("Test add Transaction to Ledger - True - No ledger in Repo")
     void addTransactionToLedgerTrue() {
 
         //Arrange
@@ -165,6 +183,52 @@ class LedgerDbRepositoryTest {
         );
     }
 
+    @Test
+    @DisplayName("Test add Transaction to Ledger - True - Ledger in Repo")
+    void addTransactionToLedgerLedgerIsInRepo() {
+
+        //Arrange
+
+        OwnerID ledgerID = someone.getID();
+
+        Ledger expectedLedger = new Ledger (ledgerID);
+
+        Category category= categoryDbRepository.createCategory(new Denomination ("Some Category"), someone.getID());
+        Account account1 = accountDbRepository.createAccount(new Denomination("SomeAccount1"), new Description("Some Account 1"), someone.getID());
+        Account account2 = accountDbRepository.createAccount(new Denomination("SomeAccount2"), new Description("Some Account 2"), someone.getID());
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
+                date, category.getID(), account1.getID(), account2.getID(), new Type(true));
+
+
+        int expectedNumberOfTransactionsBefore = 9;
+        int expectedNumberOfTransactionsAfter = 10;
+
+        //Act
+        List<TransactionJpa> realTransactionsBefore = ledgerDbRepository.findAllTransactions();
+
+        int realNumberOfTransactionsBefore = realTransactionsBefore.size();
+
+        Transaction transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
+                new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
+                        date, category.getID(), account1.getID(), account2.getID(), new Type(true));
+
+        Ledger realLedger = ledgerDbRepository.getByID(ledgerID);
+
+        List<TransactionJpa> realTransactionsAfter = ledgerDbRepository.findAllTransactions();
+
+        int realNumberOfTransactionsAfter = realTransactionsAfter.size();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedTransaction,transactionAdded),
+                () -> assertEquals(expectedLedger, realLedger),
+                () -> assertEquals(expectedNumberOfTransactionsBefore, realNumberOfTransactionsBefore),
+                () -> assertEquals(expectedNumberOfTransactionsAfter, realNumberOfTransactionsAfter)
+        );
+    }
+
+
     /**
      * Test if all transactions can be found by Ledger ID
      */
@@ -200,6 +264,22 @@ class LedgerDbRepositoryTest {
 
     }
 
+
+    @Test
+    @DisplayName("Test if all transactions can be found by Ledger ID - NO - GroupID")
+    void findAllTransactionsByLedgerID_False() {
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.findAllTransactionsByLedgerID("Some Group Description");;
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No Ledger found with that ID.");
+
+    }
 
 
     /**

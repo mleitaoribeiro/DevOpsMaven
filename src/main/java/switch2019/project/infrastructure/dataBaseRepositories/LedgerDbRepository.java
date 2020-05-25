@@ -11,10 +11,12 @@ import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.infrastructure.jpa.LedgerJpaRepository;
 import switch2019.project.infrastructure.jpa.TransactionJpaRepository;
+import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -45,7 +47,7 @@ public class LedgerDbRepository implements LedgerRepository {
 
     public Ledger createLedger(OwnerID ownerID) {
 
-        if (!isIDOnRepository(new LedgerID(ownerID))) {
+        if (!isIDOnRepository(new LedgerID(ownerID).getOwnerID())) {
             Ledger ledger = new Ledger(ownerID);
             LedgerJpa newLedgerJPA = ledgerJpaRepository.save(LedgerDomainDataAssembler.toData(ledger));
             return LedgerDomainDataAssembler.toDomain(newLedgerJPA);
@@ -75,9 +77,9 @@ public class LedgerDbRepository implements LedgerRepository {
 
         Ledger ledger;
 
-        if (!isIDOnRepository(ledgerID))
+        if (!isIDOnRepository(ledgerID.getOwnerID()))
            ledger = createLedger(owner);
-        else ledger = new Ledger (owner);
+        else ledger = getByID(owner);
 
         LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
 
@@ -104,16 +106,25 @@ public class LedgerDbRepository implements LedgerRepository {
 
     public List<Transaction> findAllTransactionsByLedgerID (String ledgerID) {
 
-        List <TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
-        List <Transaction> transactionsList = new ArrayList<>();
+        boolean isLedgerOnRepository;
 
-        for (TransactionJpa transactionJpa : transactionJpaList) {
-            Transaction convertedTransaction = TransactionDomainDataAssembler.toDomain(transactionJpa);
-            transactionsList.add(convertedTransaction);
+        if (StringUtils.isEmail(ledgerID)){
+            isLedgerOnRepository = isIDOnRepository(new PersonID(new Email(ledgerID)));
+        } else {
+            isLedgerOnRepository = isIDOnRepository(new GroupID(new Description(ledgerID)));
         }
-        return transactionsList;
-    }
 
+        if (isLedgerOnRepository) {
+            List<TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+            List<Transaction> transactionsList = new ArrayList<>();
+
+            for (TransactionJpa transactionJpa : transactionJpaList) {
+                Transaction convertedTransaction = TransactionDomainDataAssembler.toDomain(transactionJpa);
+                transactionsList.add(convertedTransaction);
+            }
+            return transactionsList;
+        } throw  new ArgumentNotFoundException(NO_LEDGER_FOUND);
+    }
 
     /**
      *
