@@ -80,11 +80,12 @@ public class LedgerDbRepository implements LedgerRepository {
                 localDate.yearMonthDayHourMinuteToString(), category.getDenomination().toString(),
                 accountFrom.getDenominationToString(), accountTo.getDenominationToString(), type.toString());
 
-        if (!transactionJpaList.contains(transactionJpa)) {
-            TransactionJpa newTransactionJpa = transactionJpaRepository.save(transactionJpa);
-            //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
-            return true;
-        } else return false;
+
+        TransactionJpa newTransactionJpa = transactionJpaRepository.save(transactionJpa);
+        //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
+
+        return true;
+
     }
 
     /**
