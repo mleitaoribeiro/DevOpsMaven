@@ -19,14 +19,11 @@ import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.utils.StringUtils;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -45,20 +42,13 @@ public class US008CreateTransactionService {
     private GroupRepository groupsRepository;
 
     /**
-     *US008 - As an User, I want to create a transaction.
-     *
-     * @return
-     */
-
-
-    /**
      * US008.1 - As a group member, I want to create a group transaction.
      *
      * @param //createGroupTransactionDTO
      * @return TransactionShortDTO
      */
 
-   /* public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
+     public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail())).getID();
 
@@ -80,17 +70,10 @@ public class US008CreateTransactionService {
         } else {
             Ledger ledger = ledgerRepository.getByID(groupID);
 
-            //o metodo feito pelo João returna boleano, no entanto temos de retornar um DTO no final do metodo!!!!!
-            boolean wasTransactionAdded = ledgerRepository.addTransactionToLedger(ledger.getID(), amount,
+            Transaction transaction = ledgerRepository.addTransactionToLedger(ledger.getID(), amount,
                     description, date, categoryID, accountFrom, accountTo, type);
 
-            Transaction transaction = new Transaction(amount, description, date, categoryID, accountFrom, accountTo, type);
-
-            if (wasTransactionAdded) {
-                return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
-            }
-            //para já ficou assim para não dar erro, depois tenho de rever com o João como fazemos!!!!
-            else return new TransactionShortDTO("", "", "", "");
+            return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
         }
     }
 
