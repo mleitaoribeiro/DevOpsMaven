@@ -410,4 +410,24 @@ class US008CreateTransactionServiceTest {
                 .hasMessage("No Ledger found with that ID.");
     }
 
+
+    @Test
+    @DisplayName("Get Transaction By ID - happy case")
+    void getTransactionByIDHappyCase() {
+
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 1L;
+
+        TransactionShortDTO transactionDTOexpected = new TransactionShortDTO("100.0 EUR",
+                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "DEBIT");
+
+        //Act
+        TransactionShortDTO result = service.getTransactionByID(email,id);
+
+        //Assert
+        assertEquals(transactionDTOexpected, result);
+    }
+
+
 }

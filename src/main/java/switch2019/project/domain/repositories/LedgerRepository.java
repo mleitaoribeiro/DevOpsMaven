@@ -27,6 +27,16 @@ public interface LedgerRepository extends Repository {
      * @return
      */
 
+    /**
+     * Find Transaction by TransactionID
+     *
+     * @param id
+     * @return
+     */
+
+    Transaction getByTransactionID(String ownerID, Long id);
+
+
     boolean isIDOnRepository(ID ledgerID);
 
     /**
@@ -66,6 +76,9 @@ public interface LedgerRepository extends Repository {
                                        CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
     List<Transaction> findAllTransactionsByLedgerID(String ownerID);
+
+
+
 }
 
 

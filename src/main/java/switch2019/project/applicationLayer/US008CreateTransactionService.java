@@ -3,7 +3,6 @@ package switch2019.project.applicationLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
@@ -54,7 +53,7 @@ public class US008CreateTransactionService {
      * @return transactionShortDTO
      */
 
-     public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
+    public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail())).getID();
 
@@ -116,11 +115,21 @@ public class US008CreateTransactionService {
     /**
      * Method that finds a transaction by it's ID
      *
-     * @return TransactionDTO
+     * @return TransactionShortDTO
      */
 
-    public TransactionDTO getTransactionByID(Long id) {
-        return null;
+    public TransactionShortDTO getTransactionByID(String ownerID, Long id) {
+
+        String finalOwnerID;
+
+        if (StringUtils.isEmail(ownerID)) {
+            finalOwnerID = personRepository.findPersonByEmail(new Email(ownerID)).getID().toString();
+        } else
+            finalOwnerID = groupsRepository.findGroupByDescription(new Description(ownerID)).getID().toString();
+
+        Transaction transaction = ledgerRepository.getByTransactionID(finalOwnerID, id);
+
+        return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
     }
 
 

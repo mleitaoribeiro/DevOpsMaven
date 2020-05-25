@@ -35,10 +35,23 @@ public class LedgerInMemoryRepository implements LedgerRepository {
 
     public Ledger getByID(ID ledgerID) {
         for (Ledger ledger : ledgers) {
-            if(ledger.getID().equals(ledgerID))
+            if (ledger.getID().equals(ledgerID))
                 return ledger;
-        } throw new ArgumentNotFoundException("No ledger found with that ID.");
+        }
+        throw new ArgumentNotFoundException("No ledger found with that ID.");
     }
+
+    /**
+     * Find Transaction by TransactionID
+     *
+     * @param id
+     * @return
+     */
+
+    public Transaction getByTransactionID(String ownerID, Long id) {
+        return null;
+    }
+
 
     /**
      * Verifies if ID exists on the Repository
@@ -51,7 +64,8 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         for (Ledger ledger : ledgers) {
             if (ledger.getID().equals(ledgerID))
                 return true;
-        } return false;
+        }
+        return false;
     }
 
     /**
@@ -66,9 +80,9 @@ public class LedgerInMemoryRepository implements LedgerRepository {
 
     /**
      * Add a new ledger to Ledger Repository
+     *
      * @param ownerID
      * @return ledger
-     *
      */
 
     public Ledger createLedger(OwnerID ownerID) {
@@ -82,7 +96,6 @@ public class LedgerInMemoryRepository implements LedgerRepository {
     }
 
     /**
-     *
      * Method to Add Transactions to Ledger
      *
      * @param ledgerID
@@ -102,14 +115,13 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         if (isIDOnRepository(ledgerID)) {
             Ledger ledger = getByID(ledgerID);
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
-        }
-        else throw new ArgumentNotFoundException("No Ledger found with that ID.");
+        } else throw new ArgumentNotFoundException("No Ledger found with that ID.");
     }
 
 
     public List<Transaction> findAllTransactionsByLedgerID(String ownerID) {
         Ledger ledger;
-        if (StringUtils.isEmail(ownerID)){
+        if (StringUtils.isEmail(ownerID)) {
             ledger = getByID(new PersonID(new Email(ownerID)));
         } else {
             ledger = getByID(new GroupID(new Description(ownerID)));
