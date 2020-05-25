@@ -1,25 +1,19 @@
 package switch2019.project.applicationLayer.integration;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
-import switch2019.project.applicationLayer.US007CreateGroupAccountService;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
 import switch2019.project.domain.domainEntities.shared.PersonID;
-import switch2019.project.domain.repositories.PersonRepository;
-import switch2019.project.infrastructure.dataBaseRepositories.PersonDbRepository;
-
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class US008CreateTransactionServiceTest {
@@ -27,8 +21,14 @@ class US008CreateTransactionServiceTest {
     @Autowired
     private US008CreateTransactionService service;
 
+
+    /**
+     * Test to get Transactions by LedgerId
+     */
+
     @Test
-    void getTrasactionsByLedgerId() {
+    @DisplayName("Get Transactions By ledgerID - happy case")
+    void getTrasactionsByLedgerIdHappyCase() {
 
         String email = "marge@hotmail.com";
 
@@ -44,5 +44,39 @@ class US008CreateTransactionServiceTest {
         List<TransactionDTO> expected = Collections.emptyList();
 
         assertEquals(expected, result);
+    }
+/*
+    @Test
+    @DisplayName("Get Transactions By ledgerID - empty ledger")
+    void getTrasactionsByLedgerIdEmptyLedger() {
+
+        String email = "bart.simpson@hotmail.com";
+
+        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+
+        List<TransactionDTO> expected = Collections.emptyList();
+
+        assertEquals(expected, result);
+    }
+    
+ */
+
+
+    @Test
+    @DisplayName("Get Transactions By ledgerID - not found")
+    void getTransactionsByLedgerIdException() {
+
+        String email = "pikachu@hotmail.com";
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No Ledger found with that ID.");
     }
 }
