@@ -54,7 +54,7 @@ public class US008CreateTransactionService {
     /**
      * US008.1 - As a group member, I want to create a group transaction.
      *
-     * @param createGroupTransactionDTO
+     * @param //createGroupTransactionDTO
      * @return TransactionShortDTO
      */
 
@@ -140,9 +140,9 @@ public class US008CreateTransactionService {
      */
 
     public List<TransactionDTO> getTransactionsByLedgerId(OwnerID ledgerID) {
-        Ledger ledger = ledgerRepository.getByID(ledgerID);
 
-        List<Transaction> list = ledgerRepository.findAllTransactionsByLedgerID(ledgerID.toString());
+        List<Transaction> list = ledgerRepository.findAllTransactionsByLedgerID(
+                ledgerID.toString());
 
         List<TransactionDTO> output = new ArrayList<>();
 

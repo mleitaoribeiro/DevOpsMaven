@@ -28,11 +28,10 @@ class US008CreateTransactionServiceTest {
 
     @Test
     @DisplayName("Get Transactions By ledgerID - happy case")
-    void getTrasactionsByLedgerIdHappyCase() {
+    void getTransactionsByLedgerIdHappyCase() {
 
+        //Arrange
         String email = "marge@hotmail.com";
-
-        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
 
         TransactionDTO transactionDTO = new TransactionDTO("100.0 EUR", "Bought a cheap sofa".toUpperCase(),
                 "2020-02-14 11:24", "HOUSE, marge@hotmail.com", "GOLD CARD, marge@hotmail.com",
@@ -44,21 +43,27 @@ class US008CreateTransactionServiceTest {
 
         List<TransactionDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
+        //Act
+        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
 
+        //Assert
         assertEquals(expected, result);
     }
 
 
     @Test
     @DisplayName("Get Transactions By ledgerID - empty ledger")
-    void getTrasactionsByLedgerIdEmptyLedger() {
+    void getTransactionsByLedgerIdEmptyLedger() {
 
+        //Arrange
         String email = "bart.simpson@gmail.com";
-
-        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
 
         List<TransactionDTO> expected = Collections.emptyList();
 
+        //Act
+        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+
+        //Assert
         assertEquals(expected, result);
     }
 
@@ -67,6 +72,7 @@ class US008CreateTransactionServiceTest {
     @DisplayName("Get Transactions By ledgerID - not found")
     void getTransactionsByLedgerIdException() {
 
+        //Arrange
         String email = "pikachu@hotmail.com";
 
         // Act
