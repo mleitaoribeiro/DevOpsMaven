@@ -18,6 +18,7 @@ import switch2019.project.infrastructure.jpa.TransactionJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,8 +102,17 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return List<TransactionJpa>
      */
 
-    public List<TransactionJpa> findAllTransactionsByLedgerID (String ledgerID) {
-        return transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+    public List<Transaction> findAllTransactionsByLedgerID (String ledgerID) {
+
+        List <TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+        List <Transaction> transactionsList = new ArrayList<>();
+
+        for (TransactionJpa transactionJpa : transactionJpaList) {
+            Transaction convertedTransaction = TransactionDomainDataAssembler.toDomain(transactionJpa);
+            transactionsList.add(convertedTransaction);
+        }
+
+        return transactionsList;
     }
 
 
