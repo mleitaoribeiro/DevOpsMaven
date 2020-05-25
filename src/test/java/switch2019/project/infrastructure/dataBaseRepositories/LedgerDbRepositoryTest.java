@@ -201,6 +201,22 @@ class LedgerDbRepositoryTest {
     }
 
 
+    @Test
+    @DisplayName("Test if all transactions can be found by Ledger ID - NO - GroupID")
+    void findAllTransactionsByLedgerID_False() {
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.findAllTransactionsByLedgerID("Some Group Description");;
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No Ledger found with that ID.");
+
+    }
+
 
     /**
      * Test if all transactions can be found
