@@ -52,4 +52,13 @@ public class TestConfiguration {
     public US007CreateGroupAccountService serviceUS007() {
         return Mockito.mock(US007CreateGroupAccountService.class);
     }
+
+    @Bean
+    @Primary
+    public US008CreateTransactionService serviceUS008() {
+        return Mockito.mock(US008CreateTransactionService.class);
+    }
+
+
 }
+
