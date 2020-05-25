@@ -70,7 +70,7 @@ class LedgerDbRepositoryTest {
                 new Address("Porto"),new Address("Rua 3", "Porto", "4620-580"), new Email("groupMember@gmail.pt"));
 
         //Create Group
-        someGroup = groupDbRepository.createGroup(new Description("Switch Group"), groupCreator.getID());
+        someGroup = groupDbRepository.createGroup(new Description("Some Group"), groupCreator.getID());
             someGroup.addMember(groupMember.getID());
 
         //Create Accounts
@@ -119,9 +119,6 @@ class LedgerDbRepositoryTest {
     @Test
     @DisplayName("Test if ledger is created - False - Ledger Already Exists")
     void createLedgerFalse() {
-
-        //Arrange
-
 
         //Act
         Throwable thrown = catchThrowable(() -> {

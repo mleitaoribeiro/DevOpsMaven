@@ -40,6 +40,7 @@ public class LedgerDbRepository implements LedgerRepository {
     private static final String NO_TRANSACTION_FOUND = "No transaction found with that ID.";
 
     /**
+     *
      * Create/Add a new Ledger
      *
      * @param ownerID
@@ -56,6 +57,7 @@ public class LedgerDbRepository implements LedgerRepository {
     }
 
     /**
+     *
      * Method to add a new Transaction to ledgerJpa
      *
      * @param ledgerID
@@ -66,7 +68,7 @@ public class LedgerDbRepository implements LedgerRepository {
      * @param accountFrom
      * @param accountTo
      * @param type
-     * @return boolean
+     * @return Transaction
      */
 
     public Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
@@ -77,18 +79,14 @@ public class LedgerDbRepository implements LedgerRepository {
         Ledger ledger;
 
         if (!isIDOnRepository(ledgerID.getOwnerID()))
-            ledger = createLedger(owner);
+           ledger = createLedger(owner);
         else ledger = getByID(owner);
 
         LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
 
-        TransactionJpa transactionJpa = new TransactionJpa(ledger.getID().getOwnerID().toString(),
-                amount.getAmount(), amount.getCurrency().toString(), description.getDescription(),
-                localDate.yearMonthDayHourMinuteToString(), category.getDenomination().toString(),
-                accountFrom.getDenominationToString(), accountTo.getDenominationToString(), type.toString());
+        Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
 
-
-        TransactionJpa newTransactionJpa = transactionJpaRepository.save(transactionJpa);
+        TransactionJpa newTransactionJpa = transactionJpaRepository.save(TransactionDomainDataAssembler.toData(owner, transaction));
         //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
 
         return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
@@ -96,6 +94,7 @@ public class LedgerDbRepository implements LedgerRepository {
     }
 
     /**
+     *
      * Method to find all transactions by Ledger ID
      *
      * @param ledgerID
@@ -126,6 +125,7 @@ public class LedgerDbRepository implements LedgerRepository {
     }
 
     /**
+     *
      * Method to find all transactions
      *
      * @return List<TransactionJpa>
@@ -137,6 +137,7 @@ public class LedgerDbRepository implements LedgerRepository {
 
 
     /**
+     *
      * Find a Ledger by it´s ID
      *
      * @param owner
@@ -154,8 +155,8 @@ public class LedgerDbRepository implements LedgerRepository {
     /**
      * Find a Transaction by it´s ID
      *
-     * @param id
-     * @return
+     * @param ownerId
+     * @return Transaction
      */
 
     public Transaction getByTransactionID(String ownerId, Long id) {
@@ -176,20 +177,20 @@ public class LedgerDbRepository implements LedgerRepository {
          * @return boolean
          */
 
-        public boolean isIDOnRepository (ID ledgerID){
-            Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(ledgerID.toString());
-            return ledgerJpa.isPresent();
-        }
-
-        /**
-         *
-         * Method to get the number of Ledgers in the Repository
-         *
-         * @return long
-         */
-
-        public long repositorySize () {
-            return ledgerJpaRepository.count();
-        }
-
+    public boolean isIDOnRepository (ID ledgerID){
+        Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(ledgerID.toString());
+        return ledgerJpa.isPresent();
     }
+
+    /**
+     *
+     * Method to get the number of Ledgers in the Repository
+     *
+     * @return long
+     */
+
+    public long repositorySize () {
+        return ledgerJpaRepository.count();
+    }
+
+}

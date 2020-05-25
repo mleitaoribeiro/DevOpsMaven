@@ -43,15 +43,11 @@ public class TransactionDomainDataAssembler {
         return new Transaction(amount, description, date , category, accountFrom, accountTo, type);
     }
 
+    public static TransactionJpa toData(OwnerID owner, Transaction transaction) {
 
-    public static TransactionJpa toData(OwnerID id, Transaction transaction) {
-        String type;
-        if(transaction.getType())
-            type = "CREDIT";
-        else type = "DEBIT";
 
-        return new TransactionJpa(id.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
-                transaction.getDescription().toString(), transaction.getDate().toString(), transaction.getCategoryID().getDenominationString(),
-                transaction.getAccountFrom().toString(), transaction.getAccountTo().toString(), type);
+        return new TransactionJpa(owner.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
+                transaction.getDescription().toString(), transaction.getDate().yearMonthDayHourMinuteToString(), transaction.getCategoryID().getDenominationString(),
+                transaction.getAccountFrom().getDenominationToString(), transaction.getAccountTo().getDenominationToString(), transaction.typeToString());
     }
 }
