@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
@@ -185,6 +186,8 @@ class LedgerInMemoryRepositoryTest {
         AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
         Type type = new Type(true);
 
+        Transaction expectedTransaction = new Transaction(monetaryValue, description, dateAndTime, category, account1, account2, type);
+
         Ledger ledgerExpected = new Ledger(ownerID);
 
         int sizeExpected = 1;
@@ -192,14 +195,14 @@ class LedgerInMemoryRepositoryTest {
         // Act
         Ledger ledgerReal = ledgerInMemoryRepository.createLedger(ownerID);
 
-        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledgerReal.getID(),
+        Transaction transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledgerReal.getID(),
                 monetaryValue, description, dateAndTime, category, account1, account2, type);
 
         int sizeReal = ledgerReal.getLedgerSize();
 
         // Assert
         Assertions.assertAll(
-                () -> assertTrue(transactionAdded),
+                () -> assertEquals(expectedTransaction,transactionAdded),
                 () -> assertEquals(ledgerExpected, ledgerReal),
                 () -> assertEquals(sizeExpected, sizeReal)
 
@@ -226,16 +229,17 @@ class LedgerInMemoryRepositoryTest {
 
         Ledger ledger = new Ledger(ownerID);
 
-        // Act
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                    monetaryValue, description, dateAndTime, category, account1, account2, type);
+        });
 
-        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
-                monetaryValue, description, dateAndTime, category, account1, account2, type);
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No Ledger found with that ID.");
 
-        boolean transactionAdded = ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
-                monetaryValue, description, dateAndTime, category, account1, account2, type);
-
-        // Assert
-        assertFalse(transactionAdded);
     }
 
 

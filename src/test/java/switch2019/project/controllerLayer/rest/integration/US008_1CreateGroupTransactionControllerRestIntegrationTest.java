@@ -27,7 +27,8 @@ class US008_1CreateGroupTransactionControllerRestIntegrationTest extends Abstrac
         super.setUP();
     }
 
-   
+   /*
+
     @Test
     @DisplayName("Test Group Transaction creation - null input")
     void createGroupAndBecomeAdminNullJsonInput() throws Exception {
@@ -60,6 +61,7 @@ class US008_1CreateGroupTransactionControllerRestIntegrationTest extends Abstrac
 
     }
 
+*/
 
     @Test
     @DisplayName("Test Group Account creation - Invalid POST Method")

@@ -57,7 +57,8 @@ public class US008CreateTransactionService {
      * @param createGroupTransactionDTO
      * @return TransactionShortDTO
      */
-    public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
+
+   /* public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail())).getID();
 

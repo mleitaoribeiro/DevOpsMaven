@@ -117,11 +117,11 @@ public class Ledger {
      * @return
      */
 
-    public boolean addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
+    public Transaction addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
-        boolean transactionAdded = ledgerTransactions.add(transaction);
+        ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();
-        return transactionAdded;
+        return transaction;
     }
 
     /**

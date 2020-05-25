@@ -13,6 +13,7 @@ import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -138,6 +139,10 @@ class LedgerDbRepositoryTest {
         Account groupAccount1 = accountDbRepository.createAccount(new Denomination("Account1"), new Description("Account 1"), someGroup.getID());
         Account groupAccount2 = accountDbRepository.createAccount(new Denomination("Account2"), new Description("Account 2"), someGroup.getID());
 
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
+                date, someGroupCategory.getID(), groupAccount1.getID(), groupAccount2.getID(), new Type(true));
+
+
         int expectedNumberOfTransactionsBefore = 9;
         int expectedNumberOfTransactionsAfter = 10;
 
@@ -146,7 +151,7 @@ class LedgerDbRepositoryTest {
 
         int realNumberOfTransactionsBefore = realTransactionsBefore.size();
 
-        boolean transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
+        Transaction transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
                 new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                 date, someGroupCategory.getID(), groupAccount1.getID(), groupAccount2.getID(), new Type(true));
 
@@ -158,7 +163,7 @@ class LedgerDbRepositoryTest {
 
         //Assert
         Assertions.assertAll(
-                () -> assertTrue(transactionAdded),
+                () -> assertEquals(expectedTransaction,transactionAdded),
                 () -> assertEquals(expectedLedger, realLedger),
                 () -> assertEquals(expectedNumberOfTransactionsBefore, realNumberOfTransactionsBefore),
                 () -> assertEquals(expectedNumberOfTransactionsAfter, realNumberOfTransactionsAfter)

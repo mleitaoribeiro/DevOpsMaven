@@ -3,6 +3,7 @@ package switch2019.project.domain.repositories;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.shared.*;
 
@@ -48,7 +49,7 @@ public interface LedgerRepository extends Repository {
      *
      * Method to Add Transactions to Ledger
      *
-     * @param ledger
+     * @param ledgerID
      * @param amount
      * @param description
      * @param localDate
@@ -59,8 +60,8 @@ public interface LedgerRepository extends Repository {
      * @return boolen
      */
 
-    boolean addTransactionToLedger(LedgerID ledger, MonetaryValue amount, Description description, DateAndTime localDate,
-                                   CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
+    Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
+                                       CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
 }
 
