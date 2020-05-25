@@ -80,7 +80,7 @@ public class US008CreateTransactionService {
             Ledger ledger = ledgerRepository.getByID(groupID);
 
             //o metodo feito pelo João returna boleano, no entanto temos de retornar um DTO no final do metodo!!!!!
-            boolean wasTransactionAdded = ledgerRepository.addTransactionToLedger(ledger, amount,
+            boolean wasTransactionAdded = ledgerRepository.addTransactionToLedger(ledger.getID(), amount,
                     description, date, categoryID, accountFrom, accountTo, type);
 
             Transaction transaction = new Transaction(amount, description, date, categoryID, accountFrom, accountTo, type);
@@ -114,7 +114,7 @@ public class US008CreateTransactionService {
         Type type = new Type(createPersonalTransactionDTO.getType());
 
         // TODO change return variable
-        ledgerRepository.addTransactionToLedger(ledger, amount, description, date, category, accountFrom, accountTo, type);
+        ledgerRepository.addTransactionToLedger(ledger.getID(), amount, description, date, category, accountFrom, accountTo, type);
         // temporary
         Transaction transaction = new Transaction(amount, description, date, category, accountFrom, accountTo, type);
 

@@ -94,7 +94,7 @@ class LedgerDbRepositoryTest {
 
         //Add Transaction To Ledger
 
-        ledgerDbRepository.addTransactionToLedger(someoneLedger, new MonetaryValue(2, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(someoneLedger.getID(), new MonetaryValue(2, Currency.getInstance("EUR")),
                 new Description("XPTO"), date, someoneCategory.getID(), someoneAccount1.getID(), someoneAccount2.getID(), new Type(true));
 
     }
@@ -146,7 +146,7 @@ class LedgerDbRepositoryTest {
 
         int realNumberOfTransactionsBefore = realTransactionsBefore.size();
 
-        boolean transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger,
+        boolean transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
                 new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                 date, someGroupCategory.getID(), groupAccount1.getID(), groupAccount2.getID(), new Type(true));
 

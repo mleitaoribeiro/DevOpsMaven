@@ -59,7 +59,7 @@ public interface LedgerRepository extends Repository {
      * @return boolen
      */
 
-    boolean addTransactionToLedger(Ledger ledger, MonetaryValue amount, Description description, DateAndTime localDate,
+    boolean addTransactionToLedger(LedgerID ledger, MonetaryValue amount, Description description, DateAndTime localDate,
                                    CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
 }

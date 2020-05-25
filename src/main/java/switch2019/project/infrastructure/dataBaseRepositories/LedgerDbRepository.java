@@ -54,7 +54,7 @@ public class LedgerDbRepository implements LedgerRepository {
      *
      * Method to add a new Transaction to ledgerJpa
      *
-     * @param ledger
+     * @param ledgerID
      * @param amount
      * @param description
      * @param localDate
@@ -65,11 +65,16 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return boolean
      */
 
-    public boolean addTransactionToLedger(Ledger ledger, MonetaryValue amount, Description description, DateAndTime localDate,
+    public boolean addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
                                           CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
-        if (!isIDOnRepository(ledger.getID()))
-            createLedger(ledger.getID().getOwnerID());
+        OwnerID owner = ledgerID.getOwnerID();
+
+        Ledger ledger;
+
+        if (!isIDOnRepository(ledgerID))
+           ledger = createLedger(owner);
+        else ledger = new Ledger (owner);
 
         List<TransactionJpa> transactionJpaList = findAllTransactionsByLedgerID(ledger.getID().toString());
 
@@ -80,11 +85,12 @@ public class LedgerDbRepository implements LedgerRepository {
                 localDate.yearMonthDayHourMinuteToString(), category.getDenomination().toString(),
                 accountFrom.getDenominationToString(), accountTo.getDenominationToString(), type.toString());
 
-        if (!transactionJpaList.contains(transactionJpa)) {
-            TransactionJpa newTransactionJpa = transactionJpaRepository.save(transactionJpa);
-            //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
-            return true;
-        } else return false;
+
+        TransactionJpa newTransactionJpa = transactionJpaRepository.save(transactionJpa);
+        //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
+
+        return true;
+
     }
 
     /**
