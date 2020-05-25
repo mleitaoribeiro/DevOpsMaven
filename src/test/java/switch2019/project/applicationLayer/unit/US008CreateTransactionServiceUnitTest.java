@@ -57,11 +57,11 @@ public class US008CreateTransactionServiceUnitTest {
 
         PersonID personID = new PersonID(new Email(email));
 
-        TransactionShortDTO transactionDTO = new TransactionShortDTO("100.0 EUR",
-                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "DEBIT");
+        TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
+                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "CREDIT");
 
-        TransactionShortDTO transactionDTO1 = new TransactionShortDTO("50.0 EUR",
-                "MASTERCARD, marge@hotmail.com", "KWIK E MART, marge@hotmail.com", "DEBIT");
+        TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0,  Currency.getInstance("EUR"),
+                "MASTERCARD, marge@hotmail.com", "KWIK E MART, marge@hotmail.com", "CREDIT");
 
         List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
@@ -69,13 +69,13 @@ public class US008CreateTransactionServiceUnitTest {
                 Currency.getInstance("EUR")), new Description("Bought a cheap sofa"), new DateAndTime(2020,
                 2, 14, 11, 24), new CategoryID(new Denomination("house"), personID),
                 new AccountID(new Denomination("gold card"), personID), new AccountID(new Denomination("ikea"),
-                personID), new Type(false));
+                personID), new Type(true));
 
         Transaction transaction1 = new Transaction(new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Grocery for baking cookies"), new DateAndTime(2020,
                 3, 20, 13, 4), new CategoryID(new Denomination("house"), personID),
                 new AccountID(new Denomination("mastercard"), personID), new AccountID(new Denomination("kwik e mart"),
-                personID), new Type(false));
+                personID), new Type(true));
 
 
         List<Transaction> transactions = Arrays.asList(transaction, transaction1);

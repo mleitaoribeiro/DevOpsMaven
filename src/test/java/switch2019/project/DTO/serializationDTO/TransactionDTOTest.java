@@ -2,7 +2,7 @@ package switch2019.project.DTO.serializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.domain.domainEntities.category.Category;
+import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,8 +20,8 @@ class TransactionDTOTest {
     void testEqualsExactlySameObject() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         //Act
         boolean isEquals = transactionDTO.equals(transactionDTO);
@@ -36,13 +36,13 @@ class TransactionDTOTest {
     void testEqualsSameObject() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        //Act
+       //Act
         boolean isEquals = transactionDTO.equals(otherTransactionDTO);
 
         //Assert
@@ -55,11 +55,11 @@ class TransactionDTOTest {
     void testEqualsDifferentAmount() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0 ,Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("5 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(5.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         //Act
         boolean isEquals = transactionDTO.equals(otherTransactionDTO);
@@ -73,11 +73,11 @@ class TransactionDTOTest {
     void testEqualsDifferentDescription() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAY", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAY", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         //Act
         boolean isEquals = transactionDTO.equals(otherTransactionDTO);
@@ -92,11 +92,11 @@ class TransactionDTOTest {
     void testEqualsDifferentDate() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-1-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-1-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
 
         //Act
@@ -111,11 +111,11 @@ class TransactionDTOTest {
     void testEqualsDifferentCategory() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0,Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
 
         //Act
@@ -130,11 +130,11 @@ class TransactionDTOTest {
     void testEqualsDifferentAccountFrom() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "MONEY", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "MONEY", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0,Currency.getInstance("EUR"),  "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
 
         //Act
@@ -149,11 +149,11 @@ class TransactionDTOTest {
     void testEqualsDifferentAccountTo() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "EBAY", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "EBAY", "DEBIT");
 
 
         //Act
@@ -168,11 +168,11 @@ class TransactionDTOTest {
     void testEqualsDifferentType() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
-
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
                 "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
+
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
 
 
         //Act
@@ -188,8 +188,8 @@ class TransactionDTOTest {
     void testEqualsDifferentObjects() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
        CategoryDTO otherTransactionDTO = new CategoryDTO("REVOLUT", "1110120@isep.ipp.pt");
 
@@ -206,8 +206,8 @@ class TransactionDTOTest {
     void testEqualsNull() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         TransactionDTO otherTransactionDTO = null;
 
@@ -231,11 +231,11 @@ class TransactionDTOTest {
     void testSameHashCode() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         //Act
         int transactionDTOHashcode = transactionDTO.hashCode();
@@ -250,11 +250,11 @@ class TransactionDTOTest {
     void testDifferentHashCode() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
-
-        TransactionDTO otherTransactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
                 "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
+
+        TransactionDTO otherTransactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
 
         //Act
         int transactionDTOHashcode = transactionDTO.hashCode();
@@ -277,13 +277,13 @@ class TransactionDTOTest {
     void getAmount() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
-        String expectedAmount = "2 EUR";
+        Double expectedAmount = 2.0;
 
         //Act
-        String realAmount = transactionDTO.getAmount();
+        Double realAmount = transactionDTO.getAmount();
 
         //Assert
         assertEquals(expectedAmount,realAmount);
@@ -295,8 +295,8 @@ class TransactionDTOTest {
     void getDescription() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         String expectedDescription = "PAYMENT";
 
@@ -312,8 +312,8 @@ class TransactionDTOTest {
     void getDate() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         String expectedDate = "20-3-2020";
 
@@ -329,8 +329,8 @@ class TransactionDTOTest {
     void getCategory() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0,Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         String expectedCategory = "ONLINE SHOPPING";
 
@@ -346,8 +346,8 @@ class TransactionDTOTest {
     void getAccountFrom() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         String expectedAccountFrom = "REVOLUT";
 
@@ -363,8 +363,8 @@ class TransactionDTOTest {
     void getAccountTo() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
-                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
+                "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "DEBIT");
 
         String expectedAccountTo = "ALIEXPRESS";
 
@@ -380,7 +380,7 @@ class TransactionDTOTest {
     void getType() {
 
         //Arrange
-        TransactionDTO transactionDTO = new TransactionDTO("2 EUR", "PAYMENT", "20-3-2020",
+        TransactionDTO transactionDTO = new TransactionDTO(2.0, Currency.getInstance("EUR"), "PAYMENT", "20-3-2020",
                 "ONLINE SHOPPING", "REVOLUT", "ALIEXPRESS", "CREDIT");
 
         String expectedType = "CREDIT";

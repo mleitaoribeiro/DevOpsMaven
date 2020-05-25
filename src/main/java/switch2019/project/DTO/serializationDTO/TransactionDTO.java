@@ -1,10 +1,12 @@
 package switch2019.project.DTO.serializationDTO;
 
+import java.util.Currency;
 import java.util.Objects;
 
 public class TransactionDTO {
 
-    private final String amount;
+    private final Double amount;
+    private final Currency currency;
     private final String description;
     private final String date;
     private final String category;
@@ -24,9 +26,10 @@ public class TransactionDTO {
      * @param type
      */
 
-    public  TransactionDTO (String amount, String description, String date, String category,
+    public  TransactionDTO (Double amount, Currency currency, String description, String date, String category,
                             String accountFrom, String accountTo, String type) {
         this.amount = amount;
+        this.currency = currency;
         this.description = description;
         this.date = date;
         this.category = category;
@@ -40,7 +43,8 @@ public class TransactionDTO {
         if (this == o) return true;
         if (!(o instanceof TransactionDTO)) return false;
         TransactionDTO that = (TransactionDTO) o;
-        return amount.equalsIgnoreCase(that.amount) &&
+        return amount.equals(that.amount) &&
+                currency.equals(that.currency) &&
                 description.equalsIgnoreCase(that.description) &&
                 date.equalsIgnoreCase(that.date) &&
                 category.equalsIgnoreCase(that.category) &&
@@ -54,6 +58,14 @@ public class TransactionDTO {
         return Objects.hash(amount, description, date, category, accountFrom, accountTo, type);
     }
 
+    /**
+     * Getter for Currency
+     * @return currency
+     */
+
+    public Currency getCurrency() {
+        return currency;
+    }
 
     /**
      * Getter for amount
@@ -61,7 +73,7 @@ public class TransactionDTO {
      * @return amount
      */
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 

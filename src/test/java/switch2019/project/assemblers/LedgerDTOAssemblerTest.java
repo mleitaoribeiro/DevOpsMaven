@@ -100,10 +100,10 @@ class LedgerDTOAssemblerTest {
         Description description = new Description("Payment");
 
         Transaction transaction = new Transaction(monetaryValue, description, date, category, account1, account2,
-                new Type(false));
-        TransactionDTO expected = new TransactionDTO(monetaryValue.toString(), description.toString(),
+                new Type(true));
+        TransactionDTO expected = new TransactionDTO(monetaryValue.getAmount(), monetaryValue.getCurrency(), description.toString(),
                 date.yearMonthDayHourMinuteToString(), category.toString(), account1.toString(), account2.toString(),
-                "DEBIT");
+                "CREDIT");
 
         //Act
         TransactionDTO result = LedgerDTOAssembler.createTransactionDTOFromDomain(transaction);
@@ -139,11 +139,11 @@ class LedgerDTOAssemblerTest {
 
         //Arrange Transaction that will go into the Ledger:
         Transaction transaction = new Transaction(monetaryValue, description, date, category, accountFrom, accountTo,
-                new Type(false));
+                new Type(true));
 
         //Arrange the expected TransactionShortDTO
-        TransactionShortDTO expected = new TransactionShortDTO (monetaryValue.toString(), accountFrom.toString(),
-                accountTo.toString(), "DEBIT");
+        TransactionShortDTO expected = new TransactionShortDTO (monetaryValue.getAmount(), monetaryValue.getCurrency(), accountFrom.toString(),
+                accountTo.toString(), "CREDIT");
 
         //Act
         //Create the actual TransactionShortDTO
