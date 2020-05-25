@@ -75,9 +75,11 @@ class US008CreateTransactionServiceTest {
         //Arrange
         String email = "pikachu@hotmail.com";
 
+        PersonID personID = new PersonID(new Email(email));
+
         // Act
         Throwable thrown = catchThrowable(() -> {
-            service.getTransactionsByLedgerId(new PersonID(new Email(email)));
+            service.getTransactionsByLedgerId(personID);
 
         });
 

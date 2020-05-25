@@ -11,10 +11,12 @@ import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.infrastructure.jpa.LedgerJpaRepository;
 import switch2019.project.infrastructure.jpa.TransactionJpaRepository;
+import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -103,6 +105,13 @@ public class LedgerDbRepository implements LedgerRepository {
      */
 
     public List<Transaction> findAllTransactionsByLedgerID (String ledgerID) {
+
+
+        if (StringUtils.isEmail(ledgerID)){
+            getByID(new PersonID(new Email(ledgerID)));
+        } else {
+            getByID(new GroupID(new Description(ledgerID)));
+        }
 
         List <TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
         List <Transaction> transactionsList = new ArrayList<>();

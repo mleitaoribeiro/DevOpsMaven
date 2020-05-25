@@ -74,7 +74,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         Transaction transaction1 = new Transaction(new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Grocery for baking cookies"), new DateAndTime(2020,
-                2, 14, 13, 4), new CategoryID(new Denomination("house"), personID),
+                3, 20, 13, 4), new CategoryID(new Denomination("house"), personID),
                 new AccountID(new Denomination("mastercard"), personID), new AccountID(new Denomination("kwik e mart"),
                 personID), new Type(false));
 
@@ -130,7 +130,6 @@ public class US008CreateTransactionServiceUnitTest {
         Mockito.when(ledgerRepository.findAllTransactionsByLedgerID(email)).
                 thenThrow(new ArgumentNotFoundException("No Ledger found with that ID."));
 
-
         //Act
         Throwable thrown = catchThrowable(() -> {
             service.getTransactionsByLedgerId(personID);
@@ -138,7 +137,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         //Assert
         assertThat(thrown)
-                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
     }
 
