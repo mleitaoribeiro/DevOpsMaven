@@ -3,11 +3,13 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
+import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.LedgerJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
@@ -65,8 +67,8 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return boolean
      */
 
-    public boolean addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
-                                          CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
+    public Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
+                                              CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
         OwnerID owner = ledgerID.getOwnerID();
 
@@ -76,9 +78,7 @@ public class LedgerDbRepository implements LedgerRepository {
            ledger = createLedger(owner);
         else ledger = new Ledger (owner);
 
-        List<TransactionJpa> transactionJpaList = findAllTransactionsByLedgerID(ledger.getID().toString());
-
-        LedgerDomainDataAssembler.toData(ledger);
+        LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
 
         TransactionJpa transactionJpa = new TransactionJpa(ledger.getID().getOwnerID().toString(),
                 amount.getAmount(), amount.getCurrency().toString(), description.getDescription(),
@@ -89,7 +89,7 @@ public class LedgerDbRepository implements LedgerRepository {
         TransactionJpa newTransactionJpa = transactionJpaRepository.save(transactionJpa);
         //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
 
-        return true;
+        return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
 
     }
 
