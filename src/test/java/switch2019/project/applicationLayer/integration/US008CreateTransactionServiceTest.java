@@ -4,11 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.serializationDTO.AccountDTO;
-import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
-import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
-import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -322,5 +318,25 @@ class US008CreateTransactionServiceTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
     }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - happy case")
+    void getTransactionByIDHappyCase() {
+
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 1L;
+
+        TransactionShortDTO transactionDTOexpected = new TransactionShortDTO("100.0 EUR",
+                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "DEBIT");
+
+        //Act
+        TransactionShortDTO result = service.getTransactionByID(email,id);
+
+        //Assert
+        assertEquals(transactionDTOexpected, result);
+    }
+
 
 }
