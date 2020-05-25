@@ -37,55 +37,55 @@ public class DataBaseLoader {
     @Autowired
     LedgerDbRepository ledgerDbRepository;
 
-    public void bootstrapping () {
+    public void bootstrapping() {
 
         /* Add people to the Repository */
 
         //Persons without Father & Mother
 
-        Person alexandreOliveira = personRepository.createPerson (
+        Person alexandreOliveira = personRepository.createPerson(
                 "Alexandre Oliveira",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191743@isep.ipp.pt"));
 
-        Person dianaDias = personRepository.createPerson (
+        Person dianaDias = personRepository.createPerson(
                 "Diana Dias",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191755@isep.ipp.pt"));
 
-        Person elsaAlmeida = personRepository.createPerson (
+        Person elsaAlmeida = personRepository.createPerson(
                 "Elsa Almeida",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191762@isep.ipp.pt"));
 
-        Person gabrielMoco = personRepository.createPerson (
+        Person gabrielMoco = personRepository.createPerson(
                 "Gabriel Moço",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191765@isep.ipp.pt"));
 
-        Person martaPinheiro = personRepository.createPerson (
+        Person martaPinheiro = personRepository.createPerson(
                 "Marta Pinheiro",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191778@isep.ipp.pt"));
 
-        Person martaRibeiro = personRepository.createPerson (
+        Person martaRibeiro = personRepository.createPerson(
                 "Marta Ribeiro",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191779@isep.ipp.pt"));
 
-        Person raquelSantos = personRepository.createPerson (
+        Person raquelSantos = personRepository.createPerson(
                 "Raquel Santos",
                 new DateAndTime(1993, 9, 1),
                 new Address("Porto"),
@@ -95,14 +95,14 @@ public class DataBaseLoader {
         //Smith Family
 
         //Beth Smith Parents | Grandparents of Morty Sr. & Summer
-        Person rickSanchez  = personRepository.createPerson (
+        Person rickSanchez = personRepository.createPerson(
                 "Richard Sanchez",
                 new DateAndTime(1950, 9, 1),
                 new Address("Seattle"),
                 new Address("Smiths house", "Seattle", "4520-266"),
                 new Email("rick@gmail.com"));
 
-        Person dianeSanchez  = personRepository.createPerson (
+        Person dianeSanchez = personRepository.createPerson(
                 "Diane Sanchez",
                 new DateAndTime(1955, 1, 10),
                 new Address("Seattle"),
@@ -111,14 +111,14 @@ public class DataBaseLoader {
 
         //Jerry Smith Parents | Grandparents of Morty Sr. & Summer
 
-        Person leonardSmith  = personRepository.createPerson (
+        Person leonardSmith = personRepository.createPerson(
                 "Leonard Smith",
                 new DateAndTime(1940, 10, 20),
                 new Address("Seattle"),
                 new Address("First Avenue Northwest", "Seattle", "4520-266"),
                 new Email("leonard.smith@gmail.com"));
 
-        Person joyceSmith  = personRepository.createPerson (
+        Person joyceSmith = personRepository.createPerson(
                 "Joyce Smith",
                 new DateAndTime(1945, 5, 20),
                 new Address("Seattle"),
@@ -126,7 +126,7 @@ public class DataBaseLoader {
                 new Email("joyce.smith@gmail.com"));
 
         //Smith Actual Family
-        Person jerrySmith  = personRepository.createPerson (
+        Person jerrySmith = personRepository.createPerson(
                 "Jerry Smith",
                 new DateAndTime(1967, 2, 3),
                 new Address("Seattle"),
@@ -135,7 +135,7 @@ public class DataBaseLoader {
                 leonardSmith.getID(),
                 new Email("jerry.smith@gmail.com"));
 
-        Person bethSmith  = personRepository.createPerson (
+        Person bethSmith = personRepository.createPerson(
                 "Beth Smith",
                 new DateAndTime(1973, 6, 10),
                 new Address("Seattle"),
@@ -182,21 +182,21 @@ public class DataBaseLoader {
 
         //Simpson Family
 
-        Person grandfatherAbrahamSimpson = personRepository.createPerson (
+        Person grandfatherAbrahamSimpson = personRepository.createPerson(
                 "Abraham Simpson",
                 new DateAndTime(1940, 5, 20),
                 new Address("Springfield "),
                 new Address("Springfield Retirement Castle", "Springfield", "4520-266"),
                 new Email("abe_simpson@gmail.com"));
 
-        Person grandmotherMonaSimpson  = personRepository.createPerson (
+        Person grandmotherMonaSimpson = personRepository.createPerson(
                 "Mona Simpson",
                 new DateAndTime(1943, 12, 13),
                 new Address("Springfield "),
                 new Address("742 Evergreen Terrace", "Springfield", "4520-266"),
                 new Email("mona.simpson@gmail.com"));
 
-        Person fatherHomerSimpson =  personRepository.createPerson (
+        Person fatherHomerSimpson = personRepository.createPerson(
                 "Homer Jay Simpson",
                 new DateAndTime(1956, 5, 12),
                 new Address("Springfield"),
@@ -205,7 +205,7 @@ public class DataBaseLoader {
                 grandfatherAbrahamSimpson.getID(),
                 new Email("homer@hotmail.com"));
 
-        Person motherMarjorieSimpson =  personRepository.createPerson(
+        Person motherMarjorieSimpson = personRepository.createPerson(
                 "Marjorie Bouvier Simpson",
                 new DateAndTime(1956, 5, 12),
                 new Address("Springfield"),
@@ -241,14 +241,14 @@ public class DataBaseLoader {
 
         //Cardoso Family
 
-        Person fatherAntonioCardoso =  personRepository.createPerson (
+        Person fatherAntonioCardoso = personRepository.createPerson(
                 "António Cardoso",
                 new DateAndTime(1967, 9, 9),
                 new Address("Porto"),
                 new Address("Rua de Requeixos", "Vizela", "4620-580"),
                 new Email("antonio.cardoso@gmail.com"));
 
-        Person motherMariaCardoso =  personRepository.createPerson(
+        Person motherMariaCardoso = personRepository.createPerson(
                 "Maria Cardoso",
                 new DateAndTime(1964, 1, 19),
                 new Address("Porto"),
@@ -275,14 +275,14 @@ public class DataBaseLoader {
 
         //Azevedo Family
 
-        Person fatherRobertoAzevedo =  personRepository.createPerson (
+        Person fatherRobertoAzevedo = personRepository.createPerson(
                 "Roberto Azevedo",
                 new DateAndTime(1967, 1, 9),
                 new Address("Lisboa"),
                 new Address("Avenida Antonio Domingues dos Santos", "Senhora da Hora", "4460-237"),
                 new Email("roberto@gmail.com"));
 
-        Person motherMargaridaAzevedo =  personRepository.createPerson(
+        Person motherMargaridaAzevedo = personRepository.createPerson(
                 "Margarida Azevedo",
                 new DateAndTime(1964, 12, 1),
                 new Address("Guimarães"),
@@ -321,7 +321,7 @@ public class DataBaseLoader {
 
         //Group SWitCH - All members are Group Admin
 
-        Group switchGroup = groupRepository.createGroup( new Description("SWitCH"),
+        Group switchGroup = groupRepository.createGroup(new Description("SWitCH"),
                 personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
         groupRepository.addMember(switchGroup, alexandreOliveira.getID().toString());
@@ -350,14 +350,14 @@ public class DataBaseLoader {
 
         //Group Friends - 1 Admin - Two members are family but the other member is not
 
-        Group friendsGroup = groupRepository.createGroup( new Description("Friends"),
+        Group friendsGroup = groupRepository.createGroup(new Description("Friends"),
                 personRepository.findPersonByEmail(new Email("hugo.azevedo@gmail.com")).getID());
         groupRepository.addMember(friendsGroup, beatrizAzevedo.getID().toString());
         groupRepository.addMember(friendsGroup, joaoCardoso.getID().toString());
 
         //Group Split Expenses - 2 Admin
 
-        Group splitExpensesGroup = groupRepository.createGroup( new Description("Split Expenses"),
+        Group splitExpensesGroup = groupRepository.createGroup(new Description("Split Expenses"),
                 personRepository.findPersonByEmail(new Email("bart.simpson@gmail.com")).getID());
 
         groupRepository.addMember(splitExpensesGroup, alexandreOliveira.getID().toString());
@@ -367,19 +367,19 @@ public class DataBaseLoader {
 
         //Group Rick and Morty - 1 Admin - 2 Members
 
-        Group rickAndMortyGroup = groupRepository.createGroup( new Description("Rick and Morty"),
+        Group rickAndMortyGroup = groupRepository.createGroup(new Description("Rick and Morty"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
         groupRepository.addMember(rickAndMortyGroup, "morty@gmail.com");
 
         //Group morty - 1 Admin - 1 Member
 
-        Group intergalacticGroup = groupRepository.createGroup( new Description("Intergalactic"),
+        Group intergalacticGroup = groupRepository.createGroup(new Description("Intergalactic"),
                 personRepository.findPersonByEmail(new Email("mortimer.smith@hotmail.com")).getID());
 
         //NOT FAMILY - Smith Family - With Grandpa Rick (admin)
 
-        Group smithFamilyGroup = groupRepository.createGroup( new Description("Smith Family"),
+        Group smithFamilyGroup = groupRepository.createGroup(new Description("Smith Family"),
                 personRepository.findPersonByEmail(new Email("rick@gmail.com")).getID());
 
         groupRepository.addMember(smithFamilyGroup, jerrySmith.getID().toString());
@@ -388,7 +388,7 @@ public class DataBaseLoader {
         groupRepository.addMember(smithFamilyGroup, mortySmith.getID().toString());
 
         //Family group - Family Simpson - 2 Admin
-        Group familySimpsonGroup = groupRepository.createGroup( new Description("Family Simpson"),
+        Group familySimpsonGroup = groupRepository.createGroup(new Description("Family Simpson"),
                 personRepository.findPersonByEmail(new Email("marge@hotmail.com")).getID());
 
         groupRepository.addMember(familySimpsonGroup, fatherHomerSimpson.getID().toString());
@@ -402,7 +402,7 @@ public class DataBaseLoader {
         margaretSimpson.addSibling(elizabetSimpson);
 
         //Family group - Family Cardoso - All members are Group Admin
-        Group familyCardosoGroup = groupRepository.createGroup( new Description("Family Cardoso"),
+        Group familyCardosoGroup = groupRepository.createGroup(new Description("Family Cardoso"),
                 personRepository.findPersonByEmail(new Email("1110120@isep.ipp.pt")).getID());
 
         groupRepository.addMember(familyCardosoGroup, martaCardoso.getID().toString());
@@ -417,7 +417,7 @@ public class DataBaseLoader {
         martaCardoso.addSibling(joaoCardoso);
 
         //Family group - Family Azevedo - 1 Admin (Group creator)
-        Group familyAzevedoGroup = groupRepository.createGroup( new Description("Family Azevedo"),
+        Group familyAzevedoGroup = groupRepository.createGroup(new Description("Family Azevedo"),
                 personRepository.findPersonByEmail(new Email("beatriz.azevedo@gmail.com")).getID());
 
         groupRepository.addMember(familyAzevedoGroup, fatherRobertoAzevedo.getID().toString());
@@ -468,9 +468,9 @@ public class DataBaseLoader {
 
         //Persons  - Categories
         //Marge
-        Category margeHouseCategory = categoriesRepository.createCategory(new Denomination("HOUSE"),  new PersonID(new Email("marge@hotmail.com")));
+        Category margeHouseCategory = categoriesRepository.createCategory(new Denomination("HOUSE"), new PersonID(new Email("marge@hotmail.com")));
         //1191780
-        Category martaSportCategory = categoriesRepository.createCategory(new Denomination("SPORTS"),  new PersonID(new Email("1191780@isep.ipp.pt")));
+        Category martaSportCategory = categoriesRepository.createCategory(new Denomination("SPORTS"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
 
         /*Accounts of some Owner ID*/
@@ -480,7 +480,7 @@ public class DataBaseLoader {
                 new Description("Money spent on snacks for homer"),
                 new PersonID(new Email("marge@hotmail.com")));
 
-       Account margeSupermaketAccount = accountRepository.createAccount(new Denomination("Kwik-E-Mart"),
+        Account margeSupermaketAccount = accountRepository.createAccount(new Denomination("Kwik-E-Mart"),
                 new Description("Food and Grocery"),
                 new PersonID(new Email("marge@hotmail.com")));
 
@@ -499,14 +499,14 @@ public class DataBaseLoader {
         //1191780 Accounts related do Sports Category
         Account martaFitnessUpAccount = accountRepository.createAccount(new Denomination("FitnessUp"),
                 new Description("Monthly Payment"), new PersonID(new Email("1191780@isep.ipp.pt")));
-        Account martaDecathlonAccount =  accountRepository.createAccount(new Denomination("Decatlhon"),
+        Account martaDecathlonAccount = accountRepository.createAccount(new Denomination("Decatlhon"),
                 new Description("Equipment"), new PersonID(new Email("1191780@isep.ipp.pt")));
         Account martaMoeyAccount = accountRepository.createAccount(new Denomination("Moey"),
                 new Description("Regular Payments"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
 
         //Account of Group - Family Cardoso
-        Account familyCardosoNetflixAccount =  accountRepository.createAccount(new Denomination("Netflix"), new Description("Netflix Paymnent"),
+        Account familyCardosoNetflixAccount = accountRepository.createAccount(new Denomination("Netflix"), new Description("Netflix Paymnent"),
                 new GroupID(new Description("Family Cardoso")));
 
         Account familyCardosoRevolutAccount = accountRepository.createAccount(new Denomination("Revolut"),
@@ -560,8 +560,8 @@ public class DataBaseLoader {
                 new GroupID(new Description("Switch")));
 
         Account switchIsepAEAccount = accountRepository.createAccount(new Denomination("AE ISEP"),
-                        new Description("AE BAR ISEP"),
-                        new GroupID(new Description("Switch")));
+                new Description("AE BAR ISEP"),
+                new GroupID(new Description("Switch")));
 
         Account switchDrinksAccount = accountRepository.createAccount(new Denomination("Pocket Money"),
                 new Description("Pocket Money for Superbock"),
@@ -569,7 +569,7 @@ public class DataBaseLoader {
 
 
         //Group Ledgers
-        ledgerDbRepository.createLedger(new GroupID(new Description("Switch")));
+        Ledger switchLedger = ledgerDbRepository.createLedger(new GroupID(new Description("Switch")));
         ledgerDbRepository.createLedger(new GroupID(new Description("Friends")));
         ledgerDbRepository.createLedger(new GroupID(new Description("Split Expenses")));
         ledgerDbRepository.createLedger(new GroupID(new Description("Rick and Morty")));
@@ -625,18 +625,18 @@ public class DataBaseLoader {
         //Ikea shopping
         ledgerDbRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(100.00, Currency.getInstance("EUR")),
                 new Description("Bought a cheap sofa"), new DateAndTime(2020, 2, 14, 11, 24),
-                margeHouseCategory.getID(), margeGoldCardAccount.getID(), margeIkeaAccount.getID(), new Type(false) );
+                margeHouseCategory.getID(), margeGoldCardAccount.getID(), margeIkeaAccount.getID(), new Type(false));
 
         //Supermarket shopping
         ledgerDbRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Grocery for baking cookies"), new DateAndTime(2020, 3, 20, 13, 04),
-                margeHouseCategory.getID(), margeMasterCardAccount.getID(), margeSupermaketAccount.getID(), new Type(false) );
+                margeHouseCategory.getID(), margeMasterCardAccount.getID(), margeSupermaketAccount.getID(), new Type(false));
 
         //Marta Transactions
         //Gym subscription payment
         ledgerDbRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("Monthly subscription"), new DateAndTime(2020, 5, 13, 17, 00),
-                martaSportCategory.getID(), martaMoeyAccount.getID(), martaFitnessUpAccount.getID(), new Type(false) );
+                martaSportCategory.getID(), martaMoeyAccount.getID(), martaFitnessUpAccount.getID(), new Type(false));
 
         //Decathlon Payment
         ledgerDbRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(150.00, Currency.getInstance("EUR")),
@@ -649,13 +649,13 @@ public class DataBaseLoader {
                 cardososHouseCategory.getID(), familyCardosoRevolutAccount.getID(), familyCardosoNetflixAccount.getID(), new Type(false));
 
         //Switch
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(10.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(10.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 1"), new DateAndTime(2020, 3, 4, 18, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 2"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 3"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
     }

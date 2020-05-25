@@ -8,17 +8,15 @@ import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.assemblers.LedgerDTOAssembler;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
-import switch2019.project.domain.repositories.GroupRepository;
-import switch2019.project.domain.repositories.LedgerRepository;
-import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.domain.repositories.*;
 import switch2019.project.utils.StringUtils;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import java.util.ArrayList;
@@ -41,41 +39,51 @@ public class US008CreateTransactionService {
     @Qualifier("GroupDbRepository")
     private GroupRepository groupsRepository;
 
+    @Autowired
+    @Qualifier("CategoryDbRepository")
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    @Qualifier("AccountDbRepository")
+    private AccountRepository accountRepository;
+
     /**
      * US008.1 - As a group member, I want to create a group transaction.
      *
-     * @param //createGroupTransactionDTO
-     * @return TransactionShortDTO
+     * @param createGroupTransactionDTO
+     * @return transactionShortDTO
      */
 
      public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail())).getID();
 
+        Group group = groupsRepository.findGroupByDescription(new Description(createGroupTransactionDTO.getGroupDescription()));
+        GroupID groupID = group.getID();
+
         MonetaryValue amount = new MonetaryValue(createGroupTransactionDTO.getAmount(),
                 Currency.getInstance(createGroupTransactionDTO.getCurrency()));
         Description description = new Description(createGroupTransactionDTO.getDescription());
         DateAndTime date = StringUtils.toDateHourMinute(createGroupTransactionDTO.getDate());
-        CategoryID categoryID = new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), personID);
-        AccountID accountFrom = new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), personID);
-        AccountID accountTo = new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), personID);
+        CategoryID categoryID = new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID);
+        AccountID accountFrom = new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID);
+        AccountID accountTo = new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), groupID);
         Type type = new Type(createGroupTransactionDTO.getType());
-
-        Group group = groupsRepository.findGroupByDescription(new Description(createGroupTransactionDTO.getGroupDescription()));
-
-        GroupID groupID = group.getID();
 
         if (!group.isGroupMember(personID)) {
             throw new NoPermissionException("This person is not member of this group.");
-        } else {
+        } else if (!categoryRepository.isIDOnRepository(categoryID))  {
+            throw new ArgumentNotFoundException("No category found with that ID.");
+        } else if (!accountRepository.isIDOnRepository(accountFrom) || !accountRepository.isIDOnRepository(accountTo)) {
+            throw new ArgumentNotFoundException("No account found with that ID.");
+        }
             Ledger ledger = ledgerRepository.getByID(groupID);
 
             Transaction transaction = ledgerRepository.addTransactionToLedger(ledger.getID(), amount,
                     description, date, categoryID, accountFrom, accountTo, type);
 
             return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
-        }
-    }
+     }
 
     /**
      * US008 - I want to create a personal transaction.

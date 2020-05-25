@@ -4,11 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.serializationDTO.AccountDTO;
-import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
-import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
-import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -39,16 +35,16 @@ class US008CreateTransactionServiceTest {
     void testIfGroupAccountWasCreatedHappyCase() {
 
         //Arrange
-        String groupDescription = "Smith Family";
-        String personEmail = "rick@gmail.com";
+        String groupDescription = "Switch";
+        String personEmail = "1191755@isep.ipp.pt";
         double amount1 = 20;
         String currency = "EUR";
         String amount2 = Double.toString(amount1) + currency + "";
         String date = "2019-05-25 13:12";
-        String description = "Payment";
-        String category = "General";
-        String accountFrom = "WALLET";
-        String accountTo = "TRANSPORTACCOUNT";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
         String type = "DEBIT";
 
 
@@ -69,15 +65,15 @@ class US008CreateTransactionServiceTest {
     void testIfGroupAccountWasCreatedMonetaryValueNegative() {
 
         //Arrange
-        String groupDescription = "Smith Family";
-        String personEmail = "rick@gmail.com";
+        String groupDescription = "SWITCH";
+        String personEmail = "1191755@isep.ipp.pt";
         double amount1 = -20;
         String currency = "EUR";
         String date = "2019-05-25 13:12";
-        String description = "Payment";
-        String category = "General";
-        String accountFrom = "WALLET";
-        String accountTo = "TRANSPORTACCOUNT";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
         String type = "DEBIT";
 
 
@@ -100,15 +96,15 @@ class US008CreateTransactionServiceTest {
     void testIfGroupAccountWasCreatedPersonNotMember() {
 
         //Arrange
-        String groupDescription = "Smith Family";
-        String personEmail = "1110120@isep.ipp.pt";
-        double amount1 = -20;
+        String groupDescription = "Switch";
+        String personEmail = "leonard.smith@gmail.com";
+        double amount1 = 20;
         String currency = "EUR";
         String date = "2019-05-25 13:12";
-        String description = "Payment";
-        String category = "General";
-        String accountFrom = "WALLET";
-        String accountTo = "TRANSPORTACCOUNT";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
         String type = "DEBIT";
 
 
@@ -132,14 +128,14 @@ class US008CreateTransactionServiceTest {
 
         //Arrange
         String groupDescription = "Montaditos";
-        String personEmail = "1110120@isep.ipp.pt";
-        double amount1 = -20;
+        String personEmail = "1191755@isep.ipp.pt";
+        double amount1 = 20;
         String currency = "EUR";
         String date = "2019-05-25 13:12";
-        String description = "Payment";
-        String category = "General";
-        String accountFrom = "WALLET";
-        String accountTo = "TRANSPORTACCOUNT";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
         String type = "DEBIT";
 
 
@@ -162,15 +158,15 @@ class US008CreateTransactionServiceTest {
     void testIfGroupAccountWasCreatedPersonNotFound() {
 
         //Arrange
-        String groupDescription = "Montaditos";
+        String groupDescription = "Switch";
         String personEmail = "rosa@sapo.pt";
-        double amount1 = -20;
+        double amount1 = 20;
         String currency = "EUR";
         String date = "2019-05-25 13:12";
-        String description = "Payment";
-        String category = "General";
-        String accountFrom = "WALLET";
-        String accountTo = "TRANSPORTACCOUNT";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
         String type = "DEBIT";
 
 
@@ -189,21 +185,113 @@ class US008CreateTransactionServiceTest {
     }
 
     @Test
+    @DisplayName("Test if Group Transaction is created - category not found")
+    void testIfGroupAccountWasCreatedCategoryNotFound() {
+
+        //Arrange
+        String groupDescription = "Switch";
+        String personEmail = "1191755@isep.ipp.pt";
+        double amount1 = 20;
+        String currency = "EUR";
+        String date = "2019-05-25 13:12";
+        String description = "Pizza";
+        String category = "Compras";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
+        String type = "DEBIT";
+
+
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
+                amount1, currency, date, description, category, accountFrom, accountTo, type);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addGroupTransaction(createGroupTransactionDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No category found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test if Group Transaction is created - accountFrom not found")
+    void testIfGroupAccountWasCreatedAccountFromNotFound() {
+
+        //Arrange
+        String groupDescription = "Switch";
+        String personEmail = "1191755@isep.ipp.pt";
+        double amount1 = 20;
+        String currency = "EUR";
+        String date = "2019-05-25 13:12";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "REVOLUT";
+        String accountTo = "AE ISEP";
+        String type = "DEBIT";
+
+
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
+                amount1, currency, date, description, category, accountFrom, accountTo, type);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addGroupTransaction(createGroupTransactionDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No account found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test if Group Transaction is created - accountTo not found")
+    void testIfGroupAccountWasCreatedAccountNotFound() {
+
+        //Arrange
+        String groupDescription = "Switch";
+        String personEmail = "1191755@isep.ipp.pt";
+        double amount1 = 20;
+        String currency = "EUR";
+        String date = "2019-05-25 13:12";
+        String description = "Pizza";
+        String category = "ISEP";
+        String accountFrom = "AE ISEP";
+        String accountTo = "REVOLUT";
+        String type = "DEBIT";
+
+
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
+                amount1, currency, date, description, category, accountFrom, accountTo, type);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addGroupTransaction(createGroupTransactionDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No account found with that ID.");
+    }
+
+    @Test
     @DisplayName("Test if Group Transaction is created - one transaction parameter is null")
     void testIfGroupAccountWasCreatedNullTransactionParameter() {
 
         //Arrange
-        String groupDescription = "Smith Family";
-        String personEmail = "rick@gmail.com";
-        double amount1 = -20;
+        String groupDescription = "Switch";
+        String personEmail = "1191755@isep.ipp.pt";
+        double amount1 = 20;
         String currency = "EUR";
         String date = "2019-05-25 13:12";
         String description = null;
-        String category = "General";
-        String accountFrom = "WALLET";
-        String accountTo = "TRANSPORTACCOUNT";
+        String category = "ISEP";
+        String accountFrom = "POCKET MONEY";
+        String accountTo = "AE ISEP";
         String type = "DEBIT";
-
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
@@ -218,7 +306,6 @@ class US008CreateTransactionServiceTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The description can't be null or empty.");
     }
-
 
     /**
      * Test to get Transactions by LedgerId
@@ -290,7 +377,7 @@ class US008CreateTransactionServiceTest {
     void getGroupTransactionsByLedgerEmptyLedger() {
 
         //Arrange
-        String groupDescription = "Switch";
+        String groupDescription = "Friends";
 
         GroupID groupID = new GroupID(new Description(groupDescription));
 
