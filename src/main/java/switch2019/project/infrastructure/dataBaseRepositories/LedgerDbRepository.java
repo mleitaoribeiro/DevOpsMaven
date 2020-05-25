@@ -50,7 +50,6 @@ public class LedgerDbRepository implements LedgerRepository {
         else throw new ResourceAlreadyExistsException(LEDGER_ALREADY_EXISTS);
     }
 
-
     /**
      *
      * Method to add a new Transaction to ledgerJpa

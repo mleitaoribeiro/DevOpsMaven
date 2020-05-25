@@ -175,18 +175,22 @@ class LedgerDbRepositoryTest {
 
         //Arrange
 
-        TransactionJpa expectedTransactionJpa = new TransactionJpa("someone_email@gmail.pt",
-                2D, "EUR", "XPTO", date.yearMonthDayHourMinuteToString(), "SOMEONE CATEGORY",
-                "ACCOUNT1","ACCOUNT2","DEBIT");
+        long expectedTransactionJpaID = 9;
 
-        List<TransactionJpa> expectedTransactions = new ArrayList<>(Collections.singletonList(expectedTransactionJpa));
+        int expectedNumberOfTransactions = 1;
 
         //Act
         List<TransactionJpa> realTransactions = ledgerDbRepository.findAllTransactionsByLedgerID("someone_email@gmail.pt");
 
-        //Assert
+        long realTransactionJpaID = realTransactions.get(0).getId();
 
-        //assertEquals(expectedTransactions, realTransactions);
+        int realNumberOfTransactions = realTransactions.size();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(expectedTransactionJpaID, realTransactionJpaID),
+                () -> assertEquals(expectedNumberOfTransactions, realNumberOfTransactions)
+        );
 
     }
 

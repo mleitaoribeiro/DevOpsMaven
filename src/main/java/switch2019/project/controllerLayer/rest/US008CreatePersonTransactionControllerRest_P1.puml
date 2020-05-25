@@ -1,0 +1,81 @@
+startuml
+skinparam DefaultFontSize 25
+
+title US008 Sequence Diagram - Happy Case  #6495ED
+
+participant "HTTP Client (Test)"
+participant "inputDTO:\nCreateTransactionInfoDTO "
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "restController:US008CreatePersonTransactionControllerRest"
+participant "transactionDTO:TransactionDTO"
+participant ":LedgerDTOAssembler"
+participant "service:US008CreatePersonTransactionService"
+participant "infoDTO:CreateTransactionInfoDTO"
+
+== Arrange ==
+autonumber
+
+create "inputDTO:\nCreateTransactionInfoDTO"
+"HTTP Client (Test)" -> "inputDTO:\ncreateTransactionInfoDTO": inputDTO = new CreateTransactionInfoDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, personEmail);
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
+== Act ==
+
+create "mvc:MockMvc"
+"HTTP Client (Test)" -> "mvc:MockMvc" :POST /persons/{personId}/ledger/transactions {inputJson}
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 3.1
+"mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
+
+create "infoDTO:CreateTransactionInfoDTO"
+"mvc:MockMvc"-->"infoDTO:CreateTransactionInfoDTO": create
+
+"mvc:MockMvc"-> "restController:US008CreatePersonTransactionControllerRest": addPersonalTransaction()
+activate "restController:US008CreatePersonTransactionControllerRest" #FFBBBB
+
+#########################################
+
+create "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+":LedgerDTOAssembler" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO": new CreatePersonalTransactionDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, personEmail)
+
+":LedgerDTOAssembler" -> "restController:US008CreatePersonTransactionControllerRest" : createPersonalTransactionDTO
+
+deactivate ":LedgerDTOAssembler"
+
+autonumber 3.3.2
+"restController:US008CreatePersonTransactionControllerRest"->"service:US008CreatePersonTransactionService": addPersonalTransaction(CreatePersonalTransactionDTO)
+activate "service:US008CreatePersonTransactionService" #FFBBBB
+
+ref over "service:US008CreatePersonTransactionService" : US008CreatePersonTransactionControllerRestRef
+
+"service:US008CreatePersonTransactionService" --> "restController:US008CreatePersonTransactionControllerRest" : transactionDTO
+deactivate "service:US008CreatePersonTransactionService"
+
+
+"restController:US008CreatePersonTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionDTO,HttpStatus.CREATED)
+deactivate "restController:US008CreatePersonTransactionControllerRest"
+
+autonumber 3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
+deactivate "mvc:MockMvc"
+
+autonumber 4
+create "mvcResult :MvcResult"
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : create
+activate "mvcResult :MvcResult" #FFBBBB
+
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+deactivate "mvcResult :MvcResult" #FFBBBB
+
+== Assert ==
+
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expected, result)
+deactivate "HTTP Client (Test)" #FFBBBB
+
+@enduml
