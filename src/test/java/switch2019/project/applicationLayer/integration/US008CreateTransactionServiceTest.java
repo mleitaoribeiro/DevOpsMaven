@@ -47,7 +47,7 @@ class US008CreateTransactionServiceTest {
 
         assertEquals(expected, result);
     }
-
+/*
     @Test
     @DisplayName("Get Transactions By ledgerID - empty ledger")
     void getTrasactionsByLedgerIdEmptyLedger() {
@@ -60,6 +60,8 @@ class US008CreateTransactionServiceTest {
 
         assertEquals(expected, result);
     }
+    
+ */
 
 
 

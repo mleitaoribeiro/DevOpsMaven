@@ -168,6 +168,7 @@ class LedgerDbRepositoryTest {
      * Test if all transactions can be found by Ledger ID
      */
 
+    /*
     @Test
     @DisplayName("Test if all transactions can be found by Ledger ID - Yes")
     void findAllTransactionsByLedgerID() {
@@ -194,6 +195,8 @@ class LedgerDbRepositoryTest {
         );
 
     }
+
+     */
 
 
     /**

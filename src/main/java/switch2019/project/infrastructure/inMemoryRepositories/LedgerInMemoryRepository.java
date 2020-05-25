@@ -3,13 +3,17 @@ package switch2019.project.infrastructure.inMemoryRepositories;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
+import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
+import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class LedgerInMemoryRepository implements LedgerRepository {
@@ -99,6 +103,17 @@ public class LedgerInMemoryRepository implements LedgerRepository {
             Ledger ledger = getByID(ledgerID);
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         } else  return false;
+    }
+
+
+    public List<Transaction> findAllTransactionsByLedgerID(String ownerID) {
+        Ledger ledger;
+        if (StringUtils.isEmail(ownerID)){
+            ledger = getByID(new PersonID(new Email(ownerID)));
+        } else {
+            ledger = getByID(new GroupID(new Description(ownerID)));
+        }
+        return ledger.getLedgerTransactions();
     }
 
 
