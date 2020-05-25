@@ -106,23 +106,25 @@ public class LedgerDbRepository implements LedgerRepository {
 
     public List<Transaction> findAllTransactionsByLedgerID (String ledgerID) {
 
+        boolean isLedgerOnRepository;
 
         if (StringUtils.isEmail(ledgerID)){
-            getByID(new PersonID(new Email(ledgerID)));
+            isLedgerOnRepository = isIDOnRepository(new PersonID(new Email(ledgerID)));
         } else {
-            getByID(new GroupID(new Description(ledgerID)));
+            isLedgerOnRepository = isIDOnRepository(new GroupID(new Description(ledgerID)));
         }
 
-        List <TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
-        List <Transaction> transactionsList = new ArrayList<>();
+        if (isLedgerOnRepository) {
+            List<TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+            List<Transaction> transactionsList = new ArrayList<>();
 
-        for (TransactionJpa transactionJpa : transactionJpaList) {
-            Transaction convertedTransaction = TransactionDomainDataAssembler.toDomain(transactionJpa);
-            transactionsList.add(convertedTransaction);
-        }
-        return transactionsList;
+            for (TransactionJpa transactionJpa : transactionJpaList) {
+                Transaction convertedTransaction = TransactionDomainDataAssembler.toDomain(transactionJpa);
+                transactionsList.add(convertedTransaction);
+            }
+            return transactionsList;
+        } throw  new ArgumentNotFoundException(NO_LEDGER_FOUND);
     }
-
 
     /**
      *
