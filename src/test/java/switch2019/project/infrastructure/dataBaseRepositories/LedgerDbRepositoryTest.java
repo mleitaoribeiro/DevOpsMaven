@@ -7,20 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.MonetaryValue;
+import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -180,9 +179,11 @@ class LedgerDbRepositoryTest {
         int expectedNumberOfTransactions = 1;
 
         //Act
-        List<TransactionJpa> realTransactions = ledgerDbRepository.findAllTransactionsByLedgerID("someone_email@gmail.pt");
+        List<Transaction> realTransactions = ledgerDbRepository.findAllTransactionsByLedgerID("someone_email@gmail.pt");
 
-        long realTransactionJpaID = realTransactions.get(0).getId();
+        PersonID personID = new PersonID(new Email("someone_email@gmail.pt"));
+
+        long realTransactionJpaID = TransactionDomainDataAssembler.toData(personID, realTransactions.get(0)).getId();
 
         int realNumberOfTransactions = realTransactions.size();
 

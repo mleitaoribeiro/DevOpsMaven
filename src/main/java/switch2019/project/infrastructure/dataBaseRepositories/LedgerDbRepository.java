@@ -3,11 +3,13 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
+import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.LedgerJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
@@ -16,6 +18,7 @@ import switch2019.project.infrastructure.jpa.TransactionJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,7 +79,7 @@ public class LedgerDbRepository implements LedgerRepository {
            ledger = createLedger(owner);
         else ledger = new Ledger (owner);
 
-        List<TransactionJpa> transactionJpaList = findAllTransactionsByLedgerID(ledger.getID().toString());
+        List<Transaction> transactionJpaList = findAllTransactionsByLedgerID(ledger.getID().toString());
 
         LedgerDomainDataAssembler.toData(ledger);
 
@@ -101,8 +104,14 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return List<TransactionJpa>
      */
 
-    public List<TransactionJpa> findAllTransactionsByLedgerID (String ledgerID) {
-        return transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+    public List<Transaction> findAllTransactionsByLedgerID (String ledgerID) {
+        List<TransactionJpa> transactionJpas = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+        List<Transaction> transactions = new ArrayList<>();
+
+        for (TransactionJpa transactionJpa : transactionJpas){
+            transactions.add(TransactionDomainDataAssembler.toDomain(transactionJpa));
+        }
+        return transactions;
     }
 
 
