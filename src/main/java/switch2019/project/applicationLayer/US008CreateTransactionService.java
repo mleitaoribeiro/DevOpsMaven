@@ -16,7 +16,6 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.*;
 import switch2019.project.utils.StringUtils;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import java.util.ArrayList;
@@ -99,25 +98,28 @@ public class US008CreateTransactionService {
                 Currency.getInstance(createGroupTransactionDTO.getCurrency()));
         Description description = new Description(createGroupTransactionDTO.getDescription());
         DateAndTime date = StringUtils.toDateHourMinute(createGroupTransactionDTO.getDate());
-        CategoryID categoryID = new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID);
-        AccountID accountFrom = new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID);
-        AccountID accountTo = new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), groupID);
+
+        CategoryID categoryID = categoryRepository.getByID
+                (new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID)).getID();
+
+        AccountID accountFrom = accountRepository.getByID
+                (new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID)).getID();
+        AccountID accountTo = accountRepository.getByID
+                (new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), groupID)).getID();
+
         Type type = new Type(createGroupTransactionDTO.getType());
 
         if (!group.isGroupMember(personID)) {
             throw new NoPermissionException("This person is not member of this group.");
-        } else if (!categoryRepository.isIDOnRepository(categoryID))  {
-            throw new ArgumentNotFoundException("No category found with that ID.");
-        } else if (!accountRepository.isIDOnRepository(accountFrom) || !accountRepository.isIDOnRepository(accountTo)) {
-            throw new ArgumentNotFoundException("No account found with that ID.");
-        }
+        } else {
             Ledger ledger = ledgerRepository.getByID(groupID);
 
             Transaction transaction = ledgerRepository.addTransactionToLedger(ledger.getID(), amount,
                     description, date, categoryID, accountFrom, accountTo, type);
 
             return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
-     }
+        }
+    }
 
     /**
      * Method that finds a transaction by it's ID
