@@ -47,12 +47,13 @@ class US008CreateTransactionServiceTest {
 
         assertEquals(expected, result);
     }
-/*
+
+
     @Test
     @DisplayName("Get Transactions By ledgerID - empty ledger")
     void getTrasactionsByLedgerIdEmptyLedger() {
 
-        String email = "bart.simpson@hotmail.com";
+        String email = "bart.simpson@gmail.com";
 
         List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
 
@@ -60,10 +61,6 @@ class US008CreateTransactionServiceTest {
 
         assertEquals(expected, result);
     }
-    
- */
-
-
 
 
     @Test
