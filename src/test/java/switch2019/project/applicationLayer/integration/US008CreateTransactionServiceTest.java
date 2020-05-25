@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
@@ -18,6 +19,7 @@ import switch2019.project.utils.customExceptions.NoPermissionException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.*;
 
 @SpringBootTest
@@ -573,22 +575,171 @@ class US008CreateTransactionServiceTest {
                 .hasMessage("No Ledger found with that ID.");
     }
 
+    /**
+     * Tests for the method: getTransactionByID
+     */
 
     @Test
-    @DisplayName("Get Transaction By ID - happy case")
-    void getTransactionByIDHappyCase() {
+    @DisplayName("Get Transaction By ID - PersonLedger - happy case")
+    void getTransactionByIDPersonLedgerHappyCase() {
 
         //Arrange
         String email = "marge@hotmail.com";
-        Long id = 1L;
+        Long id = 2L;
 
-        TransactionShortDTO transactionDTOexpected = new TransactionShortDTO
-                (100.0, Currency.getInstance("EUR"), "GOLD CARD", "IKEA", "DEBIT");
+        TransactionDTO transactionDTOexpected = new TransactionDTO
+                (50.0, Currency.getInstance("EUR"), "GROCERY FOR BAKING COOKIES",
+                        "2020-03-20 13:04", "HOUSE, marge@hotmail.com", "MASTERCARD, marge@hotmail.com",
+                        "KWIK E MART, marge@hotmail.com", "DEBIT");
 
         //Act
-        TransactionShortDTO result = service.getTransactionByID(email,id);
+        TransactionDTO result = service.getTransactionByID(email, id);
 
         //Assert
         assertEquals(transactionDTOexpected, result);
     }
+
+    @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - No Permission")
+    void getTransactionByIDPersonLedgerNoPermission() {
+
+        //Arrange
+        String email = "rick@gmail.com";
+        Long id = 2L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(email, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NoPermissionException.class)
+                .hasMessage("No permission");
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - No Person Found")
+    void getTransactionByIDPersonLedgerNoPersonFound() {
+
+        //Arrange
+        String email = "raquel@hotmail.com";
+        Long id = 2L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(email, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - No Transaction Found")
+    void getTransactionByIDPersonLedgerNoTransactionFound() {
+
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 20L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(email, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No transaction found with that ID.");
+
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - happy case")
+    void getTransactionByIDGroupLedgerHappyCase() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 7L;
+
+        TransactionDTO transactionDTOexpected = new TransactionDTO
+                (20.0, Currency.getInstance("EUR"), "SUPERBOCK ROUND 2",
+                        "2020-03-04 17:00", "ISEP, SWITCH", "POCKET MONEY, SWITCH", "AE ISEP, SWITCH", "DEBIT");
+
+        //Act
+        TransactionDTO result = service.getTransactionByID(groupDescription, id);
+
+        //Assert
+        assertEquals(transactionDTOexpected, result);
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Permission")
+    void getTransactionByIDGroupLedgerNoPermission() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 2L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NoPermissionException.class)
+                .hasMessage("No permission");
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Group Found")
+    void getTransactionByIDGroupLedgerNoGroupFound() {
+
+        //Arrange
+        String groupDescription = "GYM FRIENDS";
+        Long id = 2L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Transaction Found")
+    void getTransactionByIDGroupLedgerNoTransactionFound() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 20L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No transaction found with that ID.");
+
+    }
+
+
 }

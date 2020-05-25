@@ -3,6 +3,7 @@ package switch2019.project.applicationLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
@@ -124,7 +125,7 @@ public class US008CreateTransactionService {
      * @return TransactionShortDTO
      */
 
-    public TransactionShortDTO getTransactionByID(String ownerID, Long id) {
+    public TransactionDTO getTransactionByID(String ownerID, Long id) {
 
         String finalOwnerID;
 
@@ -135,7 +136,7 @@ public class US008CreateTransactionService {
 
         Transaction transaction = ledgerRepository.getByTransactionID(finalOwnerID, id);
 
-        return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
+        return LedgerDTOAssembler.createTransactionDTOFromDomain(transaction);
     }
 
 
