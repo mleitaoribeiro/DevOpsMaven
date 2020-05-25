@@ -141,7 +141,7 @@ public class US008CreateTransactionService {
     public List<TransactionDTO> getTransactionsByLedgerId(OwnerID ledgerID) {
         Ledger ledger = ledgerRepository.getByID(ledgerID);
 
-        List<Transaction> list = new ArrayList<>(ledger.getLedgerTransactions());
+        List<Transaction> list = ledgerRepository.findAllTransactionsByLedgerID(ledgerID.toString());
 
         List<TransactionDTO> output = new ArrayList<>();
 

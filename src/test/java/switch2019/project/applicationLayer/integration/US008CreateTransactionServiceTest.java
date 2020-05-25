@@ -34,18 +34,20 @@ class US008CreateTransactionServiceTest {
 
         List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(new Email(email)));
 
-        TransactionDTO transactionDTO = new TransactionDTO("100.00", "Bought a cheap sofa",
-                "2020-02-14 11:24", "HOUSE", "Gold Card", "IKEA", "false");
+        TransactionDTO transactionDTO = new TransactionDTO("100.0 EUR", "Bought a cheap sofa".toUpperCase(),
+                "2020-02-14 11:24", "HOUSE, marge@hotmail.com", "GOLD CARD, marge@hotmail.com",
+                "IKEA, marge@hotmail.com", "DEBIT");
 
-        TransactionDTO transactionDTO1 = new TransactionDTO("50.00", "Grocery for baking cookies",
-                "2020-03-20 13:04", "HOUSE", "MasterCard", "Kwik-E-Mart", "false");
+        TransactionDTO transactionDTO1 = new TransactionDTO("50.0 EUR", "Grocery for baking cookies".toUpperCase(),
+                "2020-03-20 13:04", "HOUSE, marge@hotmail.com", "MASTERCARD, marge@hotmail.com",
+                "KWIK E MART, marge@hotmail.com", "DEBIT");
 
-        //List<TransactionDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
-        List<TransactionDTO> expected = Collections.emptyList();
+        List<TransactionDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
+
 
         assertEquals(expected, result);
     }
-/*
+
     @Test
     @DisplayName("Get Transactions By ledgerID - empty ledger")
     void getTrasactionsByLedgerIdEmptyLedger() {
@@ -58,8 +60,8 @@ class US008CreateTransactionServiceTest {
 
         assertEquals(expected, result);
     }
-    
- */
+
+
 
 
     @Test
