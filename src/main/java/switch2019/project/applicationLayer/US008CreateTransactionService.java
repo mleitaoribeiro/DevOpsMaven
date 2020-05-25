@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-
 @Service
 public class US008CreateTransactionService {
 
@@ -45,6 +44,41 @@ public class US008CreateTransactionService {
     @Autowired
     @Qualifier("AccountDbRepository")
     private AccountRepository accountRepository;
+
+    /**
+     * US008 - I want to create a personal transaction.
+     *
+     * @param createPersonalTransactionDTO
+     * @return TransactionShortDTO
+     */
+    public TransactionShortDTO addPersonalTransaction(CreatePersonalTransactionDTO createPersonalTransactionDTO) {
+
+        PersonID personID = personRepository.findPersonByEmail(new Email(createPersonalTransactionDTO.getPersonEmail())).getID();
+        Ledger ledger = ledgerRepository.getByID(personID);
+
+        MonetaryValue amount = new MonetaryValue(createPersonalTransactionDTO.getAmount(),
+                Currency.getInstance(createPersonalTransactionDTO.getCurrency()));
+        Description description = new Description(createPersonalTransactionDTO.getDescription());
+        DateAndTime date = StringUtils.toDateHourMinute(createPersonalTransactionDTO.getDate());
+        Type type = new Type(createPersonalTransactionDTO.getType());
+
+        CategoryID category = categoryRepository.getByID
+                (new CategoryID(new Denomination(createPersonalTransactionDTO.getCategory()),
+                new PersonID(new Email(createPersonalTransactionDTO.getPersonEmail())))).getID();
+
+        AccountID accountFrom = accountRepository.getByID
+                (new AccountID(new Denomination(createPersonalTransactionDTO.getAccountFrom()),
+                new PersonID(new Email(createPersonalTransactionDTO.getPersonEmail())))).getID();
+
+        AccountID accountTo = accountRepository.getByID
+                (new AccountID(new Denomination(createPersonalTransactionDTO.getAccountTo()),
+                new PersonID(new Email(createPersonalTransactionDTO.getPersonEmail())))).getID();
+
+        Transaction transaction = ledgerRepository.addTransactionToLedger
+                (ledger.getID(), amount, description, date, category, accountFrom, accountTo, type);
+
+        return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
+    }
 
     /**
      * US008.1 - As a group member, I want to create a group transaction.
@@ -83,34 +117,6 @@ public class US008CreateTransactionService {
 
             return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
      }
-
-    /**
-     * US008 - I want to create a personal transaction.
-     *
-     * @param createPersonalTransactionDTO
-     * @return TransactionShortDTO
-     */
-    public TransactionShortDTO addPersonalTransaction(CreatePersonalTransactionDTO createPersonalTransactionDTO) {
-
-        PersonID personID = personRepository.findPersonByEmail(new Email(createPersonalTransactionDTO.getPersonEmail())).getID();
-        Ledger ledger = ledgerRepository.getByID(personID);
-
-        MonetaryValue amount = new MonetaryValue(createPersonalTransactionDTO.getAmount(),
-                Currency.getInstance(createPersonalTransactionDTO.getCurrency()));
-        Description description = new Description(createPersonalTransactionDTO.getDescription());
-        DateAndTime date = StringUtils.toDateHourMinute(createPersonalTransactionDTO.getDate());
-        CategoryID category = new CategoryID(new Denomination(createPersonalTransactionDTO.getCategory()), personID);
-        AccountID accountFrom = new AccountID(new Denomination(createPersonalTransactionDTO.getAccountFrom()), personID);
-        AccountID accountTo = new AccountID(new Denomination(createPersonalTransactionDTO.getAccountTo()), personID);
-        Type type = new Type(createPersonalTransactionDTO.getType());
-
-        // TODO change return variable
-        ledgerRepository.addTransactionToLedger(ledger.getID(), amount, description, date, category, accountFrom, accountTo, type);
-        // temporary
-        Transaction transaction = new Transaction(amount, description, date, category, accountFrom, accountTo, type);
-
-        return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
-    }
 
     /**
      * Method that finds a transaction by it's ID

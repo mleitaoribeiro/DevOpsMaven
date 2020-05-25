@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Description;
@@ -19,12 +20,182 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
-
 @SpringBootTest
 class US008CreateTransactionServiceTest {
 
     @Autowired
     private US008CreateTransactionService service;
+
+    /**
+     * Tests for addPersonalTransaction
+     */
+
+    @Test
+    @DisplayName("addPersonalTransaction - Happy Case")
+    void addPersonalTransactionHappyCase() {
+
+        // Arrange
+        String personEmail = "marge@hotmail.com";
+        Double amount = 10.50;
+        Currency currency = Currency.getInstance("EUR");
+        String date = "2020-05-25 15:50";
+        String category = "HOUSE";
+        String accountFrom = "MasterCard";
+        String accountTo = "Homer Snacks";
+        String type = "debit";
+
+        TransactionShortDTO transactionShortDTOExpected =
+                new TransactionShortDTO(amount, currency, accountFrom.toUpperCase(), accountTo.toUpperCase(), type.toUpperCase());
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
+                (personEmail, amount, currency.toString(), "beers", date, category, accountFrom, accountTo, type);
+
+        // Act
+        TransactionShortDTO transactionShortDTO = service.addPersonalTransaction(createPersonalTransactionDTO);
+
+        // Assert
+        assertEquals(transactionShortDTOExpected, transactionShortDTO);
+    }
+
+    @Test
+    @DisplayName("addPersonalTransaction - Person not found")
+    void addPersonalTransactionPersonNotFound() {
+
+        // Arrange
+        String personEmail = "pinheiro@hotmail.com";
+        Double amount = 10.50;
+        String currency = "EUR";
+        String date = "2020-05-25 15:50";
+        String category = "HOUSE";
+        String accountFrom = "MasterCard";
+        String accountTo = "Homer Snacks";
+        String type = "debit";
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
+                (personEmail, amount, currency, "beers", date, category, accountFrom, accountTo, type);
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addPersonalTransaction(createPersonalTransactionDTO);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("addPersonalTransaction - Negative monetary value")
+    void addPersonalTransactionNegativeMonetaryValue() {
+
+        // Arrange
+        String personEmail = "marge@hotmail.com";
+        Double amount = -10.50;
+        String currency = "EUR";
+        String date = "2020-05-25 15:50";
+        String category = "HOUSE";
+        String accountFrom = "MasterCard";
+        String accountTo = "Homer Snacks";
+        String type = "debit";
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
+                (personEmail, amount, currency, "beers", date, category, accountFrom, accountTo, type);
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addPersonalTransaction(createPersonalTransactionDTO);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The monetary value cannot be negative.");
+    }
+
+    @Test
+    @DisplayName("addPersonalTransaction - Null Description")
+    void addPersonalTransactionNullDescription() {
+
+        // Arrange
+        String personEmail = "marge@hotmail.com";
+        Double amount = 10.50;
+        String currency = "EUR";
+        String date = "2020-05-25 15:50";
+        String category = "HOUSE";
+        String accountFrom = "MasterCard";
+        String accountTo = "Homer Snacks";
+        String type = "debit";
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
+                (personEmail, amount, currency, null, date, category, accountFrom, accountTo, type);
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addPersonalTransaction(createPersonalTransactionDTO);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("addPersonalTransaction - Category doesn't exist")
+    void addPersonalTransactionCategoryDoesntExist() {
+
+        // Arrange
+        String personEmail = "marge@hotmail.com";
+        Double amount = 10.50;
+        String currency = "EUR";
+        String date = "2020-05-25 15:50";
+        String category = "SPORTS";
+        String accountFrom = "MasterCard";
+        String accountTo = "Homer Snacks";
+        String type = "debit";
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
+                (personEmail, amount, currency, "beers", date, category, accountFrom, accountTo, type);
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addPersonalTransaction(createPersonalTransactionDTO);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No category found with that ID.");
+    }
+
+    @Test
+    @DisplayName("addPersonalTransaction - Account doesn't exist")
+    void addPersonalTransactionAccountDoesntExist() {
+
+        // Arrange
+        String personEmail = "marge@hotmail.com";
+        Double amount = 10.50;
+        String currency = "EUR";
+        String date = "2020-05-25 15:50";
+        String category = "HOUSE";
+        String accountFrom = "Decatlhon";
+        String accountTo = "Homer Snacks";
+        String type = "debit";
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
+                (personEmail, amount, currency, "beers", date, category, accountFrom, accountTo, type);
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.addPersonalTransaction(createPersonalTransactionDTO);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No account found with that ID.");
+    }
 
     /**
      * US008.1 - Test if Group Transaction is created
@@ -46,17 +217,17 @@ class US008CreateTransactionServiceTest {
         String accountTo = "AE ISEP";
         String type = "DEBIT";
 
-
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount, currency, date, description, category, accountFrom, accountTo, type);
 
-        TransactionShortDTO expectedTransaction = new TransactionShortDTO(amount, Currency.getInstance("EUR"), accountFrom, accountTo, type);
+        TransactionShortDTO expectedTransaction = new TransactionShortDTO
+                (amount, Currency.getInstance("EUR"), accountFrom, accountTo, type);
 
         //Act
         TransactionShortDTO transactionCreated = service.addGroupTransaction(createGroupTransactionDTO);
 
         //Assert
-       // assertEquals(expectedTransaction, transactionCreated);
+        assertEquals(expectedTransaction, transactionCreated);
     }
 
     @Test
@@ -74,7 +245,6 @@ class US008CreateTransactionServiceTest {
         String accountFrom = "POCKET MONEY";
         String accountTo = "AE ISEP";
         String type = "DEBIT";
-
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
@@ -106,7 +276,6 @@ class US008CreateTransactionServiceTest {
         String accountTo = "AE ISEP";
         String type = "DEBIT";
 
-
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
 
@@ -136,7 +305,6 @@ class US008CreateTransactionServiceTest {
         String accountFrom = "POCKET MONEY";
         String accountTo = "AE ISEP";
         String type = "DEBIT";
-
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
@@ -168,7 +336,6 @@ class US008CreateTransactionServiceTest {
         String accountTo = "AE ISEP";
         String type = "DEBIT";
 
-
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
 
@@ -198,7 +365,6 @@ class US008CreateTransactionServiceTest {
         String accountFrom = "POCKET MONEY";
         String accountTo = "AE ISEP";
         String type = "DEBIT";
-
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
@@ -230,7 +396,6 @@ class US008CreateTransactionServiceTest {
         String accountTo = "AE ISEP";
         String type = "DEBIT";
 
-
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
 
@@ -260,7 +425,6 @@ class US008CreateTransactionServiceTest {
         String accountFrom = "AE ISEP";
         String accountTo = "REVOLUT";
         String type = "DEBIT";
-
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount1, currency, date, description, category, accountFrom, accountTo, type);
@@ -310,18 +474,18 @@ class US008CreateTransactionServiceTest {
      * Test to get Transactions by LedgerId
      */
 
-/*    @Test
+    @Test
     @DisplayName("Get Transactions By ledgerID - happy case")
     void getTransactionsByLedgerIdHappyCase() {
 
         //Arrange
         String email = "marge@hotmail.com";
 
-        TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("Eur"),
-                "GOLD CARD", "IKEA", "CREDIT");
+        TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
+                "GOLD CARD", "IKEA", "DEBIT");
 
-        TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0, Currency.getInstance("Eur"),
-                "MASTERCARD", "KWIK E MART", "CREDIT");
+        TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0, Currency.getInstance("EUR"),
+                "MASTERCARD", "KWIK E MART", "DEBIT");
 
         List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
@@ -329,8 +493,8 @@ class US008CreateTransactionServiceTest {
         List<TransactionShortDTO> result = service.getTransactionsByLedgerId(email);
 
         //Assert
-        //assertEquals(expected, result);
-    }*/
+        // assertEquals(expected, result);
+    }
 
 
     @Test
@@ -418,8 +582,8 @@ class US008CreateTransactionServiceTest {
         String email = "marge@hotmail.com";
         Long id = 1L;
 
-        TransactionShortDTO transactionDTOexpected = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
-                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "DEBIT");
+        TransactionShortDTO transactionDTOexpected = new TransactionShortDTO
+                (100.0, Currency.getInstance("EUR"), "GOLD CARD", "IKEA", "DEBIT");
 
         //Act
         TransactionShortDTO result = service.getTransactionByID(email,id);
@@ -427,6 +591,4 @@ class US008CreateTransactionServiceTest {
         //Assert
         assertEquals(transactionDTOexpected, result);
     }
-
-
 }
