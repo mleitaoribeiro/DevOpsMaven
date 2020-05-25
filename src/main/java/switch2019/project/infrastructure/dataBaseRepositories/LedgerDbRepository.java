@@ -74,9 +74,7 @@ public class LedgerDbRepository implements LedgerRepository {
 
         if (!isIDOnRepository(ledgerID))
            ledger = createLedger(owner);
-        else ledger = new Ledger (owner);
-
-        List<TransactionJpa> transactionJpaList = findAllTransactionsByLedgerID(ledger.getID().toString());
+        else ledger = getByID(owner);
 
         LedgerDomainDataAssembler.toData(ledger);
 
