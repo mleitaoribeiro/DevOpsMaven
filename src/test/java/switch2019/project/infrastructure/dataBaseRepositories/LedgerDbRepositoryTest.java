@@ -23,10 +23,7 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Currency;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -172,35 +169,37 @@ class LedgerDbRepositoryTest {
      * Test if all transactions can be found by Ledger ID
      */
 
-    /*
     @Test
     @DisplayName("Test if all transactions can be found by Ledger ID - Yes")
     void findAllTransactionsByLedgerID() {
 
         //Arrange
 
-        long expectedTransactionJpaID = 9;
+        Category someoneCategory = new Category (new Denomination ("Someone Category"), someone.getID());
+        Account someoneAccount1 = new Account(new Denomination("Account1"), new Description("Account 1"), someone.getID());
+        Account someoneAccount2 = new Account(new Denomination("Account2"), new Description("Account 2"), someone.getID());
+
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(2, Currency.getInstance("EUR")),
+                new Description("XPTO"), date, someoneCategory.getID(), someoneAccount1.getID(), someoneAccount2.getID(), new Type(true));
+
+        List <Transaction> expectedTransactionsList = new ArrayList<>(Collections.singletonList(expectedTransaction));
 
         int expectedNumberOfTransactions = 1;
 
         //Act
-        List<Transaction> realTransactions = ledgerDbRepository.findAllTransactionsByLedgerID("someone_email@gmail.pt");
+        List<Transaction> realTransactionsList = ledgerDbRepository.findAllTransactionsByLedgerID("someone_email@gmail.pt");
 
-        PersonID personID = new PersonID(new Email("someone_email@gmail.pt"));
-
-        long realTransactionJpaID = TransactionDomainDataAssembler.toData(personID, realTransactions.get(0)).getId();
-
-        int realNumberOfTransactions = realTransactions.size();
+        int realNumberOfTransactions = realTransactionsList.size();
 
         //Assert
         Assertions.assertAll(
-                () -> assertEquals(expectedTransactionJpaID, realTransactionJpaID),
-                () -> assertEquals(expectedNumberOfTransactions, realNumberOfTransactions)
+                () -> assertEquals(expectedTransactionsList,realTransactionsList),
+                () -> assertEquals(expectedNumberOfTransactions,realNumberOfTransactions)
         );
 
     }
 
-     */
 
 
     /**

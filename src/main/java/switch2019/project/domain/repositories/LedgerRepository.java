@@ -65,7 +65,6 @@ public interface LedgerRepository extends Repository {
     Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
                                        CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
-
     List<Transaction> findAllTransactionsByLedgerID(String ownerID);
 }
 

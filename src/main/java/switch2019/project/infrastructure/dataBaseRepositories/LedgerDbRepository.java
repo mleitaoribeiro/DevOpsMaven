@@ -111,7 +111,6 @@ public class LedgerDbRepository implements LedgerRepository {
             Transaction convertedTransaction = TransactionDomainDataAssembler.toDomain(transactionJpa);
             transactionsList.add(convertedTransaction);
         }
-
         return transactionsList;
     }
 
