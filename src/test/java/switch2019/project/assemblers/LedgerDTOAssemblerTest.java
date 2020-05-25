@@ -142,8 +142,8 @@ class LedgerDTOAssemblerTest {
                 new Type(true));
 
         //Arrange the expected TransactionShortDTO
-        TransactionShortDTO expected = new TransactionShortDTO (monetaryValue.getAmount(), monetaryValue.getCurrency(), accountFrom.toString(),
-                accountTo.toString(), "CREDIT");
+        TransactionShortDTO expected = new TransactionShortDTO (monetaryValue.getAmount(), monetaryValue.getCurrency(),
+                accountFrom.getDenominationToString(), accountTo.getDenominationToString(), "CREDIT");
 
         //Act
         //Create the actual TransactionShortDTO

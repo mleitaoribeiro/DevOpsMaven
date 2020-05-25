@@ -29,10 +29,10 @@ public class TransactionShortDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TransactionShortDTO)) return false;
         TransactionShortDTO that = (TransactionShortDTO) o;
         return Objects.equals(amount, that.amount) &&
-                currency.equals(that.currency) &&
+                Objects.equals(currency, that.currency) &&
                 Objects.equals(accountFrom, that.accountFrom) &&
                 Objects.equals(accountTo, that.accountTo) &&
                 Objects.equals(type, that.type);

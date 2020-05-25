@@ -58,10 +58,10 @@ public class US008CreateTransactionServiceUnitTest {
         PersonID personID = new PersonID(new Email(email));
 
         TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
-                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "CREDIT");
+                "GOLD CARD", "IKEA", "CREDIT");
 
         TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0,  Currency.getInstance("EUR"),
-                "MASTERCARD, marge@hotmail.com", "KWIK E MART, marge@hotmail.com", "CREDIT");
+                "MASTERCARD", "KWIK E MART", "CREDIT");
 
         List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
@@ -136,7 +136,4 @@ public class US008CreateTransactionServiceUnitTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
     }
-
-
-
 }
