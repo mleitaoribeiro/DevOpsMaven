@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
+import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
@@ -56,15 +57,13 @@ public class US008CreateTransactionServiceUnitTest {
 
         PersonID personID = new PersonID(new Email(email));
 
-        TransactionDTO transactionDTO = new TransactionDTO("100.0 EUR", "Bought a cheap sofa".toUpperCase(),
-                "2020-02-14 11:24", "HOUSE, marge@hotmail.com", "GOLD CARD, marge@hotmail.com",
-                "IKEA, marge@hotmail.com", "DEBIT");
+        TransactionShortDTO transactionDTO = new TransactionShortDTO("100.0 EUR",
+                "GOLD CARD, marge@hotmail.com", "IKEA, marge@hotmail.com", "DEBIT");
 
-        TransactionDTO transactionDTO1 = new TransactionDTO("50.0 EUR", "Grocery for baking cookies".toUpperCase(),
-                "2020-03-20 13:04", "HOUSE, marge@hotmail.com", "MASTERCARD, marge@hotmail.com",
-                "KWIK E MART, marge@hotmail.com", "DEBIT");
+        TransactionShortDTO transactionDTO1 = new TransactionShortDTO("50.0 EUR",
+                "MASTERCARD, marge@hotmail.com", "KWIK E MART, marge@hotmail.com", "DEBIT");
 
-        List<TransactionDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
+        List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
         Transaction transaction = new Transaction(new MonetaryValue(100.00,
                 Currency.getInstance("EUR")), new Description("Bought a cheap sofa"), new DateAndTime(2020,
@@ -86,8 +85,7 @@ public class US008CreateTransactionServiceUnitTest {
                 thenReturn(transactions);
 
         //Act
-        List<TransactionDTO> result = service.getTransactionsByLedgerId(new PersonID(
-                new Email(email)));
+        List<TransactionShortDTO> result = service.getTransactionsByLedgerId(email);
 
         //Assert
         assertEquals(expected, result);
@@ -101,17 +99,15 @@ public class US008CreateTransactionServiceUnitTest {
         //Arrange
         String email = "bart.simpson@gmail.com";
 
-        PersonID personID = new PersonID(new Email(email));
-
         List <Transaction> transactions = Collections.emptyList();
 
-        List <TransactionDTO> expected = Collections.emptyList();
+        List <TransactionShortDTO> expected = Collections.emptyList();
 
         Mockito.when(ledgerRepository.findAllTransactionsByLedgerID(email)).
                 thenReturn(transactions);
 
         //Act
-        List<TransactionDTO> result = service.getTransactionsByLedgerId(personID);
+        List<TransactionShortDTO> result = service.getTransactionsByLedgerId(email);
 
         //Assert
         assertEquals(expected, result);
@@ -132,7 +128,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            service.getTransactionsByLedgerId(personID);
+            service.getTransactionsByLedgerId(personID.toString());
         });
 
         //Assert

@@ -122,15 +122,14 @@ public class US008CreateTransactionService {
      * @return TransactionDTO
      */
 
-    public List<TransactionDTO> getTransactionsByLedgerId(OwnerID ledgerID) {
+    public List<TransactionShortDTO> getTransactionsByLedgerId(String ledgerID) {
 
-        List<Transaction> list = ledgerRepository.findAllTransactionsByLedgerID(
-                ledgerID.toString());
+        List<Transaction> list = ledgerRepository.findAllTransactionsByLedgerID(ledgerID);
 
-        List<TransactionDTO> output = new ArrayList<>();
+        List<TransactionShortDTO> output = new ArrayList<>();
 
         for (Transaction transaction : list) {
-            output.add(LedgerDTOAssembler.createTransactionDTOFromDomain(transaction));
+            output.add(LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction));
         }
 
         return output;
