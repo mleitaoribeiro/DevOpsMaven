@@ -81,7 +81,7 @@ public class LedgerInMemoryRepository implements LedgerRepository {
      *
      * Method to Add Transactions to Ledger
      *
-     * @param ledger
+     * @param ledgerID
      * @param amount
      * @param description
      * @param localDate
@@ -92,12 +92,13 @@ public class LedgerInMemoryRepository implements LedgerRepository {
      * @return boolen
      */
 
-    public boolean addTransactionToLedger(Ledger ledger, MonetaryValue amount, Description description, DateAndTime localDate,
+    public boolean addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
                                    CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
-        if (isIDOnRepository(ledger.getID()))
+        if (isIDOnRepository(ledgerID)) {
+            Ledger ledger = getByID(ledgerID);
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
-        return false;
+        } else  return false;
     }
 
 

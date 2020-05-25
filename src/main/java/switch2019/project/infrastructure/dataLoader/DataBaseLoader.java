@@ -623,39 +623,39 @@ public class DataBaseLoader {
         //Transactions
         //Marge Transactions
         //Ikea shopping
-        ledgerDbRepository.addTransactionToLedger(margeLedger, new MonetaryValue(100.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(100.00, Currency.getInstance("EUR")),
                 new Description("Bought a cheap sofa"), new DateAndTime(2020, 2, 14, 11, 24),
                 margeHouseCategory.getID(), margeGoldCardAccount.getID(), margeIkeaAccount.getID(), new Type(false) );
 
         //Supermarket shopping
-        ledgerDbRepository.addTransactionToLedger(margeLedger, new MonetaryValue(50.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Grocery for baking cookies"), new DateAndTime(2020, 3, 20, 13, 04),
                 margeHouseCategory.getID(), margeMasterCardAccount.getID(), margeSupermaketAccount.getID(), new Type(false) );
 
         //Marta Transactions
         //Gym subscription payment
-        ledgerDbRepository.addTransactionToLedger(martaLedger, new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("Monthly subscription"), new DateAndTime(2020, 5, 13, 17, 00),
                 martaSportCategory.getID(), martaMoeyAccount.getID(), martaFitnessUpAccount.getID(), new Type(false) );
 
         //Decathlon Payment
-        ledgerDbRepository.addTransactionToLedger(martaLedger, new MonetaryValue(150.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(150.00, Currency.getInstance("EUR")),
                 new Description("Bought dumbbells"), new DateAndTime(2020, 4, 13, 18, 15),
                 martaSportCategory.getID(), martaMoeyAccount.getID(), martaDecathlonAccount.getID(), new Type(false));
 
         //Family Cardoso
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(50.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Netflix subscritption"), new DateAndTime(2020, 5, 4, 22, 00),
                 cardososHouseCategory.getID(), familyCardosoRevolutAccount.getID(), familyCardosoNetflixAccount.getID(), new Type(false));
 
         //Switch
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(10.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(10.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 1"), new DateAndTime(2020, 3, 4, 18, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 2"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder, new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 3"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
     }
