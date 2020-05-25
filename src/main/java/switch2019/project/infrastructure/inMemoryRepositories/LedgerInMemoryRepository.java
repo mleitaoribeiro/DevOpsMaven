@@ -96,13 +96,14 @@ public class LedgerInMemoryRepository implements LedgerRepository {
      * @return boolen
      */
 
-    public boolean addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
-                                   CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
+    public Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
+                                              CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
         if (isIDOnRepository(ledgerID)) {
             Ledger ledger = getByID(ledgerID);
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
-        } else  return false;
+        }
+        else throw new ArgumentNotFoundException("No Ledger found with that ID.");
     }
 
 

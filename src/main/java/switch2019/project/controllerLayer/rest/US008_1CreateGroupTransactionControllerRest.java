@@ -30,7 +30,7 @@ public class US008_1CreateGroupTransactionControllerRest {
      * @return
      */
 
-    @PostMapping("/groups/{groupDescription}/ledger")
+   /* @PostMapping("/groups/{groupDescription}/ledger")
     public ResponseEntity<TransactionShortDTO> createGroupTransaction(@PathVariable String groupDescription,@RequestBody CreateTransactionInfoDTO info){
 
 
@@ -47,6 +47,8 @@ public class US008_1CreateGroupTransactionControllerRest {
 //        result.add(selfLink);
         return new ResponseEntity<>( result,HttpStatus.CREATED);
     }
+
+    */
 
 }
 

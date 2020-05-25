@@ -1,5 +1,6 @@
 package switch2019.project.domain.domainEntities.ledger;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.category.Category;
@@ -36,12 +37,15 @@ class LedgerTest {
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledger = new Ledger(ownerID);
 
+        Transaction expected = new Transaction(monetaryValue, new Description("payment"),
+                null, category, account1, account2, new Type(true));
+
         //Act
-        boolean result = ledger.addTransactionToLedger(monetaryValue, new Description("payment"),
+        Transaction result = ledger.addTransactionToLedger(monetaryValue, new Description("payment"),
                 null, category, account1, account2, new Type(true));
 
         //Assert
-        assertTrue(result);
+        assertEquals(expected,result);
     }
 
     /**
@@ -63,14 +67,21 @@ class LedgerTest {
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledger = new Ledger(ownerID);
 
-        //Act
-        boolean addedTransaction1 = ledger.addTransactionToLedger(monetaryValue, new Description("payment"),
+        Transaction expectedTransaction1 = new Transaction(monetaryValue, new Description("payment"),
                 null, category1, account1, account2, new Type(true));
-        boolean addedTransaction2 = ledger.addTransactionToLedger(monetaryValue, new Description("payment"),
+        Transaction expectedTransaction2 = new Transaction( monetaryValue, new Description("payment"),
+                null, category2, account1, account2, new Type(true));
+        //Act
+        Transaction addedTransaction1 = ledger.addTransactionToLedger(monetaryValue, new Description("payment"),
+                null, category1, account1, account2, new Type(true));
+        Transaction addedTransaction2 = ledger.addTransactionToLedger(monetaryValue, new Description("payment"),
                 null, category2, account1, account2, new Type(true));
 
         //Assert
-        assertTrue(addedTransaction1 && addedTransaction2);
+        Assertions.assertAll(
+                () -> assertEquals(expectedTransaction1,addedTransaction1),
+                () -> assertEquals(expectedTransaction2,addedTransaction2)
+        );
     }
 
     /**
