@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
@@ -21,6 +20,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.*;
@@ -341,6 +341,156 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No Ledger found with that ID.");
 
     }
+
+    /**
+     * Tests to get the transaction by it´s ID
+     */
+
+    @Test
+    @DisplayName("Test to get Transaction by it's ID - Personal Transaction - Happy Case")
+    void getTransactionByIDPersonalTransactionHappyCase() {
+
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 2L;
+
+        PersonID personID = new PersonID(new Email(email));
+
+        Category category= new Category (new Denomination ("HOUSE"), personID );
+
+        Account accountFrom = new Account (new Denomination("MASTERCARD"),
+                new Description("For daily expenses"), personID);
+        Account accountTo = new Account(new Denomination("Kwik-E-Mart"),
+                new Description("Food and Grocery") , personID);
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(50.0, Currency.getInstance("EUR")),
+                new Description("GROCERY FOR BAKING COOKIES"),
+                new DateAndTime(2020,03,20,13,04),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        //Act
+        Transaction transaction = ledgerDbRepository.getTransactionByID(email,id);
+
+        //Assert
+        assertEquals(expectedTransaction, transaction);
+
+    }
+
+    @Test
+    @DisplayName("Test to get Transaction by it's ID - Personal Transaction - No Permission")
+    void getTransactionByIDPersonalTransactionNoPermission() {
+
+        //Arrange
+        String email = "summer@gmail.com";
+        Long id = 2L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.getTransactionByID(email, id);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NoPermissionException.class)
+                .hasMessage("No permission.");
+
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - No Transaction Found")
+    void getTransactionByIDPersonLedgerNoTransactionFound() {
+
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 20L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.getTransactionByID(email, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No transaction found with that ID.");
+
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - happy case")
+    void getTransactionByIDGroupLedgerHappyCase() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 7L;
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+
+        Category category= new Category (new Denomination ("ISEP"), groupID);
+
+        Account accountFrom = new Account (new Denomination("Pocket Money"),
+                new Description("Pocket Money for Superbock"), groupID);
+        Account accountTo = new Account(new Denomination("AE ISEP"),
+                new Description("AE BAR ISEP") , groupID);
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020,03,04,17,00),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        //Act
+        Transaction result = ledgerDbRepository.getTransactionByID(groupDescription, id);
+
+        //Assert
+        assertEquals(expectedTransaction, result);
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Permission")
+    void getTransactionByIDGroupLedgerNoPermission() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 2L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NoPermissionException.class)
+                .hasMessage("No permission.");
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Transaction Found")
+    void getTransactionByIDGroupLedgerNoTransactionFound() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 20L;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerDbRepository.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No transaction found with that ID.");
+
+    }
+
+
 
 
     /**

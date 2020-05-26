@@ -34,7 +34,7 @@ public interface LedgerRepository extends Repository {
      * @return
      */
 
-    Transaction getByTransactionID(String ownerID, Long id);
+    Transaction getTransactionByID(String ownerID, Long id);
 
 
     boolean isIDOnRepository(ID ledgerID);

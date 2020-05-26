@@ -136,7 +136,7 @@ public class US008CreateTransactionService {
         } else
             finalOwnerID = groupsRepository.findGroupByDescription(new Description(ownerID)).getID().toString();
 
-        Transaction transaction = ledgerRepository.getByTransactionID(finalOwnerID, id);
+        Transaction transaction = ledgerRepository.getTransactionByID(finalOwnerID, id);
 
         return LedgerDTOAssembler.createTransactionDTOFromDomain(transaction);
     }

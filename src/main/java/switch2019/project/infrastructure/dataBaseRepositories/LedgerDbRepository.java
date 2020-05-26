@@ -38,9 +38,9 @@ public class LedgerDbRepository implements LedgerRepository {
     private static final String LEDGER_ALREADY_EXISTS = "This Ledger already exists.";
     private static final String NO_LEDGER_FOUND = "No Ledger found with that ID.";
     private static final String NO_TRANSACTION_FOUND = "No transaction found with that ID.";
+    private static final String NO_PERMISSION = "No permission.";
 
     /**
-     *
      * Create/Add a new Ledger
      *
      * @param ownerID
@@ -57,7 +57,6 @@ public class LedgerDbRepository implements LedgerRepository {
     }
 
     /**
-     *
      * Method to add a new Transaction to ledgerJpa
      *
      * @param ledgerID
@@ -79,7 +78,7 @@ public class LedgerDbRepository implements LedgerRepository {
         Ledger ledger;
 
         if (!isIDOnRepository(ledgerID.getOwnerID()))
-           ledger = createLedger(owner);
+            ledger = createLedger(owner);
         else ledger = getByID(owner);
 
         LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
@@ -94,7 +93,6 @@ public class LedgerDbRepository implements LedgerRepository {
     }
 
     /**
-     *
      * Method to find all transactions by Ledger ID
      *
      * @param ledgerID
@@ -125,7 +123,6 @@ public class LedgerDbRepository implements LedgerRepository {
     }
 
     /**
-     *
      * Method to find all transactions
      *
      * @return List<TransactionJpa>
@@ -137,7 +134,6 @@ public class LedgerDbRepository implements LedgerRepository {
 
 
     /**
-     *
      * Find a Ledger by it´s ID
      *
      * @param owner
@@ -156,40 +152,39 @@ public class LedgerDbRepository implements LedgerRepository {
      * Find a Transaction by it´s ID
      *
      * @param ownerId
-     * @return Transaction
+     * @param id
+     * @return
      */
 
-    public Transaction getByTransactionID(String ownerId, Long id) {
+    public Transaction getTransactionByID(String ownerId, Long id) {
         Optional<TransactionJpa> transactionJpa = transactionJpaRepository.findById(id);
         if (transactionJpa.isPresent()) {
             if (transactionJpa.get().getLedgerIdJpaToString().equals(ownerId)) {
                 return TransactionDomainDataAssembler.toDomain(transactionJpa.get());
-            } else throw new NoPermissionException("No permission");
+            } else throw new NoPermissionException(NO_PERMISSION);
 
         } else throw new ArgumentNotFoundException(NO_TRANSACTION_FOUND);
     }
 
-        /**
-         *
-         * Method to validate if the ledger is in the ledger Repository
-         *
-         * @param ledgerID
-         * @return boolean
-         */
+    /**
+     * Method to validate if the ledger is in the ledger Repository
+     *
+     * @param ledgerID
+     * @return boolean
+     */
 
-    public boolean isIDOnRepository (ID ledgerID){
+    public boolean isIDOnRepository(ID ledgerID) {
         Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(ledgerID.toString());
         return ledgerJpa.isPresent();
     }
 
     /**
-     *
      * Method to get the number of Ledgers in the Repository
      *
      * @return long
      */
 
-    public long repositorySize () {
+    public long repositorySize() {
         return ledgerJpaRepository.count();
     }
 
