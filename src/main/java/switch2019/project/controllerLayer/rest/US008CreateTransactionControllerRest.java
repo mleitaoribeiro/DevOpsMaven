@@ -57,7 +57,7 @@ public class US008CreateTransactionControllerRest {
      * @return
      */
 
- @PostMapping("/groups/{groupDescription}/ledger")
+    @PostMapping("/groups/{groupDescription}/ledger")
     public ResponseEntity<TransactionShortDTO> createGroupTransaction(@PathVariable String groupDescription,@RequestBody CreateTransactionInfoDTO info){
 
 
@@ -77,16 +77,40 @@ public class US008CreateTransactionControllerRest {
 
     /**
      * Get transactions by Id
-     * @param ownerID, id
+     *
+     * @param personId
+     * @param id
      * @return transactionsDTO
      */
+    @GetMapping(value = "persons/{personId}/ledger/transactions/{id}")
+    public ResponseEntity<Object> getPersonTransactionByID (@PathVariable final String personId, @PathVariable final Long id) {
+
+        //Instancing the TransactionDto:
+        TransactionDTO transactionDTO = service.getTransactionByID(personId, id);
+
+        //Returning the TransactionDTO and the HTTP status as a ResponseEntity
+        return new ResponseEntity<>(transactionDTO, HttpStatus.OK);
+    }
 
 
     /**
      * Get all transactions by Owner Id
-     * @param personId
+     *
+     * @param groupId
+     * @param id
      * @return List<TransactionShortDTO>
      */
+    @GetMapping(value = "groups/{groupId}/ledger/transactions/{id}")
+    public ResponseEntity<Object> getGroupTransactionByID (@PathVariable final String groupId, @PathVariable final Long id) {
+
+        //Instancing the TransactionDto:
+        TransactionDTO transactionDTO = service.getTransactionByID(groupId, id);
+
+        //Returning the TransactionDTO and the HTTP status as a ResponseEntity
+        return new ResponseEntity<>(transactionDTO, HttpStatus.OK);
+    }
+
+
 
     @GetMapping(value = "persons/{personId}/ledger/transactions")
     public ResponseEntity<Object> getPersonsTransactionsByLedgerId (@PathVariable final String personId) {
