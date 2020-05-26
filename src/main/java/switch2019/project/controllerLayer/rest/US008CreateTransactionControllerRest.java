@@ -55,7 +55,6 @@ public class US008CreateTransactionControllerRest {
      */
 
 
-
     /**
      * Get all transactions by Owner Id
      * @param personId
@@ -65,8 +64,8 @@ public class US008CreateTransactionControllerRest {
     @GetMapping(value = "persons/{personId}/ledger/transactions")
     public ResponseEntity<Object> getPersonsTransactionsByLedgerId (@PathVariable final String personId) {
         List<TransactionShortDTO> allTransactions = service.getTransactionsByLedgerId(personId);
-/*
-        for(TransactionShortDTO transaction : allTransactions) {
+
+       /* for(TransactionShortDTO transaction : allTransactions) {
             Link selfLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
                     .getPersonTransactionByID(personId, transaction.getId()))
                     .withSelfRel();
@@ -78,8 +77,8 @@ public class US008CreateTransactionControllerRest {
     @GetMapping(value = "groups/{groupId}/ledger/transactions")
     public ResponseEntity<Object>  getGroupTransactionsByLedgerId (@PathVariable final String groupId) {
         List<TransactionShortDTO> allTransactions = service.getTransactionsByLedgerId(groupId);
-    /*
-        for(TransactionShortDTO transaction : allTransactions) {
+
+       /* for(TransactionShortDTO transaction : allTransactions) {
             Link selfLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
                     .getGroupTransactionByID(groupId, transaction.getId()))
                     .withSelfRel();
