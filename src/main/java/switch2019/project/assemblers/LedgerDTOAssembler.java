@@ -46,8 +46,8 @@ public class LedgerDTOAssembler {
      */
     public static TransactionDTO createTransactionDTOFromDomain(Transaction transaction) {
         return new TransactionDTO(transaction.getAmount(), transaction.getCurrency(), transaction.getDescription().toString(),
-                transaction.dateToString(), transaction.categoryToString(), transaction.getAccountFrom().toString(),
-                transaction.getAccountTo().toString(), transaction.typeToString());
+                transaction.dateToString(), transaction.getCategoryID().getDenominationString(), transaction.getAccountFrom().getDenominationToString(),
+                transaction.getAccountTo().getDenominationToString(), transaction.typeToString());
     }
 
     /**
@@ -60,7 +60,8 @@ public class LedgerDTOAssembler {
 
         return new TransactionShortDTO (transaction.getAmount(),transaction.getCurrency(),
                 transaction.getAccountFrom().getDenominationToString(),
-                transaction.getAccountTo().getDenominationToString(), transaction.typeToString());
+                transaction.getAccountTo().getDenominationToString(),
+                transaction.typeToString(), transaction.getId());
     }
 
 }
