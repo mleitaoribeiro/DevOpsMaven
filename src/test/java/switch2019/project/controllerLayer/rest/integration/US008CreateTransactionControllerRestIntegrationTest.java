@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class US008_1CreateGroupTransactionControllerRestIntegrationTest extends AbstractTest {
+class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Override
     @BeforeEach
@@ -113,6 +113,19 @@ class US008_1CreateGroupTransactionControllerRestIntegrationTest extends Abstrac
                 () -> assertEquals("POST method is not supported for this request. Supported methods are GET ", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
+
+    /**
+     * Test getTransactionsByID
+     */
+
+
+
+
+    /**
+     * Test getTransactionsByLedgerID
+     */
+
+
+
 }
