@@ -2,7 +2,6 @@ package switch2019.project.domain.domainEntities.ledger;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.dataModel.entities.LedgerIdJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -21,7 +20,7 @@ class TransactionTest {
     /**
      * Test to see if two transactions are the equals
      */
-
+/*
     @Test
     @DisplayName("Test if two transactions are the equals - true")
     public void testIfTwoTransactionsAreEqualsTrue() {
@@ -43,8 +42,9 @@ class TransactionTest {
 
         //Assert
         assertEquals(true, result);
+        }
+*/
 
-    }
     @Test
     @DisplayName("Test if two transactions are the same - true")
 
