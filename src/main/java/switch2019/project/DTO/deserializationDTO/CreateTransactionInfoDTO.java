@@ -15,6 +15,7 @@ public class CreateTransactionInfoDTO {
     private String personEmail;
 
     public CreateTransactionInfoDTO() {
+        super();
     }
 
 

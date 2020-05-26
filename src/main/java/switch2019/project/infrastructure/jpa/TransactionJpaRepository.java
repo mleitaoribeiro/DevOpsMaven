@@ -2,7 +2,6 @@ package switch2019.project.infrastructure.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import switch2019.project.dataModel.entities.TransactionJpa;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 
 import java.util.List;
 import java.util.Optional;

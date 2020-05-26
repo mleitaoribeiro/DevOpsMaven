@@ -101,6 +101,26 @@ class LedgerInMemoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Get Transaction by ID")
+    public void getTransactionByID() {
+
+        // Arrange
+        String email = "marge@hotmail.com";
+        Long id = 2L;
+
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        // Act
+        Transaction transaction = ledgerInMemoryRepository.getTransactionByID(email,id);
+
+        //Assert
+        assertEquals(null, transaction);
+
+    }
+
+
+
+    @Test
     @DisplayName("Check if a LedgerID is in the Repository - True")
     public void isIDOnRepositoryTrue() {
 
