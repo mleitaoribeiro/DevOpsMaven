@@ -1,3 +1,4 @@
+/*
 package switch2019.project.dataModel.entities;
 
 import org.junit.jupiter.api.Test;
@@ -6,9 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SiblingsJpaTest {
 
-    /**
+    */
+/**
      * Tests for gets for SiblingsIdJpa
-     */
+     *//*
+
 
     @Test
     void getEmailPersonOne (){
@@ -126,9 +129,11 @@ class SiblingsJpaTest {
     }
 
 
-    /**
+    */
+/**
      * Tests for SiblingsJpa
-     */
+     *//*
+
     @Test
     void getIdOwner (){
         SiblingsJpa siblingsJpa = new SiblingsJpa("person1@email.com", "person2@email.com");
@@ -244,4 +249,4 @@ class SiblingsJpaTest {
         assertNotEquals(siblingsJpa.hashCode(),siblingsJpa2.hashCode());
     }
 
-}
+}*/

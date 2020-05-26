@@ -2,9 +2,11 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.dataAssemblers.PersonDomainDataAssembler;
 import switch2019.project.dataModel.entities.AddressJpa;
 import switch2019.project.dataModel.entities.PersonJpa;
+import switch2019.project.dataModel.entities.SiblingsJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -17,6 +19,7 @@ import switch2019.project.infrastructure.jpa.PersonJpaRepository;
 import switch2019.project.infrastructure.jpa.SiblingsJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component("PersonDbRepository")
@@ -145,7 +148,38 @@ public class PersonDbRepository implements PersonRepository {
         return personJpaRepository.count();
     }
 
+    /**
+     * Method to add a member to a Group
+     *
+     * @param person
+     * @param siblingID
+     * @return
+     */
 
+    @Transactional
+    public boolean addSibling(Person person, String siblingID) {
+        List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(person.getID().getEmail());
 
+        // owner
+        PersonJpa personjpa = PersonDomainDataAssembler.toData(person);
+        SiblingsJpa siblingsJpa = new SiblingsJpa(personjpa, siblingID);
+
+        // sibling
+        Optional<PersonJpa> personJpa2 = personJpaRepository.findById(siblingID);
+        SiblingsJpa siblingsJpa2 = new SiblingsJpa(personjpa, siblingID);
+
+        if (siblingID != null && !siblingsJpas.contains(siblingsJpa) && personJpa2.isPresent()) {
+            // add sibling to owners siblings list
+            siblingsJpaRepository.save(siblingsJpa);
+            personjpa.addSibling(siblingID);
+
+            // add owner to sibling siblings list
+            siblingsJpaRepository.save(siblingsJpa2);
+            personJpa2.get().addSibling(person.getID().toString());
+
+            return true;
+
+        } return false;
+    }
 
 }
