@@ -58,10 +58,10 @@ public class US008CreateTransactionServiceUnitTest {
         PersonID personID = new PersonID(new Email(email));
 
         TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
-                "GOLD CARD", "IKEA", "CREDIT");
+                "GOLD CARD", "IKEA", "CREDIT", 1L);
 
         TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0,  Currency.getInstance("EUR"),
-                "MASTERCARD", "KWIK E MART", "CREDIT");
+                "MASTERCARD", "KWIK E MART", "CREDIT", 1L);
 
         List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 

@@ -47,7 +47,8 @@ class US008CreateTransactionServiceTest {
         String type = "debit";
 
         TransactionShortDTO transactionShortDTOExpected =
-                new TransactionShortDTO(amount, currency, accountFrom.toUpperCase(), accountTo.toUpperCase(), type.toUpperCase());
+                new TransactionShortDTO(amount, currency, accountFrom.toUpperCase(),
+                        accountTo.toUpperCase(), type.toUpperCase(), 1L);
 
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO
                 (personEmail, amount, currency.toString(), "beers", date, category, accountFrom, accountTo, type);
@@ -223,7 +224,7 @@ class US008CreateTransactionServiceTest {
                 amount, currency, date, description, category, accountFrom, accountTo, type);
 
         TransactionShortDTO expectedTransaction = new TransactionShortDTO
-                (amount, Currency.getInstance("EUR"), accountFrom, accountTo, type);
+                (amount, Currency.getInstance("EUR"), accountFrom, accountTo, type, 1L);
 
         //Act
         TransactionShortDTO transactionCreated = service.addGroupTransaction(createGroupTransactionDTO);
@@ -484,10 +485,10 @@ class US008CreateTransactionServiceTest {
         String email = "marge@hotmail.com";
 
         TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
-                "GOLD CARD", "IKEA", "DEBIT");
+                "GOLD CARD", "IKEA", "DEBIT", 1L);
 
         TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0, Currency.getInstance("EUR"),
-                "MASTERCARD", "KWIK E MART", "DEBIT");
+                "MASTERCARD", "KWIK E MART", "DEBIT", 2L);
 
         List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
 
@@ -589,8 +590,8 @@ class US008CreateTransactionServiceTest {
 
         TransactionDTO transactionDTOexpected = new TransactionDTO
                 (50.0, Currency.getInstance("EUR"), "GROCERY FOR BAKING COOKIES",
-                        "2020-03-20 13:04", "HOUSE, marge@hotmail.com", "MASTERCARD, marge@hotmail.com",
-                        "KWIK E MART, marge@hotmail.com", "DEBIT");
+                        "2020-03-20 13:04", "HOUSE",
+                        "MASTERCARD", "KWIK E MART", "DEBIT");
 
         //Act
         TransactionDTO result = service.getTransactionByID(email, id);
@@ -671,7 +672,8 @@ class US008CreateTransactionServiceTest {
 
         TransactionDTO transactionDTOexpected = new TransactionDTO
                 (20.0, Currency.getInstance("EUR"), "SUPERBOCK ROUND 2",
-                        "2020-03-04 17:00", "ISEP, SWITCH", "POCKET MONEY, SWITCH", "AE ISEP, SWITCH", "DEBIT");
+                        "2020-03-04 17:00", "ISEP",
+                        "POCKET MONEY", "AE ISEP", "DEBIT");
 
         //Act
         TransactionDTO result = service.getTransactionByID(groupDescription, id);
@@ -740,6 +742,4 @@ class US008CreateTransactionServiceTest {
                 .hasMessage("No transaction found with that ID.");
 
     }
-
-
 }

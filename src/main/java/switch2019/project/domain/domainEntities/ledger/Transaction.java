@@ -15,6 +15,7 @@ public class Transaction {
     private final AccountID accountFrom;
     private final AccountID accountTo;
     private final Type type;
+    private final Long id;
 
     /**
      * Default Transaction constructor
@@ -36,6 +37,19 @@ public class Transaction {
         this.accountTo = setValidAccount(accountTo);
         this.type = type;
         setDate(date);
+        id = null;
+    }
+
+    public Transaction(MonetaryValue amount, Description description, DateAndTime date, CategoryID category,
+                       AccountID accountFrom, AccountID accountTo, Type type, Long id) {
+        this.amount = setValidMonetaryValue(amount);
+        this.description = description;
+        this.category = setValidCategory(category);
+        this.accountFrom = setValidAccount(accountFrom);
+        this.accountTo = setValidAccount(accountTo);
+        this.type = type;
+        setDate(date);
+        this.id = id;
     }
 
     @Override
@@ -62,6 +76,10 @@ public class Transaction {
         return dateToString() + " | " + amount + " " + typeToString() + " | " +
                 accountFrom.getDenominationToString() + " -> " + accountTo.getDenominationToString()
                 + " | Description: \"" + description + "\" " + " | " + category.getDenominationString();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     /**

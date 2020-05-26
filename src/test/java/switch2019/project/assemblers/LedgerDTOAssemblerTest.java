@@ -92,18 +92,22 @@ class LedgerDTOAssemblerTest {
     void createTransactionDTOFromDomain() {
 
         //Arrange
-        AccountID account1 = new AccountID(new Denomination("mercearia"), new PersonID(new Email("personEmail@email.pt")));
-        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
-        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"),
+                new PersonID(new Email("personEmail@email.pt")));
+        CategoryID category = new CategoryID(new Denomination("grocery"),
+                new PersonID(new Email("personEmail@email.com")));
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
         DateAndTime date = new DateAndTime(2020, 1, 13, 13, 02);
         Description description = new Description("Payment");
 
         Transaction transaction = new Transaction(monetaryValue, description, date, category, account1, account2,
                 new Type(true));
+
         TransactionDTO expected = new TransactionDTO(monetaryValue.getAmount(), monetaryValue.getCurrency(), description.toString(),
-                date.yearMonthDayHourMinuteToString(), category.toString(), account1.toString(), account2.toString(),
-                "CREDIT");
+                date.yearMonthDayHourMinuteToString(), category.getDenominationString(),
+                account1.getDenominationToString(), account2.getDenominationToString(), "CREDIT");
 
         //Act
         TransactionDTO result = LedgerDTOAssembler.createTransactionDTOFromDomain(transaction);
@@ -143,7 +147,7 @@ class LedgerDTOAssemblerTest {
 
         //Arrange the expected TransactionShortDTO
         TransactionShortDTO expected = new TransactionShortDTO (monetaryValue.getAmount(), monetaryValue.getCurrency(),
-                accountFrom.getDenominationToString(), accountTo.getDenominationToString(), "CREDIT");
+                accountFrom.getDenominationToString(), accountTo.getDenominationToString(), "CREDIT", transaction.getId());
 
         //Act
         //Create the actual TransactionShortDTO

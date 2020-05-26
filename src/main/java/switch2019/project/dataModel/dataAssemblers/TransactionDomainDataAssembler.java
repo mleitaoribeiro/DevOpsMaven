@@ -40,7 +40,7 @@ public class TransactionDomainDataAssembler {
         //Date
         DateAndTime date = StringUtils.toDateHourMinute(transactionJpa.getDate());
 
-        return new Transaction(amount, description, date , category, accountFrom, accountTo, type);
+        return new Transaction(amount, description, date , category, accountFrom, accountTo, type, transactionJpa.getId());
     }
 
     public static TransactionJpa toData(OwnerID owner, Transaction transaction) {
