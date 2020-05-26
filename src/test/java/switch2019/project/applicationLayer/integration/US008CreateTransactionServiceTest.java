@@ -616,7 +616,7 @@ class US008CreateTransactionServiceTest {
         // Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(NoPermissionException.class)
-                .hasMessage("No permission");
+                .hasMessage("No permission.");
     }
 
     @Test
@@ -697,7 +697,7 @@ class US008CreateTransactionServiceTest {
         // Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(NoPermissionException.class)
-                .hasMessage("No permission");
+                .hasMessage("No permission.");
     }
 
     @Test

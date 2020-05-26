@@ -48,7 +48,7 @@ public class LedgerInMemoryRepository implements LedgerRepository {
      * @return
      */
 
-    public Transaction getByTransactionID(String ownerID, Long id) {
+    public Transaction getTransactionByID(String ownerID, Long id) {
         return null;
     }
 
