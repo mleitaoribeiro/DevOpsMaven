@@ -1,0 +1,108 @@
+@startuml
+
+autonumber 3.3.2.1
+-> "service:US008CreateTransactionService" : addPersonalTransaction(createPersonalTransactionDTO)
+activate "service:US008CreateTransactionService"  #FFBBBB
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : personEmail = getPersonEmail()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
+activate "personRepo:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository"
+
+"service:US008CreateTransactionService" -> "ledger:Ledger" : ledger = getByID(personID)
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : amount = getAmount()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : currency = getCurrency()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : description = getDescription()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : date = getDate()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : type = getType()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : category = getCategory()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "categoryRepo:CategoryRepository" : categoryID = getByID(...)
+activate "categoryRepo:CategoryRepository" #FFBBBB
+deactivate "categoryRepo:CategoryRepository"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : accountFrom = getAccountFrom()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : accountTo = getAccountTo()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountFrom = getByID(...)
+activate "accountRepo:AccountRepository" #FFBBBB
+deactivate "accountRepo:AccountRepository"
+
+"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountTo = getByID(...)
+activate "accountRepo:AccountRepository" #FFBBBB
+deactivate "accountRepo:AccountRepository"
+
+"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : transaction = addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
+activate "ledgerRepo:LedgerRepository" #FFBBBB
+deactivate "ledgerRepo:LedgerRepository"
+
+autonumber 3.3.2.6.1
+create "transaction:Transaction"
+"ledgerRepo:LedgerRepository"-->"transaction:Transaction":create(...)
+"ledgerRepo:LedgerRepository"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(transaction)
+activate ":LedgerDTOAssembler" #FFBBBB
+
+autonumber 3.3.2.6.2.1
+":LedgerDTOAssembler"->"transaction:Transaction" : amount = getAmount()
+activate "transaction:Transaction" #FFBBBB
+deactivate "transaction:Transaction"
+
+":LedgerDTOAssembler"->"transaction:Transaction" : currency = getCurrency()
+activate "transaction:Transaction" #FFBBBB
+deactivate "transaction:Transaction"
+
+":LedgerDTOAssembler"->"transaction:Transaction" : accountFrom = getAccountFrom().getDenominationToString()
+activate "transaction:Transaction" #FFBBBB
+deactivate "transaction:Transaction"
+
+":LedgerDTOAssembler"->"transaction:Transaction" : accountFrom = getAccountTo().getDenominationToString()
+activate "transaction:Transaction" #FFBBBB
+deactivate "transaction:Transaction"
+
+":LedgerDTOAssembler"->"transaction:Transaction" : type = type.toString()
+activate "transaction:Transaction" #FFBBBB
+deactivate "transaction:Transaction"
+
+
+
+
+
+
+
+
+
+":LedgerDTOAssembler" --> "service:US008CreateTransactionService" : transactionDTO
+deactivate ":LedgerDTOAssembler"
+
+<-- "service:US008CreateTransactionService" : transactionDTO
+deactivate "service:US008CreateTransactionService"
+
+@enduml
