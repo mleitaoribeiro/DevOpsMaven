@@ -1,7 +1,6 @@
 package switch2019.project.dataModel.dataAssemblers;
 
 import org.junit.jupiter.api.Test;
-import switch2019.project.dataModel.entities.LedgerIdJpa;
 import switch2019.project.dataModel.entities.LedgerJpa;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -17,7 +16,7 @@ class LedgerDomainDataAssemblerTest {
 
         // Arrange
         Ledger ledger = new Ledger(new PersonID(new Email("marta@gmail.com")));
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("marta@gmail.com"), "2020-05-21");
+        LedgerJpa ledgerJpa = new LedgerJpa("marta@gmail.com", "2020-05-21");
 
         // Act
         Ledger ledgerFromJpa = LedgerDomainDataAssembler.toDomain(ledgerJpa);
@@ -31,7 +30,7 @@ class LedgerDomainDataAssemblerTest {
 
         // Arrange
         Ledger ledger = new Ledger(new PersonID(new Email("marta@gmail.com")));
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("switch@gmail.com"), "2020-05-21");
+        LedgerJpa ledgerJpa = new LedgerJpa("switch@gmail.com", "2020-05-21");
 
         // Act
         Ledger ledgerFromJpa = LedgerDomainDataAssembler.toDomain(ledgerJpa);
@@ -45,7 +44,7 @@ class LedgerDomainDataAssemblerTest {
 
         // Arrange
         Ledger ledger = new Ledger(new PersonID(new Email("marta@gmail.com")));
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("marta@gmail.com"), new DateAndTime().yearMonthDayToString());
+        LedgerJpa ledgerJpa = new LedgerJpa("marta@gmail.com", new DateAndTime().yearMonthDayToString());
 
         // Act
         LedgerJpa ledgerFromDomain = LedgerDomainDataAssembler.toData(ledger);
@@ -59,7 +58,7 @@ class LedgerDomainDataAssemblerTest {
 
         // Arrange
         Ledger ledger = new Ledger(new PersonID(new Email("marta@gmail.com")));
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("switch@gmail.com"), "2020-05-21");
+        LedgerJpa ledgerJpa = new LedgerJpa("switch@gmail.com", "2020-05-21");
 
         // Act
         LedgerJpa ledgerFromDomain = LedgerDomainDataAssembler.toData(ledger);

@@ -10,6 +10,8 @@ import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.assemblers.LedgerDTOAssembler;
 
@@ -23,6 +25,31 @@ public class US008CreateTransactionControllerRest {
 
     @Autowired
     US008CreateTransactionService service;
+
+
+    /**
+     * Controller that takes the posted information and creates a transaction belonging to a given person.
+     * @param info
+     * @return
+     */
+
+    @PostMapping("persons/{personId}/ledger/transactions")
+    public ResponseEntity<TransactionShortDTO> createPersonTransaction(@PathVariable String personId,@RequestBody CreateTransactionInfoDTO info){
+
+        //Arrange the entry dto with the given strings:
+        CreatePersonalTransactionDTO dto = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, info);
+
+        //Use the service to obtain the exit DTO
+        TransactionShortDTO result = service.addPersonalTransaction(dto);
+
+//        Link selfLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
+//                .withSelfRel();
+//        result.add(selfLink);
+
+        return new ResponseEntity<>( result,HttpStatus.CREATED);
+    }
+
+
 
     /**
      * Controller that takes the posted information, and creates an Transaction in a given Group.

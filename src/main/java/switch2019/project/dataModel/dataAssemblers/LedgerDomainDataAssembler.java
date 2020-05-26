@@ -1,6 +1,5 @@
 package switch2019.project.dataModel.dataAssemblers;
 
-import switch2019.project.dataModel.entities.LedgerIdJpa;
 import switch2019.project.dataModel.entities.LedgerJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -20,7 +19,7 @@ public class LedgerDomainDataAssembler {
     public static Ledger toDomain(LedgerJpa ledgerJpa) {
 
         // Assembling OwnerID
-        String owner = ledgerJpa.getLedgerIdJpa().getOwner();
+        String owner = ledgerJpa.getOwner();
         OwnerID ownerId;
 
         // Checking if the owner is a Group or a Person:
@@ -45,6 +44,6 @@ public class LedgerDomainDataAssembler {
 
     public static LedgerJpa toData(Ledger ledger) {
 
-        return new LedgerJpa(new LedgerIdJpa(ledger.getID().getOwnerID().toString()), ledger.getCreationDateToString());
+        return new LedgerJpa(ledger.getID().getOwnerID().toString(), ledger.getCreationDateToString());
     }
 }

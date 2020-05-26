@@ -85,11 +85,11 @@ public class LedgerDbRepository implements LedgerRepository {
 
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
 
-        TransactionJpa newTransactionJpa = transactionJpaRepository.save(TransactionDomainDataAssembler.toData(owner, transaction));
+        //TransactionJpa newTransactionJpa = transactionJpaRepository.save(TransactionDomainDataAssembler.toData(owner, transaction));
         //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
 
-        return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
-
+        //return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
+        return transaction;
     }
 
     /**
@@ -110,7 +110,7 @@ public class LedgerDbRepository implements LedgerRepository {
         }
 
         if (isLedgerOnRepository) {
-            List<TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedgerIdJpa_Owner(ledgerID);
+            List<TransactionJpa> transactionJpaList = transactionJpaRepository.findAllByLedger_Owner(ledgerID);
             List<Transaction> transactionsList = new ArrayList<>();
 
             for (TransactionJpa transactionJpa : transactionJpaList) {
@@ -141,7 +141,7 @@ public class LedgerDbRepository implements LedgerRepository {
      */
 
     public Ledger getByID(ID owner) {
-        Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(owner.toString());
+        Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findLedgerJpaByOwner(owner.toString());
         if (ledgerJpa.isPresent()) {
             return LedgerDomainDataAssembler.toDomain(ledgerJpa.get());
         } else throw new ArgumentNotFoundException(NO_LEDGER_FOUND);
@@ -159,7 +159,7 @@ public class LedgerDbRepository implements LedgerRepository {
     public Transaction getTransactionByID(String ownerId, Long id) {
         Optional<TransactionJpa> transactionJpa = transactionJpaRepository.findById(id);
         if (transactionJpa.isPresent()) {
-            if (transactionJpa.get().getLedgerIdJpaToString().equals(ownerId)) {
+            if (transactionJpa.get().getLedger().getOwner().equals(ownerId)) {
                 return TransactionDomainDataAssembler.toDomain(transactionJpa.get());
             } else throw new NoPermissionException(NO_PERMISSION);
 
@@ -174,7 +174,7 @@ public class LedgerDbRepository implements LedgerRepository {
      */
 
     public boolean isIDOnRepository(ID ledgerID) {
-        Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findByLedgerIdJpa_Owner(ledgerID.toString());
+        Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findLedgerJpaByOwner(ledgerID.toString());
         return ledgerJpa.isPresent();
     }
 
