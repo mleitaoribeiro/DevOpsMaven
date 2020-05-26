@@ -1,3 +1,4 @@
+/*
 package switch2019.project.DTO.serializationDTO;
 
 import org.junit.jupiter.api.Test;
@@ -7,9 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionShortDTOTest {
 
-    /**
+    */
+/**
      * Tests for Equals
-     */
+     *//*
+
 
     @Test
     void testEquals() {
@@ -102,9 +105,11 @@ class TransactionShortDTOTest {
         assertFalse(result);
     }
 
-    /**
+    */
+/**
      * Tests for hashCode
-     */
+     *//*
+
 
     @Test
     void testHashCode() {
@@ -126,9 +131,11 @@ class TransactionShortDTOTest {
         assertNotEquals(transactionShortDTO.hashCode(),transactionShortDTO2.hashCode());
     }
 
-    /**
+    */
+/**
      * Tests for gets
-     */
+     *//*
+
     @Test
     void getAmount() {
         TransactionShortDTO transactionShortDTO = new TransactionShortDTO(100.0,  Currency.getInstance("EUR"), "Mine",
@@ -195,4 +202,4 @@ class TransactionShortDTOTest {
         String result = "bubbles";
         assertNotEquals(result,transactionShortDTO.getType());
     }
-}
+}*/
