@@ -9,12 +9,11 @@ public class TransactionJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Embedded
-    @Column(name = "ledger_id")
-    private LedgerIdJpa ledgerIdJpa;
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "ledger_id", referencedColumnName = "id")
-    //private LedgerJpa ledger;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ledger_id", referencedColumnName = "ledger_id")
+    private LedgerJpa ledger;
+
     private Double amount;
     private String currency;
     private String description;
@@ -26,9 +25,9 @@ public class TransactionJpa {
 
     protected TransactionJpa() {}
 
-    public TransactionJpa(String ledgerId, Double amount, String currency, String description, String date,
+    public TransactionJpa(LedgerJpa ledger,Double amount, String currency, String description, String date,
                           String category, String accountFrom, String accountTo, String type) {
-        this.ledgerIdJpa = new LedgerIdJpa(ledgerId);
+        this.ledger = ledger;
         this.amount = amount;
         this.currency = currency;
         this.description = description;
@@ -45,22 +44,22 @@ public class TransactionJpa {
         if (o == null || getClass() != o.getClass()) return false;
         TransactionJpa that = (TransactionJpa) o;
         return Objects.equals(id, that.id) &
-                Objects.equals(ledgerIdJpa, that.ledgerIdJpa);
+                Objects.equals(ledger, that.ledger);
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ledgerIdJpa);
+        return Objects.hash(id, ledger);
     }
 
     public long getId() { return id;}
 
-    public String getLedgerIdJpaToString() { return ledgerIdJpa.toString(); }
+    public String getLedgerToString() { return ledger.toString(); }
 
-    public LedgerIdJpa getLedgerIdJpa() { return ledgerIdJpa; }
+    public LedgerJpa getLedger() { return ledger; }
 
-    public void setLedgerIdJpa(LedgerIdJpa ledgerIdJpa) { this.ledgerIdJpa = ledgerIdJpa; }
+    public void setLedger(LedgerJpa ledgerJpa) { this.ledger = ledgerJpa; }
 
     public Double getAmount() {
         return amount;
