@@ -100,6 +100,16 @@ public class US008CreateTransactionControllerRest {
      * @param id
      * @return List<TransactionShortDTO>
      */
+    @GetMapping(value = "groups/{groupId}/ledger/transactions/{id}")
+    public ResponseEntity<Object> getGroupTransactionByID (@PathVariable final String groupId, @PathVariable final Long id) {
+
+        //Instancing the TransactionDto:
+        TransactionDTO transactionDTO = service.getTransactionByID(groupId, id);
+
+        //Returning the TransactionDTO and the HTTP status as a ResponseEntity
+        return new ResponseEntity<>(transactionDTO, HttpStatus.OK);
+    }
+
 
 
     @GetMapping(value = "persons/{personId}/ledger/transactions")
