@@ -599,6 +599,132 @@ public class US008CreateTransactionControllerRestUnitTest {
                 .hasMessage(null);
     }
 
+    @Test
+    @DisplayName("Test Person Transaction creation - Invalid Email")
+    void createPersonTransactionInvalidEmail() throws Exception {
+
+        //Arrange
+        String personId = "marge@@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException("The email is not valid."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is not valid.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Invalid Amount")
+    void createPersonTransactionInvalidAmount() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = -10.2;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException("The monetary value cannot be negative."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The monetary value cannot be negative.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Invalid currency")
+    void createPersonTransactionInvalidCurrency() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "XPTO";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException());
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage(null);
+    }
+
     /**
      * Test create Group transactions
      */
