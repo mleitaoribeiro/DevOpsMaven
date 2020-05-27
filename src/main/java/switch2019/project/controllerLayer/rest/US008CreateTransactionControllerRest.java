@@ -76,13 +76,13 @@ public class US008CreateTransactionControllerRest {
         TransactionShortDTO result = service.addGroupTransaction(dto);
 
         Link selfLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
-                .getGroupTransactionByID(result.getId().toString(), result.getId()))
+                .getGroupTransactionByID(groupDescription,result.getId()))
                 .withSelfRel();
 
         result.add(selfLink);
 
         Link allTransactionsLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
-                .getGroupTransactionsByLedgerId(result.getId().toString()))
+                .getGroupTransactionsByLedgerId(groupDescription))
                 .withRel("transactions");
 
         result.add(allTransactionsLink);
