@@ -2,7 +2,6 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.LedgerJpa;
@@ -20,7 +19,6 @@ import switch2019.project.infrastructure.jpa.TransactionJpaRepository;
 import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +72,7 @@ public class LedgerDbRepository implements LedgerRepository {
         OwnerID owner = ledgerID.getOwnerID();
         Ledger ledger;
 
-        if (!isIDOnRepository(ledgerID.getOwnerID()))
+        if (!isIDOnRepository(owner))
             ledger = createLedger(owner);
         else ledger = getByID(owner);
 
