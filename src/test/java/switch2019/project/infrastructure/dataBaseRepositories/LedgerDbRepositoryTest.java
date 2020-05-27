@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
@@ -21,7 +20,6 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.*;
 
@@ -339,7 +337,7 @@ class LedgerDbRepositoryTest {
     /**
      * Tests to get the transaction by it´s ID
      */
-    /*
+
 
     @Test
     @DisplayName("Test to get Transaction by it's ID - Personal Transaction - Happy Case")
@@ -371,8 +369,7 @@ class LedgerDbRepositoryTest {
 
     }
 
-     */
-/*
+
     @Test
     @DisplayName("Test to get Transaction by it's ID - Personal Transaction - No Permission")
     void getTransactionByIDPersonalTransactionNoPermission() {
@@ -393,7 +390,6 @@ class LedgerDbRepositoryTest {
 
     }
 
- */
 
 
     @Test
@@ -417,7 +413,7 @@ class LedgerDbRepositoryTest {
 
     }
 
-/*
+
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - happy case")
     void getTransactionByIDGroupLedgerHappyCase() {
@@ -448,8 +444,6 @@ class LedgerDbRepositoryTest {
         assertEquals(expectedTransaction, result);
     }
 
- */
-    /*
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Permission")
@@ -471,7 +465,6 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No permission.");
     }
 
-     */
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Transaction Found")
@@ -493,8 +486,6 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No transaction found with that ID.");
 
     }
-
-
 
 
     /**

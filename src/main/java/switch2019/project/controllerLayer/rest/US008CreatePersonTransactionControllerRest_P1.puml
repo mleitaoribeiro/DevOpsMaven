@@ -54,7 +54,7 @@ ref over "service:US008CreateTransactionService" : US008CreatePersonTransactionC
 deactivate "service:US008CreateTransactionService"
 
 
-"restController:US008CreatePersonTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionDTO,HttpStatus.CREATED)
+"restController:US008CreatePersonTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionShortDTO,HttpStatus.CREATED)
 deactivate "restController:US008CreatePersonTransactionControllerRest"
 
 autonumber 3.4

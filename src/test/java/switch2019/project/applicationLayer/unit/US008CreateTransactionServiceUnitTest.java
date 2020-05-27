@@ -13,6 +13,8 @@ import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
+import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -20,6 +22,7 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.infrastructure.dataBaseRepositories.AccountDbRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -136,4 +139,51 @@ public class US008CreateTransactionServiceUnitTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
     }
+
+    /**
+     * Tests for the method: getTransactionByID
+     */
+
+   @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - happy case")
+    void getTransactionByIDPersonLedgerHappyCase() {
+
+       //Arrange
+       String email = "marge@hotmail.com";
+       Long id = 2L;
+
+       PersonID personID = new PersonID(new Email(email));
+
+       Category category= new Category (new Denomination ("HOUSE"), personID );
+
+       Account accountFrom = new Account (new Denomination("MASTERCARD"),
+               new Description("For daily expenses"), personID);
+       Account accountTo = new Account(new Denomination("Kwik-E-Mart"),
+               new Description("Food and Grocery") , personID);
+
+       Transaction expectedTransaction = new Transaction(new MonetaryValue(50.0, Currency.getInstance("EUR")),
+               new Description("GROCERY FOR BAKING COOKIES"),
+               new DateAndTime(2020,03,20,13,04),
+               category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+
+        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+                thenReturn(expectedTransaction);
+
+
+        TransactionDTO transactionDTOexpected = new TransactionDTO
+                (50.0, Currency.getInstance("EUR"), "GROCERY FOR BAKING COOKIES",
+                        "2020-03-20 13:04", "HOUSE",
+                        "MASTERCARD", "KWIK E MART", "DEBIT");
+
+        //Act
+        TransactionDTO result = service.getTransactionByID(email, id);
+
+        //Assert
+        assertEquals(transactionDTOexpected, result);
+    }
+
+
+
 }
+
