@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -14,6 +15,7 @@ import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Override
@@ -28,6 +31,106 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     public void setUP() {
         super.setUP();
     }
+
+
+    /**
+     * Test Personal Transaction creation
+     */
+
+
+    @Test
+    @DisplayName("Test Person Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in DB")
+    void createPersonTransactionMainScenario() throws Exception {
+
+        //GET - Before Transaction is created
+        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/9";
+
+        MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusBefore = mvcResultGetBefore.getResponse().getStatus();
+
+        JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
+
+        //POST - Create new Transaction
+        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+
+        //Create input DTO
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        //Expected Links
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/9\"}," +
+                "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\"}}";
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        //Get - After Transaction is created
+
+        MvcResult mvcResultGetAfter = mvc.perform(MockMvcRequestBuilders.get(uriGet)
+                .contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+        int statusAfter = mvcResultGetAfter.getResponse().getStatus();
+
+        JSONObject getAfter = new JSONObject(mvcResultGetAfter.getResponse().getContentAsString());
+
+
+        Assertions.assertAll(
+                //Get before Transaction is created
+                () -> assertEquals(422, statusBefore),
+                () -> assertEquals("No transaction found with that ID.", getBefore.getString("message")),
+
+                //Create new Transaction
+                () -> assertEquals(201, status),
+                () -> assertEquals(amount.toString(), result.getString("amount")),
+                () -> assertEquals(currency, result.getString("currency")),
+                () -> assertEquals(accountFrom.toUpperCase(), result.getString("accountFrom")),
+                () -> assertEquals(accountTo.toUpperCase(), result.getString("accountTo")),
+                () -> assertEquals(type.toUpperCase(), result.getString("type")),
+                () -> assertEquals (expectedLinks, result.getString("_links")),
+
+                //Get after Transaction is created
+                () -> assertEquals(200, statusAfter),
+                () -> assertEquals(amount.toString(), getAfter.getString("amount")),
+                () -> assertEquals(currency, getAfter.getString("currency")),
+                () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
+                () -> assertEquals(accountTo.toUpperCase(), getAfter.getString("accountTo")),
+                () -> assertEquals(type.toUpperCase(), getAfter.getString("type"))
+        );
+    }
+
+    /**
+     * Test Group Transaction creation
+     */
+
 
         @Test
         @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
@@ -41,7 +144,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
             final String currency = "EUR";
             final String categoryDenomination = "ISEP";
             final String accountDescription = "SuperBock round1";
-            final String accounTo = "AE ISEP";
+            final String accountTo = "AE ISEP";
             final String accountFrom = "Pocket Money";
             final String date = "2020-03-03 18:00";
             final String type = "debit";
@@ -52,7 +155,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
             createTransactionInfoDTO.setCurrency(currency);
             createTransactionInfoDTO.setCategory(categoryDenomination);
             createTransactionInfoDTO.setDescription(accountDescription);
-            createTransactionInfoDTO.setAccountTo(accounTo);
+            createTransactionInfoDTO.setAccountTo(accountTo);
             createTransactionInfoDTO.setAccountFrom(accountFrom);
             createTransactionInfoDTO.setDate(date);
             createTransactionInfoDTO.setType(type);
@@ -83,7 +186,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                     () -> assertEquals(amount.toString(), result.getString("amount")),
                     () -> assertEquals(currency, result.getString("currency")),
                     () -> assertEquals(accountFrom.toUpperCase(), result.getString("accountFrom")),
-                    () -> assertEquals(accounTo.toUpperCase(), result.getString("accountTo")),
+                    () -> assertEquals(accountTo.toUpperCase(), result.getString("accountTo")),
                     () -> assertEquals(type.toUpperCase(), result.getString("type"))
             );
         }
@@ -396,7 +499,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      * Test getTransactionsByLedgerID - Personal Ledger
      */
 
- /*   @Test
+    @Test
     @DisplayName("Test get all transactions from Personal Ledger - Main scenario")
     public void getPersonalTransactionsByLedgerIdSuccess() throws Exception {
         //Arrange
@@ -488,14 +591,14 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
                 () -> assertEquals ("No Ledger found with that ID.", result.getString("message"))
         );
-    }*/
+    }
 
 
     /**
      * Test getTransactionsByLedgerID - Group Ledger
      */
 
-    /*@Test
+    @Test
     @DisplayName("Test get all transactions from Personal Ledger - Main scenario")
     public void getGroupTransactionsByLedgerIdSuccess() throws Exception  {
         //Arrange
@@ -576,5 +679,5 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
                 () -> assertEquals ("No Ledger found with that ID.", result.getString("message"))
         );
-    }*/
+    }
 }
