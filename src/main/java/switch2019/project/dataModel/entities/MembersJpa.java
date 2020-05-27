@@ -17,8 +17,7 @@ public class MembersJpa {
         @Column(nullable = false, updatable = false)
         private String personID;
 
-        public MembersIdJpa() {
-        }
+        public MembersIdJpa() {}
 
         public MembersIdJpa(GroupJpa groupID, String personID) {
             this.groupID = groupID;

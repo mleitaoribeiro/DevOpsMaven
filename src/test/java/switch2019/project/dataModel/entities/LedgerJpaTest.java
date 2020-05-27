@@ -53,21 +53,6 @@ public class LedgerJpaTest {
     }
 
     @Test
-    @DisplayName("Test Equals -  Different creationDate")
-    void testEqualsDifferentID2() {
-
-        //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa("test@gmail.com", "2020-1-10");
-
-        //Act:
-        boolean equalObjects = ledgerJpa1.equals(ledgerJpa2);
-
-        // Assert:
-        assertFalse(equalObjects);
-    }
-
-    @Test
     @DisplayName("Test equals - Different object")
     void testEqualDifferentObject() {
 

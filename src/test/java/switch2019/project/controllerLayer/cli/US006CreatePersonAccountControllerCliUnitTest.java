@@ -184,11 +184,7 @@ public class US006CreatePersonAccountControllerCliUnitTest {
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The email is not valid.");
-
-
     }
-
-
 
     @Test
     @DisplayName("Test If User Account was created  - account invalid - null")
