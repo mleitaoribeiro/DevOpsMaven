@@ -52,7 +52,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
 
-        //POST - Create new account
+        //POST - Create new Transaction
         String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
 
         //Create input DTO
