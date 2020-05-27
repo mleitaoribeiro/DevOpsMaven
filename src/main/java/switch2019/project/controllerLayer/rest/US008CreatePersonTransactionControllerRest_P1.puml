@@ -4,7 +4,7 @@ skinparam DefaultFontSize 25
 title US008 Sequence Diagram - Happy Case  #6495ED
 
 participant "HTTP Client (Test)"
-participant "inputDTO:\nCreateTransactionInfoDTO "
+participant "inputDTO:\nCreateTransactionInfoDTO"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
 participant "restController:US008CreatePersonTransactionControllerRest"
@@ -33,26 +33,39 @@ autonumber 3.1
 create "infoDTO:CreateTransactionInfoDTO"
 "mvc:MockMvc"-->"infoDTO:CreateTransactionInfoDTO": create
 
-"mvc:MockMvc"-> "restController:US008CreatePersonTransactionControllerRest": addPersonalTransaction()
+"mvc:MockMvc"-> "restController:US008CreatePersonTransactionControllerRest": createPersonTransaction(personID, infoDTO)
 activate "restController:US008CreatePersonTransactionControllerRest" #FFBBBB
 
+autonumber 3.3.1
+"restController:US008CreatePersonTransactionControllerRest"-> ":LedgerDTOAssembler": transformToCreatePersonalTransactionDTO(personId, infoDTO)
+activate ":LedgerDTOAssembler"  #FFBBBB
 
 create "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-":LedgerDTOAssembler" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO": new CreatePersonalTransactionDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, personEmail)
+":LedgerDTOAssembler" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO": transformToCreatePersonalTransactionDTO(personId, infoDTO)
 
 ":LedgerDTOAssembler" -> "restController:US008CreatePersonTransactionControllerRest" : createPersonalTransactionDTO
 
 deactivate ":LedgerDTOAssembler"
 
 autonumber 3.3.2
-"restController:US008CreatePersonTransactionControllerRest"->"service:US008CreateTransactionService": addPersonalTransaction(CreatePersonalTransactionDTO)
+"restController:US008CreatePersonTransactionControllerRest"->"service:US008CreateTransactionService": addPersonalTransaction(createPersonalTransactionDTO)
 activate "service:US008CreateTransactionService" #FFBBBB
 
 ref over "service:US008CreateTransactionService" : US008CreatePersonTransactionControllerRestRef
 
-"service:US008CreateTransactionService" --> "restController:US008CreatePersonTransactionControllerRest" : transactionDTO
+"service:US008CreateTransactionService" --> "restController:US008CreatePersonTransactionControllerRest" : transactionShortDTO
 deactivate "service:US008CreateTransactionService"
 
+autonumber 3.3.3
+"restController:US008CreatePersonTransactionControllerRest"->"restController:US008CreatePersonTransactionControllerRest": selfLink = /persons/{personId}/ledger/transactions/{id}
+"restController:US008CreatePersonTransactionControllerRest"-> "transactionShortDTO:TransactionShortDTO": add(selfLink)
+activate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+
+"restController:US008CreatePersonTransactionControllerRest"->"restController:US008CreatePersonTransactionControllerRest": allTransactionsLink  = /persons/{personId}/ledger/transactions
+"restController:US008CreatePersonTransactionControllerRest"-> "transactionShortDTO:TransactionShortDTO": add(allTransactionsLink)
+activate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO:TransactionShortDTO" #FFBBBB
 
 "restController:US008CreatePersonTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionShortDTO,HttpStatus.CREATED)
 deactivate "restController:US008CreatePersonTransactionControllerRest"

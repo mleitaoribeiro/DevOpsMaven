@@ -1,6 +1,8 @@
 package switch2019.project.dataModel.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name ="persons")
@@ -19,6 +21,9 @@ public class PersonJpa {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private AddressJpa address;
 
+    @OneToMany(mappedBy = "id.ownerEmail", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SiblingsJpa> siblings;
+
     protected PersonJpa() {};
 
     public PersonJpa(String id, String name, String birthDate, String birthPlace, AddressJpa address) {
@@ -27,6 +32,7 @@ public class PersonJpa {
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         this.address = address;
+        siblings = new ArrayList<>();
     }
 
     public PersonJpa(String id, String name, String birthDate, String birthPlace, AddressJpa address,
@@ -38,6 +44,7 @@ public class PersonJpa {
         this.address = address;
         this.fatherId = fatherId;
         this.motherId = motherId;
+        siblings = new ArrayList<>();
     }
 
     @Override
@@ -79,6 +86,17 @@ public class PersonJpa {
 
     public String getFatherId() {
         return fatherId;
+    }
+
+    public boolean addSibling(String personID) {
+        SiblingsJpa siblingsJpa = new SiblingsJpa(this, personID);
+        if (!siblings.contains(siblingsJpa))
+            return siblings.add(siblingsJpa);
+        else return false;
+    }
+
+    public List<SiblingsJpa> getSiblings() {
+        return new ArrayList<>(siblings);
     }
 
 }

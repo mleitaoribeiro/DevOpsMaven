@@ -13,9 +13,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
+import switch2019.project.assemblers.LedgerDTOAssembler;
 import switch2019.project.controllerLayer.rest.US008CreateTransactionControllerRest;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.util.Currency;
 import java.util.LinkedList;
@@ -40,9 +46,227 @@ public class US008CreateTransactionControllerRestUnitTest {
     }
 
     /**
-     * Test create transactions
+     * Test create Personal transaction
      */
 
+    @Test
+    @DisplayName("Test create personal transactions - Main scenario - Happy Case")
+    public void createPersonTransactionHappyCase()  {
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+        long id = 9;
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        TransactionShortDTO transactionShortDTOExpected = new TransactionShortDTO(amount, Currency.getInstance(currency), description, accountFrom, accountTo, id);
+
+        ResponseEntity <TransactionShortDTO> responseEntityExpected = new ResponseEntity<>(transactionShortDTOExpected, HttpStatus.CREATED);
+
+        //Act
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenReturn(transactionShortDTOExpected);
+
+        ResponseEntity<TransactionShortDTO> responseEntityResult = controller.createPersonTransaction(personId, createTransactionInfoDTO);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.CREATED, responseEntityResult.getStatusCode())
+        );
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Person does not exists on Person Repository")
+    void createPersonTransactionPersonDoesNotExists() throws Exception {
+
+        //Arrange
+        String personId = "not_existing_person@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new ArgumentNotFoundException("No person found with that email."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Category Does Not Exists")
+    void createPersonTransactionCategoryDoesNotExists() throws Exception {
+
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "Not existing category";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new ArgumentNotFoundException("No category found with that ID."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No category found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Account From Does Not Exists")
+    void createPersonTransactionAccountFromDoesNotExists() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "Not existing account";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new ArgumentNotFoundException("No account found with that ID."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No account found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - AccountTo Does Not Exists")
+    void createPersonTransactionAccountToDoesNotExists() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Not existing account";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new ArgumentNotFoundException("No account found with that ID."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No account found with that ID.");
+    }
+
+
+    /**
+     * Test create Group transactions
+     */
 
 
     /**
