@@ -725,6 +725,216 @@ public class US008CreateTransactionControllerRestUnitTest {
                 .hasMessage(null);
     }
 
+    @Test
+    @DisplayName("Test Person Transaction creation - Empty Currency")
+    void createPersonTransactionEmptyCurrency() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException());
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage(null);
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Empty Category")
+    void createPersonTransactionEmptyCategory() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Empty Description")
+    void createPersonTransactionEmptyDescription() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The description can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Empty AccountFrom")
+    void createPersonTransactionEmptyAccountFrom() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Empty AccountTo")
+    void createPersonTransactionEmptyAccountTO() throws Exception {
+
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenThrow(new IllegalArgumentException("The denomination can't be null or empty."));
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            controller.createPersonTransaction(personId, createTransactionInfoDTO);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The denomination can't be null or empty.");
+    }
+
     /**
      * Test create Group transactions
      */
