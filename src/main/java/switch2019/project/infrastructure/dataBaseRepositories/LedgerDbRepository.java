@@ -2,6 +2,7 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.LedgerJpa;
@@ -48,12 +49,9 @@ public class LedgerDbRepository implements LedgerRepository {
      */
 
     public Ledger createLedger(OwnerID ownerID) {
-
-        if (!isIDOnRepository(new LedgerID(ownerID).getOwnerID())) {
-            Ledger ledger = new Ledger(ownerID);
-            LedgerJpa newLedgerJPA = ledgerJpaRepository.save(LedgerDomainDataAssembler.toData(ledger));
-            return LedgerDomainDataAssembler.toDomain(newLedgerJPA);
-        } else throw new ResourceAlreadyExistsException(LEDGER_ALREADY_EXISTS);
+        Ledger ledger = new Ledger(ownerID);
+        LedgerJpa newLedgerJPA = ledgerJpaRepository.save(LedgerDomainDataAssembler.toData(ledger));
+        return LedgerDomainDataAssembler.toDomain(newLedgerJPA);
     }
 
     /**
@@ -74,7 +72,6 @@ public class LedgerDbRepository implements LedgerRepository {
                                               CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
         OwnerID owner = ledgerID.getOwnerID();
-
         Ledger ledger;
 
         if (!isIDOnRepository(ledgerID.getOwnerID()))
@@ -82,14 +79,12 @@ public class LedgerDbRepository implements LedgerRepository {
         else ledger = getByID(owner);
 
         LedgerJpa ledgerJpa = LedgerDomainDataAssembler.toData(ledger);
-
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
 
-        //TransactionJpa newTransactionJpa = transactionJpaRepository.save(TransactionDomainDataAssembler.toData(owner, transaction));
-        //ledgerJpa.addTransactionToLedgerJpa(newTransactionJpa);
+        TransactionJpa newTransactionJpa = transactionJpaRepository.save(TransactionDomainDataAssembler.toData(ledger, transaction));
+        ledgerJpa.addTransaction(newTransactionJpa);
 
-        //return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
-        return transaction;
+        return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
     }
 
     /**
