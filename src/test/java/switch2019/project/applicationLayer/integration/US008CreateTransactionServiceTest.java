@@ -209,9 +209,9 @@ class US008CreateTransactionServiceTest {
     void testIfGroupAccountWasCreatedHappyCase() {
 
         //Arrange
-        double amount = 20;
         String groupDescription = "Switch";
         String personEmail = "1191755@isep.ipp.pt";
+        double amount = 20;
         String currency = "EUR";
         String date = "2019-05-25 13:12";
         String description = "Pizza";

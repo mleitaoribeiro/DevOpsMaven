@@ -13,6 +13,7 @@ import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.*;
 import switch2019.project.utils.StringUtils;
@@ -89,7 +90,8 @@ public class US008CreateTransactionService {
 
     public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
 
-        PersonID personID = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail())).getID();
+        Person person = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail()));
+        PersonID personID = person.getID();
 
         Group group = groupsRepository.findGroupByDescription(new Description(createGroupTransactionDTO.getGroupDescription()));
         GroupID groupID = group.getID();
