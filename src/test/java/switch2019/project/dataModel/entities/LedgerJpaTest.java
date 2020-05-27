@@ -17,7 +17,7 @@ public class LedgerJpaTest {
     void testEqualsExactlySameObject() {
 
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa = new LedgerJpa("test@gmail.com", "2019-12-10");
 
         // Act & Assert:
         assertEquals(ledgerJpa, ledgerJpa);
@@ -30,8 +30,8 @@ public class LedgerJpaTest {
     void testEqualsEqualObjects() {
 
         //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
+        LedgerJpa ledgerJpa2 = new LedgerJpa("test@gmail.com", "2019-12-10");
 
         // Act & Assert:
         assertEquals(ledgerJpa1, ledgerJpa2);
@@ -42,23 +42,8 @@ public class LedgerJpaTest {
     void testEqualsDifferentID1() {
 
         //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test2@gmail.com"), "2019-12-10");
-
-        //Act:
-        boolean equalObjects = ledgerJpa1.equals(ledgerJpa2);
-
-        // Assert:
-        assertFalse(equalObjects);
-    }
-
-    @Test
-    @DisplayName("Test Equals -  Different creationDate")
-    void testEqualsDifferentID2() {
-
-        //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2020-1-10");
+        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
+        LedgerJpa ledgerJpa2 = new LedgerJpa("test2@gmail.com", "2019-12-10");
 
         //Act:
         boolean equalObjects = ledgerJpa1.equals(ledgerJpa2);
@@ -72,7 +57,7 @@ public class LedgerJpaTest {
     void testEqualDifferentObject() {
 
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa = new LedgerJpa("test@gmail.com", "2019-12-10");
         AccountIDJpa accountIDJpa = new AccountIDJpa("SWITCH", "Revolut");
 
         //Act:
@@ -87,8 +72,8 @@ public class LedgerJpaTest {
     void testEqualNull() {
 
         //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerIdJpa ledgerJpa2 = null;
+        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
+        String ledgerJpa2 = null;
 
         //Act:
         boolean equalObjects = ledgerJpa1.equals(ledgerJpa2);
@@ -106,8 +91,8 @@ public class LedgerJpaTest {
     void testSameHashCode() {
 
         //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
+        LedgerJpa ledgerJpa2 = new LedgerJpa("test@gmail.com", "2019-12-10");
 
 
         // Act & Assert:
@@ -119,8 +104,8 @@ public class LedgerJpaTest {
     void testDifferentHashCode1() {
 
         //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail2.com"), "2019-12-10");
+        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
+        LedgerJpa ledgerJpa2 = new LedgerJpa("test@gmail2.com", "2019-12-10");
 
 
         // Act & Assert:
@@ -132,8 +117,8 @@ public class LedgerJpaTest {
     void testDifferentHashCode2() {
 
         //Arrange:
-        LedgerJpa ledgerJpa1 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2020-1-10");
+        LedgerJpa ledgerJpa1 = new LedgerJpa("test@gmail.com", "2019-12-10");
+        LedgerJpa ledgerJpa2 = new LedgerJpa("test@gmail.com", "2020-1-10");
 
 
         // Act & Assert:
@@ -148,11 +133,11 @@ public class LedgerJpaTest {
     @DisplayName ("Test getLedgerIdJpa method")
     void getLedgerIdJpaTest() {
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
-        LedgerIdJpa expectedLedgerIdJpa = new LedgerIdJpa("test@gmail.com");
+        LedgerJpa ledgerJpa = new LedgerJpa("test@gmail.com", "2019-12-10");
+        String expectedLedgerIdJpa = "test@gmail.com";
 
         //Act:
-        LedgerIdJpa actualLedgerIdJpa = ledgerJpa.getLedgerIdJpa();
+        String actualLedgerIdJpa = ledgerJpa.getOwner();
 
         //Assert:
         assertEquals(expectedLedgerIdJpa, actualLedgerIdJpa);
@@ -163,7 +148,7 @@ public class LedgerJpaTest {
     void getCreationDateTest() {
 
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa = new LedgerJpa("test@gmail.com", "2019-12-10");
         String expectedCreationDate = "2019-12-10";
 
         //Act:
@@ -182,14 +167,14 @@ public class LedgerJpaTest {
     void setLedgerIdJpaTest() {
 
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("bla@gmail.com"), "2020-5-10");
-        LedgerIdJpa expectedLedgerIdJpa = new LedgerIdJpa("test@gmail.com");
+        LedgerJpa ledgerJpa = new LedgerJpa("bla@gmail.com", "2020-5-10");
+        String expectedLedgerIdJpa = "test@gmail.com";
 
         //Act:
-        ledgerJpa.setLedgerIdJpa(new LedgerIdJpa("test@gmail.com"));
+        ledgerJpa.setOwner("test@gmail.com");
 
         //Assert:
-        assertEquals(expectedLedgerIdJpa, ledgerJpa.getLedgerIdJpa());
+        assertEquals(expectedLedgerIdJpa, ledgerJpa.getOwner());
     }
 
     @Test
@@ -197,7 +182,7 @@ public class LedgerJpaTest {
     void setCreationDateTest() {
 
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa = new LedgerJpa("test@gmail.com", "2019-12-10");
         String expectedCreationDate = "2020-12-10";
 
         //Act:
@@ -213,10 +198,10 @@ public class LedgerJpaTest {
 
         //Arrange:
         LedgerJpa ledgerJpa1 = new LedgerJpa();
-        LedgerJpa ledgerJpa2 = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa2 = new LedgerJpa("test@gmail.com", "2019-12-10");
 
         //Act:
-        ledgerJpa1.setLedgerIdJpa(new LedgerIdJpa("test@gmail.com"));
+        ledgerJpa1.setOwner("test@gmail.com");
         ledgerJpa1.setCreationDate("2019-12-10");
 
         //Assert:
@@ -232,7 +217,7 @@ public class LedgerJpaTest {
     void toStringTest() {
 
         //Arrange:
-        LedgerJpa ledgerJpa = new LedgerJpa(new LedgerIdJpa("test@gmail.com"), "2019-12-10");
+        LedgerJpa ledgerJpa = new LedgerJpa("test@gmail.com", "2019-12-10");
         String expectedOutput = "test@gmail.com, 2019-12-10";
 
         //Act:

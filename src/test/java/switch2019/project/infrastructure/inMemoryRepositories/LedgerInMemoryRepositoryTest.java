@@ -12,7 +12,9 @@ import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import java.util.Arrays;
 import java.util.Currency;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -260,6 +262,170 @@ class LedgerInMemoryRepositoryTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
 
+    }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - True")
+    public void addGroupTransactionToLedger() {
+        // Arrange
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        GroupID ownerID = new GroupID(new Description("switch"));
+
+        Ledger ledger = new Ledger(ownerID);
+
+        ledgerInMemoryRepository.createLedger(ownerID);
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        Transaction expectedTransaction = new Transaction(monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        Transaction expectedTransaction2 = new Transaction(monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+
+        List<Transaction> expected = Arrays.asList(expectedTransaction, expectedTransaction2);
+
+        //Act
+        List<Transaction> result = ledgerInMemoryRepository.findAllTransactionsByLedgerID(ownerID.getDescription());
+
+        //Assert
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - True")
+    public void addPersonTransactionToLedger() {
+        // Arrange
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        PersonID ownerID = new PersonID(new Email("morty@gmail.com"));
+
+        Ledger ledger = new Ledger(ownerID);
+
+        ledgerInMemoryRepository.createLedger(ownerID);
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        Transaction expectedTransaction = new Transaction(monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        Transaction expectedTransaction2 = new Transaction(monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+
+        List<Transaction> expected = Arrays.asList(expectedTransaction, expectedTransaction2);
+
+        //Act
+        List<Transaction> result = ledgerInMemoryRepository.findAllTransactionsByLedgerID(ownerID.getEmail());
+
+        //Assert
+        assertEquals(expected, result);
+        assertNotNull(result);
+
+    }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - Exception")
+    public void addGroupTransactionToLedgerIDNotFound() {
+        // Arrange
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        GroupID ownerID = new GroupID(new Description("switch"));
+
+        Ledger ledger = new Ledger(ownerID);
+
+        ledgerInMemoryRepository.createLedger(ownerID);
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.findAllTransactionsByLedgerID("switchFake");
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No ledger found with that ID.");
+    }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - Exception")
+    public void addPersonTransactionToLedgerIDNotFound() {
+        // Arrange
+        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        PersonID ownerID = new PersonID(new Email("morty@email.com"));
+
+        Ledger ledger = new Ledger(ownerID);
+
+        ledgerInMemoryRepository.createLedger(ownerID);
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+        ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                monetaryValue, description, dateAndTime, category, account1, account2, type);
+
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.findAllTransactionsByLedgerID("emailfalso@fake.pt");
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No ledger found with that ID.");
     }
 
 

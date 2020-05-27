@@ -1,7 +1,9 @@
 package switch2019.project.dataModel.dataAssemblers;
 
+import switch2019.project.dataModel.entities.LedgerJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
+import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -17,7 +19,7 @@ public class TransactionDomainDataAssembler {
     public static Transaction toDomain(TransactionJpa transactionJpa) {
 
         //Assembling OwnerID
-        String owner = transactionJpa.getLedgerIdJpaToString().toString();
+        String owner = transactionJpa.getLedger().getOwner();
         OwnerID ownerId;
 
         //Checking if owner is a Group or Person:
@@ -40,14 +42,16 @@ public class TransactionDomainDataAssembler {
         //Date
         DateAndTime date = StringUtils.toDateHourMinute(transactionJpa.getDate());
 
-        return new Transaction(amount, description, date , category, accountFrom, accountTo, type, transactionJpa.getId());
+        return new Transaction(amount, description, date , category, accountFrom, accountTo, type);
     }
 
-    public static TransactionJpa toData(OwnerID owner, Transaction transaction) {
+    public static TransactionJpa toData(Ledger ledger, Transaction transaction) {
 
 
-        return new TransactionJpa(owner.toString(), transaction.getAmount(), transaction.getCurrency().toString(),
+        return new TransactionJpa(LedgerDomainDataAssembler.toData(ledger), transaction.getAmount(), transaction.getCurrency().toString(),
                 transaction.getDescription().toString(), transaction.getDate().yearMonthDayHourMinuteToString(), transaction.getCategoryID().getDenominationString(),
                 transaction.getAccountFrom().getDenominationToString(), transaction.getAccountTo().getDenominationToString(), transaction.typeToString());
     }
+
+
 }

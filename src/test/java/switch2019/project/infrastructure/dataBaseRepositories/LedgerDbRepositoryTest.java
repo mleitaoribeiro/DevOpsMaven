@@ -116,21 +116,6 @@ class LedgerDbRepositoryTest {
 
     }
 
-    @Test
-    @DisplayName("Test if ledger is created - False - Ledger Already Exists")
-    void createLedgerFalse() {
-
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            ledgerDbRepository.createLedger(someone.getID());
-        });
-
-        //Assert
-        assertThat(thrown)
-                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
-                .hasMessage("This Ledger already exists.");
-    }
-
     /**
      * Test if Transaction is added to Ledger
      */
@@ -180,6 +165,7 @@ class LedgerDbRepositoryTest {
         );
     }
 
+
     @Test
     @DisplayName("Test add Transaction to Ledger - True - Ledger in Repo")
     void addTransactionToLedgerLedgerIsInRepo() {
@@ -226,6 +212,8 @@ class LedgerDbRepositoryTest {
     }
 
 
+
+
     /**
      * Test if all transactions can be found by Ledger ID
      */
@@ -260,6 +248,8 @@ class LedgerDbRepositoryTest {
         );
 
     }
+
+
 
 
     @Test
@@ -301,6 +291,7 @@ class LedgerDbRepositoryTest {
         assertEquals(expectedSize, realSize);
 
     }
+
 
 
     /**
@@ -376,6 +367,7 @@ class LedgerDbRepositoryTest {
 
     }
 
+
     @Test
     @DisplayName("Test to get Transaction by it's ID - Personal Transaction - No Permission")
     void getTransactionByIDPersonalTransactionNoPermission() {
@@ -395,6 +387,7 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No permission.");
 
     }
+
 
 
     @Test
@@ -417,7 +410,6 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No transaction found with that ID.");
 
     }
-
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - happy case")
@@ -468,6 +460,7 @@ class LedgerDbRepositoryTest {
                 .isExactlyInstanceOf(NoPermissionException.class)
                 .hasMessage("No permission.");
     }
+
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Transaction Found")

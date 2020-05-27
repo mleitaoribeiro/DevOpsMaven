@@ -1,44 +1,45 @@
 package switch2019.project.dataModel.entities;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "ledger")
 public class LedgerJpa {
 
-    @EmbeddedId
+    @Id
     @Column(name = "ledger_id")
-    //Primary Key:
-    private LedgerIdJpa ledgerIdJpa;
-
+    private String owner;
     private String creationDate;
+
+    @OneToMany(mappedBy="ledger", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TransactionJpa> transactions;
 
     protected LedgerJpa() {}
 
-    public LedgerJpa (LedgerIdJpa ledgerIdJpa, String creationDate) {
-        this.ledgerIdJpa = ledgerIdJpa;
+    public LedgerJpa (String owner, String creationDate) {
+        this.owner = owner;
         this.creationDate = creationDate;
+        transactions = new ArrayList<>();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) return false;
         LedgerJpa that = (LedgerJpa) obj;
-        return Objects.equals(ledgerIdJpa, that.ledgerIdJpa) &&
-                Objects.equals(creationDate, that.creationDate);
+        return Objects.equals(owner, that.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ledgerIdJpa, creationDate);
+        return Objects.hash(owner, creationDate);
     }
 
     //GETTERS:
 
-    public LedgerIdJpa getLedgerIdJpa() {
-        return ledgerIdJpa;
+    public String getOwner() {
+        return owner;
     }
 
     public String getCreationDate() {
@@ -47,8 +48,8 @@ public class LedgerJpa {
 
     //SETTERS:
 
-    public void setLedgerIdJpa(LedgerIdJpa ledgerIdJpa) {
-        this.ledgerIdJpa = ledgerIdJpa;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public void setCreationDate(String creationDate) {
@@ -58,7 +59,24 @@ public class LedgerJpa {
 
     @Override
     public String toString() {
-        return ledgerIdJpa.getOwner() + ", " + creationDate;
+        return owner + ", " + creationDate;
     }
-    
+
+    /**
+     * Method that adds a transactionJpa to the LedgerJpa
+     * @param transactionJpa
+     */
+
+    public void addTransaction(TransactionJpa transactionJpa) {
+        transactions.add(transactionJpa);
+    }
+
+    /**
+     * Method used to obtain all the TransactionsJpa on the LedgerJpa
+     * @return
+     */
+
+    public List<TransactionJpa> getTransactionsFromLedgerJpa() {
+        return new ArrayList<TransactionJpa>(transactions);
+    }
 }
