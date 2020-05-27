@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
@@ -862,32 +863,38 @@ public class US008CreateTransactionServiceUnitTest {
     /**
      * Tests for the method: getTransactionByID
      */
-/*
-   @Test
+
+    @Test
     @DisplayName("Get Transaction By ID - PersonLedger - happy case")
     void getTransactionByIDPersonLedgerHappyCase() {
 
-       //Arrange
-       String email = "marge@hotmail.com";
-       Long id = 2L;
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 2L;
 
-       PersonID personID = new PersonID(new Email(email));
+        PersonID personID = new PersonID(new Email(email));
 
-       Category category= new Category (new Denomination ("HOUSE"), personID );
-
-       Account accountFrom = new Account (new Denomination("MASTERCARD"),
-               new Description("For daily expenses"), personID);
-       Account accountTo = new Account(new Denomination("Kwik-E-Mart"),
-               new Description("Food and Grocery") , personID);
-
-       Transaction expectedTransaction = new Transaction(new MonetaryValue(50.0, Currency.getInstance("EUR")),
-               new Description("GROCERY FOR BAKING COOKIES"),
-               new DateAndTime(2020,03,20,13,04),
-               category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+        Person person = new Person("Marjorie Bouvier Simpson",
+                new DateAndTime(1956, 5, 12), new Address("Springfield"),
+                new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
+                new Email("marge@hotmail.com"));
 
 
-        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
-                thenReturn(expectedTransaction);
+        Category category = new Category(new Denomination("HOUSE"), personID);
+
+        Account accountFrom = new Account(new Denomination("MASTERCARD"),
+                new Description("For daily expenses"), personID);
+        Account accountTo = new Account(new Denomination("Kwik-E-Mart"),
+                new Description("Food and Grocery"), personID);
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(50.0, Currency.getInstance("EUR")),
+                new Description("GROCERY FOR BAKING COOKIES"),
+                new DateAndTime(2020, 03, 20, 13, 04),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
+
+        Mockito.when(ledgerRepository.getTransactionByID(email, id)).thenReturn(expectedTransaction);
 
 
         TransactionDTO transactionDTOexpected = new TransactionDTO
@@ -900,7 +907,50 @@ public class US008CreateTransactionServiceUnitTest {
 
         //Assert
         assertEquals(transactionDTOexpected, result);
-        }*/
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - happy case")
+    void getTransactionByIDGroupLedgerHappyCase() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 7L;
+
+        PersonID personID = new PersonID(new Email("1110120@isep.ipp.pt"));
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        Group group = new Group(new Description (groupDescription), personID);
+
+        Category category = new Category(new Denomination("ISEP"), groupID);
+
+        Account accountFrom = new Account(new Denomination("Pocket Money"),
+                new Description("Pocket Money for Superbock"), groupID);
+        Account accountTo = new Account(new Denomination("AE ISEP"),
+                new Description("AE BAR ISEP"), groupID);
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 03, 04, 17, 00),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription))).thenReturn(group);
+
+        Mockito.when(ledgerRepository.getTransactionByID(groupDescription, id)).thenReturn(expectedTransaction);
+
+        TransactionDTO transactionDTOexpected = new TransactionDTO
+                (20.0, Currency.getInstance("EUR"), "SUPERBOCK ROUND 2",
+                        "2020-03-04 17:00", "ISEP",
+                        "POCKET MONEY", "AE ISEP", "DEBIT");
+
+        //Act
+        TransactionDTO result = service.getTransactionByID(groupDescription, id);
+
+        //Assert
+        assertEquals(transactionDTOexpected, result);
+    }
+
 
 
 
