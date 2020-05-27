@@ -579,7 +579,7 @@ class US008CreateTransactionServiceTest {
     /**
      * Tests for the method: getTransactionByID
      */
-/*
+
     @Test
     @DisplayName("Get Transaction By ID - PersonLedger - happy case")
     void getTransactionByIDPersonLedgerHappyCase() {
@@ -600,8 +600,7 @@ class US008CreateTransactionServiceTest {
         assertEquals(transactionDTOexpected, result);
     }
 
- */
-/*
+
     @Test
     @DisplayName("Get Transaction By ID - PersonLedger - No Permission")
     void getTransactionByIDPersonLedgerNoPermission() {
@@ -622,7 +621,6 @@ class US008CreateTransactionServiceTest {
                 .hasMessage("No permission.");
     }
 
- */
 
     @Test
     @DisplayName("Get Transaction By ID - PersonLedger - No Person Found")
@@ -664,7 +662,7 @@ class US008CreateTransactionServiceTest {
                 .hasMessage("No transaction found with that ID.");
 
     }
-/*
+
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - happy case")
@@ -686,9 +684,7 @@ class US008CreateTransactionServiceTest {
         assertEquals(transactionDTOexpected, result);
     }
 
- */
 
-    /*
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Permission")
     void getTransactionByIDGroupLedgerNoPermission() {
@@ -709,7 +705,6 @@ class US008CreateTransactionServiceTest {
                 .hasMessage("No permission.");
     }
 
-     */
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Group Found")

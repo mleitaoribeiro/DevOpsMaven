@@ -119,7 +119,7 @@ class LedgerDbRepositoryTest {
     /**
      * Test if Transaction is added to Ledger
      */
-/*
+
     @Test
     @DisplayName("Test add Transaction to Ledger - True - No ledger in Repo")
     void addTransactionToLedgerTrue() {
@@ -165,8 +165,7 @@ class LedgerDbRepositoryTest {
         );
     }
 
- */
-/*
+
     @Test
     @DisplayName("Test add Transaction to Ledger - True - Ledger in Repo")
     void addTransactionToLedgerLedgerIsInRepo() {
@@ -212,13 +211,13 @@ class LedgerDbRepositoryTest {
         );
     }
 
- */
+
 
 
     /**
      * Test if all transactions can be found by Ledger ID
      */
-/*
+
     @Test
     @DisplayName("Test if all transactions can be found by Ledger ID - Yes")
     void findAllTransactionsByLedgerID() {
@@ -250,7 +249,7 @@ class LedgerDbRepositoryTest {
 
     }
 
- */
+
 
 
     @Test
@@ -273,7 +272,6 @@ class LedgerDbRepositoryTest {
     /**
      * Test if all transactions can be found
      */
-    /*
 
     @Test
     @DisplayName("Test if all transactions can be found  - Yes")
@@ -294,7 +292,6 @@ class LedgerDbRepositoryTest {
 
     }
 
-     */
 
 
     /**
@@ -339,7 +336,6 @@ class LedgerDbRepositoryTest {
     /**
      * Tests to get the transaction by it´s ID
      */
-    /*
 
     @Test
     @DisplayName("Test to get Transaction by it's ID - Personal Transaction - Happy Case")
@@ -371,8 +367,7 @@ class LedgerDbRepositoryTest {
 
     }
 
-     */
-/*
+
     @Test
     @DisplayName("Test to get Transaction by it's ID - Personal Transaction - No Permission")
     void getTransactionByIDPersonalTransactionNoPermission() {
@@ -393,7 +388,6 @@ class LedgerDbRepositoryTest {
 
     }
 
- */
 
 
     @Test
@@ -417,7 +411,6 @@ class LedgerDbRepositoryTest {
 
     }
 
-/*
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - happy case")
     void getTransactionByIDGroupLedgerHappyCase() {
@@ -448,9 +441,6 @@ class LedgerDbRepositoryTest {
         assertEquals(expectedTransaction, result);
     }
 
- */
-    /*
-
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Permission")
     void getTransactionByIDGroupLedgerNoPermission() {
@@ -471,7 +461,6 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No permission.");
     }
 
-     */
 
     @Test
     @DisplayName("Get Transaction By ID - GroupLedger - No Transaction Found")

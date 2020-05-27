@@ -69,7 +69,7 @@ public class US008CreateTransactionControllerRestUnitTest {
         //Act
         Mockito.when(service.getTransactionsByLedgerId(personId)).thenReturn(expectedTransactions);
 
-        ResponseEntity<Object> responseEntityResult = controller.getPersonsTransactionsByLedgerId(personId);
+        ResponseEntity<Object> responseEntityResult = controller.getPersonTransactionsByLedgerId(personId);
 
         //Assert
         Assertions.assertAll(
@@ -90,7 +90,7 @@ public class US008CreateTransactionControllerRestUnitTest {
         Mockito.when(service.getTransactionsByLedgerId(personId)).thenReturn(expectedTransactions);
 
         //Act
-        ResponseEntity<Object> responseEntityResult = controller.getPersonsTransactionsByLedgerId(personId);
+        ResponseEntity<Object> responseEntityResult = controller.getPersonTransactionsByLedgerId(personId);
 
         //Assert
         Assertions.assertAll(
@@ -110,7 +110,7 @@ public class US008CreateTransactionControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getPersonsTransactionsByLedgerId(personId);
+            controller.getPersonTransactionsByLedgerId(personId);
         });
 
         //Assert
@@ -137,7 +137,7 @@ public class US008CreateTransactionControllerRestUnitTest {
         //Act
         Mockito.when(service.getTransactionsByLedgerId(personId)).thenReturn(expectedTransactions);
 
-        ResponseEntity<Object> responseEntityResult = controller.getPersonsTransactionsByLedgerId(personId);
+        ResponseEntity<Object> responseEntityResult = controller.getPersonTransactionsByLedgerId(personId);
 
         //Assert
         Assertions.assertAll(
@@ -158,7 +158,7 @@ public class US008CreateTransactionControllerRestUnitTest {
         Mockito.when(service.getTransactionsByLedgerId(personId)).thenReturn(expectedTransactions);
 
         //Act
-        ResponseEntity<Object> responseEntityResult = controller.getPersonsTransactionsByLedgerId(personId);
+        ResponseEntity<Object> responseEntityResult = controller.getPersonTransactionsByLedgerId(personId);
 
         //Assert
         Assertions.assertAll(
@@ -178,7 +178,7 @@ public class US008CreateTransactionControllerRestUnitTest {
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.getPersonsTransactionsByLedgerId(groupID);
+            controller.getPersonTransactionsByLedgerId(groupID);
         });
 
         //Assert
