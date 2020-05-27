@@ -13,8 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
+import switch2019.project.DTO.serializationDTO.AccountDTO;
+import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
+import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
+import switch2019.project.assemblers.LedgerDTOAssembler;
 import switch2019.project.controllerLayer.rest.US008CreateTransactionControllerRest;
 
 import java.util.Currency;
@@ -40,9 +45,57 @@ public class US008CreateTransactionControllerRestUnitTest {
     }
 
     /**
-     * Test create transactions
+     * Test create Personal transaction
      */
 
+    @Test
+    @DisplayName("Test create personal transactions - Main scenario - Happy Case")
+    public void createPersonTransactionHappyCase()  {
+        //Arrange
+        String personId = "marge@hotmail.com";
+
+        final Double amount = 10.50;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+        long id = 9;
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = LedgerDTOAssembler.transformToCreatePersonalTransactionDTO(personId, createTransactionInfoDTO);
+
+        TransactionShortDTO transactionShortDTOExpected = new TransactionShortDTO(amount, Currency.getInstance(currency), description, accountFrom, accountTo, id);
+
+        ResponseEntity <TransactionShortDTO> responseEntityExpected = new ResponseEntity<>(transactionShortDTOExpected, HttpStatus.CREATED);
+
+        //Act
+        Mockito.when(service.addPersonalTransaction(createPersonalTransactionDTO)).thenReturn(transactionShortDTOExpected);
+
+        ResponseEntity<TransactionShortDTO> responseEntityResult = controller.createPersonTransaction(personId, createTransactionInfoDTO);
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(responseEntityExpected, responseEntityResult),
+                () -> assertEquals(HttpStatus.CREATED, responseEntityResult.getStatusCode())
+        );
+    }
+
+    /**
+     * Test create Group transactions
+     */
 
 
     /**
