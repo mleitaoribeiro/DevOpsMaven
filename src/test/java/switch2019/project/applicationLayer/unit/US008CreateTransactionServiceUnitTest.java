@@ -143,7 +143,7 @@ public class US008CreateTransactionServiceUnitTest {
     /**
      * Tests for the method: getTransactionByID
      */
-
+/*
    @Test
     @DisplayName("Get Transaction By ID - PersonLedger - happy case")
     void getTransactionByIDPersonLedgerHappyCase() {
@@ -181,7 +181,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         //Assert
         assertEquals(transactionDTOexpected, result);
-    }
+        }*/
 
 
 
