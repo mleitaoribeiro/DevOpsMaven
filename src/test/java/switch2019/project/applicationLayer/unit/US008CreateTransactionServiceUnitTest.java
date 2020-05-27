@@ -138,7 +138,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         newAccountTo = new Account(new Denomination("AE ISEP"),
                 new Description("AE ISEP"), groupID);
-        accountToID = new AccountID(new Denomination(accountFrom), groupID);
+        accountToID = new AccountID(new Denomination(accountTo), groupID);
 
         ledger = new Ledger(groupID);
         ledgerID = new LedgerID(groupID);
@@ -193,10 +193,10 @@ public class US008CreateTransactionServiceUnitTest {
                 (amount, Currency.getInstance("EUR"), accountFrom, accountTo, type, 1L);
 
         //Act
-        //TransactionShortDTO transactionCreated = service.addGroupTransaction(createGroupTransactionDTO);
+        TransactionShortDTO transactionCreated = service.addGroupTransaction(createGroupTransactionDTO);
 
         //Assert
-        //assertEquals(expectedTransaction, transactionCreated);
+        assertEquals(expectedTransaction, transactionCreated);
     }
 
     @Test
@@ -205,7 +205,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         //Arrange
         double amount2 = -20;
-        MonetaryValue realAmount2 = new MonetaryValue(amount, Currency.getInstance(currency));
+        MonetaryValue realAmount2 = new MonetaryValue(amount2, Currency.getInstance(currency));
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
                 amount2, currency, date, description, category, accountFrom, accountTo, type);
@@ -233,17 +233,17 @@ public class US008CreateTransactionServiceUnitTest {
 
         Mockito.when(ledgerRepository.addTransactionToLedger(ledgerID, realAmount2, realDescription, realDate,
                 categoryID, accountFromID, accountToID, realType))
-                .thenReturn(transaction);
+                .thenThrow(new IllegalArgumentException("The monetary value cannot be negative."));
 
         //Act
-        /*Throwable thrown = catchThrowable(() -> {
+        Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The monetary value cannot be negative.");*/
+                .hasMessage("The monetary value cannot be negative.");
     }
 
     @Test
@@ -251,29 +251,23 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedPersonNotMember() {
 
         //Arrange
-        String groupDescription = "Switch";
-        String personEmail = "leonard.smith@gmail.com";
-        double amount1 = 20;
-        String currency = "EUR";
-        String date = "2019-05-25 13:12";
-        String description = "Pizza";
-        String category = "ISEP";
-        String accountFrom = "POCKET MONEY";
-        String accountTo = "AE ISEP";
-        String type = "DEBIT";
+        String personEmail2 = "leonard.smith@gmail.com";
 
-        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
-                amount1, currency, date, description, category, accountFrom, accountTo, type);
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail2,
+                amount, currency, date, description, category, accountFrom, accountTo, type);
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail2)))
+                .thenThrow(new NoPermissionException("This person is not member of this group."));
 
         //Act
-        /*Throwable thrown = catchThrowable(() -> {
+        Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(NoPermissionException.class)
-                .hasMessage("This person is not member of this group.");*/
+                .hasMessage("This person is not member of this group.");
     }
 
     @Test
@@ -281,29 +275,26 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedGroupNotFound() {
 
         //Arrange
-        String groupDescription = "Montaditos";
-        String personEmail = "1191755@isep.ipp.pt";
-        double amount1 = 20;
-        String currency = "EUR";
-        String date = "2019-05-25 13:12";
-        String description = "Pizza";
-        String category = "ISEP";
-        String accountFrom = "POCKET MONEY";
-        String accountTo = "AE ISEP";
-        String type = "DEBIT";
+        String groupDescription2 = "Montaditos";
 
-        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
-                amount1, currency, date, description, category, accountFrom, accountTo, type);
+        CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription2, personEmail,
+                amount, currency, date, description, category, accountFrom, accountTo, type);
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(person);
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription2)))
+                .thenThrow(new ArgumentNotFoundException("No group found with that description."));
 
         //Act
-        /*Throwable thrown = catchThrowable(() -> {
+        Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No group found with that description.");*/
+                .hasMessage("No group found with that description.");
     }
 
     @Test
@@ -311,12 +302,12 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedPersonNotFound() {
 
         //Arrange
-        /*String personEmail2 = "rosa@sapo.pt";
+        String personEmail2 = "rosa@sapo.pt";
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail2,
                 amount, currency, date, description, category, accountFrom, accountTo, type);
 
-        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail2)).getID())
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail2)))
                 .thenThrow(new ArgumentNotFoundException("No person found with that email."));
 
         //Act
@@ -327,7 +318,7 @@ public class US008CreateTransactionServiceUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No person found with that email.");*/
+                .hasMessage("No person found with that email.");
     }
 
     @Test
@@ -335,29 +326,30 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedCategoryNotFound() {
 
         //Arrange
-        String groupDescription = "Switch";
-        String personEmail = "1191755@isep.ipp.pt";
-        double amount1 = 20;
-        String currency = "EUR";
-        String date = "2019-05-25 13:12";
-        String description = "Pizza";
-        String category = "Compras";
-        String accountFrom = "POCKET MONEY";
-        String accountTo = "AE ISEP";
-        String type = "DEBIT";
+        String description2 = "Pizza";
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
-                amount1, currency, date, description, category, accountFrom, accountTo, type);
+                amount, currency, date, description2, category, accountFrom, accountTo, type);
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(person);
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        Mockito.when(categoryRepository
+                .getByID(new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID)))
+                .thenThrow(new ArgumentNotFoundException("No category found with that ID."));
 
         //Act
-        /*Throwable thrown = catchThrowable(() -> {
+        Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No category found with that ID.");*/
+                .hasMessage("No category found with that ID.");
     }
 
     @Test
@@ -365,29 +357,34 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedAccountFromNotFound() {
 
         //Arrange
-        String groupDescription = "Switch";
-        String personEmail = "1191755@isep.ipp.pt";
-        double amount1 = 20;
-        String currency = "EUR";
-        String date = "2019-05-25 13:12";
-        String description = "Pizza";
-        String category = "ISEP";
-        String accountFrom = "REVOLUT";
-        String accountTo = "AE ISEP";
-        String type = "DEBIT";
+        String accountFrom2 = "REVOLUT";
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
-                amount1, currency, date, description, category, accountFrom, accountTo, type);
+                amount, currency, date, description, category, accountFrom2, accountTo, type);
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(person);
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        Mockito.when(categoryRepository
+                .getByID(new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID)))
+                .thenReturn(newCategory);
+
+        Mockito.when(accountRepository
+                .getByID(new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID)))
+                .thenThrow(new ArgumentNotFoundException("No account found with that ID."));
 
         //Act
-        /*Throwable thrown = catchThrowable(() -> {
+        Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No account found with that ID.");*/
+                .hasMessage("No account found with that ID.");
     }
 
     @Test
@@ -395,29 +392,38 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedAccountNotFound() {
 
         //Arrange
-        String groupDescription = "Switch";
-        String personEmail = "1191755@isep.ipp.pt";
-        double amount1 = 20;
-        String currency = "EUR";
-        String date = "2019-05-25 13:12";
-        String description = "Pizza";
-        String category = "ISEP";
-        String accountFrom = "AE ISEP";
-        String accountTo = "REVOLUT";
-        String type = "DEBIT";
+        String accountTo2 = "REVOLUT";
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
-                amount1, currency, date, description, category, accountFrom, accountTo, type);
+                amount, currency, date, description, category, accountFrom, accountTo2, type);
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(person);
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        Mockito.when(categoryRepository
+                .getByID(new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID)))
+                .thenReturn(newCategory);
+
+        Mockito.when(accountRepository.
+                getByID(new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID)))
+                .thenReturn(newAccountFrom);
+
+        Mockito.when(accountRepository
+                .getByID(new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), groupID)))
+                .thenThrow(new ArgumentNotFoundException("No account found with that ID."));
 
         //Act
-        /*Throwable thrown = catchThrowable(() -> {
+        Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
 
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No account found with that ID.");*/
+                .hasMessage("No account found with that ID.");
     }
 
     @Test
@@ -425,21 +431,37 @@ public class US008CreateTransactionServiceUnitTest {
     void testIfGroupAccountWasCreatedNullTransactionParameter() {
 
         //Arrange
-        String groupDescription = "Switch";
-        String personEmail = "1191755@isep.ipp.pt";
-        double amount1 = 20;
-        String currency = "EUR";
-        String date = "2019-05-25 13:12";
-        String description = null;
-        String category = "ISEP";
-        String accountFrom = "POCKET MONEY";
-        String accountTo = "AE ISEP";
-        String type = "DEBIT";
+        String description2 = null;
 
         CreateGroupTransactionDTO createGroupTransactionDTO = new CreateGroupTransactionDTO(groupDescription, personEmail,
-                amount1, currency, date, description, category, accountFrom, accountTo, type);
+                amount, currency, date, description2, category, accountFrom, accountTo, type);
 
-        /*//Act
+        Mockito.when(personRepository.findPersonByEmail(new Email(personEmail)))
+                .thenReturn(person);
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenReturn(group);
+
+        Mockito.when(categoryRepository
+                .getByID(new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID)))
+                .thenReturn(newCategory);
+
+        Mockito.when(accountRepository.
+                getByID(new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID)))
+                .thenReturn(newAccountFrom);
+
+        Mockito.when(accountRepository.
+                getByID(new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), groupID)))
+                .thenReturn(newAccountTo);
+
+        Mockito.when(ledgerRepository.getByID(groupID))
+                .thenReturn(ledger);
+
+        Mockito.when(ledgerRepository.addTransactionToLedger(ledgerID, realAmount, null, realDate,
+                categoryID, accountFromID, accountToID, realType))
+                .thenThrow(new IllegalArgumentException("The description can't be null or empty."));
+
+        //Act
         Throwable thrown = catchThrowable(() -> {
             service.addGroupTransaction(createGroupTransactionDTO);
         });
@@ -447,7 +469,7 @@ public class US008CreateTransactionServiceUnitTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage("The description can't be null or empty.");*/
+                .hasMessage("The description can't be null or empty.");
     }
 
     /**
@@ -926,7 +948,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
 
-        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+        Mockito.when(ledgerRepository.getTransactionByID(email, id)).
                 thenThrow(new NoPermissionException("No permission."));
 
         // Act
@@ -981,10 +1003,10 @@ public class US008CreateTransactionServiceUnitTest {
 
         Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
 
-        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+        Mockito.when(ledgerRepository.getTransactionByID(email, id)).
                 thenThrow(new ArgumentNotFoundException("No transaction found with that ID."));
 
-          // Act
+        // Act
         Throwable thrown = catchThrowable(() -> {
             service.getTransactionByID(email, id);
 
@@ -1151,7 +1173,6 @@ public class US008CreateTransactionServiceUnitTest {
                 .hasMessage("No transaction found with that ID.");
 
     }
-
 
 }
 
