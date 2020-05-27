@@ -232,7 +232,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(Exception someException, WebRequest request) {
         ErrorDTO apiError = new ErrorDTO(
-                HttpStatus.INTERNAL_SERVER_ERROR, someException.getLocalizedMessage(), "error occurred");
+                HttpStatus.INTERNAL_SERVER_ERROR,"error occurred", someException.getLocalizedMessage());
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 

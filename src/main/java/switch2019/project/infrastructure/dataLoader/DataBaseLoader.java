@@ -397,9 +397,9 @@ public class DataBaseLoader {
         groupRepository.addMember(familySimpsonGroup, elizabetSimpson.getID().toString());
         groupRepository.addMember(familySimpsonGroup, margaretSimpson.getID().toString());
         //Siblings
-        bartolomewSimpson.addSibling(elizabetSimpson);
-        bartolomewSimpson.addSibling(margaretSimpson);
-        margaretSimpson.addSibling(elizabetSimpson);
+        personRepository.addSibling(bartolomewSimpson, elizabetSimpson.getID().toString());
+        personRepository.addSibling(bartolomewSimpson, margaretSimpson.getID().toString());
+        personRepository.addSibling(margaretSimpson, elizabetSimpson.getID().toString());
 
         //Family group - Family Cardoso - All members are Group Admin
         Group familyCardosoGroup = groupRepository.createGroup(new Description("Family Cardoso"),

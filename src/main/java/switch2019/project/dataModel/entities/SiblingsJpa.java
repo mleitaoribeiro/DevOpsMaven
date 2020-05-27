@@ -1,9 +1,6 @@
 package switch2019.project.dataModel.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,8 +10,9 @@ public class SiblingsJpa {
     @Embeddable
     static class SiblingsIdJpa implements Serializable {
 
-        @Column(name = "OwnerID")
-        private String ownerEmail;
+        @ManyToOne
+        @JoinColumn(name = "OwnerID")
+        private PersonJpa ownerEmail;
 
         @Column(name = "SiblingID")
         private String siblingEmail;
@@ -22,12 +20,12 @@ public class SiblingsJpa {
         public SiblingsIdJpa() {
         }
 
-        public SiblingsIdJpa(String ownerEmail, String siblingEmail) {
+        public SiblingsIdJpa(PersonJpa ownerEmail, String siblingEmail) {
             this.ownerEmail = ownerEmail;
             this.siblingEmail = siblingEmail;
         }
 
-        public String getOwnerEmail() {
+        public PersonJpa getOwnerEmail() {
             return ownerEmail;
         }
 
@@ -56,7 +54,7 @@ public class SiblingsJpa {
     public SiblingsJpa() {
     }
 
-    public SiblingsJpa(String ownerId, String siblingId) {
+    public SiblingsJpa(PersonJpa ownerId, String siblingId) {
         this.id = new SiblingsIdJpa(ownerId, siblingId);
     }
 

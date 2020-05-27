@@ -1,6 +1,7 @@
 package switch2019.project.domain.domainEntities.person;
 
 import switch2019.project.domain.domainEntities.frameworks.Owner;
+import switch2019.project.domain.domainEntities.ledger.Periodicity;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 
@@ -76,6 +77,19 @@ public class Person implements Owner {
         this.father = father;
         this.siblingList = new HashSet<>();
     }
+
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
+                  PersonID mother, PersonID father, HashSet<Person> siblings, Email email) {
+        personID = new PersonID(email);
+        this.name = new PersonName(name);
+        this.birthDate = birthDate;
+        this.birthPlace = birthPlace;
+        address = homeAddress;
+        this.mother = mother;
+        this.father = father;
+        this.siblingList = siblings;
+    }
+
 
     @Override
     public boolean equals(Object o) {
