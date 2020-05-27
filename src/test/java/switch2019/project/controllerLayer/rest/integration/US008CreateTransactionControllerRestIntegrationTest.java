@@ -1484,7 +1484,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
 
-
     @Test
     @DisplayName("Test Group Account creation -  person does not exists on Person Repository")
     void addGroupTransactionPersonDoesNotExits() throws Exception {
@@ -1535,6 +1534,585 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Category Does Not Exists")
+    void createGroupTransactionCategoryDoesNotExists() throws Exception {
+
+       //Arrange
+        String uriPost = "/groups/Switch/ledger";
+
+        //Create input DTO
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("Not existing category");
+        createTransactionInfoDTO.setDescription("SuperBock round1");
+        createTransactionInfoDTO.setAccountTo("AE ISEP");
+        createTransactionInfoDTO.setAccountFrom("Pocket money");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new ArgumentNotFoundException("No category found with that ID.").toString();
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No category found with that ID.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Account From Does Not Exists")
+    void createGroupTransactionAccountFromDoesNotExists() throws Exception {
+        //Arrange
+        String uriPost = "/groups/Switch/ledger";
+
+        //Create input DTO
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("ISEP");
+        createTransactionInfoDTO.setDescription("SuperBock round1");
+        createTransactionInfoDTO.setAccountTo("AE ISEP");
+        createTransactionInfoDTO.setAccountFrom("Not existing account");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No account found with that ID.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Account TO Does Not Exists")
+    void createGroupTransactionAccountToDoesNotExists() throws Exception {
+        //Arrange
+        String uriPost = "/groups/Switch/ledger";
+
+        //Create input DTO
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("ISEP");
+        createTransactionInfoDTO.setDescription("SuperBock round1");
+        createTransactionInfoDTO.setAccountTo("Not existing account");
+        createTransactionInfoDTO.setAccountFrom("Pocket Money");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No account found with that ID.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Null Amount")
+    void createGroupTransactionNullAmount() throws Exception {
+        //Arrange
+        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+
+        //Create input DTO
+        final Double amount = null;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new NullPointerException().toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().is5xxServerError())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(500, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("500", result.getString("statusCode")),
+                () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
+                () -> assertEquals("error occurred", result.getString("error")),
+                () -> assertEquals("null", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Person Transaction creation - Null Currency")
+    void createGroupTransactionNullCurrency() throws Exception {
+        //Arrange
+
+        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+
+        //Create input DTO
+        final Double amount = 10.00;
+        final String currency = null;
+        final String date = "2020-05-25 15:50";
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new NullPointerException().toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().is5xxServerError())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(500, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("500", result.getString("statusCode")),
+                () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
+                () -> assertEquals("error occurred", result.getString("error")),
+                () -> assertEquals("null", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Null date")
+    void createGroupTransactionNullDate() throws Exception {
+        //Arrange
+
+        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+
+        //Create input DTO
+        final Double amount = 10.00;
+        final String currency = "EUR";
+        final String date = null;
+        final String category = "HOUSE";
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+       //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new NullPointerException("text").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().is5xxServerError())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(500, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("500", result.getString("statusCode")),
+                () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
+                () -> assertEquals("error occurred", result.getString("error")),
+                () -> assertEquals("text", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Null Category")
+    void createGroupTransactionNullCategory() throws Exception {
+
+        //Arrange
+
+        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+
+        //Create input DTO
+        final Double amount = 10.00;
+        final String currency = "EUR";
+        final String date = "2020-05-25 15:50";
+        final String category = null;
+        final String description = "beers";
+        final String accountFrom = "MasterCard";
+        final String accountTo = "Homer Snacks";
+        final String type = "debit";
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(category);
+        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setAccountTo(accountTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals("The denomination can't be null or empty.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Null Description")
+    void createGroupTransactionNullDescription() throws Exception {
+
+        //Arrange
+
+        String uriPost = "/groups/Switch/ledger";
+
+        //Create input DTO
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("ISEP");
+        createTransactionInfoDTO.setDescription(null);
+        createTransactionInfoDTO.setAccountTo("AE ISEP");
+        createTransactionInfoDTO.setAccountFrom("Pocket money");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals("The description can't be null or empty.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Null AccountFrom")
+    void createGroupTransactionNullAccountFrom() throws Exception {
+        //Arrange
+
+        String uriPost = "/groups/Switch/ledger";
+
+        //Create input DTO
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("ISEP");
+        createTransactionInfoDTO.setDescription("Super bock round1");
+        createTransactionInfoDTO.setAccountTo("AE ISEP");
+        createTransactionInfoDTO.setAccountFrom(null);
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals("The denomination can't be null or empty.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+    @Test
+    @DisplayName("Test Group Transaction creation - Null AccountTo")
+    void createGroupTransactionNullAccountTO() throws Exception {
+        //Arrange
+
+        String uriPost = "/groups/Switch/ledger";
+
+        //Create input DTO
+
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("ISEP");
+        createTransactionInfoDTO.setDescription("Super bock round1");
+        createTransactionInfoDTO.setAccountTo(null);
+        createTransactionInfoDTO.setAccountFrom("Pocket Money");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
+        //Serialize input Json
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+
+        String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson))
+                .andExpect(status().isUnprocessableEntity())
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //Assert
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
+                () -> assertEquals("The denomination can't be null or empty.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+    }
+
+//    @Test
+//    @DisplayName("Test Group Transaction creation - Null type")
+//    void createGroupTransactionNullType() throws Exception {
+//        //Arrange
+//
+//        String uriPost = "/groups/Switch/ledger";
+//
+//        //Create input DTO
+//
+//        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+//
+//        createTransactionInfoDTO.setAmount(5.00);
+//        createTransactionInfoDTO.setCurrency("EUR");
+//        createTransactionInfoDTO.setCategory("ISEP");
+//        createTransactionInfoDTO.setDescription("Super bock round1");
+//        createTransactionInfoDTO.setAccountTo("ISEP");
+//        createTransactionInfoDTO.setAccountFrom("Pocket Money");
+//        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+//        createTransactionInfoDTO.setType(null);
+//        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+//
+//        //Serialize input Json
+//        String inputJson = super.mapToJson((createTransactionInfoDTO));
+//        String expectedResolvedException = new NullPointerException().toString();
+//
+//        //Act
+//        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .content(inputJson))
+//                .andExpect(status().is5xxServerError())
+//                .andReturn();
+//
+//        int status = mvcResult.getResponse().getStatus();
+//
+//        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+//
+//        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+//
+//        //Assert
+//        Assertions.assertAll(
+//                () -> assertEquals(500, status),
+//                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+//                () -> assertEquals("500", result.getString("statusCode")),
+//                () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
+//                () -> assertEquals("error occurred", result.getString("error")),
+//                () -> assertEquals("null", result.getString("message")),
+//                () -> assertEquals(expectedResolvedException, realResolvedException)
+//        );
+//
+//    }
 
     @Test
     @DisplayName("Test Group Transaction creation - null input")
@@ -1693,42 +2271,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
 
-   /*
-
-    @Test
-    @DisplayName("Test Group Transaction creation - null input")
-    void createGroupAndBecomeAdminNullJsonInput() throws Exception {
-
-        //Arrange
-        String uri = "/groups/Switch/ledger";
-
-        String inputJson = super.mapToJson((null));
-
-        //Act
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(inputJson))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-
-        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
-
-        //Assert
-        Assertions.assertAll(
-                () -> assertEquals(400, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
-                () -> assertEquals("400", result.getString("statusCode")),
-                () -> assertEquals("BAD_REQUEST", result.getString("status")),
-                () -> assertEquals("The request body needed to perform the operation is missing.", result.getString("error")),
-                () -> assertEquals("Required request body is missing.", result.getString("message"))
-        );
-
-    }
-
-*/
-
     @Test
     @DisplayName("Test Group Account creation - Invalid POST Method")
     void addGroupTransactionInvalidUri() throws Exception {
@@ -1781,12 +2323,13 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+
     /**
      * Test getTransactionsByID
      */
     @Test
     @DisplayName("Get Transaction By ID - Person - happy case")
-    void getPersonTransactionOnPersonIdHappyCase() throws Exception{
+    void getPersonTransactionOnPersonIdHappyCase() throws Exception {
 
         //Arrange:
 
@@ -1838,11 +2381,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
                 () -> assertEquals("403", result.getString("statusCode")),
                 () -> assertEquals("FORBIDDEN", result.getString("status")),
-                () -> assertEquals ("No permission for this operation.", result.getString("error")),
-                () -> assertEquals ("No permission.", result.getString("message"))
+                () -> assertEquals("No permission for this operation.", result.getString("error")),
+                () -> assertEquals("No permission.", result.getString("message"))
         );
     }
 
@@ -1867,11 +2410,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
-                () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No transaction found with that ID.", result.getString("message"))
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No transaction found with that ID.", result.getString("message"))
         );
     }
 
@@ -1896,17 +2439,17 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
-                () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No person found with that email.", result.getString("message"))
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No person found with that email.", result.getString("message"))
         );
     }
 
     @Test
     @DisplayName("Get Transaction By ID - Group - happy case")
-    void getTransactionsByGroupIdHappyCase() throws Exception{
+    void getTransactionsByGroupIdHappyCase() throws Exception {
 
         //Arrange:
 
@@ -1958,11 +2501,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
                 () -> assertEquals("403", result.getString("statusCode")),
                 () -> assertEquals("FORBIDDEN", result.getString("status")),
-                () -> assertEquals ("No permission for this operation.", result.getString("error")),
-                () -> assertEquals ("No permission.", result.getString("message"))
+                () -> assertEquals("No permission for this operation.", result.getString("error")),
+                () -> assertEquals("No permission.", result.getString("message"))
         );
     }
 
@@ -1987,11 +2530,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
-                () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No transaction found with that ID.", result.getString("message"))
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No transaction found with that ID.", result.getString("message"))
         );
     }
 
@@ -2016,11 +2559,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
-                () -> assertEquals ("This resource was not found.", result.getString("error")),
-                () -> assertEquals ("No group found with that description.", result.getString("message"))
+                () -> assertEquals("This resource was not found.", result.getString("error")),
+                () -> assertEquals("No group found with that description.", result.getString("message"))
         );
     }
 
