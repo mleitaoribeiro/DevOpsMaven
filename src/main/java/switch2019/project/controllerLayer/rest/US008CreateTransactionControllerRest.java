@@ -121,12 +121,12 @@ public class US008CreateTransactionControllerRest {
     public ResponseEntity<Object> getPersonTransactionsByLedgerId(@PathVariable final String personId) {
         List<TransactionShortDTO> allTransactions = service.getTransactionsByLedgerId(personId);
 
-       /* for(TransactionShortDTO transaction : allTransactions) {
+        for(TransactionShortDTO transaction : allTransactions) {
             Link selfLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
                     .getPersonTransactionByID(personId, transaction.getId()))
                     .withSelfRel();
             transaction.add(selfLink);
-        }*/
+        }
         return new ResponseEntity<>(allTransactions, HttpStatus.OK);
     }
 
@@ -134,12 +134,12 @@ public class US008CreateTransactionControllerRest {
     public ResponseEntity<Object>  getGroupTransactionsByLedgerId (@PathVariable final String groupId) {
         List<TransactionShortDTO> allTransactions = service.getTransactionsByLedgerId(groupId);
 
-       /* for(TransactionShortDTO transaction : allTransactions) {
+       for(TransactionShortDTO transaction : allTransactions) {
             Link selfLink = linkTo(methodOn(US008CreateTransactionControllerRest.class)
                     .getGroupTransactionByID(groupId, transaction.getId()))
                     .withSelfRel();
             transaction.add(selfLink);
-        }*/
+        }
         return new ResponseEntity<>(allTransactions, HttpStatus.OK);
     }
 }

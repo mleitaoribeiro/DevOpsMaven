@@ -33,6 +33,7 @@ public class TransactionDomainDataAssembler {
         CategoryID category = new CategoryID(new Denomination(transactionJpa.getCategory()), ownerId);
         AccountID accountFrom = new AccountID(new Denomination(transactionJpa.getAccountFrom()), ownerId) ;
         AccountID accountTo = new AccountID(new Denomination(transactionJpa.getAccountTo()),ownerId);
+        Long id = transactionJpa.getId();
 
         Type type;
         if(transactionJpa.getType().toUpperCase().equals("CREDIT"))
@@ -42,16 +43,13 @@ public class TransactionDomainDataAssembler {
         //Date
         DateAndTime date = StringUtils.toDateHourMinute(transactionJpa.getDate());
 
-        return new Transaction(amount, description, date , category, accountFrom, accountTo, type);
+        return new Transaction(amount, description, date , category, accountFrom, accountTo, type, id);
     }
 
     public static TransactionJpa toData(Ledger ledger, Transaction transaction) {
-
 
         return new TransactionJpa(LedgerDomainDataAssembler.toData(ledger), transaction.getAmount(), transaction.getCurrency().toString(),
                 transaction.getDescription().toString(), transaction.getDate().yearMonthDayHourMinuteToString(), transaction.getCategoryID().getDenominationString(),
                 transaction.getAccountFrom().getDenominationToString(), transaction.getAccountTo().getDenominationToString(), transaction.typeToString());
     }
-
-
 }

@@ -396,7 +396,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      * Test getTransactionsByLedgerID - Personal Ledger
      */
 
- /*   @Test
+    @Test
     @DisplayName("Test get all transactions from Personal Ledger - Main scenario")
     public void getPersonalTransactionsByLedgerIdSuccess() throws Exception {
         //Arrange
@@ -488,14 +488,14 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
                 () -> assertEquals ("No Ledger found with that ID.", result.getString("message"))
         );
-    }*/
+    }
 
 
     /**
      * Test getTransactionsByLedgerID - Group Ledger
      */
 
-    /*@Test
+    @Test
     @DisplayName("Test get all transactions from Personal Ledger - Main scenario")
     public void getGroupTransactionsByLedgerIdSuccess() throws Exception  {
         //Arrange
@@ -576,5 +576,5 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
                 () -> assertEquals ("No Ledger found with that ID.", result.getString("message"))
         );
-    }*/
+    }
 }
