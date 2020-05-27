@@ -138,7 +138,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         newAccountTo = new Account(new Denomination("AE ISEP"),
                 new Description("AE ISEP"), groupID);
-        accountToID = new AccountID (new Denomination(accountTo), groupID);
+        accountToID = new AccountID(new Denomination(accountTo), groupID);
 
         ledger = new Ledger(groupID);
         ledgerID = new LedgerID(groupID);
@@ -948,7 +948,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
 
-        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+        Mockito.when(ledgerRepository.getTransactionByID(email, id)).
                 thenThrow(new NoPermissionException("No permission."));
 
         // Act
@@ -1003,10 +1003,10 @@ public class US008CreateTransactionServiceUnitTest {
 
         Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
 
-        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+        Mockito.when(ledgerRepository.getTransactionByID(email, id)).
                 thenThrow(new ArgumentNotFoundException("No transaction found with that ID."));
 
-          // Act
+        // Act
         Throwable thrown = catchThrowable(() -> {
             service.getTransactionByID(email, id);
 
