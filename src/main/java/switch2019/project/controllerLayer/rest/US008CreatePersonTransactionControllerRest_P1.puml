@@ -56,6 +56,16 @@ ref over "service:US008CreateTransactionService" : US008CreatePersonTransactionC
 "service:US008CreateTransactionService" --> "restController:US008CreatePersonTransactionControllerRest" : transactionShortDTO
 deactivate "service:US008CreateTransactionService"
 
+autonumber 3.3.3
+"restController:US008CreatePersonTransactionControllerRest"->"restController:US008CreatePersonTransactionControllerRest": selfLink = /persons/{personId}/ledger/transactions/{id}
+"restController:US008CreatePersonTransactionControllerRest"-> "transactionShortDTO:TransactionShortDTO": add(selfLink)
+activate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+
+"restController:US008CreatePersonTransactionControllerRest"->"restController:US008CreatePersonTransactionControllerRest": allTransactionsLink  = /persons/{personId}/ledger/transactions
+"restController:US008CreatePersonTransactionControllerRest"-> "transactionShortDTO:TransactionShortDTO": add(allTransactionsLink)
+activate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO:TransactionShortDTO" #FFBBBB
 
 "restController:US008CreatePersonTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionShortDTO,HttpStatus.CREATED)
 deactivate "restController:US008CreatePersonTransactionControllerRest"
