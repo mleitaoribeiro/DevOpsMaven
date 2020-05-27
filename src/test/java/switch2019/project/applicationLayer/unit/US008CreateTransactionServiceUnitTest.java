@@ -124,21 +124,21 @@ public class US008CreateTransactionServiceUnitTest {
                 new Address("Porto"),
                 new Address("Rua das Flores", "Porto", "4050-262"),
                 new Email("1191755@isep.ipp.pt"));
-        personID = new PersonID (new Email(personEmail));
+        personID = new PersonID(new Email(personEmail));
 
-        group = new Group (new Description("SWitCH"), personID);
-        groupID = new GroupID (new Description(groupDescription));
+        group = new Group(new Description("SWitCH"), personID);
+        groupID = new GroupID(new Description(groupDescription));
 
-        newCategory = new Category (new Denomination("ISEP"), groupID);
-        categoryID = new CategoryID (new Denomination(category), groupID);
+        newCategory = new Category(new Denomination("ISEP"), groupID);
+        categoryID = new CategoryID(new Denomination(category), groupID);
 
         newAccountFrom = new Account(new Denomination("POCKET MONEY"),
                 new Description("POCKET MONEY"), groupID);
-        accountFromID = new AccountID (new Denomination(accountFrom), groupID);
+        accountFromID = new AccountID(new Denomination(accountFrom), groupID);
 
         newAccountTo = new Account(new Denomination("AE ISEP"),
                 new Description("AE ISEP"), groupID);
-        accountToID = new AccountID (new Denomination(accountFrom), groupID);
+        accountToID = new AccountID(new Denomination(accountFrom), groupID);
 
         ledger = new Ledger(groupID);
         ledgerID = new LedgerID(groupID);
@@ -783,7 +783,7 @@ public class US008CreateTransactionServiceUnitTest {
         TransactionShortDTO transactionDTO = new TransactionShortDTO(100.0, Currency.getInstance("EUR"),
                 "GOLD CARD", "IKEA", "CREDIT", 1L);
 
-        TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0,  Currency.getInstance("EUR"),
+        TransactionShortDTO transactionDTO1 = new TransactionShortDTO(50.0, Currency.getInstance("EUR"),
                 "MASTERCARD", "KWIK E MART", "CREDIT", 1L);
 
         List<TransactionShortDTO> expected = Arrays.asList(transactionDTO, transactionDTO1);
@@ -822,9 +822,9 @@ public class US008CreateTransactionServiceUnitTest {
         //Arrange
         String email = "bart.simpson@gmail.com";
 
-        List <Transaction> transactions = Collections.emptyList();
+        List<Transaction> transactions = Collections.emptyList();
 
-        List <TransactionShortDTO> expected = Collections.emptyList();
+        List<TransactionShortDTO> expected = Collections.emptyList();
 
         Mockito.when(ledgerRepository.findAllTransactionsByLedgerID(email)).
                 thenReturn(transactions);
@@ -910,6 +910,95 @@ public class US008CreateTransactionServiceUnitTest {
     }
 
     @Test
+    @DisplayName("Test to get Transaction by it's ID - Personal Transaction - No Permission")
+    void getTransactionByIDPersonalTransactionNoPermission() {
+
+        //Arrange
+        String email = "summer@gmail.com";
+        Long id = 2L;
+
+        Person person = new Person("Summer Smith",
+                new DateAndTime(2000, 5, 18),
+                new Address("Seattle"),
+                new Address("Smiths house", "Seattle", "4520-266"),
+                new PersonID(new Email("beth.smith@gmail.com")), new PersonID(new Email("jerry.smith@gmail.com")),
+                new Email("summer@gmail.com"));
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
+
+        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+                thenThrow(new NoPermissionException("No permission."));
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(email, id);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NoPermissionException.class)
+                .hasMessage("No permission.");
+
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - No Person Found")
+    void getTransactionByIDPersonLedgerNoPersonFound() {
+
+        //Arrange
+        String email = "raquel@hotmail.com";
+        Long id = 2L;
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(email))).
+                thenThrow(new ArgumentNotFoundException("No person found with that email."));
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(email, id);
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No person found with that email.");
+
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - PersonLedger - No Transaction Found")
+    void getTransactionByIDPersonLedgerNoTransactionFound() {
+
+        //Arrange
+        String email = "marge@hotmail.com";
+        Long id = 20L;
+
+        Person person = new Person("Marjorie Bouvier Simpson",
+                new DateAndTime(1956, 5, 12), new Address("Springfield"),
+                new Address("742 Evergreen Terrace", "Springfield", "4520-233"),
+                new Email("marge@hotmail.com"));
+
+        Mockito.when(personRepository.findPersonByEmail(new Email(email))).thenReturn(person);
+
+        Mockito.when(ledgerRepository.getTransactionByID(email,id)).
+                thenThrow(new ArgumentNotFoundException("No transaction found with that ID."));
+
+          // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(email, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No transaction found with that ID.");
+
+    }
+
+
+    @Test
     @DisplayName("Get Transaction By ID - GroupLedger - happy case")
     void getTransactionByIDGroupLedgerHappyCase() {
 
@@ -921,7 +1010,7 @@ public class US008CreateTransactionServiceUnitTest {
 
         GroupID groupID = new GroupID(new Description(groupDescription));
 
-        Group group = new Group(new Description (groupDescription), personID);
+        Group group = new Group(new Description(groupDescription), personID);
 
         Category category = new Category(new Denomination("ISEP"), groupID);
 
@@ -951,7 +1040,117 @@ public class US008CreateTransactionServiceUnitTest {
         assertEquals(transactionDTOexpected, result);
     }
 
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Group Found")
+    void getTransactionByIDGroupLedgerNoGroupFound() {
 
+        //Arrange
+        String groupDescription = "GYM FRIENDS";
+        Long id = 2L;
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription)))
+                .thenThrow(new ArgumentNotFoundException("No group found with that description."));
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Permission")
+    void getTransactionByIDGroupLedgerNoPermission() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 2L;
+
+        PersonID personID = new PersonID(new Email("1110120@isep.ipp.pt"));
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        Group group = new Group(new Description(groupDescription), personID);
+
+        Category category = new Category(new Denomination("ISEP"), groupID);
+
+        Account accountFrom = new Account(new Denomination("Pocket Money"),
+                new Description("Pocket Money for Superbock"), groupID);
+        Account accountTo = new Account(new Denomination("AE ISEP"),
+                new Description("AE BAR ISEP"), groupID);
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 03, 04, 17, 00),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription))).thenReturn(group);
+
+        Mockito.when(ledgerRepository.getTransactionByID(groupDescription, id))
+                .thenThrow(new NoPermissionException("No permission."));
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(NoPermissionException.class)
+                .hasMessage("No permission.");
+    }
+
+
+    @Test
+    @DisplayName("Get Transaction By ID - GroupLedger - No Transaction Found")
+    void getTransactionByIDGroupLedgerNoTransactionFound() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+        Long id = 20L;
+
+        PersonID personID = new PersonID(new Email("1110120@isep.ipp.pt"));
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        Group group = new Group(new Description(groupDescription), personID);
+
+        Category category = new Category(new Denomination("ISEP"), groupID);
+
+        Account accountFrom = new Account(new Denomination("Pocket Money"),
+                new Description("Pocket Money for Superbock"), groupID);
+        Account accountTo = new Account(new Denomination("AE ISEP"),
+                new Description("AE BAR ISEP"), groupID);
+
+        Transaction expectedTransaction = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 03, 04, 17, 00),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Mockito.when(groupRepository.findGroupByDescription(new Description(groupDescription))).thenReturn(group);
+
+        Mockito.when(ledgerRepository.getTransactionByID(groupDescription, id)).
+                thenThrow(new ArgumentNotFoundException("No transaction found with that ID."));
+
+        // Act
+        Throwable thrown = catchThrowable(() -> {
+            service.getTransactionByID(groupDescription, id);
+
+        });
+
+        // Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No transaction found with that ID.");
+
+    }
 
 
 }
