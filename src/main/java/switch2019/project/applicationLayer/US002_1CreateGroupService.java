@@ -12,6 +12,7 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -25,6 +26,10 @@ public class US002_1CreateGroupService {
     @Autowired
     @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
+
+    @Autowired
+    @Qualifier("LedgerDbRepository")
+    private LedgerRepository ledgerRepository;
 
     /**
      * US002.1
@@ -40,11 +45,10 @@ public class US002_1CreateGroupService {
 
         if(!groupsRepository.isIDOnRepository(new GroupID(groupDescription))){
             Group groupCreated = groupsRepository.createGroup(groupDescription, admin.getID());
-
+            ledgerRepository.createLedger(new GroupID(groupDescription));
             return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
-        }
-            else throw new ResourceAlreadyExistsException("This group already exists.");
 
+        } else throw new ResourceAlreadyExistsException("This group already exists.");
     }
 
     /**

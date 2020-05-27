@@ -12,6 +12,9 @@ import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
+import switch2019.project.domain.domainEntities.ledger.Ledger;
+import switch2019.project.domain.domainEntities.shared.GroupID;
+import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.group.Group;
@@ -33,8 +36,12 @@ public class US002_1CreateGroupServiceUnitTest {
 
     @Mock
     private PersonRepository personRepository;
+
     @Mock
     private GroupRepository groupsRepository;
+
+    @Mock
+    private LedgerRepository ledgerRepository;
 
     @InjectMocks
     private US002_1CreateGroupService service;
@@ -77,9 +84,14 @@ public class US002_1CreateGroupServiceUnitTest {
         //arrange the GroupDTO:
         GroupDTO expected = new GroupDTO(groupDescription);
 
+        //ledger created
+        Ledger ledger = new Ledger(new GroupID(new Description(groupDescription)));
+
         //arranging Mockito:
         Mockito.when(personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()))).thenReturn(admin);
         Mockito.when(groupsRepository.createGroup(groupDescriptionToMock, admin.getID())).thenReturn(groupToMock);
+
+        Mockito.when(ledgerRepository.createLedger(new GroupID(new Description(groupDescription)))).thenReturn(ledger);
 
         //Act
         GroupDTO groupCreated = service.createGroup(createGroupDTO);
