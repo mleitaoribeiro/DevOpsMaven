@@ -1680,29 +1680,25 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     @Test
     @DisplayName("Test Group Transaction creation - Null Amount")
     void createGroupTransactionNullAmount() throws Exception {
+
         //Arrange
-        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+
+        String uriPost = "/groups/Switch/ledger";
 
         //Create input DTO
-        final Double amount = null;
-        final String currency = "EUR";
-        final String date = "2020-05-25 15:50";
-        final String category = "HOUSE";
-        final String description = "beers";
-        final String accountFrom = "MasterCard";
-        final String accountTo = "Homer Snacks";
-        final String type = "debit";
 
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
-        createTransactionInfoDTO.setAmount(amount);
-        createTransactionInfoDTO.setCurrency(currency);
-        createTransactionInfoDTO.setCategory(category);
-        createTransactionInfoDTO.setDescription(description);
-        createTransactionInfoDTO.setAccountTo(accountTo);
-        createTransactionInfoDTO.setAccountFrom(accountFrom);
-        createTransactionInfoDTO.setDate(date);
-        createTransactionInfoDTO.setType(type);
+        createTransactionInfoDTO.setAmount(null);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory("ISEP");
+        createTransactionInfoDTO.setDescription("SuperBock round1");
+        createTransactionInfoDTO.setAccountTo("AE ISEP");
+        createTransactionInfoDTO.setAccountFrom("Pocket money");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+
 
         //Serialize input Json
         String inputJson = super.mapToJson((createTransactionInfoDTO));
@@ -1735,32 +1731,34 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
     @Test
-    @DisplayName("Test Person Transaction creation - Null Currency")
+    @DisplayName("Test Group Transaction creation - Null Currency")
     void createGroupTransactionNullCurrency() throws Exception {
         //Arrange
 
-        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+        String uriPost = "/groups/Switch/ledger";
 
         //Create input DTO
         final Double amount = 10.00;
         final String currency = null;
-        final String date = "2020-05-25 15:50";
-        final String category = "HOUSE";
-        final String description = "beers";
-        final String accountFrom = "MasterCard";
-        final String accountTo = "Homer Snacks";
+        final String categoryDenomination = "ISEP";
+        final String accountDescription = "SuperBock round1";
+        final String accountTo = "AE ISEP";
+        final String accountFrom = "Pocket Money";
+        final String date = "2020-03-03 18:00";
         final String type = "debit";
-
+        final String personEmail = "1191762@isep.ipp.pt";
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
         createTransactionInfoDTO.setAmount(amount);
         createTransactionInfoDTO.setCurrency(currency);
-        createTransactionInfoDTO.setCategory(category);
-        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setCategory(categoryDenomination);
+        createTransactionInfoDTO.setDescription(accountDescription);
         createTransactionInfoDTO.setAccountTo(accountTo);
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        createTransactionInfoDTO.setPersonEmail(personEmail);
+
 
         //Serialize input Json
         String inputJson = super.mapToJson((createTransactionInfoDTO));
@@ -1856,28 +1854,21 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
 
-        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+        String uriPost = "/groups/Switch/ledger";
 
         //Create input DTO
-        final Double amount = 10.00;
-        final String currency = "EUR";
-        final String date = "2020-05-25 15:50";
-        final String category = null;
-        final String description = "beers";
-        final String accountFrom = "MasterCard";
-        final String accountTo = "Homer Snacks";
-        final String type = "debit";
 
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
-        createTransactionInfoDTO.setAmount(amount);
-        createTransactionInfoDTO.setCurrency(currency);
-        createTransactionInfoDTO.setCategory(category);
-        createTransactionInfoDTO.setDescription(description);
-        createTransactionInfoDTO.setAccountTo(accountTo);
-        createTransactionInfoDTO.setAccountFrom(accountFrom);
-        createTransactionInfoDTO.setDate(date);
-        createTransactionInfoDTO.setType(type);
+        createTransactionInfoDTO.setAmount(5.00);
+        createTransactionInfoDTO.setCurrency("EUR");
+        createTransactionInfoDTO.setCategory(null);
+        createTransactionInfoDTO.setDescription("ISEP");
+        createTransactionInfoDTO.setAccountTo("AE ISEP");
+        createTransactionInfoDTO.setAccountFrom("Pocket money");
+        createTransactionInfoDTO.setDate("2020-03-03 18:00");
+        createTransactionInfoDTO.setType("false");
+        createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
         //Serialize input Json
         String inputJson = super.mapToJson((createTransactionInfoDTO));
