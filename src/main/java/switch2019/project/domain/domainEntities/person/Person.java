@@ -55,6 +55,16 @@ public class Person implements Owner {
         address = homeAddress;
     }
 
+    public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
+                  HashSet<Person> siblings, Email email) {
+        personID = new PersonID(email);
+        this.name = new PersonName(name);
+        this.birthPlace = birthPlace;
+        this.birthDate = birthDate;
+        siblingList = siblings;
+        address = homeAddress;
+    }
+
     /**
      * Overload Person constructor
      *

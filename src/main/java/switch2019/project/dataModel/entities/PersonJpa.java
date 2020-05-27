@@ -88,11 +88,10 @@ public class PersonJpa {
         return fatherId;
     }
 
-    public boolean addSibling(String personID) {
+    public void addSibling(String personID) {
         SiblingsJpa siblingsJpa = new SiblingsJpa(this, personID);
         if (!siblings.contains(siblingsJpa))
-            return siblings.add(siblingsJpa);
-        else return false;
+            siblings.add(siblingsJpa);
     }
 
     public List<SiblingsJpa> getSiblings() {

@@ -74,4 +74,8 @@ public class SiblingsJpa {
     public SiblingsIdJpa getId() {
         return id;
     }
+
+    public String getSiblingEmail() {
+        return id.getSiblingEmail();
+    }
 }
