@@ -792,8 +792,47 @@ public class US008CreateTransactionControllerRestUnitTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("No Transaction found with that ID.");
     }
-    
+    @Test
+    @DisplayName("test getting a transaction from a Group Ledger - Happy Case")
+    public void getGroupTransactionTest() {
+        //Arrange:
+        String groupId = "SWITCH";
 
+        TransactionDTO expectedTransaction = new TransactionDTO(20.0, Currency.getInstance("EUR"),"SUPERBOCK ROUND 2", "2020-03-04 17:00","ISEP", "POCKET MONEY","AE ISEP", "DEBIT");
+
+        ResponseEntity<Object> expectedResponseEntity = new ResponseEntity<>(expectedTransaction, HttpStatus.OK);
+
+        //Act:
+        Mockito.when(service.getTransactionByID(groupId, 7L)).thenReturn(expectedTransaction);
+
+        ResponseEntity<Object> actualResponseEntity = controller.getPersonTransactionByID(groupId,7L);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertEquals(expectedResponseEntity, actualResponseEntity),
+                () -> assertEquals(HttpStatus.OK, actualResponseEntity.getStatusCode())
+        );
+    }
+
+
+    @Test
+    @DisplayName("test getting a transaction from a group Ledger - transaction not found")
+    public void getGroupTransactionNotFoundTest() {
+        //Arrange:
+        String groupId = "SWITCH";
+
+        //Act:
+        Mockito.when(service.getTransactionByID(groupId, 15L)).thenThrow(new IllegalArgumentException("No Transaction found with that ID."));
+
+        Throwable thrown = catchThrowable(() -> {
+            controller.getPersonTransactionByID(groupId, 15L);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No Transaction found with that ID.");
+    }
 
     /**
      * Test get transactions by owner id
