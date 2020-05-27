@@ -18,7 +18,7 @@ import java.util.Set;
 public class US001AreSiblingsService {
 
     @Autowired
-    @Qualifier("PersonInMemoryRepository")
+    @Qualifier("PersonDbRepository")
     private PersonRepository repository;
 
     /**

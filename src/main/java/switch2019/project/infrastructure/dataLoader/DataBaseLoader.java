@@ -414,7 +414,7 @@ public class DataBaseLoader {
         groupRepository.addMember(familyCardosoGroup, motherMariaCardoso.getID().toString());
         groupRepository.setAdmin(familyCardosoGroup, motherMariaCardoso.getID().toString());
         //Siblings
-        martaCardoso.addSibling(joaoCardoso);
+        personRepository.addSibling(martaCardoso, joaoCardoso.getID().toString());
 
         //Family group - Family Azevedo - 1 Admin (Group creator)
         Group familyAzevedoGroup = groupRepository.createGroup(new Description("Family Azevedo"),
@@ -426,7 +426,7 @@ public class DataBaseLoader {
         groupRepository.addMember(familyAzevedoGroup, hugoAzevedo.getID().toString());
 
         //Siblings
-        margaridaAzevedo.addSibling(hugoAzevedo);
+        personRepository.addSibling(margaridaAzevedo, hugoAzevedo.getID().toString());
 
         // Additional Set up for siblings Tests
         Person father = personRepository.createPerson("José", new DateAndTime(1995, 12, 13), new Address("Miragaia"),
@@ -439,14 +439,14 @@ public class DataBaseLoader {
                 new Address("Rua X", "Fafe", "4520-266"), new Email("mother2@isep.ipp.pt"));
 
         // Siblings - are in each other list of siblings
-        father.addSibling(father2);
+        personRepository.addSibling(father, father2.getID().toString());
 
         // Siblings - same Father and Mother and in each other's list
         Person antonio = personRepository.createPerson("António", new DateAndTime(1995, 12, 13), new Address("Porto"),
                 new Address("Rua X", "Porto", "4520-266"), mother.getID(), father.getID(), new Email("antonio@isep.ipp.pt"));
         Person manuel = personRepository.createPerson("Manuel", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
                 new Address("Rua X", "Porto", "4520-266"), mother.getID(), father.getID(), new Email("manuel@isep.ipp.pt"));
-        antonio.addSibling(manuel);
+        personRepository.addSibling(antonio, manuel.getID().toString());
 
         // Siblings (with antonio) - only same Mother
         personRepository.createPerson("Roberto", new DateAndTime(1995, 12, 13), new Address("Matosinhos"),
