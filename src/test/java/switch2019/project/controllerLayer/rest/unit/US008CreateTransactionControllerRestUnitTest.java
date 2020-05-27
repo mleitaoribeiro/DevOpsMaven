@@ -733,7 +733,66 @@ public class US008CreateTransactionControllerRestUnitTest {
     /**
      * Test get transactions by id
      */
+    @Test
+    @DisplayName("test getting a transaction from a person Ledger - Happy Case")
+    public void getPersonTransactionTest() {
+        //Arrange:
+        String personId = "marge@hotmail.com";
 
+        TransactionDTO expectedTransaction = new TransactionDTO(50.0, Currency.getInstance("EUR"),"Grocery for baking cookies", "2020-03-20 13:04","KWIK E MART", "KWIK E MART","DEBIT", "2");
+
+        ResponseEntity<Object> expectedResponseEntity = new ResponseEntity<>(expectedTransaction, HttpStatus.OK);
+
+        //Act:
+        Mockito.when(service.getTransactionByID(personId, 2L)).thenReturn(expectedTransaction);
+
+        ResponseEntity<Object> actualResponseEntity = controller.getPersonTransactionByID(personId,2L);
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertEquals(expectedResponseEntity, actualResponseEntity),
+                () -> assertEquals(HttpStatus.OK, actualResponseEntity.getStatusCode())
+        );
+    }
+
+    @Test
+    @DisplayName("test getting a transaction from a person Ledger - person not found")
+    public void getPersonTransactionNoPermissionTest() {
+        //Arrange:
+        String personId = "test@hotmail.com";
+
+        //Act:
+        Mockito.when(service.getTransactionByID(personId, 2L)).thenThrow(new IllegalArgumentException("No permission for this operation."));
+
+        Throwable thrown = catchThrowable(() -> {
+            controller.getPersonTransactionByID(personId, 2L);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No permission for this operation.");
+    }
+
+    @Test
+    @DisplayName("test getting a transaction from a person Ledger - transaction not found")
+    public void getPersonTransactionNotFoundTest() {
+        //Arrange:
+        String personId = "marge@hotmail.com";
+
+        //Act:
+        Mockito.when(service.getTransactionByID(personId, 15L)).thenThrow(new IllegalArgumentException("No Transaction found with that ID."));
+
+        Throwable thrown = catchThrowable(() -> {
+            controller.getPersonTransactionByID(personId, 15L);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("No Transaction found with that ID.");
+    }
+    
 
 
     /**
