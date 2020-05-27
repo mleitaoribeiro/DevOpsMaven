@@ -1255,8 +1255,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      * Test getTransactionsByID
      */
     @Test
-    @DisplayName("Get Transaction By ID - PersonLedger - happy case")
-    void getPersonTransactionsByLedgerIdHappyCase() throws Exception{
+    @DisplayName("Get Transaction By ID - Person - happy case")
+    void getPersonTransactionOnPersonIdHappyCase() throws Exception{
 
         //Arrange:
 
@@ -1288,8 +1288,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
     @Test
-    @DisplayName("Get Transaction By ID - PersonLedger - No Permission")
-    void getPersonTransactionsByLedgerIdNoPermission() throws Exception {
+    @DisplayName("Get Transaction By ID - Person - No Permission")
+    void getPersonTransactionOnPersonIdNoPermission() throws Exception {
 
         //Arrange:
 
@@ -1317,8 +1317,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
     @Test
-    @DisplayName("Get Transaction By ID - PersonLedger - Category Id not found")
-    void getPersonTransactionsByLedgerIdNotFound() throws Exception {
+    @DisplayName("Get Transaction By ID - Person - Category Id not found")
+    void getTransactionOfPersonIdNotFound() throws Exception {
 
         //Arrange:
 
@@ -1346,8 +1346,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
     @Test
-    @DisplayName("Get Transaction By ID - PersonLedger - Person Id not found")
-    void getPersonTransactionsByLedgerPersonIdNotFound() throws Exception {
+    @DisplayName("Get Transaction By ID - Person - Person Id not found")
+    void getTransactionOnPersonIdNotFound() throws Exception {
 
         //Arrange:
 
@@ -1371,6 +1371,126 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals ("This resource was not found.", result.getString("error")),
                 () -> assertEquals ("No person found with that email.", result.getString("message"))
+        );
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - Group - happy case")
+    void getTransactionsByGroupIdHappyCase() throws Exception{
+
+        //Arrange:
+
+        //Arrange the uri that is going to be posted
+        String uriPost = "/groups/SWITCH/ledger/transactions/7";
+
+
+        //Act:
+        //Assembling the Json Object obtained as response
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uriPost)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        //Assert:
+        Assertions.assertAll(
+                () -> assertEquals(200, status),
+
+                () -> assertEquals("20.0", result.getString("amount")),
+                () -> assertEquals("EUR", result.getString("currency")),
+                () -> assertEquals("POCKET MONEY", result.getString("accountFrom")),
+                () -> assertEquals("AE ISEP", result.getString("accountTo")),
+                () -> assertEquals("AE ISEP", result.getString("accountTo")),
+                () -> assertEquals("DEBIT", result.getString("type"))
+        );
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - Group - No Permission")
+    void getTransactionsByGroupIdNoPermission() throws Exception {
+
+        //Arrange:
+
+        //Arrange the uri that is going to be posted
+        String uriPost = "/groups/SWITCH/ledger/transactions/2";
+
+        //Act:
+        //Assembling the Json Object obtained as response
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uriPost)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        Assertions.assertAll(
+                () -> assertEquals(403, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("403", result.getString("statusCode")),
+                () -> assertEquals("FORBIDDEN", result.getString("status")),
+                () -> assertEquals ("No permission for this operation.", result.getString("error")),
+                () -> assertEquals ("No permission.", result.getString("message"))
+        );
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - Group - Category Id not found")
+    void getTransactionsByGroupIdNotFound() throws Exception {
+
+        //Arrange:
+
+        //Arrange the uri that is going to be posted
+        String uriPost = "/groups/SWITCH/ledger/transactions/12";
+
+        //Act:
+        //Assembling the Json Object obtained as response
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uriPost)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No transaction found with that ID.", result.getString("message"))
+        );
+    }
+
+    @Test
+    @DisplayName("Get Transaction By ID - Group - Group Id not found")
+    void getTransactionsByLedgerGroupIdNotFound() throws Exception {
+
+        //Arrange:
+
+        //Arrange the uri that is going to be posted
+        String uriPost = "/groups/TEST/ledger/transactions/2";
+
+        //Act:
+        //Assembling the Json Object obtained as response
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uriPost)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        Assertions.assertAll(
+                () -> assertEquals(422, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("422", result.getString("statusCode")),
+                () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
+                () -> assertEquals ("This resource was not found.", result.getString("error")),
+                () -> assertEquals ("No group found with that description.", result.getString("message"))
         );
     }
 
