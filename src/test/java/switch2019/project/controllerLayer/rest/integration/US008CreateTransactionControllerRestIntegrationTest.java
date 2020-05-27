@@ -2364,7 +2364,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("EUR", result.getString("currency")),
                 () -> assertEquals("MASTERCARD", result.getString("accountFrom")),
                 () -> assertEquals("KWIK E MART", result.getString("accountTo")),
-                () -> assertEquals("KWIK E MART", result.getString("accountTo")),
                 () -> assertEquals("DEBIT", result.getString("type"))
         );
     }
@@ -2458,7 +2457,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Get Transaction By ID - Group - happy case")
-    void getTransactionsByGroupIdHappyCase() throws Exception {
+    void getTransactionByGroupIdHappyCase() throws Exception {
 
         //Arrange:
 
@@ -2484,14 +2483,13 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("EUR", result.getString("currency")),
                 () -> assertEquals("POCKET MONEY", result.getString("accountFrom")),
                 () -> assertEquals("AE ISEP", result.getString("accountTo")),
-                () -> assertEquals("AE ISEP", result.getString("accountTo")),
                 () -> assertEquals("DEBIT", result.getString("type"))
         );
     }
 
     @Test
     @DisplayName("Get Transaction By ID - Group - No Permission")
-    void getTransactionsByGroupIdNoPermission() throws Exception {
+    void getTransactionByGroupIdNoPermission() throws Exception {
 
         //Arrange:
 
@@ -2520,7 +2518,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Get Transaction By ID - Group - Category Id not found")
-    void getTransactionsByGroupIdNotFound() throws Exception {
+    void getTransactionByGroupIdNotFound() throws Exception {
 
         //Arrange:
 
@@ -2549,7 +2547,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Get Transaction By ID - Group - Group Id not found")
-    void getTransactionsByLedgerGroupIdNotFound() throws Exception {
+    void getTransactionByLedgerGroupIdNotFound() throws Exception {
 
         //Arrange:
 
