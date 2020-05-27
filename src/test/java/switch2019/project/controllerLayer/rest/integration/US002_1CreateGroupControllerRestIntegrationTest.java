@@ -315,7 +315,6 @@ class US002_1CreateGroupControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals ("The email is not valid.", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-
     }
 
     @Test

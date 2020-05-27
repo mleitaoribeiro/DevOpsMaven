@@ -4,16 +4,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity(name = "ledger")
 public class LedgerJpa {
 
     @Id
     @Column(name = "ledger_id")
-    //Primary Key:
     private String owner;
-
     private String creationDate;
 
     @OneToMany(mappedBy="ledger", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -24,14 +21,14 @@ public class LedgerJpa {
     public LedgerJpa (String owner, String creationDate) {
         this.owner = owner;
         this.creationDate = creationDate;
+        transactions = new ArrayList<>();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) return false;
         LedgerJpa that = (LedgerJpa) obj;
-        return Objects.equals(owner, that.owner) &&
-                Objects.equals(creationDate, that.creationDate);
+        return Objects.equals(owner, that.owner);
     }
 
     @Override
@@ -68,23 +65,18 @@ public class LedgerJpa {
     /**
      * Method that adds a transactionJpa to the LedgerJpa
      * @param transactionJpa
-     * @return
      */
-    /*
-    public boolean addTransaction(TransactionJpa transactionJpa) {
-        return transactions.add(transactionJpa);
-    }
-    */
 
+    public void addTransaction(TransactionJpa transactionJpa) {
+        transactions.add(transactionJpa);
+    }
 
     /**
      * Method used to obtain all the TransactionsJpa on the LedgerJpa
      * @return
      */
-    /*
+
     public List<TransactionJpa> getTransactionsFromLedgerJpa() {
         return new ArrayList<TransactionJpa>(transactions);
     }
-    */
-
 }

@@ -10,7 +10,7 @@ public class TransactionJpa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ledger_id", referencedColumnName = "ledger_id")
     private LedgerJpa ledger;
 
@@ -25,7 +25,7 @@ public class TransactionJpa {
 
     protected TransactionJpa() {}
 
-    public TransactionJpa(LedgerJpa ledger,Double amount, String currency, String description, String date,
+    public TransactionJpa(LedgerJpa ledger, double amount, String currency, String description, String date,
                           String category, String accountFrom, String accountTo, String type) {
         this.ledger = ledger;
         this.amount = amount;
@@ -43,14 +43,12 @@ public class TransactionJpa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransactionJpa that = (TransactionJpa) o;
-        return Objects.equals(id, that.id) &
-                Objects.equals(ledger, that.ledger);
-
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ledger);
+        return Objects.hash(id);
     }
 
     public long getId() { return id;}

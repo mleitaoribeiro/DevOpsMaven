@@ -116,21 +116,6 @@ class LedgerDbRepositoryTest {
 
     }
 
-    @Test
-    @DisplayName("Test if ledger is created - False - Ledger Already Exists")
-    void createLedgerFalse() {
-
-        //Act
-        Throwable thrown = catchThrowable(() -> {
-            ledgerDbRepository.createLedger(someone.getID());
-        });
-
-        //Assert
-        assertThat(thrown)
-                .isExactlyInstanceOf(ResourceAlreadyExistsException.class)
-                .hasMessage("This Ledger already exists.");
-    }
-
     /**
      * Test if Transaction is added to Ledger
      */
