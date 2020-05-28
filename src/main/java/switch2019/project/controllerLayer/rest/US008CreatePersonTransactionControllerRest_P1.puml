@@ -51,7 +51,7 @@ autonumber 3.3.2
 "restController:US008CreatePersonTransactionControllerRest"->"service:US008CreateTransactionService": addPersonalTransaction(createPersonalTransactionDTO)
 activate "service:US008CreateTransactionService" #FFBBBB
 
-ref over "service:US008CreateTransactionService" : US008CreatePersonTransactionControllerRestRef
+ref over "service:US008CreateTransactionService" : US008CreatePersonTransactionControllerRestPart1
 
 "service:US008CreateTransactionService" --> "restController:US008CreatePersonTransactionControllerRest" : transactionShortDTO
 deactivate "service:US008CreateTransactionService"

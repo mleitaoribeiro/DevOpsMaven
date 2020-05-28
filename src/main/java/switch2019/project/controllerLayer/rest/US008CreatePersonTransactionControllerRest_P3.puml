@@ -1,0 +1,56 @@
+@startuml
+
+"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
+activate "ledgerRepo:LedgerRepository" #FFBBBB
+
+
+
+'FALTA - isIDOnRepository
+
+
+
+"ledgerRepo:LedgerRepository"->":LedgerDomainDataAssembler": toData(ledger)
+activate ":LedgerDomainDataAssembler" #FFBBBB
+
+autonumber 3.3.2.6.2.1
+":LedgerDomainDataAssembler"->"ledger:Ledger" : owner = ledger.getID().getOwnerID().toString()
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+autonumber 3.3.2.6.2.1
+":LedgerDomainDataAssembler"->"ledger:Ledger" : creationDate = ledger.getCreationDateToString()
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+create "ledgerJpa:LedgerJpa"
+":LedgerDomainDataAssembler"-->"ledgerJpa:LedgerJpa" : create(owner, creationDate)
+":LedgerDomainDataAssembler"-->"ledgerRepo:LedgerRepository" : ledgerJpa
+deactivate ":LedgerDomainDataAssembler"
+deactivate "ledgerRepo:LedgerRepository"
+
+create "transaction:Transaction"
+"ledgerRepo:LedgerRepository"->"transaction:Transaction": new Transaction (amount, description, localDate, category, accountFrom, accountTo, type)
+
+"ledgerRepo:LedgerRepository"->"transactionRepo:transactionJpaRepository": toData(ledger, transaction)
+activate "transactionRepo:transactionJpaRepository" #FFBBBB
+
+
+"transactionRepo:transactionJpaRepository"->":TransactionDomainDataAssembler": toData(ledger, transaction)
+activate ":TransactionDomainDataAssembler" #FFBBBB
+
+
+create "transactionJpa:TransactionJpa"
+":TransactionDomainDataAssembler"-->"transactionJpa:TransactionJpa" : create(ledgerJpa, amount, currency, description, date, category, accountFrom, accountTo, type)
+":TransactionDomainDataAssembler"-->"transactionRepo:transactionJpaRepository" : transactionJpa
+deactivate ":TransactionDomainDataAssembler"
+
+
+"transactionRepo:transactionJpaRepository"->"transactionRepo:transactionJpaRepository": transactionJpaSaved = save(transactionJpa)
+deactivate "transactionRepo:transactionJpaRepository"
+
+"ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : transaction
+deactivate "ledgerRepo:LedgerRepository"
+
+
+
+@enduml

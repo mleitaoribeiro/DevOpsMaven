@@ -60,34 +60,15 @@ deactivate "accountRepo:AccountRepository"
 activate "accountRepo:AccountRepository" #FFBBBB
 deactivate "accountRepo:AccountRepository"
 
-"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : transaction = addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
+"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
 activate "ledgerRepo:LedgerRepository" #FFBBBB
+
+ref over "ledgerRepo:LedgerRepository" : US008CreatePersonTransactionControllerRestPart3
+
+"ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : transaction
 deactivate "ledgerRepo:LedgerRepository"
 
-autonumber 3.3.2.6.1
-create "transaction:Transaction"
-"ledgerRepo:LedgerRepository"-->"transaction:Transaction":create()
-
-"ledgerRepo:LedgerRepository"->":LedgerDomainDataAssembler": toData(ledger)
-activate ":LedgerDomainDataAssembler" #FFBBBB
-
-autonumber 3.3.2.6.2.1
-":LedgerDomainDataAssembler"->"ledger:Ledger" : owner = ledger.getID().getOwnerID().toString()
-activate "ledger:Ledger" #FFBBBB
-deactivate "ledger:Ledger"
-
-autonumber 3.3.2.6.2.1
-":LedgerDomainDataAssembler"->"ledger:Ledger" : creationDate = ledger.getCreationDateToString()
-activate "ledger:Ledger" #FFBBBB
-deactivate "ledger:Ledger"
-
-create "ledgerJpa:LedgerJpa"
-":LedgerDomainDataAssembler"-->"ledgerJpa:LedgerJpa" : create(owner, creationDate)
-":LedgerDomainDataAssembler"-->"ledgerRepo:LedgerRepository" : ledgerJpa
-deactivate ":LedgerDomainDataAssembler"
-
-
-"ledgerRepo:LedgerRepository"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(transaction)
+"service:US008CreateTransactionService"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(transaction)
 activate ":LedgerDTOAssembler" #FFBBBB
 
 autonumber 3.3.2.6.2.1
