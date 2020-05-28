@@ -6,14 +6,20 @@ activate "service:US008CreateTransactionService"  #FFBBBB
 
 |||
 
-ref over "service:US008CreateTransactionService" : getAttributes (groupDescription, amount, currency, description, date, type, \ncategoryID, accountFromID, accountToID, groupID, ledger)
+ref over "service:US008CreateTransactionService" : getAttributes (groupDescription, personEmail, amount, currency, description, date, type, \ncategoryID, accountFromID, accountToID, groupID, ledger)
 
 |||
+
 autonumber 1.1
+"service:US008CreateTransactionService" -> ":Group" : isGroupMember (personEmail)
+activate ":Group" #FFBBBB
+deactivate ":Group"
+
+
 "service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, \n date, category, accountFrom, accountTo, type)
 activate "ledgerRepo:LedgerRepository" #FFBBBB
 
-autonumber 1.1.1
+autonumber 1.2.1
 "ledgerRepo:LedgerRepository" -> "ledgerRepo:LedgerRepository": isIDOnRepository(ledgerID)
 
 "ledgerRepo:LedgerRepository" -> "ledgerRepo:LedgerRepository": ledger = getById(ledgerID)
@@ -21,7 +27,7 @@ autonumber 1.1.1
 "ledgerRepo:LedgerRepository"->":LedgerDomainDataAssembler": toData(ledger)
 activate ":LedgerDomainDataAssembler" #FFBBBB
 
-autonumber 1.1.3.1
+autonumber 1.2.3.1
 ":LedgerDomainDataAssembler"->"ledger:Ledger" : owner = getOwner()
 activate "ledger:Ledger" #FFBBBB
 deactivate "ledger:Ledger"
@@ -37,13 +43,13 @@ create "ledgerJpa:LedgerJpa"
 deactivate ":LedgerDomainDataAssembler"
 
 create "transaction:Transaction"
-autonumber 1.1.4
+autonumber 1.2.4
 "ledgerRepo:LedgerRepository"-->"transaction:Transaction": create (amount, description, localDate, category, accountFrom, accountTo, type)
 
 "ledgerRepo:LedgerRepository"->":TransactionDomainDataAssembler": toData(ledger, transaction)
 activate ":TransactionDomainDataAssembler" #FFBBBB
 
-autonumber 1.1.5.1
+autonumber 1.2.5.1
 ":TransactionDomainDataAssembler"->":LedgerDomainDataAssembler": ledgerJpa = toData(ledger)
 activate ":LedgerDomainDataAssembler" #FFBBBB
 deactivate ":LedgerDomainDataAssembler" #FFBBBB
@@ -58,36 +64,36 @@ deactivate "transaction:Transaction" #FFBBBB
 create ":TransactionJpa"
 ":TransactionDomainDataAssembler"->":TransactionJpa" : create(ledgerJpa, amount, currency, description,\n date, category, accountFrom, accountTo, type)
 
-autonumber 1.1.5.5
+autonumber 1.2.5.5
 ":TransactionDomainDataAssembler"-->"ledgerRepo:LedgerRepository": transactionJpa
 deactivate ":TransactionDomainDataAssembler"
 
-autonumber 1.1.6
+autonumber 1.2.6
 "ledgerRepo:LedgerRepository"->"transactionRepo:transactionJpaRepository": : save(transactionJpa)
 
 activate "transactionRepo:transactionJpaRepository" #FFBBBB
 
 deactivate ":TransactionDomainDataAssembler"
 
-autonumber 1.1.6.1
+autonumber 1.2.6.1
 "transactionRepo:transactionJpaRepository"->"transactionRepo:transactionJpaRepository": newTransactionJpa = save(transactionJpa)
 
 "transactionRepo:transactionJpaRepository"-->"ledgerRepo:LedgerRepository": newTransactionJpa
 deactivate "transactionRepo:transactionJpaRepository" #FFBBBB
 
-autonumber 1.1.7
+autonumber 1.2.7
 "ledgerRepo:LedgerRepository"->"ledgerJpa:LedgerJpa" : addTransaction(owner, newTransactionJpa)
 activate "ledgerJpa:LedgerJpa" #FFBBBB
 
-autonumber 1.1.7.1
+autonumber 1.2.7.1
 "ledgerJpa:LedgerJpa"->"ledgerJpa:LedgerJpa" : addTransaction(newTransactionJpa)
 deactivate "ledgerJpa:LedgerJpa" #FFBBBB
 
-autonumber 1.1.8
+autonumber 1.2.8
 "ledgerRepo:LedgerRepository"->":TransactionDomainDataAssembler":toDomain(newTransactionJpa)
 activate ":TransactionDomainDataAssembler" #FFBBBB
 
-autonumber 1.1.8.1
+autonumber 1.2.8.1
 ":TransactionDomainDataAssembler"->":TransactionDomainDataAssembler": ownerId = getOwner()
 
 ":TransactionDomainDataAssembler" -> ":TransactionJpa"
@@ -105,11 +111,11 @@ deactivate ":TransactionDomainDataAssembler"
 "ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : newTransaction
 deactivate "ledgerRepo:LedgerRepository"
 
-autonumber 1.2
+autonumber 1.3
 "service:US008CreateTransactionService"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(newTransaction)
 activate ":LedgerDTOAssembler" #FFBBBB
 
-autonumber 1.2.1
+autonumber 1.3.1
 ":LedgerDTOAssembler"->"newTransaction:Transaction":
 activate "newTransaction:Transaction" #FFBBBB
 
@@ -123,7 +129,7 @@ create "transactionShortDTO:TransactionShortDTO"
 ":LedgerDTOAssembler" --> "service:US008CreateTransactionService" : transactionShortDTO
 deactivate ":LedgerDTOAssembler"
 
-autonumber 1.3
+autonumber 1.4
 <-- "service:US008CreateTransactionService" : transactionShortDTO
 deactivate "service:US008CreateTransactionService"
 

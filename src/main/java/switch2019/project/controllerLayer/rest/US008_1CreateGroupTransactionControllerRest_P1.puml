@@ -17,7 +17,7 @@ participant "infoDTO:CreateTransactionInfoDTO"
 autonumber
 
 create "inputDTO:\nCreateTransactionInfoDTO"
-"HTTP Client (Test)" -> "inputDTO:\nCreateTransactionInfoDTO": inputDTO = new CreateTransactionInfoDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, groupDescription)
+"HTTP Client (Test)" -> "inputDTO:\nCreateTransactionInfoDTO": inputDTO = new CreateTransactionInfoDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, personEmail)
 activate "HTTP Client (Test)" #FFBBBB
 "HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
 
@@ -42,7 +42,7 @@ activate ":LedgerDTOAssembler"  #FFBBBB
 
 autonumber 3.3.1.1
 create "createGroupTransactionDTO:CreateGroupTransactionDTO"
-":LedgerDTOAssembler" -> "createGroupTransactionDTO:CreateGroupTransactionDTO": transformToCreateGroupTransactionDTO(groupId, infoDTO)
+":LedgerDTOAssembler" -> "createGroupTransactionDTO:CreateGroupTransactionDTO": create(groupId, personId, amount, currency, date, description, \n category, accountFrom, accountTo, type)
 
 ":LedgerDTOAssembler" -> "restController:US008CreateTransactionControllerRest" : createGroupTransactionDTO
 

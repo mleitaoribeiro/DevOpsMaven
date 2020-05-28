@@ -1,5 +1,6 @@
 @startuml
 
+autonumber 1
 activate "service:US008CreateTransactionService" #FFBBBB
 "service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : groupDescription = getDescription()
 activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB

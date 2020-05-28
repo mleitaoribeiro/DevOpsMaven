@@ -2,7 +2,7 @@
 
 activate ":LedgerDTOAssembler" #FFBBBB
 
-autonumber 3.3.2.6.2.1
+autonumber 1
 ":LedgerDTOAssembler"->":Transaction" : amount = getAmount()
 activate ":Transaction" #FFBBBB
 deactivate ":Transaction"

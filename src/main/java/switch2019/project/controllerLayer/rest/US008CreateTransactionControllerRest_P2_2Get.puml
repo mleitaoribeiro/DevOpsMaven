@@ -1,5 +1,6 @@
 @startuml
 
+autonumber 1
 activate ":TransactionDomainDataAssembler" #FFBBBB
 ":TransactionDomainDataAssembler"->":TransactionJpa" : amount = getAmount()
 activate ":TransactionJpa" #FFBBBB
