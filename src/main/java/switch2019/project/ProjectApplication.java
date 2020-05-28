@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
-import switch2019.project.infrastructure.dataLoader.DataInMemoryLoader;
+import switch2019.project.infrastructure.dataLoader.*;
 
 @SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer",
         "switch2019.project.infrastructure", "switch2019.project.applicationLayer",

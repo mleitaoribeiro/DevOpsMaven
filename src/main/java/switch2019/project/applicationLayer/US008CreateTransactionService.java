@@ -60,8 +60,11 @@ public class US008CreateTransactionService {
         MonetaryValue amount = new MonetaryValue(createPersonalTransactionDTO.getAmount(),
                 Currency.getInstance(createPersonalTransactionDTO.getCurrency()));
         Description description = new Description(createPersonalTransactionDTO.getDescription());
-        DateAndTime date = StringUtils.toDateHourMinute(createPersonalTransactionDTO.getDate());
         Type type = new Type(createPersonalTransactionDTO.getType());
+
+        DateAndTime date;
+        if(createPersonalTransactionDTO.getDate().isEmpty()) date = new DateAndTime();
+        else  date = StringUtils.toDateHourMinute(createPersonalTransactionDTO.getDate());
 
         CategoryID category = categoryRepository.getByID
                 (new CategoryID(new Denomination(createPersonalTransactionDTO.getCategory()),
@@ -99,7 +102,11 @@ public class US008CreateTransactionService {
         MonetaryValue amount = new MonetaryValue(createGroupTransactionDTO.getAmount(),
                 Currency.getInstance(createGroupTransactionDTO.getCurrency()));
         Description description = new Description(createGroupTransactionDTO.getDescription());
-        DateAndTime date = StringUtils.toDateHourMinute(createGroupTransactionDTO.getDate());
+        Type type = new Type(createGroupTransactionDTO.getType());
+
+        DateAndTime date;
+        if(createGroupTransactionDTO.getDate().isEmpty()) date = new DateAndTime();
+        else date = StringUtils.toDateHourMinute(createGroupTransactionDTO.getDate());
 
         CategoryID categoryID = categoryRepository.getByID
                 (new CategoryID(new Denomination(createGroupTransactionDTO.getCategory()), groupID)).getID();
@@ -108,8 +115,6 @@ public class US008CreateTransactionService {
                 (new AccountID(new Denomination(createGroupTransactionDTO.getAccountFrom()), groupID)).getID();
         AccountID accountTo = accountRepository.getByID
                 (new AccountID(new Denomination(createGroupTransactionDTO.getAccountTo()), groupID)).getID();
-
-        Type type = new Type(createGroupTransactionDTO.getType());
 
         if (!group.isGroupMember(personID)) {
             throw new NoPermissionException("This person is not member of this group.");

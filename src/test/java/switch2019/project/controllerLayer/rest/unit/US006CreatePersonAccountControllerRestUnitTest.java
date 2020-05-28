@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
-@ActiveProfiles("test")
+
 
 public class US006CreatePersonAccountControllerRestUnitTest {
 

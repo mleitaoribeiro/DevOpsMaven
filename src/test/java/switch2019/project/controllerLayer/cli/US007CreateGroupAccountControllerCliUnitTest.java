@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.deserializationDTO.CreateGroupAccountInfoDTO;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
@@ -19,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-
 public class US007CreateGroupAccountControllerCliUnitTest {
 
     @Mock

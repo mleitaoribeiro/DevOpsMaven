@@ -3,11 +3,13 @@ package switch2019.project.controllerLayer.cli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
@@ -21,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-
 public class US004GetFamilyGroupsControllerCliUnitTest {
 
     @Mock

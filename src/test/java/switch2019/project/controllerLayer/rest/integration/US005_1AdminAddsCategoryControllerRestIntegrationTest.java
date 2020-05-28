@@ -4,13 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateGroupCategoryInfoDTO;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
@@ -22,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest {
@@ -394,7 +398,8 @@ class US005_1AdminAddsCategoryControllerRestIntegrationTest extends AbstractTest
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals(new DateAndTime().yearMonthDayHourMinuteToString()
+                        ,result.getString("timestamp").replace("T", " ")),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals ("One of the parameters is invalid or is missing.", result.getString("error")),

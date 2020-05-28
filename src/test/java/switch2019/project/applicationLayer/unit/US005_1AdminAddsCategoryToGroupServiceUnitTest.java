@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
@@ -35,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 public class US005_1AdminAddsCategoryToGroupServiceUnitTest {
 
     @Mock
