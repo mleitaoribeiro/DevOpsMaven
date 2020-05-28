@@ -1,6 +1,6 @@
 @startuml
 
-
+activate ":TransactionDomainDataAssembler" #FFBBBB
 ":TransactionDomainDataAssembler"->":TransactionJpa" : amount = getAmount()
 activate ":TransactionJpa" #FFBBBB
 deactivate ":TransactionJpa"
@@ -25,7 +25,7 @@ deactivate ":TransactionJpa"
 ":TransactionDomainDataAssembler"->":TransactionJpa" : date = getDate()
 activate ":TransactionJpa" #FFBBBB
 deactivate ":TransactionJpa"
-
+deactivate ":TransactionDomainDataAssembler" #FFBBBB
 
 
 @enduml

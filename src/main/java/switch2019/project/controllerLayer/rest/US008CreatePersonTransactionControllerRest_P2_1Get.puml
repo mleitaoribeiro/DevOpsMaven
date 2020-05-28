@@ -1,5 +1,6 @@
 @startuml
 
+activate "service:US008CreateTransactionService" #FFBBBB
 "service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : personEmail = getPersonEmail()
 activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
 deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
@@ -55,6 +56,6 @@ deactivate "accountRepo:AccountRepository"
 "service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountTo = getByID(accountToID)
 activate "accountRepo:AccountRepository" #FFBBBB
 deactivate "accountRepo:AccountRepository"
-
+deactivate "service:US008CreateTransactionService" #FFBBBB
 
 @enduml

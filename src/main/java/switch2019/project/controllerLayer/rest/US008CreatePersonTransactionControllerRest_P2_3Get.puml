@@ -1,28 +1,31 @@
 @startuml
 
+activate ":LedgerDTOAssembler" #FFBBBB
+
 autonumber 3.3.2.6.2.1
-":LedgerDTOAssembler"->"transaction:Transaction" : amount = getAmount()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->":Transaction" : amount = getAmount()
+activate ":Transaction" #FFBBBB
+deactivate ":Transaction"
 
-":LedgerDTOAssembler"->"transaction:Transaction" : currency = getCurrency()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->":Transaction" : currency = getCurrency()
+activate ":Transaction" #FFBBBB
+deactivate ":Transaction"
 
-":LedgerDTOAssembler"->"transaction:Transaction" : accountFrom = getAccountFrom().getDenominationToString()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->":Transaction" : accountFrom = getAccountFrom()
+activate ":Transaction" #FFBBBB
+deactivate ":Transaction"
 
-":LedgerDTOAssembler"->"transaction:Transaction" : accountFrom = getAccountTo().getDenominationToString()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->":Transaction" : accountFrom = getAccountTo()
+activate ":Transaction" #FFBBBB
+deactivate ":Transaction"
 
-":LedgerDTOAssembler"->"transaction:Transaction" : type = type.toString()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->":Transaction" : type = type.toString()
+activate ":Transaction" #FFBBBB
+deactivate ":Transaction"
 
-":LedgerDTOAssembler"->"transaction:Transaction" : id = transaction.getId()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->":Transaction" : id = transaction.getId()
+activate ":Transaction" #FFBBBB
+deactivate ":Transaction"
+deactivate ":LedgerDTOAssembler" #FFBBBB
 
 @enduml
