@@ -1,0 +1,31 @@
+@startuml
+
+
+":TransactionDomainDataAssembler"->":TransactionJpa" : amount = getAmount()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : currency = getCurrency()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : description = getDescription()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : accountFrom = getAccountFrom()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : accountTo = getAccountTo()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : id = getId()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : type = getType()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : date = getDate()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+
+
+
+@enduml

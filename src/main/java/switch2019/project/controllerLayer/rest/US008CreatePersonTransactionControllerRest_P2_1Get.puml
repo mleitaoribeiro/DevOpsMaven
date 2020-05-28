@@ -1,0 +1,42 @@
+@startuml
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : personEmail = getPersonEmail()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : amount = getAmount()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : currency = getCurrency()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : description = getDescription()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : date = getDate()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : type = getType()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : category = getCategory()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : accountFrom = getAccountFrom()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : accountTo = getAccountTo()
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+
+
+
+
+@enduml

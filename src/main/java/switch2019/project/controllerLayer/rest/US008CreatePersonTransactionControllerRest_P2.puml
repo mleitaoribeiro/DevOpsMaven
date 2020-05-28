@@ -4,53 +4,27 @@ autonumber 3.3.2.1
 -> "service:US008CreateTransactionService" : addPersonalTransaction(createPersonalTransactionDTO)
 activate "service:US008CreateTransactionService"  #FFBBBB
 
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : personEmail = getPersonEmail()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
+"service:US008CreateTransactionService"->"createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO" #FFBBBB
+
+
+ref over "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : getCreatePersonalTransactionDTOAttributes
+"createPersonalTransactionDTO:CreatePersonalTransactionDTO" --> "service:US008CreateTransactionService" : personEmail, amount, currency, description, \ndate, type, category, accountFrom, accountTo
 deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
 
-"service:US008CreateTransactionService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
-activate "personRepo:PersonRepository" #FFBBBB
-deactivate "personRepo:PersonRepository"
 
 "service:US008CreateTransactionService" -> "ledger:Ledger" : ledger = getByID(personID)
 activate "ledger:Ledger" #FFBBBB
 deactivate "ledger:Ledger"
 
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : amount = getAmount()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
 
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : currency = getCurrency()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : description = getDescription()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : date = getDate()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : type = getType()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : category = getCategory()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+"service:US008CreateTransactionService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
+activate "personRepo:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository"
 
 "service:US008CreateTransactionService" -> "categoryRepo:CategoryRepository" : categoryID = getByID(categoryID)
 activate "categoryRepo:CategoryRepository" #FFBBBB
 deactivate "categoryRepo:CategoryRepository"
-
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : accountFrom = getAccountFrom()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-
-"service:US008CreateTransactionService" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : accountTo = getAccountTo()
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
 
 "service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountFrom = getByID(accountID)
 activate "accountRepo:AccountRepository" #FFBBBB
@@ -60,10 +34,72 @@ deactivate "accountRepo:AccountRepository"
 activate "accountRepo:AccountRepository" #FFBBBB
 deactivate "accountRepo:AccountRepository"
 
-"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
+"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, \ndescription, date, category, accountFrom, accountTo, type)
 activate "ledgerRepo:LedgerRepository" #FFBBBB
 
-ref over "ledgerRepo:LedgerRepository" : US008CreatePersonTransactionControllerRestPart3
+
+'FALTA - isIDOnRepository - validacao se o ledger esta no repositorio'
+
+
+
+
+"ledgerRepo:LedgerRepository"->":LedgerDomainDataAssembler": toData(ledger)
+activate ":LedgerDomainDataAssembler" #FFBBBB
+
+autonumber 3.3.2.6.2.1
+":LedgerDomainDataAssembler"->"ledger:Ledger" : owner = ledger.getID().getOwnerID().toString()
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+autonumber 3.3.2.6.2.1
+":LedgerDomainDataAssembler"->"ledger:Ledger" : creationDate = ledger.getCreationDateToString()
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+create "ledgerJpa:LedgerJpa"
+":LedgerDomainDataAssembler"->"ledgerJpa:LedgerJpa" : create(owner, creationDate)
+":LedgerDomainDataAssembler"-->"ledgerRepo:LedgerRepository" : ledgerJpa
+deactivate ":LedgerDomainDataAssembler"
+
+create "transaction:Transaction"
+"ledgerRepo:LedgerRepository"->"transaction:Transaction": new Transaction (amount, description, \nlocalDate, category, accountFrom, accountTo, type)
+
+"ledgerRepo:LedgerRepository"->"transactionRepo:transactionJpaRepository": toData(ledger, transaction)
+activate "transactionRepo:transactionJpaRepository" #FFBBBB
+
+"transactionRepo:transactionJpaRepository"->":TransactionDomainDataAssembler": toData(ledger, transaction)
+activate ":TransactionDomainDataAssembler" #FFBBBB
+
+create ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : create(ledgerJpa, amount, currency, description, date,\n category, accountFrom, accountTo, type)
+":TransactionDomainDataAssembler"-->"transactionRepo:transactionJpaRepository" : transactionJpa
+deactivate ":TransactionDomainDataAssembler"
+
+"transactionRepo:transactionJpaRepository"->"transactionRepo:transactionJpaRepository": newTransactionJpa = save(transactionJpa)
+deactivate "transactionRepo:transactionJpaRepository"
+
+
+"ledgerRepo:LedgerRepository"->"ledgerJpa:LedgerJpa" : addTransaction(owner, newTransactionJpa)
+
+"ledgerRepo:LedgerRepository"->":TransactionDomainDataAssembler":toDomain(newTransactionJpa)
+activate ":TransactionDomainDataAssembler" #FFBBBB
+
+
+'FALTA- Checking if owner is a Group or Person:
+
+
+
+
+ref over ":TransactionJpa" : getTransactionJpaAttributes
+":TransactionDomainDataAssembler" --> ":TransactionJpa" : amount, currency, description, \ndate, type, id, category, accountFrom, accountTo
+deactivate ":TransactionJpa"
+
+
+create "newTransaction:Transaction"
+":TransactionDomainDataAssembler"->"newTransaction:Transaction" : create(amount, description, date , category, accountFrom, accountTo, type, id)
+":TransactionDomainDataAssembler" --> "ledgerRepo:LedgerRepository" : newTransaction
+deactivate ":TransactionDomainDataAssembler"
+
 
 "ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : transaction
 deactivate "ledgerRepo:LedgerRepository"
