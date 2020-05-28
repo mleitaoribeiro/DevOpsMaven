@@ -1,11 +1,13 @@
 @startuml
 
-"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
+autonumber 3.3.2.1
+-> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, date, category, accountFrom, accountTo, type)
 activate "ledgerRepo:LedgerRepository" #FFBBBB
 
 
 
-'FALTA - isIDOnRepository
+'FALTA - isIDOnRepository - validacao se o ledger esta no repositorio'
+
 
 
 
@@ -23,10 +25,9 @@ activate "ledger:Ledger" #FFBBBB
 deactivate "ledger:Ledger"
 
 create "ledgerJpa:LedgerJpa"
-":LedgerDomainDataAssembler"-->"ledgerJpa:LedgerJpa" : create(owner, creationDate)
+":LedgerDomainDataAssembler"->"ledgerJpa:LedgerJpa" : create(owner, creationDate)
 ":LedgerDomainDataAssembler"-->"ledgerRepo:LedgerRepository" : ledgerJpa
 deactivate ":LedgerDomainDataAssembler"
-deactivate "ledgerRepo:LedgerRepository"
 
 create "transaction:Transaction"
 "ledgerRepo:LedgerRepository"->"transaction:Transaction": new Transaction (amount, description, localDate, category, accountFrom, accountTo, type)
@@ -34,23 +35,57 @@ create "transaction:Transaction"
 "ledgerRepo:LedgerRepository"->"transactionRepo:transactionJpaRepository": toData(ledger, transaction)
 activate "transactionRepo:transactionJpaRepository" #FFBBBB
 
-
 "transactionRepo:transactionJpaRepository"->":TransactionDomainDataAssembler": toData(ledger, transaction)
 activate ":TransactionDomainDataAssembler" #FFBBBB
 
-
-create "transactionJpa:TransactionJpa"
-":TransactionDomainDataAssembler"-->"transactionJpa:TransactionJpa" : create(ledgerJpa, amount, currency, description, date, category, accountFrom, accountTo, type)
+create ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : create(ledgerJpa, amount, currency, description, date, category, accountFrom, accountTo, type)
 ":TransactionDomainDataAssembler"-->"transactionRepo:transactionJpaRepository" : transactionJpa
 deactivate ":TransactionDomainDataAssembler"
 
-
-"transactionRepo:transactionJpaRepository"->"transactionRepo:transactionJpaRepository": transactionJpaSaved = save(transactionJpa)
+"transactionRepo:transactionJpaRepository"->"transactionRepo:transactionJpaRepository": newTransactionJpa = save(transactionJpa)
 deactivate "transactionRepo:transactionJpaRepository"
 
-"ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : transaction
+
+"ledgerRepo:LedgerRepository"->"ledgerJpa:LedgerJpa" : addTransaction(owner, newTransactionJpa)
+
+"ledgerRepo:LedgerRepository"->":TransactionDomainDataAssembler":toDomain(newTransactionJpa)
+activate ":TransactionDomainDataAssembler" #FFBBBB
+
+
+'FALTA- Checking if owner is a Group or Person:
+
+":TransactionDomainDataAssembler"->":TransactionJpa" : amount = getAmount()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : currency = getCurrency()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : description = getDescription()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : accountFrom = getAccountFrom()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : accountTo = getAccountTo()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : id = getId()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : type = getType()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : date = getDate()
+activate ":TransactionJpa" #FFBBBB
+deactivate ":TransactionJpa"
+
+create "newTransaction:Transaction"
+":TransactionDomainDataAssembler"->"newTransaction:Transaction" : create(amount, description, date , category, accountFrom, accountTo, type, id)
+":TransactionDomainDataAssembler" --> "ledgerRepo:LedgerRepository" : newTransaction
+deactivate ":TransactionDomainDataAssembler"
+
+ <-- "ledgerRepo:LedgerRepository" : newTransaction
 deactivate "ledgerRepo:LedgerRepository"
-
-
 
 @enduml
