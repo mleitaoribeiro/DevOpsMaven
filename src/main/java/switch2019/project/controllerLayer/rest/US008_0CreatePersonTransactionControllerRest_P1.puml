@@ -1,14 +1,13 @@
 @startuml
 skinparam DefaultFontSize 25
 
-title US008 Sequence Diagram - Happy Case  #6495ED
+title US008 Sequence Diagram - Happy Case
 
 participant "HTTP Client (Test)"
 participant "inputDTO:\nCreateTransactionInfoDTO"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
 participant "restController:US008CreatePersonTransactionControllerRest"
-participant "transactionDTO:TransactionDTO"
 participant ":LedgerDTOAssembler"
 participant "service:US008CreateTransactionService"
 participant "infoDTO:CreateTransactionInfoDTO"
