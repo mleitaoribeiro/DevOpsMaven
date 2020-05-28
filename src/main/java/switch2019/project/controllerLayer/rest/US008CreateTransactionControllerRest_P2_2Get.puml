@@ -1,4 +1,5 @@
 @startuml
+skinparam DefaultFontSize 25
 
 autonumber 1
 activate ":TransactionDomainDataAssembler" #FFBBBB
