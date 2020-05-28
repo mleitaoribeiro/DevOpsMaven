@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
@@ -1440,6 +1441,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
+        //Act
+
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson))
@@ -2117,11 +2120,12 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Group Transaction creation - null input")
-    void createGroupAndBecomeAdminNullJsonInput() throws Exception {
+    void createGroupNullJsonInput() throws Exception {
 
         //Arrange
         String uri = "/groups/Switch/ledger/transactions";
 
+        //Serialize
         String inputJson = super.mapToJson((null));
 
         //Act
@@ -2150,7 +2154,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Group Account creation - Email Null")
-    void addGroupTransactionNullEmail() throws Exception {
+    void createGroupTransactionNullEmail() throws Exception {
 
         //Arrange
 
@@ -2212,7 +2216,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Group Transaction creation - Email Empty")
-    void addGroupTransactionEmailEmpty() throws Exception {
+    void createGroupTransactionEmailEmpty() throws Exception {
 
         //Arrange
         String uriPost = "/groups/SWITCH/ledger/transactions";
@@ -2274,25 +2278,33 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Group Account creation - Invalid POST Method")
-    void addGroupTransactionInvalidUri() throws Exception {
+    void createGroupTransactionInvalidUri() throws Exception {
 
         //Arrange
-
         String uriPost = "/groups/transactions";
-
         //Create input DTO
+
+        final Double amount = 10.00;
+        final String currency = "EUR";
+        final String categoryDenomination = "ISEP";
+        final String accountDescription = "SuperBock round1";
+        final String accounTo = "AE ISEP";
+        final String accountFrom = "Pocket Money";
+        final String date = "2020-03-03, 18:00";
+        final String type = "false";
+        final String personEmail = "1191762@isep.ipp.pt";
 
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
-        createTransactionInfoDTO.setAmount(5.00);
-        createTransactionInfoDTO.setCurrency("EUR");
-        createTransactionInfoDTO.setCategory("Shopping");
-        createTransactionInfoDTO.setDescription("Shopping Expenses");
-        createTransactionInfoDTO.setAccountTo("Querido Account");
-        createTransactionInfoDTO.setAccountFrom("Raquel Account");
-        createTransactionInfoDTO.setDate("18-05-2020");
-        createTransactionInfoDTO.setType("debit");
-        createTransactionInfoDTO.setPersonEmail("pedro@hotmail.com");
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(categoryDenomination);
+        createTransactionInfoDTO.setDescription(accountDescription);
+        createTransactionInfoDTO.setAccountTo(accounTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+        createTransactionInfoDTO.setPersonEmail(personEmail);
 
         //Arrangement the input
         String inputJson = super.mapToJson((createTransactionInfoDTO));
@@ -2324,7 +2336,66 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+    @Test
+    @DisplayName("Test Group Account creation - Invalid POST Method")
+    void createGroupTransactionInvalidPostMethod() throws Exception {
 
+        //Arrange
+
+        String uriPost = "/groups/SWITCH/ledger/transactions";
+
+        //Create input DTO
+
+        final Double amount = 10.00;
+        final String currency = "EUR";
+        final String categoryDenomination = "ISEP";
+        final String accountDescription = "SuperBock round1";
+        final String accounTo = "AE ISEP";
+        final String accountFrom = "Pocket Money";
+        final String date = "2020-03-03, 18:00";
+        final String type = "false";
+        final String personEmail = "1191762@isep.ipp.pt";
+        CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+
+        createTransactionInfoDTO.setAmount(amount);
+        createTransactionInfoDTO.setCurrency(currency);
+        createTransactionInfoDTO.setCategory(categoryDenomination);
+        createTransactionInfoDTO.setDescription(accountDescription);
+        createTransactionInfoDTO.setAccountTo(accounTo);
+        createTransactionInfoDTO.setAccountFrom(accountFrom);
+        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setType(type);
+        createTransactionInfoDTO.setPersonEmail(personEmail);
+
+
+        //Arrangement the input
+        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String expectedResolvedException = new HttpMediaTypeNotSupportedException("Content type 'application/xml' not supported").toString();
+
+        //Act
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
+                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .content(inputJson))
+                .andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+
+        JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
+
+        //ASSERT
+        Assertions.assertAll(
+                () -> assertEquals(415, status),
+                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(),result.getString("timestamp")),
+                () -> assertEquals("415", result.getString("statusCode")),
+                () -> assertEquals("UNSUPPORTED_MEDIA_TYPE", result.getString("status")),
+                () -> assertEquals ("Content type 'application/xml' not supported", result.getString("error")),
+                () -> assertEquals ("application/xml media type is not supported.", result.getString("message")),
+                () -> assertEquals(expectedResolvedException, realResolvedException)
+        );
+
+    }
     /**
      * Test getTransactionsByID
      */
@@ -2751,4 +2822,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("No Ledger found with that ID.", result.getString("message"))
         );
     }
+
+
+
+
 }
