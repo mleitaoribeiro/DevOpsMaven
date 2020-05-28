@@ -1,0 +1,63 @@
+@startuml
+skinparam DefaultFontSize 25
+
+autonumber 1
+activate "service:US008CreateTransactionService" #FFBBBB
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : groupDescription = getDescription()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : amount = getAmount()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : currency = getCurrency()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : description = getDescription()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : date = getDate()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : type = getType()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : category = getCategory()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : accountFrom = getAccountFrom()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "createGroupTransactionDTO:CreateGroupTransactionDTO" : accountTo = getAccountTo()
+activate "createGroupTransactionDTO:CreateGroupTransactionDTO"  #FFBBBB
+deactivate "createGroupTransactionDTO:CreateGroupTransactionDTO"
+
+"service:US008CreateTransactionService" -> "groupRepo:GroupRepository" : groupId = findGroupByDescription(groupDescription)
+activate "groupRepo:GroupRepository" #FFBBBB
+deactivate "groupRepo:GroupRepository"
+
+"service:US008CreateTransactionService" -> "ledger:Ledger" : ledger = getByID(groupId)
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+"service:US008CreateTransactionService" -> "categoryRepo:CategoryRepository" : categoryID = getByID(categoryID)
+activate "categoryRepo:CategoryRepository" #FFBBBB
+deactivate "categoryRepo:CategoryRepository"
+
+"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountFrom = getByID(accountFromID)
+activate "accountRepo:AccountRepository" #FFBBBB
+deactivate "accountRepo:AccountRepository"
+
+"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountTo = getByID(accountToID)
+activate "accountRepo:AccountRepository" #FFBBBB
+deactivate "accountRepo:AccountRepository"
+deactivate "service:US008CreateTransactionService" #FFBBBB
+
+@enduml
