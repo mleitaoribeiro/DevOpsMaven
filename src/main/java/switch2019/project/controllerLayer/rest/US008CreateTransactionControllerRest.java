@@ -65,7 +65,7 @@ public class US008CreateTransactionControllerRest {
      */
 
 
-    @PostMapping("/groups/{groupDescription}/ledger")
+    @PostMapping("/groups/{groupDescription}/ledger/transactions")
     public ResponseEntity<TransactionShortDTO> createGroupTransaction(@PathVariable String groupDescription, @RequestBody CreateTransactionInfoDTO info) {
 
 

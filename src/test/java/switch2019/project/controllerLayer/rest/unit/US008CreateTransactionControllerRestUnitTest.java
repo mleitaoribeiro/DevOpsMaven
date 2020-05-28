@@ -1717,7 +1717,7 @@ public class US008CreateTransactionControllerRestUnitTest {
                 .hasMessage(null);
     }
 
-  
+
 
     @Test
     @DisplayName("Test Group Transaction creation - Empty Currency")
