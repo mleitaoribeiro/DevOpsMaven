@@ -1408,7 +1408,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         JSONObject getBefore = new JSONObject(mvcResultGetBefore.getResponse().getContentAsString());
 
         //POST - Create new account
-        String uriPost = "/groups/SWITCH/ledger";
+        String uriPost = "/groups/SWITCH/ledger/transactions";
 
         //Create input DTO
         final Double amount = 10.00;
@@ -1490,7 +1490,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
 
@@ -1540,7 +1540,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupTransactionCategoryDoesNotExists() throws Exception {
 
         //Arrange
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
@@ -1587,7 +1587,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     @DisplayName("Test Group Transaction creation - Account From Does Not Exists")
     void createGroupTransactionAccountFromDoesNotExists() throws Exception {
         //Arrange
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
@@ -1634,7 +1634,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     @DisplayName("Test Group Transaction creation - Account TO Does Not Exists")
     void createGroupTransactionAccountToDoesNotExists() throws Exception {
         //Arrange
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
@@ -1683,7 +1683,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
 
@@ -1735,7 +1735,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupTransactionNullCurrency() throws Exception {
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
         final Double amount = 10.00;
@@ -1795,28 +1795,30 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupTransactionNullDate() throws Exception {
         //Arrange
 
-        String uriPost = "/persons/marge@hotmail.com/ledger/transactions";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
         final Double amount = 10.00;
         final String currency = "EUR";
+        final String categoryDenomination = "ISEP";
+        final String accountDescription = "SuperBock round1";
+        final String accountTo = "AE ISEP";
+        final String accountFrom = "Pocket Money";
         final String date = null;
-        final String category = "HOUSE";
-        final String description = "beers";
-        final String accountFrom = "MasterCard";
-        final String accountTo = "Homer Snacks";
         final String type = "debit";
-
+        final String personEmail = "1191762@isep.ipp.pt";
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
         createTransactionInfoDTO.setAmount(amount);
         createTransactionInfoDTO.setCurrency(currency);
-        createTransactionInfoDTO.setCategory(category);
-        createTransactionInfoDTO.setDescription(description);
+        createTransactionInfoDTO.setCategory(categoryDenomination);
+        createTransactionInfoDTO.setDescription(accountDescription);
         createTransactionInfoDTO.setAccountTo(accountTo);
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        createTransactionInfoDTO.setPersonEmail(personEmail);
+
 
         //Serialize input Json
         String inputJson = super.mapToJson((createTransactionInfoDTO));
@@ -1854,7 +1856,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
 
@@ -1906,7 +1908,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
 
@@ -1957,7 +1959,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupTransactionNullAccountFrom() throws Exception {
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
 
@@ -2008,7 +2010,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupTransactionNullAccountTO() throws Exception {
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
         //Create input DTO
 
@@ -2059,9 +2061,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupTransactionNullType() throws Exception {
         //Arrange
 
-        String uriPost = "/groups/Switch/ledger";
+        String uriPost = "/groups/Switch/ledger/transactions";
 
-        //Create input DTO
 
         //Create input DTO
         final Double amount = 10.00;
@@ -2119,7 +2120,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createGroupAndBecomeAdminNullJsonInput() throws Exception {
 
         //Arrange
-        String uri = "/groups/Switch/ledger";
+        String uri = "/groups/Switch/ledger/transactions";
 
         String inputJson = super.mapToJson((null));
 
@@ -2153,7 +2154,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
 
-        String uriPost = "/groups/SWITCH/ledger";
+        String uriPost = "/groups/SWITCH/ledger/transactions";
 
         //Create input DTO
 
@@ -2214,7 +2215,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void addGroupTransactionEmailEmpty() throws Exception {
 
         //Arrange
-        String uriPost = "/groups/SWITCH/ledger";
+        String uriPost = "/groups/SWITCH/ledger/transactions";
 
         //Create input DTO
 
