@@ -4,44 +4,16 @@ autonumber 3.3.2.1
 -> "service:US008CreateTransactionService" : addPersonalTransaction(createPersonalTransactionDTO)
 activate "service:US008CreateTransactionService"  #FFBBBB
 
-"service:US008CreateTransactionService"->"createPersonalTransactionDTO:CreatePersonalTransactionDTO"
-activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO" #FFBBBB
+|||
 
+ref over "service:US008CreateTransactionService" : getAttributes (personEmail, amount, currency, description, date, type, \ncategoryID, accountFromID, accountToID, personID, ledger)
 
-ref over "createPersonalTransactionDTO:CreatePersonalTransactionDTO" : getCreatePersonalTransactionDTOAttributes
-"createPersonalTransactionDTO:CreatePersonalTransactionDTO" --> "service:US008CreateTransactionService" : personEmail, amount, currency, description, \ndate, type, category, accountFrom, accountTo
-deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+|||
 
-
-"service:US008CreateTransactionService" -> "ledger:Ledger" : ledger = getByID(personID)
-activate "ledger:Ledger" #FFBBBB
-deactivate "ledger:Ledger"
-
-
-"service:US008CreateTransactionService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
-activate "personRepo:PersonRepository" #FFBBBB
-deactivate "personRepo:PersonRepository"
-
-"service:US008CreateTransactionService" -> "categoryRepo:CategoryRepository" : categoryID = getByID(categoryID)
-activate "categoryRepo:CategoryRepository" #FFBBBB
-deactivate "categoryRepo:CategoryRepository"
-
-"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountFrom = getByID(accountID)
-activate "accountRepo:AccountRepository" #FFBBBB
-deactivate "accountRepo:AccountRepository"
-
-"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountTo = getByID(accountID)
-activate "accountRepo:AccountRepository" #FFBBBB
-deactivate "accountRepo:AccountRepository"
-
-"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, \ndescription, date, category, accountFrom, accountTo, type)
+"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, \n date, category, accountFrom, accountTo, type)
 activate "ledgerRepo:LedgerRepository" #FFBBBB
 
-
-'FALTA - isIDOnRepository - validacao se o ledger esta no repositorio'
-
-
-
+"service:US008CreateTransactionService" -> "ledgerRepo:LedgerRepository": isIDOnRepository(owner)
 
 "ledgerRepo:LedgerRepository"->":LedgerDomainDataAssembler": toData(ledger)
 activate ":LedgerDomainDataAssembler" #FFBBBB
@@ -71,15 +43,20 @@ activate "transactionRepo:transactionJpaRepository" #FFBBBB
 activate ":TransactionDomainDataAssembler" #FFBBBB
 
 create ":TransactionJpa"
-":TransactionDomainDataAssembler"->":TransactionJpa" : create(ledgerJpa, amount, currency, description, date,\n category, accountFrom, accountTo, type)
+":TransactionDomainDataAssembler"->":TransactionJpa" : create(ledgerJpa, amount, currency, description,\n date, category, accountFrom, accountTo, type)
 ":TransactionDomainDataAssembler"-->"transactionRepo:transactionJpaRepository" : transactionJpa
 deactivate ":TransactionDomainDataAssembler"
 
 "transactionRepo:transactionJpaRepository"->"transactionRepo:transactionJpaRepository": newTransactionJpa = save(transactionJpa)
+
+"transactionRepo:transactionJpaRepository"-->"ledgerRepo:LedgerRepository": newTransactionJpa
 deactivate "transactionRepo:transactionJpaRepository"
 
-
 "ledgerRepo:LedgerRepository"->"ledgerJpa:LedgerJpa" : addTransaction(owner, newTransactionJpa)
+activate "ledgerJpa:LedgerJpa" #FFBBBB
+
+"ledgerJpa:LedgerJpa"->"ledgerJpa:LedgerJpa" : addTransaction(newTransactionJpa)
+deactivate "ledgerJpa:LedgerJpa" #FFBBBB
 
 "ledgerRepo:LedgerRepository"->":TransactionDomainDataAssembler":toDomain(newTransactionJpa)
 activate ":TransactionDomainDataAssembler" #FFBBBB
@@ -89,48 +66,33 @@ activate ":TransactionDomainDataAssembler" #FFBBBB
 
 
 
-
+":TransactionDomainDataAssembler" -> ":TransactionJpa" :
 ref over ":TransactionJpa" : getTransactionJpaAttributes
-":TransactionDomainDataAssembler" --> ":TransactionJpa" : amount, currency, description, \ndate, type, id, category, accountFrom, accountTo
+":TransactionJpa" --> ":TransactionDomainDataAssembler" : amount, currency, description, \ndate, type, id, category, accountFrom, accountTo
 deactivate ":TransactionJpa"
 
 
 create "newTransaction:Transaction"
-":TransactionDomainDataAssembler"->"newTransaction:Transaction" : create(amount, description, date , category, accountFrom, accountTo, type, id)
+":TransactionDomainDataAssembler"->"newTransaction:Transaction" : create(amount, description, date , category\n, accountFrom, accountTo, type, id)
 ":TransactionDomainDataAssembler" --> "ledgerRepo:LedgerRepository" : newTransaction
 deactivate ":TransactionDomainDataAssembler"
 
 
-"ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : transaction
+"ledgerRepo:LedgerRepository" --> "service:US008CreateTransactionService" : newTransaction
 deactivate "ledgerRepo:LedgerRepository"
 
-"service:US008CreateTransactionService"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(transaction)
+"service:US008CreateTransactionService"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(newTransaction)
 activate ":LedgerDTOAssembler" #FFBBBB
 
-autonumber 3.3.2.6.2.1
-":LedgerDTOAssembler"->"transaction:Transaction" : amount = getAmount()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+":LedgerDTOAssembler"->"newTransaction:Transaction":
+activate "newTransaction:Transaction" #FFBBBB
 
-":LedgerDTOAssembler"->"transaction:Transaction" : currency = getCurrency()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+ref over "newTransaction:Transaction" : getAttributes
+"newTransaction:Transaction"-->":LedgerDTOAssembler": amount, currency, \naccountFrom, accountTo, type, id
+deactivate "newTransaction:Transaction" #FFBBBB
 
-":LedgerDTOAssembler"->"transaction:Transaction" : accountFrom = getAccountFrom().getDenominationToString()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
-
-":LedgerDTOAssembler"->"transaction:Transaction" : accountFrom = getAccountTo().getDenominationToString()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
-
-":LedgerDTOAssembler"->"transaction:Transaction" : type = type.toString()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
-
-":LedgerDTOAssembler"->"transaction:Transaction" : id = transaction.getId()
-activate "transaction:Transaction" #FFBBBB
-deactivate "transaction:Transaction"
+create "transactionShortDTO:TransactionShortDTO"
+":LedgerDTOAssembler"->"transactionShortDTO:TransactionShortDTO": create (amount, currency, \naccountFrom, accountTo, type, id)
 
 ":LedgerDTOAssembler" --> "service:US008CreateTransactionService" : transactionShortDTO
 deactivate ":LedgerDTOAssembler"

@@ -36,7 +36,25 @@ deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
 activate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"  #FFBBBB
 deactivate "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
 
+"service:US008CreateTransactionService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
+activate "personRepo:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository"
 
+"service:US008CreateTransactionService" -> "ledger:Ledger" : ledger = getByID(personID)
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+"service:US008CreateTransactionService" -> "categoryRepo:CategoryRepository" : categoryID = getByID(categoryID)
+activate "categoryRepo:CategoryRepository" #FFBBBB
+deactivate "categoryRepo:CategoryRepository"
+
+"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountFrom = getByID(accountFromID)
+activate "accountRepo:AccountRepository" #FFBBBB
+deactivate "accountRepo:AccountRepository"
+
+"service:US008CreateTransactionService" -> "accountRepo:AccountRepository" : accountTo = getByID(accountToID)
+activate "accountRepo:AccountRepository" #FFBBBB
+deactivate "accountRepo:AccountRepository"
 
 
 @enduml
