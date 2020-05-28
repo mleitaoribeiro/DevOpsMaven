@@ -1,6 +1,5 @@
 package switch2019.project.controllerLayer.rest.integration;
 
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -78,7 +77,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
         String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/9\"}," +
@@ -215,7 +214,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(amount.toString(), getAfter.getString("amount")),
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
-                () -> assertEquals((new DateAndTime().yearMonthDayHourMinuteToString()), getAfter.getString("date")),
+                () -> assertEquals(new DateAndTime().yearMonthDayHourMinuteToString(), getAfter.getString("date")),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
                 () -> assertEquals(accountTo.toUpperCase(), getAfter.getString("accountTo")),
@@ -253,7 +252,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
 
@@ -311,7 +310,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new ArgumentNotFoundException("No category found with that ID.").toString();
 
@@ -369,7 +368,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
@@ -427,7 +426,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
@@ -485,7 +484,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
 
@@ -544,7 +543,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
 
@@ -573,7 +572,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
-/*
+
     @Test
     @DisplayName("Test Person Transaction creation - Null date")
     void createPersonTransactionNullDate() throws Exception {
@@ -604,9 +603,9 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
-        String expectedResolvedException = new NullPointerException("").toString();
+        String expectedResolvedException = new NullPointerException().toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -628,11 +627,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
-                () -> assertEquals("text", result.getString("message")),
+                () -> assertEquals("null", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
     }
-*/
+
 
     @Test
     @DisplayName("Test Person Transaction creation - Null Category")
@@ -664,7 +663,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -723,7 +722,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
@@ -782,7 +781,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -841,7 +840,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -900,7 +899,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
 
@@ -959,7 +958,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
 
@@ -1018,7 +1017,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The monetary value cannot be negative.").toString();
 
@@ -1078,7 +1077,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException().toString();
 
@@ -1137,7 +1136,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -1191,7 +1190,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException().toString();
 
@@ -1250,7 +1249,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -1309,7 +1308,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
@@ -1368,7 +1367,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -1428,7 +1427,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -1617,7 +1616,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
         String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
@@ -1693,7 +1692,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("pedro@hotmail.com");
 
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
         //Act
@@ -1742,7 +1741,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new ArgumentNotFoundException("No category found with that ID.").toString();
         //Act
@@ -1789,7 +1788,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
         //Act
@@ -1836,7 +1835,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
 
         //Act
@@ -1890,7 +1889,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
 
@@ -1950,7 +1949,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail(personEmail);
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new NullPointerException().toString();
 
         //Act
@@ -2009,7 +2008,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
 
@@ -2038,7 +2037,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
-/*    @Test
+    @Test
     @DisplayName("Test Group Transaction creation - Null date")
     void createGroupTransactionNullDate() throws Exception {
         //Arrange
@@ -2068,9 +2067,9 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
-        String expectedResolvedException = new NullPointerException("text").toString();
+        String expectedResolvedException = new NullPointerException().toString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2092,10 +2091,10 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
-                () -> assertEquals("text", result.getString("message")),
+                () -> assertEquals("null", result.getString("message")),
                 () -> assertEquals(expectedResolvedException, realResolvedException)
         );
-    }*/
+    }
 
     //Java RunTimeException: IllegalArgumentException-422
 
@@ -2122,7 +2121,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -2174,7 +2173,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The description can't be null or empty.").toString();
 
@@ -2225,7 +2224,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -2276,7 +2275,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
         //Serialize input Json
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -2337,7 +2336,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail(personEmail);
 
         //Arrangement the input
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
 
         String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
@@ -2398,7 +2397,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail(personEmail);
 
         //Arrangement the input
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
 
         String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
@@ -2495,7 +2494,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail(personEmail);
 
         //Arrangement the input
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new HttpRequestMethodNotSupportedException("POST").toString();
 
@@ -2557,7 +2556,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         //Arrangement the input
-        String inputJson = super.mapToJson((createTransactionInfoDTO));
+        String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new HttpMediaTypeNotSupportedException("Content type 'application/xml' not supported").toString();
 
         //Act
