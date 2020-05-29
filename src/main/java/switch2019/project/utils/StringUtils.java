@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
-    private StringUtils(){}
+    private StringUtils() {
+    }
 
     /**
      * Method used to check if an Account is owned by a Group or a Person
@@ -41,6 +42,7 @@ public class StringUtils {
 
     /**
      * Removes extra Spaces, capitalizes only first letter and un-capitalizes exceptional cases
+     *
      * @param personName
      */
 
@@ -52,6 +54,7 @@ public class StringUtils {
 
     /**
      * Capitalize all the individual words of a String
+     *
      * @param personName
      */
 
@@ -59,27 +62,31 @@ public class StringUtils {
         personName = personName.toLowerCase();
         personName = personName.substring(0, 1).toUpperCase() + personName.substring(1);
         String[] words = personName.split(" ");
-        for(int i = 1 ; i < words.length ; i++) {
+        for (int i = 1; i < words.length; i++) {
             words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1);
-        } return String.join(" ", words);
+        }
+        return String.join(" ", words);
     }
 
     /**
      * Exceptional cases so it doesn't capitalize "de", "da", "do", "das" and "dos" and capitalizes a single letter before a break
+     *
      * @param personName
      */
 
     private static String exceptionalCases(String personName) {
         ArrayList<String> exceptions = new ArrayList<>(Arrays.asList("De", "Da", "Do", "Das", "Dos"));
         String[] words = personName.split(" ");
-        for(int i = 0; i < words.length; i++) {
-            if(exceptions.contains(words[i]))
+        for (int i = 0; i < words.length; i++) {
+            if (exceptions.contains(words[i]))
                 words[i] = words[i].toLowerCase();
-        } return String.join(" ", words);
+        }
+        return String.join(" ", words);
     }
 
     /**
      * Removes special characters, word accents and extra white spaces
+     *
      * @param denomination
      */
 
@@ -103,7 +110,8 @@ public class StringUtils {
 
         for (String element : str) {
             buildNewStringArray.append(" ").append(element);
-        } return buildNewStringArray.toString().replaceFirst(" ", "");
+        }
+        return buildNewStringArray.toString().replaceFirst(" ", "");
     }
 
     /**
@@ -140,5 +148,22 @@ public class StringUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime localDate = LocalDateTime.parse(date, formatter);
         return new DateAndTime(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), localDate.getHour(), localDate.getMinute());
+    }
+
+    /**
+     * method to compare dates as Strings
+     *
+     * @param date, otherDate
+     * @return boolean
+     */
+
+    public static boolean isSameDate(String date, String otherDate) {
+
+        LocalDateTime firstDate = StringUtils.toDateHourMinute(date).getYearMonthDayHourMinute();
+        LocalDateTime secondDate = StringUtils.toDateHourMinute(otherDate).getYearMonthDayHourMinute();
+
+        return (firstDate.isEqual(secondDate) || firstDate.plusMinutes(1).isEqual(secondDate)
+                || firstDate.minusMinutes(1).isEqual(secondDate));
+
     }
 }
