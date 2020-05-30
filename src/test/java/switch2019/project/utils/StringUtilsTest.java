@@ -120,7 +120,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test to compare dates as Strings")
+    @DisplayName("Test to compare dates as Strings, one minute before, true")
     void isSameDateOne(){
 
         String date = "2020-05-29 16:55";
@@ -132,19 +132,19 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test to compare dates as Strings")
+    @DisplayName("Test to compare dates as Strings, one minute after, true")
     void isSameDateTwo(){
-
-        String date2 = "2020-05-29 16:56";
 
         String date3 = "2020-05-29 16:57";
 
-        assertTrue(StringUtils.isSameDate(date2, date3));
+        String date2 = "2020-05-29 16:56";
+
+        assertTrue(StringUtils.isSameDate(date3, date2));
 
     }
 
     @Test
-    @DisplayName("Test to compare dates as Strings")
+    @DisplayName("Test to compare dates as Strings - two minutes apart, false")
     void isSameDateThree(){
 
         String date = "2020-05-29 16:55";
@@ -156,7 +156,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test to compare dates as Strings")
+    @DisplayName("Test to compare dates as Strings - different day")
     void isSameDateNextDay(){
 
         String dateDay = "2020-05-29 23:59";
@@ -167,7 +167,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test to compare dates as Strings")
+    @DisplayName("Test to compare dates as Strings - System date")
     void isSameDateSysDate(){
 
         String sysDateNow = new DateAndTime().yearMonthDayHourMinuteToString();
