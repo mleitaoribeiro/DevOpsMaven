@@ -5,20 +5,20 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
+import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 class US002_1CreateGroupServiceTest {
-
 
     @Autowired
     private US002_1CreateGroupService service;
@@ -27,7 +27,6 @@ class US002_1CreateGroupServiceTest {
      * US002.1
      * Test if a group was created and person is admin
      */
-
 
     @Test
     @DisplayName("Main scenario - Existing person creates group and becomes admin")

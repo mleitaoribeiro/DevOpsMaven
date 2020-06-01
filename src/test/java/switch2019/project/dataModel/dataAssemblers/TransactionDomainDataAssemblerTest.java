@@ -13,7 +13,7 @@ import switch2019.project.domain.domainEntities.shared.*;
 
 import java.util.Currency;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TransactionDomainDataAssemblerTest {
 

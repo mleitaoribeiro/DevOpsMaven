@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddMemberDTOTest {

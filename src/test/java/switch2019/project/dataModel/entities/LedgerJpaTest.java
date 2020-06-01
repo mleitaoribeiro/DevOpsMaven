@@ -2,7 +2,6 @@ package switch2019.project.dataModel.entities;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.domain.domainEntities.ledger.Ledger;
 
 import static org.junit.jupiter.api.Assertions.*;
 

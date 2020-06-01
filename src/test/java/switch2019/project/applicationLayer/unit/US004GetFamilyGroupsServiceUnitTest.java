@@ -5,28 +5,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import switch2019.project.DTO.serializationDTO.GroupDTO;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.applicationLayer.US004GetFamilyGroupsService;
-import switch2019.project.assemblers.GroupDTOAssembler;
-import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.person.Address;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.person.Person;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.domain.repositories.PersonRepository;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest
+@Transactional
 public class US004GetFamilyGroupsServiceUnitTest {
 
     //Mocking of the repositories:
