@@ -293,7 +293,7 @@ public class Person implements Owner {
      * @return boolean
      */
     public boolean checkSameMother(Person otherPerson) {
-        if (mother == null || otherPerson.mother == null) {
+        if (otherPerson == null || this.mother == null || otherPerson.mother == null) {
             return false;
         } else return mother.equals(otherPerson.mother);
     }
@@ -305,7 +305,7 @@ public class Person implements Owner {
      * @param otherPerson to validate if has the same father
      */
     public boolean checkSameFather(Person otherPerson) {
-        if (otherPerson.father == null) {
+        if (otherPerson == null || this.father == null || otherPerson.father == null) {
             return false;
         } else return father.equals(otherPerson.father);
     }
