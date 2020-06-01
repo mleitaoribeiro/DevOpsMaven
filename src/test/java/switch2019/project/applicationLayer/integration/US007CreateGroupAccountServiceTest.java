@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
 import switch2019.project.applicationLayer.US007CreateGroupAccountService;
@@ -14,9 +15,10 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 class US007CreateGroupAccountServiceTest {
 
     @Autowired

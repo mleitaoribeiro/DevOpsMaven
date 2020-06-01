@@ -1,6 +1,5 @@
 package switch2019.project.dataModel.dataAssemblers;
 
-import switch2019.project.dataModel.entities.LedgerJpa;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;

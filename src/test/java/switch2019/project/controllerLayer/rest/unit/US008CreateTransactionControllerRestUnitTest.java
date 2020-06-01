@@ -1,6 +1,5 @@
 package switch2019.project.controllerLayer.rest.unit;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,11 +9,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
-import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
@@ -33,6 +31,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 public class US008CreateTransactionControllerRestUnitTest {
 
     @Mock

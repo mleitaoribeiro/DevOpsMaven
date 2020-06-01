@@ -1,11 +1,9 @@
 package switch2019.project.dataModel.entities;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.person.Address;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 

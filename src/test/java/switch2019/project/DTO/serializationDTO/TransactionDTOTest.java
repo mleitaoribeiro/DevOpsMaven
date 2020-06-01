@@ -2,6 +2,7 @@ package switch2019.project.DTO.serializationDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;

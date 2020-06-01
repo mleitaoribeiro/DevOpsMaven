@@ -1,15 +1,6 @@
 package switch2019.project.dataModel.entities;
 
 import org.junit.jupiter.api.Test;
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.frameworks.OwnerID;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.AccountID;
-import switch2019.project.domain.domainEntities.shared.Denomination;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.PersonID;
-
-import javax.persistence.Table;
 
 import static org.junit.jupiter.api.Assertions.*;
 

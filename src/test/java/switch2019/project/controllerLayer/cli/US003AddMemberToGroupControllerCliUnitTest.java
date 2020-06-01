@@ -3,25 +3,25 @@ package switch2019.project.controllerLayer.cli;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.GroupDTOAssembler;
 
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 public class US003AddMemberToGroupControllerCliUnitTest {
 
     @Mock

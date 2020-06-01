@@ -1,17 +1,5 @@
 package switch2019.project.dataModel.dataAssemblers;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import switch2019.project.dataModel.entities.GroupJpa;
-import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.domain.domainEntities.shared.Description;
-import switch2019.project.domain.domainEntities.shared.PersonID;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 public class GroupDomainDataAssemblerTest {
     /**
      * Test if the toData method can transform an object Group to a GroupJpa

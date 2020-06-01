@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
@@ -15,8 +16,8 @@ import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.applicationLayer.US008CreateTransactionService;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -25,20 +26,20 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.domain.repositories.*;
 import switch2019.project.utils.StringUtils;
-import switch2019.project.domain.repositories.AccountRepository;
-import switch2019.project.domain.repositories.CategoryRepository;
-import switch2019.project.domain.repositories.LedgerRepository;
-import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Currency;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 public class US008CreateTransactionServiceUnitTest {
 
     @Mock

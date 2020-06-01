@@ -1,10 +1,10 @@
 package switch2019.project.assemblers;
 
 import org.junit.jupiter.api.Test;
-import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.DTO.serializationDTO.SiblingsDTO;
+import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PersonDTOAssemblerTest {
 

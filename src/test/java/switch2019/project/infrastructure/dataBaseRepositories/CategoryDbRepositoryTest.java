@@ -6,11 +6,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -22,9 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@Transactional
 class CategoryDbRepositoryTest {
 
     @Autowired

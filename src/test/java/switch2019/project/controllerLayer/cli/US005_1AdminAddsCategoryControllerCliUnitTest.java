@@ -1,13 +1,16 @@
 package switch2019.project.controllerLayer.cli;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
@@ -18,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional
 class US005_1AdminAddsCategoryControllerCliUnitTest {
 
     @Mock

@@ -5,18 +5,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.applicationLayer.US005_1AdminAddsCategoryToGroupService;
 import switch2019.project.assemblers.CategoryDTOAssembler;
 import switch2019.project.domain.domainEntities.category.Category;
+import switch2019.project.domain.domainEntities.shared.CategoryID;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
-import switch2019.project.domain.domainEntities.shared.*;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +27,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 public class US005_1AdminAddsCategoryToGroupServiceTest {
 
     @Autowired

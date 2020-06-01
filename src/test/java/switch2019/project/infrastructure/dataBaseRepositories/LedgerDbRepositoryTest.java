@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.category.Category;
@@ -21,16 +21,18 @@ import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Currency;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@Transactional
 class LedgerDbRepositoryTest {
 
     @Autowired
@@ -77,8 +79,8 @@ class LedgerDbRepositoryTest {
         Account someoneAccount1 = accountDbRepository.createAccount(new Denomination("Account1"), new Description("Account 1"), someone.getID());
         Account someoneAccount2 = accountDbRepository.createAccount(new Denomination("Account2"), new Description("Account 2"), someone.getID());
 
-        Account groupCreatorAccount1 = accountDbRepository.createAccount(new Denomination("Account1"), new Description("Account 1"), groupCreator.getID());
-        Account groupCreatorAccount2 = accountDbRepository.createAccount(new Denomination("Account2"), new Description("Account 2"), groupCreator.getID());
+        accountDbRepository.createAccount(new Denomination("Account1"), new Description("Account 1"), groupCreator.getID());
+        accountDbRepository.createAccount(new Denomination("Account2"), new Description("Account 2"), groupCreator.getID());
 
         //Create Category
 
@@ -420,7 +422,6 @@ class LedgerDbRepositoryTest {
         Long id = 7L;
 
         GroupID groupID = new GroupID(new Description(groupDescription));
-
 
         Category category= new Category (new Denomination ("ISEP"), groupID);
 
