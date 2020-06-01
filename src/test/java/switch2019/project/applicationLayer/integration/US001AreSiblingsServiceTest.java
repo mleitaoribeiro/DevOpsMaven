@@ -97,7 +97,7 @@ public class US001AreSiblingsServiceTest {
         //Assert
         assertTrue(siblings);
     }
-
+/*
     @Test
     @DisplayName("Test if two individuals are siblings - not related")
     void AreSiblingsFalse() {
@@ -122,6 +122,8 @@ public class US001AreSiblingsServiceTest {
 
 
     }
+    
+ */
 
     @Test
     @DisplayName("Test if two individuals are siblings - no person found with that email")
