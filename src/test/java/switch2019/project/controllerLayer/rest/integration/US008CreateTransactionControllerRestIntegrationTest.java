@@ -14,6 +14,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.time.LocalDateTime;
@@ -122,7 +123,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(amount.toString(), getAfter.getString("amount")),
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
-                () -> assertEquals(date, getAfter.getString("date")),
+                () -> assertTrue(StringUtils.isSameDate(date, getAfter.getString("date"))),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
                 () -> assertEquals(accountTo.toUpperCase(), getAfter.getString("accountTo")),
@@ -150,7 +151,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Create input DTO
         final Double amount = 10.50;
         final String currency = "EUR";
-        final String date = "";
+        final String setDate = "";
+        final String date = new DateAndTime().yearMonthDayHourMinuteToString();
         final String category = "HOUSE";
         final String description = "beers";
         final String accountFrom = "MasterCard";
@@ -165,7 +167,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDescription(description);
         createTransactionInfoDTO.setAccountTo(accountTo);
         createTransactionInfoDTO.setAccountFrom(accountFrom);
-        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setDate(setDate);
         createTransactionInfoDTO.setType(type);
 
         //Serialize input Json
@@ -214,7 +216,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(amount.toString(), getAfter.getString("amount")),
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
-                () -> assertEquals(new DateAndTime().yearMonthDayHourMinuteToString(), getAfter.getString("date")),
+                () -> assertEquals(date, getAfter.getString("date")),
+                () -> assertTrue(StringUtils.isSameDate(date, getAfter.getString("date"))),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
                 () -> assertEquals(accountTo.toUpperCase(), getAfter.getString("accountTo")),
@@ -1576,7 +1579,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(amount.toString(), getAfter.getString("amount")),
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
-                () -> assertEquals(date, getAfter.getString("date")),
+                () -> assertTrue(StringUtils.isSameDate(date, getAfter.getString("date"))),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
                 () -> assertEquals(accountTo.toUpperCase(), getAfter.getString("accountTo")),
@@ -1615,7 +1618,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         final String description = "SuperBock round";
         final String accountTo = "AE ISEP";
         final String accountFrom = "Pocket Money";
-        final String date = "";
+        final String setDate = "";
+        final String date = new DateAndTime().yearMonthDayHourMinuteToString();
         final String type = "debit";
         final String personEmail = "1191762@isep.ipp.pt";
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
@@ -1626,7 +1630,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDescription(description);
         createTransactionInfoDTO.setAccountTo(accountTo);
         createTransactionInfoDTO.setAccountFrom(accountFrom);
-        createTransactionInfoDTO.setDate(date);
+        createTransactionInfoDTO.setDate(setDate);
         createTransactionInfoDTO.setType(type);
         createTransactionInfoDTO.setPersonEmail(personEmail);
 
@@ -1677,6 +1681,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
                 () -> assertEquals((new DateAndTime().yearMonthDayHourMinuteToString()), getAfter.getString("date")),
+                () -> assertTrue(StringUtils.isSameDate(date, getAfter.getString("date"))),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
                 () -> assertEquals(accountTo.toUpperCase(), getAfter.getString("accountTo")),

@@ -118,4 +118,63 @@ class StringUtilsTest {
         //Assert
         assertNotEquals(expectedDate, resultDate);
     }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings, one minute before, true")
+    void isSameDateOne(){
+
+        String date = "2020-05-29 16:55";
+
+        String date2 = "2020-05-29 16:56";
+
+        assertTrue(StringUtils.isSameDate(date, date2));
+
+    }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings, one minute after, true")
+    void isSameDateTwo(){
+
+        String date3 = "2020-05-29 16:57";
+
+        String date2 = "2020-05-29 16:56";
+
+        assertTrue(StringUtils.isSameDate(date3, date2));
+
+    }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings - two minutes apart, false")
+    void isSameDateThree(){
+
+        String date = "2020-05-29 16:55";
+
+        String date3 = "2020-05-29 16:57";
+
+        assertFalse(StringUtils.isSameDate(date, date3));
+
+    }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings - different day")
+    void isSameDateNextDay(){
+
+        String dateDay = "2020-05-29 23:59";
+
+        String dateNextDay = "2020-05-30 00:00";
+
+        assertTrue(StringUtils.isSameDate(dateDay, dateNextDay));
+    }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings - System date")
+    void isSameDateSysDate(){
+
+        String sysDateNow = new DateAndTime().yearMonthDayHourMinuteToString();
+
+        String sysDateNow2 = new DateAndTime().yearMonthDayHourMinuteToString();
+
+        assertTrue(StringUtils.isSameDate(sysDateNow, sysDateNow2));
+    }
+
 }
