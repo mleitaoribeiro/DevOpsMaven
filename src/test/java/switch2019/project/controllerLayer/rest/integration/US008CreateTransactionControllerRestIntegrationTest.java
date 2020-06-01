@@ -16,6 +16,8 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.time.LocalDateTime;
@@ -34,14 +36,13 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     public void setUP() {
         super.setUP();
     }
-/*
 
-    */
-/**
+    /**
      * Test Personal Transaction creation
-     *//*
+     */
 
 
+    /*
     @Test
     @DisplayName("Test Person Transaction creation - Happy Case - test if outputDTO, HTTP response are expected. Test if transaction was persisted in DB")
     void createPersonTransactionMainScenario() throws Exception {
@@ -219,7 +220,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(amount.toString(), getAfter.getString("amount")),
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
-                () -> assertEquals(date, getAfter.getString("date")),
                 () -> assertTrue(StringUtils.isSameDate(date, getAfter.getString("date"))),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
@@ -257,6 +257,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -279,7 +280,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -315,6 +316,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -337,7 +339,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -373,6 +375,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -395,7 +398,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -431,6 +434,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -453,7 +457,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -489,6 +493,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -511,7 +516,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -548,6 +553,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -570,7 +576,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -608,6 +614,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -630,7 +637,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -668,6 +675,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -690,7 +698,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -727,6 +735,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -749,7 +758,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -786,6 +795,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -808,7 +818,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -845,6 +855,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -867,7 +878,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -893,6 +904,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         final String accountFrom = "MasterCard";
         final String accountTo = "Homer Snacks";
         final String type = null;
+
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
@@ -926,7 +939,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -963,6 +976,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -985,7 +999,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1025,6 +1039,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String expectedResolvedException = new IllegalArgumentException("The monetary value cannot be negative.").toString();
 
@@ -1044,7 +1059,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1087,6 +1102,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new IllegalArgumentException().toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -1104,7 +1120,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1130,6 +1146,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         final String accountFrom = "MasterCard";
         final String accountTo = "Homer Snacks";
         final String type = "debit";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
 
@@ -1159,7 +1176,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -1196,6 +1213,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
 
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
+
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
@@ -1217,7 +1236,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1257,6 +1276,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -1276,7 +1296,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1313,6 +1333,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setAccountFrom(accountFrom);
         createTransactionInfoDTO.setDate(date);
         createTransactionInfoDTO.setType(type);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -1335,7 +1356,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1375,6 +1396,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -1394,7 +1416,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1435,6 +1457,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String expectedResolvedException = new IllegalArgumentException("The denomination can't be null or empty.").toString();
 
@@ -1454,7 +1477,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1490,13 +1513,12 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
-/*
 
-    */
-/**
+    /**
      * Test Group Transaction creation
-     *//*
+     */
 
+    /*
     @Test
     @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
     void createGroupTransactionMainScenario() throws Exception {
@@ -1644,6 +1666,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Expected Links
         String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
@@ -1687,7 +1710,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(amount.toString(), getAfter.getString("amount")),
                 () -> assertEquals(currency, getAfter.getString("currency")),
                 () -> assertEquals(description.toUpperCase(), getAfter.getString("description")),
-                () -> assertEquals((new DateAndTime().yearMonthDayHourMinuteToString()), getAfter.getString("date")),
                 () -> assertTrue(StringUtils.isSameDate(date, getAfter.getString("date"))),
                 () -> assertEquals(category.toUpperCase(), getAfter.getString("category")),
                 () -> assertEquals(accountFrom.toUpperCase(), getAfter.getString("accountFrom")),
@@ -1722,6 +1744,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setPersonEmail("pedro@hotmail.com");
 
         String inputJson = super.mapToJson(createTransactionInfoDTO);
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String expectedResolvedException = new ArgumentNotFoundException("No person found with that email.").toString();
         //Act
@@ -1741,7 +1764,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -1783,13 +1806,14 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         int status = mvcResult.getResponse().getStatus();
 
         JSONObject result = new JSONObject(mvcResult.getResponse().getContentAsString());
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String realResolvedException = Objects.requireNonNull(mvcResult.getResolvedException()).toString();
 
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -1816,6 +1840,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDate("2020-03-03 18:00");
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
@@ -1836,7 +1861,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -1863,6 +1888,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDate("2020-03-03 18:00");
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new ArgumentNotFoundException("No account found with that ID.").toString();
@@ -1883,7 +1909,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -1916,6 +1942,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDate("2020-03-03 18:00");
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -1938,7 +1965,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -1968,6 +1995,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setDate("2020-03-03 18:00");
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
@@ -1990,7 +2018,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -2020,6 +2048,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
+
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
@@ -2041,7 +2071,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -2071,6 +2101,8 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         createTransactionInfoDTO.setType("false");
         createTransactionInfoDTO.setPersonEmail("1191762@isep.ipp.pt");
 
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
+
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
@@ -2092,7 +2124,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -2137,6 +2169,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         String expectedResolvedException = new IllegalArgumentException("The email can't be null.").toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2154,7 +2187,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -2198,6 +2231,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
 
         String expectedResolvedException = new IllegalArgumentException("The email is not valid.").toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2215,7 +2249,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("One of the parameters is invalid or is missing.", result.getString("error")),
@@ -2232,6 +2266,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange
         String uri = "/groups/Switch/ledger/transactions";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Serialize
         String inputJson = super.mapToJson((null));
@@ -2250,7 +2285,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(400, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("400", result.getString("statusCode")),
                 () -> assertEquals("BAD_REQUEST", result.getString("status")),
                 () -> assertEquals("The request body needed to perform the operation is missing.", result.getString("error")),
@@ -2294,6 +2329,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new HttpRequestMethodNotSupportedException("POST").toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2311,7 +2347,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(405, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("405", result.getString("statusCode")),
                 () -> assertEquals("METHOD_NOT_ALLOWED", result.getString("status")),
                 () -> assertEquals("Request method 'POST' not supported", result.getString("error")),
@@ -2340,6 +2376,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         final String type = "false";
         final String personEmail = "1191762@isep.ipp.pt";
         CreateTransactionInfoDTO createTransactionInfoDTO = new CreateTransactionInfoDTO();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         createTransactionInfoDTO.setAmount(amount);
         createTransactionInfoDTO.setCurrency(currency);
@@ -2371,7 +2408,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //ASSERT
         Assertions.assertAll(
                 () -> assertEquals(415, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("415", result.getString("statusCode")),
                 () -> assertEquals("UNSUPPORTED_MEDIA_TYPE", result.getString("status")),
                 () -> assertEquals("Content type 'application/xml' not supported", result.getString("error")),
@@ -2389,6 +2426,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Arrange
 
         String uriPost = "/groups/Switch/ledger/transactions";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Create input DTO
 
@@ -2426,7 +2464,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -2468,6 +2506,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Serialize input Json
         String inputJson = super.mapToJson(createTransactionInfoDTO);
         String expectedResolvedException = new NullPointerException().toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2485,7 +2524,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -2528,6 +2567,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2545,7 +2585,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -2587,6 +2627,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         String expectedResolvedException = new NullPointerException().toString();
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -2604,7 +2645,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(500, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("500", result.getString("statusCode")),
                 () -> assertEquals("INTERNAL_SERVER_ERROR", result.getString("status")),
                 () -> assertEquals("error occurred", result.getString("error")),
@@ -2656,6 +2697,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange the uri that is going to be posted
         String uriPost = "/persons/rick@gmail.com/ledger/transactions/2";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act:
         //Assembling the Json Object obtained as response
@@ -2669,7 +2711,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("403", result.getString("statusCode")),
                 () -> assertEquals("FORBIDDEN", result.getString("status")),
                 () -> assertEquals("No permission for this operation.", result.getString("error")),
@@ -2685,6 +2727,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange the uri that is going to be posted
         String uriPost = "/persons/rick@gmail.com/ledger/transactions/10";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act:
         //Assembling the Json Object obtained as response
@@ -2698,7 +2741,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -2714,6 +2757,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange the uri that is going to be posted
         String uriPost = "/persons/test@gmail.com/ledger/transactions/2";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act:
         //Assembling the Json Object obtained as response
@@ -2727,7 +2771,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -2775,6 +2819,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange the uri that is going to be posted
         String uriPost = "/groups/SWITCH/ledger/transactions/2";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act:
         //Assembling the Json Object obtained as response
@@ -2788,7 +2833,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(403, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("403", result.getString("statusCode")),
                 () -> assertEquals("FORBIDDEN", result.getString("status")),
                 () -> assertEquals("No permission for this operation.", result.getString("error")),
@@ -2804,6 +2849,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange the uri that is going to be posted
         String uriPost = "/groups/SWITCH/ledger/transactions/12";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act:
         //Assembling the Json Object obtained as response
@@ -2817,7 +2863,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -2833,6 +2879,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         //Arrange the uri that is going to be posted
         String uriPost = "/groups/TEST/ledger/transactions/2";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act:
         //Assembling the Json Object obtained as response
@@ -2846,7 +2893,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -2922,7 +2969,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertTrue(jArray.length() == 0)
+                () -> assertEquals(0, jArray.length())
         );
     }
 
@@ -2931,6 +2978,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     public void getPersonalTransactionsByLedgerIdInvalidId() throws Exception {
         //Arrange
         String uri = "/persons/nobody@gmail.com/ledger/transactions";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
@@ -2944,7 +2992,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
@@ -3011,7 +3059,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(200, status),
-                () -> assertTrue(jArray.length() == 0)
+                () -> assertEquals(0, jArray.length())
         );
     }
 
@@ -3020,6 +3068,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     public void getGroupTransactionsByLedgerIdInvalidId() throws Exception {
         //Arrange
         String uri = "/groups/VOID/ledger/transactions";
+        String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -3032,7 +3081,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(422, status),
-                () -> assertEquals(LocalDateTime.now().withNano(0).withSecond(0).toString(), result.getString("timestamp")),
+                () -> assertTrue(StringUtils.isSameDate(errorDate, result.getString("timestamp"))),
                 () -> assertEquals("422", result.getString("statusCode")),
                 () -> assertEquals("UNPROCESSABLE_ENTITY", result.getString("status")),
                 () -> assertEquals("This resource was not found.", result.getString("error")),
