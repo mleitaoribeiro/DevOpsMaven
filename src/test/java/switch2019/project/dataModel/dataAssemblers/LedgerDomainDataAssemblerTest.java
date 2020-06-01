@@ -7,7 +7,8 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class LedgerDomainDataAssemblerTest {
 

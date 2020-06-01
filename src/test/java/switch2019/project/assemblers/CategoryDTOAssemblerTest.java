@@ -9,7 +9,8 @@ import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupCategoryDTO;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Email;
-import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.domainEntities.shared.Denomination;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

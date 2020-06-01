@@ -5,14 +5,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
-import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.applicationLayer.US003AddMemberToGroupService;
 import switch2019.project.assemblers.PersonDTOAssembler;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -21,9 +22,10 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 public class US003AddMemberToGroupServiceTest {
 
     @Autowired

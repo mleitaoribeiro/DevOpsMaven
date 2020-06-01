@@ -3,7 +3,8 @@ package switch2019.project.DTO.serviceDTO;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CreateGroupCategoryDTOTest {
 
@@ -30,6 +31,4 @@ class CreateGroupCategoryDTOTest {
         assertEquals(createGroupCategoryDTO.hashCode(), createGroupCategoryDTO1.hashCode());
         assertNotEquals(createGroupCategoryDTO.hashCode(), createGroupCategoryDTO2.hashCode());
     }
-
-
 }

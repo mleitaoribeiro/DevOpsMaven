@@ -6,7 +6,6 @@ import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
 public class LedgerDTOAssembler {
 

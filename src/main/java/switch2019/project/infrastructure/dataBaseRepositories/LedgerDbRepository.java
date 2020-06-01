@@ -2,6 +2,7 @@ package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.LedgerJpa;
@@ -66,6 +67,7 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return Transaction
      */
 
+    @Transactional
     public Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
                                               CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
@@ -92,6 +94,7 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return List<TransactionJpa>
      */
 
+    @Transactional
     public List<Transaction> findAllTransactionsByLedgerID(String ledgerID) {
 
         boolean isLedgerOnRepository;
@@ -121,6 +124,7 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return List<TransactionJpa>
      */
 
+    @Transactional
     public List<TransactionJpa> findAllTransactions() {
         return transactionJpaRepository.findAll();
     }
@@ -149,6 +153,7 @@ public class LedgerDbRepository implements LedgerRepository {
      * @return
      */
 
+    @Transactional
     public Transaction getTransactionByID(String ownerId, Long id) {
         Optional<TransactionJpa> transactionJpa = transactionJpaRepository.findById(id);
         if (transactionJpa.isPresent()) {

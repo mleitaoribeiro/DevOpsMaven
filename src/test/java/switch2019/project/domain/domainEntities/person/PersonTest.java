@@ -2,17 +2,14 @@ package switch2019.project.domain.domainEntities.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import switch2019.project.domain.domainEntities.category.Category;
-import switch2019.project.domain.domainEntities.account.Account;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
-import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.group.Group;
-import switch2019.project.domain.domainEntities.ledger.Ledger;
-import switch2019.project.domain.domainEntities.ledger.Transaction;
-import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.domainEntities.shared.DateAndTime;
+import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.PersonID;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 

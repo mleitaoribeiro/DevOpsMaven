@@ -1,7 +1,6 @@
 package switch2019.project.domain.domainEntities.person;
 
 import switch2019.project.domain.domainEntities.frameworks.Owner;
-import switch2019.project.domain.domainEntities.ledger.Periodicity;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
 

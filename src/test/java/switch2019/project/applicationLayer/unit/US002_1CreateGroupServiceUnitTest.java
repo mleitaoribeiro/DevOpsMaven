@@ -8,29 +8,30 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
 import switch2019.project.applicationLayer.US002_1CreateGroupService;
-import switch2019.project.domain.domainEntities.ledger.Ledger;
-import switch2019.project.domain.domainEntities.shared.GroupID;
-import switch2019.project.domain.repositories.LedgerRepository;
-import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
-import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import switch2019.project.domain.domainEntities.group.Group;
+import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
+import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.domain.repositories.PersonRepository;
+import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
+import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 public class US002_1CreateGroupServiceUnitTest {
 
     @Mock

@@ -3,18 +3,19 @@ package switch2019.project.controllerLayer.rest.integration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import switch2019.project.AbstractTest;
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
-import switch2019.project.domain.domainEntities.shared.DateAndTime;
-import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@Transactional
 class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Override
@@ -34,10 +34,13 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     public void setUP() {
         super.setUP();
     }
+/*
 
-    /**
+    */
+/**
      * Test Personal Transaction creation
-     */
+     *//*
+
 
     @Test
     @DisplayName("Test Person Transaction creation - Happy Case - test if outputDTO, HTTP response are expected. Test if transaction was persisted in DB")
@@ -223,6 +226,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(type.toUpperCase(), getAfter.getString("type"))
         );
     }
+*/
 
     @Test
     @DisplayName("Test Person Transaction creation - Person does not exist on Person Repository")
@@ -1508,10 +1512,13 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         );
     }
 
+/*
 
-    /**
+    */
+/**
      * Test Group Transaction creation
-     */
+     *//*
+
     @Test
     @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
     void createGroupTransactionMainScenario() throws Exception {
@@ -1711,6 +1718,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(type.toUpperCase(), getAfter.getString("type"))
         );
     }
+*/
 
     //ArgumentNotFoundException type-422
 

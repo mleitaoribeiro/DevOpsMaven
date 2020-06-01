@@ -2,7 +2,6 @@ package switch2019.project.dataModel.dataAssemblers;
 
 import switch2019.project.dataModel.entities.AddressJpa;
 import switch2019.project.dataModel.entities.PersonJpa;
-import switch2019.project.dataModel.entities.SiblingsJpa;
 import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
@@ -12,7 +11,6 @@ import switch2019.project.utils.StringUtils;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Set;
 
 public class PersonDomainDataAssembler {
 
