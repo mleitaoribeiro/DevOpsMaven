@@ -1033,7 +1033,7 @@ class PersonTest {
     }
 
     @Test
-    @DisplayName("Get siblings ID Lis")
+    @DisplayName("Get siblings ID List")
     public void getSiblingsIDsNull() {
         //Arrange
         Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
@@ -1051,6 +1051,65 @@ class PersonTest {
 
         //Assert
         assertNotEquals( expectedSiblingsID, realSiblingsID);
+    }
+
+    @Test
+    @DisplayName("isFather both null")
+    public void isFatherNull() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("marta@isep.pt"));
+        ;
+
+
+        assertFalse(person1.isFather(null));
+    }
+
+    @Test
+    @DisplayName("isMother both null")
+    public void isMotherNull() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("marta@isep.pt"));
+        ;
+
+        assertFalse(person1.isMother(null));
+    }
+
+    @Test
+    @DisplayName("equals different classes")
+    public void equalsNotClass() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("marta@isep.pt"));
+
+        Email email = new Email("email@email.com");
+
+        assertNotEquals(person1, email);
+    }
+
+    @Test
+    @DisplayName("equals different classes")
+    public void equalsNull() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13), new Address("Porto"),
+                new Address("Rua X", "Porto", "4520-266"), new Email("marta@isep.pt"));
+
+        assertNotNull(person1);
+    }
+
+
+
+    @Test
+    @DisplayName("overload constuctor")
+    public void Constructor() {
+        //Arrange
+        Person person1 = new Person("Marta", new DateAndTime(1995, 12, 13),
+                new Address("Porto"), new Email("marta@isep.pt"));
+        Person person2 = new Person("João", new DateAndTime(1995, 12, 13),
+                new Address("Porto"), new Email("joao@isep.pt"));
+
+        assertNotSame(person1, person2);
     }
 }
 

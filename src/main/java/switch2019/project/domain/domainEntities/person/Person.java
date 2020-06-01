@@ -60,7 +60,7 @@ public class Person implements Owner {
         this.name = new PersonName(name);
         this.birthPlace = birthPlace;
         this.birthDate = birthDate;
-        siblingList = siblings;
+        siblingList = new HashSet<>(siblings);
         address = homeAddress;
     }
 
@@ -96,7 +96,7 @@ public class Person implements Owner {
         address = homeAddress;
         this.mother = mother;
         this.father = father;
-        this.siblingList = siblings;
+        this.siblingList = new HashSet<>(siblings);
     }
 
 
@@ -257,7 +257,7 @@ public class Person implements Owner {
      * @return boolean
      */
     public boolean isMother(PersonID mother) {
-        if (this.mother == null) return false;
+        if (this.mother == null || mother == null) return false;
         else return this.mother.equals(mother);
     }
 
@@ -305,7 +305,7 @@ public class Person implements Owner {
      * @param otherPerson to validate if has the same father
      */
     public boolean checkSameFather(Person otherPerson) {
-        if (father == null || otherPerson.father == null) {
+        if (otherPerson.father == null) {
             return false;
         } else return father.equals(otherPerson.father);
     }
