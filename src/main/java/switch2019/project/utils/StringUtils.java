@@ -159,8 +159,8 @@ public class StringUtils {
 
     public static boolean isSameDate(String date, String otherDate) {
 
-        LocalDateTime firstDate = StringUtils.toDateHourMinute(date).getYearMonthDayHourMinute();
-        LocalDateTime secondDate = StringUtils.toDateHourMinute(otherDate).getYearMonthDayHourMinute();
+        LocalDateTime firstDate = StringUtils.toDateHourMinute(date.replace("T", " ")).getYearMonthDayHourMinute();
+        LocalDateTime secondDate = StringUtils.toDateHourMinute(otherDate.replace("T", " ")).getYearMonthDayHourMinute();
 
         return (firstDate.isEqual(secondDate) || firstDate.plusMinutes(1).isEqual(secondDate)
                 || firstDate.minusMinutes(1).isEqual(secondDate));
