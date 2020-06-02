@@ -26,8 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Transactional
-@DirtiesContext (classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext (classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Override
@@ -139,7 +138,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createPersonTransactionMainScenarioAutomaticDate() throws Exception {
 
         //GET - Before Transaction is created
-        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/10";
+        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/9";
 
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -177,7 +176,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/10\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/9\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\"}}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -1522,7 +1521,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
     void createGroupTransactionMainScenario() throws Exception {
         //GET - Before account is created
-        String uriGet = "/groups/SWITCH/ledger/transactions/11";
+        String uriGet = "/groups/SWITCH/ledger/transactions/9";
 
         //Act
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
@@ -1568,7 +1567,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/11\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
         //Act
@@ -1620,7 +1619,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     @DisplayName("Test Group Transaction creation - Automatic Date")
     void createGroupTransactionMainScenarioAutomaticDate() throws Exception {
         //GET - Before account is created
-        String uriGet = "/groups/SWITCH/ledger/transactions/12";
+        String uriGet = "/groups/SWITCH/ledger/transactions/9";
 
         //Act
 
@@ -1669,7 +1668,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/12\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
         //Act
