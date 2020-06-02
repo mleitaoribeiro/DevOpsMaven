@@ -42,5 +42,5 @@ public interface PersonRepository extends Repository{
      */
     boolean isPersonEmailOnRepository (Email personEmail);
 
-    public void addSibling(Person person, String siblingID);
+    boolean addSibling(Person person, String siblingID);
 }

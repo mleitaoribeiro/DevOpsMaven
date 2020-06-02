@@ -180,7 +180,7 @@ public class PersonDbRepository implements PersonRepository {
      */
 
     @Transactional
-    public void addSibling(Person person, String siblingID) {
+    public boolean addSibling(Person person, String siblingID) {
         List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(person.getID().getEmail());
 
         // owner
@@ -199,6 +199,9 @@ public class PersonDbRepository implements PersonRepository {
             // add owner to sibling siblings list
             siblingsJpaRepository.save(siblingsJpa2);
             personJpa2.get().addSibling(person.getID().toString());
+
+            return true;
         }
+        return false;
     }
 }

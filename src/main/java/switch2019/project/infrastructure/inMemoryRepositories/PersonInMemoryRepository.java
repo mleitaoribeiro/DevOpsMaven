@@ -107,7 +107,7 @@ public class PersonInMemoryRepository implements PersonRepository {
      * @param siblingID
      * @return
      */
-    public void addSibling(Person person, String siblingID) { //void
-        ;
+    public boolean addSibling(Person person, String siblingID) {
+        return true;
     }
 }
