@@ -330,8 +330,23 @@ class AccountInMemoryRepositoryTest {
 
         // Assert
         assertEquals(4, accountRepository.repositorySize());
+    }
+
+    @Test
+    @DisplayName("Test if an account was removed from an accounts Repository")
+    public void testIfOneAccountWasRemovedTrue() {
+        //Arrange
+        Account cgd = new Account(new Denomination("CGD"),
+                new Description("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
+
+        boolean result = accountRepository.removeAccount(cgd);
+
+        //Assert
+        assertTrue(result);
 
     }
+
+
 
     @Test
     @DisplayName("Test if an account was removed from an accounts repository - Account Null")
