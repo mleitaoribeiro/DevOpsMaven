@@ -27,15 +27,24 @@ class PersonDbRepositoryTest {
     private PersonDbRepository repository;
 
     private Person person;
+    private Person person2;
     private Person personNotPersisted;
     private Person father;
     private Person mother;
 
     @BeforeEach
     public void setup() {
-        person =  repository.createPerson ("Marta", new DateAndTime(1995, 11, 12),
+        person = repository.createPerson ("Marta", new DateAndTime(1995, 11, 12),
                 new Address("Porto"), new Address("Miguel Bombarda", "Porto", "4620-223"),
+                new PersonID(new Email("maria@gmail.com")), new PersonID(new Email("roberto@gmail.com")),
                 new Email("marta@gmail.com"));
+
+        person2 = repository.createPerson ("Ricardo", new DateAndTime(1999, 11, 12),
+                new Address("Porto"), new Address("Miguel Bombarda", "Porto", "4620-223"),
+                new PersonID(new Email("maria@gmail.com")), new PersonID(new Email("roberto@gmail.com")),
+                new Email("ricardo@gmail.com"));
+
+        repository.addSibling(person, "ricardo@gmail.com");
 
         personNotPersisted = new Person("António", new DateAndTime(1990, 01, 23),
                 new Address("Guimarães"), new Address("Avenida de França", "Porto", "4620-262"),
@@ -181,4 +190,21 @@ class PersonDbRepositoryTest {
         assertFalse(repository.isIDOnRepository(personNotPersisted.getID()));
     }
 
+
+    /**
+     * Test method addSibling
+     */
+    @Test
+    @DisplayName("Test if a person is added as sibling - siblingID already in list")
+    void addSiblingAlreadyInList() {
+
+        //Arrange
+        String siblingID = "ricardo@gmail.com";
+
+        //Act
+        boolean addedSibling = repository.addSibling(person, siblingID);
+
+        ///Assert
+        assertFalse(addedSibling);
+    }
 }

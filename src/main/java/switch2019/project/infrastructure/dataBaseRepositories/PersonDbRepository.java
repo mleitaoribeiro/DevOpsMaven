@@ -169,11 +169,11 @@ public class PersonDbRepository implements PersonRepository {
     }
 
     /**
-     * Method to add a member to a Group
+     * Method to add a sibling
      *
      * @param person
      * @param siblingID
-     * @return
+     * @return true if sibling added
      */
 
     @Transactional
@@ -188,7 +188,7 @@ public class PersonDbRepository implements PersonRepository {
         Optional<PersonJpa> personJpa2 = personJpaRepository.findById(siblingID);
         SiblingsJpa siblingsJpa2 = new SiblingsJpa(personjpa, siblingID);
 
-        if (siblingID != null && !siblingsJpas.contains(siblingsJpa) && personJpa2.isPresent()) {
+        if (!siblingsJpas.contains(siblingsJpa) && personJpa2.isPresent()) {
             // add sibling to owners siblings list
             siblingsJpaRepository.save(siblingsJpa);
             personjpa.addSibling(siblingID);
