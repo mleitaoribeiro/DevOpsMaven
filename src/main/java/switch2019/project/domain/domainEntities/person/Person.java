@@ -18,7 +18,7 @@ public class Person implements Owner {
     private PersonID mother;
     private PersonID father;
     private Address address;
-    private Address birthPlace;
+    final private Address birthPlace;
 
     /**
      * Default Person constructor
