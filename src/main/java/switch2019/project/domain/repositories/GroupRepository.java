@@ -1,5 +1,7 @@
 package switch2019.project.domain.repositories;
 
+import switch2019.project.dataModel.entities.AdminsJpa;
+import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.shared.Description;
@@ -65,4 +67,7 @@ public interface GroupRepository extends Repository {
      */
     boolean setAdmin(Group group, String personID);
 
+    List<MembersJpa> findMembersByGroupId(String switch_g1);
+
+    List<AdminsJpa> findAdminsByGroupId(String switch_g1);
 }

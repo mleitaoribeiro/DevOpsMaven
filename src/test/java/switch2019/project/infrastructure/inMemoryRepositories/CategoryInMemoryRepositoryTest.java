@@ -463,4 +463,44 @@ class CategoryInMemoryRepositoryTest {
             assertEquals("Owner ID can't be null.", ex.getMessage());
         }
     }
+
+
+    /**
+     * Tests to method findByID
+     */
+
+    @Test
+    @DisplayName("Find Category by ID- success case")
+    void findCategoryByID() {
+        //Arrange
+        CategoryRepository categoryRepository = new CategoryInMemoryRepository();
+        Category expected = new Category(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+        categoryRepository.createCategory(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+
+        //Act
+        Category real = categoryRepository.getByID(new CategoryID(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com"))));
+
+        //Assert
+        assertEquals(expected, real);
+    }
+
+    @Test
+    @DisplayName("Find Category by ID -ID not found")
+    void findCategoryByIDNotFound() {
+        //Arrange
+        CategoryRepository categoryInMemoryRepository = new CategoryInMemoryRepository();
+        Category expected = new Category(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+        categoryInMemoryRepository.createCategory(new Denomination("Mello"),
+                new PersonID(new Email("miu@gmail.com")));
+        try {
+            Category real = categoryInMemoryRepository.getByID(new CategoryID(new Denomination("Millo"),
+                    new PersonID(new Email("miu@gmail.com"))));
+        } catch (ArgumentNotFoundException ex) {
+            assertEquals("No category found with that ID.", ex.getMessage());
+        }
+    }
 }

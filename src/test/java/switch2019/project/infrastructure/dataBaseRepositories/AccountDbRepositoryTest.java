@@ -13,6 +13,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.repositories.AccountRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -29,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountDbRepositoryTest {
 
     @Autowired
-    AccountDbRepository repository;
+    AccountRepository repository;
 
     private Account cdg;
     private Account bpi;

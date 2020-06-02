@@ -37,5 +37,12 @@ public interface CategoryRepository extends Repository {
 
     Set<Category> returnCategoriesByOwnerID (OwnerID ownerID);
 
+    /**
+     * Add multiple categories
+     * @param setOfCategories
+     * @param ownerID
+     * @return boolean
+     */
 
+    boolean addMultipleCategories(Set<Denomination> setOfCategories, OwnerID ownerID);
 }

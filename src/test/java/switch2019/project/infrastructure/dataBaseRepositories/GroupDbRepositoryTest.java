@@ -20,6 +20,8 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.domainEntities.shared.GroupID;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.repositories.GroupRepository;
+import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import java.util.ArrayList;
@@ -34,10 +36,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroupDbRepositoryTest {
 
     @Autowired
-    PersonDbRepository personDbRepository;
+    PersonRepository personDbRepository;
 
     @Autowired
-    GroupDbRepository groupDbRepository;
+    GroupRepository groupDbRepository;
 
     private Group switchG1;
     private PersonID swtichG1Admin;

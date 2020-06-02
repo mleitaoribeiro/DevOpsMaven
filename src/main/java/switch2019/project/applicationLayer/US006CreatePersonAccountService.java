@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonAccountDTO;
@@ -23,11 +22,8 @@ import java.util.Set;
 public class US006CreatePersonAccountService {
 
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
-
     @Autowired
-    @Qualifier("AccountDbRepository")
     private AccountRepository accountRepository;
 
     /**

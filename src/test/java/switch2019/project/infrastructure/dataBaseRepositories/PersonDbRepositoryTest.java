@@ -13,6 +13,7 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.repositories.PersonRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonDbRepositoryTest {
 
     @Autowired
-    private PersonDbRepository repository;
+    private PersonRepository repository;
 
     private Person person;
     private Person personNotPersisted;

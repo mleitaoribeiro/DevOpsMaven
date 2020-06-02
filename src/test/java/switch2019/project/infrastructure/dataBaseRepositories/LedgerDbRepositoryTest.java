@@ -19,6 +19,7 @@ import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.repositories.*;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 
@@ -36,19 +37,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class LedgerDbRepositoryTest {
 
     @Autowired
-    LedgerDbRepository ledgerDbRepository;
+    LedgerRepository ledgerDbRepository;
 
     @Autowired
-    GroupDbRepository groupDbRepository;
+    GroupRepository groupDbRepository;
 
     @Autowired
-    PersonDbRepository personDbRepository;
+    PersonRepository personDbRepository;
 
     @Autowired
-    AccountDbRepository accountDbRepository;
+    AccountRepository accountDbRepository;
 
     @Autowired
-    CategoryDbRepository categoryDbRepository;
+    CategoryRepository categoryDbRepository;
 
 
     private Person someone;

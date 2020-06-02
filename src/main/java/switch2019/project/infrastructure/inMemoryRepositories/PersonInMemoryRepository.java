@@ -1,6 +1,5 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.person.Address;
@@ -14,8 +13,7 @@ import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
-@Primary
-@Component("PersonInMemoryRepository")
+@Component
 public class PersonInMemoryRepository implements PersonRepository {
 
     // Private instance variable
@@ -103,4 +101,13 @@ public class PersonInMemoryRepository implements PersonRepository {
         return listOfPersons.size();
     }
 
+    /**
+     * Method to add siblings
+     * @param person
+     * @param siblingID
+     * @return
+     */
+    public void addSibling(Person person, String siblingID) { //void
+        ;
+    }
 }

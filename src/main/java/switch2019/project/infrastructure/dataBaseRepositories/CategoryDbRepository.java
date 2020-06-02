@@ -2,6 +2,7 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.CategoryDomainDataAssembler;
 import switch2019.project.dataModel.entities.CategoryIdJpa;
@@ -20,7 +21,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Component("CategoryDbRepository")
+@Component
+@Primary
 public class CategoryDbRepository implements CategoryRepository {
 
     @Autowired
@@ -122,6 +124,7 @@ public class CategoryDbRepository implements CategoryRepository {
         }
         throw new IllegalArgumentException(NULL_OWNER);
     }
+
 }
 
 

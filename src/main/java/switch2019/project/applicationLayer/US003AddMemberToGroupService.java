@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
@@ -25,12 +24,9 @@ import java.util.Set;
 public class US003AddMemberToGroupService {
 
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
-
     @Autowired
-    @Qualifier("GroupDbRepository")
-    private GroupRepository groupsRepository;
+    private GroupRepository groupRepository;
 
     /**
      * US003
@@ -42,8 +38,8 @@ public class US003AddMemberToGroupService {
 
     public AddedMemberDTO addMemberToGroup(AddMemberDTO addMemberDTO) {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
-        Group group = groupsRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
-        boolean wasMemberAdded = groupsRepository.addMember(group, person.getID().toString());
+        Group group = groupRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
+        boolean wasMemberAdded = groupRepository.addMember(group, person.getID().toString());
 
         if (wasMemberAdded)
             return GroupDTOAssembler.createAddedMemberDTO(true, person, group);
@@ -52,7 +48,7 @@ public class US003AddMemberToGroupService {
     }
 
     public PersonIDDTO getPersonByEmail(String personEmail, String groupDescription){
-        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
+        Group group = groupRepository.findGroupByDescription(new Description(groupDescription));
         Person person = personRepository.findPersonByEmail(new Email(personEmail));
         PersonID personID = person.getID();
 
@@ -62,7 +58,7 @@ public class US003AddMemberToGroupService {
     }
 
     public Set<PersonIDDTO> getMembersByGroupDescription(String groupDescription) {
-        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
+        Group group = groupRepository.findGroupByDescription(new Description(groupDescription));
         Set<PersonID> members = group.getMembers();
 
         Set<PersonIDDTO> membersDTO = new LinkedHashSet<>();
@@ -72,7 +68,7 @@ public class US003AddMemberToGroupService {
     }
 
     public Set<PersonIDDTO> getAdminsByGroupDescription(String groupDescription) {
-        Group group = groupsRepository.findGroupByDescription(new Description(groupDescription));
+        Group group = groupRepository.findGroupByDescription(new Description(groupDescription));
         Set<PersonID> admins = group.getAdmins();
 
         Set<PersonIDDTO> adminsDTO = new LinkedHashSet<>();

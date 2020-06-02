@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.CategoryDTO;
 import switch2019.project.DTO.serializationDTO.CategoryDenominationDTO;
@@ -24,15 +23,11 @@ import java.util.Set;
 public class US005_1AdminAddsCategoryToGroupService {
 
     @Autowired
-    @Qualifier ("GroupDbRepository")
-    private GroupRepository groupsRepository;
+    private GroupRepository groupRepository;
     @Autowired
-    @Qualifier ("CategoryDbRepository")
     private CategoryRepository categoryRepository;
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
-
 
     /**
      * User Story 5.1 - As a group admin i want to associate a category to my group.
@@ -42,7 +37,7 @@ public class US005_1AdminAddsCategoryToGroupService {
      */
     public CategoryDTO addCategoryToGroup(CreateGroupCategoryDTO dto) {
 
-        Group group = groupsRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
+        Group group = groupRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
         PersonID personID = personRepository.findPersonByEmail(new Email(dto.getPersonEmail())).getID();
 
         if (!group.isGroupMember(personID)) {
@@ -66,7 +61,7 @@ public class US005_1AdminAddsCategoryToGroupService {
     public CategoryDTO getCategoryByCategoryID (String categoryDescription, String groupDescription) {
 
         //find groupID that created the category
-        OwnerID newGroupID = groupsRepository.findGroupByDescription(new Description (groupDescription)).getID();
+        OwnerID newGroupID = groupRepository.findGroupByDescription(new Description (groupDescription)).getID();
 
         //transform strings given in a category ID
         CategoryID newCategoryID = new CategoryID(new Denomination(categoryDescription), newGroupID);

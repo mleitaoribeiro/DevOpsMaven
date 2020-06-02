@@ -501,7 +501,7 @@ class US008CreateTransactionServiceTest {
         List<TransactionShortDTO> result = service.getTransactionsByLedgerId(email);
 
         //Assert
-        // assertEquals(expected, result);
+        assertEquals(expected, result);
     }
 
 

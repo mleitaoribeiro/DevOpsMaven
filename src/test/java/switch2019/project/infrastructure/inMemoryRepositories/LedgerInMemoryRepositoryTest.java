@@ -9,6 +9,7 @@ import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.domain.repositories.LedgerRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -27,7 +28,7 @@ class LedgerInMemoryRepositoryTest {
     public void createLedger() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
         Ledger ledgerExpected = new Ledger(ownerID);
 
@@ -44,7 +45,7 @@ class LedgerInMemoryRepositoryTest {
     public void createLedgerException() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
 
         ledgerInMemoryRepository.createLedger(ownerID);
@@ -65,7 +66,7 @@ class LedgerInMemoryRepositoryTest {
     public void getByID() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
         OwnerID ownerID2 = new PersonID(new Email("mm@gmail.com"));
         ledgerInMemoryRepository.createLedger(ownerID);
@@ -86,7 +87,7 @@ class LedgerInMemoryRepositoryTest {
     public void getByIDException() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
         ledgerInMemoryRepository.createLedger(ownerID);
 
@@ -110,7 +111,7 @@ class LedgerInMemoryRepositoryTest {
         String email = "marge@hotmail.com";
         Long id = 2L;
 
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         // Act
         Transaction transaction = ledgerInMemoryRepository.getTransactionByID(email,id);
@@ -127,7 +128,7 @@ class LedgerInMemoryRepositoryTest {
     public void isIDOnRepositoryTrue() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
         ledgerInMemoryRepository.createLedger(ownerID);
 
@@ -143,7 +144,7 @@ class LedgerInMemoryRepositoryTest {
     public void isIDOnRepositoryFalse() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
         OwnerID ownerID = new GroupID(new Description("switch"));
 
         // Act
@@ -158,7 +159,7 @@ class LedgerInMemoryRepositoryTest {
     public void repositorySize() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         OwnerID ownerID1 = new GroupID(new Description("isep"));
         ledgerInMemoryRepository.createLedger(ownerID1);
@@ -181,7 +182,7 @@ class LedgerInMemoryRepositoryTest {
     public void repositorySizeEmpty() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         // Act
         long ledgerSize = ledgerInMemoryRepository.repositorySize();
@@ -195,7 +196,7 @@ class LedgerInMemoryRepositoryTest {
     public void addTransactionToLedgerTrue() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         OwnerID ownerID = new GroupID(new Description("switch"));
 
@@ -236,7 +237,7 @@ class LedgerInMemoryRepositoryTest {
     public void addTransactionToLedgerFalseNoLedgerInRepo() {
 
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         OwnerID ownerID = new GroupID(new Description("switch"));
 
@@ -268,7 +269,7 @@ class LedgerInMemoryRepositoryTest {
     @DisplayName("Test add Transaction To Ledger - True")
     public void addGroupTransactionToLedger() {
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         GroupID ownerID = new GroupID(new Description("switch"));
 
@@ -310,7 +311,7 @@ class LedgerInMemoryRepositoryTest {
     @DisplayName("Test add Transaction To Ledger - True")
     public void addPersonTransactionToLedger() {
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         PersonID ownerID = new PersonID(new Email("morty@gmail.com"));
 
@@ -353,7 +354,7 @@ class LedgerInMemoryRepositoryTest {
     @DisplayName("Test add Transaction To Ledger - Exception")
     public void addGroupTransactionToLedgerIDNotFound() {
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         GroupID ownerID = new GroupID(new Description("switch"));
 
@@ -392,7 +393,7 @@ class LedgerInMemoryRepositoryTest {
     @DisplayName("Test add Transaction To Ledger - Exception")
     public void addPersonTransactionToLedgerIDNotFound() {
         // Arrange
-        LedgerInMemoryRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         PersonID ownerID = new PersonID(new Email("morty@email.com"));
 
