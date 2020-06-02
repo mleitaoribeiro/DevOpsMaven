@@ -8,6 +8,10 @@ import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonJpaTest {
@@ -142,4 +146,29 @@ class PersonJpaTest {
         //Assert
         assertEquals(expected, result);
     }
+
+    @Test
+    @DisplayName("Test get siblings list - success")
+    void getSiblings() {
+        //Arrange
+        List<SiblingsJpa> expected = new ArrayList<>();
+        //Act
+        List<SiblingsJpa> result = personJpa.getSiblings();
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Test get siblings list - null")
+    void getSiblingsNull() {
+        //Arrange
+        List<SiblingsJpa> expected = null;
+        //Act
+        List<SiblingsJpa> result = personJpa.getSiblings();
+
+        //Assert
+        assertNotEquals(expected, result);
+    }
+
 }
