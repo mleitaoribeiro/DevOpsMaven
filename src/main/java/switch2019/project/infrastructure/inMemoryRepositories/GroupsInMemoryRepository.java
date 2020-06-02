@@ -86,6 +86,13 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return false;
     }
 
+    /**
+     * method to get all the groups from Repository
+     *
+     *
+     * @return list
+     */
+
     public List <Group> getAllGroups() {
         return new ArrayList<>(groups);
     }
