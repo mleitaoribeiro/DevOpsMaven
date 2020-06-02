@@ -159,4 +159,16 @@ class PersonJpaTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Test get siblings list - null")
+    void getSiblingsNull() {
+        //Arrange
+        List<SiblingsJpa> expected = null;
+        //Act
+        List<SiblingsJpa> result = personJpa.getSiblings();
+
+        //Assert
+        assertNotEquals(expected, result);
+    }
+
 }
