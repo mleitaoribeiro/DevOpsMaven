@@ -56,8 +56,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
     public Group findGroupByDescription(Description groupDescription) {
         for (Group group : groups) {
             if (group.getID().getDescription().equals(groupDescription.getDescription()))
-                return group;
-        }
+                return group; }
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
@@ -69,8 +68,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
     public Group getByID (ID groupID) {
         for (Group group : groups) {
             if (group.getID().equals(groupID))
-                return group;
-        }
+                return group; }
         throw new ArgumentNotFoundException("No group found with that ID.");
     }
 

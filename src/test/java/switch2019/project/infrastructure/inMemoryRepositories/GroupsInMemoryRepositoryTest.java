@@ -152,6 +152,41 @@ class GroupsInMemoryRepositoryTest {
         assertEquals(2, result);
     }
 
+    /**
+     * Test if group is find in GroupRepository
+     */
+    @Test
+    @DisplayName("Test if group is find in GroupRepository - Main Scenario")
+    void findGroupByDescription() {
+        //Arrange
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+        Person person = new Person("Anne", new DateAndTime(1990, 12, 4), new Address("London"),
+                new Address("Rua A", "Feira", "4520-233"), new Email("anne@isep.ipp.pt"));
+        Group expectedGroup = groupsRepository.createGroup(new Description("New Group"), person.getID());
+
+        //Act
+        Group resultGroup = groupsRepository.findGroupByDescription(new Description("New Group"));
+
+        //Assert
+        assertEquals(expectedGroup, resultGroup);
+    }
+
+    @Test
+    @DisplayName("Test if group is find in GroupRepository - Exception")
+    void findGroupByDescriptionException() {
+        //Arrange
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            groupsRepository.findGroupByDescription(new Description("switch_g2"));
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No group found with that description.");
+    }
 
     @Test
     void findGroupByID() {
