@@ -20,7 +20,6 @@ import switch2019.project.domain.domainEntities.shared.DateAndTime;
 import switch2019.project.utils.StringUtils;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,14 +40,12 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      * Test Personal Transaction creation
      */
 
-
-    /*
     @Test
     @DisplayName("Test Person Transaction creation - Happy Case - test if outputDTO, HTTP response are expected. Test if transaction was persisted in DB")
     void createPersonTransactionMainScenario() throws Exception {
 
         //GET - Before Transaction is created
-        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/9";
+        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/14";
 
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -85,7 +82,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/9\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/14\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\"}}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -140,7 +137,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     void createPersonTransactionMainScenarioAutomaticDate() throws Exception {
 
         //GET - Before Transaction is created
-        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/9";
+        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/12";
 
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -178,7 +175,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/9\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/12\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\"}}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -227,7 +224,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(type.toUpperCase(), getAfter.getString("type"))
         );
     }
-*/
+
 
     @Test
     @DisplayName("Test Person Transaction creation - Person does not exist on Person Repository")
@@ -1518,12 +1515,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      * Test Group Transaction creation
      */
 
-    /*
     @Test
     @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
     void createGroupTransactionMainScenario() throws Exception {
         //GET - Before account is created
-        String uriGet = "/groups/SWITCH/ledger/transactions/9";
+        String uriGet = "/groups/SWITCH/ledger/transactions/13";
 
         //Act
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
@@ -1569,7 +1565,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/13\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
         //Act
@@ -1620,7 +1616,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     @DisplayName("Test Group Transaction creation - Automatic Date")
     void createGroupTransactionMainScenarioAutomaticDate() throws Exception {
         //GET - Before account is created
-        String uriGet = "/groups/SWITCH/ledger/transactions/9";
+        String uriGet = "/groups/SWITCH/ledger/transactions/11";
 
         //Act
 
@@ -1669,7 +1665,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/9\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/11\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
         //Act
@@ -1717,7 +1713,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
                 () -> assertEquals(type.toUpperCase(), getAfter.getString("type"))
         );
     }
-*/
+
 
     //ArgumentNotFoundException type-422
 
