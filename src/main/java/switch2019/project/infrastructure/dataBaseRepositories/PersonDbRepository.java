@@ -172,15 +172,15 @@ public class PersonDbRepository implements PersonRepository {
     }
 
     /**
-     * Method to add a member to a Group
+     * Method to add a sibling
      *
      * @param person
      * @param siblingID
-     * @return
+     * @return true if sibling added
      */
 
     @Transactional
-    public void addSibling(Person person, String siblingID) {
+    public boolean addSibling(Person person, String siblingID) {
         List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(person.getID().getEmail());
 
         // owner
@@ -191,7 +191,7 @@ public class PersonDbRepository implements PersonRepository {
         Optional<PersonJpa> personJpa2 = personJpaRepository.findById(siblingID);
         SiblingsJpa siblingsJpa2 = new SiblingsJpa(personjpa, siblingID);
 
-        if (siblingID != null && !siblingsJpas.contains(siblingsJpa) && personJpa2.isPresent()) {
+        if (!siblingsJpas.contains(siblingsJpa) && personJpa2.isPresent()) {
             // add sibling to owners siblings list
             siblingsJpaRepository.save(siblingsJpa);
             personjpa.addSibling(siblingID);
@@ -199,6 +199,9 @@ public class PersonDbRepository implements PersonRepository {
             // add owner to sibling siblings list
             siblingsJpaRepository.save(siblingsJpa2);
             personJpa2.get().addSibling(person.getID().toString());
+
+            return true;
         }
+        return false;
     }
 }
