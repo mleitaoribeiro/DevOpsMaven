@@ -77,6 +77,6 @@ public class LedgerJpa {
      */
 
     public List<TransactionJpa> getTransactionsFromLedgerJpa() {
-        return new ArrayList<TransactionJpa>(transactions);
+        return new ArrayList<>(transactions);
     }
 }

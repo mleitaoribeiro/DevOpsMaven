@@ -2,6 +2,15 @@ package switch2019.project.dataModel.entities;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.ledger.Transaction;
+import switch2019.project.domain.domainEntities.ledger.Type;
+import switch2019.project.domain.domainEntities.person.Email;
+import switch2019.project.domain.domainEntities.shared.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Currency;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -224,5 +233,51 @@ public class LedgerJpaTest {
 
         //Assert:
         assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    @DisplayName("Test getTransactionsFromLedgerJpa method")
+    void getTransactionsFromLedgerJpa() {
+
+        // Arrange:
+        LedgerJpa ledgerJpa = new LedgerJpa("Switch", new DateAndTime().yearMonthDayToString());
+
+        TransactionJpa transaction1 = new TransactionJpa(new LedgerJpa("SWITCH", "2020-05-26"),
+                100.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
+                "BPI", "LIDL SUPERMARKET", "DEBIT");
+        TransactionJpa transaction2 = new TransactionJpa(new LedgerJpa("SWITCH", "2020-05-26"),
+                200.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
+                "BPI", "PINGO DOCE SUPERMARKET", "DEBIT");
+        TransactionJpa transaction3 = new TransactionJpa(new LedgerJpa("SWITCH", "2020-05-26"),
+                300.0, "EUR", "payment", "2020-01-13 11:00", "GROCERY",
+                "BPI", "CONTINENTE SUPERMARKET", "DEBIT");
+
+        ledgerJpa.addTransaction(transaction1);
+        ledgerJpa.addTransaction(transaction2);
+        ledgerJpa.addTransaction(transaction3);
+
+        List<TransactionJpa> transactionsExpected = new ArrayList<>(Arrays.asList(transaction1, transaction2, transaction3));
+
+        // Act:
+        List<TransactionJpa> transactions = ledgerJpa.getTransactionsFromLedgerJpa();
+
+        // Assert:
+        assertEquals(transactionsExpected, transactions);
+    }
+
+    @Test
+    @DisplayName("Test getTransactionsFromLedgerJpa method - Empty")
+    void getTransactionsFromLedgerJpaEmpty() {
+
+        // Arrange:
+        LedgerJpa ledgerJpa = new LedgerJpa("James", new DateAndTime().yearMonthDayToString());
+
+        List<TransactionJpa> transactionsExpected = new ArrayList<>(); // empty array
+
+        // Act:
+        List<TransactionJpa> transactions = ledgerJpa.getTransactionsFromLedgerJpa();
+
+        // Assert:
+        assertEquals(transactionsExpected, transactions);
     }
 }
