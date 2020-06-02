@@ -95,7 +95,6 @@ class LedgerDbRepositoryTest {
 
         ledgerDbRepository.addTransactionToLedger(someoneLedger.getID(), new MonetaryValue(2, Currency.getInstance("EUR")),
                 new Description("XPTO"), date, someoneCategory.getID(), someoneAccount1.getID(), someoneAccount2.getID(), new Type(true));
-
     }
 
 
@@ -140,31 +139,17 @@ class LedgerDbRepositoryTest {
         Transaction expectedTransaction = new Transaction(new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                 date, someGroupCategory.getID(), groupAccount1.getID(), groupAccount2.getID(), new Type(true));
 
-
-        int expectedNumberOfTransactionsBefore = 9;
-        int expectedNumberOfTransactionsAfter = 10;
-
         //Act
-        List<TransactionJpa> realTransactionsBefore = ledgerDbRepository.findAllTransactions();
-
-        int realNumberOfTransactionsBefore = realTransactionsBefore.size();
-
-        Transaction transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
+                Transaction transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
                 new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                 date, someGroupCategory.getID(), groupAccount1.getID(), groupAccount2.getID(), new Type(true));
 
         Ledger realLedger = ledgerDbRepository.getByID(ledgerID);
 
-        List<TransactionJpa> realTransactionsAfter = ledgerDbRepository.findAllTransactions();
-
-        int realNumberOfTransactionsAfter = realTransactionsAfter.size();
-
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(expectedTransaction,transactionAdded),
-                () -> assertEquals(expectedLedger, realLedger),
-                () -> assertEquals(expectedNumberOfTransactionsBefore, realNumberOfTransactionsBefore),
-                () -> assertEquals(expectedNumberOfTransactionsAfter, realNumberOfTransactionsAfter)
+                () -> assertEquals(expectedLedger, realLedger)
         );
     }
 
@@ -186,36 +171,19 @@ class LedgerDbRepositoryTest {
         Transaction expectedTransaction = new Transaction(new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                 date, category.getID(), account1.getID(), account2.getID(), new Type(true));
 
-
-        int expectedNumberOfTransactionsBefore = 9;
-        int expectedNumberOfTransactionsAfter = 10;
-
         //Act
-        List<TransactionJpa> realTransactionsBefore = ledgerDbRepository.findAllTransactions();
-
-        int realNumberOfTransactionsBefore = realTransactionsBefore.size();
-
         Transaction transactionAdded = ledgerDbRepository.addTransactionToLedger(expectedLedger.getID(),
                 new MonetaryValue(5, Currency.getInstance("EUR")), new Description("XPTO"),
                         date, category.getID(), account1.getID(), account2.getID(), new Type(true));
 
         Ledger realLedger = ledgerDbRepository.getByID(ledgerID);
 
-        List<TransactionJpa> realTransactionsAfter = ledgerDbRepository.findAllTransactions();
-
-        int realNumberOfTransactionsAfter = realTransactionsAfter.size();
-
         //Assert
         Assertions.assertAll(
                 () -> assertEquals(expectedTransaction,transactionAdded),
-                () -> assertEquals(expectedLedger, realLedger),
-                () -> assertEquals(expectedNumberOfTransactionsBefore, realNumberOfTransactionsBefore),
-                () -> assertEquals(expectedNumberOfTransactionsAfter, realNumberOfTransactionsAfter)
+                () -> assertEquals(expectedLedger, realLedger)
         );
     }
-
-
-
 
     /**
      * Test if all transactions can be found by Ledger ID
@@ -270,32 +238,6 @@ class LedgerDbRepositoryTest {
                 .hasMessage("No Ledger found with that ID.");
 
     }
-
-
-    /**
-     * Test if all transactions can be found
-     */
-
-    @Test
-    @DisplayName("Test if all transactions can be found  - Yes")
-    void findAllTransactions() {
-
-        //Arrange
-
-        int expectedSize = 9;
-
-        //Act
-        List<TransactionJpa> realTransactions = ledgerDbRepository.findAllTransactions();
-
-        int realSize = realTransactions.size();
-
-        //Assert
-
-        assertEquals(expectedSize, realSize);
-
-    }
-
-
 
     /**
      * Test if a Ledger can be found by it´s ID

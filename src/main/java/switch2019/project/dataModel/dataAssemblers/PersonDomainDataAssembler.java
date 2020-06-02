@@ -14,7 +14,7 @@ import java.util.HashSet;
 
 public class PersonDomainDataAssembler {
 
-    private PersonDomainDataAssembler() {};
+    private PersonDomainDataAssembler() {}
 
     public static PersonJpa toData(Person person) {
 

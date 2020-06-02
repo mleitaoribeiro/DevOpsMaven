@@ -133,11 +133,6 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         return ledger.getLedgerTransactions();
     }
 
-    @Override
-    public List<TransactionJpa> findAllTransactions() {
-        return null;
-    }
-
     public Ledger getByOwnerID(ID ledgerID) {
         for (Ledger ledger : ledgers) {
             GroupID groupID = new GroupID(new Description(ledger.getID().getOwnerID().toString()));

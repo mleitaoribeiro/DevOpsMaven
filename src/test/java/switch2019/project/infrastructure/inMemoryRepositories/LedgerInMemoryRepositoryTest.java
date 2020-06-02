@@ -226,7 +226,8 @@ class LedgerInMemoryRepositoryTest {
         Assertions.assertAll(
                 () -> assertEquals(expectedTransaction, transactionAdded),
                 () -> assertEquals(ledgerExpected, ledgerReal),
-                () -> assertEquals(sizeExpected, sizeReal)
+                () -> assertEquals(sizeExpected, sizeReal),
+                () -> assertNotNull(transactionAdded)
 
         );
     }
