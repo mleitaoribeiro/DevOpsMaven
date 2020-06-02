@@ -1,5 +1,6 @@
 package switch2019.project.domain.repositories;
 
+import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
@@ -78,7 +79,7 @@ public interface LedgerRepository extends Repository {
     List<Transaction> findAllTransactionsByLedgerID(String ownerID);
 
 
-
+    List<TransactionJpa> findAllTransactions();
 }
 
 

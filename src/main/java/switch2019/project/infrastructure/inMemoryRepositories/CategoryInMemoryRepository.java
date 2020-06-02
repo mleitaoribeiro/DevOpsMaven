@@ -1,6 +1,5 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -13,8 +12,7 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import java.util.HashSet;
 import java.util.Set;
 
-@Primary
-@Component("CategoryInMemoryRepository")
+@Component
 public class CategoryInMemoryRepository implements CategoryRepository {
 
     // Private instance variables
@@ -138,4 +136,5 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         }
         throw new IllegalArgumentException("Owner ID can't be null.");
     }
+
 }

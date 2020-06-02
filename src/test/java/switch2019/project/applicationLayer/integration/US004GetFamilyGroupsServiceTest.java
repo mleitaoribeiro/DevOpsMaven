@@ -26,7 +26,6 @@ class US004GetFamilyGroupsServiceTest {
     private US004GetFamilyGroupsService service;
 
     @Autowired
-    @Qualifier("GroupDbRepository")
     private GroupRepository groupRepository;
 
     /**

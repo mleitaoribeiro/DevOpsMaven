@@ -12,6 +12,7 @@ import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.PersonID;
+import switch2019.project.domain.repositories.CategoryRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CategoryDbRepositoryTest {
 
     @Autowired
-    private CategoryDbRepository repository;
+    private CategoryRepository repository;
 
     private Denomination gym;
     private Denomination savings;

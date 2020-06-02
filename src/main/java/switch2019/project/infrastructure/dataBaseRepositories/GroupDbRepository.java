@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.GroupDomainDataAssembler;
 import switch2019.project.dataModel.entities.AdminsJpa;
@@ -20,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component("GroupDbRepository")
+@Component
+@Primary
 public class GroupDbRepository implements GroupRepository {
 
     @Autowired
@@ -131,6 +133,7 @@ public class GroupDbRepository implements GroupRepository {
     public long repositorySize() {
         return getAllGroups().size();
     }
+
 
     /**
      * Method to add a member to a Group

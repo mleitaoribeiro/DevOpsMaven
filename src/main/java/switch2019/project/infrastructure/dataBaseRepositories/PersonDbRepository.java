@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.dataAssemblers.PersonDomainDataAssembler;
@@ -23,7 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-@Component("PersonDbRepository")
+@Component
+@Primary
+
 public class PersonDbRepository implements PersonRepository {
 
     @Autowired
@@ -170,7 +173,7 @@ public class PersonDbRepository implements PersonRepository {
      */
 
     @Transactional
-    public boolean addSibling(Person person, String siblingID) {
+    public void addSibling(Person person, String siblingID) {
         List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(person.getID().getEmail());
 
         // owner
@@ -189,10 +192,6 @@ public class PersonDbRepository implements PersonRepository {
             // add owner to sibling siblings list
             siblingsJpaRepository.save(siblingsJpa2);
             personJpa2.get().addSibling(person.getID().toString());
-
-            return true;
-
-        } return false;
+        }
     }
-
 }

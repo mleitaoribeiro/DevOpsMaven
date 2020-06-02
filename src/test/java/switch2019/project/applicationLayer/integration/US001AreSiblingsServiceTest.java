@@ -102,25 +102,17 @@ public class US001AreSiblingsServiceTest {
     @DisplayName("Test if two individuals are siblings - not related")
     void AreSiblingsFalse() {
         //Arrange
-        String joseEmail = "father1@isep.ipp.pt";
-        String robertoEmail = "roberto@isep.ipp.pt";
-        String mariaEmail = "mother1@isep.ipp.pt";
-        String amaliaEmail = "amalia@isep.ipp.pt";
+        String emailPersonOne = "antonio@isep.ipp.pt";
+        String emailPersonTwo= "1191780@isep.ipp.pt";
 
-        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(joseEmail, robertoEmail);
-        AreSiblingsDTO siblingsDTO2 = new AreSiblingsDTO(mariaEmail, amaliaEmail);
+        AreSiblingsDTO siblingsDTO = new AreSiblingsDTO(emailPersonOne, emailPersonTwo);
 
         //Act
-        boolean siblings = service.areSiblings(siblingsDTO);
-        boolean siblings2 = service.areSiblings(siblingsDTO2);
+        // boolean siblings = service.areSiblings(siblingsDTO);
+        boolean siblings2 = service.areSiblings(siblingsDTO);
 
         //Assert
-        Assertions.assertAll(
-                () -> assertFalse(siblings),
-                () -> assertFalse(siblings2)
-        );
-
-
+        assertFalse(siblings2);
     }
 
     @Test

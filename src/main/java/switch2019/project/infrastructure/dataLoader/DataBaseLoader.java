@@ -11,7 +11,7 @@ import switch2019.project.domain.domainEntities.person.Address;
 import switch2019.project.domain.domainEntities.person.Email;
 import switch2019.project.domain.domainEntities.person.Person;
 import switch2019.project.domain.domainEntities.shared.*;
-import switch2019.project.infrastructure.dataBaseRepositories.*;
+import switch2019.project.domain.repositories.*;
 import switch2019.project.infrastructure.jpa.SiblingsJpaRepository;
 
 import java.util.Currency;
@@ -20,22 +20,18 @@ import java.util.Currency;
 public class DataBaseLoader {
 
     @Autowired
-    PersonDbRepository personRepository;
-
+    PersonRepository personRepository;
     @Autowired
-    GroupDbRepository groupRepository;
-
+    GroupRepository groupRepository;
     @Autowired
-    AccountDbRepository accountRepository;
-
+    AccountRepository accountRepository;
     @Autowired
-    CategoryDbRepository categoriesRepository;
+    CategoryRepository categoryRepository;
+    @Autowired
+    LedgerRepository ledgerRepository;
 
     @Autowired
     SiblingsJpaRepository siblingsJpaRepository;
-
-    @Autowired
-    LedgerDbRepository ledgerDbRepository;
 
     public void bootstrapping() {
 
@@ -459,18 +455,18 @@ public class DataBaseLoader {
 
         /* Categories of some groups */
         //Group SWitCH - Categories
-        categoriesRepository.createCategory(new Denomination("GYM"), new GroupID(new Description("Switch")));
-        Category switchIsepCategory = categoriesRepository.createCategory(new Denomination("ISEP"), new GroupID(new Description("Switch")));
-        Category swtichOnlineCategory = categoriesRepository.createCategory(new Denomination("ONLINE"), new GroupID(new Description("Switch")));
+        categoryRepository.createCategory(new Denomination("GYM"), new GroupID(new Description("Switch")));
+        Category switchIsepCategory = categoryRepository.createCategory(new Denomination("ISEP"), new GroupID(new Description("Switch")));
+        Category swtichOnlineCategory = categoryRepository.createCategory(new Denomination("ONLINE"), new GroupID(new Description("Switch")));
 
         //Family Cardoso
-        Category cardososHouseCategory = categoriesRepository.createCategory(new Denomination("House "), new GroupID(new Description("Family Cardoso")));
+        Category cardososHouseCategory = categoryRepository.createCategory(new Denomination("House "), new GroupID(new Description("Family Cardoso")));
 
         //Persons  - Categories
         //Marge
-        Category margeHouseCategory = categoriesRepository.createCategory(new Denomination("HOUSE"), new PersonID(new Email("marge@hotmail.com")));
+        Category margeHouseCategory = categoryRepository.createCategory(new Denomination("HOUSE"), new PersonID(new Email("marge@hotmail.com")));
         //1191780
-        Category martaSportCategory = categoriesRepository.createCategory(new Denomination("SPORTS"), new PersonID(new Email("1191780@isep.ipp.pt")));
+        Category martaSportCategory = categoryRepository.createCategory(new Denomination("SPORTS"), new PersonID(new Email("1191780@isep.ipp.pt")));
 
 
         /*Accounts of some Owner ID*/
@@ -569,93 +565,93 @@ public class DataBaseLoader {
 
 
         //Group Ledgers
-        Ledger switchLedger = ledgerDbRepository.createLedger(new GroupID(new Description("Switch")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Friends")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Split Expenses")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Rick and Morty")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Intergalatic")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Smith Family")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Family Simpson")));
-        Ledger familyCardosoLegder = ledgerDbRepository.createLedger(new GroupID(new Description("Family Cardoso")));
-        ledgerDbRepository.createLedger(new GroupID(new Description("Family Azevedo")));
+        Ledger switchLedger = ledgerRepository.createLedger(new GroupID(new Description("Switch")));
+        ledgerRepository.createLedger(new GroupID(new Description("Friends")));
+        ledgerRepository.createLedger(new GroupID(new Description("Split Expenses")));
+        ledgerRepository.createLedger(new GroupID(new Description("Rick and Morty")));
+        ledgerRepository.createLedger(new GroupID(new Description("Intergalatic")));
+        ledgerRepository.createLedger(new GroupID(new Description("Smith Family")));
+        ledgerRepository.createLedger(new GroupID(new Description("Family Simpson")));
+        Ledger familyCardosoLegder = ledgerRepository.createLedger(new GroupID(new Description("Family Cardoso")));
+        ledgerRepository.createLedger(new GroupID(new Description("Family Azevedo")));
 
         //Persons Ledger
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191743@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191755@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191762@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191765@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191778@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191779@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("1191782@isep.ipp.pt")));
-        Ledger martaLedger = ledgerDbRepository.createLedger(new PersonID(new Email("1191780@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("rick@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("disanchez@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("leonard.smith@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("joyce.smith@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("jerry.smith@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("beth.smith@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("summer@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("morty@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("gwendolyn@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("abe_simpson@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("mona.simpson@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("homer@hotmail.com")));
-        Ledger margeLedger = ledgerDbRepository.createLedger(new PersonID(new Email("marge@hotmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("bart.simpson@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("liza.simpson@hotmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("maggie.simpson@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("antonio.cardoso@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("maria.cardoso_1@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("roberto@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("maria@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("beatriz.azevedo@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("margarida_azevedo@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("hugo.azevedo@gmail.com")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("father1@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("father2@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("mother1@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("mother2@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("antonio@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("manuel@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("roberto@isep.ipp.pt")));
-        ledgerDbRepository.createLedger(new PersonID(new Email("amalia@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191743@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191755@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191762@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191765@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191778@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191779@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("1191782@isep.ipp.pt")));
+        Ledger martaLedger = ledgerRepository.createLedger(new PersonID(new Email("1191780@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("rick@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("disanchez@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("leonard.smith@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("joyce.smith@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("jerry.smith@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("beth.smith@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("summer@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("morty@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("gwendolyn@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("abe_simpson@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("mona.simpson@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("homer@hotmail.com")));
+        Ledger margeLedger = ledgerRepository.createLedger(new PersonID(new Email("marge@hotmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("bart.simpson@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("liza.simpson@hotmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("maggie.simpson@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("antonio.cardoso@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("maria.cardoso_1@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("roberto@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("maria@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("beatriz.azevedo@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("margarida_azevedo@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("hugo.azevedo@gmail.com")));
+        ledgerRepository.createLedger(new PersonID(new Email("father1@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("father2@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("mother1@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("mother2@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("antonio@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("manuel@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("roberto@isep.ipp.pt")));
+        ledgerRepository.createLedger(new PersonID(new Email("amalia@isep.ipp.pt")));
 
         //Transactions
         //Marge Transactions
         //Ikea shopping
-        ledgerDbRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(100.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(100.00, Currency.getInstance("EUR")),
                 new Description("Bought a cheap sofa"), new DateAndTime(2020, 2, 14, 11, 24),
                 margeHouseCategory.getID(), margeGoldCardAccount.getID(), margeIkeaAccount.getID(), new Type(false));
 
         //Supermarket shopping
-        ledgerDbRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(margeLedger.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Grocery for baking cookies"), new DateAndTime(2020, 3, 20, 13, 04),
                 margeHouseCategory.getID(), margeMasterCardAccount.getID(), margeSupermaketAccount.getID(), new Type(false));
 
         //Marta Transactions
         //Gym subscription payment
-        ledgerDbRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("Monthly subscription"), new DateAndTime(2020, 5, 13, 17, 00),
                 martaSportCategory.getID(), martaMoeyAccount.getID(), martaFitnessUpAccount.getID(), new Type(false));
 
         //Decathlon Payment
-        ledgerDbRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(150.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(martaLedger.getID(), new MonetaryValue(150.00, Currency.getInstance("EUR")),
                 new Description("Bought dumbbells"), new DateAndTime(2020, 4, 13, 18, 15),
                 martaSportCategory.getID(), martaMoeyAccount.getID(), martaDecathlonAccount.getID(), new Type(false));
 
         //Family Cardoso
-        ledgerDbRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(familyCardosoLegder.getID(), new MonetaryValue(50.00, Currency.getInstance("EUR")),
                 new Description("Netflix subscritption"), new DateAndTime(2020, 5, 4, 22, 00),
                 cardososHouseCategory.getID(), familyCardosoRevolutAccount.getID(), familyCardosoNetflixAccount.getID(), new Type(false));
 
         //Switch
-        ledgerDbRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(10.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(10.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 1"), new DateAndTime(2020, 3, 4, 18, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        ledgerDbRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 2"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
-        ledgerDbRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
+        ledgerRepository.addTransactionToLedger(switchLedger.getID(), new MonetaryValue(20.00, Currency.getInstance("EUR")),
                 new Description("SuperBock round 3"), new DateAndTime(2020, 3, 4, 17, 00),
                 switchIsepCategory.getID(), switchDrinksAccount.getID(), switchIsepAEAccount.getID(), new Type(false));
     }

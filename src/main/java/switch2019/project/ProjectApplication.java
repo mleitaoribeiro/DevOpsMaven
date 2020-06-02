@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
-import switch2019.project.infrastructure.dataLoader.DataInMemoryLoader;
 
 import java.io.File;
 
@@ -28,19 +27,13 @@ public class ProjectApplication implements ApplicationRunner {
     }
 
     @Autowired
-    DataInMemoryLoader dataInMemoryLoader;
-
-    @Autowired
     DataBaseLoader dataBaseLoader;
 
     @Override
-
     public void run(ApplicationArguments arg0) throws Exception {
         System.out.println("ApplicationRunner - Started");
-        // dataInMemoryLoader.bootstrapping();
         File f = new File("data.mv.db");
         if(!f.exists()) dataBaseLoader.bootstrapping();
-
         System.out.println("ApplicationRunner - Running");
     }
 }

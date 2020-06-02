@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupDTO;
@@ -20,15 +19,10 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 public class US002_1CreateGroupService {
 
     @Autowired
-    @Qualifier("GroupDbRepository")
-    private GroupRepository groupsRepository;
-
+    private GroupRepository groupRepository;
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
-
     @Autowired
-    @Qualifier("LedgerDbRepository")
     private LedgerRepository ledgerRepository;
 
     /**
@@ -43,8 +37,8 @@ public class US002_1CreateGroupService {
         Person admin = personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()));
         Description groupDescription = new Description(createGroupDTO.getGroupDescription());
 
-        if(!groupsRepository.isIDOnRepository(new GroupID(groupDescription))){
-            Group groupCreated = groupsRepository.createGroup(groupDescription, admin.getID());
+        if(!groupRepository.isIDOnRepository(new GroupID(groupDescription))){
+            Group groupCreated = groupRepository.createGroup(groupDescription, admin.getID());
             ledgerRepository.createLedger(new GroupID(groupDescription));
             return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
 
@@ -58,8 +52,7 @@ public class US002_1CreateGroupService {
      */
 
     public GroupDTO getGroupByDescription(String groupDescription) {
-     Group group = groupsRepository.findGroupByDescription( new Description(groupDescription));
+     Group group = groupRepository.findGroupByDescription( new Description(groupDescription));
      return GroupDTOAssembler.createGroupDTO( group.getID());
     }
-
 }
