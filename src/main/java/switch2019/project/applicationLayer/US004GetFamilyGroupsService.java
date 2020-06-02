@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.GroupDTO;
 import switch2019.project.assemblers.GroupDTOAssembler;
@@ -19,11 +18,8 @@ import java.util.Set;
 public class US004GetFamilyGroupsService {
 
     @Autowired
-    @Qualifier("GroupDbRepository")
-    private GroupRepository groupsRepository;
-
+    private GroupRepository groupRepository;
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
 
     /**
@@ -64,7 +60,7 @@ public class US004GetFamilyGroupsService {
         }
 
         public Set<GroupDTO> getFamilyGroups() {
-            List <Group> allGroups = groupsRepository.getAllGroups();
+            List <Group> allGroups = groupRepository.getAllGroups();
             Set<GroupDTO> familyGroups = new LinkedHashSet<>();
 
             for (Group group : allGroups) {

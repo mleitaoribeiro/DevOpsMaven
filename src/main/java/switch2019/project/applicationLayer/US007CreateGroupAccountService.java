@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.AccountDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupAccountDTO;
@@ -24,15 +23,10 @@ import java.util.Set;
 public class US007CreateGroupAccountService {
 
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
-
     @Autowired
-    @Qualifier("GroupDbRepository")
-    private GroupRepository groupsRepository;
-
+    private GroupRepository groupRepository;
     @Autowired
-    @Qualifier("AccountDbRepository")
     private AccountRepository accountRepository;
 
     /**
@@ -51,7 +45,7 @@ public class US007CreateGroupAccountService {
         Denomination accountDenomination = new Denomination(createGroupAccountDTO.getAccountDenomination());
         Description accountDescription = new Description(createGroupAccountDTO.getAccountDescription());
 
-        Group group = groupsRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription()));
+        Group group = groupRepository.findGroupByDescription(new Description(createGroupAccountDTO.getGroupDescription()));
 
         GroupID groupID = group.getID();
 
@@ -77,7 +71,7 @@ public class US007CreateGroupAccountService {
     public AccountDTO getAccountByAccountID (String accountDenomination, String groupDescription) {
 
         //Find ownerID that created the Account
-        OwnerID ownerID = groupsRepository.findGroupByDescription(new Description(groupDescription)).getID();
+        OwnerID ownerID = groupRepository.findGroupByDescription(new Description(groupDescription)).getID();
 
         //Transform in a category ID
         AccountID accountID = new AccountID(new Denomination(accountDenomination), ownerID);
@@ -99,7 +93,7 @@ public class US007CreateGroupAccountService {
     public Set<AccountDTO> getAccountsByGroupID(String groupDescription) {
 
         //Find the ownerID (groupID):
-        OwnerID groupID = groupsRepository.findGroupByDescription(new Description(groupDescription)).getID();
+        OwnerID groupID = groupRepository.findGroupByDescription(new Description(groupDescription)).getID();
 
         //Getting all accounts associated with a groupID:
         Set<Account> accounts = accountRepository.returnAccountsByOwnerID(groupID);

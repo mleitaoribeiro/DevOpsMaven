@@ -1,5 +1,7 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
+import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
@@ -16,6 +18,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+@Component
 public class LedgerInMemoryRepository implements LedgerRepository {
 
     // Private instance variables
@@ -128,6 +131,11 @@ public class LedgerInMemoryRepository implements LedgerRepository {
             ledger = getByOwnerID(new GroupID(new Description(ownerID)));
         }
         return ledger.getLedgerTransactions();
+    }
+
+    @Override
+    public List<TransactionJpa> findAllTransactions() {
+        return null;
     }
 
     public Ledger getByOwnerID(ID ledgerID) {

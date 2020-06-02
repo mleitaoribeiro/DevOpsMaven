@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
@@ -18,8 +17,7 @@ import java.util.Set;
 public class US001AreSiblingsService {
 
     @Autowired
-    @Qualifier("PersonDbRepository")
-    private PersonRepository repository;
+    private PersonRepository personRepository;
 
     /**
      * US001
@@ -30,14 +28,14 @@ public class US001AreSiblingsService {
      */
     public boolean areSiblings(AreSiblingsDTO siblingsDTO) {
 
-        Person person1 = repository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()));
-        Person person2 = repository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()));
+        Person person1 = personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonOne()));
+        Person person2 = personRepository.findPersonByEmail(new Email(siblingsDTO.getEmailPersonTwo()));
 
         return person1.isSibling(person2);
     }
 
     public Set<PersonIDDTO> getSiblings(String personEmail) {
-        Person person = repository.findPersonByEmail(new Email(personEmail));
+        Person person = personRepository.findPersonByEmail(new Email(personEmail));
         Set<PersonID> siblingsIDs = person.getSiblingsIDList();
 
         Set<PersonIDDTO> aux = new HashSet<>();
@@ -47,8 +45,9 @@ public class US001AreSiblingsService {
     }
 
     public PersonIDDTO getPersonByEmail(String personEmail) {
-        Person person = repository.findPersonByEmail(new Email(personEmail));
+        Person person = personRepository.findPersonByEmail(new Email(personEmail));
         return PersonDTOAssembler.createPersonIDDTO(person.getID());
     }
+
 }
 

@@ -1,8 +1,9 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import switch2019.project.dataModel.entities.AdminsJpa;
+import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -16,8 +17,7 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Primary
-@Component("GroupInMemoryRepository")
+@Component
 public class GroupsInMemoryRepository implements GroupRepository {
 
     // Private instance variables
@@ -102,6 +102,7 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return groups.size();
     }
 
+
     /**
      * Method to add a member to a Group
      *
@@ -122,6 +123,25 @@ public class GroupsInMemoryRepository implements GroupRepository {
      */
     public boolean setAdmin(Group group, String personID) {
         return group.setAdmin(new PersonID(new Email(personID)));
+    }
+
+    /**
+     * Method to find members by id
+     * @param switch_g1
+     * @return
+     */
+    public List<MembersJpa> findMembersByGroupId(String switch_g1) {
+        return null;
+    }
+
+    /**
+     * method to find admins by id
+     * @param switch_g1
+     * @return
+     */
+
+    public List<AdminsJpa> findAdminsByGroupId(String switch_g1) {
+        return null;
     }
 
 }

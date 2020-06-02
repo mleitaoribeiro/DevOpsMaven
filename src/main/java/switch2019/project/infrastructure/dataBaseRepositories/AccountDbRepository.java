@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import switch2019.project.dataModel.dataAssemblers.AccountDomainDataAssembler;
 import switch2019.project.dataModel.entities.AccountIDJpa;
@@ -20,7 +21,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Component("AccountDbRepository")
+@Component
+@Primary
 public class AccountDbRepository implements AccountRepository {
 
     @Autowired
