@@ -40,7 +40,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      */
 
     @Test
-    @Order(1)
     @DisplayName("Test Person Transaction creation - Happy Case - test if outputDTO, HTTP response are expected. Test if transaction was persisted in DB")
     void createPersonTransactionMainScenario() throws Exception {
 
@@ -134,7 +133,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Person Transaction creation - Happy Case - Automatic date")
-    @Order(2)
     void createPersonTransactionMainScenarioAutomaticDate() throws Exception {
 
         //GET - Before Transaction is created
@@ -1517,7 +1515,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      */
 
     @Test
-    @Order(3)
     @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
     void createGroupTransactionMainScenario() throws Exception {
         //GET - Before account is created
@@ -1615,7 +1612,6 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
     @Test
-    @Order(4)
     @DisplayName("Test Group Transaction creation - Automatic Date")
     void createGroupTransactionMainScenarioAutomaticDate() throws Exception {
         //GET - Before account is created
