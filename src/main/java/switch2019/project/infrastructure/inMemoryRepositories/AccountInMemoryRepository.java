@@ -16,7 +16,7 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component("AccountInMemoryRepository")
+@Component
 public class AccountInMemoryRepository implements AccountRepository {
 
     @Autowired

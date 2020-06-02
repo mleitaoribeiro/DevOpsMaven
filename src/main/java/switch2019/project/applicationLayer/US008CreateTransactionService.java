@@ -1,7 +1,6 @@
 package switch2019.project.applicationLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
@@ -27,23 +26,14 @@ import java.util.List;
 public class US008CreateTransactionService {
 
     @Autowired
-    @Qualifier("LedgerDbRepository")
     private LedgerRepository ledgerRepository;
-
     @Autowired
-    @Qualifier("PersonDbRepository")
     private PersonRepository personRepository;
-
     @Autowired
-    @Qualifier("GroupDbRepository")
-    private GroupRepository groupsRepository;
-
+    private GroupRepository groupRepository;
     @Autowired
-    @Qualifier("CategoryDbRepository")
     private CategoryRepository categoryRepository;
-
     @Autowired
-    @Qualifier("AccountDbRepository")
     private AccountRepository accountRepository;
 
     /**
@@ -96,7 +86,7 @@ public class US008CreateTransactionService {
         Person person = personRepository.findPersonByEmail(new Email(createGroupTransactionDTO.getPersonEmail()));
         PersonID personID = person.getID();
 
-        Group group = groupsRepository.findGroupByDescription(new Description(createGroupTransactionDTO.getGroupDescription()));
+        Group group = groupRepository.findGroupByDescription(new Description(createGroupTransactionDTO.getGroupDescription()));
         GroupID groupID = group.getID();
 
         MonetaryValue amount = new MonetaryValue(createGroupTransactionDTO.getAmount(),
@@ -141,7 +131,7 @@ public class US008CreateTransactionService {
         if (StringUtils.isEmail(ownerID)) {
             finalOwnerID = personRepository.findPersonByEmail(new Email(ownerID)).getID().toString();
         } else
-            finalOwnerID = groupsRepository.findGroupByDescription(new Description(ownerID)).getID().toString();
+            finalOwnerID = groupRepository.findGroupByDescription(new Description(ownerID)).getID().toString();
 
         Transaction transaction = ledgerRepository.getTransactionByID(finalOwnerID, id);
 

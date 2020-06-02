@@ -1,6 +1,7 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
@@ -25,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component("LedgerDbRepository")
+@Component
+@Primary
 public class LedgerDbRepository implements LedgerRepository {
 
     @Autowired
