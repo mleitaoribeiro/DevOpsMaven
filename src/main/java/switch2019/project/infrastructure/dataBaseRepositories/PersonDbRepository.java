@@ -104,14 +104,27 @@ public class PersonDbRepository implements PersonRepository {
     public Person getByID(ID personID) {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
         if(personJpa.isPresent()) {
-            List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(personID.toString());
-            HashSet<Person> siblings = new HashSet<>();
-
-            for(SiblingsJpa siblingsJpa : siblingsJpas) {
-                siblings.add(PersonDomainDataAssembler.
-                        toDomain(personJpaRepository.findById(siblingsJpa.getSiblingEmail()).get()));
-            } return PersonDomainDataAssembler.toDomain(personJpa.get(), siblings);
+            return getPerson(personJpa.get(), personID.toString());
         } else throw new ArgumentNotFoundException(PERSON_NOT_FOUND);
+    }
+
+    /**
+     * Auxiliar method for getById and findPersonByEmail, not to repeat code
+     *
+     * @param personJpa, email/id
+     */
+
+
+    private Person getPerson(PersonJpa personJpa, String email) {
+        List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(email);
+        HashSet<Person> siblings = new HashSet<>();
+
+        for(SiblingsJpa siblingsJpa : siblingsJpas) {
+            Optional <PersonJpa> personJpa1 = personJpaRepository.findById(siblingsJpa.getSiblingEmail());
+            personJpa1.ifPresent(jpa -> siblings.add(PersonDomainDataAssembler.
+                    toDomain(jpa)));
+        }
+        return PersonDomainDataAssembler.toDomain(personJpa, siblings);
     }
 
     /**
@@ -123,13 +136,7 @@ public class PersonDbRepository implements PersonRepository {
     public Person findPersonByEmail(Email personEmail) {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
         if(personJpa.isPresent()) {
-            List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(personEmail.toString());
-            HashSet<Person> siblings = new HashSet<>();
-
-            for(SiblingsJpa siblingsJpa : siblingsJpas) {
-                siblings.add(PersonDomainDataAssembler.
-                        toDomain(personJpaRepository.findById(siblingsJpa.getSiblingEmail()).get()));
-            } return PersonDomainDataAssembler.toDomain(personJpa.get(), siblings);
+            return getPerson(personJpa.get(), personEmail.toString());
         } throw new ArgumentNotFoundException(PERSON_NOT_FOUND);
     }
 
