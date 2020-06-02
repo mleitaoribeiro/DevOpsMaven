@@ -14,7 +14,7 @@ public class Person implements Owner {
     private PersonID personID;
     private PersonName name;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
-    private Set<Person> siblingList;
+    private final Set<Person> siblingList;
     private PersonID mother;
     private PersonID father;
     private Address address;

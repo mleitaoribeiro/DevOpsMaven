@@ -207,31 +207,6 @@ class GroupDbRepositoryTest {
     }
 
     /**
-     * Validate if method gets all members of a group
-     */
-    @Test
-    @DisplayName("Find members by group ID")
-    void findMembersByGroupId() {
-
-        //Arrange
-        GroupJpa group1 = GroupDomainDataAssembler.toData(switchG1);
-        MembersJpa membersJpa1 = new MembersJpa(group1, switchG2Admin.toString());
-        MembersJpa membersJpa2 = new MembersJpa(group1, switchG3Admin.toString());
-        MembersJpa membersJpa3 = new MembersJpa(group1, swtichG1Admin.toString());
-
-        List<MembersJpa> membersJpaExpectedList = new ArrayList<>();
-        membersJpaExpectedList.add(membersJpa1);
-        membersJpaExpectedList.add(membersJpa2);
-        membersJpaExpectedList.add(membersJpa3);
-
-        //Act
-        List<MembersJpa> membersJpaResultList = groupDbRepository.findMembersByGroupId("SWITCH G1");
-
-        //Assert
-        assertEquals(membersJpaExpectedList, membersJpaResultList);
-    }
-
-    /**
      * Validate if an admin was added to a group
      */
     @Test
@@ -267,28 +242,5 @@ class GroupDbRepositoryTest {
 
         //Assert
         assertFalse(addedAdmin);
-    }
-
-    /**
-     * Validate if method gets all admins of a group
-     */
-    @Test
-    @DisplayName("Find admins by group ID")
-    void findAdminsByGroupId() {
-
-        //Arrange
-        GroupJpa group1 = GroupDomainDataAssembler.toData(switchG1);
-        AdminsJpa adminsJpa1 = new AdminsJpa(group1, switchG2Admin.toString());
-        AdminsJpa adminsJpa2 = new AdminsJpa(group1, swtichG1Admin.toString());
-
-        List<AdminsJpa> adminsJpaList = new ArrayList<>();
-        adminsJpaList.add(adminsJpa1);
-        adminsJpaList.add(adminsJpa2);
-
-        //Act
-        List<AdminsJpa> adminsJpaResultList = groupDbRepository.findAdminsByGroupId("SWITCH G1");
-
-        //Assert
-        assertEquals(adminsJpaList, adminsJpaResultList);
     }
 }

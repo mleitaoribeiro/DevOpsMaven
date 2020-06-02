@@ -177,4 +177,39 @@ class StringUtilsTest {
         assertTrue(StringUtils.isSameDate(sysDateNow, sysDateNow2));
     }
 
+    @Test
+    @DisplayName("Test to compare dates as Strings - different day")
+    void isSameDateNextDayFalse(){
+
+        String dateDay = "2020-05-29 23:59";
+
+        String dateNextDay = "2020-05-30 00:01";
+
+        assertFalse(StringUtils.isSameDate(dateDay, dateNextDay));
+    }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings - same day - false")
+    void isSameDateSameDayFalse(){
+
+        String dateDay = "2020-05-29 23:55";
+
+        String dateNextDay = "2020-05-29 23:57";
+
+        assertFalse(StringUtils.isSameDate(dateDay, dateNextDay));
+    }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings - different day")
+    void isSameMinuteNextDay(){
+
+        String dateDay = "2020-05-29 23:59";
+
+        String dateNextDay = "2020-05-30 23:59";
+
+        assertFalse(StringUtils.isSameDate(dateDay, dateNextDay));
+    }
+
+
+
 }
