@@ -15,6 +15,10 @@ import switch2019.project.domain.repositories.GroupRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -305,5 +309,33 @@ class GroupsInMemoryRepositoryTest {
 
         //Assert
         assertFalse(memberAddded);
+    }
+
+    @Test
+    @DisplayName("get all groups")
+    void getAllGroups() {
+        //Arrange
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+
+        List<Group> groupExpected = Collections.emptyList();
+
+        //Act
+        List <Group> groupResult = groupsRepository.getAllGroups();
+
+        //Assert
+        assertEquals(groupExpected, groupResult);
+    }
+
+    @Test
+    @DisplayName("get all groups")
+    void getAllGroupsNullOutput() {
+        //Arrange
+        GroupRepository groupsRepository = new GroupsInMemoryRepository();
+
+        //Act
+        List <Group> groupResult = groupsRepository.getAllGroups();
+
+        //Assert
+        assertNotNull(groupResult);
     }
 }
