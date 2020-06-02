@@ -3,8 +3,8 @@ package switch2019.project.DTO.serviceDTO;
 import java.util.Objects;
 
 public class CreateGroupDTO {
-    private String groupDescription;
-    private String personEmail;
+    final private String groupDescription;
+    final private String personEmail;
 
     public CreateGroupDTO(String groupDescription, String personEmail) {
         this.groupDescription = groupDescription;

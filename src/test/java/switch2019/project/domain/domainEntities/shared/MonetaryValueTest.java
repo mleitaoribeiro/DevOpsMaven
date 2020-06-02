@@ -122,14 +122,18 @@ class MonetaryValueTest {
     }
 
     @Test
-    @DisplayName("Test equals same object")
+    @DisplayName("Test equals equals object")
     void testEquals() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
         MonetaryValue monetaryValue1 = new MonetaryValue(5.00, Currency.getInstance("EUR"));
 
+        //Act
+        boolean assertion = monetaryValue.equals(monetaryValue1);
+
         //Assert
         assertEquals(monetaryValue, monetaryValue1);
+        assertTrue(assertion);
     }
 
     @Test
@@ -137,8 +141,13 @@ class MonetaryValueTest {
     void testEqualsSameObject() {
         //Arrange
         MonetaryValue monetaryValue = new MonetaryValue(5.00, Currency.getInstance("EUR"));
+
+        //Act
+        boolean assertion = monetaryValue.equals(monetaryValue);
+
         //Assert
         assertEquals(monetaryValue, monetaryValue);
+        assertTrue(assertion);
     }
 
     @Test

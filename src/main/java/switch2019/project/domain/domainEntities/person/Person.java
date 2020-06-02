@@ -11,14 +11,14 @@ import java.util.Set;
 public class Person implements Owner {
 
     // Private Person variables
-    private PersonID personID;
-    private PersonName name;
-    private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
-    private Set<Person> siblingList;
+    final private PersonID personID;
+    final private PersonName name;
+    final private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
+    private final Set<Person> siblingList;
     private PersonID mother;
     private PersonID father;
     private Address address;
-    private Address birthPlace;
+    final private Address birthPlace;
 
     /**
      * Default Person constructor
@@ -88,7 +88,7 @@ public class Person implements Owner {
     }
 
     public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
-                  PersonID mother, PersonID father, HashSet<Person> siblings, Email email) {
+                  PersonID mother, PersonID father, Set<Person> siblings, Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
         this.birthDate = birthDate;

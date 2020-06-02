@@ -2,8 +2,6 @@ package switch2019.project.infrastructure.inMemoryRepositories;
 
 
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.entities.AdminsJpa;
-import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -85,6 +83,13 @@ public class GroupsInMemoryRepository implements GroupRepository {
                 return true;
         return false;
     }
+
+    /**
+     * method to get all the groups from Repository
+     *
+     *
+     * @return list
+     */
 
     public List <Group> getAllGroups() {
         return new ArrayList<>(groups);
