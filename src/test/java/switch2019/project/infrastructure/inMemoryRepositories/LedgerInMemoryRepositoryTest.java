@@ -114,13 +114,12 @@ class LedgerInMemoryRepositoryTest {
         LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
 
         // Act
-        Transaction transaction = ledgerInMemoryRepository.getTransactionByID(email,id);
+        Transaction transaction = ledgerInMemoryRepository.getTransactionByID(email, id);
 
         //Assert
         assertEquals(null, transaction);
 
     }
-
 
 
     @Test
@@ -205,7 +204,7 @@ class LedgerInMemoryRepositoryTest {
         DateAndTime dateAndTime = new DateAndTime();
         CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
         AccountID account1 = new AccountID(new Denomination("mercearia"),
-                    new PersonID(new Email("personEmail@email.pt")));
+                new PersonID(new Email("personEmail@email.pt")));
         AccountID account2 = new AccountID(new Denomination("transporte"), new PersonID(new Email("personEmail@email.pt")));
         Type type = new Type(true);
 
@@ -225,7 +224,7 @@ class LedgerInMemoryRepositoryTest {
 
         // Assert
         Assertions.assertAll(
-                () -> assertEquals(expectedTransaction,transactionAdded),
+                () -> assertEquals(expectedTransaction, transactionAdded),
                 () -> assertEquals(ledgerExpected, ledgerReal),
                 () -> assertEquals(sizeExpected, sizeReal)
 
@@ -263,6 +262,40 @@ class LedgerInMemoryRepositoryTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No Ledger found with that ID.");
 
+    }
+
+    @Test
+    @DisplayName("Test add Transaction To Ledger - False - Null Account")
+    public void addTransactionToLedgerFalseNullAccount() {
+
+        // Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        OwnerID ownerID = new GroupID(new Description("switch"));
+
+        MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
+        Description description = new Description("xpto");
+        DateAndTime dateAndTime = new DateAndTime();
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
+        AccountID account1 = new AccountID(new Denomination("mercearia"),
+                new PersonID(new Email("personEmail@email.pt")));
+        Type type = new Type(true);
+
+
+        Ledger ledger = new Ledger(ownerID);
+
+        ledgerInMemoryRepository.createLedger(ownerID);
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.addTransactionToLedger(ledger.getID(),
+                    monetaryValue, description, dateAndTime, category, account1, null, type);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The accounts cannot be null.");
     }
 
     @Test
