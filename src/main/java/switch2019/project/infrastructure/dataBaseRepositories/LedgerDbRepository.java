@@ -120,17 +120,6 @@ public class LedgerDbRepository implements LedgerRepository {
         throw new ArgumentNotFoundException(NO_LEDGER_FOUND);
     }
 
-    /**
-     * Method to find all transactions
-     *
-     * @return List<TransactionJpa>
-     */
-
-    @Transactional
-    public List<TransactionJpa> findAllTransactions() {
-        return transactionJpaRepository.findAll();
-    }
-
 
     /**
      * Find a Ledger by it´s ID

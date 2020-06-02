@@ -17,7 +17,7 @@ public class Group implements Owner {
     private final DateAndTime startingDate;
     private Set<PersonID> members;
     private Set<PersonID> admins;
-    private PersonID groupCreator;
+    private final PersonID groupCreator;
 
     public Group(Description description, PersonID groupCreator) {
         setGroupID(description);

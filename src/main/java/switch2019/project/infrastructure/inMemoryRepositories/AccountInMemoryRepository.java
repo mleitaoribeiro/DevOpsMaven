@@ -23,7 +23,7 @@ public class AccountInMemoryRepository implements AccountRepository {
     AccountJpaRepository accountJpaRepository;
 
     //Private instance variables
-    private Set<Account> accounts;
+    private final Set<Account> accounts;
 
     public AccountInMemoryRepository() {
         accounts = new HashSet<>();

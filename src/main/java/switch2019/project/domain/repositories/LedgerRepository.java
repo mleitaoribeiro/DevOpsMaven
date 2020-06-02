@@ -77,9 +77,6 @@ public interface LedgerRepository extends Repository {
                                        CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
     List<Transaction> findAllTransactionsByLedgerID(String ownerID);
-
-
-    List<TransactionJpa> findAllTransactions();
 }
 
 
