@@ -2,6 +2,7 @@ package switch2019.project.DTO.serviceDTO;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.person.Email;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +25,7 @@ class CreatePersonalTransactionDTOTest {
     }
 
     @DisplayName("Test for method equals - null object")
-    void testEqualsNullbject() {
+    void testEqualsNullObject() {
 
         // Arrange
         CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
@@ -57,6 +58,26 @@ class CreatePersonalTransactionDTOTest {
         // Assert
         assertTrue(result);
     }
+
+
+    @Test
+    @DisplayName("Test for method equals - objects from different classes")
+    void testEqualsObjectFromDifferentClasses() {
+
+        // Arrange
+        CreatePersonalTransactionDTO createPersonalTransactionDTO = new CreatePersonalTransactionDTO("1191762@isep.ipp.pt",
+                20.50, "EUR", "beers", "19-05-2002", "drinks", "Switch Account",
+                "Isep Bar Account", "debit");
+
+        Email email = new Email ("1191762@isep.ipp.pt");
+
+        // Act
+        boolean result = createPersonalTransactionDTO.equals(email);
+
+        // Assert
+        assertFalse(result);
+    }
+
 
     @Test
     @DisplayName("Test for method equals - two objects with different parameters")
