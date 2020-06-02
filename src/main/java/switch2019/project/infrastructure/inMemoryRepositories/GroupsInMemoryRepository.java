@@ -2,8 +2,6 @@ package switch2019.project.infrastructure.inMemoryRepositories;
 
 
 import org.springframework.stereotype.Component;
-import switch2019.project.dataModel.entities.AdminsJpa;
-import switch2019.project.dataModel.entities.MembersJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
 import switch2019.project.domain.domainEntities.group.Group;
 import switch2019.project.domain.domainEntities.person.Email;
