@@ -12,7 +12,7 @@ public class Person implements Owner {
 
     // Private Person variables
     final private PersonID personID;
-    private PersonName name;
+    final private PersonName name;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
     private PersonID mother;
