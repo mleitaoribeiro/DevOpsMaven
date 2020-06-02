@@ -10,11 +10,10 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
 
-import java.io.File;
-
 @SpringBootApplication(scanBasePackages = {"switch2019.project.controllerLayer",
         "switch2019.project.infrastructure", "switch2019.project.applicationLayer",
         "switch2019.project.utils.projectApplicationConfiguration"})
+
 @EnableWebMvc
 public class ProjectApplication implements ApplicationRunner {
 
@@ -32,8 +31,7 @@ public class ProjectApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments arg0) throws Exception {
         System.out.println("ApplicationRunner - Started");
-        File f = new File("data.mv.db");
-        if(!f.exists()) dataBaseLoader.bootstrapping();
+        dataBaseLoader.bootstrapping();
         System.out.println("ApplicationRunner - Running");
     }
 }
