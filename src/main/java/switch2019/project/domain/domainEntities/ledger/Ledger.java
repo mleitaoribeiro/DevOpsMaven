@@ -234,6 +234,7 @@ public class Ledger {
 
             //Validate if Date is in the correct order
         else if (initialDate.isAfter(finalDate)) {
+            //POR AQUI UMA EXCEÇÃO!!!!!!!
             LocalDateTime aux = initialDate;
             initialDate = finalDate;
             finalDate = aux;

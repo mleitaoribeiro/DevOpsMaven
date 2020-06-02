@@ -66,8 +66,4 @@ public interface GroupRepository extends Repository {
      * @return
      */
     boolean setAdmin(Group group, String personID);
-
-    List<MembersJpa> findMembersByGroupId(String switch_g1);
-
-    List<AdminsJpa> findAdminsByGroupId(String switch_g1);
 }

@@ -124,24 +124,4 @@ public class GroupsInMemoryRepository implements GroupRepository {
     public boolean setAdmin(Group group, String personID) {
         return group.setAdmin(new PersonID(new Email(personID)));
     }
-
-    /**
-     * Method to find members by id
-     * @param switch_g1
-     * @return
-     */
-    public List<MembersJpa> findMembersByGroupId(String switch_g1) {
-        return null;
-    }
-
-    /**
-     * method to find admins by id
-     * @param switch_g1
-     * @return
-     */
-
-    public List<AdminsJpa> findAdminsByGroupId(String switch_g1) {
-        return null;
-    }
-
 }
