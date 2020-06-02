@@ -11,7 +11,7 @@ import java.util.Set;
 public class Person implements Owner {
 
     // Private Person variables
-    private PersonID personID;
+    final private PersonID personID;
     private PersonName name;
     private DateAndTime birthDate; // year[¨], month [0-12], day[0-31] && Birth Date =< now()
     private Set<Person> siblingList;
