@@ -222,7 +222,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test to compare dates as Strings - two minutes before")
+    @DisplayName("Test to compare dates as Strings - day before")
     void isSameDateDayBefore(){
 
         String dateDay = "2020-05-29 23:59";
@@ -231,6 +231,18 @@ class StringUtilsTest {
 
         assertFalse(StringUtils.isSameDate(dateDay, dateNextDay));
     }
+
+    @Test
+    @DisplayName("Test to compare dates as Strings - day before")
+    void isSameDateOneMinuteBefore(){
+
+        String dateDay = "2020-05-30 00:00";
+
+        String dateNextDay = "2020-05-29 23:59";
+
+        assertTrue(StringUtils.isSameDate(dateDay, dateNextDay));
+    }
+
 
     @Test
     @DisplayName("Test to compare dates as Strings - first date and second are equals")
