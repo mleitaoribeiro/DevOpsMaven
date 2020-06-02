@@ -3,12 +3,10 @@ package switch2019.project.controllerLayer.rest.integration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Transactional
+@DirtiesContext (classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Override
@@ -41,11 +41,12 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      */
 
     @Test
+    @Order(1)
     @DisplayName("Test Person Transaction creation - Happy Case - test if outputDTO, HTTP response are expected. Test if transaction was persisted in DB")
     void createPersonTransactionMainScenario() throws Exception {
 
         //GET - Before Transaction is created
-        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/14";
+        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/9";
 
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -82,7 +83,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/14\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/9\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\"}}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -134,10 +135,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
 
     @Test
     @DisplayName("Test Person Transaction creation - Happy Case - Automatic date")
+    @Order(2)
     void createPersonTransactionMainScenarioAutomaticDate() throws Exception {
 
         //GET - Before Transaction is created
-        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/12";
+        String uriGet = "/persons/marge@hotmail.com/ledger/transactions/10";
 
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
                 .contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -175,7 +177,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/12\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\\/10\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/persons\\/marge@hotmail.com\\/ledger\\/transactions\"}}";
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uriPost)
@@ -1516,10 +1518,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
      */
 
     @Test
+    @Order(3)
     @DisplayName("Test Group Transaction creation - test if outputDTO, HTTP response are expected. Test if transaction was persisted in Db")
     void createGroupTransactionMainScenario() throws Exception {
         //GET - Before account is created
-        String uriGet = "/groups/SWITCH/ledger/transactions/13";
+        String uriGet = "/groups/SWITCH/ledger/transactions/11";
 
         //Act
         MvcResult mvcResultGetBefore = mvc.perform(MockMvcRequestBuilders.get(uriGet)
@@ -1565,7 +1568,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String inputJson = super.mapToJson(createTransactionInfoDTO);
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/13\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/11\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
         //Act
@@ -1613,10 +1616,11 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
     }
 
     @Test
+    @Order(4)
     @DisplayName("Test Group Transaction creation - Automatic Date")
     void createGroupTransactionMainScenarioAutomaticDate() throws Exception {
         //GET - Before account is created
-        String uriGet = "/groups/SWITCH/ledger/transactions/11";
+        String uriGet = "/groups/SWITCH/ledger/transactions/12";
 
         //Act
 
@@ -1665,7 +1669,7 @@ class US008CreateTransactionControllerRestIntegrationTest extends AbstractTest {
         String errorDate = new DateAndTime().yearMonthDayHourMinuteToString();
 
         //Expected Links
-        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/11\"}," +
+        String expectedLinks = "{\"self\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\\/12\"}," +
                 "\"transactions\":{\"href\":\"http:\\/\\/localhost\\/groups\\/SWITCH\\/ledger\\/transactions\"}}";
 
         //Act
