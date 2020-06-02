@@ -88,7 +88,7 @@ public class Person implements Owner {
     }
 
     public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
-                  PersonID mother, PersonID father, HashSet<Person> siblings, Email email) {
+                  PersonID mother, PersonID father, Set<Person> siblings, Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
         this.birthDate = birthDate;
