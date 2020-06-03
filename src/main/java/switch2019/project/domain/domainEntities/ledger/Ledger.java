@@ -117,7 +117,8 @@ public class Ledger {
      * @return
      */
 
-    public Transaction addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
+    public Transaction addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate,
+                                              CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();
