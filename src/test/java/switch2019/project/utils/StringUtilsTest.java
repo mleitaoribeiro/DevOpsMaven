@@ -459,7 +459,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Now")
+    @DisplayName("Test to check if Date Range is correct - False - Final Date > Now")
     void isCorrectDateRangeOnlyDateInitialAndFinalAfterNow(){
 
         //Arrange
@@ -513,6 +513,43 @@ class StringUtilsTest {
 
 
     @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date = Date Now")
+    void isCorrectDateRangeInitialDateEqualsDateNow(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String initialDate = LocalDateTime.now().format(formatter);
+        String finalDate = "2003-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Final Date = Date Now")
+    void isCorrectDateRangeInitialDateAfterDateNowAfterFinal(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String initialDate = "2035-04-10 23:55";
+        String finalDate = LocalDateTime.now().format(formatter);
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+
+    @Test
     @DisplayName("Test to check if Date Range is correct - False - Initial Date is 1 minute after Final Date")
     void isCorrectDateRangeInitialDateOneMinuteAfterFinalDate(){
 
@@ -547,7 +584,7 @@ class StringUtilsTest {
 
 
     @Test
-    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - No time input in initial Date")
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - No time input in final Date")
     void isCorrectDateRangeNoTimeInputInFinalDate(){
 
         //Arrange
