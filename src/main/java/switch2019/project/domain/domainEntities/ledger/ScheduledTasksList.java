@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class ScheduledTasksList {
 
-    private Set<Schedule> scheduledTransactions;
+    private final Set<Schedule> scheduledTransactions;
 
     /**
      * ScheduledTasksList Constructor
