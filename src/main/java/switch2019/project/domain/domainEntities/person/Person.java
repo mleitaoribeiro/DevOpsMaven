@@ -211,9 +211,8 @@ public class Person implements Owner {
      * @param newSibling
      */
 
-    public void addSibling(Person newSibling) {
-        siblingList.add(newSibling);
-        newSibling.siblingList.add(this);
+    public boolean addSibling(Person newSibling) {
+        return siblingList.add(newSibling) && newSibling.siblingList.add(this);
     }
 
     /**
