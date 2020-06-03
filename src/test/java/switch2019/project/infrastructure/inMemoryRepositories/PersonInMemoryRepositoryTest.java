@@ -31,6 +31,27 @@ class PersonInMemoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Create new Person - Main scenario - With Mother and Father")
+    void createPersonWithMotherAndFather() {
+
+        //Arrange:
+        PersonRepository personRepository = new PersonInMemoryRepository();
+
+        Person expected = new Person("João", new DateAndTime(1993, 9, 1),
+                new Address("Porto"), new Address("Rua X", "Porto", "4620-500"),
+                new PersonID(new Email ("mother@gmail.com")), new PersonID(new Email("father@gmail.com")), new Email("1234@isep.pt"));
+
+        //Act:
+        Person marta = personRepository.createPerson("João", new DateAndTime(1993, 9, 1),
+                new Address("Porto"), new Address("Rua X", "Porto", "4620-500"),
+                new PersonID(new Email ("mother@gmail.com")), new PersonID(new Email("father@gmail.com")), new Email("1234@isep.pt"));
+
+        //Assert:
+        assertEquals(expected, marta);
+    }
+
+
+    @Test
     @DisplayName("Find Person By ID - Main scenario")
     void findPersonByID() {
 
