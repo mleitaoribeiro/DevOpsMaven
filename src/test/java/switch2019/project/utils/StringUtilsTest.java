@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringUtilsTest {
@@ -265,6 +268,310 @@ class StringUtilsTest {
 
         assertTrue(StringUtils.isSameDate(dateDay, dateNextDay));
     }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Different Day")
+    void isCorrectDateRange(){
+
+        //Arrange
+        String initialDate = "2020-01-29 20:50";
+        String finalDate = "2020-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertTrue(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test Check If a String Is a Valid Date (yyyy-MM-dd) - True")
+    void isValidDate(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = LocalDateTime.now().format(formatter);
+
+        //Act
+
+        boolean isValidDate = StringUtils.isValidDate(date);
+
+        //Assert
+        assertTrue(isValidDate);
+    }
+
+    @Test
+    @DisplayName("Test Check If a String Is a Valid Date (yyyy-MM-dd) - False")
+    void isNotValidDate(){
+
+        //Arrange
+
+        String date = "2020-01-29 20:50";
+
+        //Act
+
+        boolean isValidDate = StringUtils.isValidDate(date);
+
+        //Assert
+        assertFalse(isValidDate);
+    }
+
+    @Test
+    @DisplayName("Test Check If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm) - True")
+    void isValidDateAndTime(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String date = LocalDateTime.now().format(formatter);
+
+        //Act
+
+        boolean isValidDate = StringUtils.isValidDateAndTime(date);
+
+        //Assert
+        assertTrue(isValidDate);
+    }
+
+    @Test
+    @DisplayName("Test Check If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm) - False")
+    void isNotValidDateAndTime(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = LocalDateTime.now().format(formatter);
+
+        //Act
+
+        boolean isValidDate = StringUtils.isValidDateAndTime(date);
+
+        //Assert
+        assertFalse(isValidDate);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Initial Date = Final Date = Date Now")
+    void isCorrectDateRangeInitialDateEqualsFinalDateEqualsDateNow(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String initialDate = LocalDateTime.now().format(formatter);
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, initialDate);
+
+        //Assert
+        assertTrue(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Initial Date = Final Date")
+    void isCorrectDateRangeInitialDateEqualsFinalDate(){
+
+        //Arrange
+
+        String initialDate = "2020-04-10 23:55";
+        String finalDate = "2020-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertTrue(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Final Date = Date Now")
+    void isCorrectDateRangeFinalDateEqualsDateNow(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String initialDate = "2003-04-10 23:55";
+        String finalDate = LocalDateTime.now().format(formatter);
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertTrue(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date is 1 minute after Final Date")
+    void isCorrectDateRangeInitialDateOneMinuteAfterFinalDate(){
+
+        //Arrange
+
+        String initialDate = "2020-04-10 23:56";
+        String finalDate = "2020-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - No time input in initial Date")
+    void isCorrectDateRangeNoTimeInputInInitialDate(){
+
+        //Arrange
+        String initialDate = "2020-01-29";
+        String finalDate = "2020-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - No time input in initial Date")
+    void isCorrectDateRangeNoTimeInputInFinalDate(){
+
+        //Arrange
+        String initialDate = "2020-04-10 23:55";
+        String finalDate = "2020-04-12";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - Initial Date Null")
+    void isCorrectDateRangeInitialDateNull(){
+
+        //Arrange
+        String initialDate = null;
+        String finalDate = "2020-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - Final Date Null")
+    void isCorrectDateRangeFinalDateNull(){
+
+        //Arrange
+        String initialDate = "2020-04-10 23:55";
+        String finalDate = null;
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - Initial Date Empty")
+    void isCorrectDateRangeInitialDateEmpty(){
+
+        //Arrange
+        String initialDate = "";
+        String finalDate = "2020-04-10 23:55";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Invalid Date - Final Date Empty")
+    void isCorrectDateRangeFinalDateEmpty(){
+
+        //Arrange
+        String initialDate = "2020-04-10 23:55";
+        String finalDate = "";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Final Date")
+    void isCorrectDateRangeInitialDateAfterFinalDate(){
+
+        //Arrange
+        String initialDate = "2020-04-10 23:55";
+        String finalDate = "2020-01-2 10:01";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Date Now")
+    void isCorrectDateRangeInitialDateAfterDateNow(){
+
+        //Arrange
+        String initialDate = "2050-04-10 23:55";
+        String finalDate = "2051-01-2 10:01";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Final Date > Date Now")
+    void isCorrectDateRangeFinalDateAfterDateNow(){
+
+        //Arrange
+        String initialDate = "2003-04-10 23:55";
+        String finalDate = "2051-01-2 10:01";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
 
 
 
