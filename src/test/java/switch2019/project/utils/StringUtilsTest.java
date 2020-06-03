@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.domain.domainEntities.shared.DateAndTime;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -320,7 +321,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test Check If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm) - True")
+    @DisplayName("Test If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm) - True")
     void isValidDateAndTime(){
 
         //Arrange
@@ -337,7 +338,7 @@ class StringUtilsTest {
     }
 
     @Test
-    @DisplayName("Test Check If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm) - False")
+    @DisplayName("Test If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm) - False")
     void isNotValidDateAndTime(){
 
         //Arrange
@@ -368,6 +369,110 @@ class StringUtilsTest {
 
         //Assert
         assertTrue(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Initial Date = Final Date")
+    void isCorrectDateRangeOnlyDate(){
+
+        //Arrange
+
+        String initialDate = "2020-04-10";
+        String finalDate = "2020-05-10";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertTrue(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - True - Initial Date = Final Date = Date Now")
+    void isCorrectDateRangeOnlyDateLocalDateNow(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String initialDate = LocalDate.now().format(formatter);
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, initialDate);
+
+        //Assert
+        assertTrue(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Final Date")
+    void isCorrectDateRangeOnlyDateInitialAfterFinal(){
+
+        //Arrange
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String initialDate = LocalDate.now().format(formatter);
+        String finalDate = "2020-05-10";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Now")
+    void isCorrectDateRangeOnlyDateInitialAfterNow(){
+
+        //Arrange
+
+        String initialDate = "2050-05-10";
+        String finalDate = "2020-05-10";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Now")
+    void isCorrectDateRangeOnlyDateFinalAfterNow(){
+
+        //Arrange
+
+        String initialDate = "2020-05-10";
+        String finalDate = "2050-05-10";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
+    }
+
+    @Test
+    @DisplayName("Test to check if Date Range is correct - False - Initial Date > Now")
+    void isCorrectDateRangeOnlyDateInitialAndFinalAfterNow(){
+
+        //Arrange
+
+        String initialDate = "2050-05-10";
+        String finalDate = "2050-05-10";
+
+        //Act
+
+        boolean isCorrectDateRange = StringUtils.isCorrectDateRange(initialDate, finalDate);
+
+        //Assert
+        assertFalse(isCorrectDateRange);
     }
 
 

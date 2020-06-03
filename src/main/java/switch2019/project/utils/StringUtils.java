@@ -224,16 +224,28 @@ public class StringUtils {
 
     public static boolean isCorrectDateRange(String initialDate, String finalDate) {
 
-        if (!isValidDateAndTime(initialDate) || !isValidDateAndTime(finalDate))
-            return false;
+        if (isValidDate(initialDate) && isValidDate(finalDate)) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime firstLocalDate = LocalDateTime.parse(initialDate, formatter);
-        LocalDateTime secondLocalDate = LocalDateTime.parse(finalDate, formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate firstLocalDate = LocalDate.parse(initialDate, formatter);
+            LocalDate secondLocalDate = LocalDate.parse(finalDate, formatter);
 
-        return !firstLocalDate.isAfter(LocalDateTime.now()) &&
-                !secondLocalDate.isAfter(LocalDateTime.now()) &&
-                !firstLocalDate.isAfter(secondLocalDate);
+            return !firstLocalDate.isAfter(LocalDate.now()) &&
+                    !secondLocalDate.isAfter(LocalDate.now()) &&
+                    !firstLocalDate.isAfter(secondLocalDate);
+        }
+
+        else if (isValidDateAndTime(initialDate) && isValidDateAndTime(finalDate)) {
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime firstLocalDate = LocalDateTime.parse(initialDate, formatter);
+            LocalDateTime secondLocalDate = LocalDateTime.parse(finalDate, formatter);
+
+            return !firstLocalDate.isAfter(LocalDateTime.now()) &&
+                    !secondLocalDate.isAfter(LocalDateTime.now()) &&
+                    !firstLocalDate.isAfter(secondLocalDate);
+        }
+        else return false;
     }
 
 }
