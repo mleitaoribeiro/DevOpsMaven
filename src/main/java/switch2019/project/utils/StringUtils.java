@@ -215,7 +215,7 @@ public class StringUtils {
 
     /**
      *
-     * Method to check if Date Range is correct (Initial Date > Final Date && <= Actual Date)
+     * Method to check if Date Range is correct (Initial Date <= Final Date && <= Actual Date)
      *
      * @param initialDate
      * @param finalDate
