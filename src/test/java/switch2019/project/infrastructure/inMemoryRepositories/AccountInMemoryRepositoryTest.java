@@ -1,6 +1,5 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountInMemoryRepositoryTest {
 
-    private AccountRepository accountRepository;
+    private AccountRepository accountRepository = new AccountInMemoryRepository();
 
     @BeforeEach
     void universeSetUp() {
@@ -37,7 +36,6 @@ class AccountInMemoryRepositoryTest {
         accountRepository.createAccount(new Denomination("SAN"),
                 new Description("SAN"), new PersonID(new Email("amadeu3@gmail.com")));
     }
-
 
     /**
      * Test if accounts was added to the list
@@ -83,7 +81,6 @@ class AccountInMemoryRepositoryTest {
         Account accountExpected3 = new Account(new Denomination("Millennium"),
                 new Description("Millennium Account"), new PersonID(new Email("antoniomagalhaes@isep.ipp.pt")));
 
-
         //Act
         Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new PersonID(new Email("martacarda@hotmail.com")));
@@ -107,7 +104,9 @@ class AccountInMemoryRepositoryTest {
         try {
             accountRepository.createAccount(new Denomination("CGD"),
                     new Description("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
-        } catch (ResourceAlreadyExistsException ex) {
+        }
+        // Assert
+        catch (ResourceAlreadyExistsException ex) {
             assertEquals("This account already exists.", ex.getMessage());
         }
     }
@@ -169,7 +168,6 @@ class AccountInMemoryRepositoryTest {
         Account accountExpected3 = new Account(new Denomination("Millennium"),
                 new Description("Millennium Account"), new GroupID(new Description("andorinhas")));
 
-
         //Act
         Account accountCreated = accountRepository.createAccount(new Denomination("xpto"),
                 new Description("one account"), new GroupID(new Description("familia")));
@@ -194,7 +192,6 @@ class AccountInMemoryRepositoryTest {
         //Act
         try {
             accountRepository.createAccount(null, new Description("XPTO"), new PersonID(new Email("12345@isep.ipp.pt")));
-
         }
         //Assert
         catch (IllegalArgumentException denomination) {
@@ -316,7 +313,6 @@ class AccountInMemoryRepositoryTest {
 
         //Assert
         assertEquals(3, accountRepository.repositorySize());
-
     }
 
     @Test
@@ -343,7 +339,6 @@ class AccountInMemoryRepositoryTest {
 
         //Assert
         assertTrue(result);
-
     }
 
     @Test
@@ -357,10 +352,7 @@ class AccountInMemoryRepositoryTest {
 
         //Assert
         assertNotNull(result);
-
     }
-
-
 
     @Test
     @DisplayName("Test if an account was removed from an accounts repository - Account Null")
@@ -372,9 +364,7 @@ class AccountInMemoryRepositoryTest {
 
         //Assert
         assertFalse(real);
-
     }
-
 
     /**
      * Test if account is in the repository
@@ -429,7 +419,6 @@ class AccountInMemoryRepositoryTest {
         assertEquals("Accounts Repository: [ACCOUNT FOR TEST PURPOSES, 0.0 EUR€, TEST ACCOUNT 1, test@gmail.com, ACCOUNT FOR TEST PURPOSES, 0.0 EUR€, TEST ACCOUNT 2, test2@gmail.com]", result);
     }
 
-
     /**
      * Tests to method findByID
      */
@@ -456,7 +445,6 @@ class AccountInMemoryRepositoryTest {
         Account accountExpected = new Account(new Denomination("CGD"),
         new Description("CGD"), new PersonID(new Email("amadeu1@gmail.com")));
 
-
         //Act
         Account accountReturned = accountRepository.getByID(new AccountID(new Denomination("BIC"),
                 new PersonID(new Email("amadeu2@gmail.com"))));
@@ -464,7 +452,6 @@ class AccountInMemoryRepositoryTest {
         //Arrange
         assertNotEquals(accountExpected, accountReturned);
     }
-
 
     /**
      * Tests to method returnAccountsByOwnerID
@@ -492,11 +479,16 @@ class AccountInMemoryRepositoryTest {
     @Test
     @DisplayName("Test if Accounts are returned by OwnerID - owner id not exists")
     void returnAccountsByOwnerIDDontExistException() {
-        //Arrange
+        // Arrange
         PersonID fakeID = (new PersonID(new Email("amadeu5@gmail.com")));
+
+        // Act
         try {
-            Set<Account> real = accountRepository.returnAccountsByOwnerID(fakeID);
-        } catch (ArgumentNotFoundException ex) {
+            accountRepository.returnAccountsByOwnerID(fakeID);
+        }
+
+        // Assert
+        catch (ArgumentNotFoundException ex) {
             assertEquals("No accounts found with that ID.", ex.getMessage());
         }
     }
@@ -504,26 +496,29 @@ class AccountInMemoryRepositoryTest {
     @Test
     @DisplayName("Test if Accounts are returned by OwnerID - null ID")
     void returnAccountsByOwnerIDNullException() {
-        //Arrange
+        // Act
         try {
-            Set<Account> real = accountRepository.returnAccountsByOwnerID(null);
-        } catch (IllegalArgumentException ex) {
+            accountRepository.returnAccountsByOwnerID(null);
+        }
+
+        // Assert
+        catch (IllegalArgumentException ex) {
             assertEquals("Owner ID can't be null.", ex.getMessage());
         }
     }
 
-
-
     @Test
     @DisplayName("Test if Account is return when asked by ID - exception")
     void findAccountByIDException() {
+        // Act
         try {
             accountRepository.getByID(new AccountID(new Denomination("xpto"),
                     new PersonID(new Email("notfound@gmail.com"))));
-        } catch (ArgumentNotFoundException ex) {
+        }
+
+        // Assert
+        catch (ArgumentNotFoundException ex) {
             assertEquals("No account found with that ID.", ex.getMessage());
         }
     }
-
-
 }
