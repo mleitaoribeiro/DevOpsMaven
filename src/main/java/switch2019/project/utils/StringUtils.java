@@ -226,9 +226,8 @@ public class StringUtils {
 
         if (isValidDate(initialDate) && isValidDate(finalDate)) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate firstLocalDate = LocalDate.parse(initialDate, formatter);
-            LocalDate secondLocalDate = LocalDate.parse(finalDate, formatter);
+            LocalDate firstLocalDate = toDateAndTime(initialDate).getYearMonthDay();
+            LocalDate secondLocalDate = toDateAndTime(finalDate).getYearMonthDay();
 
             return !firstLocalDate.isAfter(LocalDate.now()) &&
                     !secondLocalDate.isAfter(LocalDate.now()) &&
@@ -237,9 +236,8 @@ public class StringUtils {
 
         else if (isValidDateAndTime(initialDate) && isValidDateAndTime(finalDate)) {
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime firstLocalDate = LocalDateTime.parse(initialDate, formatter);
-            LocalDateTime secondLocalDate = LocalDateTime.parse(finalDate, formatter);
+            LocalDateTime firstLocalDate = toDateHourMinute(initialDate).getYearMonthDayHourMinute();
+            LocalDateTime secondLocalDate = toDateHourMinute(finalDate).getYearMonthDayHourMinute();
 
             return !firstLocalDate.isAfter(LocalDateTime.now()) &&
                     !secondLocalDate.isAfter(LocalDateTime.now()) &&
