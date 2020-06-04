@@ -3,10 +3,13 @@ package switch2019.project.assemblers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
+import switch2019.project.DTO.deserializationDTO.MemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
+import switch2019.project.DTO.serviceDTO.GetGroupTransactionInDateRangeDTO;
+import switch2019.project.DTO.serviceDTO.GetPersonalTransactionInDateRangeDTO;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 import switch2019.project.domain.domainEntities.ledger.Type;
 import switch2019.project.domain.domainEntities.person.Email;
@@ -153,6 +156,59 @@ class LedgerDTOAssemblerTest {
 
         // Assert
         assertEquals(expected, result);
+    }
+
+    /**
+     * Validate method that transforms a MemberInfoDTO into a GetPersonalTransactionInDateRangeDTO
+     */
+
+    @Test
+    @DisplayName("Validate method transformIntoGetPersonalTransactionInDateRangeDTO - Happy Case")
+    public void transformIntoGetPersonalTransactionInDateRangeDTO() {
+        //Arrange
+        MemberInfoDTO infoDTO = new MemberInfoDTO();
+        infoDTO.setPersonEmail("raquel@isep.ipp.pt");
+
+        String initialDate = "19-01-2002";
+        String finalDate = "25-01-2002";
+
+        GetPersonalTransactionInDateRangeDTO expectedDto = new GetPersonalTransactionInDateRangeDTO("raquel@isep.ipp.pt",
+                initialDate, finalDate);
+
+        //Act
+        GetPersonalTransactionInDateRangeDTO dto = LedgerDTOAssembler.transformIntoGetPersonalTransactionInDateRangeDTO(infoDTO,
+                initialDate,finalDate);
+
+        //Assert
+        assertEquals(expectedDto, dto);
+    }
+
+
+    /**
+     * Validate method that transforms a MemberInfoDTO into a GetGroupTransactionInDateRangeDTO
+     */
+
+
+    @Test
+    @DisplayName("Validate method transformIntoGetGroupTransactionInDateRangeDTO - Happy Case")
+    public void transformIntoGetGroupTransactionInDateRangeDTO() {
+        //Arrange
+        MemberInfoDTO infoDTO = new MemberInfoDTO();
+        infoDTO.setPersonEmail("raquel@isep.ipp.pt");
+
+        String initialDate = "19-01-2002";
+        String finalDate = "25-01-2002";
+        String groupDescription = "Friends";
+
+        GetGroupTransactionInDateRangeDTO expectedDto = new GetGroupTransactionInDateRangeDTO(groupDescription,
+                "raquel@isep.ipp.pt", initialDate, finalDate);
+
+        //Act
+        GetGroupTransactionInDateRangeDTO dto = LedgerDTOAssembler.transformIntoGetGroupTransactionInDateRangeDTO(infoDTO,
+                groupDescription,initialDate,finalDate);
+
+        //Assert
+        assertEquals(expectedDto, dto);
     }
 
 }
