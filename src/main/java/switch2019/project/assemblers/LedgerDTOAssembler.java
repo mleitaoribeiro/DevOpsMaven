@@ -72,14 +72,14 @@ public class LedgerDTOAssembler {
     /**
      * This method transforms a MemberInfoDTO into a GetPersonalTransactionInDateRangeDTO
      *
-     * @param memberInfoDTO
+     * @param personEmail
      * @param initialDate
      * @param finalDate
      * @return GetPersonalTransactionInDateRangeDTO
      */
-    public static GetPersonalTransactionInDateRangeDTO transformIntoGetPersonalTransactionInDateRangeDTO(MemberInfoDTO memberInfoDTO,
+    public static GetPersonalTransactionInDateRangeDTO transformIntoGetPersonalTransactionInDateRangeDTO(String personEmail,
                                                                                                 String initialDate, String finalDate) {
-        return new GetPersonalTransactionInDateRangeDTO (memberInfoDTO.getPersonEmail(), initialDate, finalDate);
+        return new GetPersonalTransactionInDateRangeDTO (personEmail, initialDate, finalDate);
     }
 
 
@@ -92,8 +92,8 @@ public class LedgerDTOAssembler {
      * @param finalDate
      * @return GetPersonalTransactionInDateRangeDTO
      */
-    public static GetGroupTransactionInDateRangeDTO transformIntoGetGroupTransactionInDateRangeDTO(MemberInfoDTO memberInfoDTO,
-                                                                                                      String groupDescription, String initialDate, String finalDate) {
+    public static GetGroupTransactionInDateRangeDTO transformIntoGetGroupTransactionInDateRangeDTO(String groupDescription,
+                                                                   MemberInfoDTO memberInfoDTO, String initialDate, String finalDate) {
         return new GetGroupTransactionInDateRangeDTO (groupDescription, memberInfoDTO.getPersonEmail(), initialDate, finalDate);
     }
 

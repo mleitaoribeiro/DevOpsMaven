@@ -86,7 +86,6 @@ class LedgerDTOAssemblerTest {
 
     /**
      * Tests for validate creation of DTO from Domain Object
-     *
      */
     @Test
     @DisplayName("Test method createTransactionDTOFromDomain")
@@ -119,7 +118,6 @@ class LedgerDTOAssemblerTest {
 
     /**
      * Tests for the createTransactionShortDTOFromDomain method
-     *
      */
     @Test
     @DisplayName("Test method createTransactionDTOFromDomain")
@@ -131,7 +129,7 @@ class LedgerDTOAssemblerTest {
         AccountID accountTo = new AccountID(new Denomination("meals"), new PersonID(new Email("personEmail@email.pt")));
 
         //Arrange Category:
-        CategoryID category = new CategoryID(new Denomination("grocery"),new PersonID(new Email("personEmail@email.com")));
+        CategoryID category = new CategoryID(new Denomination("grocery"), new PersonID(new Email("personEmail@email.com")));
 
         //Arrange MonetaryValue:
         MonetaryValue monetaryValue = new MonetaryValue(200, Currency.getInstance("EUR"));
@@ -147,7 +145,7 @@ class LedgerDTOAssemblerTest {
                 new Type(true));
 
         //Arrange the expected TransactionShortDTO
-        TransactionShortDTO expected = new TransactionShortDTO (monetaryValue.getAmount(), monetaryValue.getCurrency(),
+        TransactionShortDTO expected = new TransactionShortDTO(monetaryValue.getAmount(), monetaryValue.getCurrency(),
                 accountFrom.getDenominationToString(), accountTo.getDenominationToString(), "CREDIT", transaction.getId());
 
         //Act
@@ -166,18 +164,16 @@ class LedgerDTOAssemblerTest {
     @DisplayName("Validate method transformIntoGetPersonalTransactionInDateRangeDTO - Happy Case")
     public void transformIntoGetPersonalTransactionInDateRangeDTO() {
         //Arrange
-        MemberInfoDTO infoDTO = new MemberInfoDTO();
-        infoDTO.setPersonEmail("raquel@isep.ipp.pt");
-
+        String personEmail = "raquel@isep.ipp.pt";
         String initialDate = "19-01-2002";
         String finalDate = "25-01-2002";
 
-        GetPersonalTransactionInDateRangeDTO expectedDto = new GetPersonalTransactionInDateRangeDTO("raquel@isep.ipp.pt",
+        GetPersonalTransactionInDateRangeDTO expectedDto = new GetPersonalTransactionInDateRangeDTO(personEmail,
                 initialDate, finalDate);
 
         //Act
-        GetPersonalTransactionInDateRangeDTO dto = LedgerDTOAssembler.transformIntoGetPersonalTransactionInDateRangeDTO(infoDTO,
-                initialDate,finalDate);
+        GetPersonalTransactionInDateRangeDTO dto = LedgerDTOAssembler.transformIntoGetPersonalTransactionInDateRangeDTO(personEmail,
+                initialDate, finalDate);
 
         //Assert
         assertEquals(expectedDto, dto);
@@ -204,8 +200,8 @@ class LedgerDTOAssemblerTest {
                 "raquel@isep.ipp.pt", initialDate, finalDate);
 
         //Act
-        GetGroupTransactionInDateRangeDTO dto = LedgerDTOAssembler.transformIntoGetGroupTransactionInDateRangeDTO(infoDTO,
-                groupDescription,initialDate,finalDate);
+        GetGroupTransactionInDateRangeDTO dto = LedgerDTOAssembler.transformIntoGetGroupTransactionInDateRangeDTO(
+                groupDescription, infoDTO, initialDate, finalDate);
 
         //Assert
         assertEquals(expectedDto, dto);
