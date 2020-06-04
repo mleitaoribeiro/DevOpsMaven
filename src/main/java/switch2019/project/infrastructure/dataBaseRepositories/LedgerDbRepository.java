@@ -1,9 +1,13 @@
 package switch2019.project.infrastructure.dataBaseRepositories;
 
+import com.sun.org.apache.xpath.internal.Arg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import sun.util.calendar.LocalGregorianCalendar;
+import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
+import switch2019.project.assemblers.LedgerDTOAssembler;
 import switch2019.project.dataModel.dataAssemblers.LedgerDomainDataAssembler;
 import switch2019.project.dataModel.dataAssemblers.TransactionDomainDataAssembler;
 import switch2019.project.dataModel.entities.LedgerJpa;
@@ -23,6 +27,7 @@ import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,8 +44,10 @@ public class LedgerDbRepository implements LedgerRepository {
     //String literals - Exceptions
     private static final String LEDGER_ALREADY_EXISTS = "This Ledger already exists.";
     private static final String NO_LEDGER_FOUND = "No Ledger found with that ID.";
+    private static final String NULL_OWNER = "Owner ID can't be null.";
     private static final String NO_TRANSACTION_FOUND = "No transaction found with that ID.";
     private static final String NO_PERMISSION = "No permission.";
+    private static final String INVALID_DATE = "The date is not valid.";
 
     /**
      * Create/Add a new Ledger
@@ -129,10 +136,12 @@ public class LedgerDbRepository implements LedgerRepository {
      */
 
     public Ledger getByID(ID owner) {
-        Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findLedgerJpaByOwner(owner.toString());
-        if (ledgerJpa.isPresent()) {
-            return LedgerDomainDataAssembler.toDomain(ledgerJpa.get());
-        } else throw new ArgumentNotFoundException(NO_LEDGER_FOUND);
+        if(owner != null) {
+            Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findLedgerJpaByOwner(owner.toString());
+            if (ledgerJpa.isPresent()) {
+                return LedgerDomainDataAssembler.toDomain(ledgerJpa.get());
+            } else throw new ArgumentNotFoundException(NO_LEDGER_FOUND);
+        } else throw new IllegalArgumentException(NULL_OWNER);
     }
 
 
@@ -177,4 +186,21 @@ public class LedgerDbRepository implements LedgerRepository {
         return ledgerJpaRepository.count();
     }
 
+    /**
+     * Method to get the Transactions of a Ledger in a given Date Range
+     *
+     * @return Transactions
+     */
+
+    public List<Transaction> getTransactionsInDateRange(OwnerID ledgerID, String initDate, String finDate){
+        Ledger ledger = getByID(ledgerID);
+        if (StringUtils.isCorrectDateRange(initDate, finDate)) {
+            DateAndTime initialDate = StringUtils.toDateHourMinute(initDate);
+            DateAndTime finalDate = StringUtils.toDateHourMinute(finDate);
+
+            return ledger.getTransactionsInDateRange(initialDate.getYearMonthDayHourMinute(),
+                    finalDate.getYearMonthDayHourMinute());
+        }
+        throw new IllegalArgumentException(INVALID_DATE);
+    }
 }

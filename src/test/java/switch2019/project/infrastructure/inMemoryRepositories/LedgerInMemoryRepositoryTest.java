@@ -3,6 +3,8 @@ package switch2019.project.infrastructure.inMemoryRepositories;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import switch2019.project.domain.domainEntities.account.Account;
+import switch2019.project.domain.domainEntities.category.Category;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
@@ -14,6 +16,7 @@ import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 
@@ -462,4 +465,262 @@ class LedgerInMemoryRepositoryTest {
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
                 .hasMessage("No ledger found with that ID.");
     }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeHappyCaseAll() {
+
+        //Arrange
+        String groupDescription = "SWITCH";
+
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        ledgerInMemoryRepository.createLedger(groupID);
+
+        Category category= new Category (new Denomination ("ISEP"), groupID);
+
+        Account accountFrom = new Account (new Denomination("Pocket Money"),
+                new Description("Pocket Money for Superbock"), groupID);
+        Account accountTo = new Account(new Denomination("AE ISEP"),
+                new Description("AE BAR ISEP") , groupID);
+
+        Transaction transaction1 = new Transaction(new MonetaryValue(10.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 1"),
+                new DateAndTime(2020, 3, 4,18, 0),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Transaction transaction2 = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 3, 4,17, 0),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Transaction transaction3 = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 3"),
+                new DateAndTime(2020, 3, 4,17, 0),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        ledgerInMemoryRepository.addTransactionToLedger(new LedgerID(groupID),
+                new MonetaryValue(10.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 1"),
+                new DateAndTime(2020, 3, 4,18, 0), category.getID(),
+                accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        ledgerInMemoryRepository.addTransactionToLedger(new LedgerID(groupID),
+                new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 3, 4,17, 0), category.getID(),
+                accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        ledgerInMemoryRepository.addTransactionToLedger(new LedgerID(groupID),
+                new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 3"),
+                new DateAndTime(2020, 3, 4,17, 0), category.getID(),
+                accountFrom.getID(), accountTo.getID(), new Type(false));
+
+
+        String initialDate = "2020-03-04 16:00";
+        String finalDate = "2020-03-05 16:00";
+
+        List<Transaction> expected = Arrays.asList(transaction1, transaction2, transaction3);
+
+        //Act
+        List<Transaction> result = ledgerInMemoryRepository.getTransactionsInDateRange(groupID, initialDate, finalDate);
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeHappyCaseNotAll() {
+
+        //Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        String groupDescription = "SWITCH";
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        ledgerInMemoryRepository.createLedger(groupID);
+
+        Category category= new Category (new Denomination ("ISEP"), groupID);
+
+        Account accountFrom = new Account (new Denomination("Pocket Money"),
+                new Description("Pocket Money for Superbock"), groupID);
+        Account accountTo = new Account(new Denomination("AE ISEP"),
+                new Description("AE BAR ISEP") , groupID);
+
+        ledgerInMemoryRepository.addTransactionToLedger(new LedgerID(groupID),
+                new MonetaryValue(10.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 1"),
+                new DateAndTime(2020, 3, 4,18, 0), category.getID(),
+                accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Transaction transaction2 = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 3, 4,17, 0),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        Transaction transaction3 = new Transaction(new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 3"),
+                new DateAndTime(2020, 3, 4,17, 0),
+                category.getID(), accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        String initialDate = "2020-03-04 16:00";
+        String finalDate = "2020-03-04 17:30";
+
+        ledgerInMemoryRepository.addTransactionToLedger(new LedgerID(groupID),
+                new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 2"),
+                new DateAndTime(2020, 3, 4,17, 0), category.getID(),
+                accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        ledgerInMemoryRepository.addTransactionToLedger(new LedgerID(groupID),
+                new MonetaryValue(20.0, Currency.getInstance("EUR")),
+                new Description("SUPERBOCK ROUND 3"),
+                new DateAndTime(2020, 3, 4,17, 0), category.getID(),
+                accountFrom.getID(), accountTo.getID(), new Type(false));
+
+        List<Transaction> expected = Arrays.asList(transaction2, transaction3);
+
+        //Act
+        List<Transaction> result = ledgerInMemoryRepository.getTransactionsInDateRange(groupID, initialDate, finalDate);
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeEmptyLedger() {
+
+        //Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        String personDescription = "bart.simpson@gmail.com";
+
+        PersonID personID = new PersonID(new Email(personDescription));
+
+        ledgerInMemoryRepository.createLedger(personID);
+
+
+        String initialDate = "2020-03-04 16:00";
+        String finalDate = "2020-03-04 17:30";
+
+        List<Transaction> expected = Collections.emptyList();
+
+        //Act
+        List<Transaction> result = ledgerInMemoryRepository.getTransactionsInDateRange(personID, initialDate, finalDate);
+
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeInvalidDate() {
+
+        //Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        String groupDescription = "SWITCH";
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        ledgerInMemoryRepository.createLedger(groupID);
+
+        String initialDate = "2023-04 16:00";
+        String finalDate = "2020-03-04 17:30";
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.getTransactionsInDateRange(groupID, initialDate, finalDate);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The date is not valid.");
+
+    }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeNullDate() {
+
+        //Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        String groupDescription = "SWITCH";
+
+        GroupID groupID = new GroupID(new Description(groupDescription));
+
+        ledgerInMemoryRepository.createLedger(groupID);
+
+        String finalDate = "2020-03-04 17:30";
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.getTransactionsInDateRange(groupID, null, finalDate);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The date is not valid.");
+
+    }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeNullID() {
+
+        //Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        String initialDate = "2020-03-04 16:30";
+        String finalDate = "2020-03-04 17:30";
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.getTransactionsInDateRange(null, initialDate, finalDate);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Owner ID can't be null.");
+
+    }
+
+    @Test
+    @DisplayName("Get Transactions In Date Range - happy case")
+    void getTransactionsInDateRangeNoIDFound() {
+
+        //Arrange
+        LedgerRepository ledgerInMemoryRepository = new LedgerInMemoryRepository();
+
+        GroupID groupID = new GroupID(new Description("Grupinho dos amigos"));
+
+        String initialDate = "2020-03-04 16:30";
+        String finalDate = "2020-03-04 17:30";
+
+
+        //Act
+        Throwable thrown = catchThrowable(() -> {
+            ledgerInMemoryRepository.getTransactionsInDateRange(groupID, initialDate, finalDate);
+        });
+
+        //Assert
+        assertThat(thrown)
+                .isExactlyInstanceOf(ArgumentNotFoundException.class)
+                .hasMessage("No ledger found with that ID.");
+
+    }
+
 }
