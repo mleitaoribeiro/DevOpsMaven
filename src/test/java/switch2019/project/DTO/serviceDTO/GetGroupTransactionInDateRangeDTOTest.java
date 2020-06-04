@@ -26,6 +26,42 @@ public class GetGroupTransactionInDateRangeDTOTest {
         assertTrue(result);
     }
 
+    @Test
+    @DisplayName("Test for method equals - two objects with the same parameters")
+    void testEqualsTwoObjectSameParameters() {
+
+        // Arrange
+        GetGroupTransactionInDateRangeDTO dto = new GetGroupTransactionInDateRangeDTO("Friends",
+                "raquel@isep.ipp.pt", "19-01-2002", "25-01-2002");
+
+        GetGroupTransactionInDateRangeDTO dto2 = new GetGroupTransactionInDateRangeDTO("Friends",
+                "raquel@isep.ipp.pt", "19-01-2002", "25-01-2002");
+
+        // Act
+        boolean result = dto.equals(dto2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test for method equals - different object")
+    void testEqualsDifferentObject() {
+
+        // Arrange
+        GetGroupTransactionInDateRangeDTO dto = new GetGroupTransactionInDateRangeDTO("Friends",
+                "raquel@isep.ipp.pt", "19-01-2002", "25-01-2002");
+
+        GetGroupTransactionInDateRangeDTO dto2 = new GetGroupTransactionInDateRangeDTO("Buddies",
+                "raquel@isep.ipp.pt", "19-01-2002", "25-01-2002");
+
+        // Act
+        boolean result = dto.equals(dto2);
+
+        // Assert
+        assertFalse(result);
+    }
+
 
     @Test
     @DisplayName("Test for method equals - object from different class")
