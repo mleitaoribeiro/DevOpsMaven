@@ -2,13 +2,15 @@ package switch2019.project.DTO.serviceDTO;
 
 import java.util.Objects;
 
-public class GetPersonalTransactionInDateRangeDTO {
+public class GetGroupTransactionInDateRangeDTO {
 
+    private final String groupDescription;
     private final String personEmail;
     private final String initialDate;
     private final String finalDate;
 
-    public GetPersonalTransactionInDateRangeDTO(String personEmail, String initialDate, String finalDate) {
+    public GetGroupTransactionInDateRangeDTO(String groupDescription, String personEmail, String initialDate, String finalDate) {
+        this.groupDescription = groupDescription;
         this.personEmail = personEmail;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
@@ -18,16 +20,28 @@ public class GetPersonalTransactionInDateRangeDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GetPersonalTransactionInDateRangeDTO that = (GetPersonalTransactionInDateRangeDTO) o;
-        return Objects.equals(personEmail, that.personEmail) &&
+        GetGroupTransactionInDateRangeDTO that = (GetGroupTransactionInDateRangeDTO) o;
+        return Objects.equals(groupDescription, that.groupDescription) &&
+                Objects.equals(personEmail, that.personEmail) &&
                 Objects.equals(initialDate, that.initialDate) &&
                 Objects.equals(finalDate, that.finalDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personEmail, initialDate, finalDate);
+        return Objects.hash(groupDescription, personEmail, initialDate, finalDate);
     }
+
+    /**
+     * get Group Description
+     *
+     * @return groupDescription
+     */
+
+    public String getGroupDescription() {
+        return groupDescription;
+    }
+
 
     /**
      * get Person Email
@@ -37,6 +51,7 @@ public class GetPersonalTransactionInDateRangeDTO {
     public String getPersonEmail() {
         return personEmail;
     }
+
 
     /**
      * get Initial Date
@@ -56,4 +71,5 @@ public class GetPersonalTransactionInDateRangeDTO {
     public String getFinalDate() {
         return finalDate;
     }
+
 }
