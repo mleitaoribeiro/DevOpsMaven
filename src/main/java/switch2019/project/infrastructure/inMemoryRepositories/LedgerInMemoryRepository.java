@@ -133,4 +133,23 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         return ledger.getLedgerTransactions();
     }
 
+    @Override
+    public List<Transaction> getTransactionsInDateRange(OwnerID ledgerID, String initDate, String finDate) {
+        Ledger ledger;
+        if(ledgerID != null) {
+            if (StringUtils.isEmail(ledgerID.toString()))
+                ledger = getByID(new LedgerID(new PersonID(new Email(ledgerID.toString()))));
+            else ledger = getByID(new LedgerID(new GroupID(new Description(ledgerID.toString()))));
+
+            if (StringUtils.isValidDateAndTime(initDate) && StringUtils.isValidDateAndTime(finDate)) {
+                DateAndTime initialDate = StringUtils.toDateHourMinute(initDate);
+                DateAndTime finalDate = StringUtils.toDateHourMinute(finDate);
+
+                return ledger.getTransactionsInDateRange(initialDate.getYearMonthDayHourMinute(),
+                        finalDate.getYearMonthDayHourMinute());
+            }
+            throw new IllegalArgumentException("The date is not valid.");
+        } throw new IllegalArgumentException("Owner ID can't be null.");
+    }
+
 }

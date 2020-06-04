@@ -2,6 +2,7 @@ package switch2019.project.domain.repositories;
 
 import switch2019.project.dataModel.entities.TransactionJpa;
 import switch2019.project.domain.domainEntities.frameworks.ID;
+import switch2019.project.domain.domainEntities.frameworks.Owner;
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.ledger.Ledger;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
@@ -77,6 +78,8 @@ public interface LedgerRepository extends Repository {
                                        CategoryID category, AccountID accountFrom, AccountID accountTo, Type type);
 
     List<Transaction> findAllTransactionsByLedgerID(String ownerID);
+
+    List<Transaction> getTransactionsInDateRange(OwnerID ledgerID, String initDate, String finDate);
 }
 
 
