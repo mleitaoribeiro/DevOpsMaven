@@ -108,6 +108,11 @@ public class PersonInMemoryRepository implements PersonRepository {
      * @return
      */
     public boolean addSibling(Person person, String siblingID) {
-        return true;
+        for (Person p : listOfPersons)
+            if (p.getID().getEmail().equals(siblingID)) {
+                person.addSibling(p);
+                return true;
+            }
+        return false;
     }
 }

@@ -8,10 +8,10 @@ participant "HTTP Client (Test)"
 participant "inputDTO:\naddMemberInfoDTO"
 participant "mvcResult :MvcResult"
 participant "mvc:MockMvc"
-participant "infoDTO:addMemberInfoDTO"
+participant "infoDTO:memberInfoDTO"
 participant "restController:US003AddMemberToGroupControllerRest"
 participant ":GroupDTOAssembler"
-participant "addMemberInfoDTO:\nAddMemberInfoDTO"
+participant "memberInfoDTO:\nAddMemberInfoDTO"
 participant "addedMemberDTO:\nAddedMemberDTO"
 participant "addMemberDTO:\nAddMemberDTO"
 participant "service:\nUS003AddMemberToGroupService"
@@ -30,24 +30,24 @@ activate "mvc:MockMvc"  #FFBBBB
 autonumber 3.1
 "mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
 
-create "infoDTO:addMemberInfoDTO"
-"mvc:MockMvc"->"infoDTO:addMemberInfoDTO": create
+create "infoDTO:memberInfoDTO"
+"mvc:MockMvc"->"infoDTO:memberInfoDTO": create
 
 create "restController:US003AddMemberToGroupControllerRest"
-"mvc:MockMvc"-> "restController:US003AddMemberToGroupControllerRest" : addMember(groupDescription, addMemberInfoDTO)
+"mvc:MockMvc"-> "restController:US003AddMemberToGroupControllerRest" : addMember(groupDescription, memberInfoDTO)
 
 autonumber 3.3.1
 activate "restController:US003AddMemberToGroupControllerRest" #FFBBBB
-"restController:US003AddMemberToGroupControllerRest" -> ":GroupDTOAssembler": addMemberDTO = transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription)
+"restController:US003AddMemberToGroupControllerRest" -> ":GroupDTOAssembler": addMemberDTO = transformIntoAddMemberDTO(memberInfoDTO, groupDescription)
 
 autonumber 3.3.1.1
 
 activate ":GroupDTOAssembler" #FFBBBB
 
-":GroupDTOAssembler" -> "addMemberInfoDTO:\nAddMemberInfoDTO": personEmail = getPersonEmail()
+":GroupDTOAssembler" -> "memberInfoDTO:\nAddMemberInfoDTO": personEmail = getPersonEmail()
 
-activate "addMemberInfoDTO:\nAddMemberInfoDTO" #FFBBBB
-deactivate "addMemberInfoDTO:\nAddMemberInfoDTO" #FFBBBB
+activate "memberInfoDTO:\nAddMemberInfoDTO" #FFBBBB
+deactivate "memberInfoDTO:\nAddMemberInfoDTO" #FFBBBB
 
 create "addMemberDTO:\nAddMemberDTO"
 ":GroupDTOAssembler" -> "addMemberDTO:\nAddMemberDTO": addMemberDTO = new AddMemberDTO(personEmail, groupDescription)

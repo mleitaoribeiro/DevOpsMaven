@@ -37,12 +37,10 @@ public class LedgerInMemoryRepository implements LedgerRepository {
      */
 
     public Ledger getByID(ID ledgerID) {
-
         for (Ledger ledger : ledgers) {
             if (ledger.getID().equals(ledgerID))
                 return ledger;
-        }
-        throw new ArgumentNotFoundException("No ledger found with that ID.");
+        } throw new ArgumentNotFoundException("No ledger found with that ID.");
     }
 
     /**
@@ -68,8 +66,7 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         for (Ledger ledger : ledgers) {
             if (ledger.getID().equals(ledgerID))
                 return true;
-        }
-        return false;
+        } return false;
     }
 
     /**
@@ -122,33 +119,18 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         } else throw new ArgumentNotFoundException("No Ledger found with that ID.");
     }
 
+    /**
+     * Method to return all the transactions from a given ownerID
+     *
+     * @param ownerID
+     */
 
     public List<Transaction> findAllTransactionsByLedgerID(String ownerID) {
         Ledger ledger;
-        if (StringUtils.isEmail(ownerID)) {
-            ledger = getByOwnerID(new PersonID(new Email(ownerID)));
-        } else {
-            ledger = getByOwnerID(new GroupID(new Description(ownerID)));
-        }
+        if (StringUtils.isEmail(ownerID))
+            ledger = getByID(new LedgerID(new PersonID(new Email(ownerID))));
+        else ledger = getByID(new LedgerID(new GroupID(new Description(ownerID))));
         return ledger.getLedgerTransactions();
     }
-
-    public Ledger getByOwnerID(ID ledgerID) {
-        for (Ledger ledger : ledgers) {
-            GroupID groupID = new GroupID(new Description(ledger.getID().getOwnerID().toString()));
-            if (groupID.equals(ledgerID)) {
-                return ledger;
-            }
-            if (StringUtils.isEmail(ledger.getID().getOwnerID().toString())){
-                PersonID personID = new PersonID(new Email(ledger.getID().getOwnerID().toString()));
-                if (personID.equals(ledgerID)) {
-                    return ledger;
-                }
-            }
-        }
-        throw new ArgumentNotFoundException("No ledger found with that ID.");
-    }
-
-
 
 }

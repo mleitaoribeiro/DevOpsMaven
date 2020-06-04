@@ -6,6 +6,7 @@ import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -166,4 +167,83 @@ public class StringUtils {
                 || firstDate.minusMinutes(1).isEqual(secondDate));
 
     }
+
+    /**
+     *
+     * Method to Check If a String Is a Valid Date (yyyy-MM-dd)
+     *
+     *
+     * @param date
+     * @return boolean
+     */
+
+    public static boolean isValidDate(String date) {
+
+        if (date == null || date.isEmpty())
+            return false;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * Method to Check If a String Is a Valid Date And Time (yyyy-MM-dd HH:mm)
+     *
+     * @param date
+     * @return boolean
+     */
+
+    public static boolean isValidDateAndTime(String date) {
+
+        if (date == null || date.isEmpty())
+            return false;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        try {
+            LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * Method to check if Date Range is correct (Initial Date <= Final Date && <= Actual Date)
+     *
+     * @param initialDate
+     * @param finalDate
+     * @return boolean
+     */
+
+    public static boolean isCorrectDateRange(String initialDate, String finalDate) {
+
+        if (isValidDate(initialDate) && isValidDate(finalDate)) {
+
+            LocalDate firstLocalDate = toDateAndTime(initialDate).getYearMonthDay();
+            LocalDate secondLocalDate = toDateAndTime(finalDate).getYearMonthDay();
+
+            return !firstLocalDate.isAfter(LocalDate.now()) &&
+                    !secondLocalDate.isAfter(LocalDate.now()) &&
+                    !firstLocalDate.isAfter(secondLocalDate);
+        }
+
+        else if (isValidDateAndTime(initialDate) && isValidDateAndTime(finalDate)) {
+
+            LocalDateTime firstLocalDateTime = toDateHourMinute(initialDate).getYearMonthDayHourMinute();
+            LocalDateTime secondLocalDateTime = toDateHourMinute(finalDate).getYearMonthDayHourMinute();
+
+            return !firstLocalDateTime.isAfter(LocalDateTime.now()) &&
+                    !secondLocalDateTime.isAfter(LocalDateTime.now()) &&
+                    !firstLocalDateTime.isAfter(secondLocalDateTime);
+        }
+        else return false;
+    }
+
 }

@@ -12,10 +12,10 @@ import java.util.Objects;
 public class Ledger {
 
     //Private Ledger variables
-    private LedgerID ledgerID;
+    private final LedgerID ledgerID;
     private final DateAndTime creationDate;
-    private List<Transaction> ledgerTransactions;
-    private ScheduledTasksList scheduledTasksList;
+    private final List<Transaction> ledgerTransactions;
+    private final ScheduledTasksList scheduledTasksList;
 
     //String literals should not be duplicated
     private static final String DATE_NOT_VALID = "One of the specified dates is not valid.";
@@ -117,7 +117,8 @@ public class Ledger {
      * @return
      */
 
-    public Transaction addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
+    public Transaction addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate,
+                                              CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         Transaction transaction = new Transaction(amount, description, localDate, category, accountFrom, accountTo, type);
         ledgerTransactions.add(transaction);
         sortLedgerByTransactionDateDescending();

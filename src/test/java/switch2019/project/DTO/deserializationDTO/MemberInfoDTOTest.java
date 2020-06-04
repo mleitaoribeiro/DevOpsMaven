@@ -6,12 +6,12 @@ import switch2019.project.DTO.serializationDTO.AccountDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AddMemberInfoDTOTest {
+class MemberInfoDTOTest {
 
     @Test
     void testEqualsSameExactObject() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
         //Act:
@@ -24,8 +24,8 @@ class AddMemberInfoDTOTest {
     @Test
     void testEqualsNullObject() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
-        AddMemberInfoDTO addMemberDTONull = null;
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
+        MemberInfoDTO addMemberDTONull = null;
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
         //Act:
@@ -38,7 +38,7 @@ class AddMemberInfoDTOTest {
     @Test
     void testEqualsDifferentClassObject() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
         AccountDTO accountDTO = new AccountDTO("marta@isep.pt", "savings", "2020 savings");
@@ -53,11 +53,11 @@ class AddMemberInfoDTOTest {
     @Test
     void testEqualsSameParameters() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
 
-        AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO2 = new MemberInfoDTO();
         addMemberDTO2.setPersonEmail("marta@isep.pt");
 
         //Act:
@@ -70,11 +70,11 @@ class AddMemberInfoDTOTest {
     @Test
     void testEqualsDifferentParameters() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
 
-        AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO2 = new MemberInfoDTO();
         addMemberDTO2.setPersonEmail("pinheiro@isep.pt");
 
 
@@ -88,11 +88,11 @@ class AddMemberInfoDTOTest {
     @Test
     void testHashCodeTRUE() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
 
-        AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO2 = new MemberInfoDTO();
         addMemberDTO2.setPersonEmail("marta@isep.pt");
 
 
@@ -106,10 +106,10 @@ class AddMemberInfoDTOTest {
     @Test
     void testHashCodeFALSE() {
         //Arrange:
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         addMemberDTO.setPersonEmail("marta@isep.pt");
 
-        AddMemberInfoDTO addMemberDTO2 = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO2 = new MemberInfoDTO();
         addMemberDTO2.setPersonEmail("pinheiro@isep.pt");
 
         //Act:
@@ -128,7 +128,7 @@ class AddMemberInfoDTOTest {
     @DisplayName("Test to get method personEmail")
     void getPersonEmail() {
         //Arrange
-        AddMemberInfoDTO addMemberDTO = new AddMemberInfoDTO();
+        MemberInfoDTO addMemberDTO = new MemberInfoDTO();
         String expected = "raquel@xpto.pt";
         addMemberDTO.setPersonEmail(expected);
 

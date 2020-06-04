@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Category implements Entity {
 
     //Private instance variables
-    private CategoryID categoryID;
+    private final CategoryID categoryID;
 
     /**
      * 2nd Category constructor
