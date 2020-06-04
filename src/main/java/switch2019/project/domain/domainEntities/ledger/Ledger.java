@@ -2,8 +2,10 @@ package switch2019.project.domain.domainEntities.ledger;
 
 import switch2019.project.domain.domainEntities.frameworks.OwnerID;
 import switch2019.project.domain.domainEntities.shared.*;
+import switch2019.project.utils.StringUtils;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -174,15 +176,10 @@ public class Ledger {
         if (initialDate == null || finalDate == null)
             throw new IllegalArgumentException(DATE_CANT_NULL);
 
-        else if (initialDate.isAfter(LocalDateTime.now()) || finalDate.isAfter(LocalDateTime.now()))
+        else if (!StringUtils.isCorrectDateRange(
+                initialDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                finalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))))
             throw new IllegalArgumentException(DATE_NOT_VALID);
-
-            //Validate if Date is in the correct order
-        else if (initialDate.isAfter(finalDate)) {
-            LocalDateTime aux = initialDate;
-            initialDate = finalDate;
-            finalDate = aux;
-        }
 
         List<Transaction> myTransactions = new ArrayList<>();
         for (Transaction transactions : ledgerTransactions) {
