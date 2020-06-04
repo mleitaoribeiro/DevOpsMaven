@@ -13,6 +13,7 @@ import switch2019.project.domain.domainEntities.shared.PersonID;
 import switch2019.project.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LedgerDomainDataAssembler {
 
@@ -29,7 +30,7 @@ public class LedgerDomainDataAssembler {
             ownerId = new GroupID(new Description(owner));
 
         // Getting all TransactionsJPA related to that LedgerJPA
-        ArrayList<TransactionJpa> transactionsJpa = new ArrayList<>(); // TODO change later to DB Repository method
+        List<TransactionJpa> transactionsJpa = ledgerJpa.getTransactionsFromLedgerJpa();
 
         ArrayList<Transaction> transactions = new ArrayList<>();
 
