@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
+import switch2019.project.DTO.deserializationDTO.MemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.AddedMemberDTO;
 import switch2019.project.DTO.serializationDTO.PersonIDDTO;
 import switch2019.project.DTO.serviceDTO.AddMemberDTO;
@@ -52,10 +52,10 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "SWitCH";
         String personEmail = "morty@gmail.com";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(memberInfoDTO, groupDescription);
         AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(true, personEmail, groupDescription);
 
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
@@ -63,7 +63,7 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberExpectedDTO, HttpStatus.CREATED);
 
         //Act
-        ResponseEntity<Object> responseEntity = controller.addMemberToGroup(groupDescription, addMemberInfoDTO);
+        ResponseEntity<Object> responseEntity = controller.addMemberToGroup(groupDescription, memberInfoDTO);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntity);
@@ -78,10 +78,10 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "SWitCH";
         String personEmail = "1191778@isep.ipp.pt";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(memberInfoDTO, groupDescription);
         AddedMemberDTO addedMemberExpectedDTO = new AddedMemberDTO(false, personEmail, groupDescription);
 
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).thenReturn(addedMemberExpectedDTO);
@@ -89,7 +89,7 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         ResponseEntity responseEntityExpected = new ResponseEntity<>(addedMemberExpectedDTO, HttpStatus.CREATED);
 
         //Act
-        ResponseEntity<Object> responseEntity = controller.addMemberToGroup(groupDescription, addMemberInfoDTO);
+        ResponseEntity<Object> responseEntity = controller.addMemberToGroup(groupDescription, memberInfoDTO);
 
         //Assert
         assertEquals(responseEntityExpected, responseEntity);
@@ -104,17 +104,17 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "SWitCH";
         String personEmail = "marta@gmail.com";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(memberInfoDTO, groupDescription);
 
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
                 thenThrow(new IllegalArgumentException("No person found with that email."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addMemberToGroup(groupDescription, addMemberInfoDTO);
+            controller.addMemberToGroup(groupDescription, memberInfoDTO);
         });
 
         //Assert
@@ -132,17 +132,17 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "games";
         String personEmail = "morty@gmail.com";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(memberInfoDTO, groupDescription);
 
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
                 thenThrow(new IllegalArgumentException("No group found with that description."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addMemberToGroup(groupDescription, addMemberInfoDTO);
+            controller.addMemberToGroup(groupDescription, memberInfoDTO);
         });
 
         //Assert
@@ -160,17 +160,17 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = "games";
         String personEmail = null;
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(memberInfoDTO, groupDescription);
 
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
                 thenThrow(new IllegalArgumentException("The email can't be null."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addMemberToGroup(groupDescription, addMemberInfoDTO);
+            controller.addMemberToGroup(groupDescription, memberInfoDTO);
         });
 
         //Assert
@@ -188,17 +188,17 @@ public class US003AddMemberToGroupControllerRestUnitTest {
         String groupDescription = null;
         String personEmail = "morty@gmail.com";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(addMemberInfoDTO, groupDescription);
+        AddMemberDTO addMemberControllerDTO = GroupDTOAssembler.transformIntoAddMemberDTO(memberInfoDTO, groupDescription);
 
         Mockito.when(service.addMemberToGroup(addMemberControllerDTO)).
                 thenThrow(new IllegalArgumentException("The description can't be null or empty."));
 
         //Act
         Throwable thrown = catchThrowable(() -> {
-            controller.addMemberToGroup(groupDescription, addMemberInfoDTO);
+            controller.addMemberToGroup(groupDescription, memberInfoDTO);
         });
 
         //Assert

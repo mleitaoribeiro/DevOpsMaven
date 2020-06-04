@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import switch2019.project.AbstractTest;
-import switch2019.project.DTO.deserializationDTO.AddMemberInfoDTO;
+import switch2019.project.DTO.deserializationDTO.MemberInfoDTO;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.NoPermissionException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
@@ -53,10 +53,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
         //POST - Add new member
         String uriPost = "/groups/" + groupDescription + "/members";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        String inputJson = super.mapToJson(addMemberInfoDTO);
+        String inputJson = super.mapToJson(memberInfoDTO);
 
         String expected = personEmail + " was added to group " + groupDescription;
         String link = "/groups/" + groupDescription + "/members/" + personEmail;
@@ -105,10 +105,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         String uri = "/groups/" + groupDescription + "/members";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        String inputJson = super.mapToJson(addMemberInfoDTO);
+        String inputJson = super.mapToJson(memberInfoDTO);
 
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -144,10 +144,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         String uri = "/groups/" + groupDescription + "/members";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        String inputJson = super.mapToJson((addMemberInfoDTO));
+        String inputJson = super.mapToJson((memberInfoDTO));
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -183,10 +183,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         String uri = "/groups/" + groupDescription + "/members";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        String inputJson = super.mapToJson(addMemberInfoDTO);
+        String inputJson = super.mapToJson(memberInfoDTO);
 
         // Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -222,10 +222,10 @@ class US003AddMemberToGroupControllerRestIntegrationTest extends AbstractTest {
 
         String uri = "/groups/" + groupDescription + "/members";
 
-        AddMemberInfoDTO addMemberInfoDTO = new AddMemberInfoDTO();
-        addMemberInfoDTO.setPersonEmail(personEmail);
+        MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+        memberInfoDTO.setPersonEmail(personEmail);
 
-        String inputJson = super.mapToJson(addMemberInfoDTO);
+        String inputJson = super.mapToJson(memberInfoDTO);
 
         //Act
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
