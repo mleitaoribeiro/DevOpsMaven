@@ -236,12 +236,12 @@ public class StringUtils {
 
         else if (isValidDateAndTime(initialDate) && isValidDateAndTime(finalDate)) {
 
-            LocalDateTime firstLocalDate = toDateHourMinute(initialDate).getYearMonthDayHourMinute();
-            LocalDateTime secondLocalDate = toDateHourMinute(finalDate).getYearMonthDayHourMinute();
+            LocalDateTime firstLocalDateTime = toDateHourMinute(initialDate).getYearMonthDayHourMinute();
+            LocalDateTime secondLocalDateTime = toDateHourMinute(finalDate).getYearMonthDayHourMinute();
 
-            return !firstLocalDate.isAfter(LocalDateTime.now()) &&
-                    !secondLocalDate.isAfter(LocalDateTime.now()) &&
-                    !firstLocalDate.isAfter(secondLocalDate);
+            return !firstLocalDateTime.isAfter(LocalDateTime.now()) &&
+                    !secondLocalDateTime.isAfter(LocalDateTime.now()) &&
+                    !firstLocalDateTime.isAfter(secondLocalDateTime);
         }
         else return false;
     }
