@@ -382,13 +382,17 @@ class LedgerTest {
         Transaction expectedTransaction2 = new Transaction(otherMonetaryValue, new Description("xpto"),
                 otherLocalDate, otherCategory, anotherAccount, oneAccount, new Type(false));
 
-        List<Transaction> expected = new ArrayList<>(Arrays.asList(expectedTransaction2, expectedTransaction1));
         //Act
-        List<Transaction> real = ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
-                LocalDateTime.of(2017, 10, 2, 9, 20));
+
+        try {
+            ledger.getTransactionsInDateRange(LocalDateTime.of(2019, 2, 3, 10, 40),
+                    LocalDateTime.of(2017, 10, 2, 9, 20));
+        }
 
         //Assert
-        assertEquals(expected, real);
+        catch (IllegalArgumentException getTransactionsInDateRange) {
+            assertEquals("One of the specified dates is not valid.", getTransactionsInDateRange.getMessage());
+        }
     }
 
     @Test
