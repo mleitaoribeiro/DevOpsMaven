@@ -168,6 +168,7 @@ class AccountDbRepositoryTest {
                 () -> assertEquals(expected, result)
         );
     }
+
     @Test
     @DisplayName("Return account from jpaRepository - exception")
     void getByIDException() {

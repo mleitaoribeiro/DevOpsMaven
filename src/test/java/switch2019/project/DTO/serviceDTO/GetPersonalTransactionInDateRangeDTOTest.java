@@ -27,6 +27,24 @@ public class GetPersonalTransactionInDateRangeDTOTest {
     }
 
     @Test
+    @DisplayName("Test for method equals - two objects with the same parameters")
+    void testEqualsTwoObjectSameParameters() {
+
+        // Arrange
+        GetPersonalTransactionInDateRangeDTO dto = new GetPersonalTransactionInDateRangeDTO("raquel@isep.ipp.pt",
+                "19-01-2002", "25-01-2002");
+
+        GetPersonalTransactionInDateRangeDTO dto2 = new GetPersonalTransactionInDateRangeDTO("raquel@isep.ipp.pt",
+                "19-01-2002", "25-01-2002");
+
+        // Act
+        boolean result = dto.equals(dto2);
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Test for method equals - different object")
     void testEqualsDifferentObject() {
 

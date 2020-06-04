@@ -1,6 +1,5 @@
 package switch2019.project.infrastructure.inMemoryRepositories;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import switch2019.project.domain.domainEntities.account.Account;
 import switch2019.project.domain.domainEntities.frameworks.ID;
@@ -9,7 +8,6 @@ import switch2019.project.domain.domainEntities.shared.AccountID;
 import switch2019.project.domain.domainEntities.shared.Denomination;
 import switch2019.project.domain.domainEntities.shared.Description;
 import switch2019.project.domain.repositories.AccountRepository;
-import switch2019.project.infrastructure.jpa.AccountJpaRepository;
 import switch2019.project.utils.customExceptions.ArgumentNotFoundException;
 import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 
@@ -18,9 +16,6 @@ import java.util.Set;
 
 @Component
 public class AccountInMemoryRepository implements AccountRepository {
-
-    @Autowired
-    AccountJpaRepository accountJpaRepository;
 
     //Private instance variables
     private final Set<Account> accounts;
@@ -45,8 +40,7 @@ public class AccountInMemoryRepository implements AccountRepository {
         for (Account account : accounts) {
             if (account.getID().equals(accountID))
                 return account;
-        }
-        throw new ArgumentNotFoundException("No account found with that ID.");
+        } throw new ArgumentNotFoundException("No account found with that ID.");
     }
 
     /**

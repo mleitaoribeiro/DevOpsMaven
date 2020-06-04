@@ -1,10 +1,13 @@
 package switch2019.project.assemblers;
 
 import switch2019.project.DTO.deserializationDTO.CreateTransactionInfoDTO;
+import switch2019.project.DTO.deserializationDTO.MemberInfoDTO;
 import switch2019.project.DTO.serializationDTO.TransactionDTO;
 import switch2019.project.DTO.serializationDTO.TransactionShortDTO;
 import switch2019.project.DTO.serviceDTO.CreateGroupTransactionDTO;
 import switch2019.project.DTO.serviceDTO.CreatePersonalTransactionDTO;
+import switch2019.project.DTO.serviceDTO.GetGroupTransactionInDateRangeDTO;
+import switch2019.project.DTO.serviceDTO.GetPersonalTransactionInDateRangeDTO;
 import switch2019.project.domain.domainEntities.ledger.Transaction;
 
 public class LedgerDTOAssembler {
@@ -14,6 +17,7 @@ public class LedgerDTOAssembler {
 
     /**
      * This method transforms a CreatePersonalTransactionInfoDTO into a CreatePersonalTransactionDTO
+     *
      * @param personEmail
      * @param infoDTO
      * @return CreatePersonalTransactionDTO
@@ -29,7 +33,7 @@ public class LedgerDTOAssembler {
      */
 
     public static CreateGroupTransactionDTO transformToCreateGroupTransactionDTO(String groupDescription,
-                                                CreateTransactionInfoDTO createTransactionInfoDTO){
+                                                                                 CreateTransactionInfoDTO createTransactionInfoDTO) {
 
         return new CreateGroupTransactionDTO(groupDescription, createTransactionInfoDTO.getPersonEmail(),
                 createTransactionInfoDTO.getAmount(), createTransactionInfoDTO.getCurrency(),
@@ -56,12 +60,41 @@ public class LedgerDTOAssembler {
      * @param transaction
      * @return TransactionShortDTO
      */
-    public static TransactionShortDTO createTransactionShortDTOFromDomain (Transaction transaction) {
+    public static TransactionShortDTO createTransactionShortDTOFromDomain(Transaction transaction) {
 
-        return new TransactionShortDTO (transaction.getAmount(),transaction.getCurrency(),
+        return new TransactionShortDTO(transaction.getAmount(), transaction.getCurrency(),
                 transaction.getAccountFrom().getDenominationToString(),
                 transaction.getAccountTo().getDenominationToString(),
                 transaction.typeToString(), transaction.getId());
+    }
+
+
+    /**
+     * This method transforms a MemberInfoDTO into a GetPersonalTransactionInDateRangeDTO
+     *
+     * @param memberInfoDTO
+     * @param initialDate
+     * @param finalDate
+     * @return GetPersonalTransactionInDateRangeDTO
+     */
+    public static GetPersonalTransactionInDateRangeDTO transformIntoGetPersonalTransactionInDateRangeDTO(MemberInfoDTO memberInfoDTO,
+                                                                                                String initialDate, String finalDate) {
+        return new GetPersonalTransactionInDateRangeDTO (memberInfoDTO.getPersonEmail(), initialDate, finalDate);
+    }
+
+
+    /**
+     * This method transforms a MemberInfoDTO into a GetGroupTransactionInDateRangeDTO
+     *
+     * @param memberInfoDTO
+     * @param groupDescription
+     * @param initialDate
+     * @param finalDate
+     * @return GetPersonalTransactionInDateRangeDTO
+     */
+    public static GetGroupTransactionInDateRangeDTO transformIntoGetGroupTransactionInDateRangeDTO(MemberInfoDTO memberInfoDTO,
+                                                                                                      String groupDescription, String initialDate, String finalDate) {
+        return new GetGroupTransactionInDateRangeDTO (groupDescription, memberInfoDTO.getPersonEmail(), initialDate, finalDate);
     }
 
 }
