@@ -182,6 +182,7 @@
                         <param>switch2019.project.domain.*</param>
                         <param>switch2019.project.DTO.*</param>
                         <param>switch2019.project.infrastructure.*</param>
+                        <param>switch2019.project.utils.*</param>
                     </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
