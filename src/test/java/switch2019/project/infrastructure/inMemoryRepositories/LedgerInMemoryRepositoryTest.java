@@ -719,7 +719,8 @@ class LedgerInMemoryRepositoryTest {
         //Assert
         assertThat(thrown)
                 .isExactlyInstanceOf(ArgumentNotFoundException.class)
-                .hasMessage("No ledger found with that ID.");
+                    .hasMessage("No ledger found with that ID.");
+        
 
     }
 
