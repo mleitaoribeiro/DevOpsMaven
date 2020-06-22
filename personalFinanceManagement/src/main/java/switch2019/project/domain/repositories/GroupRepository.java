@@ -12,8 +12,9 @@ public interface GroupRepository extends Repository {
     /**
      * As a user I want to create a group becoming a group administrator(US02.1)
      *
-     * @param groupDescription
-     * @param groupCreator
+     * @param groupDescription - groupDescription
+     * @param groupCreator - groupCreator
+     * @return - Group
      */
     Group createGroup(Description groupDescription, PersonID groupCreator);
 
@@ -21,46 +22,51 @@ public interface GroupRepository extends Repository {
     /**
      * Method used to find a specific group by its Description
      *
-     * @param groupDescription
+     * @param groupDescription - groupDescription
+     * @return - Group
      */
     Group findGroupByDescription(Description groupDescription);
+
 
     /**
      * Method to return the group corespondent to the given GroupID
      *
-     * @param groupID
+     * @param groupID - groupID
+     * @return - Group
      */
-
     Group getByID(ID groupID);
 
 
     /**
      * Method to validate if the group t is in the groups Repository
      *
-     * @param groupID
+     * @param groupID - groupID
+     * @return - Boolean
      */
     boolean isIDOnRepository(ID groupID);
 
     /**
      * Method to return all groups in the repository
+     *
+     * @return - List of Groups
      */
     List<Group> getAllGroups();
 
     /**
      * Method to add a member to a Group
      *
-     * @param group
-     * @param personID
-     * @return
+     * @param group - group
+     * @param personID - personID
+     * @return - Boolean
      */
     boolean addMember(Group group, String personID);
 
     /**
      * Method to add an admin to a Group
      *
-     * @param group
-     * @param personID
-     * @return
+     * @param group - group
+     * @param personID - personID
+     * @return - Boolean
      */
     boolean setAdmin(Group group, String personID);
 }
