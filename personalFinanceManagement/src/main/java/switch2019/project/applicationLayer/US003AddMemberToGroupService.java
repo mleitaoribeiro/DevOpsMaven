@@ -32,7 +32,7 @@ public class US003AddMemberToGroupService {
      * US003
      * Add Member To Group
      *
-     * @param addMemberDTO
+     * @param addMemberDTO for addMemberDTO
      * @return AddedMemberDTO
      */
 

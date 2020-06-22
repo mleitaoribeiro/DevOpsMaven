@@ -6,6 +6,7 @@ import switch2019.project.DTO.serializationDTO.SiblingsDTO;
 import switch2019.project.DTO.serviceDTO.AreSiblingsDTO;
 import switch2019.project.applicationLayer.US001AreSiblingsService;
 import switch2019.project.assemblers.PersonDTOAssembler;
+
 @Controller
 public class US001AreSiblingsController {
 
@@ -16,8 +17,9 @@ public class US001AreSiblingsController {
      * US001
      * As system manager, I want to know if two people are siblings
      *
-     * @param
-     * @return true if two people are siblings
+     * @param emailPersonOne for person one email
+     * @param emailPersonTwo for person two email
+     * @return siblingsDTO
      */
     public SiblingsDTO areSiblings(String emailPersonOne, String emailPersonTwo) {
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);

@@ -12,7 +12,7 @@ public interface CategoryRepository extends Repository {
     /**
      * Find an Category by it´s id
      *
-     * @param categoryID
+     * @param categoryID for categoryId
      *
      */
 
@@ -21,9 +21,10 @@ public interface CategoryRepository extends Repository {
     /**
      * Add a new category to CategoryList
      *
-     * @param nameOfCategory
-     * @param ownerID
+     * @param nameOfCategory for nameOfCategory
+     * @param ownerID for ownerId
      *
+     * @return category created
      */
 
     Category createCategory (Denomination nameOfCategory, OwnerID ownerID);
@@ -31,16 +32,16 @@ public interface CategoryRepository extends Repository {
     /**
      * Get list of Categories By Owner ID
      *
-     * @param ownerID
-     *
+     * @param ownerID for ownerId
+     * @return category created
      */
 
     Set<Category> returnCategoriesByOwnerID (OwnerID ownerID);
 
     /**
      * Add multiple categories
-     * @param setOfCategories
-     * @param ownerID
+     * @param setOfCategories for setOfCategories
+     * @param ownerID for ownerId
      * @return boolean
      */
 

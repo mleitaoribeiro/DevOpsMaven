@@ -17,13 +17,14 @@ public class TransactionDTO {
     /**
      * Constructor for TransactionDTO
      *
-     * @param amount
-     * @param description
-     * @param date
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
+     * @param amount for amount
+     * @param currency for currency
+     * @param description for description
+     * @param date for date
+     * @param category for category
+     * @param accountFrom for accountFrom
+     * @param accountTo for accountTo
+     * @param type for type
      */
 
     public  TransactionDTO (Double amount, Currency currency, String description, String date, String category,
@@ -60,6 +61,7 @@ public class TransactionDTO {
 
     /**
      * Getter for Currency
+     *
      * @return currency
      */
 

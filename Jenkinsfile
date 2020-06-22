@@ -29,7 +29,7 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Generating javadocs...'
-                    bat './gradlew javadoc'
+                    bat './mvnw javadoc:javadoc'
                     publishHTML ([
                                 reportName: 'Javadoc',
                                 reportDir: 'build/docs/javadoc/',
