@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Building...'
-                    bat './mvnw package -Dmaven.test.skip=true '
+                    sh './mvnw package -Dmaven.test.skip=true '
                 }
             }
         }
@@ -20,19 +20,20 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Testing...'
-                    bat './mvnw test'
+                    sh './mvnw test'
                     junit 'target/surefire-reports/*.txt'
                 }
             }
         }
+        /*
         stage ('Javadoc'){
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Generating javadocs...'
-                    bat './gradlew javadoc'
+                    sh './mvnw javadoc:javadoc'
                     publishHTML ([
                                 reportName: 'Javadoc',
-                                reportDir: 'build/docs/javadoc/',
+                                reportDir: 'target/site/apidocs/',
                                 reportFiles: 'index.html',
                                 keepAll: false,
                                 alwaysLinkToLastBuild: false,
@@ -41,33 +42,35 @@ pipeline {
                 }
             }
         }
+        */
         stage('Archiving') {
             steps {
-                dir('ca2/ca2part2') {
-                    bat 'dir'
+                dir('personalFinanceManagement') {
+                    sh 'dir'
                     echo 'Archiving...'
-                    archiveArtifacts 'build/libs/'
+                    archiveArtifacts 'target/'
                 }
             }
         }
+        /*
         stage('Docker Image') {
              steps {
-                dir('ca5/ca5part2') {
-                    script {
-                        dockerimage = docker.build("gabriel1191765/ca5part2:${env.BUILD_ID}")
-                    }
+                script {
+                    dockerimage = docker.build("gabriel1191765/ca5part2:${env.BUILD_ID}")
                 }
             }
         }
         stage('Publish Image') {
             steps {
-                dir('ca5/ca5part2') {
-                    script{
-                        bat 'docker login -u="gabriel1191765" -p="gabriel2636"'
-                        dockerimage.push()
-                    }
+                script{
+                    sh 'docker login -u="gabriel1191765" -p="gabriel2636"'
+                    dockerimage.push()
                 }
             }
         }
+        */
+        /* stage ('Ansible') {
+
+        }*/
     }
 }

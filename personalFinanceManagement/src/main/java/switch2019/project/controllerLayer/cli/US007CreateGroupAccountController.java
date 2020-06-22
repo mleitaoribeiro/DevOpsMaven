@@ -20,7 +20,7 @@ public class US007CreateGroupAccountController {
      * @param groupDescription for groupDescription
      * @param accountDenomination for accountDenomination
      * @param accountDescription for accountDescription
-     * @return AccountDTO
+     * @return accountDTO
      */
     public AccountDTO createGroupAccount(String personEmail, String groupDescription,
                                          String accountDenomination, String accountDescription) {

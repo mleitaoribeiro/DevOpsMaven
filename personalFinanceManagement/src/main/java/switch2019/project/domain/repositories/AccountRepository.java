@@ -13,7 +13,7 @@ public interface AccountRepository extends Repository {
     /**
      * Find an Account by it´s id
      *
-     * @param accountID
+     * @param accountID for accountId
      *
      */
 
@@ -22,10 +22,10 @@ public interface AccountRepository extends Repository {
     /**
      * Method to add one account to the repository with an Owner
      *
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     *
+     * @param accountDenomination for accountDenomination
+     * @param accountDescription for accountDescription
+     * @param ownerID for ownerID
+     * @return account
      */
 
     Account createAccount (Denomination accountDenomination, Description accountDescription, OwnerID ownerID);
@@ -33,8 +33,8 @@ public interface AccountRepository extends Repository {
     /**
      * Method to remove one account from the Repository
      *
-     * @param accountToBeRemoved
-     *
+     * @param accountToBeRemoved for accountToBeRemoved
+     * @return true if account removed
      */
 
     boolean removeAccount (Account accountToBeRemoved);
@@ -42,8 +42,8 @@ public interface AccountRepository extends Repository {
     /**
      * Get list of Accounts By Owner ID
      *
-     * @param ownerID
-     *
+     * @param ownerID for ownerID
+     * @return list of accounts by ownerID
      */
 
     Set <Account> returnAccountsByOwnerID (OwnerID ownerID);

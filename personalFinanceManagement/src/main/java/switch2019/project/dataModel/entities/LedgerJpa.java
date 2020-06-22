@@ -64,7 +64,7 @@ public class LedgerJpa {
 
     /**
      * Method that adds a transactionJpa to the LedgerJpa
-     * @param transactionJpa
+     * @param transactionJpa for transactionJpa
      */
 
     public void addTransaction(TransactionJpa transactionJpa) {
@@ -73,7 +73,7 @@ public class LedgerJpa {
 
     /**
      * Method used to obtain all the TransactionsJpa on the LedgerJpa
-     * @return
+     * @return list of transactionsJpa
      */
 
     public List<TransactionJpa> getTransactionsFromLedgerJpa() {

@@ -35,7 +35,7 @@ public class TransactionDTO {
         this.date = date;
         this.category = category;
         this.accountFrom = accountFrom;
-        this.accountTo = accountTo;
+        this. accountTo = accountTo;
         this.type = type;
     }
 
@@ -61,7 +61,8 @@ public class TransactionDTO {
 
     /**
      * Getter for Currency
-     * @return Currency
+     *
+     * @return currency
      */
 
     public Currency getCurrency() {
@@ -71,7 +72,7 @@ public class TransactionDTO {
     /**
      * Getter for amount
      *
-     * @return Double
+     * @return amount
      */
 
     public Double getAmount() {
@@ -81,7 +82,7 @@ public class TransactionDTO {
     /**
      * Getter for description
      *
-     * @return String
+     * @return description
      */
 
     public String getDescription() {
@@ -91,7 +92,7 @@ public class TransactionDTO {
     /**
      * Getter for date
      *
-     * @return String
+     * @return date
      */
 
     public String getDate() {
@@ -111,7 +112,7 @@ public class TransactionDTO {
     /**
      * Getter for accountFrom
      *
-     * @return String
+     * @return accountFrom
      */
 
     public String getAccountFrom() {
@@ -121,7 +122,7 @@ public class TransactionDTO {
     /**
      * Getter for accountTo
      *
-     * @return String
+     * @return accountTo
      */
 
     public String getAccountTo() {
@@ -131,7 +132,7 @@ public class TransactionDTO {
     /**
      * Getter for Type
      *
-     * @return String
+     * @return type
      */
 
     public String getType() {

@@ -18,7 +18,6 @@ public class US003AddMemberToGroupController {
      * Add member to Group
      *
      * @param personEmail for personEmail
-     * @param groupDescription for groupDescription
      * @return AddedMemberDTO
      */
     public AddedMemberDTO addMemberToGroup(String personEmail, String groupDescription) {

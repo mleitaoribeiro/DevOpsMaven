@@ -18,7 +18,7 @@ public class US002_1CreateGroupController {
      *
      * @param groupDescription for groupDescription
      * @param personEmail for personEmail
-     * @return GroupDTO
+     * @return groupDTO
      */
     public GroupDTO createGroup(String groupDescription, String personEmail) {
        CreateGroupDTO createGroupDTO = GroupDTOAssembler.creationOfGroupDTO(groupDescription,personEmail);

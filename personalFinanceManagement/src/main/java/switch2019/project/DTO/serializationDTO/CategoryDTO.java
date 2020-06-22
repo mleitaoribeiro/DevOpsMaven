@@ -39,7 +39,7 @@ public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 
     /**
      * Getter for the Category description
-     * @return String
+     * @return
      */
     public String getDenomination() {
         return denomination;
@@ -47,7 +47,7 @@ public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 
     /**
      * Getter for the CategoryID
-     * @return String
+     * @return
      */
     public String getOwnerID() {
         return ownerID;
