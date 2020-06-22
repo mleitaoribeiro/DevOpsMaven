@@ -1,0 +1,137 @@
+@startuml
+skinparam DefaultFontSize 30
+
+autonumber 1
+-> "service\n:US008CreateTransactionService" : addGroupTransaction(createGroupTransactionDTO)
+activate "service\n:US008CreateTransactionService"  #FFBBBB
+
+|||
+
+ref over "service\n:US008CreateTransactionService" : getAttributes (groupDescription, personEmail, amount, currency, description, date, type, \ncategoryID, accountFromID, accountToID, groupID, ledger)
+
+|||
+
+autonumber 1.1
+"service\n:US008CreateTransactionService" -> ":Group" : isGroupMember (personEmail)
+activate ":Group" #FFBBBB
+deactivate ":Group"
+
+
+"service\n:US008CreateTransactionService" -> "ledgerRepo\n:LedgerRepository" : addTransactionToLedger (ledgerID, amount, description, \n date, category, accountFrom, accountTo, type)
+activate "ledgerRepo\n:LedgerRepository" #FFBBBB
+
+autonumber 1.2.1
+"ledgerRepo\n:LedgerRepository" -> "ledgerRepo\n:LedgerRepository": isIDOnRepository(ledgerID)
+
+"ledgerRepo\n:LedgerRepository" -> "ledgerRepo\n:LedgerRepository": ledger = getById(ledgerID)
+
+"ledgerRepo\n:LedgerRepository"->":LedgerDomainDataAssembler": toData(ledger)
+activate ":LedgerDomainDataAssembler" #FFBBBB
+
+autonumber 1.2.3.1
+":LedgerDomainDataAssembler"->"ledger:Ledger" : owner = getOwner()
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+":LedgerDomainDataAssembler"->"ledger:Ledger" : creationDate = getCreationDate()
+activate "ledger:Ledger" #FFBBBB
+deactivate "ledger:Ledger"
+
+
+create "ledgerJpa:LedgerJpa"
+":LedgerDomainDataAssembler"-->"ledgerJpa:LedgerJpa" : create(owner, creationDate)
+":LedgerDomainDataAssembler"-->"ledgerRepo\n:LedgerRepository" : ledgerJpa
+deactivate ":LedgerDomainDataAssembler"
+
+create "transaction:Transaction"
+autonumber 1.2.4
+"ledgerRepo\n:LedgerRepository"-->"transaction:Transaction": create (amount, description, localDate, category, accountFrom, accountTo, type)
+
+"ledgerRepo\n:LedgerRepository"->":TransactionDomainDataAssembler": toData(ledger, transaction)
+activate ":TransactionDomainDataAssembler" #FFBBBB
+
+autonumber 1.2.5.1
+":TransactionDomainDataAssembler"->":LedgerDomainDataAssembler": ledgerJpa = toData(ledger)
+activate ":LedgerDomainDataAssembler" #FFBBBB
+deactivate ":LedgerDomainDataAssembler" #FFBBBB
+
+
+":TransactionDomainDataAssembler"-->"transaction:Transaction"
+activate "transaction:Transaction" #FFBBBB
+ref over "transaction:Transaction" : getTransactionAttributes
+"transaction:Transaction"-->":TransactionDomainDataAssembler": amount, currency, \naccountFrom, accountTo, type, id
+deactivate "transaction:Transaction" #FFBBBB
+
+create ":TransactionJpa"
+":TransactionDomainDataAssembler"->":TransactionJpa" : create(ledgerJpa, amount, currency, description,\n date, category, accountFrom, accountTo, type)
+
+autonumber 1.2.5.5
+":TransactionDomainDataAssembler"-->"ledgerRepo\n:LedgerRepository": transactionJpa
+deactivate ":TransactionDomainDataAssembler"
+
+autonumber 1.2.6
+"ledgerRepo\n:LedgerRepository"->"transactionRepo\n:transactionJpaRepository": : save(transactionJpa)
+
+activate "transactionRepo\n:transactionJpaRepository" #FFBBBB
+
+deactivate ":TransactionDomainDataAssembler"
+
+autonumber 1.2.6.1
+"transactionRepo\n:transactionJpaRepository"->"transactionRepo\n:transactionJpaRepository": newTransactionJpa = save(transactionJpa)
+
+"transactionRepo\n:transactionJpaRepository"-->"ledgerRepo\n:LedgerRepository": newTransactionJpa
+deactivate "transactionRepo\n:transactionJpaRepository" #FFBBBB
+
+autonumber 1.2.7
+"ledgerRepo\n:LedgerRepository"->"ledgerJpa:LedgerJpa" : addTransaction(owner, newTransactionJpa)
+activate "ledgerJpa:LedgerJpa" #FFBBBB
+
+autonumber 1.2.7.1
+"ledgerJpa:LedgerJpa"->"ledgerJpa:LedgerJpa" : addTransaction(newTransactionJpa)
+deactivate "ledgerJpa:LedgerJpa" #FFBBBB
+
+autonumber 1.2.8
+"ledgerRepo\n:LedgerRepository"->":TransactionDomainDataAssembler":toDomain(newTransactionJpa)
+activate ":TransactionDomainDataAssembler" #FFBBBB
+
+autonumber 1.2.8.1
+":TransactionDomainDataAssembler"->":TransactionDomainDataAssembler": ownerId = getOwner()
+
+":TransactionDomainDataAssembler" -> ":TransactionJpa"
+activate ":TransactionJpa" #FFBBBB
+ref over ":TransactionJpa" : getTransactionJpaAttributes
+":TransactionJpa" --> ":TransactionDomainDataAssembler" : amount, currency, description, \ndate, type, id, category, accountFrom, accountTo
+deactivate ":TransactionJpa"
+
+create "newTransaction:Transaction"
+":TransactionDomainDataAssembler"-->"newTransaction:Transaction" : create(amount, description, date , category\n, accountFrom, accountTo, type, id)
+":TransactionDomainDataAssembler" --> "ledgerRepo\n:LedgerRepository" : newTransaction
+deactivate ":TransactionDomainDataAssembler"
+
+
+"ledgerRepo\n:LedgerRepository" --> "service\n:US008CreateTransactionService" : newTransaction
+deactivate "ledgerRepo\n:LedgerRepository"
+
+autonumber 1.3
+"service\n:US008CreateTransactionService"->":LedgerDTOAssembler":createTransactionShortDTOFromDomain(newTransaction)
+activate ":LedgerDTOAssembler" #FFBBBB
+
+autonumber 1.3.1
+":LedgerDTOAssembler"->"newTransaction:Transaction":
+activate "newTransaction:Transaction" #FFBBBB
+
+ref over "newTransaction:Transaction" : getNewTransactionAttributes
+"newTransaction:Transaction"-->":LedgerDTOAssembler": amount, currency, \naccountFrom, accountTo, type, id
+deactivate "newTransaction:Transaction" #FFBBBB
+
+create "transactionShortDTO:TransactionShortDTO"
+":LedgerDTOAssembler"->"transactionShortDTO:TransactionShortDTO": create (amount, currency, \naccountFrom, accountTo, type, id)
+
+":LedgerDTOAssembler" --> "service\n:US008CreateTransactionService" : transactionShortDTO
+deactivate ":LedgerDTOAssembler"
+
+autonumber 1.4
+<-- "service\n:US008CreateTransactionService" : transactionShortDTO
+deactivate "service\n:US008CreateTransactionService"
+
+@enduml

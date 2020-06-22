@@ -1,0 +1,82 @@
+@startuml
+skinparam DefaultFontSize 30
+
+participant ":Test"
+
+== Arrange ==
+create "service:\nUS007CreateGroupAccountService"
+":Test" -> "service:\nUS007CreateGroupAccountService" : new US007CreateGroupAccountService(personRepo, groupsRepo, accountRepo)
+
+create "controller:\nUS007CreateGroupAccountController"
+":Test" -> "controller:\nUS007CreateGroupAccountController" : new US007CreateGroup\nAccountController(service)
+
+participant "service:\nUS007CreateGroupAccountService"
+participant "personRepo:\nPersonRepository"
+participant "person:\nPerson"
+participant "groupRepo:\nGroupRepository"
+participant "group:\nGroup"
+participant "accountRepo:\nAccountRepository"
+participant "account:\nAccount"
+participant "assembler:\nAccountDTOAssembler"
+
+== Act ==
+
+
+":Test" -> "controller:\nUS007CreateGroupAccountController" : createGroupAccount\n(personEmail, groupDescription, \naccountDenomination, accountDescription)
+activate "controller:\nUS007CreateGroupAccountController"  #FFBBBB
+
+"controller:\nUS007CreateGroupAccountController" -> "assembler:\nAccountDTOAssembler": createGroupAccountDTO = createGroupAccountDTOFromPrimitiveTypes\n(personEmail, groupDescription, accountDenomination, accountDescription)
+activate "assembler:\nAccountDTOAssembler"  #FFBBBB
+
+create "createGroupAccountDTO:\nCreateGroupAccountDTO"
+"assembler:\nAccountDTOAssembler" -> "createGroupAccountDTO:\nCreateGroupAccountDTO": new CreateGroupAccountDTO\n(personEmail, groupDescription,\n accountDenomination,\n accountDescription)
+deactivate "assembler:\nAccountDTOAssembler"
+
+"controller:\nUS007CreateGroupAccountController" -> "service:\nUS007CreateGroupAccountService" : createGroupAccount\n(createGroupAccountDTO)
+activate "service:\nUS007CreateGroupAccountService"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "personRepo:\nPersonRepository" : person = findPersonByEmail\n(createGroupAccountDTO.getPersonEmail())
+activate "personRepo:\nPersonRepository"  #FFBBBB
+deactivate "personRepo:\nPersonRepository"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "person:\nPerson" : personID = getID()
+activate "person:\nPerson"  #FFBBBB
+deactivate "person:\nPerson"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "groupRepo:\nGroupRepository" : group = findGroupByDescription\n(createGroupAccountDTO.getGroupDescription())
+activate "groupRepo:\nGroupRepository"  #FFBBBB
+deactivate "groupRepo:\nGroupRepository"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "group:\nGroup" : groupID = getID()
+activate "group:\nGroup" #FFBBBB
+deactivate "group:\nGroup"
+
+"service:\nUS007CreateGroupAccountService" -> "group:\nGroup" : personIsGroupAdmin = isGroupAdmin(personID)
+activate "group:\nGroup" #FFBBBB
+deactivate "group:\nGroup"
+
+"service:\nUS007CreateGroupAccountService" -> "accountRepo:\nAccountRepository" : account = createAccount(accountDenomination, accountDescription, groupID)
+activate "accountRepo:\nAccountRepository" #FFBBBB
+"accountRepo:\nAccountRepository" -> "accountRepo:\nAccountRepository" : accountNotInRepository\n = isAccountIDOnRepository\n(accountDenomination, groupID)
+create "account:\nAccount"
+"accountRepo:\nAccountRepository" -> "account:\nAccount" : new Account\n(accountDenomination,\n accountDescription, groupID)
+"accountRepo:\nAccountRepository" -> "accountRepo:\nAccountRepository" : add(account)
+deactivate "accountRepo:\nAccountRepository" #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "assembler:\nAccountDTOAssembler":accountCreatedDTO = createAccountDTOFromDomainObject(account)
+activate "assembler:\nAccountDTOAssembler" #FFBBBB
+create "accountDTO:\nAccountDTO"
+"assembler:\nAccountDTOAssembler" -> "accountDTO:\nAccountDTO": new AccountDTO(account)
+deactivate "assembler:\nAccountDTOAssembler"
+
+"service:\nUS007CreateGroupAccountService"-> "controller:\nUS007CreateGroupAccountController": accountCreatedDTO
+"controller:\nUS007CreateGroupAccountController" -> ":Test": accountCreatedDTO
+
+deactivate "service:\nUS007CreateGroupAccountService"
+deactivate "controller:\nUS007CreateGroupAccountController"
+
+== Assert ==
+
+":Test" -> ":Test" : assertEquals(accountExpectedDTO,\naccountCreatedDTO)
+
+@enduml

@@ -1,0 +1,97 @@
+@startuml
+skinparam DefaultFontSize 25
+
+participant "HTTP Client (Test)"
+participant "inputDTO:\ncreateGroupAccountInfoDTO"
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "info:createGroupAccountInfoDTO"
+participant "AccountDTOAssembler"
+participant "createGroupAccountDTO:\nCreateGroupAccountDTO"
+participant "restController:\nUS007CreateGroupAccountControllerRest"
+participant "accountDTO:AccountDTO"
+participant "service:US007CreateGroupAccountService"
+
+== Arrange ==
+autonumber
+create "inputDTO:\ncreateGroupAccountInfoDTO"
+"HTTP Client (Test)" -> "inputDTO:\ncreateGroupAccountInfoDTO": inputDTO = CreateGroupAccountInfoDTO\n(personEmail, accountDenomination, accountDescription);
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
+== Act ==
+
+"HTTP Client (Test)" -> "mvc:MockMvc" :POST /groups/{groupDescription}/accounts {inputJson}
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 3.1
+"mvc:MockMvc" -> "mvc:MockMvc" : deserialize inputJson
+create "info:createGroupAccountInfoDTO"
+"mvc:MockMvc"-->"info:createGroupAccountInfoDTO" :create
+
+"mvc:MockMvc"-> "restController:\nUS007CreateGroupAccountControllerRest": createGroupAccount(groupDescription, info)
+activate "restController:\nUS007CreateGroupAccountControllerRest" #FFBBBB
+autonumber 3.3.1
+"restController:\nUS007CreateGroupAccountControllerRest"-> "AccountDTOAssembler":transformToCreateGroupAccountDTO(groupDescription, info)
+activate "AccountDTOAssembler" #FFBBBB
+autonumber 3.3.1.1
+"AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : personEmail = getPersonEmail();
+activate "info:createGroupAccountInfoDTO" #FFBBBB
+"AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : accountDescription = getAccountDescription();
+"AccountDTOAssembler" -> "info:createGroupAccountInfoDTO" : accountDenomination = getAccountDenomination();
+deactivate "info:createGroupAccountInfoDTO"
+create "createGroupAccountDTO:\nCreateGroupAccountDTO"
+"AccountDTOAssembler" -> "createGroupAccountDTO:\nCreateGroupAccountDTO" : CreateGroupAccountDTO = createGroupAccountDTO(personEmail,\ngroupDescription, accountDenomination, accountDescription)
+deactivate "createGroupAccountDTO:\nCreateGroupAccountDTO"
+autonumber 3.3.1.5
+"AccountDTOAssembler" --> "restController:\nUS007CreateGroupAccountControllerRest" : createGroupAccountDTO
+deactivate "AccountDTOAssembler"
+autonumber 3.3.2
+"restController:\nUS007CreateGroupAccountControllerRest"->"service:US007CreateGroupAccountService": createGroupAccount(createGroupAccountDTO)
+activate "service:US007CreateGroupAccountService" #FFBBBB
+autonumber 3.3.2.1
+|||
+ref over "service:US007CreateGroupAccountService": US007CreateGroupAccountControllerRest_Part2
+"service:US007CreateGroupAccountService" --> "restController:\nUS007CreateGroupAccountControllerRest" : accountDTO
+|||
+autonumber 3.3.3
+deactivate "service:US007CreateGroupAccountService" #FFBBBB
+"restController:\nUS007CreateGroupAccountControllerRest"->"restController:\nUS007CreateGroupAccountControllerRest": selfLink = /groups/{ownerID}/accounts/{accountDenomination}
+"restController:\nUS007CreateGroupAccountControllerRest"-> "accountDTO:AccountDTO": add(selfLink)
+activate "accountDTO:AccountDTO" #FFBBBB
+deactivate "accountDTO:AccountDTO" #FFBBBB
+"restController:\nUS007CreateGroupAccountControllerRest"->"restController:\nUS007CreateGroupAccountControllerRest": accountsLink = /groups/{groupDescription}/accounts
+"restController:\nUS007CreateGroupAccountControllerRest"-> "accountDTO:AccountDTO": add(accountsLink)
+activate "accountDTO:AccountDTO" #FFBBBB
+deactivate "accountDTO:AccountDTO" #FFBBBB
+|||
+create "responseEntity:Response Entity"
+"restController:\nUS007CreateGroupAccountControllerRest" --> "responseEntity:Response Entity" : create (accountDTO,HttpStatus.CREATED)
+"restController:\nUS007CreateGroupAccountControllerRest" --> "mvc:MockMvc": responseEntity
+deactivate "restController:\nUS007CreateGroupAccountControllerRest"
+autonumber 3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+
+
+"HTTP Client (Test)" <-- "mvc:MockMvc" : {jsonResponse}
+deactivate "mvc:MockMvc"
+
+autonumber 4
+|||
+create "mvcResult :MvcResult"
+"HTTP Client (Test)" --> "mvcResult :MvcResult" : create
+
+autonumber 5
+activate "mvcResult :MvcResult" #FFBBBB
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+deactivate "mvcResult :MvcResult" #FFBBBB
+
+== Assert ==
+
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+
+deactivate "service:US007CreateGroupAccountService"
+
+@enduml

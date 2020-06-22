@@ -1,0 +1,96 @@
+@startuml
+skinparam DefaultFontSize 25
+
+title US008 Sequence Diagram - Happy Case
+
+participant "HTTP Client (Test)"
+participant "inputDTO:\nCreateTransactionInfoDTO"
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "restController:US008CreatePersonTransactionControllerRest"
+participant ":LedgerDTOAssembler"
+participant "service:US008CreateTransactionService"
+participant "infoDTO:CreateTransactionInfoDTO"
+
+== Arrange ==
+autonumber
+
+create "inputDTO:\nCreateTransactionInfoDTO"
+"HTTP Client (Test)" -> "inputDTO:\nCreateTransactionInfoDTO": inputDTO = new CreateTransactionInfoDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, personEmail)
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
+== Act ==
+
+create "mvc:MockMvc"
+"HTTP Client (Test)" -> "mvc:MockMvc" :POST /persons/{personId}/ledger/transactions {inputJson}
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 3.1
+"mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
+
+create "infoDTO:CreateTransactionInfoDTO"
+"mvc:MockMvc"-->"infoDTO:CreateTransactionInfoDTO": create
+
+"mvc:MockMvc"-> "restController:US008CreatePersonTransactionControllerRest": createPersonTransaction(personID, infoDTO)
+activate "restController:US008CreatePersonTransactionControllerRest" #FFBBBB
+
+autonumber 3.3.1
+"restController:US008CreatePersonTransactionControllerRest"-> ":LedgerDTOAssembler": transformToCreatePersonalTransactionDTO(personId, infoDTO)
+activate ":LedgerDTOAssembler"  #FFBBBB
+
+autonumber 3.3.1.1
+create "createPersonalTransactionDTO:CreatePersonalTransactionDTO"
+":LedgerDTOAssembler" -> "createPersonalTransactionDTO:CreatePersonalTransactionDTO": transformToCreatePersonalTransactionDTO(personId, infoDTO)
+
+":LedgerDTOAssembler" -> "restController:US008CreatePersonTransactionControllerRest" : createPersonalTransactionDTO
+
+deactivate ":LedgerDTOAssembler"
+
+autonumber 3.3.2
+"restController:US008CreatePersonTransactionControllerRest"->"service:US008CreateTransactionService": addPersonalTransaction(createPersonalTransactionDTO)
+activate "service:US008CreateTransactionService" #FFBBBB
+
+|||
+
+ref over "service:US008CreateTransactionService" : US008CreatePersonTransactionControllerRestPart1
+
+autonumber 3.3.2.1
+"service:US008CreateTransactionService" --> "restController:US008CreatePersonTransactionControllerRest" : transactionShortDTO
+deactivate "service:US008CreateTransactionService"
+
+autonumber 3.3.3
+"restController:US008CreatePersonTransactionControllerRest"->"restController:US008CreatePersonTransactionControllerRest": selfLink = /persons/{personId}/ledger/transactions/{id}
+"restController:US008CreatePersonTransactionControllerRest"-> "transactionShortDTO:TransactionShortDTO": add(selfLink)
+activate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+
+"restController:US008CreatePersonTransactionControllerRest"->"restController:US008CreatePersonTransactionControllerRest": allTransactionsLink  = /persons/{personId}/ledger/transactions
+"restController:US008CreatePersonTransactionControllerRest"-> "transactionShortDTO:TransactionShortDTO": add(allTransactionsLink)
+activate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO:TransactionShortDTO" #FFBBBB
+
+"restController:US008CreatePersonTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionShortDTO,HttpStatus.CREATED)
+deactivate "restController:US008CreatePersonTransactionControllerRest"
+
+autonumber 3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
+deactivate "mvc:MockMvc"
+
+autonumber 4
+create "mvcResult :MvcResult"
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : create
+activate "mvcResult :MvcResult" #FFBBBB
+
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+deactivate "mvcResult :MvcResult" #FFBBBB
+
+== Assert ==
+
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expected, result)
+deactivate "HTTP Client (Test)" #FFBBBB
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+
+autonumber 3.3.2.1
+-> "service:US006CreatePersonAccountService" : createPersonAccount(createPersonAccountDTO)
+activate "service:US006CreatePersonAccountService"  #FFBBBB
+
+"service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : personEmail = getPersonEmail()
+activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
+deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
+
+"service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : accountDenomination= getAccountDenomination()
+activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
+deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
+
+"service:US006CreatePersonAccountService" -> "createPersonAccountDTO:CreatePersonAccountDTO" : accountDescription = getAccountDescription()
+activate "createPersonAccountDTO:CreatePersonAccountDTO"  #FFBBBB
+deactivate "createPersonAccountDTO:CreatePersonAccountDTO"
+
+"service:US006CreatePersonAccountService" -> "personRepo:PersonRepository" : personID = findPersonByEmail(personEmail)
+activate "personRepo:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository"
+
+"service:US006CreatePersonAccountService" -> "accountRepo:AccountRepository" : createAccount(accountDenomination, accountDescription, personID)
+activate "accountRepo:AccountRepository" #FFBBBB
+
+autonumber 3.3.2.6.1
+"accountRepo:AccountRepository" -> "accountRepo:AccountRepository" : add(account)
+
+"accountRepo:AccountRepository" --> "service:US006CreatePersonAccountService" : account
+deactivate "accountRepo:AccountRepository" #FFBBBB
+
+autonumber 3.3.2.7
+"service:US006CreatePersonAccountService" -> ":AccountDTOAssembler": createAccountDTOFromDomainObject(newAccount)
+activate  ":AccountDTOAssembler" #FFBBBB
+
+autonumber 3.3.2.7.1
+":AccountDTOAssembler" -> "newAccount:Account" : personEmail = \ngetOwnerID().toString()
+activate "newAccount:Account" #FFBBBB
+deactivate "newAccount:Account" #FFBBBB
+
+":AccountDTOAssembler" -> "newAccount:Account" : denomination = \ngetID().getDenomination()
+activate "newAccount:Account" #FFBBBB
+deactivate "newAccount:Account" #FFBBBB
+
+":AccountDTOAssembler" -> "newAccount:Account" : description = \ndescriptionToString()
+activate "newAccount:Account" #FFBBBB
+deactivate "newAccount:Account" #FFBBBB
+
+autonumber 3.3.2.5.3.1
+create "accountDTO:AccountDTO"
+":AccountDTOAssembler" --> "accountDTO:AccountDTO" : create(personEmail, \ndenomination, description)
+
+":AccountDTOAssembler" --> "service:US006CreatePersonAccountService" : accountDTO
+deactivate ":AccountDTOAssembler"
+
+<-- "service:US006CreatePersonAccountService" : accountDTO
+deactivate "service:US006CreatePersonAccountService"
+
+@enduml

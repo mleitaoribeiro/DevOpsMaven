@@ -1,0 +1,57 @@
+@startuml
+skinparam DefaultFontSize 20
+
+participant "createGroupCategoryDTO: \nCreateGroupCategoryDTO"
+participant "service:\nUS005_1AdminAddCategoryToCategoryService"
+
+
+== Act ==
+autonumber
+[-> "service:\nUS005_1AdminAddCategoryToCategoryService" : createGroupCategory\n(createGroupCategoryDTO)
+activate "service:\nUS005_1AdminAddCategoryToCategoryService" #FFBBBB
+autonumber 1.1
+"service:\nUS005_1AdminAddCategoryToCategoryService" -> "createGroupCategoryDTO: \nCreateGroupCategoryDTO" : personEmail = getPersonEmail()
+activate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
+deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
+
+"service:\nUS005_1AdminAddCategoryToCategoryService" -> "createGroupCategoryDTO: \nCreateGroupCategoryDTO" : groupDescription = getGroupDescription())
+activate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
+deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
+
+"service:\nUS005_1AdminAddCategoryToCategoryService" -> "createGroupCategoryDTO: \nCreateGroupCategoryDTO" : categoryDenomination = getAccountDenomination()
+activate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
+deactivate "createGroupCategoryDTO: \nCreateGroupCategoryDTO"  #FFBBBB
+
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"groupRep:GroupRepository":group = findGroupByDescription\n(groupDescription)
+activate "groupRep:GroupRepository" #FFBBBB
+deactivate "groupRep:GroupRepository"
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"personRep:PersonRepository": person = findPersonByEmail(personEmail)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"person:Person": personID = getID()
+activate "person:Person" #FFBBBB
+deactivate "person:Person"
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"group:Group": validateAdmin = isGroupAdmin(personID)
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"group:Group": groupID = getID()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+"service:\nUS005_1AdminAddCategoryToCategoryService"->"categoryRep:CategoryRepository":isCategoryCreated = createCategory(categoryDenomination, groupID)
+activate "categoryRep:CategoryRepository" #FFBBBB
+
+create "category:Category"
+"categoryRep:CategoryRepository"->"category:Category":new Category\n(categoryDenomination, groupID)
+"categoryRep:CategoryRepository"->"categoryRep:CategoryRepository": add(category)
+
+deactivate "categoryRep:CategoryRepository"
+deactivate "service:\nUS005_1AdminAddCategoryToCategoryService"
+
+
+@enduml

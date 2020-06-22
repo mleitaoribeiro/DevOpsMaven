@@ -1,0 +1,76 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+title US003 Sequence Diagram - Happy Case
+
+participant "service:US003AddMemberToGroupService"
+participant "addMemberDTO:\nAddMemberDTO"
+participant "personRep:\nPersonRepository"
+participant ":GroupDTOAssembler"
+participant "addedMemberDTO:\nAddedMemberDTO"
+participant "groupsRep:\nGroupsRepository"
+participant ":GroupDomainDataAssembler"
+participant "group:Group"
+
+autonumber 1
+-> "service:US003AddMemberToGroupService" : addMemberToGroup(addMemberDTO)
+
+autonumber 1.1
+activate "service:US003AddMemberToGroupService" #FFBBBB
+"service:US003AddMemberToGroupService" -> "addMemberDTO:\nAddMemberDTO" : personEmail = getPersonEmail()
+activate "addMemberDTO:\nAddMemberDTO" #FFBBBB
+deactivate "addMemberDTO:\nAddMemberDTO"
+
+"service:US003AddMemberToGroupService" -> "personRep:\nPersonRepository" : person = findPersonByEmail (personEmail)
+activate "personRep:\nPersonRepository" #FFBBBB
+deactivate "personRep:\nPersonRepository"
+
+"service:US003AddMemberToGroupService" -> "addMemberDTO:\nAddMemberDTO" : groupDescription = getGroupDescription()
+activate "addMemberDTO:\nAddMemberDTO" #FFBBBB
+deactivate "addMemberDTO:\nAddMemberDTO"
+
+"service:US003AddMemberToGroupService" ->  "groupsRep:\nGroupsRepository": group = findGroupByDescription(groupDescription)
+activate "groupsRep:\nGroupsRepository" #FFBBBB
+deactivate "groupsRep:\nGroupsRepository" #FFBBBB
+
+"service:US003AddMemberToGroupService"->"groupsRep:\nGroupsRepository": addMember(group, personEmail)
+activate "groupsRep:\nGroupsRepository" #FFBBBB
+
+autonumber 1.5.1
+"groupsRep:\nGroupsRepository"->":GroupDomainDataAssembler":toData(group)
+
+autonumber 1.5.1.1
+activate ":GroupDomainDataAssembler" #FFBBBB
+":GroupDomainDataAssembler"->"group:Group" : groupID = getID()
+activate "group:Group" #FFBBBB
+":GroupDomainDataAssembler"->"group:Group" : groupDescription = getGroupDescription()
+deactivate "group:Group"
+create "groupJpa:\nGroupJpa"
+":GroupDomainDataAssembler"-->"groupJpa:\nGroupJpa" : create(groupDescription, personEmail)
+":GroupDomainDataAssembler"-->"groupsRep:\nGroupsRepository" : groupJPA
+deactivate ":GroupDomainDataAssembler" #FFBBBB
+|||
+
+autonumber 1.5.2
+create "memberJpa:\nMembersJpa"
+"groupsRep:\nGroupsRepository"-->"memberJpa:\nMembersJpa" : create(groupJPA, personEmail)
+"groupsRep:\nGroupsRepository" -> "groupsRep:\nGroupsRepository": membersList = findMembersByGroupID (group)
+"groupsRep:\nGroupsRepository" -> "groupsRep:\nGroupsRepository": isNotMember = membersList.contains(memberJpa)
+"groupsRep:\nGroupsRepository"->"groupsRep:\nGroupsRepository": wasMemberAdded = save(memberJpa)
+"service:US003AddMemberToGroupService"<--"groupsRep:\nGroupsRepository": wasMemberAdded
+deactivate "groupsRep:\nGroupsRepository"
+
+autonumber 1.6
+"service:US003AddMemberToGroupService" -> ":GroupDTOAssembler" : addedMemberDTO = createAddedMemberDTO (wasMemberAdded, person, group)
+activate ":GroupDTOAssembler" #FFBBBB
+
+autonumber 1.6.1
+create "addedMemberDTO:\nAddedMemberDTO"
+":GroupDTOAssembler" -> "addedMemberDTO:\nAddedMemberDTO" : new AddedMemberDTO\n(wasMemberAdded, person, group)
+deactivate ":GroupDTOAssembler"
+
+autonumber 1.7
+[<-- "service:US003AddMemberToGroupService" : addedMemberDTO
+deactivate "service:US003AddMemberToGroupService"
+@enduml

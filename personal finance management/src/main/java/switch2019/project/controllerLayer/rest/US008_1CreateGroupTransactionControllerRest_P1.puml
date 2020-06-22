@@ -1,0 +1,94 @@
+@startuml
+skinparam DefaultFontSize 25
+
+participant "HTTP Client (Test)"
+participant "inputDTO:\nCreateTransactionInfoDTO"
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "restController\n:US008CreateTransactionControllerRest"
+participant ":LedgerDTOAssembler"
+participant "service\n:US008CreateTransactionService"
+participant "infoDTO\n:CreateTransactionInfoDTO"
+
+== Arrange ==
+autonumber
+
+create "inputDTO:\nCreateTransactionInfoDTO"
+"HTTP Client (Test)" -> "inputDTO:\nCreateTransactionInfoDTO": inputDTO = new CreateTransactionInfoDTO\n(amount, currency,description, date,category, accountFrom, accountTo, type, personEmail)
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
+== Act ==
+
+create "mvc:MockMvc"
+"HTTP Client (Test)" -> "mvc:MockMvc" :POST /groups/{groupDescription}/ledger/transactions {inputJson}
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 3.1
+"mvc:MockMvc" -> "mvc:MockMvc" :  deserialize inputJson
+
+create "infoDTO\n:CreateTransactionInfoDTO"
+"mvc:MockMvc"-->"infoDTO\n:CreateTransactionInfoDTO": create
+
+"mvc:MockMvc"-> "restController\n:US008CreateTransactionControllerRest": createGroupTransaction(groupId, infoDTO)
+activate "restController\n:US008CreateTransactionControllerRest" #FFBBBB
+
+autonumber 3.3.1
+"restController\n:US008CreateTransactionControllerRest"-> ":LedgerDTOAssembler": transformToCreateGroupTransactionDTO(groupId, infoDTO)
+activate ":LedgerDTOAssembler"  #FFBBBB
+
+autonumber 3.3.1.1
+create "createGroupTransactionDTO\n:CreateGroupTransactionDTO"
+":LedgerDTOAssembler" -> "createGroupTransactionDTO\n:CreateGroupTransactionDTO": create(groupId, personId, amount, currency, date, description, \n category, accountFrom, accountTo, type)
+
+":LedgerDTOAssembler" -> "restController\n:US008CreateTransactionControllerRest" : createGroupTransactionDTO
+
+deactivate ":LedgerDTOAssembler"
+
+autonumber 3.3.2
+"restController\n:US008CreateTransactionControllerRest"->"service\n:US008CreateTransactionService": addGroupTransaction(createGroupTransactionDTO)
+activate "service\n:US008CreateTransactionService" #FFBBBB
+
+|||
+
+ref over "service\n:US008CreateTransactionService" : US008CreateTransactionControllerRestPart1
+
+autonumber 3.3.2.1
+"service\n:US008CreateTransactionService" --> "restController\n:US008CreateTransactionControllerRest" : transactionShortDTO
+deactivate "service\n:US008CreateTransactionService"
+
+autonumber 3.3.3
+"restController\n:US008CreateTransactionControllerRest"->"restController\n:US008CreateTransactionControllerRest": selfLink = /groups/{groupId}/ledger/transactions/{id}
+"restController\n:US008CreateTransactionControllerRest"-> "transactionShortDTO\n:TransactionShortDTO": add(selfLink)
+activate "transactionShortDTO\n:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO\n:TransactionShortDTO" #FFBBBB
+
+"restController\n:US008CreateTransactionControllerRest"->"restController\n:US008CreateTransactionControllerRest": allTransactionsLink  = /groups/{groupId}/ledger/transactions
+"restController\n:US008CreateTransactionControllerRest"-> "transactionShortDTO\n:TransactionShortDTO": add(allTransactionsLink)
+activate "transactionShortDTO\n:TransactionShortDTO" #FFBBBB
+deactivate "transactionShortDTO\n:TransactionShortDTO" #FFBBBB
+
+"restController\n:US008CreateTransactionControllerRest" -> "mvc:MockMvc": responseEntity = Response Entity<>\n(transactionShortDTO,HttpStatus.CREATED)
+deactivate "restController\n:US008CreateTransactionControllerRest"
+
+autonumber 3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
+deactivate "mvc:MockMvc"
+
+autonumber 4
+create "mvcResult :MvcResult"
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : create
+activate "mvcResult :MvcResult" #FFBBBB
+
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+deactivate "mvcResult :MvcResult" #FFBBBB
+
+== Assert ==
+
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expected, result)
+deactivate "HTTP Client (Test)" #FFBBBB
+
+@enduml

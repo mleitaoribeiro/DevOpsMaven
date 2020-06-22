@@ -1,0 +1,134 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+title US002.1 Sequence Diagram - Happy Case
+
+participant "HTTP Client (Test)"
+participant "response :MockHttpServletResponse"
+participant "request:\nRequestBuilder"
+participant "resultAction:ResultActions"
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "restController:US001AreSiblingsControllerRest"
+participant "responseEntity:Response Entity"
+participant ":PersonDTOAssembler"
+participant "siblingsDTO:SiblingsDTO"
+participant "areSiblingsDTO:\nAreSiblingsDTO"
+participant "service:US001AreSiblingsService"
+participant "personRepo:PersonRepository"
+participant "person1:Person"
+
+autonumber
+activate "HTTP Client (Test)" #FFBBBB
+
+== Act ==
+
+create "request:\nRequestBuilder"
+"HTTP Client (Test)" -> "request:\nRequestBuilder" : request = get("/persons/{personOneEmail}/siblings/{personTwoEmail}")
+
+create "mvc:MockMvc"
+"HTTP Client (Test)" -> "mvc:MockMvc" : perform(request)
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 2.1
+create "restController:US001AreSiblingsControllerRest"
+"mvc:MockMvc"-->"restController:US001AreSiblingsControllerRest" :areSiblings\n(personOneEmail, \npersonTwoEmail)
+
+autonumber 2.1.1
+activate "restController:US001AreSiblingsControllerRest" #FFBBBB
+"restController:US001AreSiblingsControllerRest" -> ":PersonDTOAssembler": areSiblingsDTO = \ncreateAreSiblingsDTO(personOneEmail, personTwoEmail)
+
+autonumber 2.1.1.1
+create "areSiblingsDTO:\nAreSiblingsDTO"
+activate ":PersonDTOAssembler" #FFBBBB
+":PersonDTOAssembler" -> "areSiblingsDTO:\nAreSiblingsDTO": new AreSiblingsDTO(personOneEmail, \npersonTwoEmail)
+deactivate ":PersonDTOAssembler"
+
+autonumber 2.1.2
+"restController:US001AreSiblingsControllerRest" -> "service:US001AreSiblingsService": areSiblings = areSiblings(areSiblingsDTO)
+activate "service:US001AreSiblingsService" #FFBBBB
+
+autonumber 2.1.2.1
+"service:US001AreSiblingsService" -> "personRepo:PersonRepository" : person1 = findPersonByEmail(personOneEmail)
+activate "personRepo:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository"
+
+"service:US001AreSiblingsService" -> "personRepo:PersonRepository" : person2 = findPersonByEmail(personTwoEmail)
+activate "personRepo:PersonRepository" #FFBBBB
+deactivate "personRepo:PersonRepository"
+
+"service:US001AreSiblingsService" -> "person1:Person" : trueSibling = isSibling(person2)
+activate "person1:Person" #FFBBBB
+
+autonumber 2.1.2.3
+"person1:Person" -> "person1:Person" :  personExistsOnSiblingsList(person2)
+"person1:Person" -> "person1:Person" :  checkSameFather(person2)
+"person1:Person" -> "person1:Person" :  checkSameMother(person2)
+
+deactivate "person1:Person"
+deactivate "service:US001AreSiblingsService"
+
+autonumber 2.1.3
+"restController:US001AreSiblingsControllerRest" -> ":PersonDTOAssembler": siblingsDTO = createSiblingsDTO(areSiblings)
+activate ":PersonDTOAssembler" #FFBBBB
+create "siblingsDTO:SiblingsDTO"
+
+autonumber 2.1.3.1
+":PersonDTOAssembler" -> "siblingsDTO:SiblingsDTO": new SiblingsDTO(areSiblings)
+deactivate ":PersonDTOAssembler"
+
+autonumber 2.1.4
+"restController:US001AreSiblingsControllerRest" -> "restController:US001AreSiblingsControllerRest": selfLink = /persons/{personOneEmail}/siblings
+
+autonumber 2.1.4.1
+"restController:US001AreSiblingsControllerRest" -> "restController:US001AreSiblingsControllerRest": add(selfLink)
+
+autonumber 2.1.4.2
+create "responseEntity:Response Entity"
+"restController:US001AreSiblingsControllerRest" -> "responseEntity:Response Entity": create(siblingsDTO, HttpStatus.OK)
+
+autonumber 2.1.5
+"restController:US001AreSiblingsControllerRest" -> "mvc:MockMvc": responseEntity
+deactivate "restController:US001AreSiblingsControllerRest"
+|||
+autonumber 2.2
+"mvc:MockMvc" -> "mvc:MockMvc": serialize responseEntity
+
+autonumber 3
+create "resultAction:ResultActions"
+"mvc:MockMvc" -> "resultAction:ResultActions" : create
+deactivate "mvc:MockMvc"
+
+autonumber 3.1
+"HTTP Client (Test)" -> "resultAction:ResultActions" : mvcResult = andReturn()
+activate "resultAction:ResultActions" #FFBBBB
+create "mvcResult :MvcResult"
+
+autonumber 3.1.1
+"resultAction:ResultActions" --> "mvcResult :MvcResult" : create()
+deactivate "resultAction:ResultActions"
+
+autonumber 3.1.2
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : response = getResponse()
+
+autonumber 3.1.2.1
+|||
+create "response :MockHttpServletResponse"
+activate "mvcResult :MvcResult" #FFBBBB
+"mvcResult :MvcResult" --> "response :MockHttpServletResponse" : create()
+deactivate "mvcResult :MvcResult"
+
+autonumber 3.1.3
+"HTTP Client (Test)" -> "response :MockHttpServletResponse" : status = getStatus()
+activate "response :MockHttpServletResponse" #FFBBBB
+"HTTP Client (Test)" -> "response :MockHttpServletResponse" : result = getContentAsString()
+deactivate "response :MockHttpServletResponse" #FFBBBB
+
+== Assert ==
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(200, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+deactivate "HTTP Client (Test)"
+
+@enduml
+

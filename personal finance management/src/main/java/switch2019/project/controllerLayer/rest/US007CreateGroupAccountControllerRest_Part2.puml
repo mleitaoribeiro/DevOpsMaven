@@ -1,0 +1,81 @@
+@startuml
+skinparam DefaultFontSize 30
+
+participant "createGroupAccountDTO: \nCreateGroupAccountDTO"
+participant "service:\nUS007CreateGroupAccountService"
+participant "personRepo:\nPersonRepository"
+participant "person:\nPerson"
+participant "groupRepo:\nGroupRepository"
+participant "group:\nGroup"
+participant "AccountDTOAssembler"
+participant "accountDTO:\nAccountDTO"
+participant "accountRepo:\nAccountRepository"
+participant "account:\nAccount"
+
+== Act ==
+autonumber
+[-> "service:\nUS007CreateGroupAccountService" : createGroupAccount\n(createGroupAccountDTO)
+activate "service:\nUS007CreateGroupAccountService" #FFBBBB
+autonumber 1.1
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : personEmail = getPersonEmail()
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : groupDescription = getGroupDescription())
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : accountDenomination = getAccountDenomination()
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+"service:\nUS007CreateGroupAccountService" -> "createGroupAccountDTO: \nCreateGroupAccountDTO" : accountDescription = getAccountDescription()
+activate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+deactivate "createGroupAccountDTO: \nCreateGroupAccountDTO"  #FFBBBB
+
+
+
+"service:\nUS007CreateGroupAccountService" -> "personRepo:\nPersonRepository" : person = findPersonByEmail(personEmail)
+activate "personRepo:\nPersonRepository"  #FFBBBB
+deactivate "personRepo:\nPersonRepository"  #FFBBBB
+
+
+"service:\nUS007CreateGroupAccountService" -> "person:\nPerson" : personID = getID(person)
+activate "person:\nPerson"  #FFBBBB
+deactivate "person:\nPerson"  #FFBBBB
+
+
+
+"service:\nUS007CreateGroupAccountService" -> "groupRepo:\nGroupRepository" : group = findGroupByDescription(groupDescription)
+activate "groupRepo:\nGroupRepository"  #FFBBBB
+deactivate "groupRepo:\nGroupRepository"  #FFBBBB
+
+
+"service:\nUS007CreateGroupAccountService" -> "group:\nGroup" : groupID = getID(group)
+activate "group:\nGroup" #FFBBBB
+deactivate "group:\nGroup"
+
+"service:\nUS007CreateGroupAccountService" -> "group:\nGroup" : personIsGroupAdmin = isGroupAdmin(personID)
+activate "group:\nGroup" #FFBBBB
+deactivate "group:\nGroup"
+
+"service:\nUS007CreateGroupAccountService" -> "accountRepo:\nAccountRepository" : account = createAccount(accountDenomination, accountDescription, groupID)
+activate "accountRepo:\nAccountRepository" #FFBBBB
+autonumber 1.10.1
+"accountRepo:\nAccountRepository" -> "accountRepo:\nAccountRepository" : accountIsNotInRepository = isAccountIDOnRepository\n(accountDenomination, groupID)
+create "account:\nAccount"
+"accountRepo:\nAccountRepository" --> "account:\nAccount" : create\n(accountDenomination,\n accountDescription, groupID)
+"accountRepo:\nAccountRepository" -> "accountRepo:\nAccountRepository" : add(account)
+deactivate "accountRepo:\nAccountRepository" #FFBBBB
+autonumber 1.11
+"service:\nUS007CreateGroupAccountService" -> "AccountDTOAssembler":accountCreatedDTO = createAccountDTOFromDomainObject(account)
+deactivate "service:\nUS007CreateGroupAccountService"
+autonumber 1.11.1
+activate "AccountDTOAssembler" #FFBBBB
+create "accountDTO:\nAccountDTO"
+"AccountDTOAssembler" --> "accountDTO:\nAccountDTO": create()
+deactivate "AccountDTOAssembler"
+
+deactivate "service:\nUS007CreateGroupAccountService"
+
+@enduml
