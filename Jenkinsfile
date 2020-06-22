@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Building...'
-                    sh './mvnw package -Dmaven.test.skip=true '
+                    sh './mvn package -Dmaven.test.skip=true '
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Testing...'
-                    sh './mvnw test'
+                    sh './mvn test'
                     junit 'target/surefire-reports/*.txt'
                 }
             }
