@@ -16,10 +16,12 @@ public class TransactionShortDTO extends RepresentationModel<TransactionShortDTO
 
     /**
      * Constructor for TransactionShortDTO
-     * @param amount
-     * @param accountFrom
-     * @param accountTo
-     * @param type
+     * @param amount for amount
+     * @param currency for currency
+     * @param id for id
+     * @param accountFrom for accountFrom
+     * @param accountTo for accountTo
+     * @param type for type
      */
     public TransactionShortDTO (Double amount, Currency currency, String accountFrom, String accountTo, String type, Long id){
         this.amount = amount;
@@ -53,7 +55,7 @@ public class TransactionShortDTO extends RepresentationModel<TransactionShortDTO
 
     /**
      * Getter for amount
-     * @return amount
+     * @return Double
      */
     public Double getAmount() {
         return amount;
@@ -61,7 +63,7 @@ public class TransactionShortDTO extends RepresentationModel<TransactionShortDTO
 
     /**
      * Getter for Currency
-     * @return currency
+     * @return Currency
      */
 
     public Currency getCurrency() {
@@ -70,7 +72,7 @@ public class TransactionShortDTO extends RepresentationModel<TransactionShortDTO
 
     /**
      * Getter for accountFrom
-     * @return accountFrom
+     * @return String
      */
 
     public String getAccountFrom() {
@@ -79,7 +81,7 @@ public class TransactionShortDTO extends RepresentationModel<TransactionShortDTO
 
     /**
      * Getter for accountTo
-     * @return accountTo
+     * @return String
      */
 
     public String getAccountTo() {

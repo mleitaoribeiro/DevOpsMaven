@@ -17,9 +17,9 @@ public class US006CreatePersonAccountController {
      * User Story 6
      * As a user, I want to create a account
      *
-     * @param personEmail
-     * @param accountDenomination
-     * @param accountDescription
+     * @param personEmail for personEmail
+     * @param accountDenomination for accountDenomination
+     * @param accountDescription for accountDescription
      * @return AccountDTO
      */
 

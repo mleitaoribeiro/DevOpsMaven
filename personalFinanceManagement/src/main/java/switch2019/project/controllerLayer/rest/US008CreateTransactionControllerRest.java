@@ -28,8 +28,9 @@ public class US008CreateTransactionControllerRest {
     /**
      * Controller that takes the posted information and creates a transaction belonging to a given person.
      *
-     * @param info
-     * @return
+     * @param info for info
+     * @param personId for personId
+     * @return ResponseEntity<Object>
      */
 
     @PostMapping("persons/{personId}/ledger/transactions")
@@ -59,8 +60,9 @@ public class US008CreateTransactionControllerRest {
     /**
      * Controller that takes the posted information, and creates an Transaction in a given Group.
      *
-     * @param info
-     * @return
+     * @param info for info
+     * @param groupDescription for groupDescription
+     * @return ResponseEntity<Object>
      */
 
 
@@ -93,9 +95,9 @@ public class US008CreateTransactionControllerRest {
     /**
      * Get transactions by Id
      *
-     * @param personId
-     * @param id
-     * @return transactionsDTO
+     * @param personId for personId
+     * @param id for id
+     * @return ResponseEntity<Object>
      */
     @GetMapping(value = "persons/{personId}/ledger/transactions/{id}")
     public ResponseEntity<Object> getPersonTransactionByID(@PathVariable final String personId, @PathVariable final Long id) {
@@ -111,9 +113,9 @@ public class US008CreateTransactionControllerRest {
     /**
      * Get all transactions by Owner Id
      *
-     * @param groupId
-     * @param id
-     * @return List<TransactionShortDTO>
+     * @param groupId for groupId
+     * @param id for id
+     * @return ResponseEntity<Object>
      */
     @GetMapping(value = "groups/{groupId}/ledger/transactions/{id}")
     public ResponseEntity<Object> getGroupTransactionByID(@PathVariable final String groupId, @PathVariable final Long id) {

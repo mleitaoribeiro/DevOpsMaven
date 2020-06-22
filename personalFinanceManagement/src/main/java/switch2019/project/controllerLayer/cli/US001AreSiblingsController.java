@@ -16,8 +16,9 @@ public class US001AreSiblingsController {
      * US001
      * As system manager, I want to know if two people are siblings
      *
-     * @param
-     * @return true if two people are siblings
+     * @param emailPersonOne for emailPersonOne
+     * @param emailPersonTwo for emailPersonTwo
+     * @return SiblingsDTO
      */
     public SiblingsDTO areSiblings(String emailPersonOne, String emailPersonTwo) {
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);

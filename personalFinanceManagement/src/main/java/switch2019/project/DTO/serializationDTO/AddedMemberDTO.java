@@ -30,7 +30,7 @@ public class AddedMemberDTO extends RepresentationModel<AddedMemberDTO>  {
     /**
      * method to get memberAdded attribute
      *
-     * @return memberAdded
+     * @return String
      */
     public String getMemberAdded() {
         return memberAdded;

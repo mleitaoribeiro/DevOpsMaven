@@ -26,7 +26,7 @@ public class CreateGroupInfoDTO {
     /**
      * Set groupDescription
      *
-     * @param groupDescription
+     * @param groupDescription for groupDescription
      */
     public void setGroupDescription(String groupDescription) {
         this.groupDescription = groupDescription;
@@ -35,7 +35,7 @@ public class CreateGroupInfoDTO {
     /**
      * get Group Description
      *
-     * @return groupDescription
+     * @return String
      */
     public String getGroupDescription() {
         return groupDescription;
@@ -44,7 +44,7 @@ public class CreateGroupInfoDTO {
     /**
      * set personEmail
      *
-     * @param personEmail
+     * @param personEmail for personEmail
      */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
@@ -53,7 +53,7 @@ public class CreateGroupInfoDTO {
     /**
      * get Person Email
      *
-     * @return personEmail
+     * @return String
      */
     public String getPersonEmail() {
         return personEmail;

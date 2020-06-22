@@ -15,10 +15,10 @@ public class US005_1AdminAddsCategoryController {
 
     /**
      * Call AdminAddsCategoryToCategoryListService to implement the User Story 5.1 using this controller.
-     * @param personEmail
-     * @param groupDescription
-     * @param categoryDenomination
-     * @return
+     * @param personEmail for personEmail
+     * @param groupDescription for groupDescription
+     * @param categoryDenomination for categoryDenomination
+     * @return CategoryDTO
      */
 
     public CategoryDTO addCategoryToGroupController(String personEmail, String groupDescription, String categoryDenomination) {

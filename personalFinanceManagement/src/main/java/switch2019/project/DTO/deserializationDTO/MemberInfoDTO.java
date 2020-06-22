@@ -24,7 +24,7 @@ public class MemberInfoDTO {
     /**
      * Setter for personEmail
      *
-     * @param personEmail
+     * @param personEmail for personEmail
      */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
@@ -33,7 +33,7 @@ public class MemberInfoDTO {
     /**
      * Getter for personEmail
      *
-     * @return personEmail
+     * @return String
      */
     public String getPersonEmail() {
         return personEmail;

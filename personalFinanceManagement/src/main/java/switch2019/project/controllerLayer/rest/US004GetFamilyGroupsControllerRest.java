@@ -26,7 +26,8 @@ public class US004GetFamilyGroupsControllerRest {
      * US004
      * As system manager I want to know which groups are families
      *
-     * @return groups that are families and 200 OK status
+     * @param type for type
+     * @return ResponseEntity <Object>
      */
 
     @GetMapping("/groups")

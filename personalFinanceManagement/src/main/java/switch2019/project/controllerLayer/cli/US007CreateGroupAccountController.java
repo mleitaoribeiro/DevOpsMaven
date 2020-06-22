@@ -16,11 +16,11 @@ public class US007CreateGroupAccountController {
     /**
      * US007 - As a group Admin, I want to create a group account
      *
-     * @param personEmail
-     * @param groupDescription
-     * @param accountDenomination
-     * @param accountDescription
-     * @return accountDTO
+     * @param personEmail for personEmail
+     * @param groupDescription for groupDescription
+     * @param accountDenomination for accountDenomination
+     * @param accountDescription for accountDescription
+     * @return AccountDTO
      */
     public AccountDTO createGroupAccount(String personEmail, String groupDescription,
                                          String accountDenomination, String accountDescription) {

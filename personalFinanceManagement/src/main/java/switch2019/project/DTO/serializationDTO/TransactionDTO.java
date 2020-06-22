@@ -17,13 +17,14 @@ public class TransactionDTO {
     /**
      * Constructor for TransactionDTO
      *
-     * @param amount
-     * @param description
-     * @param date
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
+     * @param amount for amount
+     * @param currency for currency
+     * @param description for description
+     * @param date for date
+     * @param category for category
+     * @param accountFrom for accountFrom
+     * @param accountTo for accountTo
+     * @param type for type
      */
 
     public  TransactionDTO (Double amount, Currency currency, String description, String date, String category,
@@ -34,7 +35,7 @@ public class TransactionDTO {
         this.date = date;
         this.category = category;
         this.accountFrom = accountFrom;
-        this. accountTo = accountTo;
+        this.accountTo = accountTo;
         this.type = type;
     }
 
@@ -60,7 +61,7 @@ public class TransactionDTO {
 
     /**
      * Getter for Currency
-     * @return currency
+     * @return Currency
      */
 
     public Currency getCurrency() {
@@ -70,7 +71,7 @@ public class TransactionDTO {
     /**
      * Getter for amount
      *
-     * @return amount
+     * @return Double
      */
 
     public Double getAmount() {
@@ -80,7 +81,7 @@ public class TransactionDTO {
     /**
      * Getter for description
      *
-     * @return description
+     * @return String
      */
 
     public String getDescription() {
@@ -90,7 +91,7 @@ public class TransactionDTO {
     /**
      * Getter for date
      *
-     * @return date
+     * @return String
      */
 
     public String getDate() {
@@ -110,7 +111,7 @@ public class TransactionDTO {
     /**
      * Getter for accountFrom
      *
-     * @return accountFrom
+     * @return String
      */
 
     public String getAccountFrom() {
@@ -120,7 +121,7 @@ public class TransactionDTO {
     /**
      * Getter for accountTo
      *
-     * @return accountTo
+     * @return String
      */
 
     public String getAccountTo() {
@@ -130,7 +131,7 @@ public class TransactionDTO {
     /**
      * Getter for Type
      *
-     * @return type
+     * @return String
      */
 
     public String getType() {
