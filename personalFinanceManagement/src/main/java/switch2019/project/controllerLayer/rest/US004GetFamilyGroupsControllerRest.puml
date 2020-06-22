@@ -1,0 +1,113 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+title US002.1 Sequence Diagram - Happy Case
+
+participant "HTTP Client (Test)"
+participant "postRequest:\nRequestBuilder"
+participant "resultAction:ResultAction"
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "restController:US004GetFamilyGroupsControllerRest"
+participant "service:US004GetFamilyGroupsService"
+participant ":GroupDTOAssembler"
+participant "groupsRepo:GroupsRepository"
+
+autonumber
+activate "HTTP Client (Test)" #FFBBBB
+
+== Act ==
+
+create "postRequest:\nRequestBuilder"
+"HTTP Client (Test)" -> "postRequest:\nRequestBuilder" : GET /groups?type=family
+
+"HTTP Client (Test)" -> "mvc:MockMvc" : perform(request)
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 2.1
+create "restController:US004GetFamilyGroupsControllerRest"
+"mvc:MockMvc"-->"restController:US004GetFamilyGroupsControllerRest" : getFamilyGroups()
+activate "restController:US004GetFamilyGroupsControllerRest" #FFBBBB
+
+autonumber 2.1.1
+"restController:US004GetFamilyGroupsControllerRest" -> "service:US004GetFamilyGroupsService": getFamilyGroups()
+activate "service:US004GetFamilyGroupsService" #FFBBBB
+
+"service:US004GetFamilyGroupsService" -> "groupsRepo:GroupsRepository" : returnOnlyFamilies()
+activate "groupsRepo:GroupsRepository" #FFBBBB
+
+autonumber 2.1.2.1
+create "familyGroups:Set<Group>"
+"groupsRepo:GroupsRepository" -> "familyGroups:Set<Group>": create
+
+"groupsRepo:GroupsRepository" -> "group:Group" : family = isFamily()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+"groupsRepo:GroupsRepository" -> "familyGroups:Set<Group>" : add(group)
+activate "familyGroups:Set<Group>" #FFBBBB
+deactivate "familyGroups:Set<Group>"
+
+"groupsRepo:GroupsRepository" --> "service:US004GetFamilyGroupsService" : familyGroups
+deactivate "groupsRepo:GroupsRepository"
+
+"service:US004GetFamilyGroupsService" --> "restController:US004GetFamilyGroupsControllerRest" : familyGroups
+deactivate "service:US004GetFamilyGroupsService"
+
+autonumber 2.1.3
+create "familyGroupsDTO:Set<GroupDTO>"
+"restController:US004GetFamilyGroupsControllerRest" -> "familyGroupsDTO:Set<GroupDTO>": create
+
+"restController:US004GetFamilyGroupsControllerRest" --> "group:Group" : groupID = getID ()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+"restController:US004GetFamilyGroupsControllerRest" --> ":GroupDTOAssembler" : createGroupDTO(groupID)
+activate ":GroupDTOAssembler" #FFBBBB
+
+autonumber 2.1.5.1
+create "groupDTO:GroupDTO"
+":GroupDTOAssembler" -> "groupDTO:GroupDTO" : create(groupID)
+":GroupDTOAssembler" --> "restController:US004GetFamilyGroupsControllerRest" : groupDTO
+deactivate ":GroupDTOAssembler"
+
+autonumber 2.1.6
+"restController:US004GetFamilyGroupsControllerRest" -> "familyGroupsDTO:Set<GroupDTO>" : add(groupDTO)
+activate "familyGroupsDTO:Set<GroupDTO>" #FFBBBB
+deactivate "familyGroupsDTO:Set<GroupDTO>"
+
+autonumber 2.1.7
+"restController:US004GetFamilyGroupsControllerRest"->"restController:US004GetFamilyGroupsControllerRest": selfLink = /groups/{groupDescription}
+"restController:US004GetFamilyGroupsControllerRest"-> "groupDTO:GroupDTO": add(selfLink)
+activate "groupDTO:GroupDTO" #FFBBBB
+deactivate "groupDTO:GroupDTO"
+
+"restController:US004GetFamilyGroupsControllerRest" --> "mvc:MockMvc": responseEntity = new ResponseEntity<> \n(familyGroupsDTO, HttpStatus.OK)
+deactivate "restController:US004GetFamilyGroupsControllerRest"
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+
+autonumber 2.2
+"mvc:MockMvc" --> "HTTP Client (Test)" : {jsonResponse}
+deactivate "mvc:MockMvc"
+
+autonumber 3
+create "mvcResult :MvcResult"
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : create
+deactivate "resultAction:ResultAction"
+
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+activate "mvcResult :MvcResult" #FFBBBB
+deactivate "mvcResult :MvcResult"
+
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+activate "mvcResult :MvcResult" #FFBBBB
+deactivate "mvcResult :MvcResult"
+
+== Assert ==
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(200, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+deactivate "HTTP Client (Test)"
+
+@enduml
+

@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out...'
+                git credentialsId: 'mlrBitbucket', url:
+                    'https://martalribeiro@bitbucket.org/martalribeiro/devops-19-20-a-1191779.git'
+            }
+        }
+        stage('Assemble') {
+            steps {
+                dir('ca2/Parte1/gradle_basic_demo') {
+                    echo 'Building...'
+                    sh 'chmod +x gradlew'
+                    sh './gradlew assemble'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('ca2/Parte1/gradle_basic_demo') {
+                    echo 'Building...'
+                    sh 'chmod +x gradlew'
+                    sh './gradlew test'
+                    sh 'touch build/test-results/test/*.xml'
+                    junit 'build/test-results/test/*.xml'
+                }
+            }
+        }
+        stage('Archive') {
+            steps {
+                dir('ca2/Parte1/gradle_basic_demo') {
+                    sh 'pwd'
+                    echo 'Archiving...'
+                    archiveArtifacts 'build/distributions/'
+                }
+            }
+        }
+    }
+}

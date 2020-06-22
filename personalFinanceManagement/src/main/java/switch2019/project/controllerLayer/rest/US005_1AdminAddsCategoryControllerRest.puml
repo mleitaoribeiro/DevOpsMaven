@@ -1,0 +1,103 @@
+@startuml
+skinparam DefaultFontSize 25
+title US005.1 Sequence Diagram - Happy Case
+
+participant "HTTP Client (Test)"
+participant "inputDTO:\ncreateGroupCategoryInfoDTO"
+participant "mvcResult :MvcResult"
+participant "mvc:MockMvc"
+participant "info:createGroupCategoryInfoDTO"
+participant "CategoryDTOAssembler"
+participant "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
+participant "restController:\nUS005_1AdminAddsCategoryControllerRest"
+participant "categoryDTO:CategoryDTO"
+participant "service:\nUS005_1AdminAddsCategoryToGroupService"
+
+== Arrange ==
+autonumber
+create "inputDTO:\ncreateGroupCategoryInfoDTO"
+"HTTP Client (Test)" -> "inputDTO:\ncreateGroupCategoryInfoDTO": inputDTO = CreateGroupCategoryInfoDTO(\n personEmail, categoryDenomination);
+activate "HTTP Client (Test)" #FFBBBB
+"HTTP Client (Test)" -> "HTTP Client (Test)": inputJson = mapToJson(inputDTO)
+
+== Act ==
+
+"HTTP Client (Test)" -> "mvc:MockMvc" : POST /groups/{groupDescription}/category {inputJson}
+activate "mvc:MockMvc"  #FFBBBB
+
+autonumber 3.1
+"mvc:MockMvc" -> "mvc:MockMvc" : deserialize inputJson
+create "info:createGroupCategoryInfoDTO"
+"mvc:MockMvc"-->"info:createGroupCategoryInfoDTO" :create
+
+"mvc:MockMvc"-> "restController:\nUS005_1AdminAddsCategoryControllerRest": addCategoryToGroup(groupDescription, info)
+activate "restController:\nUS005_1AdminAddsCategoryControllerRest" #FFBBBB
+autonumber 3.3.1
+"restController:\nUS005_1AdminAddsCategoryControllerRest"-> "CategoryDTOAssembler":transformToCreateGroupCategorytDTO\n(groupDescription, info)
+activate "CategoryDTOAssembler" #FFBBBB
+autonumber 3.3.1.1
+
+"CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : personEmail = getPersonEmail();
+activate "info:createGroupCategoryInfoDTO" #FFBBBB
+"CategoryDTOAssembler" -> "info:createGroupCategoryInfoDTO" : categoryDenomination = getCategoryDenomination();
+deactivate "info:createGroupCategoryInfoDTO"
+
+create "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
+"CategoryDTOAssembler" -> "createGroupCategoryDTO:\nCreateGroupCategoryDTO" : CreateGroupCategoryDTO = \ncreateGroupCategoryDTO\n(personEmail,groupDescription, \ncategoryDenomination)
+deactivate "createGroupCategoryDTO:\nCreateGroupCategoryDTO"
+autonumber 3.3.1.5
+"CategoryDTOAssembler" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : createGroupCategoryDTO
+deactivate "CategoryDTOAssembler"
+
+autonumber 3.3.2
+"restController:\nUS005_1AdminAddsCategoryControllerRest"->"service:\nUS005_1AdminAddsCategoryToGroupService": addCategoryDTOGroup(createGroupCategoryDTO)
+activate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
+autonumber 3.3.2.1
+
+ref over "service:\nUS005_1AdminAddsCategoryToGroupService": US005_nUS005_1AdminAddsCategoryControllerRestRef
+"service:\nUS005_1AdminAddsCategoryToGroupService" --> "restController:\nUS005_1AdminAddsCategoryControllerRest" : categoryDTO
+
+autonumber 3.3.3
+deactivate "service:\nUS005_1AdminAddsCategoryToGroupService" #FFBBBB
+"restController:\nUS005_1AdminAddsCategoryControllerRest"--> "restController:\nUS005_1AdminAddsCategoryControllerRest": selfLink = /groups/{ownerID}/category/{categoryDenomination}
+"restController:\nUS005_1AdminAddsCategoryControllerRest"-> "categoryDTO:CategoryDTO": add(selfLink)
+activate "categoryDTO:CategoryDTO" #FFBBBB
+deactivate "categoryDTO:CategoryDTO" #FFBBBB
+
+"restController:\nUS005_1AdminAddsCategoryControllerRest"--> "restController:\nUS005_1AdminAddsCategoryControllerRest": categoryLink = /groups/{ownerID}/category
+"restController:\nUS005_1AdminAddsCategoryControllerRest"-> "categoryDTO:CategoryDTO": add(categoryLink)
+activate "categoryDTO:CategoryDTO" #FFBBBB
+deactivate "categoryDTO:CategoryDTO" #FFBBBB
+
+create "responseEntity:Response Entity"
+"restController:\nUS005_1AdminAddsCategoryControllerRest" --> "responseEntity:Response Entity" : create (categoryDTO,HttpStatus.CREATED)
+"restController:\nUS005_1AdminAddsCategoryControllerRest" --> "mvc:MockMvc": responseEntity
+deactivate "restController:\nUS005_1AdminAddsCategoryControllerRest"
+deactivate "restController:\nUS005_1AdminAddsCategoryControllerRest"
+
+autonumber 3.4
+"mvc:MockMvc" -> "mvc:MockMvc" : serialize responseEntity
+
+"HTTP Client (Test)" <-- "mvc:MockMvc" : {jsonResponse}
+deactivate "mvc:MockMvc"
+
+deactivate "mvc:MockMvc"
+
+autonumber 4
+create "mvcResult :MvcResult"
+"HTTP Client (Test)" --> "mvcResult :MvcResult" : create
+
+autonumber 5
+activate "mvcResult :MvcResult" #FFBBBB
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : status = getStatus()
+"HTTP Client (Test)" -> "mvcResult :MvcResult" : result = getContentAsString()
+deactivate "mvcResult :MvcResult" #FFBBBB
+
+== Assert ==
+
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(201, status)
+"HTTP Client (Test)" -> "HTTP Client (Test)" : assertEquals(expectedResult, result)
+
+deactivate "service:\nUS005_1AdminAddsCategoryToGroupService"
+
+@enduml

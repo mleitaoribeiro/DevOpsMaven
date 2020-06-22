@@ -1,0 +1,101 @@
+@startuml
+
+skinparam DefaultFontSize 20
+
+title <b>US002.1 Sequence Diagram - Happy Case</b>
+
+participant "service:US2.1CreateGroupService"
+participant ":GroupDTOAssembler"
+participant "personRep:PersonRepository"
+participant "groupsRep:GroupsRepository"
+
+autonumber
+ -> "service:US2.1CreateGroupService" : createGroup(createGroupDTO)
+
+autonumber 1.1
+activate "service:US2.1CreateGroupService" #FFBBBB
+"service:US2.1CreateGroupService" -> "createGroupDTO:CreateGroupDTO" : personEmail = getPersonEmail()
+activate "createGroupDTO:CreateGroupDTO" #FFBBBB
+deactivate "createGroupDTO:CreateGroupDTO"
+
+"service:US2.1CreateGroupService" -> "personRep:PersonRepository" : person = findPersonByEmail (personEmail)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
+
+"service:US2.1CreateGroupService" -> "createGroupDTO:CreateGroupDTO" : groupDescription = getGroupDescription()
+activate "createGroupDTO:CreateGroupDTO" #FFBBBB
+deactivate "createGroupDTO:CreateGroupDTO"
+
+"service:US2.1CreateGroupService" -> "groupsRep:GroupsRepository" : createGroup(groupDescription, person)
+activate "groupsRep:GroupsRepository" #FFBBBB
+
+autonumber 1.4.1
+"groupsRep:GroupsRepository"->":GroupDomainDataAssembler":toData(group)
+
+autonumber 1.4.1.1
+activate ":GroupDomainDataAssembler" #FFBBBB
+
+":GroupDomainDataAssembler"->"group:Group" : personID = getGroupCreator()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+":GroupDomainDataAssembler"->"group:Group" : groupID = getId()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+":GroupDomainDataAssembler"->"group:Group" : startingDate = getStartingDate()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+create "groupJpa:GroupJpa"
+":GroupDomainDataAssembler"-->"groupJpa:GroupJpa" : create(groupID, personID, startingDate)
+":GroupDomainDataAssembler"-->"groupsRep:GroupsRepository" : groupJPA
+deactivate ":GroupDomainDataAssembler"
+
+autonumber 1.4.2
+"groupsRep:GroupsRepository" -> "groupsRep:GroupsRepository" : groupSaved = save(groupJPA)
+
+autonumber 1.4.3
+"groupsRep:GroupsRepository"->":GroupDomainDataAssembler":toDomain(groupSaved)
+activate ":GroupDomainDataAssembler" #FFBBBB
+
+autonumber 1.4.3.1
+":GroupDomainDataAssembler"->"group:Group" : personID = getGroupCreator()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+":GroupDomainDataAssembler"->"group:Group" : groupID = getId()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+":GroupDomainDataAssembler"->"group:Group" : creationDate = getCreationDate()
+activate "group:Group" #FFBBBB
+deactivate "group:Group"
+
+create "groupDomain:Group"
+":GroupDomainDataAssembler"-->"groupDomain:Group" : create(groupID, personID, creationDate, members, admins)
+":GroupDomainDataAssembler"-->"groupsRep:GroupsRepository" : groupDomain
+deactivate ":GroupDomainDataAssembler"
+
+"groupsRep:GroupsRepository"->"service:US2.1CreateGroupService" : groupDomain
+deactivate "groupsRep:GroupsRepository"
+
+autonumber 1.5
+"service:US2.1CreateGroupService"->"groupDomain:Group" : groupID = getID()
+activate "groupDomain:Group" #FFBBBB
+deactivate "groupDomain:Group"
+
+"service:US2.1CreateGroupService"->":GroupDTOAssembler" : createGroupDTO(groupID)
+activate ":GroupDTOAssembler" #FFBBBB
+create "groupDTO:GroupDTO"
+
+autonumber 1.6.1
+":GroupDTOAssembler"->"groupDTO:GroupDTO" : create(groupID)
+":GroupDTOAssembler"->"service:US2.1CreateGroupService": groupDTO
+deactivate ":GroupDTOAssembler"
+
+<-- "service:US2.1CreateGroupService" : groupDTO
+deactivate "service:US2.1CreateGroupService"
+
+@enduml
+

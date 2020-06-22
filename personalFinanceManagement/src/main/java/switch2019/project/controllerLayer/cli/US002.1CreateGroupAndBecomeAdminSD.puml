@@ -1,0 +1,41 @@
+@startuml
+skinparam DefaultFontSize 20
+
+participant ":Test"
+participant "controller:US2.1CreateGroupAndBecomeAdminController"
+participant "controller:US2.1CreateGroupAndBecomeAdminController"
+participant "service:US2.1CreateGroupAndBecomeAdminService"
+participant "personRep:PersonRepository"
+participant "groupsRep:GroupsRepository"
+
+== Act ==
+
+":Test" -> "controller:US2.1CreateGroupAndBecomeAdminController": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
+
+"controller:US2.1CreateGroupAndBecomeAdminController" -> "service:US2.1CreateGroupAndBecomeAdminService": isGroupCreatedAndAdminSet = \ncreateGroupAndBecomeAdmin\n(groupDescription, personEmail)
+activate "service:US2.1CreateGroupAndBecomeAdminService" #FFBBBB
+
+"service:US2.1CreateGroupAndBecomeAdminService" -> "personRep:PersonRepository" : person = findPersonByEmail\n(personEmail)
+activate "personRep:PersonRepository" #FFBBBB
+deactivate "personRep:PersonRepository"
+
+"service:US2.1CreateGroupAndBecomeAdminService" -> "groupsRep:GroupsRepository" : isGroupCreated = \ncreateGroup(groupDescription, person)
+activate "groupsRep:GroupsRepository" #FFBBBB
+
+create "group:Group"
+"groupsRep:GroupsRepository" -> "group:Group" : isGroupCreated =\nnew Group(groupDescription, person)
+activate "group:Group" #FFBBBB
+"group:Group" -> "group:Group" : addMember(person)
+
+
+deactivate "group:Group"
+deactivate "groupsRep:GroupsRepository"
+deactivate "personRep:PersonRepository"
+deactivate "service:US2.1CreateGroupAndBecomeAdminService"
+deactivate "controller:US2.1CreateGroupAndBecomeAdminController"
+
+== Assert ==
+
+":Test" -> ":Test" : assertTrue(isGroupCreatedAndAdminSet \n&& isGroupAdmin(personID))
+
+@enduml
