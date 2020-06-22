@@ -69,8 +69,8 @@ pipeline {
             }
         }
         */
-        // stage ('Ansible') {
+        /* stage ('Ansible') {
 
-        }
+        }*/
     }
 }
