@@ -20,14 +20,6 @@ public class Person implements Owner {
     private Address address;
     final private Address birthPlace;
 
-    /**
-     * Default Person constructor
-     *
-     * @param name
-     * @param birthDate
-     * @param birthPlace
-     */
-
     public Person(String name, DateAndTime birthDate, Address birthPlace, Email email) {
         personID = new PersonID(email);
         this.name = new PersonName(name);
@@ -35,15 +27,6 @@ public class Person implements Owner {
         this.birthDate = birthDate;
         siblingList = new HashSet<>();
     }
-
-    /**
-     * Overload Person constructor
-     *
-     * @param name
-     * @param birthDate
-     * @param birthPlace
-     * @param homeAddress
-     */
 
     public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
         personID = new PersonID(email);
@@ -63,17 +46,6 @@ public class Person implements Owner {
         siblingList = new HashSet<>(siblings);
         address = homeAddress;
     }
-
-    /**
-     * Overload Person constructor
-     *
-     * @param name
-     * @param birthDate
-     * @param birthPlace
-     * @param homeAddress
-     * @param mother
-     * @param father
-     */
 
     public Person(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                   PersonID mother, PersonID father, Email email) {
@@ -160,7 +132,7 @@ public class Person implements Owner {
 
     /**
      * Return Address VO
-     * @return
+     * @return address
      */
     public Address getAddress() {
         return address;
@@ -208,7 +180,8 @@ public class Person implements Owner {
     /**
      * Add a new Sibling to siblingList
      *
-     * @param newSibling
+     * @param newSibling for new sibling
+     * @return true if sibling was added
      */
 
     public boolean addSibling(Person newSibling) {
@@ -218,7 +191,7 @@ public class Person implements Owner {
     /**
      * Add Multiple Siblings
      *
-     * @param newSiblings
+     * @param newSiblings for newSiblings
      */
 
     public void addMultipleSiblings(Set<Person> newSiblings) {
@@ -230,7 +203,7 @@ public class Person implements Owner {
     /**
      * Remove a Sibling
      *
-     * @param sibling
+     * @param sibling for sibling
      */
     public void removeSibling(Person sibling) {
         siblingList.remove(sibling);
@@ -253,7 +226,7 @@ public class Person implements Owner {
      * Validate if a person is the Mother of another person
      *
      * @param mother Person to validate if it's the mother
-     * @return boolean
+     * @return true if person is mother
      */
     public boolean isMother(PersonID mother) {
         if (this.mother == null || mother == null) return false;
@@ -264,7 +237,7 @@ public class Person implements Owner {
      * Validate if a person is the Father of another person
      *
      * @param father Person to validate if it's the father
-     * @return boolean
+     * @return true if person is father
      */
 
     public boolean isFather(PersonID father) {
@@ -275,7 +248,8 @@ public class Person implements Owner {
     /**
      * Method used to compare 2 sibling Lists to check if they are equal(True) or different(False)
      *
-     * @param otherPerson
+     * @param otherPerson for otherPerson
+     * @return true if same sibling
      */
     public boolean checkSameSiblings(Person otherPerson) {
         Set<Person> list1 = this.getSiblingList();
@@ -289,7 +263,7 @@ public class Person implements Owner {
      * Develop a method to check if two people have the Same Mother
      *
      * @param otherPerson Person to validate if has the same mother
-     * @return boolean
+     * @return true if same mother
      */
     public boolean checkSameMother(Person otherPerson) {
         if (otherPerson == null || this.mother == null || otherPerson.mother == null) {
@@ -302,6 +276,7 @@ public class Person implements Owner {
      * Develop a method to check if two people have the Same Father
      *
      * @param otherPerson to validate if has the same father
+     * @return true if same father
      */
     public boolean checkSameFather(Person otherPerson) {
         if (otherPerson == null || this.father == null || otherPerson.father == null) {
@@ -313,7 +288,8 @@ public class Person implements Owner {
     /**
      * Person exists on the other Person siblings list (USER STORIES)
      *
-     * @return boolean
+     * @param otherPerson
+     * @return true person exists
      */
     public boolean personExistsOnSiblingsList(Person otherPerson) {
         return siblingList.contains(otherPerson);
@@ -323,6 +299,7 @@ public class Person implements Owner {
     /**
      * Develop method to check if two individuals are siblings (USER STORIES)
      *
+     * @param otherPerson
      * @return boolean
      */
 

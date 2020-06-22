@@ -50,7 +50,7 @@ public class Address {
     /**
      * Return birthPlace as a String
      *
-     * @return String
+     * @return birthPlace
      */
 
     public String getBirthPlace() {
@@ -60,7 +60,8 @@ public class Address {
     /**
      * Private Set for BirthPlace: Validade if birth place is not a number, null or it's missing
      *
-     * @param birthPlace
+     * @param birthPlace for birthPlace
+     * @return new birthPlace
      */
     private String setValidBirthPlace(String birthPlace) {
         if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
@@ -73,7 +74,8 @@ public class Address {
     /**
      * Private set for City: Validate if City Name is not a number, null or it's missing
      *
-     * @param city
+     * @param city for city
+     * @return new city
      */
 
     private String setValidCity(String city) {
@@ -87,7 +89,8 @@ public class Address {
     /**
      * Private set for Street: Validate if Street is not a number, null or it's missing
      *
-     * @param street
+     * @param street for street
+     * @return new street
      */
 
 
@@ -118,8 +121,8 @@ public class Address {
     /**
      * Auxiliary method to Validate if the postal code is in the correct format (4620-580) - Validation for PT users
      *
-     * @param postalCode
-     * @return
+     * @param postalCode for postalCode
+     * @return true if postalCode valid
      */
 
     private boolean postalCodeIsInCorrectFormat(String postalCode) {
@@ -132,8 +135,8 @@ public class Address {
     /**
      * Auxiliary method to Add '-' in case user forget to add it
      *
-     * @param postalCode
-     * @return
+     * @param postalCode for postalCode
+     * @return postalCode with hyphen
      */
 
     private static String addHyphenToPostalCode(String postalCode) {
@@ -143,8 +146,8 @@ public class Address {
     /**
      * Validate if City is not Numeric
      *
-     * @param city
-     * @return
+     * @param city for city
+     * @return true if city is a number
      */
 
     private static boolean isNumeric(String city) {

@@ -37,8 +37,8 @@ public class Email implements Serializable {
     /**
      * Method to set a valid email
      *
-     * @param email
-     * @return
+     * @param email for email
+     * @return new email
      */
 
     private String setValidEmail(String email) {
@@ -54,7 +54,7 @@ public class Email implements Serializable {
     /**
      * Get email
      *
-     * @return
+     * @return email
      */
 
     public String getEmailAddress() {
