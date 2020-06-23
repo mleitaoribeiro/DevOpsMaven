@@ -23,16 +23,6 @@ public class US006CreatePersonAccountControllerRest {
     @Autowired
     US006CreatePersonAccountService service;
 
-    /**
-     * US006
-     * As an User, I want to create an account to myself.
-     * It has a denomination and a description, so then I can use the account in my transactions.
-     *
-     * @param info for info
-     * @param personEmail for personEmail
-     * @return ResponseEntity<Object>
-     */
-
     @PostMapping("/persons/{personEmail}/accounts")
     public ResponseEntity<AccountDTO> createPersonAccount(@PathVariable final String personEmail, @RequestBody CreatePersonAccountInfoDTO info) {
 
@@ -55,14 +45,6 @@ public class US006CreatePersonAccountControllerRest {
 
     }
 
-    /**
-     * Method to get an Account by AccountID
-     *
-     * @param accountDenomination for accountDenomination
-     * @param personEmail for personEmail
-     * @return ResponseEntity<Object>
-     */
-
     @GetMapping(value = "persons/{personEmail}/accounts/{accountDenomination}")
     public ResponseEntity<AccountDTO> getAccountByAccountID
     (@PathVariable final String accountDenomination, @PathVariable final String personEmail) {
@@ -71,13 +53,6 @@ public class US006CreatePersonAccountControllerRest {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    /**
-     * Method to get all accounts by PersonID
-     *
-     * @param personEmail for personEmail
-     * @return ResponseEntity<Object>
-     */
 
     @GetMapping(value = "persons/{personEmail}/accounts")
     public ResponseEntity<Object> getAccountsByPersonID

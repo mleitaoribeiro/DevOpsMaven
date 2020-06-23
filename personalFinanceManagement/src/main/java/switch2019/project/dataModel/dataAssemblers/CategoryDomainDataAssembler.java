@@ -13,29 +13,11 @@ import switch2019.project.utils.StringUtils;
 
 public class CategoryDomainDataAssembler {
 
-    /**
-     * Private constructor to hide the implicit public one
-     */
-
     private CategoryDomainDataAssembler() {}
-
-    /**
-     * Method for transforming an Category object into a CategoryJPA object
-     *
-     * @param category
-     * @return categoryJPA
-     */
 
     public static CategoryJpa toData(Category category) {
         return new CategoryJpa(category.getID().getOwnerIDString(), category.getNameOfCategory());
     }
-
-    /**
-     * Method for transforming an CategoryJPA object into a Category object
-     *
-     * @param categoryJPA
-     * @return category
-     */
 
     public static Category toDomain(CategoryJpa categoryJPA) {
 

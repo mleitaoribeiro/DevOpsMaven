@@ -26,14 +26,6 @@ public class US006CreatePersonAccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    /**
-     * User Story 6
-     * As a user, I want to create a account
-     *
-     * @param createPersonAccountDTO
-     * @return AccountDTO
-     */
-
     public AccountDTO createPersonAccount(CreatePersonAccountDTO createPersonAccountDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createPersonAccountDTO.getPersonEmail())).getID();
@@ -46,14 +38,6 @@ public class US006CreatePersonAccountService {
         return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
 
     }
-
-    /**
-     * method that finds a account by account ID
-     *
-     * @param personEmail
-     * @param accountDenomination
-     * @return AccountDTO representing an Account
-     */
 
     public AccountDTO getAccountByAccountID(String accountDenomination, String personEmail) {
 
@@ -70,14 +54,6 @@ public class US006CreatePersonAccountService {
         return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
     }
 
-
-    /**
-     * method that finds all accounts by person ID
-     *
-     * @param personEmail
-     * @return all accounts from the person
-     */
-
     public Set<AccountDTO> getAccountsByPersonID(String personEmail) {
 
         OwnerID ownerID = personRepository.findPersonByEmail(new Email(personEmail)).getID();
@@ -91,6 +67,4 @@ public class US006CreatePersonAccountService {
 
         return accountsDTO;
     }
-
-
 }

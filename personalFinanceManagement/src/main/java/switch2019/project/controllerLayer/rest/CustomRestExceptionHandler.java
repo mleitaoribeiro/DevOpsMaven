@@ -20,17 +20,6 @@ import switch2019.project.utils.customExceptions.ResourceAlreadyExistsException;
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-
-    /**
-     * Handler for HttpMessageNotReadableException - occurs when the required request body is missing.
-     *
-     * @param exception for exception
-     * @param headers   for headers
-     * @param status    for status
-     * @param request   for request
-     * @return ResponseEntity<Object>
-     */
-
     @Override //status 400
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException exception,
@@ -47,17 +36,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-
-    /**
-     * Handler for NoHandlerFoundException - Occurs when a URI does not exist.
-     *
-     * @param ex      for ex
-     * @param headers for headers
-     * @param status  for status
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
-
     @Override //status 404
     protected ResponseEntity<Object> handleNoHandlerFoundException(
             NoHandlerFoundException ex,
@@ -68,16 +46,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDTO apiError = new ErrorDTO(HttpStatus.NOT_FOUND, "URI does not exist", "The URI you entered cannot be found");
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
-    /**
-     * Handler for HttpMediaTypeNotSupportedException – occurs when the client sends a request with unsupported media type
-     *
-     * @param exception for exception
-     * @param headers   for headers
-     * @param status    for status
-     * @param request   for request
-     * @return ResponseEntity<Object>
-     */
 
     @Override //status 415
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(
@@ -93,16 +61,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
-    /**
-     * Handler for HttpRequestMethodNotSupportedException - occurs when the client sends a request with an unsupported HTTP method
-     *
-     * @param exceptionfor exception
-     * @param headers for headers
-     * @param status for status
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
 
     @Override //status 405
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
@@ -121,15 +79,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-
-    /**
-     * Handler for IllegalArgumentExceptions - occurs when the client enters an argument that is not valid
-     *
-     * @param exception for exception
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
-
     @ExceptionHandler({IllegalArgumentException.class}) //status 422
     public ResponseEntity<Object> handleIllegalArgumentException(
             final IllegalArgumentException exception,
@@ -144,14 +93,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
-    /**
-     * Handler for ResourceAlreadyExistsExceptions - occurs when the client tries to create a resource that already exists
-     *
-     * @param exception for exception
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
 
     @ExceptionHandler({ResourceAlreadyExistsException.class}) //status 409
     public ResponseEntity<Object> handleResourceAlreadyExistsException(
@@ -168,14 +109,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    /**
-     * Handler for ArgumentNotFoundException - occurs when the resource needed to perform the operation is not found
-     *
-     * @param exception for exception
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
-
     @ExceptionHandler({ArgumentNotFoundException.class}) //status 422
     public ResponseEntity<Object> handleArgumentNotFoundException(
             final ArgumentNotFoundException exception,
@@ -190,14 +123,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
-
-    /**
-     * Handler for NoPermissionException - occurs when the client tries to do an operation for which he is not allowed
-     *
-     * @param exception for exception
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
 
     @ExceptionHandler({NoPermissionException.class}) //status 403
     public ResponseEntity<Object> handleNoPermissionException(
@@ -214,13 +139,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    /**
-     * Deals with all other exceptions that don't have specific handlers
-     *
-     * @param someException for someException
-     * @param request for request
-     * @return ResponseEntity<Object>
-     */
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAll(Exception someException, WebRequest request) {
         ErrorDTO apiError = new ErrorDTO(

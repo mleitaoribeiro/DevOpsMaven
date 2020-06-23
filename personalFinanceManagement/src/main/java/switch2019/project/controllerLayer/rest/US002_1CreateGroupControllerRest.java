@@ -20,14 +20,6 @@ public class US002_1CreateGroupControllerRest {
     @Autowired
     US002_1CreateGroupService service;
 
-    /**
-     * US002.1
-     * method that sends an HTTP responsive for a POST request to create a group and become Admin
-     *
-     * @param info for info
-     * @return ResponseEntity<Object>
-     */
-
     @PostMapping("/groups")
     public ResponseEntity<Object> createGroup(@RequestBody CreateGroupInfoDTO info) {
 

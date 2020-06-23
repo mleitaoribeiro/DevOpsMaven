@@ -23,15 +23,6 @@ public class US003AddMemberToGroupControllerRest {
     @Autowired
     US003AddMemberToGroupService service;
 
-    /**
-     * US003
-     * method that sends an HTTP responsive for a POST request to add a Member to a group
-     *
-     * @param info for info
-     * @param groupDescription for groupDescription
-     * @return ResponseEntity<Object>
-     */
-
     @PostMapping("/groups/{groupDescription}/members")
     public ResponseEntity<Object> addMemberToGroup(@PathVariable String groupDescription,
                                                    @RequestBody MemberInfoDTO info){

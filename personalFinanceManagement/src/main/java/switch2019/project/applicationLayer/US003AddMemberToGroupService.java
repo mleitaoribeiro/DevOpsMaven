@@ -28,14 +28,6 @@ public class US003AddMemberToGroupService {
     @Autowired
     private GroupRepository groupRepository;
 
-    /**
-     * US003
-     * Add Member To Group
-     *
-     * @param addMemberDTO for addMemberDTO
-     * @return AddedMemberDTO
-     */
-
     public AddedMemberDTO addMemberToGroup(AddMemberDTO addMemberDTO) {
         Person person = personRepository.findPersonByEmail(new Email(addMemberDTO.getPersonEmail()));
         Group group = groupRepository.findGroupByDescription(new Description(addMemberDTO.getGroupDescription()));
