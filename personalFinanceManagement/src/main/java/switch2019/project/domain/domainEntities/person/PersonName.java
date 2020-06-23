@@ -29,30 +29,14 @@ public class PersonName {
     @Override
     public String toString() { return name;}
 
-    /**
-     * Get Full Person Name
-     * @return personName
-     */
-
     public String getPersonName() {
         return name;
     }
-
-    /**
-     * Get First and Last Name
-     * @return personName
-     */
 
     public String getFirstAndLastName() {
         String[] words = name.split(" ");
         return words[0] + " " + words[words.length - 1];
     }
-
-    /**
-     * Capitalize all the first letters and remove all the extra spaces
-     * @param personName for personName
-     * @return personName normalized
-     */
 
     private String standardPersonName(String personName) {
         if(personName == null || personName.isEmpty())

@@ -18,14 +18,6 @@ public class Account implements Entity {
     private Description description;
     private MonetaryValue balance;
 
-    /**
-     * Constructor of Account
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     */
-
     public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
         if (accountDescription == null) throw new IllegalArgumentException("Account description can't be null.");
         else {
@@ -35,15 +27,6 @@ public class Account implements Entity {
         }
     }
 
-    /**
-     * Constructor with a given balance used to replicate an account
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     * @param monetaryValue
-     *
-     * @return
-     */
     public Account(Denomination accountDenomination, Description accountDescription, OwnerID ownerID, MonetaryValue monetaryValue) {
         if (accountDescription == null) throw new IllegalArgumentException("Account description can't be null.");
         else {
@@ -72,45 +55,22 @@ public class Account implements Entity {
         return description.toString() + ", " + balance.toString() + "€" + ", " + accountID.toString();
     }
 
-
-    /**
-     * Get accountID
-     */
     public AccountID getID() {
         return accountID;
     }
-
-    /**
-     * Get account by Owner ID
-     */
 
     public OwnerID getOwnerID() {
         return this.accountID.getOwnerID();
     }
 
-    /**
-     * Get account balance
-     */
-
     public MonetaryValue getBalance() {
         return balance;
     }
-
-    /**
-     * Public get for denomination in String
-     *
-     * @return denominationString
-     */
 
     public String denominationToString() {
         return this.getID().getDenominationToString();
     }
 
-    /**
-     * Public get for description in String
-     *
-     * @return descriptionString
-     */
     public String descriptionToString() {
         return description.toString();
     }

@@ -26,19 +26,10 @@ public class AddMemberDTO {
         return Objects.hash(personEmail, groupDescription);
     }
 
-    /**
-     * Getter for personEmail
-     * @return personEmail
-     */
     public String getPersonEmail() {
         return personEmail;
     }
 
-    /**
-     * Getter for groupDescription
-     *
-     * @return groupDescription
-     */
     public String getGroupDescription() {
         return groupDescription;
     }

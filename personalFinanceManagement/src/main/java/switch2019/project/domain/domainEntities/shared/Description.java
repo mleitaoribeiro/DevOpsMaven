@@ -31,22 +31,12 @@ public class Description {
         return this.descriptionValue;
     }
 
-    /**
-     * setter Description
-     *
-     * @param description
-     */
     private String setValidDescription(String description) {
         if (description == null || description.isEmpty())
             throw new IllegalArgumentException("The description can't be null or empty.");
         else return StringUtils.removeExtraSpaces(description.toUpperCase());
     }
 
-    /**
-     * getter for Description
-     *
-     * @return description
-     */
     public String getDescription() {
         return descriptionValue;
     }

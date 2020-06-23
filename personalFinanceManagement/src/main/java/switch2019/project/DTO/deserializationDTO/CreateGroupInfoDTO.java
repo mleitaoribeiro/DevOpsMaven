@@ -23,41 +23,19 @@ public class CreateGroupInfoDTO {
         return Objects.hash(groupDescription, personEmail);
     }
 
-    /**
-     * Set groupDescription
-     *
-     * @param groupDescription for groupDescription
-     */
     public void setGroupDescription(String groupDescription) {
         this.groupDescription = groupDescription;
     }
 
-    /**
-     * get Group Description
-     *
-     * @return String
-     */
     public String getGroupDescription() {
         return groupDescription;
     }
 
-    /**
-     * set personEmail
-     *
-     * @param personEmail for personEmail
-     */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
     }
 
-    /**
-     * get Person Email
-     *
-     * @return String
-     */
     public String getPersonEmail() {
         return personEmail;
     }
-
-
 }

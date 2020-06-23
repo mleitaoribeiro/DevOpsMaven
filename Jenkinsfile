@@ -21,16 +21,16 @@ pipeline {
                 dir('personalFinanceManagement') {
                     echo 'Testing...'
                     sh './mvnw surefire-report:report '
-                    junit 'target/site/*.html'
+                    archiveArtifacts 'target/site/*.html'
                 }
                 dir('personalFinanceManagement') {
                     echo 'Generating code coverage...'
                     sh './mvnw verify'
-                    junit 'target/site/jacoco/index.html'
+                    archiveArtifacts 'target/site/jacoco/index.html'
                 }
             }
         }
-
+        /*
         stage ('Javadoc'){
             steps {
                 dir('personalFinanceManagement') {
@@ -47,13 +47,14 @@ pipeline {
                 }
             }
         }
+        */
 
         stage('Archiving') {
             steps {
                 dir('personalFinanceManagement') {
                     sh 'dir'
                     echo 'Archiving...'
-                    archiveArtifacts 'target/'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }

@@ -36,37 +36,18 @@ public class AccountID implements ID {
     @Override
     public String toString() { return  denomination.toString() + ", " + ownerID.toString(); }
 
-    /**
-     * Method to return String Denomination
-     *
-     * @return string
-     */
     public String getDenominationToString() {
         return denomination.toString();
     }
 
-    /**
-     * Method to return String Denomination
-     *
-     * @return denomination
-     */
     public Denomination getDenomination() {
         return denomination;
     }
 
-    /**
-     * Method to return ownerID
-     *
-     * @return ownerID
-     */
     public OwnerID getOwnerID() {
         return ownerID;
     }
 
-    /**
-     * Method to return accountID
-     * @return
-     */
     public AccountID getCopyOfAccountID() {
         return new AccountID(new Denomination(this.getDenominationToString()), this.getOwnerID());
     }

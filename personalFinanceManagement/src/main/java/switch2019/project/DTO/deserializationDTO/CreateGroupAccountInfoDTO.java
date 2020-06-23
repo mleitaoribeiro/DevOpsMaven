@@ -35,59 +35,26 @@ public class CreateGroupAccountInfoDTO {
         return Objects.hash(personEmail, accountDenomination, accountDescription);
     }
 
-    /**
-     * getter for personEmail
-     *
-     * @return String
-     */
     public String getPersonEmail() {
         return personEmail;
     }
 
-
-
-    /**
-     * getter for accountDenomination
-     *
-     * @return String
-     */
     public String getAccountDenomination() {
         return accountDenomination;
     }
 
-    /**
-     * getter for accountDescription
-     *
-     * @return String
-     */
     public String getAccountDescription() {
         return accountDescription;
     }
 
-    /**
-     * setter for the personEmail
-     *
-     * @param personEmail for personEmail
-     */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
     }
 
-
-    /**
-     * setter for accountDenomination
-     *
-     * @param accountDenomination for accountDenomination
-     */
     public void setAccountDenomination(String accountDenomination) {
         this.accountDenomination = accountDenomination;
     }
 
-    /**
-     * setter accountDescription
-     *
-     * @param accountDescription for accountDescription
-     */
     public void setAccountDescription(String accountDescription) {
         this.accountDescription = accountDescription;
     }

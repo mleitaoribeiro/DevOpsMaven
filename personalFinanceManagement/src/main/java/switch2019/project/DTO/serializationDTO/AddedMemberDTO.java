@@ -27,11 +27,6 @@ public class AddedMemberDTO extends RepresentationModel<AddedMemberDTO>  {
         return Objects.hash(memberAdded);
     }
 
-    /**
-     * method to get memberAdded attribute
-     *
-     * @return String
-     */
     public String getMemberAdded() {
         return memberAdded;
     }

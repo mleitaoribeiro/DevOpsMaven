@@ -12,19 +12,9 @@ public class AreSiblingsDTO {
         this.emailPersonTwo = emailPersonTwo;
     }
 
-    /**
-     * get email of PersonOne
-     * @return emailPersonOne
-     */
-
     public String getEmailPersonOne() {
         return emailPersonOne;
     }
-
-    /**
-     * get email of PersonTwo
-     * @return emailPersonTwo
-     */
 
     public String getEmailPersonTwo() {
         return emailPersonTwo;

@@ -29,30 +29,14 @@ public class GetPersonalTransactionInDateRangeDTO {
         return Objects.hash(personEmail, initialDate, finalDate);
     }
 
-    /**
-     * get Person Email
-     *
-     * @return personEmail
-     */
     public String getPersonEmail() {
         return personEmail;
     }
 
-    /**
-     * get Initial Date
-     *
-     * @return initialDate
-     */
     public String getInitialDate() {
         return initialDate;
     }
 
-
-    /**
-     * get Final Date
-     *
-     * @return finalDate
-     */
     public String getFinalDate() {
         return finalDate;
     }

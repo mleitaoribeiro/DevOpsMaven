@@ -9,19 +9,6 @@ public class Schedule {
     // Private Task attributes
     private final Periodicity periodicity;
 
-    /**
-     * Schedule Constructor
-     *
-     * @param ledger
-     * @param periodicity
-     * @param amount
-     * @param description
-     * @param date
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
     public Schedule(Ledger ledger, Periodicity periodicity, MonetaryValue amount, Description description, DateAndTime date,
                     CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         this.periodicity = periodicity;

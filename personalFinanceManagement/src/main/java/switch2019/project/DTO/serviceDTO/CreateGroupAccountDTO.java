@@ -31,38 +31,18 @@ public class CreateGroupAccountDTO {
         return Objects.hash(personEmail, groupDescription, accountDenomination, accountDescription);
     }
 
-    /**
-     * get Person Email
-     *
-     * @return personID
-     */
     public String getPersonEmail() {
         return personEmail;
     }
 
-    /**
-     * get Group Description
-     *
-     * @return personID
-     */
     public String getGroupDescription() {
         return groupDescription;
     }
 
-    /**
-     * get Account Denomination
-     *
-     * @return accountDenomination
-     */
     public String getAccountDenomination() {
         return accountDenomination;
     }
 
-    /**
-     * get Account tDescription
-     *
-     * @return accountDescription
-     */
     public String getAccountDescription() {
         return accountDescription;
     }

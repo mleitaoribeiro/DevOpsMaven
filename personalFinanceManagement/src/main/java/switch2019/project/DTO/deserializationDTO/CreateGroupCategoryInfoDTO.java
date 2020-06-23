@@ -11,34 +11,18 @@ public class CreateGroupCategoryInfoDTO {
         super();
     }
 
-    /**
-     * Setter for personEmail
-     * @param personEmail for personEmail
-     */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
     }
 
-    /**
-     * Setter for categoryDenomination
-     * @param categoryDenomination for categoryDenomination
-     */
     public void setCategoryDenomination(String categoryDenomination) {
         this.categoryDenomination = categoryDenomination;
     }
 
-    /**
-     * Getter for the personEmail
-     * @return String
-     */
     public String getPersonEmail() {
         return personEmail;
     }
 
-    /**
-     * Getter for the categoryDenomination
-     * @return String
-     */
     public String getCategoryDenomination() {
         return categoryDenomination;
     }
