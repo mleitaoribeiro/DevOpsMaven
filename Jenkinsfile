@@ -54,7 +54,7 @@ pipeline {
                 dir('personalFinanceManagement') {
                     sh 'dir'
                     echo 'Archiving...'
-                    archiveArtifacts 'target/'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
