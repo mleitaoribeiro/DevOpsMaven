@@ -26,11 +26,6 @@ public class SiblingsDTO extends RepresentationModel<PersonIDDTO> {
         return Objects.hash(siblings);
     }
 
-    /**
-     * get Sibling DTO
-     * @return String
-     */
-
     public String getSiblings() {
         return siblings;
     }

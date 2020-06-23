@@ -37,20 +37,10 @@ public class CategoryDTO extends RepresentationModel<CategoryDTO> {
         return "This " + this.denomination + " category was added to " + this.ownerID + " categories list!";
     }
 
-    /**
-     * Getter for the Category description
-     *
-     * @return denomination
-     */
     public String getDenomination() {
         return denomination;
     }
 
-    /**
-     * Getter for the CategoryID
-     *
-     * @return ownerId
-     */
     public String getOwnerID() {
         return ownerID;
     }

@@ -25,22 +25,9 @@ public class CreateGroupDTO {
         return Objects.hash(groupDescription, personEmail);
     }
 
-
-    /**
-     * get Group Description
-     *
-     * @return groupDescription
-     */
-
     public String getGroupDescription() {
         return groupDescription;
     }
-
-    /**
-     * get Person Email
-     *
-     * @return personEmail
-     */
 
     public String getPersonEmail() {
         return personEmail;

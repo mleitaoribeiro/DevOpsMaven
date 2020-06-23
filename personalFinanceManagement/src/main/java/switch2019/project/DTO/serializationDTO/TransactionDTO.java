@@ -14,19 +14,6 @@ public class TransactionDTO {
     private final String accountTo;
     private final String type;
 
-    /**
-     * Constructor for TransactionDTO
-     *
-     * @param amount for amount
-     * @param currency for currency
-     * @param description for description
-     * @param date for date
-     * @param category for category
-     * @param accountFrom for accountFrom
-     * @param accountTo for accountTo
-     * @param type for type
-     */
-
     public  TransactionDTO (Double amount, Currency currency, String description, String date, String category,
                             String accountFrom, String accountTo, String type) {
         this.amount = amount;
@@ -59,81 +46,33 @@ public class TransactionDTO {
         return Objects.hash(amount, description, date, category, accountFrom, accountTo, type);
     }
 
-    /**
-     * Getter for Currency
-     *
-     * @return currency
-     */
-
     public Currency getCurrency() {
         return currency;
     }
-
-    /**
-     * Getter for amount
-     *
-     * @return amount
-     */
 
     public Double getAmount() {
         return amount;
     }
 
-    /**
-     * Getter for description
-     *
-     * @return description
-     */
-
     public String getDescription() {
         return description;
     }
-
-    /**
-     * Getter for date
-     *
-     * @return date
-     */
 
     public String getDate() {
         return date;
     }
 
-    /**
-     * Getter for category
-     *
-     * @return category
-     */
-
     public String getCategory() {
         return category;
     }
-
-    /**
-     * Getter for accountFrom
-     *
-     * @return accountFrom
-     */
 
     public String getAccountFrom() {
         return accountFrom;
     }
 
-    /**
-     * Getter for accountTo
-     *
-     * @return accountTo
-     */
-
     public String getAccountTo() {
         return accountTo;
     }
-
-    /**
-     * Getter for Type
-     *
-     * @return type
-     */
 
     public String getType() {
         return type;

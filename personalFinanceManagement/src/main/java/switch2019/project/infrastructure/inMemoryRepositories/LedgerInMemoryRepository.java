@@ -28,13 +28,6 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         ledgers = new LinkedHashSet<>();
     }
 
-    /**
-     * Find Ledger by ID
-     *
-     * @param ledgerID
-     * @return ledger
-     */
-
     public Ledger getByID(ID ledgerID) {
         for (Ledger ledger : ledgers) {
             if (ledger.getID().equals(ledgerID))
@@ -42,24 +35,9 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         } throw new ArgumentNotFoundException("No ledger found with that ID.");
     }
 
-    /**
-     * Find Transaction by TransactionID
-     *
-     * @param id
-     * @return
-     */
-
     public Transaction getTransactionByID(String ownerID, Long id) {
         return null;
     }
-
-
-    /**
-     * Verifies if ID exists on the Repository
-     *
-     * @param ledgerID
-     * @return boolean
-     */
 
     public boolean isIDOnRepository(ID ledgerID) {
         for (Ledger ledger : ledgers) {
@@ -68,22 +46,9 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         } return false;
     }
 
-    /**
-     * Method to check the number of Ledgers inside the Repository.
-     *
-     * @return ledger size
-     */
-
     public long repositorySize() {
         return ledgers.size();
     }
-
-    /**
-     * Add a new ledger to Ledger Repository
-     *
-     * @param ownerID
-     * @return ledger
-     */
 
     public Ledger createLedger(OwnerID ownerID) {
         if (this.ledgers.contains(new Ledger(ownerID)))
@@ -95,20 +60,6 @@ public class LedgerInMemoryRepository implements LedgerRepository {
         }
     }
 
-    /**
-     * Method to Add Transactions to Ledger
-     *
-     * @param ledgerID
-     * @param amount
-     * @param description
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     * @return boolen
-     */
-
     public Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
                                               CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
 
@@ -117,12 +68,6 @@ public class LedgerInMemoryRepository implements LedgerRepository {
             return ledger.addTransactionToLedger(amount, description, localDate, category, accountFrom, accountTo, type);
         } else throw new ArgumentNotFoundException("No Ledger found with that ID.");
     }
-
-    /**
-     * Method to return all the transactions from a given ownerID
-     *
-     * @param ownerID
-     */
 
     public List<Transaction> findAllTransactionsByLedgerID(String ownerID) {
         Ledger ledger;

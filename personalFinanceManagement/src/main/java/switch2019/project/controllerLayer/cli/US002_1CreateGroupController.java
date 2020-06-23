@@ -12,14 +12,6 @@ public class US002_1CreateGroupController {
     @Autowired
     private switch2019.project.applicationLayer.US002_1CreateGroupService service;
 
-    /**
-     * US002.1
-     * I want to create a group and become an Admin
-     *
-     * @param groupDescription for groupDescription
-     * @param personEmail for personEmail
-     * @return groupDTO
-     */
     public GroupDTO createGroup(String groupDescription, String personEmail) {
        CreateGroupDTO createGroupDTO = GroupDTOAssembler.creationOfGroupDTO(groupDescription,personEmail);
        return service.createGroup(createGroupDTO);

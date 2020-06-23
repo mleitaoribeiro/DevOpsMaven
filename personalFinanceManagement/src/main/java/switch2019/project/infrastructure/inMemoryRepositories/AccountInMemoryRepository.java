@@ -29,26 +29,12 @@ public class AccountInMemoryRepository implements AccountRepository {
         return "Accounts Repository: " + accounts.toString();
     }
 
-    /**
-     * Find account by ID
-     *
-     * @param accountID
-     * @return account
-     */
-
     public Account getByID (ID accountID) {
         for (Account account : accounts) {
             if (account.getID().equals(accountID))
                 return account;
         } throw new ArgumentNotFoundException("No account found with that ID.");
     }
-
-    /**
-     * method to validate if the account is in the accounts Repository
-     *
-     * @param accountID
-     * @return boolean
-     */
 
     public boolean isIDOnRepository(ID accountID) {
         for (Account account : accounts)
@@ -57,24 +43,9 @@ public class AccountInMemoryRepository implements AccountRepository {
         return false;
     }
 
-    /**
-     * Method to get the numbers of Accounts in the Repository
-     *
-     * @return int
-     */
-
     public long repositorySize () {
         return this.accounts.size();
     }
-
-    /**
-     * method to add one account to the repository with an Owner
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     * @return
-     */
 
     public Account createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
         if (!isIDOnRepository(new AccountID(accountDenomination, ownerID))) {
@@ -83,13 +54,6 @@ public class AccountInMemoryRepository implements AccountRepository {
             return accountToAdd;
         } else throw new ResourceAlreadyExistsException("This account already exists.");
     }
-
-    /**
-     * Get list of Accounts By Owner ID - not validated
-     *
-     * @param ownerID
-     * @return
-     */
 
     public Set<Account> returnAccountsByOwnerID(OwnerID ownerID) {
         Set<Account> listOfAccountsByOwnerID = new HashSet<>();
@@ -102,13 +66,6 @@ public class AccountInMemoryRepository implements AccountRepository {
             else throw new ArgumentNotFoundException("No accounts found with that ID.");
         } throw new IllegalArgumentException("Owner ID can't be null.");
     }
-
-    /**
-     * method to remove one account from the Repository
-     *
-     * @param accountToBeRemoved
-     * @return boolean
-     */
 
     public boolean removeAccount(Account accountToBeRemoved) {
         if (accountToBeRemoved != null)

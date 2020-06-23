@@ -44,13 +44,6 @@ public class GroupDbRepository implements GroupRepository {
     public GroupDbRepository() {
     }
 
-    /**
-     * As a user I want to create a group becoming a group administrator(US02.1)
-     *
-     * @param groupDescription
-     * @param groupCreator
-     */
-
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
         Group group = new Group(groupDescription, groupCreator);
         GroupJpa newGroup = groupJpaRepository.save(GroupDomainDataAssembler.toData(group));
@@ -66,13 +59,6 @@ public class GroupDbRepository implements GroupRepository {
                 adminsJpaRepository.findAllById_GroupID_Id(newGroup.getId()));
     }
 
-    /**
-     * Method used to find a specific group by its Description
-     *
-     * @param groupDescription
-     * @return group
-     */
-
     public Group findGroupByDescription(Description groupDescription) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupDescription.getDescription());
         if (groupJpa.isPresent()) {
@@ -83,12 +69,6 @@ public class GroupDbRepository implements GroupRepository {
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
-    /**
-     * Method to return the group corespondent to the given GroupID
-     *
-     * @param groupID
-     * @return group
-     */
     public Group getByID(ID groupID) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
         if (groupJpa.isPresent()) {
@@ -99,23 +79,10 @@ public class GroupDbRepository implements GroupRepository {
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
-    /**
-     * method to validate if the group t is in the groups Repository
-     *
-     * @param groupID
-     * @return boolean
-     */
-
     public boolean isIDOnRepository(ID groupID) {
         Optional<GroupJpa> groupJpa = groupJpaRepository.findById(groupID.toString());
         return groupJpa.isPresent();
     }
-
-    /**
-     * method get All the groups
-     *
-     * @return List<Group>
-     */
 
     public List<Group> getAllGroups() {
         List<GroupJpa> groupsJpa = groupJpaRepository.findAll();
@@ -128,24 +95,10 @@ public class GroupDbRepository implements GroupRepository {
         return groups;
     }
 
-    /**
-     * Method to check the number of Groups inside the Repository.
-     *
-     * @return size of the groupsList
-     */
-
     public long repositorySize() {
         return getAllGroups().size();
     }
 
-
-    /**
-     * Method to add a member to a Group
-     *
-     * @param group
-     * @param personID
-     * @return
-     */
     public boolean addMember(Group group, String personID) {
         List<MembersJpa> membersJpasList = membersJpaRepository.findAllById_GroupID_Id(group.toString());
 
@@ -159,13 +112,6 @@ public class GroupDbRepository implements GroupRepository {
         } return false;
     }
 
-    /**
-     * Method to add a member to a Group
-     *
-     * @param group
-     * @param personID
-     * @return
-     */
     public boolean setAdmin(Group group, String personID) {
         List<MembersJpa> membersJpasList = membersJpaRepository.findAllById_GroupID_Id(group.toString());
         List<AdminsJpa> adminsJpasList = adminsJpaRepository.findAllById_GroupID_Id(group.toString());

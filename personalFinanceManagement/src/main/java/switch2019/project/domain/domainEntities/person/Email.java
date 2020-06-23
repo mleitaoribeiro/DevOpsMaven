@@ -34,13 +34,6 @@ public class Email implements Serializable {
         return emailAddress;
     }
 
-    /**
-     * Method to set a valid email
-     *
-     * @param email for email
-     * @return new email
-     */
-
     private String setValidEmail(String email) {
         if (email == null)
             throw new IllegalArgumentException(EMAIL_NULL);
@@ -50,12 +43,6 @@ public class Email implements Serializable {
             throw new IllegalArgumentException(EMAIL_NOT_VALID);
 
     }
-
-    /**
-     * Get email
-     *
-     * @return email
-     */
 
     public String getEmailAddress() {
         return emailAddress;

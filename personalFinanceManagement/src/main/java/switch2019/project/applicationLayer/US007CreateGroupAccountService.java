@@ -29,16 +29,7 @@ public class US007CreateGroupAccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    /**
-     *US007 - As a group Admin, I want to create a group account
-     *
-     * @param createGroupAccountDTO
-     * @param
-     * @return accountDTO
-     */
-
-
-    public AccountDTO createGroupAccount (CreateGroupAccountDTO createGroupAccountDTO) {
+    public AccountDTO createGroupAccount(CreateGroupAccountDTO createGroupAccountDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createGroupAccountDTO.getPersonEmail())).getID();
 
@@ -49,10 +40,9 @@ public class US007CreateGroupAccountService {
 
         GroupID groupID = group.getID();
 
-        if  (!group.isGroupMember(personID)) {
+        if (!group.isGroupMember(personID)) {
             throw new NoPermissionException("This person is not member of this group.");
-        }
-        else if   (!group.isGroupAdmin(personID))
+        } else if (!group.isGroupAdmin(personID))
             throw new NoPermissionException("This person is not admin of this group.");
         else {
             Account account = accountRepository.createAccount(accountDenomination, accountDescription, groupID);
@@ -60,15 +50,7 @@ public class US007CreateGroupAccountService {
         }
     }
 
-    /**
-     * method that finds an account by account ID
-     *
-     * @param groupDescription
-     * @param accountDenomination
-     * @return AccountDTO representing an Account
-     */
-
-    public AccountDTO getAccountByAccountID (String accountDenomination, String groupDescription) {
+    public AccountDTO getAccountByAccountID(String accountDenomination, String groupDescription) {
 
         //Find ownerID that created the Account
         OwnerID ownerID = groupRepository.findGroupByDescription(new Description(groupDescription)).getID();
@@ -82,13 +64,6 @@ public class US007CreateGroupAccountService {
         //Return DTO that represents category
         return AccountDTOAssembler.createAccountDTOFromDomainObject(account);
     }
-
-    /**
-     * method that finds all accounts by group ID
-     *
-     * @param groupDescription
-     * @return all accounts from a specific group
-     */
 
     public Set<AccountDTO> getAccountsByGroupID(String groupDescription) {
 

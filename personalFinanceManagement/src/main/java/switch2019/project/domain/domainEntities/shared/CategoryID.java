@@ -35,47 +35,21 @@ public class CategoryID implements ID {
         return Objects.hash(denomination, ownerID);
     }
 
-    /**
-     * Method to return the Denomination string
-     *
-     * @return denomination
-     */
-
     public String getDenominationString() {
         return denomination.toString();
     }
 
-    /**
-     * Method to return OwnerID string
-     * @return
-     */
-
     public String getOwnerIDString() { return ownerID.toString(); }
 
-
-    /**
-     * Method to return the Denomination
-     *
-     * @return denomination
-     */
     public Denomination getDenomination() {
         return denomination;
     }
 
-    /**
-     * Override
-     * @return denomination toString
-     */
     @Override
     public String toString() {
         return denomination.toString() + ", " + ownerID.toString();
     }
 
-    /**
-     * Method to return ownerID
-     *
-     * @return ownerID
-     */
     public OwnerID getOwnerID() {
         return ownerID;
     }

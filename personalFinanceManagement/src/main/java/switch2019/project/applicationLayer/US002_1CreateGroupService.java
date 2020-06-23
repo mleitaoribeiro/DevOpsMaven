@@ -25,19 +25,12 @@ public class US002_1CreateGroupService {
     @Autowired
     private LedgerRepository ledgerRepository;
 
-    /**
-     * US002.1
-     * I want to create a group and become an Admin
-     *
-     * @param createGroupDTO for createGroupDTO
-     * @return groupCreated
-     */
     public GroupDTO createGroup(CreateGroupDTO createGroupDTO) {
 
         Person admin = personRepository.findPersonByEmail(new Email(createGroupDTO.getPersonEmail()));
         Description groupDescription = new Description(createGroupDTO.getGroupDescription());
 
-        if(!groupRepository.isIDOnRepository(new GroupID(groupDescription))){
+        if (!groupRepository.isIDOnRepository(new GroupID(groupDescription))) {
             Group groupCreated = groupRepository.createGroup(groupDescription, admin.getID());
             ledgerRepository.createLedger(new GroupID(groupDescription));
             return GroupDTOAssembler.createGroupDTO(groupCreated.getID());
@@ -45,14 +38,8 @@ public class US002_1CreateGroupService {
         } else throw new ResourceAlreadyExistsException("This group already exists.");
     }
 
-    /**
-     * method that finds a group by its description and returns a GroupDTO
-     * @param groupDescription for groupDescription
-     * @return group
-     */
-
     public GroupDTO getGroupByDescription(String groupDescription) {
-     Group group = groupRepository.findGroupByDescription( new Description(groupDescription));
-     return GroupDTOAssembler.createGroupDTO( group.getID());
+        Group group = groupRepository.findGroupByDescription(new Description(groupDescription));
+        return GroupDTOAssembler.createGroupDTO(group.getID());
     }
 }

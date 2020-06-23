@@ -231,6 +231,36 @@
                     <show>public</show>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-report-plugin</artifactId>-->
+<!--                <version>2.22.1</version>-->
+<!--                <reportSets>-->
+<!--                    <reportSet>-->
+<!--                        &lt;!&ndash; defines aggregate unit test report &ndash;&gt;-->
+<!--                        <id>unit-tests-aggregate</id>-->
+<!--                        <inherited>false</inherited>-->
+<!--                        <reports>-->
+<!--                            <report>report</report>-->
+<!--                        </reports>-->
+<!--                        <configuration>-->
+<!--                            <aggregate>true</aggregate>-->
+<!--                        </configuration>-->
+<!--                    </reportSet>-->
+
+<!--                    <reportSet>-->
+<!--                        &lt;!&ndash; defines aggregate integration test report &ndash;&gt;-->
+<!--                        <id>integration-tests-aggregate</id>-->
+<!--                        <inherited>false</inherited>-->
+<!--                        <reports>-->
+<!--                            <report>failsafe-report-only</report>-->
+<!--                        </reports>-->
+<!--                        <configuration>-->
+<!--                            <aggregate>true</aggregate>-->
+<!--                        </configuration>-->
+<!--                    </reportSet>-->
+<!--                </reportSets>-->
+<!--            </plugin>-->
         </plugins>
     </reporting>
 </project>

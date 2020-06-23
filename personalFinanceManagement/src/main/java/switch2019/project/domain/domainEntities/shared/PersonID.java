@@ -35,10 +35,6 @@ public class PersonID implements OwnerID {
         return email.toString();
     }
 
-    /**
-     * Method to return Person Name
-     * @return personName
-     */
     public String getEmail() {
         return email.getEmailAddress();
     }

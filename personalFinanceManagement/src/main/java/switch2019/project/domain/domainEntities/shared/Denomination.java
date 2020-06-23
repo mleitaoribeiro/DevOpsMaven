@@ -32,24 +32,12 @@ public class Denomination {
         return denominationValue;
     }
 
-    /**
-     * Public set for denomination: Can't not be null or empty
-     *
-     * @param newDenomination
-     */
-
     private String setValidDenomination(String newDenomination) {
 
         if (newDenomination == null || newDenomination.isEmpty()){
             throw new IllegalArgumentException("The denomination can't be null or empty.");
         } else return StringUtils.normalizeDenomination(newDenomination);
     }
-
-    /**
-     * method to get denomination
-     *
-     * @return denominationValue
-     */
 
     public String getDenominationValue() {
         return denominationValue;

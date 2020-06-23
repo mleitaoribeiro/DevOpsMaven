@@ -13,7 +13,8 @@ import java.util.Currency;
 
 public class TransactionDomainDataAssembler {
 
- private TransactionDomainDataAssembler() {};
+    private TransactionDomainDataAssembler() {
+    }
 
     public static Transaction toDomain(TransactionJpa transactionJpa) {
 
@@ -30,19 +31,19 @@ public class TransactionDomainDataAssembler {
         MonetaryValue amount = new MonetaryValue(transactionJpa.getAmount(), Currency.getInstance(transactionJpa.getCurrency()));
         Description description = new Description(transactionJpa.getDescription());
         CategoryID category = new CategoryID(new Denomination(transactionJpa.getCategory()), ownerId);
-        AccountID accountFrom = new AccountID(new Denomination(transactionJpa.getAccountFrom()), ownerId) ;
-        AccountID accountTo = new AccountID(new Denomination(transactionJpa.getAccountTo()),ownerId);
+        AccountID accountFrom = new AccountID(new Denomination(transactionJpa.getAccountFrom()), ownerId);
+        AccountID accountTo = new AccountID(new Denomination(transactionJpa.getAccountTo()), ownerId);
         Long id = transactionJpa.getId();
 
         Type type;
-        if(transactionJpa.getType().toUpperCase().equals("CREDIT"))
+        if (transactionJpa.getType().toUpperCase().equals("CREDIT"))
             type = new Type(true);
         else type = new Type(false);
 
         //Date
         DateAndTime date = StringUtils.toDateHourMinute(transactionJpa.getDate());
 
-        return new Transaction(amount, description, date , category, accountFrom, accountTo, type, id);
+        return new Transaction(amount, description, date, category, accountFrom, accountTo, type, id);
     }
 
     public static TransactionJpa toData(Ledger ledger, Transaction transaction) {

@@ -27,13 +27,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         return "Category Repository: " + categories.toString();
     }
 
-    /**
-     * Find category by ID
-     *
-     * @param categoryID
-     * @return account
-     */
-
     public Category getByID (ID categoryID) {
         for (Category category : categories) {
             if (category.getID().equals(categoryID))
@@ -41,14 +34,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         }
         throw new ArgumentNotFoundException("No category found with that ID.");
     }
-
-
-    /**
-     * method to validate if the account is in the accounts Repository
-     *
-     * @param categoryID
-     * @return boolean
-     */
 
     public boolean isIDOnRepository(ID categoryID) {
         for (Category category : categories) {
@@ -58,22 +43,9 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         return false;
     }
 
-    /**
-     * Method to get the numbers of Categories in the Category List
-     * @return category
-     */
-
     public long repositorySize () {
         return this.categories.size();
     }
-
-    /**
-     * Add a new category to CategoryList
-     * @param nameOfCategory
-     * @param ownerID
-     * @return category
-     * 
-     */
 
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (this.categories.contains(new Category(nameOfCategory, ownerID)))
@@ -85,14 +57,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         }
     }
 
-
-    /**
-     * Add multiple categories to CategoryList
-     *
-     * @param categories<Category> categories
-     * @return boolean
-     */
-
     public boolean addMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         int sizeBefore = this.categories.size();
         for (Denomination category : categories) {
@@ -101,13 +65,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         return this.categories.size() == sizeBefore + categories.size();
     }
 
-    /**
-     * Validate if a set of categories is in the CategoryList
-     *
-     * @param setOfCategories
-     * @return boolean
-     */
-
     public boolean isSetOfCategoriesValid(Set<Denomination> setOfCategories, OwnerID ownerID) {
         Set<Category> list = new HashSet<>();
         for (Denomination category : setOfCategories) {
@@ -115,14 +72,6 @@ public class CategoryInMemoryRepository implements CategoryRepository {
         }
         return this.categories.containsAll(list);
     }
-
-
-    /**
-     * Get list of Categories By Owner ID - not validated
-     *
-     * @param ownerID
-     * @return
-     */
 
     public Set<Category> returnCategoriesByOwnerID(OwnerID ownerID) {
         Set<Category> listOfCategoriesByOwnerID = new HashSet<>();

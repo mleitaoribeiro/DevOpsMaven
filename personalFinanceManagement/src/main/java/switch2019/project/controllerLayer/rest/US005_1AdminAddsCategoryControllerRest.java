@@ -24,14 +24,6 @@ public class US005_1AdminAddsCategoryControllerRest {
     @Autowired
     US005_1AdminAddsCategoryToGroupService service;
 
-    /**
-     * US005.1
-     * As a Group Administrator, I want to create a category and add it to the group.
-     *
-     * @param groupDescription for groupDescription
-     * @param info for info
-     * @return ResponseEntity<CategoryDTO>
-     */
     @PostMapping("groups/{groupDescription}/categories")
     public ResponseEntity<CategoryDTO> addCategoryToGroup(@PathVariable final String groupDescription,
                                                           @RequestBody CreateGroupCategoryInfoDTO info) {
@@ -50,13 +42,6 @@ public class US005_1AdminAddsCategoryControllerRest {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    /**
-     * Method to get a category by categoryID
-     *
-     * @param categoryDescription for categoryDescription
-     * @param groupDescription for groupDescription
-     * @return ResponseEntity<CategoryDTO>
-     */
     @GetMapping(value = "groups/{groupDescription}/categories/{categoryDescription}")
     public ResponseEntity<Object> getCategoryByCategoryID
     (@PathVariable final String categoryDescription, @PathVariable final String groupDescription) {
@@ -65,13 +50,6 @@ public class US005_1AdminAddsCategoryControllerRest {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    /**
-     * Method to get all categories by GroupID
-     *
-     * @param groupDescription for groupDescription
-     * @return ResponseEntity<Object>
-     */
 
     @GetMapping(value = "groups/{groupDescription}/categories")
     public ResponseEntity<Object> getCategoriesByGroupID

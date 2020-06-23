@@ -31,10 +31,6 @@ public class GroupID implements OwnerID {
         return description.toString();
     }
 
-    /**
-     * Method to get description
-     * @return description
-     */
     public String getDescription() {
         return description.getDescription();
     }

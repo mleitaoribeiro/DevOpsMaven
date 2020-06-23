@@ -30,7 +30,6 @@ pipeline {
                 }
             }
         }
-
         stage ('Javadoc'){
             steps {
                 dir('personalFinanceManagement') {
@@ -47,13 +46,12 @@ pipeline {
                 }
             }
         }
-
         stage('Archiving') {
             steps {
                 dir('personalFinanceManagement') {
                     sh 'dir'
                     echo 'Archiving...'
-                    archiveArtifacts 'target/'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }

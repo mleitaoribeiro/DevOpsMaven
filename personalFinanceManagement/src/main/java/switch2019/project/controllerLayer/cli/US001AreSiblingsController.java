@@ -13,14 +13,6 @@ public class US001AreSiblingsController {
     @Autowired
     private US001AreSiblingsService service;
 
-    /**
-     * US001
-     * As system manager, I want to know if two people are siblings
-     *
-     * @param emailPersonOne for person one email
-     * @param emailPersonTwo for person two email
-     * @return siblingsDTO
-     */
     public SiblingsDTO areSiblings(String emailPersonOne, String emailPersonTwo) {
         AreSiblingsDTO siblingsDTO = PersonDTOAssembler.createAreSiblingsDTO(emailPersonOne, emailPersonTwo);
 

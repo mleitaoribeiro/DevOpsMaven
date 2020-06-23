@@ -31,28 +31,13 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
         return Objects.hash(ownerID, denomination, description);
     }
 
-    /**
-     * get OwnerId
-     * @return String
-     */
-
     public String getOwnerID() {
         return ownerID;
     }
 
-    /**
-     * get denomination
-     * @return String
-     */
-
     public String getDenomination() {
         return denomination;
     }
-
-    /**
-     * get description
-     * @return String
-     */
 
     public String getDescription() {
         return description;

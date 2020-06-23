@@ -38,11 +38,6 @@ public class PersonInMemoryRepository implements PersonRepository {
         return this.getByID(new PersonID(email));
     }
 
-    /**
-     * Method to return the person corespondent to the given PersonID
-     *
-     * @param personID
-     */
     public Person getByID(ID personID) {
         for (Person person : listOfPersons) {
             if (person.getID().equals(personID))
@@ -50,12 +45,6 @@ public class PersonInMemoryRepository implements PersonRepository {
         } throw new ArgumentNotFoundException("No person found with that ID.");
     }
 
-    /**
-     * Method to return the person corespondent to the given attributes
-     * This is to be updated later but for now, the only attribute being used is the name
-     *
-     * @param personEmail
-     */
     public Person findPersonByEmail(Email personEmail) {
         for (Person person : listOfPersons) {
             if (person.getID().getEmail().equals(personEmail.getEmailAddress()))
@@ -64,24 +53,12 @@ public class PersonInMemoryRepository implements PersonRepository {
         throw new ArgumentNotFoundException("No person found with that email.");
     }
 
-    /**
-     * Verify if e-mail is on person repository
-     * @param personEmail
-     * @return
-     */
-
     public boolean isPersonEmailOnRepository(Email personEmail) {
         for (Person person : listOfPersons)
             if (person.getID().getEmail().equals(personEmail.getEmailAddress()))
                 return true;
             return false;
         }
-
-    /**
-     * Verify if ID exists on person Repository
-     * @param personID
-     * @return
-     */
 
     public boolean isIDOnRepository (ID personID) {
         for (Person person : listOfPersons)
@@ -90,23 +67,10 @@ public class PersonInMemoryRepository implements PersonRepository {
         return false;
     }
 
-
-    /**
-     * Method to check the number of Persons inside the Repository.
-     *
-     * @return
-     */
-
     public long repositorySize () {
         return listOfPersons.size();
     }
 
-    /**
-     * Method to add siblings
-     * @param person
-     * @param siblingID
-     * @return
-     */
     public boolean addSibling(Person person, String siblingID) {
         for (Person p : listOfPersons)
             if (p.getID().getEmail().equals(siblingID)) {

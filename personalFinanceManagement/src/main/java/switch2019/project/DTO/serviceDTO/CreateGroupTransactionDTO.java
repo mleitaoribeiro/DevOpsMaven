@@ -52,92 +52,42 @@ public class CreateGroupTransactionDTO {
         return Objects.hash(groupDescription, personEmail, amount, currency, date, description, category, accountFrom, accountTo, type);
     }
 
-    /**
-     * get Group Description
-     *
-     * @return groupDescription
-     */
     public String getGroupDescription() {
         return groupDescription;
     }
 
-    /**
-     * Getter for personEmail
-     *
-     * @return personEmail
-     */
     public String getPersonEmail() {
         return personEmail;
     }
 
-    /**
-     * get Transaction Amount
-     *
-     * @return amount
-     */
     public double getAmount() {
         return amount;
     }
 
-    /**
-     * get Transaction Currency
-     *
-     * @return currency
-     */
     public String getCurrency() {
         return currency;
     }
 
-    /**
-     * get Transaction Date
-     *
-     * @return date
-     */
     public String getDate() {
         return date;
     }
 
-    /**
-     * get Transaction Description
-     *
-     * @return description
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * get Transaction category
-     *
-     * @return category
-     */
     public String getCategory() {
         return category;
     }
 
-    /**
-     * get Transaction Account From
-     *
-     * @return accountFrom
-     */
     public String getAccountFrom() {
         return accountFrom;
     }
 
-    /**
-     * get Transaction Account To
-     *
-     * @return accountTo
-     */
     public String getAccountTo() {
         return accountTo;
     }
 
-    /**
-     * get Transaction Type
-     *
-     * @return type
-     */
     public boolean getType() {
         return this.type.equalsIgnoreCase("credit");
     }

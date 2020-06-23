@@ -21,20 +21,10 @@ public class MemberInfoDTO {
         return Objects.hash(personEmail);
     }
 
-    /**
-     * Setter for personEmail
-     *
-     * @param personEmail for personEmail
-     */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
     }
 
-    /**
-     * Getter for personEmail
-     *
-     * @return String
-     */
     public String getPersonEmail() {
         return personEmail;
     }
