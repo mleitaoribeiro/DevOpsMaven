@@ -25,12 +25,6 @@ public class GroupDTO extends RepresentationModel<GroupDTO> {
         return Objects.hash(groupDescription);
     }
 
-    /**
-     * Method to get GroupDescription
-     *
-     * @return String
-     */
-
     public String getGroupDescription() {
         return groupDescription;
     }

@@ -4,20 +4,6 @@ import java.util.Objects;
 
 public class CreatePersonalTransactionDTO {
 
-    /**
-     * This DTO contains all the information necessary to create an Transaction and associate it with a Person.
-     * <p>
-     * personEmail - Person email necessary to find the Person ID and therefore associate it with the created account.
-     * amount-this String will become the amountValue of the MonetaryValue
-     * description
-     * date
-     * category
-     * accountFrom
-     * accountTo
-     * type
-     **/
-
-
     private final String personEmail;
     private final Double amount;
     private final String currency;
@@ -63,39 +49,19 @@ public class CreatePersonalTransactionDTO {
         return Objects.hash(personEmail, amount, currency, description, date, category, accountFrom, accountTo, type);
     }
 
-    /**
-     * get Person Email
-     *
-     * @return personEmail
-     */
     public String getPersonEmail() {
         return personEmail;
 
     }
 
-    /**
-     * get Transaction Amount
-     *
-     * @return amount
-     */
     public double getAmount() {
         return amount;
     }
 
-    /**
-     * get Transaction Currency
-     *
-     * @return currency
-     */
     public String getCurrency() {
         return currency;
     }
 
-    /**
-     * get Transaction Description
-     *
-     * @return description
-     */
     public String getDescription() {
         return description;
     }
@@ -104,38 +70,18 @@ public class CreatePersonalTransactionDTO {
         return date;
     }
 
-    /**
-     * get Transaction category
-     *
-     * @return category
-     */
     public String getCategory() {
         return category;
     }
 
-    /**
-     * get Transaction Account From
-     *
-     * @return accountFrom
-     */
     public String getAccountFrom() {
         return accountFrom;
     }
 
-    /**
-     * get Transaction Account To
-     *
-     * @return accountTo
-     */
     public String getAccountTo() {
         return accountTo;
     }
 
-    /**
-     * get Transaction Type
-     *
-     * @return type
-     */
     public boolean getType() {
         return this.type.equalsIgnoreCase("credit");
     }
