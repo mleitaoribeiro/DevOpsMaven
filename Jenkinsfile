@@ -23,6 +23,11 @@ pipeline {
                     sh './mvnw surefire-report:report '
                     junit 'target/site/*.html'
                 }
+                dir('personalFinanceManagement') {
+                    echo 'Generating code coverage...'
+                    sh './mvnw verify'
+                    junit 'target/site/jacoco/index.html'
+                }
             }
         }
 
