@@ -21,12 +21,12 @@ pipeline {
                 dir('personalFinanceManagement') {
                     echo 'Testing...'
                     sh './mvnw surefire-report:report '
-                    junit 'target/site/*.html'
+                    junit 'target/site/*.xml'
                 }
                 dir('personalFinanceManagement') {
                     echo 'Generating code coverage...'
                     sh './mvnw verify'
-                    junit 'target/site/jacoco/index.html'
+                    junit 'target/site/jacoco/*.xml'
                 }
             }
         }
