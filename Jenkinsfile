@@ -30,7 +30,6 @@ pipeline {
                 }
             }
         }
-        /*
         stage ('Javadoc'){
             steps {
                 dir('personalFinanceManagement') {
@@ -47,8 +46,6 @@ pipeline {
                 }
             }
         }
-        */
-
         stage('Archiving') {
             steps {
                 dir('personalFinanceManagement') {
