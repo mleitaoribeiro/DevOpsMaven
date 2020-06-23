@@ -18,11 +18,6 @@ Vagrant.configure("2") do |config|
     # We want to connet to the H2 server using port 9092	
     host2.vm.network "forwarded_port", guest: 8082, host: 8082
     host2.vm.network "forwarded_port", guest: 9092, host: 9092
-
-    host2.vm.provision "shell", :run => 'always', inline: <<-SHELL
-    # So that the H2 server always starts
-    java -cp ./h2*.jar org.h2.tools.Server -web -webAllowOthers -tcp -tcpAllowOthers -ifNotExists > ~/out.txt &
-    SHELL
   end
 
 
@@ -49,15 +44,16 @@ Vagrant.configure("2") do |config|
     ansible.vm.network "forwarded_port", guest: 8081, host: 8081
 
     ansible.vm.provision "shell", inline: <<-SHELL
-      sudo apt-get install -y --no-install-recommends apt-utils
-      sudo apt-get install software-properties-common --yes
-      sudo apt-add-repository --yes --u ppa:ansible/ansible
-      sudo apt-get install ansible --yes
-      # For jenkins
-      sudo apt-get install wget
-      sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-      sudo apt-get install openjdk-8-jdk-headless -y
-      sudo java -jar jenkins.war
+     sudo apt-get install -y --no-install-recommends apt-utils
+     sudo apt-get install software-properties-common --yes
+     sudo apt-add-repository --yes --u ppa:ansible/ansible
+     sudo apt-get install ansible --yes
+     
+    # For jenkins
+     # sudo apt-get install wget
+     # sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+     # sudo apt-get install openjdk-8-jdk-headless -y
+     # sudo java -jar jenkins.war
     SHELL
   end
 end

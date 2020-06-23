@@ -8,13 +8,47 @@
       apt: name=apache2 state=absent
     - name: install jdk
       apt: name=openjdk-8-jdk-headless state=present
-- hosts: host1
-  become: yes
-  tasks:
-    - name: install tomcat8
-      apt: name=tomcat8 state=present
+
 - hosts: host2
   become: yes
   tasks:
     - name: Download h2 database from maven.org
       get_url: url=https://repo1.maven.org/maven2/com/h2database/h2/1.4.200/h2-1.4.200.jar dest=./h2-1.4.200.jar mode=0755
+    - name: To connect to H2 use
+      shell: java -cp ./h2*.jar org.h2.tools.Server -web -webAllowOthers -tcp -tcpAllowOthers -ifNotExists > ~/out.txt &
+
+- hosts: host1
+  become: yes
+  tasks:
+    - name: install tomcat8
+      apt: name=tomcat8 state=present
+    - name: install tomcat8admin
+      apt: name=tomcat8-admin state=present
+    - name: install git
+      apt: name=git state=present 
+    - name: install nodejs
+      shell: apt-get install nodejs -y
+    - name: install nodejs
+      shell: apt-get install npm -y
+    - name: create symbolic link
+      file:
+        src: /usr/bin/nodejs
+        dest: /usr/bin/node
+        state: link
+    - name: clone repository
+      git:
+        repo: https://1191780@bitbucket.org/martalribeiro/devops_g2_maven.git
+        dest: /home/vagrant/devops_g2_maven
+    - name: change directory to project
+      shell: cd devops_g2_maven/personalFinanceManagement
+    - name: give permission to execute maven wrapper
+      file:
+        path: /home/vagrant/devops_g2_maven/personalFinanceManagement/mvnw
+        owner: root
+        group: root
+        mode: '1777'
+    - name: build jar
+      shell: ./mvnw package -Dmaven.test.skip=true
+    - name: deploy the war file to tomcat8
+      shell: cp target/devOpsProject-1.0-SNAPSHOT.jar /var/lib/tomcat8/webapps
+
