@@ -28,7 +28,7 @@ public class GroupDTO extends RepresentationModel<GroupDTO> {
     /**
      * Method to get GroupDescription
      *
-     * @return groupDescription
+     * @return String
      */
 
     public String getGroupDescription() {

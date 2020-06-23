@@ -38,7 +38,7 @@ public class CreateGroupAccountInfoDTO {
     /**
      * getter for personEmail
      *
-     * @return
+     * @return String
      */
     public String getPersonEmail() {
         return personEmail;
@@ -49,7 +49,7 @@ public class CreateGroupAccountInfoDTO {
     /**
      * getter for accountDenomination
      *
-     * @return
+     * @return String
      */
     public String getAccountDenomination() {
         return accountDenomination;
@@ -58,7 +58,7 @@ public class CreateGroupAccountInfoDTO {
     /**
      * getter for accountDescription
      *
-     * @return
+     * @return String
      */
     public String getAccountDescription() {
         return accountDescription;
@@ -67,7 +67,7 @@ public class CreateGroupAccountInfoDTO {
     /**
      * setter for the personEmail
      *
-     * @param personEmail
+     * @param personEmail for personEmail
      */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
@@ -77,7 +77,7 @@ public class CreateGroupAccountInfoDTO {
     /**
      * setter for accountDenomination
      *
-     * @param accountDenomination
+     * @param accountDenomination for accountDenomination
      */
     public void setAccountDenomination(String accountDenomination) {
         this.accountDenomination = accountDenomination;
@@ -86,7 +86,7 @@ public class CreateGroupAccountInfoDTO {
     /**
      * setter accountDescription
      *
-     * @param accountDescription
+     * @param accountDescription for accountDescription
      */
     public void setAccountDescription(String accountDescription) {
         this.accountDescription = accountDescription;

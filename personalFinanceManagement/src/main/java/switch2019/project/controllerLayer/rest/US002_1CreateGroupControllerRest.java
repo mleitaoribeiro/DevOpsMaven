@@ -24,8 +24,8 @@ public class US002_1CreateGroupControllerRest {
      * US002.1
      * method that sends an HTTP responsive for a POST request to create a group and become Admin
      *
-     * @param info
-     * @return dto groupCreated and 201 CREATED status
+     * @param info for info
+     * @return ResponseEntity<Object>
      */
 
     @PostMapping("/groups")

@@ -33,7 +33,7 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
 
     /**
      * get OwnerId
-     * @return ownerID
+     * @return String
      */
 
     public String getOwnerID() {
@@ -42,7 +42,7 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
 
     /**
      * get denomination
-     * @return denomination
+     * @return String
      */
 
     public String getDenomination() {
@@ -51,7 +51,7 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
 
     /**
      * get description
-     * @return description
+     * @return String
      */
 
     public String getDescription() {

@@ -23,7 +23,7 @@ public class US001AreSiblingsService {
      * US001
      * As system manager, I want to know if two people are siblings
      *
-     * @param
+     * @param siblingsDTO for siblingsDTO
      * @return true if two people are siblings
      */
     public boolean areSiblings(AreSiblingsDTO siblingsDTO) {

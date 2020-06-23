@@ -41,6 +41,11 @@ public class CreatePersonAccountDTO {
 
     /** Getters used to obtain the attribute Strings, outside of this class: */
 
+    /**
+     * get personEmail
+     *
+     * @return personEmail
+     */
     public String getPersonEmail() {
         return personEmail;
     }

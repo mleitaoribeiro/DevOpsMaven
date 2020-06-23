@@ -28,7 +28,7 @@ public class SiblingsDTO extends RepresentationModel<PersonIDDTO> {
 
     /**
      * get Sibling DTO
-     * @return emailPersonOne
+     * @return String
      */
 
     public String getSiblings() {

@@ -16,7 +16,8 @@ public class US002_1CreateGroupController {
      * US002.1
      * I want to create a group and become an Admin
      *
-     * @param groupDescription, personEmail
+     * @param groupDescription for groupDescription
+     * @param personEmail for personEmail
      * @return groupDTO
      */
     public GroupDTO createGroup(String groupDescription, String personEmail) {

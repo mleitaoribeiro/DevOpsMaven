@@ -16,10 +16,12 @@ public class TransactionShortDTO extends RepresentationModel<TransactionShortDTO
 
     /**
      * Constructor for TransactionShortDTO
-     * @param amount
-     * @param accountFrom
-     * @param accountTo
-     * @param type
+     * @param amount for amount
+     * @param currency for currency
+     * @param accountFrom for accountFrom
+     * @param accountTo for accountTo
+     * @param type for type
+     * @param id for id
      */
     public TransactionShortDTO (Double amount, Currency currency, String accountFrom, String accountTo, String type, Long id){
         this.amount = amount;

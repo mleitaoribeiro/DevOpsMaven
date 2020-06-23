@@ -29,8 +29,8 @@ public class US002_1CreateGroupService {
      * US002.1
      * I want to create a group and become an Admin
      *
-     * @param createGroupDTO
-     * @return groupDTO
+     * @param createGroupDTO for createGroupDTO
+     * @return groupCreated
      */
     public GroupDTO createGroup(CreateGroupDTO createGroupDTO) {
 
@@ -47,8 +47,8 @@ public class US002_1CreateGroupService {
 
     /**
      * method that finds a group by its description and returns a GroupDTO
-     * @param groupDescription
-     * @return
+     * @param groupDescription for groupDescription
+     * @return group
      */
 
     public GroupDTO getGroupByDescription(String groupDescription) {

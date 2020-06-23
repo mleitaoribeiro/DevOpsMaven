@@ -42,7 +42,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for amount
      *
-     * @return amount
+     * @return Double
      */
 
     public Double getAmount() {
@@ -52,7 +52,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for amount
      *
-     * @param amount
+     * @param amount for amount
      */
     public void setAmount(Double amount) {
         this.amount = amount;
@@ -61,7 +61,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for currency
      *
-     * @return currency
+     * @return String
      */
     public String getCurrency() {
         return currency;
@@ -70,7 +70,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for currency
      *
-     * @param currency
+     * @param currency for currency
      */
 
     public void setCurrency(String currency) {
@@ -80,7 +80,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for description
      *
-     * @return description
+     * @return String
      */
     public String getDescription() {
         return description;
@@ -89,7 +89,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for description
      *
-     * @param description
+     * @param description for description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -98,7 +98,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for date
      *
-     * @return date
+     * @return String
      */
     public String getDate() {
         return date;
@@ -107,7 +107,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for date
      *
-     * @param date
+     * @param date for date
      */
     public void setDate(String date) {
         this.date = date;
@@ -116,7 +116,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for category
      *
-     * @return category
+     * @return String
      */
     public String getCategory() {
         return category;
@@ -125,7 +125,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for category
      *
-     * @param category
+     * @param category for category
      */
     public void setCategory(String category) {
         this.category = category;
@@ -134,7 +134,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for accountFrom
      *
-     * @return accountFrom
+     * @return String
      */
     public String getAccountFrom() {
         return accountFrom;
@@ -143,7 +143,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for accountFrom
      *
-     * @param accountFrom
+     * @param accountFrom for accountFrom
      */
     public void setAccountFrom(String accountFrom) {
         this.accountFrom = accountFrom;
@@ -152,7 +152,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for accountTo
      *
-     * @return accountTo
+     * @return String
      */
     public String getAccountTo() {
         return accountTo;
@@ -161,7 +161,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for accountTo
      *
-     * @param accountTo
+     * @param accountTo for accountTo
      */
     public void setAccountTo(String accountTo) {
         this.accountTo = accountTo;
@@ -170,7 +170,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for type
      *
-     * @return type
+     * @return String
      */
     public String getType() {
         return type;
@@ -179,7 +179,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for type
      *
-     * @param type
+     * @param type for type
      */
     public void setType(String type) {
         this.type = type;
@@ -188,7 +188,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Getter for personEmail
      *
-     * @return personEmail
+     * @return String
      */
     public String getPersonEmail() {
         return personEmail;
@@ -197,7 +197,7 @@ public class CreateTransactionInfoDTO {
     /**
      * Setter for personEmail
      *
-     * @param personEmail
+     * @param personEmail for personEmail
      */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;

@@ -28,8 +28,9 @@ public class US006CreatePersonAccountControllerRest {
      * As an User, I want to create an account to myself.
      * It has a denomination and a description, so then I can use the account in my transactions.
      *
-     * @param info
-     * @return Response Entity with AccountDTO and HTTPStatus
+     * @param info for info
+     * @param personEmail for personEmail
+     * @return ResponseEntity<Object>
      */
 
     @PostMapping("/persons/{personEmail}/accounts")
@@ -57,9 +58,9 @@ public class US006CreatePersonAccountControllerRest {
     /**
      * Method to get an Account by AccountID
      *
-     * @param accountDenomination
-     * @param personEmail
-     * @return Response Entity with AccountDTO and HTTPStatus
+     * @param accountDenomination for accountDenomination
+     * @param personEmail for personEmail
+     * @return ResponseEntity<Object>
      */
 
     @GetMapping(value = "persons/{personEmail}/accounts/{accountDenomination}")
@@ -74,8 +75,8 @@ public class US006CreatePersonAccountControllerRest {
     /**
      * Method to get all accounts by PersonID
      *
-     * @param personEmail
-     * @return All accounts from person and HTTPStatus
+     * @param personEmail for personEmail
+     * @return ResponseEntity<Object>
      */
 
     @GetMapping(value = "persons/{personEmail}/accounts")

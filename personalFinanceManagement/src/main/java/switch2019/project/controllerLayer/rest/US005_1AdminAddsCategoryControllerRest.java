@@ -28,8 +28,9 @@ public class US005_1AdminAddsCategoryControllerRest {
      * US005.1
      * As a Group Administrator, I want to create a category and add it to the group.
      *
-     * @param info
-     * @return Response Entity with CategoryDTO and HTTPStatus
+     * @param groupDescription for groupDescription
+     * @param info for info
+     * @return ResponseEntity<CategoryDTO>
      */
     @PostMapping("groups/{groupDescription}/categories")
     public ResponseEntity<CategoryDTO> addCategoryToGroup(@PathVariable final String groupDescription,
@@ -52,9 +53,9 @@ public class US005_1AdminAddsCategoryControllerRest {
     /**
      * Method to get a category by categoryID
      *
-     * @param categoryDescription
-     * @param groupDescription
-     * @return Response Entity with CategoryDTO and HTTPStatus
+     * @param categoryDescription for categoryDescription
+     * @param groupDescription for groupDescription
+     * @return ResponseEntity<CategoryDTO>
      */
     @GetMapping(value = "groups/{groupDescription}/categories/{categoryDescription}")
     public ResponseEntity<Object> getCategoryByCategoryID
@@ -68,8 +69,8 @@ public class US005_1AdminAddsCategoryControllerRest {
     /**
      * Method to get all categories by GroupID
      *
-     * @param groupDescription
-     * @return All categories from group and HTTPStatus
+     * @param groupDescription for groupDescription
+     * @return ResponseEntity<Object>
      */
 
     @GetMapping(value = "groups/{groupDescription}/categories")

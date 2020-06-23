@@ -24,8 +24,9 @@ public class US007CreateGroupAccountControllerRest {
 
     /**
      * Controller that takes the posted information, and creates an Account in a given Group.
-     * @param info
-     * @return
+     * @param info for info
+     * @param groupDescription for groupDescription
+     * @return ResponseEntity<Object>
      */
     @PostMapping("/groups/{groupDescription}/accounts")
     public ResponseEntity<AccountDTO> createGroupAccount(@PathVariable String groupDescription, @RequestBody CreateGroupAccountInfoDTO info)  {
@@ -54,9 +55,9 @@ public class US007CreateGroupAccountControllerRest {
     /**
      * Method to get an Account by AccountID
      *
-     * @param accountDenomination
-     * @param ownerID
-     * @return Response Entity with AccountDTO and HTTPStatus
+     * @param accountDenomination for accountDenomination
+     * @param ownerID for ownerID
+     * @return ResponseEntity<Object>
      */
     @GetMapping(value = "/groups/{ownerID}/accounts/{accountDenomination}")
     public ResponseEntity<Object> getAccountByAccountID
@@ -70,8 +71,8 @@ public class US007CreateGroupAccountControllerRest {
     /**
      * Method to get all accounts associated with a GroupID
      *
-     * @param groupDescription
-     * @return All accounts associated with a group and their HTTPStatus
+     * @param groupDescription for groupDescription
+     * @return ResponseEntity<Object>
      */
     @GetMapping(value = "/groups/{groupDescription}/accounts")
     public ResponseEntity<Object> getAccountsByGroupID

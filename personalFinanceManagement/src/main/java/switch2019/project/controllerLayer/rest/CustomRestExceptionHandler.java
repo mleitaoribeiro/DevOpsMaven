@@ -22,14 +22,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     /**
-     *
      * Handler for HttpMessageNotReadableException - occurs when the required request body is missing.
      *
-     * @param exception
-     * @param headers
-     * @param status
-     * @param request
-     * @return
+     * @param exception for exception
+     * @param headers   for headers
+     * @param status    for status
+     * @param request   for request
+     * @return ResponseEntity<Object>
      */
 
     @Override //status 400
@@ -52,11 +51,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Handler for NoHandlerFoundException - Occurs when a URI does not exist.
      *
-     * @param ex
-     * @param headers
-     * @param status
-     * @param request
-     * @return
+     * @param ex      for ex
+     * @param headers for headers
+     * @param status  for status
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
 
     @Override //status 404
@@ -71,14 +70,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     *
      * Handler for HttpMediaTypeNotSupportedException – occurs when the client sends a request with unsupported media type
      *
-     * @param exception
-     * @param headers
-     * @param status
-     * @param request
-     * @return
+     * @param exception for exception
+     * @param headers   for headers
+     * @param status    for status
+     * @param request   for request
+     * @return ResponseEntity<Object>
      */
 
     @Override //status 415
@@ -97,14 +95,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     *
      * Handler for HttpRequestMethodNotSupportedException - occurs when the client sends a request with an unsupported HTTP method
      *
-     * @param exception
-     * @param headers
-     * @param status
-     * @param request
-     * @return
+     * @param exceptionfor exception
+     * @param headers for headers
+     * @param status for status
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
 
     @Override //status 405
@@ -126,15 +123,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     /**
-     *
      * Handler for IllegalArgumentExceptions - occurs when the client enters an argument that is not valid
      *
-     * @param exception
-     * @param request
-     * @return
+     * @param exception for exception
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
 
-    @ExceptionHandler({ IllegalArgumentException.class }) //status 422
+    @ExceptionHandler({IllegalArgumentException.class}) //status 422
     public ResponseEntity<Object> handleIllegalArgumentException(
             final IllegalArgumentException exception,
             final WebRequest request) {
@@ -146,19 +142,18 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "One of the parameters is invalid or is missing.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
-     *
      * Handler for ResourceAlreadyExistsExceptions - occurs when the client tries to create a resource that already exists
      *
-     * @param exception
-     * @param request
-     * @return
+     * @param exception for exception
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
 
-    @ExceptionHandler({ ResourceAlreadyExistsException.class }) //status 409
+    @ExceptionHandler({ResourceAlreadyExistsException.class}) //status 409
     public ResponseEntity<Object> handleResourceAlreadyExistsException(
             final ResourceAlreadyExistsException exception,
             final WebRequest request) {
@@ -170,19 +165,18 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.CONFLICT, "This resource already exists.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
-     *
      * Handler for ArgumentNotFoundException - occurs when the resource needed to perform the operation is not found
      *
-     * @param exception
-     * @param request
-     * @return
+     * @param exception for exception
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
 
-    @ExceptionHandler({ ArgumentNotFoundException.class }) //status 422
+    @ExceptionHandler({ArgumentNotFoundException.class}) //status 422
     public ResponseEntity<Object> handleArgumentNotFoundException(
             final ArgumentNotFoundException exception,
             final WebRequest request) {
@@ -194,19 +188,18 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY, "This resource was not found.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
-     *
      * Handler for NoPermissionException - occurs when the client tries to do an operation for which he is not allowed
      *
-     * @param exception
-     * @param request
-     * @return
+     * @param exception for exception
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
 
-    @ExceptionHandler({ NoPermissionException.class }) //status 403
+    @ExceptionHandler({NoPermissionException.class}) //status 403
     public ResponseEntity<Object> handleNoPermissionException(
             final NoPermissionException exception,
             final WebRequest request) {
@@ -218,21 +211,20 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         final ErrorDTO apiError = new ErrorDTO(HttpStatus.FORBIDDEN, "No permission for this operation.", error);
 
         //Returning a ResponseEntity with the ApiError, the http header of the error and the status of the current ApiError:
-        return new ResponseEntity<>(apiError,new HttpHeaders(), apiError.getStatus());
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     /**
-     *
      * Deals with all other exceptions that don't have specific handlers
      *
-     * @param someException
-     * @param request
-     * @return
+     * @param someException for someException
+     * @param request for request
+     * @return ResponseEntity<Object>
      */
-    @ExceptionHandler({ Exception.class })
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAll(Exception someException, WebRequest request) {
         ErrorDTO apiError = new ErrorDTO(
-                HttpStatus.INTERNAL_SERVER_ERROR,"error occurred", someException.getLocalizedMessage());
+                HttpStatus.INTERNAL_SERVER_ERROR, "error occurred", someException.getLocalizedMessage());
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 

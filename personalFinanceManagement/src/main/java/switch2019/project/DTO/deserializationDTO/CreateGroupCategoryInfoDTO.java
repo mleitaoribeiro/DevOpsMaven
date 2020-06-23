@@ -13,7 +13,7 @@ public class CreateGroupCategoryInfoDTO {
 
     /**
      * Setter for personEmail
-     * @param personEmail
+     * @param personEmail for personEmail
      */
     public void setPersonEmail(String personEmail) {
         this.personEmail = personEmail;
@@ -21,7 +21,7 @@ public class CreateGroupCategoryInfoDTO {
 
     /**
      * Setter for categoryDenomination
-     * @param categoryDenomination
+     * @param categoryDenomination for categoryDenomination
      */
     public void setCategoryDenomination(String categoryDenomination) {
         this.categoryDenomination = categoryDenomination;
@@ -29,7 +29,7 @@ public class CreateGroupCategoryInfoDTO {
 
     /**
      * Getter for the personEmail
-     * @return personEmail
+     * @return String
      */
     public String getPersonEmail() {
         return personEmail;
@@ -37,7 +37,7 @@ public class CreateGroupCategoryInfoDTO {
 
     /**
      * Getter for the categoryDenomination
-     * @return
+     * @return String
      */
     public String getCategoryDenomination() {
         return categoryDenomination;

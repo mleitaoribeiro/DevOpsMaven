@@ -28,19 +28,6 @@ public class CreatePersonalTransactionDTO {
     private final String accountTo;
     private final String type;
 
-    /**
-     * Constructor for PersonalTranscationDTO
-     *
-     * @param personEmail
-     * @param amount
-     * @param currency
-     * @param description
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-
     public CreatePersonalTransactionDTO(String personEmail, Double amount, String currency, String description,
                                         String date, String category, String accountFrom, String accountTo, String type) {
         this.personEmail = personEmail;

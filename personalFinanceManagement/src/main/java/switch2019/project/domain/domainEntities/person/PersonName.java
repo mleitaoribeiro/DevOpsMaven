@@ -50,7 +50,8 @@ public class PersonName {
 
     /**
      * Capitalize all the first letters and remove all the extra spaces
-     * @param personName
+     * @param personName for personName
+     * @return personName normalized
      */
 
     private String standardPersonName(String personName) {
