@@ -17,18 +17,6 @@ public class Transaction {
     private final Type type;
     private final Long id;
 
-    /**
-     * Default Transaction constructor
-     *
-     * @param amount
-     * @param description
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     */
-
-
     public Transaction(MonetaryValue amount, Description description, DateAndTime date, CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         this.amount = setValidMonetaryValue(amount);
         this.description = description;

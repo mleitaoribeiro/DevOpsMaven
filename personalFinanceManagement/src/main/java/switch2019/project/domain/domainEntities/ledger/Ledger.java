@@ -23,10 +23,6 @@ public class Ledger {
     private static final String DATE_NOT_VALID = "One of the specified dates is not valid.";
     private static final String DATE_CANT_NULL = "The specified dates cannot be null.";
 
-    /**
-     * Ledger Constructor
-     */
-
     public Ledger(OwnerID ownerID) {
         ledgerID = new LedgerID(ownerID);
         ledgerTransactions = new ArrayList<>();
@@ -59,21 +55,9 @@ public class Ledger {
         return "Ledger:" + ledgerTransactions + ".";
     }
 
-    /**
-     * Get LedgerID
-     *
-     * @return ledger ID
-     */
-
     public LedgerID getID() {
         return ledgerID;
     }
-
-    /**
-     * Get All Ledger transactions
-     *
-     * @return ledger Clone
-     */
 
     public List<Transaction> getLedgerTransactions() {
         List<Transaction> newLedger = new ArrayList<>();
@@ -81,43 +65,15 @@ public class Ledger {
         return newLedger;
     }
 
-    /**
-     * Get the size of the legder
-     * <p>
-     * return int legderSize
-     */
     public int getLedgerSize() {
         return this.ledgerTransactions.size();
     }
 
-    /**
-     * Get the creationDate of the Ledger as String
-     */
     public String getCreationDateToString() {return this.creationDate.yearMonthDayToString(); }
-
-    /**
-     * Method that checks if a transaction is contained within a Ledger
-     *
-     * @param transactionInLedger
-     * @return
-     */
 
     public boolean isTransactionInLedger(Transaction transactionInLedger) {
         return ledgerTransactions.contains(transactionInLedger);
     }
-
-    /**
-     * Method to Add Transactions to Ledger
-     *
-     * @param amount
-     * @param description
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     * @return
-     */
 
     public Transaction addTransactionToLedger(MonetaryValue amount, Description description, DateAndTime localDate,
                                               CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
@@ -127,49 +83,20 @@ public class Ledger {
         return transaction;
     }
 
-    /**
-     * Develop method to create a new schedule (USER STORY)
-     *
-     * @param amount
-     * @param description
-     * @param date
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     * @return
-     */
-
     public boolean scheduleNewTransaction(Periodicity periodicity, MonetaryValue amount, Description description, DateAndTime date,
                                           CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         return scheduledTasksList.addNewSchedule(this, periodicity, amount, description, date,
                 category, accountFrom, accountTo, type);
     }
 
-    /**
-     * Sort Ledger Transactions By Transaction Date in Ascending Order
-     */
-
     public void sortLedgerByTransactionDateAscending() {
         Collections.reverse(ledgerTransactions);
     }
-
-    /**
-     * Sort Ledger Transactions By Transaction Date in Descending Order
-     */
 
     public void sortLedgerByTransactionDateDescending() {
         ledgerTransactions.sort((transaction1, transaction2) -> transaction2.getDate().getYearMonthDayHourMinute()
                 .compareTo(transaction1.getDate().getYearMonthDayHourMinute()));
     }
-
-    /**
-     * US011/US012: Get the transactions in a given specific date range
-     *
-     * @param initialDate
-     * @param finalDate
-     * @return ArrayList<Transaction> myTransactions
-     */
 
     public List<Transaction> getTransactionsInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
 
@@ -191,13 +118,6 @@ public class Ledger {
         return myTransactions;
     }
 
-
-    /**
-     * Method to get the movements from a specific account
-     *
-     * @param account1
-     * @param listOfTransactions
-     */
     public List<Transaction> getTransactionsFromOneAccount(AccountID account1, List<Transaction> listOfTransactions) {
         List<Transaction> listOfTransactionsFromOneAccount = new ArrayList<>();
         if (account1 != null) {
@@ -210,14 +130,6 @@ public class Ledger {
         } else
             throw new IllegalArgumentException("The account cannot be null.");
     }
-
-
-    /**
-     * US017/18 - Get the balance of the transactions given a specific date range
-     *
-     * @param initialDate
-     * @param finalDate
-     */
 
     public double getBalanceInDateRange(LocalDateTime initialDate, LocalDateTime finalDate) {
         double balance = 0;

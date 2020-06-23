@@ -47,22 +47,10 @@ public class Address {
         return this.street + ", " + this.city + ", " + this.postalCode;
     }
 
-    /**
-     * Return birthPlace as a String
-     *
-     * @return birthPlace
-     */
-
     public String getBirthPlace() {
         return this.birthPlace;
     }
 
-    /**
-     * Private Set for BirthPlace: Validade if birth place is not a number, null or it's missing
-     *
-     * @param birthPlace for birthPlace
-     * @return new birthPlace
-     */
     private String setValidBirthPlace(String birthPlace) {
         if (isNumeric(birthPlace) || birthPlace == null || birthPlace.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
@@ -71,13 +59,6 @@ public class Address {
         }
     }
 
-    /**
-     * Private set for City: Validate if City Name is not a number, null or it's missing
-     *
-     * @param city for city
-     * @return new city
-     */
-
     private String setValidCity(String city) {
         if (isNumeric(city) || city == null || city.isEmpty()) {
             throw new IllegalArgumentException("The city in your Address is not valid or it's missing. Please try again.");
@@ -85,14 +66,6 @@ public class Address {
             return city.toUpperCase();
         }
     }
-
-    /**
-     * Private set for Street: Validate if Street is not a number, null or it's missing
-     *
-     * @param street for street
-     * @return new street
-     */
-
 
     public String setValidStreet(String street) {
         if (street == null || street.isEmpty()) {
@@ -118,13 +91,6 @@ public class Address {
         }
     }
 
-    /**
-     * Auxiliary method to Validate if the postal code is in the correct format (4620-580) - Validation for PT users
-     *
-     * @param postalCode for postalCode
-     * @return true if postalCode valid
-     */
-
     private boolean postalCodeIsInCorrectFormat(String postalCode) {
         String regex = "^[0-9]{4}-[0-9]{3}$";
         Pattern pattern = Pattern.compile(regex);
@@ -132,23 +98,9 @@ public class Address {
         return matcher.matches();
     }
 
-    /**
-     * Auxiliary method to Add '-' in case user forget to add it
-     *
-     * @param postalCode for postalCode
-     * @return postalCode with hyphen
-     */
-
     private static String addHyphenToPostalCode(String postalCode) {
         return postalCode.substring(0, 4) + "-" + postalCode.substring(4, postalCode.length());
     }
-
-    /**
-     * Validate if City is not Numeric
-     *
-     * @param city for city
-     * @return true if city is a number
-     */
 
     private static boolean isNumeric(String city) {
         if (city != null)

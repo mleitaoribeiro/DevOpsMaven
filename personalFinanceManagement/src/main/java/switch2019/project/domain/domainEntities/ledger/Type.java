@@ -5,11 +5,6 @@ import java.util.Objects;
 public class Type {
     private final boolean typeValue;
 
-    /**
-     * Constructor
-     * @param typeValue
-     */
-
     public Type (boolean typeValue){
         this.typeValue = typeValue;
     }
@@ -20,9 +15,6 @@ public class Type {
         else return "DEBIT";
     }
 
-    /**
-     * Get Type
-     */
     public boolean getType() {
         return typeValue;
     }

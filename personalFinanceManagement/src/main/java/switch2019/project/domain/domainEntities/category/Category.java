@@ -12,12 +12,6 @@ public class Category implements Entity {
     //Private instance variables
     private final CategoryID categoryID;
 
-    /**
-     * 2nd Category constructor
-     *
-     * @param category
-     * @param ownerID
-     */
     public Category(Denomination category, OwnerID ownerID) {
         categoryID = new CategoryID(category, ownerID);
     }
@@ -40,27 +34,14 @@ public class Category implements Entity {
         return categoryID.toString();
     }
 
-    /**
-     * Get category by ID
-     */
     public CategoryID getID() {
         return categoryID;
     }
-
-    /**
-     * Get category by Owner ID
-     */
 
     public OwnerID getOwnerID() {
         return this.categoryID.getOwnerID();
     }
 
-
-    /**
-     * Get name of the category
-     *
-     * @return nameOfCategory
-     */
     public String getNameOfCategory() {
         return categoryID.getDenominationString();
     }

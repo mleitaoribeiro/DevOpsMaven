@@ -16,9 +16,6 @@ public class TransactionTask extends TimerTask {
     private final AccountID accountTo;
     private final Type type;
 
-    /**
-     * TransactionTask Constructor
-     */
     public TransactionTask(Ledger ledger, MonetaryValue amount, Description description, DateAndTime date,
                            CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
         this.ledger = ledger;

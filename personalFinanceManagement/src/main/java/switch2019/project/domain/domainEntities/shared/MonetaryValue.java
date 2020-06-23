@@ -35,29 +35,14 @@ public class MonetaryValue {
         return amount + " " + currency;
     }
 
-    /**
-     * Method to validate if amount is positive
-     *
-     * @return true if amount is positive or false if it's not
-     */
     public boolean validateIfAmountIsPositive() {
         return this.amount > 0;
     }
 
-    /**
-     * Method to get amount
-     *
-     * @return amount
-     */
     public double getAmount() {
         return amount;
     }
 
-    /**
-     * Method to get currency
-     *
-     * @return currency
-     */
     public Currency getCurrency() {
         return currency;
     }

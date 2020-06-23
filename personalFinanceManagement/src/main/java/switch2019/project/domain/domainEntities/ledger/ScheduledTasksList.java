@@ -9,16 +9,9 @@ public class ScheduledTasksList {
 
     private final Set<Schedule> scheduledTransactions;
 
-    /**
-     * ScheduledTasksList Constructor
-     */
     public ScheduledTasksList() {
         scheduledTransactions = new HashSet<>();
     }
-
-    /**
-     * Method to add a new schedule do the scheduledTasksList
-     */
 
     public boolean addNewSchedule(Ledger ledger, Periodicity periodicity, MonetaryValue amount, Description description, DateAndTime date,
                                   CategoryID category, AccountID accountFrom, AccountID accountTo, Type type) {
