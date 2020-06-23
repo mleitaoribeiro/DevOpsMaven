@@ -24,15 +24,6 @@ public class US008CreateTransactionControllerRest {
     @Autowired
     US008CreateTransactionService service;
 
-
-    /**
-     * Controller that takes the posted information and creates a transaction belonging to a given person.
-     *
-     * @param info for info
-     * @param personId for personId
-     * @return ResponseEntity<Object>
-     */
-
     @PostMapping("persons/{personId}/ledger/transactions")
     public ResponseEntity<TransactionShortDTO> createPersonTransaction(@PathVariable String personId, @RequestBody CreateTransactionInfoDTO info) {
 
@@ -56,15 +47,6 @@ public class US008CreateTransactionControllerRest {
 
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
-
-    /**
-     * Controller that takes the posted information, and creates an Transaction in a given Group.
-     *
-     * @param info for info
-     * @param groupDescription for groupDescription
-     * @return ResponseEntity<Object>
-     */
-
 
     @PostMapping("/groups/{groupDescription}/ledger/transactions")
     public ResponseEntity<TransactionShortDTO> createGroupTransaction(@PathVariable String groupDescription, @RequestBody CreateTransactionInfoDTO info) {
@@ -91,14 +73,6 @@ public class US008CreateTransactionControllerRest {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-
-    /**
-     * Get transactions by Id
-     *
-     * @param personId for personId
-     * @param id for id
-     * @return ResponseEntity<Object>
-     */
     @GetMapping(value = "persons/{personId}/ledger/transactions/{id}")
     public ResponseEntity<Object> getPersonTransactionByID(@PathVariable final String personId, @PathVariable final Long id) {
 
@@ -109,14 +83,6 @@ public class US008CreateTransactionControllerRest {
         return new ResponseEntity<>(transactionDTO, HttpStatus.OK);
     }
 
-
-    /**
-     * Get all transactions by Owner Id
-     *
-     * @param groupId for groupId
-     * @param id for id
-     * @return ResponseEntity<Object>
-     */
     @GetMapping(value = "groups/{groupId}/ledger/transactions/{id}")
     public ResponseEntity<Object> getGroupTransactionByID(@PathVariable final String groupId, @PathVariable final Long id) {
 

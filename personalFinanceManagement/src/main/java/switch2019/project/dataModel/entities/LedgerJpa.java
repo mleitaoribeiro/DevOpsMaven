@@ -62,19 +62,9 @@ public class LedgerJpa {
         return owner + ", " + creationDate;
     }
 
-    /**
-     * Method that adds a transactionJpa to the LedgerJpa
-     * @param transactionJpa for transactionJpa
-     */
-
     public void addTransaction(TransactionJpa transactionJpa) {
         transactions.add(transactionJpa);
     }
-
-    /**
-     * Method used to obtain all the TransactionsJpa on the LedgerJpa
-     * @return list of transactionsJpa
-     */
 
     public List<TransactionJpa> getTransactionsFromLedgerJpa() {
         return new ArrayList<>(transactions);

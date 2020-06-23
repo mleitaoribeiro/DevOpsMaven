@@ -11,45 +11,17 @@ public class CategoryDTOAssembler {
     private CategoryDTOAssembler() {
     }
 
-
-    /**
-     * This method creates the CategoryDTO from a Category.
-     *
-     * @param cat
-     * @return CategoryDTO
-     */
     public static CategoryDTO createCategoryDTOFromCategory(Category cat) {
         return new CategoryDTO(cat.getID().getDenominationString(), cat.getID().getOwnerIDString());
     }
 
-    /**
-     * This method generates the CreateCategoryInGroupDTO using primitive types:
-     *
-     * @param personEmail
-     * @param groupDescription
-     * @param categoryDenomination
-     * @return CreateCategoryInGroupDTO
-     */
     public static CreateGroupCategoryDTO createGroupCategoryDTOFromStrings(String groupDescription, String personEmail, String categoryDenomination) {
         return new CreateGroupCategoryDTO(groupDescription, personEmail, categoryDenomination);
     }
 
-    /**
-     * This method transforms a input DTO to the CreateCategoryInGroupDTO.
-     *
-     * @param dto
-     * @return CreateCategoryInGroupDTO
-     */
     public static CreateGroupCategoryDTO transformToCreateGroupCategoryDTO(String groupDescription, CreateGroupCategoryInfoDTO dto) {
         return new CreateGroupCategoryDTO(groupDescription, dto.getPersonEmail(), dto.getCategoryDenomination());
     }
-
-    /**
-     * Method to create a CategoryDenominationDTO from domain
-     *
-     * @param cat
-     * @return CategoryDenominationDTO
-     */
 
     public static CategoryDenominationDTO createCategoryDenominationDTO(Category cat) {
         return new CategoryDenominationDTO(cat.getID().getDenominationString());

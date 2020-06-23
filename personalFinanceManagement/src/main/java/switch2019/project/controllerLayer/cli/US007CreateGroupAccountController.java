@@ -13,15 +13,6 @@ public class US007CreateGroupAccountController {
     @Autowired
     private US007CreateGroupAccountService service;
 
-    /**
-     * US007 - As a group Admin, I want to create a group account
-     *
-     * @param personEmail for personEmail
-     * @param groupDescription for groupDescription
-     * @param accountDenomination for accountDenomination
-     * @param accountDescription for accountDescription
-     * @return accountDTO
-     */
     public AccountDTO createGroupAccount(String personEmail, String groupDescription,
                                          String accountDenomination, String accountDescription) {
 
@@ -30,7 +21,5 @@ public class US007CreateGroupAccountController {
 
         return service.createGroupAccount(createGroupAccountDTO);
     }
-
-
 
 }

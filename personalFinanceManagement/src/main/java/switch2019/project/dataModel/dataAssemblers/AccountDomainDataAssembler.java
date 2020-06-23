@@ -14,12 +14,6 @@ public class AccountDomainDataAssembler {
 
     private AccountDomainDataAssembler() {}
 
-    /**
-     * Method that transforms an Account into AccountJpa
-     *
-     * @param account
-     * @return
-     */
     public static AccountJpa toData(Account account) {
         return new AccountJpa(
                 account.getOwnerID().toString(),
@@ -29,12 +23,6 @@ public class AccountDomainDataAssembler {
                 account.getBalance().getCurrency().toString());
     }
 
-    /**
-     * Method that transforms an AccountJpa into an Account (Domain Object)
-     *
-     * @param accountJpa
-     * @return
-     */
     public static Account toDomain(AccountJpa accountJpa) {
 
         //Assembling OwnerID:

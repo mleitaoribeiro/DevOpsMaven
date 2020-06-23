@@ -22,14 +22,6 @@ public class US004GetFamilyGroupsControllerRest {
     @Autowired
     US004GetFamilyGroupsService service;
 
-    /**
-     * US004
-     * As system manager I want to know which groups are families
-     *
-     * @param type for type
-     * @return ResponseEntity <Object>
-     */
-
     @GetMapping("/groups")
     public ResponseEntity <Object> getFamilyGroups(@RequestParam(value = "type") String type) {
 

@@ -29,12 +29,6 @@ public class US005_1AdminAddsCategoryToGroupService {
     @Autowired
     private PersonRepository personRepository;
 
-    /**
-     * User Story 5.1 - As a group admin i want to associate a category to my group.
-     *
-     * @param dto
-     * @return categoryDTO
-     */
     public CategoryDTO addCategoryToGroup(CreateGroupCategoryDTO dto) {
 
         Group group = groupRepository.findGroupByDescription(new Description(dto.getGroupDescription()));
@@ -51,13 +45,6 @@ public class US005_1AdminAddsCategoryToGroupService {
         }
     }
 
-    /**
-     * method that finds a category by category ID
-     *
-     * @param categoryDescription
-     * @param groupDescription
-     * @return CategoryDTO representing a Category
-     */
     public CategoryDTO getCategoryByCategoryID (String categoryDescription, String groupDescription) {
 
         //find groupID that created the category
@@ -72,13 +59,6 @@ public class US005_1AdminAddsCategoryToGroupService {
         //return DTO that represents category
         return CategoryDTOAssembler.createCategoryDTOFromCategory(newCategory);
     }
-
-    /**
-     * method that finds a category by group ID
-     *
-     * @param groupDescription
-     * @return CategoryDTO representing an Account
-     */
 
     public Set<CategoryDenominationDTO> getCategoriesByGroupID(String groupDescription) {
 

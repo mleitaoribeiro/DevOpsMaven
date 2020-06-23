@@ -36,12 +36,6 @@ public class US008CreateTransactionService {
     @Autowired
     private AccountRepository accountRepository;
 
-    /**
-     * US008 - I want to create a personal transaction.
-     *
-     * @param createPersonalTransactionDTO
-     * @return TransactionShortDTO
-     */
     public TransactionShortDTO addPersonalTransaction(CreatePersonalTransactionDTO createPersonalTransactionDTO) {
 
         PersonID personID = personRepository.findPersonByEmail(new Email(createPersonalTransactionDTO.getPersonEmail())).getID();
@@ -73,13 +67,6 @@ public class US008CreateTransactionService {
 
         return LedgerDTOAssembler.createTransactionShortDTOFromDomain(transaction);
     }
-
-    /**
-     * US008.1 - As a group member, I want to create a group transaction.
-     *
-     * @param createGroupTransactionDTO
-     * @return transactionShortDTO
-     */
 
     public TransactionShortDTO addGroupTransaction(CreateGroupTransactionDTO createGroupTransactionDTO) {
 
@@ -118,12 +105,6 @@ public class US008CreateTransactionService {
         }
     }
 
-    /**
-     * Method that finds a transaction by it's ID
-     *
-     * @return TransactionShortDTO
-     */
-
     public TransactionDTO getTransactionByID(String ownerID, Long id) {
 
         String finalOwnerID;
@@ -137,13 +118,6 @@ public class US008CreateTransactionService {
 
         return LedgerDTOAssembler.createTransactionDTOFromDomain(transaction);
     }
-
-
-    /**
-     * Method that finds a transaction by it's Legder ID
-     *
-     * @return TransactionDTO
-     */
 
     public List<TransactionShortDTO> getTransactionsByLedgerId(String ledgerID) {
 

@@ -22,53 +22,46 @@ public class US004GetFamilyGroupsService {
     @Autowired
     private PersonRepository personRepository;
 
-    /**
-     * US004 -  As system manager I want to know which groups are families
-     *
-     * @return set of families
-     */
+    public boolean isFamily(Group isFamilyGroup) {
+        Set<PersonID> members = isFamilyGroup.getMembers();
 
+        PersonID dadPerson = null;
+        PersonID momPerson = null;
 
-        public boolean isFamily(Group isFamilyGroup) {
-            Set<PersonID> members = isFamilyGroup.getMembers();
-
-            PersonID dadPerson = null;
-            PersonID momPerson = null;
-
-            for (PersonID personID1 : members) {
-                for (PersonID personID2 : members) {
-                    Person person = personRepository.getByID(personID1);
-                    Person person2 = personRepository.getByID(personID2);
-
-                    if (!person.equals(person2)) {
-                        if (person.isFather(person2.getID()))
-                            dadPerson = person2.getID();
-                        else if (person.isMother(person2.getID()))
-                            momPerson = person2.getID();
-                    }
-                }
-            }
-            if (dadPerson == null || momPerson == null) return false;
-
-            for (PersonID personID1 : members) {
+        for (PersonID personID1 : members) {
+            for (PersonID personID2 : members) {
                 Person person = personRepository.getByID(personID1);
-                if (!person.getID().equals(dadPerson) && !person.getID().equals(momPerson) &&
-                        (!person.isMother(momPerson) || !person.isFather(dadPerson)))
-                    return false;
-            }
-            return true;
-        }
+                Person person2 = personRepository.getByID(personID2);
 
-        public Set<GroupDTO> getFamilyGroups() {
-            List <Group> allGroups = groupRepository.getAllGroups();
-            Set<GroupDTO> familyGroups = new LinkedHashSet<>();
-
-            for (Group group : allGroups) {
-                if (isFamily(group)) {
-                    familyGroups.add(GroupDTOAssembler.createGroupDTO(group.getID()));
+                if (!person.equals(person2)) {
+                    if (person.isFather(person2.getID()))
+                        dadPerson = person2.getID();
+                    else if (person.isMother(person2.getID()))
+                        momPerson = person2.getID();
                 }
             }
-
-            return familyGroups;
         }
+        if (dadPerson == null || momPerson == null) return false;
+
+        for (PersonID personID1 : members) {
+            Person person = personRepository.getByID(personID1);
+            if (!person.getID().equals(dadPerson) && !person.getID().equals(momPerson) &&
+                    (!person.isMother(momPerson) || !person.isFather(dadPerson)))
+                return false;
+        }
+        return true;
     }
+
+    public Set<GroupDTO> getFamilyGroups() {
+        List<Group> allGroups = groupRepository.getAllGroups();
+        Set<GroupDTO> familyGroups = new LinkedHashSet<>();
+
+        for (Group group : allGroups) {
+            if (isFamily(group)) {
+                familyGroups.add(GroupDTOAssembler.createGroupDTO(group.getID()));
+            }
+        }
+
+        return familyGroups;
+    }
+}

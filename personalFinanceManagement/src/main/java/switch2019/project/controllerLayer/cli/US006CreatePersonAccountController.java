@@ -13,16 +13,6 @@ public class US006CreatePersonAccountController {
     @Autowired
     private US006CreatePersonAccountService service;
 
-    /**
-     * User Story 6
-     * As a user, I want to create a account
-     *
-     * @param personEmail for personEmail
-     * @param accountDenomination for accountDenomination
-     * @param accountDescription for accountDescription
-     * @return AccountDTO
-     */
-
     public AccountDTO createPersonAccount(String personEmail, String accountDenomination, String accountDescription) {
 
         CreatePersonAccountDTO createPersonAccountDTO = AccountDTOAssembler.createPersonAccountDTOFromPrimitiveTypes(personEmail,

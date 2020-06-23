@@ -13,14 +13,6 @@ public class US003AddMemberToGroupController {
     @Autowired
     private US003AddMemberToGroupService service;
 
-    /***
-     * US003
-     * Add member to Group
-     *
-     * @param personEmail for personEmail
-     * @param groupDescription for groupDescription
-     * @return AddedMemberDTO
-     */
     public AddedMemberDTO addMemberToGroup(String personEmail, String groupDescription) {
         AddMemberDTO addMemberDTO = GroupDTOAssembler.createAddMemberDTO(personEmail, groupDescription);
         return service.addMemberToGroup(addMemberDTO);
