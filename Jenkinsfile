@@ -20,12 +20,12 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Testing...'
-                    sh './mvnw test'
-                    junit 'target/surefire-reports/*.txt'
+                    sh './mvnw surefire-report:report '
+                    junit 'target/site/*.html'
                 }
             }
         }
-        /*
+
         stage ('Javadoc'){
             steps {
                 dir('personalFinanceManagement') {
@@ -35,14 +35,14 @@ pipeline {
                                 reportName: 'Javadoc',
                                 reportDir: 'target/site/apidocs/',
                                 reportFiles: 'index.html',
-                                keepAll: false,
+                                keepAll: true,
                                 alwaysLinkToLastBuild: false,
-                                allowMissing: false
-                                ])
+                                allowMissing: true
+                    ])
                 }
             }
         }
-        */
+
         stage('Archiving') {
             steps {
                 dir('personalFinanceManagement') {
@@ -55,8 +55,15 @@ pipeline {
         /*
         stage('Docker Image') {
              steps {
-                script {
-                    dockerimage = docker.build("gabriel1191765/ca5part2:${env.BUILD_ID}")
+                dir ('/Dockerfile1') {
+                    script {
+                        webAppImage = docker.build("gabriel1191765/devops_g2_maven:${env.BUILD_ID}")
+                    }
+                }
+                dir ('/Dockerfile2') {
+                    script {
+                        dbImage = docker.build("gabriel1191765/devops_g2_maven:${env.BUILD_ID}")
+                    }
                 }
             }
         }
@@ -64,13 +71,19 @@ pipeline {
             steps {
                 script{
                     sh 'docker login -u="gabriel1191765" -p="gabriel2636"'
-                    dockerimage.push()
+                    webAppImage.push()
+                    dbImage.push()
                 }
             }
         }
         */
-        // stage ('Ansible') {
 
+        /*
+        stage ('Ansible') {
+            steps {
+                ansiblePlaybook (inventory: 'hosts', playbook: 'playbook1.yml')
+            }
         }
+        */
     }
 }
