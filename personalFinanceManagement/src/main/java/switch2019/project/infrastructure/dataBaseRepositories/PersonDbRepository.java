@@ -41,15 +41,6 @@ public class PersonDbRepository implements PersonRepository {
     //String literal - Exceptions
     private static final String PERSON_NOT_FOUND = "No person found with that email.";
 
-    /**
-     * Method do create Person without mother/father
-     * @param name
-     * @param birthDate
-     * @param birthPlace
-     * @param homeAddress
-     * @param email
-     * @return
-     */
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress, Email email) {
 
         Optional<AddressJpa> addressJpa = addressJpaRepository.findByCityAndStreetAndPostalCode
@@ -65,18 +56,6 @@ public class PersonDbRepository implements PersonRepository {
 
         return PersonDomainDataAssembler.toDomain(personJpa);
     }
-
-    /**
-     * Method do create Person with mother/father
-     * @param name
-     * @param birthDate
-     * @param birthPlace
-     * @param homeAddress
-     * @param mother
-     * @param father
-     * @param email
-     * @return
-     */
 
     public Person createPerson(String name, DateAndTime birthDate, Address birthPlace, Address homeAddress,
                                PersonID mother, PersonID father, Email email) {
@@ -95,25 +74,12 @@ public class PersonDbRepository implements PersonRepository {
         return PersonDomainDataAssembler.toDomain(personJpa);
     }
 
-
-    /**
-     * Method to return the person correspondent to the given PersonID
-     *
-     * @param personID
-     */
     public Person getByID(ID personID) {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
         if(personJpa.isPresent()) {
             return getPerson(personJpa.get(), personID.toString());
         } else throw new ArgumentNotFoundException(PERSON_NOT_FOUND);
     }
-
-    /**
-     * Auxiliar method for getById and findPersonByEmail, not to repeat code
-     *
-     * @param personJpa, email/id
-     */
-
 
     private Person getPerson(PersonJpa personJpa, String email) {
         List<SiblingsJpa> siblingsJpas = siblingsJpaRepository.findAllById_OwnerEmail_Email(email);
@@ -127,12 +93,6 @@ public class PersonDbRepository implements PersonRepository {
         return PersonDomainDataAssembler.toDomain(personJpa, siblings);
     }
 
-    /**
-     * Method to return the person correspondent to the given attributes
-     * This is to be updated later but for now, the only attribute being used is the name
-     *
-     * @param personEmail
-     */
     public Person findPersonByEmail(Email personEmail) {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
         if(personJpa.isPresent()) {
@@ -140,44 +100,20 @@ public class PersonDbRepository implements PersonRepository {
         } throw new ArgumentNotFoundException(PERSON_NOT_FOUND);
     }
 
-    /**
-     * Verify if e-mail is on person repository
-     * @param personEmail
-     * @return
-     */
     public boolean isPersonEmailOnRepository(Email personEmail) {
         Optional<PersonJpa> personJpa = personJpaRepository.findByEmail(personEmail.toString());
         return personJpa.isPresent();
     }
 
-    /**
-     * Verify if ID exists on person Repository
-     * @param personID
-     * @return
-     */
     @Override
     public boolean isIDOnRepository (ID personID) {
         Optional<PersonJpa> personJpa = personJpaRepository.findById(personID.toString());
         return personJpa.isPresent();
     }
 
-
-    /**
-     * Method to check the number of Persons inside the Repository.
-     *
-     * @return
-     */
     public long repositorySize () {
         return personJpaRepository.count();
     }
-
-    /**
-     * Method to add a sibling
-     *
-     * @param person
-     * @param siblingID
-     * @return true if sibling added
-     */
 
     @Transactional
     public boolean addSibling(Person person, String siblingID) {

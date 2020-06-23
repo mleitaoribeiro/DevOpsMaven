@@ -33,13 +33,6 @@ public class CategoryDbRepository implements CategoryRepository {
     private static final String CATEGORY_ALREADY_EXISTS = "This category already exists.";
     private static final String NULL_OWNER = "Owner ID can't be null.";
 
-    /**
-     * Find category by ID
-     *
-     * @param categoryID
-     * @return account
-     */
-
     public Category getByID(ID categoryID)  {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
         Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
@@ -48,39 +41,15 @@ public class CategoryDbRepository implements CategoryRepository {
         else throw new ArgumentNotFoundException(NO_CATEGORY_FOUND);
     }
 
-
-    /**
-     * method to validate if the account is in the accounts Repository
-     *
-     * @param categoryID
-     * @return boolean
-     */
-
     public boolean isIDOnRepository(ID categoryID) {
         String[] split = categoryID.toString().replace(", ", ",").split(",");
         Optional<CategoryJpa> categoryJpa = categoryJpaRepository.findByCategoryIdJpa(new CategoryIdJpa(split[1], split[0]));
         return categoryJpa.isPresent();
     }
 
-
-    /**
-     * Method to get the numbers of Categories in the Category List
-     *
-     * @return category
-     */
-
     public long repositorySize() {
         return this.categoryJpaRepository.count();
     }
-
-
-    /**
-     * Add a new category to CategoryList
-     *
-     * @param nameOfCategory
-     * @param ownerID
-     * @return category
-     */
 
     public Category createCategory(Denomination nameOfCategory, OwnerID ownerID) {
         if (!isIDOnRepository(new CategoryID(nameOfCategory, ownerID))) {
@@ -90,13 +59,6 @@ public class CategoryDbRepository implements CategoryRepository {
         } else throw new ResourceAlreadyExistsException(CATEGORY_ALREADY_EXISTS);
     }
 
-
-    /**
-     * Add multiple categories to CategoryList
-     *
-     * @return boolean
-     */
-
     public boolean addMultipleCategories(Set<Denomination> categories, OwnerID ownerID) {
         long sizeBefore = this.categoryJpaRepository.count();
         for (Denomination category : categories) {
@@ -104,14 +66,6 @@ public class CategoryDbRepository implements CategoryRepository {
         }
         return this.categoryJpaRepository.count() == sizeBefore + categories.size();
     }
-
-
-    /**
-     * Get list of Categories By Owner ID
-     *
-     * @param ownerID
-     * @return
-     */
 
     public Set<Category> returnCategoriesByOwnerID(OwnerID ownerID) {
         Set<Category> listOfCategoriesByOwnerID = new HashSet<>();

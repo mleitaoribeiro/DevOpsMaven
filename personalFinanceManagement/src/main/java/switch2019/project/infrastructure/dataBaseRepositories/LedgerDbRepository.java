@@ -44,32 +44,11 @@ public class LedgerDbRepository implements LedgerRepository {
     private static final String NO_PERMISSION = "No permission.";
     private static final String INVALID_DATE = "The date is not valid.";
 
-    /**
-     * Create/Add a new Ledger
-     *
-     * @param ownerID
-     * @return
-     */
-
     public Ledger createLedger(OwnerID ownerID) {
         Ledger ledger = new Ledger(ownerID);
         LedgerJpa newLedgerJPA = ledgerJpaRepository.save(LedgerDomainDataAssembler.toData(ledger));
         return LedgerDomainDataAssembler.toDomain(newLedgerJPA);
     }
-
-    /**
-     * Method to add a new Transaction to ledgerJpa
-     *
-     * @param ledgerID
-     * @param amount
-     * @param description
-     * @param localDate
-     * @param category
-     * @param accountFrom
-     * @param accountTo
-     * @param type
-     * @return Transaction
-     */
 
     @Transactional
     public Transaction addTransactionToLedger(LedgerID ledgerID, MonetaryValue amount, Description description, DateAndTime localDate,
@@ -90,13 +69,6 @@ public class LedgerDbRepository implements LedgerRepository {
 
         return TransactionDomainDataAssembler.toDomain(newTransactionJpa);
     }
-
-    /**
-     * Method to find all transactions by Ledger ID
-     *
-     * @param ledgerID
-     * @return List<TransactionJpa>
-     */
 
     @Transactional
     public List<Transaction> findAllTransactionsByLedgerID(String ledgerID) {
@@ -122,14 +94,6 @@ public class LedgerDbRepository implements LedgerRepository {
         throw new ArgumentNotFoundException(NO_LEDGER_FOUND);
     }
 
-
-    /**
-     * Find a Ledger by it´s ID
-     *
-     * @param owner
-     * @return
-     */
-
     public Ledger getByID(ID owner) {
         if(owner != null) {
             Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findLedgerJpaByOwner(owner.toString());
@@ -138,15 +102,6 @@ public class LedgerDbRepository implements LedgerRepository {
             } else throw new ArgumentNotFoundException(NO_LEDGER_FOUND);
         } else throw new IllegalArgumentException(NULL_OWNER);
     }
-
-
-    /**
-     * Find a Transaction by it´s ID
-     *
-     * @param ownerId
-     * @param id
-     * @return
-     */
 
     @Transactional
     public Transaction getTransactionByID(String ownerId, Long id) {
@@ -159,33 +114,14 @@ public class LedgerDbRepository implements LedgerRepository {
         } else throw new ArgumentNotFoundException(NO_TRANSACTION_FOUND);
     }
 
-    /**
-     * Method to validate if the ledger is in the ledger Repository
-     *
-     * @param ledgerID
-     * @return boolean
-     */
-
     public boolean isIDOnRepository(ID ledgerID) {
         Optional<LedgerJpa> ledgerJpa = ledgerJpaRepository.findLedgerJpaByOwner(ledgerID.toString());
         return ledgerJpa.isPresent();
     }
 
-    /**
-     * Method to get the number of Ledgers in the Repository
-     *
-     * @return long
-     */
-
     public long repositorySize() {
         return ledgerJpaRepository.count();
     }
-
-    /**
-     * Method to get the Transactions of a Ledger in a given Date Range
-     *
-     * @return Transactions
-     */
 
     public List<Transaction> getTransactionsInDateRange(OwnerID ledgerID, String initDate, String finDate){
         Ledger ledger = getByID(ledgerID);

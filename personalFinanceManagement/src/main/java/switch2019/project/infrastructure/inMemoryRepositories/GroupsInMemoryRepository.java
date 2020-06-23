@@ -30,12 +30,6 @@ public class GroupsInMemoryRepository implements GroupRepository {
         groups = new ArrayList<>();
     }
 
-    /**
-     * As a user I want to create a group becoming a group administrator(US02.1)
-     *
-     * @param groupDescription
-     * @param groupCreator
-     */
     public Group createGroup(Description groupDescription, PersonID groupCreator) {
         if(!isIDOnRepository(new GroupID(groupDescription))) {
             Group group1 = new Group(groupDescription, groupCreator);
@@ -44,13 +38,6 @@ public class GroupsInMemoryRepository implements GroupRepository {
         } else throw new ResourceAlreadyExistsException("This group description already exists.");
     }
 
-
-    /**
-     * Method used to find a specific group by its Description
-     * @param groupDescription
-     * @return group
-     */
-
     public Group findGroupByDescription(Description groupDescription) {
         for (Group group : groups) {
             if (group.getID().getDescription().equals(groupDescription.getDescription()))
@@ -58,24 +45,12 @@ public class GroupsInMemoryRepository implements GroupRepository {
         throw new ArgumentNotFoundException(NO_GROUPS_FOUND);
     }
 
-    /**
-     * Method to return the group corespondent to the given GroupID
-     * @param groupID
-     * @return group
-     */
     public Group getByID (ID groupID) {
         for (Group group : groups) {
             if (group.getID().equals(groupID))
                 return group; }
         throw new ArgumentNotFoundException("No group found with that ID.");
     }
-
-    /**
-     * method to validate if the group t is in the groups Repository
-     *
-     * @param groupID
-     * @return boolean
-     */
 
     public boolean isIDOnRepository(ID groupID) {
         for (Group groupSet : groups)
@@ -84,46 +59,18 @@ public class GroupsInMemoryRepository implements GroupRepository {
         return false;
     }
 
-    /**
-     * method to get all the groups from Repository
-     *
-     *
-     * @return list
-     */
-
     public List <Group> getAllGroups() {
         return new ArrayList<>(groups);
     }
-
-    /**
-     * Method to check the number of Groups inside the Repository.
-     *
-     * @return size of the groupsList
-     */
 
     public long repositorySize () {
         return groups.size();
     }
 
-
-    /**
-     * Method to add a member to a Group
-     *
-     * @param group
-     * @param personID
-     * @return
-     */
     public boolean addMember(Group group, String personID) {
         return group.addMember(new PersonID(new Email(personID)));
     }
 
-    /**
-     * Method to add an admin to a Group
-     *
-     * @param group
-     * @param personID
-     * @return
-     */
     public boolean setAdmin(Group group, String personID) {
         return group.setAdmin(new PersonID(new Email(personID)));
     }

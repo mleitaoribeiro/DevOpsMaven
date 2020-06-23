@@ -33,24 +33,9 @@ public class AccountDbRepository implements AccountRepository {
     private static final String ACCOUNT_ALREADY_EXISTS = "This account already exists.";
     private static final String NULL_OWNER = "Owner ID can't be null.";
 
-    /**
-     * Method to get the numbers of Accounts in the Repository
-     *
-     * @return int
-     */
-
     public long repositorySize() {
         return accountJpaRepository.count();
     }
-
-    /**
-     * method to add one account to the repository with an Owner
-     *
-     * @param accountDenomination
-     * @param accountDescription
-     * @param ownerID
-     * @return
-     */
 
     public Account createAccount(Denomination accountDenomination, Description accountDescription, OwnerID ownerID) {
         if (isIDOnRepository(new AccountID(accountDenomination, ownerID)))
@@ -62,14 +47,6 @@ public class AccountDbRepository implements AccountRepository {
         }
     }
 
-    /**
-     * Get list of Accounts By Owner ID - not validated
-     *
-     * @param ownerID
-     * @return
-     */
-
-
     public Set<Account> returnAccountsByOwnerID(OwnerID ownerID) {
         if (ownerID != null) {
             Set<Account> listOfAccountsByOwnerID = new HashSet<>();
@@ -80,13 +57,6 @@ public class AccountDbRepository implements AccountRepository {
             else throw new ArgumentNotFoundException(NO_ACCOUNT_FOUND);
         } throw new IllegalArgumentException(NULL_OWNER);
     }
-
-    /**
-     * method to remove one account from the Repository
-     *
-     * @param accountToBeRemoved
-     * @return boolean
-     */
 
     public boolean removeAccount(Account accountToBeRemoved) {
         if (this.isIDOnRepository(accountToBeRemoved.getID())) {
