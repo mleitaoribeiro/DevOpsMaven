@@ -39,6 +39,7 @@
 #      postgresql_user: name={{ db_user }}
 #       role_attr_flags=NOSUPERUSER,NOCREATEDB
 #       state=pr
+
 - hosts: host1
   become: yes
   tasks:
@@ -73,8 +74,8 @@
       file:
         path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.jar
         mode: "+rwx"
-    - name: deploy the war file to tomcat8
+    - name: deploy the jar file to tomcat8
       shell:
-       cmd: cp K /var/lib/tomcat8/webapps
+       cmd: cp target/devOpsProject-1.0-SNAPSHOT.jar /var/lib/tomcat8/webapps
        chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 
