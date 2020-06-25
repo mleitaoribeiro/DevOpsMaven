@@ -41,22 +41,20 @@
       git:
         repo: https://1191780@bitbucket.org/martalribeiro/devops_g2_maven.git
         dest: /home/vagrant/devops_g2_maven
-    - name: change directory to project
-      shell: cd devops_g2_maven/personalFinanceManagement
     - name: give permission to execute maven wrapper
       file:
         path: /home/vagrant/devops_g2_maven/personalFinanceManagement/mvnw
-        owner: root
-        group: root
         mode: "+rwx"
-    - name: build jar
-      shell: ./mvnw package -Dmaven.test.skip=true
+    - name: maven build
+      shell:
+        cmd: ./mvnw package -Dmaven.test.skip=true
+        chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement
     - name: give permission to execute jar file
       file:
         path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.jar
-        owner: root
-        group: root
         mode: "+rwx"
     - name: deploy the war file to tomcat8
-      shell: cp target/devOpsProject-1.0-SNAPSHOT.jar /var/lib/tomcat8/webapps
+      shell:
+       cmd: cp devOpsProject-1.0-SNAPSHOT.jar /var/lib/tomcat8/webapps
+       chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 
