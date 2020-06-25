@@ -12,10 +12,12 @@
 - hosts: host2
   become: yes
   tasks:
-    - name: Download h2 database from maven.org
-      get_url: url=https://repo1.maven.org/maven2/com/h2database/h2/1.4.200/h2-1.4.200.jar dest=./h2-1.4.200.jar mode=0755
-    - name: To connect to H2 use
-      shell: java -cp ./h2*.jar org.h2.tools.Server -web -webAllowOthers -tcp -tcpAllowOthers -ifNotExists > ~/out.txt &
+    - name: Download the PostgreSQL 9.5.3 sources
+      get_url: url=https://repo1.maven.org/maven2/postgresql/postgresql/9.1-901.jdbc4/postgresql-9.1-901.jdbc4.jar dest=./postgresql-9.1-901.jdbc4.jar mode=0755
+#    - name: To connect to DB
+#      shell: java -cp ./lib/postgresql-9.1-901.jdbc4.jar
+#    - name: Ensure the PostgreSQL service is running
+#      service: name=postgresql state=started enabled=yes
 
 - hosts: host1
   become: yes
@@ -46,9 +48,15 @@
         path: /home/vagrant/devops_g2_maven/personalFinanceManagement/mvnw
         owner: root
         group: root
-        mode: '1777'
+        mode: "+rwx"
     - name: build jar
       shell: ./mvnw package -Dmaven.test.skip=true
+    - name: give permission to execute jar file
+      file:
+        path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.jar
+        owner: root
+        group: root
+        mode: "+rwx"
     - name: deploy the war file to tomcat8
       shell: cp target/devOpsProject-1.0-SNAPSHOT.jar /var/lib/tomcat8/webapps
 
