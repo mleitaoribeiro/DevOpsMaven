@@ -51,12 +51,12 @@
       shell:
         cmd: ./mvnw package -Dmaven.test.skip=true
         chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement
-    - name: give permission to execute jar file
+    - name: give permission to execute war file
       file:
-        path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.jar
+        path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.war
         mode: "+rwx"
-    - name: deploy the jar file to tomcat8
+    - name: deploy the war file to tomcat8
       shell:
-       cmd: cp devOpsProject-1.0-SNAPSHOT.jar /var/lib/tomcat8/webapps
+       cmd: cp devOpsProject-1.0-SNAPSHOT.war /var/lib/tomcat8/webapps
        chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 
