@@ -18,6 +18,15 @@ Vagrant.configure("2") do |config|
     # We want to connet to the H2 server using port 5432	
     host2.vm.network "forwarded_port", guest: 8082, host: 8082
     host2.vm.network "forwarded_port", guest: 5432, host: 5432
+
+    host2.vm.provision "shell", inline: <<-SHELL
+      sudo apt update
+      sudo apt install postgresql postgresql-contrib -y
+      sudo apt install libpq-dev -y
+      sudo apt install python-psycopg2 -y
+      sudo apt install nano -y
+    SHELL
+
   end
 
 
@@ -61,10 +70,10 @@ Vagrant.configure("2") do |config|
      sudo apt install git -y
      
     # For jenkins
-     # sudo apt-get install wget
-     # sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-     # sudo apt-get install openjdk-8-jdk-headless -y
-     # sudo java -jar jenkins.war
+      sudo apt-get install wget
+      sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+      sudo apt-get install openjdk-8-jdk-headless -y
+      sudo java -jar jenkins.war
     SHELL
   end
 end

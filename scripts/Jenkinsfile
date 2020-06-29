@@ -66,22 +66,21 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy') {
-           steps {
-               script{
-                   
-               }
-           }
-       }
-       /*
-        stage ('Ansible') {
+
+       stage('Ansible Deploy') {
             steps {
-                dir('scripts') {
-                    ansiblePlaybook (inventory: 'hosts', playbook: 'playbook1.yml')
-                }
+                dir('devops_g2_maven/scripts') {
+                        ansiblePlaybook (
+                           credentialsId: 'sample-ssh-key'',
+                           become: true,
+                           disableHostKeyChecking: true,
+                           inventory: 'hosts',
+                           playbook: 'playbook1.yml'
+                   )
+               }
             }
         }
-        */
+
         stage('Test') {
             steps {
                 dir('personalFinanceManagement') {
