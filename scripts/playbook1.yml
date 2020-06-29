@@ -20,16 +20,50 @@
       apt: name=libpq-dev state=present
     - name: install python-psycopg2
       apt: name=python-psycopg2 state=present
-    # - name: start postgresql server
-    #   shell: systemctl start postgresql
+    - name: Ensure the PostgreSQL service is running
+      service: name=postgresql state=started enabled=yes
+    - name: Configure PostgreSQL. Set listen_addresses.
+      lineinfile:
+        dest: /etc/postgresql/9.5/main/postgresql.conf
+        regexp: "listen_addresses ="
+        line: "listen_addresses = '*'"
+        state: present
+      become: true
+      notify: restart postgresql
+    - name: Configure PostgreSQL. Change postgres pg hba access.
+      postgresql_pg_hba:
+        dest: /etc/postgresql/9.5/main/pg_hba.conf
+        contype: host
+        users: postgres
+        source: all
+        databases: postgres
+        method: md5
+        create: true
+      become: true
+      notify: restart postgresql
+    - name: create postgresql user
+      become: yes
+      postgresql_user:
+        user: "postgres"
+        password: "postgres"
+        role_attr_flags: "CREATEDB,NOSUPERUSER"
+      become_user: postgres
+      notify: restart postgresql
+    - name: create postgresql db
+      postgresql_db:
+        name: "postgres"
+        state: present
+      become: true
+      become_user: postgres
+      notify: restart postgresql  
+
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted
 
 - hosts: host1
   become: yes
   tasks:
-    - name: install tomcat8
-      apt: name=tomcat8 state=present
-    - name: install tomcat8admin
-      apt: name=tomcat8-admin state=present
     - name: install git
       apt: name=git state=present 
     - name: install nodejs
@@ -51,6 +85,14 @@
         mode: "+rwx"
     - name: maven build
       shell:
-        cmd: ./mvnw spring-boot:run
+        cmd: ./mvnw package -Dmaven.test.skip=true
         chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement
+    - name: give permission to execute war file
+      file:
+        path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.war
+        mode: "+rwx"
+    - name: deploy the war file
+      shell:
+        cmd: java -jar devOpsProject-1.0-SNAPSHOT.war
+        chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 
