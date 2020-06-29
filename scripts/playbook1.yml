@@ -20,6 +20,8 @@
       apt: name=libpq-dev state=present
     - name: install python-psycopg2
       apt: name=python-psycopg2 state=present
+    # - name: start postgresql server
+    #   shell: systemctl start postgresql
 
 - hosts: host1
   become: yes
@@ -41,7 +43,7 @@
         state: link
     - name: clone repository
       git:
-        repo: https://1191780@bitbucket.org/martalribeiro/devops_g2_maven.git
+        repo: https://1191780@bitbucket.org/martalribeiro/postgres.git
         dest: /home/vagrant/devops_g2_maven
     - name: give permission to execute maven wrapper
       file:
@@ -49,14 +51,6 @@
         mode: "+rwx"
     - name: maven build
       shell:
-        cmd: ./mvnw package -Dmaven.test.skip=true
+        cmd: ./mvnw spring-boot:run
         chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement
-    - name: give permission to execute war file
-      file:
-        path: /home/vagrant/devops_g2_maven/personalFinanceManagement/target/devOpsProject-1.0-SNAPSHOT.war
-        mode: "+rwx"
-    - name: deploy the war file to tomcat8
-      shell:
-       cmd: cp devOpsProject-1.0-SNAPSHOT.war /var/lib/tomcat8/webapps
-       chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 

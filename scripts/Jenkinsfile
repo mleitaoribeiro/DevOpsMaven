@@ -5,13 +5,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out...'
-                git url: 'https://gabrielPereira12@bitbucket.org/martalribeiro/devops_g2_maven.git/'
+                git url: 'https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git/'
             }
         }
-        stage('Assemble') { //  qual o objectivo desta fase?
+        stage('Assemble') {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Building...'
+                    sh 'chmod +x mvnw'
                     sh './mvnw package -Dmaven.test.skip=true '
                 }
             }
@@ -20,11 +21,13 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Testing...'
+                    sh 'chmod +x mvnw'
                     sh './mvnw surefire-report:report '
                     archiveArtifacts 'target/site/*.html'
                 }
                 dir('personalFinanceManagement') {
                     echo 'Generating code coverage...'
+                    sh 'chmod +x mvnw'
                     sh './mvnw verify'
                     archiveArtifacts 'target/site/jacoco/index.html'
                 }
@@ -34,6 +37,7 @@ pipeline {
             steps {
                 dir('personalFinanceManagement') {
                     echo 'Generating javadocs...'
+                    sh 'chmod +x mvnw'
                     sh './mvnw javadoc:javadoc'
                     publishHTML ([
                                 reportName: 'Javadoc',
@@ -55,15 +59,14 @@ pipeline {
                 }
             }
         }
-        /*
         stage('Docker Image') {
              steps {
-                dir ('/Dockerfile1') {
+                dir ('scripts') {
                     script {
                         webAppImage = docker.build("gabriel1191765/devops_g2_maven:${env.BUILD_ID}")
                     }
                 }
-                dir ('/Dockerfile2') {
+                dir ('scripts') {
                     script {
                         dbImage = docker.build("gabriel1191765/devops_g2_maven:${env.BUILD_ID}")
                     }
@@ -79,12 +82,19 @@ pipeline {
                 }
             }
         }
-        */
-
-        /*
+        stage ('Deploy') {
+           steps {
+               script{
+                   
+               }
+           }
+       }
+       /*
         stage ('Ansible') {
             steps {
-                ansiblePlaybook (inventory: 'hosts', playbook: 'playbook1.yml')
+                dir('scripts') {
+                    ansiblePlaybook (inventory: 'hosts', playbook: 'playbook1.yml')
+                }
             }
         }
         */
