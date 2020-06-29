@@ -45,14 +45,14 @@ pipeline {
         }
         stage('Docker Image') {
              steps {
-                dir ('scripts') {
+                dir ('scripts/web') {
                     script {
-                        webAppImage = docker.build("gabriel1191765/devops_g2_maven:${env.BUILD_ID}")
+                        webAppImage = docker.build("raquelquerido/devops_g2_gradle:${env.BUILD_ID}")
                     }
                 }
-                dir ('scripts') {
+                dir ('scripts/db') {
                     script {
-                        dbImage = docker.build("gabriel1191765/devops_g2_maven:${env.BUILD_ID}")
+                        dbImage = docker.build("raquelquerido/devops_g2_gradle:${env.BUILD_ID}")
                     }
                 }
             }
@@ -60,7 +60,7 @@ pipeline {
         stage('Publish Image') {
             steps {
                 script{
-                    sh 'docker login -u="gabriel1191765" -p="gabriel2636"'
+                    sh 'docker login -u="raquelquerido" -p="devops1313"'
                     webAppImage.push()
                     dbImage.push()
                 }
@@ -71,7 +71,6 @@ pipeline {
             steps {
                 dir('devops_g2_maven/scripts') {
                         ansiblePlaybook (
-                           credentialsId: 'sample-ssh-key'',
                            become: true,
                            disableHostKeyChecking: true,
                            inventory: 'hosts',
