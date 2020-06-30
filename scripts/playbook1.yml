@@ -19,6 +19,10 @@
 - hosts: host1
   become: yes
   tasks:
+    - name: install tomcat8
+      apt: name=tomcat8 state=present
+    - name: install tomcat8-admin
+      apt: name=tomcat8-admin state=present
     - name: install git
       apt: name=git state=present 
     - name: install nodejs
@@ -48,6 +52,6 @@
         mode: 0755
     - name: deploy the war file
       shell:
-        cmd: nohup java -jar devOpsProject-1.0-SNAPSHOT.war
+        cmd: cp devOpsProject-1.0-SNAPSHOT.war /var/lib/tomcat8/webapps
         chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 
