@@ -30,6 +30,8 @@
         src: /usr/bin/nodejs
         dest: /usr/bin/node
         state: link
+    - name: clean existent repository
+      shell: rm -r -f /home/vagrant/devops_g2_maven
     - name: clone repository
       git:
         repo: https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git
