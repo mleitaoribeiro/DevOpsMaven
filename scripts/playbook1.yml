@@ -19,10 +19,10 @@
 - hosts: host1
   become: yes
   tasks:
-    # - name: install tomcat8
-    #   apt: name=tomcat8 state=present
-    # - name: install tomcat8-admin
-    #   apt: name=tomcat8-admin state=present
+    - name: install tomcat8
+      apt: name=tomcat8 state=present
+    - name: install tomcat8-admin
+      apt: name=tomcat8-admin state=present
     - name: install git
       apt: name=git state=present 
     - name: install nodejs
@@ -36,7 +36,7 @@
         state: link
     - name: clone repository
       git:
-        repo: https://1191780@bitbucket.org/martalribeiro/postgres.git
+        repo: https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git
         dest: /home/vagrant/devops_g2_maven
     - name: give permission to execute maven wrapper
       file:
@@ -52,7 +52,8 @@
         mode: 0755
     - name: deploy the war file
       shell:
-        cmd: java -jar devOpsProject-1.0-SNAPSHOT.war
+        cmd: cp devOpsProject-1.0-SNAPSHOT.war /var/lib/tomcat8/webapps
+        #cmd: java -jar devOpsProject-1.0-SNAPSHOT.war
         chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
-    - meta: end_play
+    #- meta: end_play
 
