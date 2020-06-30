@@ -6,13 +6,7 @@ RUN apt-get install -f
 
 RUN apt-get install git -y
 
-RUN apt-get install nodejs -y
-
-RUN apt-get install npm -y
-
-RUN apt-get install iputils-ping -y && \
-
-  apt-get install python3 --yes
+RUN apt-get install openjdk-8-jdk-headless -y
 
 RUN mkdir -p /tmp/build
 

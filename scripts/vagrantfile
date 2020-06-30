@@ -69,6 +69,19 @@ Vagrant.configure("2") do |config|
      sudo apt-get install ansible --yes
      sudo apt install git -y
      
+    # For docker
+      sudo apt-get update
+      sudo apt-get install apt-transport-https -y
+      sudo apt-get install ca-certificates -y
+      sudo apt-get install curl -y
+      sudo apt-get install gnupg-agent -y
+      sudo apt-get install software-properties-common -y
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      sudo apt-get update
+      sudo apt-get install docker-ce docker-ce-cli containerd.io
+      sudo apt-get update
+
     # For jenkins
       sudo apt-get install wget
       sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
