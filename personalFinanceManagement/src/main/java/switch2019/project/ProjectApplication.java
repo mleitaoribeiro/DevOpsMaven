@@ -5,6 +5,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,7 +17,12 @@ import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
         "switch2019.project.utils.projectApplicationConfiguration"})
 
 @EnableWebMvc
-public class ProjectApplication implements ApplicationRunner {
+public class ProjectApplication extends SpringBootServletInitializer implements ApplicationRunner {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(ProjectApplication.class);
+    }
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(ProjectApplication.class, args);
