@@ -17,6 +17,22 @@ pipeline {
                 }
             }
         }
+         stage('Test') {
+            steps {
+                dir('personalFinanceManagement') {
+                    echo 'Testing...'
+                    sh 'chmod +x mvnw'
+                    sh './mvnw surefire-report:report '
+                    archiveArtifacts 'target/site/*.html'
+                }
+                dir('personalFinanceManagement') {
+                    echo 'Generating code coverage...'
+                    sh 'chmod +x mvnw'
+                    sh './mvnw verify'
+                    archiveArtifacts 'target/site/jacoco/index.html'
+                }
+            }
+        }
         stage ('Javadoc'){
             steps {
                 dir('personalFinanceManagement') {
@@ -69,7 +85,7 @@ pipeline {
 
        stage('Ansible Deploy') {
             steps {
-                dir('devops_g2_maven/scripts') {
+                dir('scripts') {
                         ansiblePlaybook (
                            become: true,
                            disableHostKeyChecking: true,
@@ -77,23 +93,6 @@ pipeline {
                            playbook: 'playbook1.yml'
                    )
                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                dir('personalFinanceManagement') {
-                    echo 'Testing...'
-                    sh 'chmod +x mvnw'
-                    sh './mvnw surefire-report:report '
-                    archiveArtifacts 'target/site/*.html'
-                }
-                dir('personalFinanceManagement') {
-                    echo 'Generating code coverage...'
-                    sh 'chmod +x mvnw'
-                    sh './mvnw verify'
-                    archiveArtifacts 'target/site/jacoco/index.html'
-                }
             }
         }
     }
