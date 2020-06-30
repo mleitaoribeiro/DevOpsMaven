@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM tomcat
 
 RUN apt-get update -y
 
@@ -22,6 +22,6 @@ RUN ./mvnw package -Dmaven.test.skip=true
 
 WORKDIR /tmp/build/devops_g2_maven/personalFinanceManagement/target
 
-RUN java -jar devOpsProject-1.0-SNAPSHOT.war
+RUN cp devOpsProject-1.0-SNAPSHOT.war /var/lib/tomcat8/webapps
 
 EXPOSE 8080
