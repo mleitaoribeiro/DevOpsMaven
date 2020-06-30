@@ -48,6 +48,6 @@
         mode: 0755
     - name: deploy the war file
       shell:
-        cmd: java -jar devOpsProject-1.0-SNAPSHOT.war
+        cmd: nohup java -jar devOpsProject-1.0-SNAPSHOT.war
         chdir: /home/vagrant/devops_g2_maven/personalFinanceManagement/target
 
