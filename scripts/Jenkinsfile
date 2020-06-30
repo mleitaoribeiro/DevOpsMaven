@@ -63,12 +63,12 @@ pipeline {
              steps {
                 dir ('scripts/web') {
                     script {
-                        webAppImage = docker.build("raquelquerido/devops_g2_gradle:${env.BUILD_ID}")
+                        webAppImage = docker.build("raquelquerido/devops_g2_gradle:web${env.BUILD_ID}")
                     }
                 }
                 dir ('scripts/db') {
                     script {
-                        dbImage = docker.build("raquelquerido/devops_g2_gradle:${env.BUILD_ID}")
+                        dbImage = docker.build("raquelquerido/devops_g2_gradle:db${env.BUILD_ID}")
                     }
                 }
             }
