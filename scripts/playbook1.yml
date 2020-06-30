@@ -27,7 +27,7 @@
       apt: name=git state=present 
     - name: install nodejs
       shell: apt-get install nodejs -y
-    - name: install nodejs
+    - name: install npm
       shell: apt-get install npm -y
     - name: create symbolic link
       file:
