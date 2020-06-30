@@ -6,8 +6,6 @@ RUN apt-get install -f
 
 RUN apt-get install git -y
 
-RUN apt-get install openjdk-8-jdk-headless -y
-
 RUN mkdir -p /tmp/build
 
 WORKDIR /tmp/build/
@@ -22,6 +20,6 @@ RUN ./mvnw package -Dmaven.test.skip=true
 
 WORKDIR /tmp/build/devops_g2_maven/personalFinanceManagement/target
 
-RUN cp devOpsProject-1.0-SNAPSHOT.war /var/lib/tomcat8/webapps
+RUN cp devOpsProject-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
