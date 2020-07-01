@@ -17,12 +17,7 @@ import switch2019.project.infrastructure.dataLoader.DataBaseLoader;
         "switch2019.project.utils.projectApplicationConfiguration"})
 
 @EnableWebMvc
-public class ProjectApplication extends SpringBootServletInitializer implements ApplicationRunner {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ProjectApplication.class);
-    }
+public class ProjectApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(ProjectApplication.class, args);
