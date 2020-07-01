@@ -351,12 +351,15 @@ Outra ferramenta utilizada no projeto foi o ***pgAdmin***, uma plataforma *open 
 
 
 ### **2.3 Vagrant**
-No *vagrantifle* criaram-se e configuraram-se três máquinas virtuais, para se executar várias funcionalidades.
-Uma para suportar a base de dados, em postgreSQL, outra para executar a aplicação de gestão de finanças pessoais e uma terceira para executar o *playbook* do Ansible e o Jenkins.
+No *vagrantifle* criaram-se e configuraram-se três máquinas virtuais, para se executar várias funcionalidades:
+
+* **host2** - para suportar a base de dados, em postgreSQL;
+* **host1** - para executar a aplicação de gestão de finanças pessoais;
+* **ansible** - para executar o *playbook* do Ansible e dar suporte ao Jenkins.
 
 Tendo por base o *vagrantfile* disponível nos documentos da unidade curricular de DevOps, foram feitas algumas alterações ao ficheiro:
 
-Na máquina **host2**, foi instalado o PostgreSQL bem como as dependências necessárias para correr a base de dados. Adicionalmente, alterou-se o porto para o *default* do postgreSQL, o 5432. De acordo como o seguinte shell script:
+Na máquina **host2**, foi instalado o PostgreSQL bem como as dependências necessárias para correr a base de dados. Adicionalmente, alterou-se o porto para o *default* do postgreSQL - 5432. As configurações da VM do *host2* são as seguintes:
 
 ```
  config.vm.define "host2" do |host2|
@@ -378,8 +381,7 @@ Na máquina **host2**, foi instalado o PostgreSQL bem como as dependências nece
     SHELL
 end    
 ``` 
-
-Relativamente ao **host1**, foi adiconada a seguinte configuração que, apenas difere da orginal, pela alocção de mais memória:
+Relativamente à VM do **host1**, foi adiconada a seguinte configuração que, apenas difere da orginal, pela alocção de mais memória:
 
 ```
   config.vm.define "host1" do |host1|
@@ -397,9 +399,9 @@ Relativamente ao **host1**, foi adiconada a seguinte configuração que, apenas 
   end
 ````    
 
-Na última VM, **ansible**, da mesma forma que na máquina *host1*, aumentou-se a memória da VM e foi instalado o ansible, bem como, as dependências precisas para que o *software* corresse adequadamente. 
+Na última VM, **ansible**, da mesma forma que na máquina *host1*, aumentou-se a memória da VM e foi instalado o ansible, bem como, as dependências necessárias para que o *software* corresse adequadamente. 
 
-Foi preciso também instalar o Docker para ser possível concretizar as *stages* relativas ao Docker na *pipeline* do Jenkins. Adicionalmente, para correr o servidor do Jenkins foi preciso instalar o pacote jdk.
+Foi preciso também instalar o Docker para ser possível concretizar as *stages* relativas a esta ferramente na *pipeline* do Jenkins. Adicionalmente, para correr o servidor do Jenkins foi preciso instalar o pacote jdk. A configuração desta VM está de acordo com a seguinte informação:
 
 ```
 config.vm.define "ansible" do |ansible|
@@ -436,25 +438,69 @@ config.vm.define "ansible" do |ansible|
   end
 ```
 
-De salientar que foi definido o porto 8081 no comando de execução do Jenkins para evitar a colisão de portos com o tomcat, em 8080.
+> De salientar que foi definido o porto 8081 no comando de execução do Jenkins para evitar a colisão de portos.
 
+#### Vagrant Up
 
-### Ansible
+No terminal, no diretório *\devops_g2_maven\scripts* executou-se o seguinte comando para iniciar todas as VM:
 
-#### Configuração dos hosts
+```sh
+$vagrant up
+```
 
-Antes de executar o *playbook*, é necessário fornecer ao Ansible informação sobre os servidores para realizar a conexão *ssh*. Esta informação deverá ser especificada dentro de um ficheiro *Inventory* que, por defeito está localizado */etc/ansible/hosts*.
+Com as máquinas criadas com sucesso, usou-se o comando *ssh* para entrar dentro da VM's.
 
-Cada servidor necessita de um nome para ser identificável pelo Ansible, neste caso, **host1** e **host2**. Também será necessário adicionar um *host* e um número de porta (22 para ssh) e, ainda, uma *private key file* usada pelo ssh. Neste cenário, no *inventory* está indicado um *cluster* de *hosts* que se chama **[otherservers]** sobre o qual o *playbook* vai ser aplicado.
+### Host2: Postgress - Autorizar Acesso Remoto
+Antes de ser executado o *playbook* foi necessário fazer alguma configuração manual no *host2* onde está instalada a base de dados **PostgreSQL**. Dado que o **PostgreSql** está configurado para receber apenas conexões locais, de forma a permitir acesso remoto foi necessário alterar os ficheiros **postgresql.conf** e **pg_hba.conf**.
 
-Este ficheiro encontra-se dentro da pasta *\devops_g2_maven\scripts* como designação de *hosts* e que contém a seguinte informação:
+Para entrar dentro do *host2* executou-se o seguinte comando:
+
+```sh
+$vagrant ssh host2
+```
+
+Depois, fez-se *cd /vagrant* e executou-se o seguinte comando, de forma a alterar a *password* do utilizador *postres* para *postgres*:
+
+```sh
+sudo -u postgres psql postgres
+```
+
+De seguida, no ficheiro *postgresql.conf*  editou-se a linha *listen_addresses = 'localhost'* para listen_addresses = '*' através do comando seguinte:
+
+```sh
+sudo nano /etc/postgresql/9.5/main/postgresql.conf
+```
+Desta forma, qualquer endereço de IP pode ser aceite.
+
+Por fim, alterou-se o ficheiro *pg_hba.conf*, que contém informação sobre os utilizadores e *hosts* da base de dados, alterou-se o parâmetro *ADDRESS* do endereço *IPv4* para *all* atráves do seguinte comando:
+
+```sh
+sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+```
+No fim,  reiniciou-se o servidor do postgresql através do seguinte comando:
+
+ ```
+ sh sudo /etc/init.d/postgresql restart
+ ```
+
+**Atenção**: Esta foi solução alternativa para correr o servidor da base de dados. Idealmente, as tarefas deveriam ser automatizadas com recurso ao *playbook*. No entanto, algumas destas tarefas não estavam a ser bem sucedidas. O *playbook* inicial pode ser encontrado no seguinte *link*: ttps://bitbucket.org/martalribeiro/devops_g2_maven/src/master/scripts/playbookOriginal.yml
+
+### **2.4 Ansible**
+
+#### **2.4.1 Configuração dos hosts**
+
+Antes de executar o *playbook*, é necessário fornecer ao Ansible informação sobre os servidores para realizar a conexão *ssh*. Esta informação deve ser especificada dentro de um ficheiro *Inventory* que, por defeito está localizado em */etc/ansible/hosts*.
+
+Cada servidor necessita de um nome para ser identificado pelo Ansible, neste caso, **host1** e **host2**. Também é necessário adicionar um *host* e um porto (22 para ssh) e, ainda, uma *private key file* usada pelo *ssh*. Neste cenário, no *inventory* está indicado um *cluster* de *hosts* que se chama **[otherservers]** sobre o qual o *playbook* é ser aplicado.
+
+Este ficheiro encontra-se dentro da pasta */devops_g2_maven/scripts* como designação de *hosts* e contém a seguinte informação:
 
 ```sh
 host1 ansible_ssh_host=192.168.33.11 ansible_ssh_port=22 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/vagrant/.vagrant/machines/host1/virtualbox/private_key
 host2 ansible_ssh_host=192.168.33.12 ansible_ssh_port=22 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/vagrant/.vagrant/machines/host2/virtualbox/private_key
 ```
 
-Depois, dentro de um ficheiro de configuração *ansible.cfg*, que pode ser criado no diretório do projeto junto do *playbook*, dentro da secção **[defaults]** está a indicação do ficheiro *inventory* que lista os nossos *hosts* e, adicionalmente, o utilizador *default* para se conectar ao *ansible_playbook* (caso contrário o Ansible vai recorrer ao utilizador atual). O ficheiro tem a seguinte informação:
+Depois, no ficheiro de configuração *ansible.cfg*, que pode ser criado no diretório do projeto junto do *playbook*, dentro da secção **[defaults]** está a indicação do ficheiro *inventory* que lista os *hosts* e, adicionalmente, o utilizador *default* para ser consumido pelo *ansible_playbook* (caso contrário o Ansible vai recorrer ao utilizador atual). O ficheiro tem a seguinte informação:
 
 ```sh
 [defaults]
@@ -462,8 +508,8 @@ inventory = /vagrant/hosts
 remote_user = vagrant
 ```
 
-#### Criação do Playbook
-Primeiramente, criam-se *tasks* para o grupo *otherservers*, que agrega os *host1* e o *host2*, onde vão ser instalados os *packages* em comum para os dois *hosts*, recorrendo-se ao módulo *apt*
+#### **2.4.2 Criação do Playbook**
+Primeiramente, criaram-se *tasks* para o grupo *otherservers*, que agrega o *host1* e o *host2*, onde vão ser instalados os *packages* em comum para os dois *hosts*, recorrendo-se ao módulo *apt*
 
 ```sh
 - hosts: otherservers
@@ -477,7 +523,9 @@ Primeiramente, criam-se *tasks* para o grupo *otherservers*, que agrega os *host
       apt: name=openjdk-8-jdk-headless state=present
 ```
 
-De seguida, cria-se a *play* para o *host2*, onde apenas vamos verificar se o PostgreSQL está a correr, recorrendo-se ao módulo *service*, uma vez que a configuração foi feita através do Vagrant. De referir que tanto a ordem das *tasks* como dos *plays* importa no *playbook* e, por isso, o servidor da base de dados deve ser configurado em primeiro lugar.
+De seguida, criou-se a *play* para o *host2*, onde apenas se verifica se o servidor PostgreSQL está a correr, uma vez que a configuração foi feita através do Vagrant. 
+
+> De referir que tanto a ordem das *tasks* como a dos *plays* importam no *playbook* e, por isso, a *play* da base de dados deve ser configurada em primeiro lugar.
 
 
 ```sh
@@ -488,14 +536,14 @@ De seguida, cria-se a *play* para o *host2*, onde apenas vamos verificar se o Po
       service: name=postgresql state=started enabled=yes
 ```      
 
-**Atenção**: Com o 'become: yes' ativa-se a escalamento de privilégios de utilizadores para *sudo*.
+> **Nota**: Com o 'become: yes' ativa-se a escalamento de privilégios de utilizadores para *sudo*.
 
-Por fim, cria-se a *play* para o *host1* que vai conter as *tasks* necessárias para fazer o *deploy* da aplicação que consistem em:
+Por fim, criou-se a *play* para o *host1* que contém as *tasks* necessárias para fazer o *deploy* da aplicação e que consistem em:
 
- * Instalar os packages necessários para configurar o host e fazer o *deploy*;
+ * Instalar os *packages* necessários para configurar o host e fazer o *deploy* da aplicação;
  * Fazer um clone do repositório para a VM do host1;
  * Dar permissão de execução para fazer o *maven build* da aplicação;
- * Dar permissão para executar o artefacto gerado pelo  *build*;
+ * Dar permissão de execução do artefacto gerado pelo *build*;
  * Executar o ficheiro .war para lançar a aplicação.
 
 ```sh
@@ -536,130 +584,55 @@ Por fim, cria-se a *play* para o *host1* que vai conter as *tasks* necessárias 
       async: 2592000
       poll: 0
 ```
-
-#### Vagrant Up
-
-Com configuração das máquinas virtuais através do Vagrant, deverão ser criadas três *Virtual Machines*:
-
-* **Ansible** - Onde foi instalado e configurado o Ansible;
-* **Host1** - Onde irá correr o servidor da aplicação bem como as configurações do Jenkins;
-* **Host2** - Onde corre o servidor PostgreSQL;
-
-No terminal, no diretório *\devops_g2_maven\scripts* executar o seguinte comando para iniciar todas as VM:
-
-```sh
-$vagrant up
-```
-
-Se as máquinas foram criadas com o sucesso, deve-se usar o *ssh* para entrar dentro da VM's.
-
-### Host2: Postgress - Autorizar Acesso Remoto
-Antes de ser executado o *playbook* é necessário fazer alguma configuração manual no *host2* onde está instalada a base de dados **PostgreSQL**. O **PostgreSql** vem configurado para receber apenas conexões locais, para permitir acesso remoto é necessário alterar os ficheiros **postgresql.conf** e **pg_hba.conf**.
-
- Deste modo, para entrar dentro do *host2* executar o seguinte comando:
-
-```sh
-$vagrant ssh host2
-```
-
-Depois, fazer *cd /vagrant* e executar o seguinte comando de forma a alterar a password do utilizador *postres* para *postgres*:
-
-```sh
-sudo -u postgres psql postgres
-```
-
-De seguida, no ficheiro *postgresql.conf*  editar a linha *listen_addresses = 'localhost'* para
-listen_addresses = '*'. Desta forma, qualquer IP de rede vai ser aceite.
-
-```sh
-sudo nano /etc/postgresql/9.5/main/postgresql.conf
-```
-
-Por fim, alterar o ficheiro *pg_hba.conf*, que contém informação sobre os utilizadores e hosts da base de dados, alterando o utilizador para *ALL* e a rede para * 0.0.0.0/0*.
-
-```sh
-sudo nano /etc/postgresql/9.5/main/pg_hba.conf
-```
-No fim, deve ser reiniciado o servidor do postgresql através do seguinte comando:
-
- ```
- sh sudo /etc/init.d/postgresql restart
- ```
-
-**Atenção**: Esta é solução alternativa para correr o servidor da base de dados. Idealmente, as tarefas deveriam ser automatizadas com recurso ao *playbook*, no entanto, algumas destas tarefas não estavam a ser bem sucedidas. O *playbook* inicial pode ser encontrado no seguinte link: https://bitbucket.org/martalribeiro/devops_g2_maven/src/master/scripts/playbookOriginal.yml
-
-#### Playbook
-
-Após as configurações no hos2, através de SSH entrar na VM do Ansible e mudar o diretório para */vagrant*, de forma a correr o *playbook*. Neste sentido, deve-se executar o seguinte comando:
+ > Para correr o *playbook*, após as configurações dos *hosts*, pode se entrar na VM do Ansible, e no diretório */vagrant* executar o seguinte comando:
 
 ```sh
 $ansible-playbook playbook1.yml
 ```
-O output deverá ser similar a:
 
-![]() imagem
+### **2.5 Docker**
+#### **2.5.1 Dockerfile**
+Foram criados dois arquivos de configruação:
+* Docker db - publicar a imagem da base de dados;
+* Docker web - publicar a imagem da aplicação web.
 
-Para confirmar que a aplicação está a correr, pode aceder-se ao:
-
-```sh
- http://localhost:8080 or http://192.168.33.11:8080
- ```
-
-Para aceder à base de dados - PostgreSQL:
-
-```sh
-http://localhost:5432 or http://192.168.33.12:5432
-```
-
-
-
-
-### Docker
-#### Dockerfile
--> Elsa
-
-Para melhorar a organização, optou-se por deixar os arquivos de configuração da base de dados (Docker db)e do servidor(Docker web) separadamente.
-Docker db
-
-O ”FROM” inicializa um novo estágio de construção e define a imagem base,neste caso, ubuntu, para  as instruções subsequentes.
-O comando ”RUN ”serve para executar os comandos dentro do container a partir da imagem base,neste caso, estamos a actualizar o sistema instalando o que é necessário para a nossa aplicação.
-
-Para expor a porta que o nosso Web Server vai utilizar, usamos o parâmetro” EXPOSE ”com o número da porta:8082 e 5432 informando ao DOCKER as portas de rede que estão à escuta.
-
+##### Docker Db
+ O *dockerfile* relativo à DB dispõe a seguinte informação:
+ 
 ```sh
 FROM ubuntu
+
+ENV TZ=Europe/Minsk
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update -y && \
   apt install postgresql postgresql-contrib -y && \
   apt install libpq-dev -y && \
-  apt install python-psycopg2 -y && \
+  apt-get install python3-pip -y && \
+  pip3 install psycopg2 && \
   apt install nano -y
 
 EXPOSE 8082
 EXPOSE 5432
 ```
-Docker File web define a criação da imagem web.
+Na próxima secção, explica-se, de forma breve, as instruções deste ficheiro:
 
-Tal como no Docker DB,o ponto de partida da imagem criada com o dockerfile será a do ubuntu.
-Através do apt-get update serão actualizados os repositórios do Ubuntu, bem como serão executados outros comados run para a instalação do software necessário para a nossa aplicação funcionar. Isto executará uma série de downloads que resultarão na geração de uma imagem.
-Posteriormente é feito o clone da nossa aplicação, seguida de build para que a mesma corra.
+O ***FROM*** inicializa um novo estágio de construção e define a imagem base, neste caso, ubuntu, para as instruções subsequentes.
 
-```sh
-FROM ubuntu
+O comando ***RUN*** serve para executar os comandos dentro do *container* a partir da imagem base, neste caso, actualizou-se o sistema instalando os `packages* necessários para a base de dados.
 
+Para expor a porta que o *Web Server* vai utilizar, usou-se o parâmetro ***EXPOSE*** com os números de porta - 8082 e 5432 - informando ao Docker as portas de rede que estão à escuta.
+
+#### Docker Web
+ O *dockerfile* relativo à Web dispõe a seguinte informação:
+ 
+ ```sh
+ 
 RUN apt-get update -y
 
 RUN apt-get install -f
 
 RUN apt-get install git -y
-
-RUN apt-get install nodejs -y
-
-RUN apt-get install npm -y
-
-RUN apt-get install iputils-ping -y && \
-
-  apt-get install python3 --yes
 
 RUN mkdir -p /tmp/build
 
@@ -675,35 +648,37 @@ RUN ./mvnw package -Dmaven.test.skip=true
 
 WORKDIR /tmp/build/devops_g2_maven/personalFinanceManagement/target
 
-RUN java -jar devOpsProject-1.0-SNAPSHOT.war
+RUN cp devOpsProject-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
+````
 
-```
+Tal como no Docker DB, o ponto de partida da imagem criada com o *dockerfile* será a do ubuntu.
+Através do *apt-get update* foram actualizados os repositórios do Ubuntu e foram igualmente executados outros comados ***RUN*** para a instalação do software necessário para a aplicação correr. De seguida, foi feito o clone do repositório remoto, seguido do *build* para que fosse gerado o *war* da aplicação e, posteriormente, expandido pelo Tomcat. 
+
+
 ![alt text](https://i.imgur.com/icu5Eh8.png "DockerHub")
 
 
-### **Jenkinsfile**
+###** 2.5 Jenkinsfile**
+O objectivo primordial desta tarefa consistiu na criação de uma *pipeline* em **Jenkins** que fosse capaz:
+* Gerar um *war* da aplicação;
+* Gerar e publicar *javadoc*;
+* Executar testes (tanto os unitários, como os de integração) e disponibilizar esta documentação no próprio Jenkins;
+* Fazer *build* de duas imagens **Docker** e publica-las no *Docker Hub*;
+* Fazer o *deploy* da aplicação com o **Ansible**;
 
-Foi necessária para este trabalho a criação de uma pipeline em **Jenkins** que seja capaz de gerar e publicar *javadoc*, executar testes (tanto os unitários, como os de integração), e disponibilizar esta documentação no próprio Jenkins. Para esta pipeline é também necessário fazer o *build* de duas imagens **Docker** (uma para a base de dados e outra para a aplicação em si) e publicar ambas no Dockerhub. Após estas etapas (*stages*), será também necessário um último *stage* que utilize o **Ansible** para fazer o *deploy* e a configuração da aplicação e da respetiva base de dados.
-
-Todas estes *stages* foram detalhados no **Jenkinsfile** presente em:
-
-```sh
-devops_g2_maven/scripts/Jenkinsfile
-```
-
-#### **Stages do Jenkinsfile:**
+#### **2.5.1 Stages do Jenkinsfile:**
 
 #### **Stage 1 - Checkout**
 
 ```sh
 stage('Checkout') {
-            steps {
-                echo 'Checking out...'
-                git url: 'https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git/'
-            }
-        }
+    steps { 
+        echo 'Checking out...'
+        git url: 'https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git/'
+    }
+}
 ```
 
 Este primeiro *stage* tem como objetivo aceder ao repositório deste projeto, bem como o conteúdo do mesmo. Para isto foi providenciado o url do nosso repositório do Bitbucket, e uma mensagem para a consola, que permita compreender que este *stage* se encontra em execução.  
