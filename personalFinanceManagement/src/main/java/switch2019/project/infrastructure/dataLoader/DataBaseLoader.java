@@ -421,6 +421,10 @@ public class DataBaseLoader {
         groupRepository.addMember(familyAzevedoGroup, margaridaAzevedo.getID().toString());
         groupRepository.addMember(familyAzevedoGroup, hugoAzevedo.getID().toString());
 
+        //Docker group
+        groupRepository.createGroup(new Description ("Docker"),
+                personRepository.findPersonByEmail(new Email("1191779@isep.ipp.pt")).getID());
+
         //Siblings
         personRepository.addSibling(margaridaAzevedo, hugoAzevedo.getID().toString());
 
