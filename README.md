@@ -1215,6 +1215,17 @@ Por fim, na alternativa não se implementou o *stage* relativo ao **Ansible**, d
 
 ## **4. Atribuição de tarefas**
 
+A distribuição inicial das tarefas foi feita de forma aleatória por todos os elementos do grupo (conforme a tabela abaixo) e de acordo com as soluções que seriam necessárias implementar. Para isso, foram criadas *issues*, no Bitbucket, que correspondiam a essa distribuição. 
+
+Contudo, todos os elementos do grupo contribuíram para a realização e implementação de todas as tarefas. Essa contribuição foi essencial para a conclusão das tarefas e para que todos tivessem uma melhor perceção e conhecimento de cada implementação.  
+
+|     Tecnologia      |     Solução Principal          |     Solução Alternativa              |
+|---------------------|--------------------------------|--------------------------------------|
+|     Maven/Gradle    |     Marta Ribeiro              |     João Cardoso e Marta Pinheiro    |
+|     Vagrant         |     Alexandre Oliveira         |                -                     |
+|     Docker          |     Elsa Almeida               |     Raquel Santos                    |
+|     Ansible         |     Marta Cardoso              |     Diana Dias                       |
+|     Jenkins         |     Marta Ribeiro e Gabriel    |     Marta Pinheiro                   |
 
 
 ## **5. Sources**
