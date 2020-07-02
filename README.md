@@ -380,7 +380,8 @@ config.vm.define "host2" do |host2|
     sudo apt install nano -y
   SHELL
 end    
-``` 
+```
+
 Relativamente à VM do **host1**, foi adiconada a seguinte configuração que, apenas difere da orginal, pela alocção de mais memória:
 
 ```
@@ -397,7 +398,7 @@ config.vm.define "host1" do |host1|
   # We want to access tomcat from the host using port 8080
   host1.vm.network "forwarded_port", guest: 8080, host: 8080
 end
-````    
+```  
 
 Na última VM, **ansible**, da mesma forma que na máquina *host1*, aumentou-se a memória da VM e foi instalado o ansible, bem como, as dependências necessárias para que o *software* corresse adequadamente. 
 
@@ -1017,7 +1018,7 @@ Este *plugin* criou uma *task war* que será executada com o *build* e criou um 
 
 Ao contrário do projeto com maven, que fez o *deploy* para as VMs, o objetivo da alternativa foi fazer o *deploy* com o **Docker**, colocando a aplicação a correr em *containers*.
 
-#### **3.2.1 Criação das Dockerfiles
+#### **3.2.1 Criação das Dockerfiles**
 Primeiramente, foi necessário criar as Dockerfiles, que foram adaptadas das utilizadas para o ***Class Assignment 4*** para o caso da aplicação *web* e da base de dados.
 
 A Dockefile relativa à ***web*** possui a seguinte informação:
@@ -1120,7 +1121,7 @@ networks:
 ```
 
 
-### Alterações necessárias
+#### Alterações necessárias
 
 Para que a nossa aplicação conseguisse utilizar o **tomcat** foi, nesta fase, necessário adicionar ao *build.gradle* os seguintes **plugins**:
 
@@ -1164,7 +1165,7 @@ De seguida, iniciou-se os containers correspondentes e correu-se o comando:
 $ docker-compose up
 ```
 
-### **3.2.3 Verificação no browser**
+#### **3.2.3 Verificação no browser**
 
 Após alguns minutos, conseguiu-se visualizar o **Spring Boot** a ser inicializado, significando que os links para aceder à *web* e à base de dados já estavam acessiveis pelo browser.
 
@@ -1258,7 +1259,7 @@ Contudo, todos os elementos do grupo contribuíram para a realização e impleme
 |     Jenkins         |     Marta Ribeiro e Gabriel Moço   |     Marta Pinheiro                   |
 
 
-## **5. Sources**
+## **5. Referências**
 * https://git-scm.com/book/pt-br/
 * https://www.jenkins.io/doc/book/pipeline/
 * https://www.jenkins.io/doc/book/pipeline/syntax/
