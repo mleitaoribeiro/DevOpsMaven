@@ -620,7 +620,7 @@ Na próxima secção, explica-se, de forma breve, as instruções deste ficheiro
 
 O ***FROM*** inicializa um novo estágio de construção e define a imagem base, neste caso, ubuntu, para as instruções subsequentes.
 
-O comando ***RUN*** serve para executar os comandos dentro do *container* a partir da imagem base, neste caso, actualizou-se o sistema instalando os `packages* necessários para a base de dados.
+O comando ***RUN*** serve para executar os comandos dentro do *container* a partir da imagem base, neste caso, actualizou-se o sistema instalando os *packages* necessários para a base de dados.
 
 Para expor a porta que o *Web Server* vai utilizar, usou-se o parâmetro ***EXPOSE*** com os números de porta - 8082 e 5432 - informando ao Docker as portas de rede que estão à escuta.
 
@@ -1219,13 +1219,13 @@ A distribuição inicial das tarefas foi feita de forma aleatória por todos os 
 
 Contudo, todos os elementos do grupo contribuíram para a realização e implementação de todas as tarefas. Essa contribuição foi essencial para a conclusão das tarefas e para que todos tivessem uma melhor perceção e conhecimento de cada implementação.  
 
-|     Tecnologia      |     Solução Principal          |     Solução Alternativa              |
-|---------------------|--------------------------------|--------------------------------------|
-|     Maven/Gradle    |     Marta Ribeiro              |     João Cardoso e Marta Pinheiro    |
-|     Vagrant         |     Alexandre Oliveira         |                -                     |
-|     Docker          |     Elsa Almeida               |     Raquel Santos                    |
-|     Ansible         |     Marta Cardoso              |     Diana Dias                       |
-|     Jenkins         |     Marta Ribeiro e Gabriel    |     Marta Pinheiro                   |
+|     Tecnologia      |     Solução Principal              |     Solução Alternativa              |
+|---------------------|------------------------------------|--------------------------------------|
+|     Maven/Gradle    |     Marta Ribeiro                  |     João Cardoso e Marta Pinheiro    |
+|     Vagrant         |     Alexandre Oliveira             |                -                     |
+|     Docker          |     Elsa Almeida                   |     Raquel Santos                    |
+|     Ansible         |     Marta Cardoso                  |     Diana Dias                       |
+|     Jenkins         |     Marta Ribeiro e Gabriel Moço   |     Marta Pinheiro                   |
 
 
 ## **5. Sources**
