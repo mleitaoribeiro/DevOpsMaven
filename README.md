@@ -164,7 +164,7 @@ Actualmente, o PostgreSQL é um *software open source* que pode ser utilizado li
 
 ### **2.1. Maven**
 
-Em relação ao Maven foi necessário realizar algumas alterações face ao ficheiro de configurações do projeto. Inicialmente, foi preciso adaptar o projeto para desenvolver um *war file* dentro durante a execução do *goal package*.
+Em relação ao Maven foi necessário realizar algumas alterações face ao ficheiro inicial de configurações do projeto. Primeiramente, foi preciso adaptar o projeto para construir um *war file* durante a execução do *goal package*.
 
 Para este efeito foi adicionado ao *pom.xml*:
 
@@ -172,15 +172,10 @@ Para este efeito foi adicionado ao *pom.xml*:
 <packaging>war</packaging>
 ```
 
-E para correr esta *goal* foi utilizado o comando:
-```sh
-$ mvn clean package
-```
-
 O nome do projeto foi alterado passando para **devOpsProject** e, como consequência, o *.war* denomina-se **devOpsProject-1.0-SNAPSHOT**.
 
 De seguida, foi necessário instruir o Spring Boot a transferir as bibliotecas do
-Tomcat, ou seja, para o *.war*  ser expandido no tomcat foi necessário adicionar a seguinte dependencia ao *pom.xml*:
+Tomcat para o *.war*  ser expandido. Foi então necessário adicionar a seguinte dependência ao *pom.xml*:
 
 ```sh
 <dependency>
@@ -190,7 +185,7 @@ Tomcat, ou seja, para o *.war*  ser expandido no tomcat foi necessário adiciona
 </dependency>
 ```
 
-Adicionalmente, foi necessário adiconar também funcionar os  seguintes *profiles*:
+Adicionalmente, foi necessário adicionar também funcionar os  seguintes *profiles*:
 
 ```sh
 <profiles>
@@ -236,7 +231,7 @@ Foi preciso também adicionar o *plugin* referente ao Spring Boot Framework:
 </plugin>
 ```
 
-O último passo consistiu em ligar a nossa aplicação para inciar um *servlet*, neste caso, o Tomcat. Desta forma, na classe *Servlet Initializer* foram feitos os seguintes *imports* e alterações:
+O último passo consistiu criar um *servlet* para que a aplicação web corra dentro de um container Tomcat. Desta forma, foi construída a classe *Servlet Initializer* com a seguinte implementação:
 
 ```sh
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -485,7 +480,7 @@ No fim,  reiniciou-se o servidor do postgresql através do seguinte comando:
  sh sudo /etc/init.d/postgresql restart
  ```
 
-**Atenção**: Esta foi solução alternativa para correr o servidor da base de dados. Idealmente, as tarefas deveriam ser automatizadas com recurso ao *playbook*. No entanto, algumas destas tarefas não estavam a ser bem sucedidas. O *playbook* inicial pode ser encontrado no seguinte *link*: ttps://bitbucket.org/martalribeiro/devops_g2_maven/src/master/scripts/playbookOriginal.yml
+> **Atenção**: Esta foi solução alternativa para correr o servidor da base de dados. Idealmente, as tarefas deveriam ser automatizadas com recurso ao *playbook*. No entanto, algumas destas tarefas não estavam a ser bem sucedidas. O *playbook* inicial pode ser encontrado no seguinte *link*: ttps://bitbucket.org/martalribeiro/devops_g2_maven/src/master/scripts/playbookOriginal.yml
 
 ### **2.4 Ansible**
 
@@ -594,7 +589,7 @@ $ansible-playbook playbook1.yml
 
 ### **2.5 Docker**
 #### **2.5.1 Dockerfile**
-Foram criados dois arquivos de configruação:
+Foram criados dois arquivos de configuração:
 * Docker db - publicar a imagem da base de dados;
 * Docker web - publicar a imagem da aplicação web.
 
@@ -629,6 +624,7 @@ Para expor a porta que o *Web Server* vai utilizar, usou-se o parâmetro ***EXPO
  O *dockerfile* relativo à Web dispõe a seguinte informação:
  
 ```sh
+FROM ubuntu 
  
 RUN apt-get update -y
 
@@ -662,15 +658,16 @@ Através do *apt-get update* foram actualizados os repositórios do Ubuntu e for
 ![alt text](https://i.imgur.com/icu5Eh8.png "DockerHub")
 
 
-### **2.5 Jenkinsfile**
+### **2.6 Jenkinsfile**
 O objectivo primordial desta tarefa consistiu na criação de uma *pipeline* em **Jenkins** que fosse capaz:
+
 * Gerar um *war* da aplicação;
 * Gerar e publicar *javadoc*;
 * Executar testes (tanto os unitários, como os de integração) e disponibilizar esta documentação no próprio Jenkins;
-* Fazer *build* de duas imagens **Docker** e publica-las no *Docker Hub*;
+* Fazer *build* de duas imagens **Docker** e publicá-las no *Docker Hub*;
 * Fazer o *deploy* da aplicação com o **Ansible**.
 
-#### **2.5.1 Stages do Jenkinsfile:**
+#### **2.6.1 Stages do Jenkinsfile:**
 
 #### **Stage 1 - Checkout**
 
@@ -772,7 +769,7 @@ stage('Archiving') {
 }
 ```
 
-Este *stage* foi necessário para arquivar os todos ficheiros gerados no Jenkins, estanto os documentos no diretório: */target*. Primeirol estableceu-se o acesso a esta pasta no Jenkinsfile e, depois, foram arquivados todos os ficheiros desta pasta com a extensão ".war" através da função *archiveArtifacts*.
+Este *stage* foi necessário para arquivar os todos ficheiros gerados no Jenkins, estanto os documentos no diretório: */target*. Primeiro estableceu-se o acesso a esta pasta no Jenkinsfile e, depois, foram arquivados todos os ficheiros desta pasta com a extensão ".war" através da função *archiveArtifacts*.
 
 #### **Stage 6 - Docker Image**
 
@@ -837,7 +834,7 @@ Por fim, a *stage Ansible Deploy* tem como funcionalidade fazer o *deploy* e a c
 - **playbook: 'playbook1.yml'** : Define o *playbook* a ser executado pelo Ansible.
 
 
-#### **2.5.2 Configuração no jenkins server - job**
+#### **2.6.2 Configuração no jenkins server - job**
 
 O Jenkins foi instalado na VM Ansible através do *vagrantfile* e foi disponibilizado no endereço http://localhost:8081.
 Não foi necessário configurar as credenciais de acesso ao respositório uma vez que este é público. Inicialmente, apenas foram instalados os *plugins standard* do Jenkins.
@@ -845,7 +842,7 @@ Não foi necessário configurar as credenciais de acesso ao respositório uma ve
 Desta forma, foi possível proceder à criação de um novo *job* no Jenkins, designado ***devops_g2_maven***, no qual se acedeu à opção *pipeline* e foi escolhida a opção *pipeline script from SCM* (Git). Colocou-se o *url* do respositório remoto e, por fim, no *Script Path* colocou-se o diretório onde estava localizado o *Jenkinsfile*.
 
 
-#### **2.5.3 Execução do build a partir do Jenkisnfile**
+#### **2.6.3 Execução do build a partir do Jenkisnfile**
 
 Após criação do job, é necessário aceder à página inicial do projeto e selecionar a funcionalidade ***Build Now*** na barra de tarefas do lado esquerdo da página. Desta forma, o build foi iniciado e acedeu-se à secção ***Console Output*** para poder verificar se ocorreram erros.
 
@@ -1228,7 +1225,7 @@ No Stage Archiving apenas se alterou o diretório em *archiveArtifacts* de *'tar
 
 **Docker Image**
 
-Neste *stage* foi utilizado o mesmo repositório do *Docker Hub*, nomeadamente: **raquelquerido/devops_g2_gradle**.
+Neste *stage* foi utilizado o outro repositório do *Docker Hub*, nomeadamente: **raquelquerido/devops_g2_gradle**.
 Além disso, adicionou-se um *step* para o Ansible:
 ```
 dir ('docker/ansible') {
