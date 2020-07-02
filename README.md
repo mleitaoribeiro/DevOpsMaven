@@ -627,7 +627,7 @@ Para expor a porta que o *Web Server* vai utilizar, usou-se o parâmetro ***EXPO
 #### Docker Web
  O *dockerfile* relativo à Web dispõe a seguinte informação:
  
- ```sh
+```sh
  
 RUN apt-get update -y
 
@@ -652,7 +652,7 @@ WORKDIR /tmp/build/devops_g2_maven/personalFinanceManagement/target
 RUN cp devOpsProject-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
-````
+```
 
 Tal como no Docker DB, o ponto de partida da imagem criada com o *dockerfile* será a do ubuntu.
 Através do *apt-get update* foram actualizados os repositórios do Ubuntu e foram igualmente executados outros comados ***RUN*** para a instalação do software necessário para a aplicação correr. De seguida, foi feito o clone do repositório remoto, seguido do *build* para que fosse gerado o *war* da aplicação e, posteriormente, expandido pelo Tomcat. 
@@ -1119,9 +1119,39 @@ networks:
         - subnet: 192.168.33.0/24
 ```
 
+
+### Alterações necessárias
+
+Para que a nossa aplicação conseguisse utilizar o **tomcat** foi, nesta fase, necessário adicionar ao *build.gradle* os seguintes **plugins**:
+
+```sh
+ plugins {
+    ...
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+ }
+```
+Assim como a seguinte **dependência:**
+```sh
+  dependencies {
+    ...
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+ }
+```
+  
+Foi também modificada a seguinte propriedade no *application.properties* para que a base de dados passasse a correr no servidor:
+```sh
+#spring.datasource.url=jdbc:h2:file:./data;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;AUTO_SERVER=TRUE
+spring.datasource.url=jdbc:h2:tcp://192.168.33.11:9092/./jpadb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+```
+
+Por fim foi criada a classe ***ServletInitializer*** que extende a *WebApplicationInitializer* e corre a *StringApplication* a partir do ficheiro war ao qual fizemos deploy no container da web.
+
+![alt text](https://imgur.com/RVf7pDr.png)
+
 #### **3.2.2 Docker-compose build & docker-compose up**
 
-Uma vez construidas as **dockerfiles** e o **docker-compose.yml** corremos o comando:
+Uma vez construidas as **dockerfiles**, o **docker-compose.yml** e feitas as mudanças necessárias corremos o comando:
 
 ```sh
 $ docker-compose build
