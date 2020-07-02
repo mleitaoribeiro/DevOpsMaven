@@ -427,7 +427,10 @@ public class DataBaseLoader {
 
         groupRepository.createGroup(new Description ("DEvOps"),
                 personRepository.findPersonByEmail(new Email("1191779@isep.ipp.pt")).getID());
-        
+
+        groupRepository.createGroup(new Description ("Peixes"),
+                personRepository.findPersonByEmail(new Email("1191779@isep.ipp.pt")).getID());
+
         //Siblings
         personRepository.addSibling(margaridaAzevedo, hugoAzevedo.getID().toString());
 
