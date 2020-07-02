@@ -380,7 +380,8 @@ config.vm.define "host2" do |host2|
     sudo apt install nano -y
   SHELL
 end    
-``` 
+```
+
 Relativamente à VM do **host1**, foi adiconada a seguinte configuração que, apenas difere da orginal, pela alocção de mais memória:
 
 ```
@@ -397,7 +398,7 @@ config.vm.define "host1" do |host1|
   # We want to access tomcat from the host using port 8080
   host1.vm.network "forwarded_port", guest: 8080, host: 8080
 end
-````    
+```  
 
 Na última VM, **ansible**, da mesma forma que na máquina *host1*, aumentou-se a memória da VM e foi instalado o ansible, bem como, as dependências necessárias para que o *software* corresse adequadamente. 
 
@@ -450,7 +451,7 @@ $vagrant up
 
 Com as máquinas criadas com sucesso, usou-se o comando *ssh* para entrar dentro da VM's.
 
-### **2.3.2 Host2: Postgress - Autorizar Acesso Remoto**
+#### **2.3.2 Host2: Postgress - Autorizar Acesso Remoto**
 
 Antes de ser executado o *playbook* foi necessário fazer alguma configuração manual no *host2* onde está instalada a base de dados **PostgreSQL**. Dado que o **PostgreSql** está configurado para receber apenas conexões locais, de forma a permitir acesso remoto foi necessário alterar os ficheiros **postgresql.conf** e **pg_hba.conf**.
 
@@ -620,14 +621,14 @@ Na próxima secção, explica-se, de forma breve, as instruções deste ficheiro
 
 O ***FROM*** inicializa um novo estágio de construção e define a imagem base, neste caso, ubuntu, para as instruções subsequentes.
 
-O comando ***RUN*** serve para executar os comandos dentro do *container* a partir da imagem base, neste caso, actualizou-se o sistema instalando os `packages* necessários para a base de dados.
+O comando ***RUN*** serve para executar os comandos dentro do *container* a partir da imagem base, neste caso, actualizou-se o sistema instalando os *packages* necessários para a base de dados.
 
 Para expor a porta que o *Web Server* vai utilizar, usou-se o parâmetro ***EXPOSE*** com os números de porta - 8082 e 5432 - informando ao Docker as portas de rede que estão à escuta.
 
 #### Docker Web
  O *dockerfile* relativo à Web dispõe a seguinte informação:
  
- ```sh
+```sh
  
 RUN apt-get update -y
 
@@ -652,7 +653,7 @@ WORKDIR /tmp/build/devops_g2_maven/personalFinanceManagement/target
 RUN cp devOpsProject-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 
 EXPOSE 8080
-````
+```
 
 Tal como no Docker DB, o ponto de partida da imagem criada com o *dockerfile* será a do ubuntu.
 Através do *apt-get update* foram actualizados os repositórios do Ubuntu e foram igualmente executados outros comados ***RUN*** para a instalação do software necessário para a aplicação correr. De seguida, foi feito o clone do repositório remoto, seguido do *build* para que fosse gerado o *war* da aplicação e, posteriormente, expandido pelo Tomcat. 
@@ -1017,7 +1018,7 @@ Este *plugin* criou uma *task war* que será executada com o *build* e criou um 
 
 Ao contrário do projeto com maven, que fez o *deploy* para as VMs, o objetivo da alternativa foi fazer o *deploy* com o **Docker**, colocando a aplicação a correr em *containers*.
 
-#### **3.2.1 Criação das Dockerfiles
+#### **3.2.1 Criação das Dockerfiles**
 Primeiramente, foi necessário criar as Dockerfiles, que foram adaptadas das utilizadas para o ***Class Assignment 4*** para o caso da aplicação *web* e da base de dados.
 
 A Dockefile relativa à ***web*** possui a seguinte informação:
@@ -1119,9 +1120,39 @@ networks:
         - subnet: 192.168.33.0/24
 ```
 
+
+#### Alterações necessárias
+
+Para que a nossa aplicação conseguisse utilizar o **tomcat** foi, nesta fase, necessário adicionar ao *build.gradle* os seguintes **plugins**:
+
+```sh
+ plugins {
+    ...
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+ }
+```
+Assim como a seguinte **dependência:**
+```sh
+  dependencies {
+    ...
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+ }
+```
+  
+Foi também modificada a seguinte propriedade no *application.properties* para que a base de dados passasse a correr no servidor:
+```sh
+#spring.datasource.url=jdbc:h2:file:./data;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;AUTO_SERVER=TRUE
+spring.datasource.url=jdbc:h2:tcp://192.168.33.11:9092/./jpadb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+```
+
+Por fim foi criada a classe ***ServletInitializer*** que extende a *WebApplicationInitializer* e corre a *StringApplication* a partir do ficheiro war ao qual fizemos deploy no container da web.
+
+![alt text](https://imgur.com/RVf7pDr.png)
+
 #### **3.2.2 Docker-compose build & docker-compose up**
 
-Uma vez construidas as **dockerfiles** e o **docker-compose.yml** corremos o comando:
+Uma vez construidas as **dockerfiles**, o **docker-compose.yml** e feitas as mudanças necessárias corremos o comando:
 
 ```sh
 $ docker-compose build
@@ -1134,7 +1165,7 @@ De seguida, iniciou-se os containers correspondentes e correu-se o comando:
 $ docker-compose up
 ```
 
-### **3.2.3 Verificação no browser**
+#### **3.2.3 Verificação no browser**
 
 Após alguns minutos, conseguiu-se visualizar o **Spring Boot** a ser inicializado, significando que os links para aceder à *web* e à base de dados já estavam acessiveis pelo browser.
 
@@ -1215,9 +1246,20 @@ Por fim, na alternativa não se implementou o *stage* relativo ao **Ansible**, d
 
 ## **4. Atribuição de tarefas**
 
+A distribuição inicial das tarefas foi feita de forma aleatória por todos os elementos do grupo (conforme a tabela abaixo) e de acordo com as soluções que seriam necessárias implementar. Para isso, foram criadas *issues*, no Bitbucket, que correspondiam a essa distribuição. 
+
+Contudo, todos os elementos do grupo contribuíram para a realização e implementação de todas as tarefas. Essa contribuição foi essencial para a conclusão das tarefas e para que todos tivessem uma melhor perceção e conhecimento de cada implementação.  
+
+|     Tecnologia      |     Solução Principal              |     Solução Alternativa              |
+|---------------------|------------------------------------|--------------------------------------|
+|     Maven/Gradle    |     Marta Ribeiro                  |     João Cardoso e Marta Pinheiro    |
+|     Vagrant         |     Alexandre Oliveira             |                -                     |
+|     Docker          |     Elsa Almeida                   |     Raquel Santos                    |
+|     Ansible         |     Marta Cardoso                  |     Diana Dias                       |
+|     Jenkins         |     Marta Ribeiro e Gabriel Moço   |     Marta Pinheiro                   |
 
 
-## **5. Sources**
+## **5. Referências**
 * https://git-scm.com/book/pt-br/
 * https://www.jenkins.io/doc/book/pipeline/
 * https://www.jenkins.io/doc/book/pipeline/syntax/
