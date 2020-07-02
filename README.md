@@ -362,41 +362,41 @@ Tendo por base o *vagrantfile* disponível nos documentos da unidade curricular 
 Na máquina **host2**, foi instalado o PostgreSQL bem como as dependências necessárias para correr a base de dados. Adicionalmente, alterou-se o porto para o *default* do postgreSQL - 5432. As configurações da VM do *host2* são as seguintes:
 
 ```
- config.vm.define "host2" do |host2|
-    host2.vm.box = "envimation/ubuntu-xenial"
-    host2.vm.hostname = "host2"
-    host2.vm.network "private_network", ip: "192.168.33.12"
+config.vm.define "host2" do |host2|
+  host2.vm.box = "envimation/ubuntu-xenial"
+  host2.vm.hostname = "host2"
+  host2.vm.network "private_network", ip: "192.168.33.12"
 
-    # We want to access H2 console from the host using port 8082
-    # We want to connet to the H2 server using port 5432	
-    host2.vm.network "forwarded_port", guest: 8082, host: 8082
-    host2.vm.network "forwarded_port", guest: 5432, host: 5432
+  # We want to access H2 console from the host using port 8082
+  # We want to connet to the H2 server using port 5432	
+  host2.vm.network "forwarded_port", guest: 8082, host: 8082
+  host2.vm.network "forwarded_port", guest: 5432, host: 5432
 
-    host2.vm.provision "shell", inline: <<-SHELL
-      sudo apt update
-      sudo apt install postgresql postgresql-contrib -y
-      sudo apt install libpq-dev -y
-      sudo apt install python-psycopg2 -y
-      sudo apt install nano -y
-    SHELL
+  host2.vm.provision "shell", inline: <<-SHELL
+    sudo apt update
+    sudo apt install postgresql postgresql-contrib -y
+    sudo apt install libpq-dev -y
+    sudo apt install python-psycopg2 -y
+    sudo apt install nano -y
+  SHELL
 end    
 ``` 
 Relativamente à VM do **host1**, foi adiconada a seguinte configuração que, apenas difere da orginal, pela alocção de mais memória:
 
 ```
-  config.vm.define "host1" do |host1|
-    host1.vm.box = "envimation/ubuntu-xenial"
-    host1.vm.hostname = "host1"
-    host1.vm.network "private_network", ip: "192.168.33.11"
+config.vm.define "host1" do |host1|
+  host1.vm.box = "envimation/ubuntu-xenial"
+  host1.vm.hostname = "host1"
+  host1.vm.network "private_network", ip: "192.168.33.11"
 
-    # We set more ram memmory for this VM
-    host1.vm.provider "virtualbox" do |v|
-      v.memory = 2048
-    end
-
-    # We want to access tomcat from the host using port 8080
-    host1.vm.network "forwarded_port", guest: 8080, host: 8080
+  # We set more ram memmory for this VM
+  host1.vm.provider "virtualbox" do |v|
+    v.memory = 2048
   end
+
+  # We want to access tomcat from the host using port 8080
+  host1.vm.network "forwarded_port", guest: 8080, host: 8080
+end
 ````    
 
 Na última VM, **ansible**, da mesma forma que na máquina *host1*, aumentou-se a memória da VM e foi instalado o ansible, bem como, as dependências necessárias para que o *software* corresse adequadamente. 
@@ -405,42 +405,42 @@ Foi preciso também instalar o Docker para ser possível concretizar as *stages*
 
 ```
 config.vm.define "ansible" do |ansible|
-    ansible.vm.box = "envimation/ubuntu-xenial"
-    ansible.vm.hostname = "ansible"
-    ansible.vm.network "private_network", ip: "192.168.33.10"
+  ansible.vm.box = "envimation/ubuntu-xenial"
+  ansible.vm.hostname = "ansible"
+  ansible.vm.network "private_network", ip: "192.168.33.10"
 
-    # We set more ram memmory for this VM
-    ansible.vm.provider "virtualbox" do |v|
-      v.memory = 2048
-    end
-
-    # For some Windows and for running ansible "inside" jenkins
-    ansible.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=777,fmode=777"]
-    # It seems that ansible has security issues with the previous command. Use instead:
-    ansible.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=600"]
-
-    # For acessing jenkins in 8081
-    ansible.vm.network "forwarded_port", guest: 8081, host: 8081
-
-    ansible.vm.provision "shell", inline: <<-SHELL
-     sudo apt-get install -y --no-install-recommends apt-utils
-     sudo apt-get install software-properties-common --yes
-     sudo apt-add-repository --yes --u ppa:ansible/ansible
-     sudo apt-get install ansible --yes
-     sudo apt install git -y
-     
-    # For jenkins
-      sudo apt-get install wget
-      sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-      sudo apt-get install openjdk-8-jdk-headless -y
-      sudo java -jar jenkins.war --httpPort=8081
-    SHELL
+  # We set more ram memmory for this VM
+  ansible.vm.provider "virtualbox" do |v|
+    v.memory = 2048
   end
+
+  # For some Windows and for running ansible "inside" jenkins
+  ansible.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=777,fmode=777"]
+  # It seems that ansible has security issues with the previous command. Use instead:
+  ansible.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=775,fmode=600"]
+
+  # For acessing jenkins in 8081
+  ansible.vm.network "forwarded_port", guest: 8081, host: 8081
+
+  ansible.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install -y --no-install-recommends apt-utils
+    sudo apt-get install software-properties-common --yes
+    sudo apt-add-repository --yes --u ppa:ansible/ansible
+    sudo apt-get install ansible --yes
+    sudo apt install git -y
+    
+  # For jenkins
+    sudo apt-get install wget
+    sudo wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+    sudo apt-get install openjdk-8-jdk-headless -y
+    sudo java -jar jenkins.war --httpPort=8081
+  SHELL
+end
 ```
 
 > De salientar que foi definido o porto 8081 no comando de execução do Jenkins para evitar a colisão de portos.
 
-#### Vagrant Up
+#### **2.3.1 Vagrant Up**
 
 No terminal, no diretório *\devops_g2_maven\scripts* executou-se o seguinte comando para iniciar todas as VM:
 
@@ -450,7 +450,8 @@ $vagrant up
 
 Com as máquinas criadas com sucesso, usou-se o comando *ssh* para entrar dentro da VM's.
 
-### Host2: Postgress - Autorizar Acesso Remoto
+### **2.3.2 Host2: Postgress - Autorizar Acesso Remoto**
+
 Antes de ser executado o *playbook* foi necessário fazer alguma configuração manual no *host2* onde está instalada a base de dados **PostgreSQL**. Dado que o **PostgreSql** está configurado para receber apenas conexões locais, de forma a permitir acesso remoto foi necessário alterar os ficheiros **postgresql.conf** e **pg_hba.conf**.
 
 Para entrar dentro do *host2* executou-se o seguinte comando:
@@ -660,13 +661,13 @@ Através do *apt-get update* foram actualizados os repositórios do Ubuntu e for
 ![alt text](https://i.imgur.com/icu5Eh8.png "DockerHub")
 
 
-###** 2.5 Jenkinsfile**
+### **2.5 Jenkinsfile**
 O objectivo primordial desta tarefa consistiu na criação de uma *pipeline* em **Jenkins** que fosse capaz:
 * Gerar um *war* da aplicação;
 * Gerar e publicar *javadoc*;
 * Executar testes (tanto os unitários, como os de integração) e disponibilizar esta documentação no próprio Jenkins;
 * Fazer *build* de duas imagens **Docker** e publica-las no *Docker Hub*;
-* Fazer o *deploy* da aplicação com o **Ansible**;
+* Fazer o *deploy* da aplicação com o **Ansible**.
 
 #### **2.5.1 Stages do Jenkinsfile:**
 
@@ -674,188 +675,184 @@ O objectivo primordial desta tarefa consistiu na criação de uma *pipeline* em 
 
 ```sh
 stage('Checkout') {
-    steps { 
-        echo 'Checking out...'
-        git url: 'https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git/'
-    }
+  steps { 
+      echo 'Checking out...'
+      git url: 'https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git/'
+  }
 }
 ```
 
-Este primeiro *stage* tem como objetivo aceder ao repositório deste projeto, bem como o conteúdo do mesmo. Para isto foi providenciado o url do nosso repositório do Bitbucket, e uma mensagem para a consola, que permita compreender que este *stage* se encontra em execução.  
+Este primeiro *stage* teve como objetivo aceder ao repositório deste projeto, bem como o conteúdo do mesmo. Para isso, foi providenciado o *url* do repositório do Bitbucket a aceder, e uma mensagem para a consola, que permitiu compreender que este *stage* se encontra em execução.  
 
 #### **Stage 2 - Assemble**
 
 ```sh
 stage('Assemble') {
-            steps {
-                dir('personalFinanceManagement') {
-                    echo 'Building...'
-                    sh 'chmod +x mvnw'
-                    sh './mvnw package -Dmaven.test.skip=true '
-                }
-            }
-        }
+  steps {
+      dir('personalFinanceManagement') {
+          echo 'Building...'
+          sh 'chmod +x mvnw'
+          sh './mvnw package -Dmaven.test.skip=true '
+      }
+  }
+}
 ```
 
-Este *stage* tem como objetivo compilar o código do nosso projeto  para verificar que não existem erros que impeçam a "build". Para isto devemos em primeiro lugar dar permissões de execução ao nosso **Maven** com o comando : *chmod +x mvnw*.
+Este *stage* teve como objetivo compilar o código do projeto para verificar que não existiam erros que impedissem o *build*. Para isso, em primeiro lugar, deu-se permissões de execução ao comando que executa o *maven wrapper*.
 
-Agora que já podemos executar o Maven, podemos então utilizar o comando "package" que nos vai permitir  compilar e produzir o ficheiro de arquivo para o nosso código e testes. Uma vez que neste *stage* apenas estamos interessados no resultado da compilação, podemos excluir os testes adicionando " -Dmaven.test.skip=true " ao nosso comando.
+Tendo permissão para execução, foi possível então utilizar o comando "package" que vai permitir compilar e produzir o ficheiro de arquivo para o código e os testes. Uma vez que neste *stage* apenas se pretende o resultado da compilação, excluiram-se os testes, adicionando o argumento *-Dmaven.test.skip=true* ao comando.
 
 #### **Stage 3 - Test**
 
 ```sh
 stage('Test') {
-            steps {
-                dir('personalFinanceManagement') {
-                    echo 'Testing...'
-                    sh 'chmod +x mvnw'
-                    sh './mvnw surefire-report:report '
-                    archiveArtifacts 'target/site/*.html'
-                }
-                dir('personalFinanceManagement') {
-                    echo 'Generating code coverage...'
-                    sh 'chmod +x mvnw'
-                    sh './mvnw verify'
-                    archiveArtifacts 'target/site/jacoco/index.html'
-                }
-            }
-        }
+  steps {
+    dir('personalFinanceManagement') {
+        echo 'Testing...'
+        sh 'chmod +x mvnw'
+        sh './mvnw surefire-report:report '
+        archiveArtifacts 'target/site/*.html'
+    }
+    dir('personalFinanceManagement') {
+        echo 'Generating code coverage...'
+        sh 'chmod +x mvnw'
+        sh './mvnw verify'
+        archiveArtifacts 'target/site/jacoco/index.html'
+    }
+  }
+}
 ```
 
-Uma vez que já compilamos o código da aplicação, temos agora que executar os testes unitários e de integração e obter o relatório desses mesmos testes. Neste *stage* temos também que verificar a cobertura dos testes e produzir um documento que nos permita fazer essa consulta.
+Uma vez compilado o código da aplicação, foi necesário executar os testes unitários e de integração, obtendo-se o relatório dos mesmos. Neste *stage* verificou-se também a cobertura dos testes, produziu-se um documento que permite consultar o resultado deste stage.
 
-Em primeiro lugar demos permissões de execução ao nosso Maven como foi visto no *stage 2*, e depois produzimos o relatório com os resultados destes testes, através do comando :   "sh './mvnw surefire-report:report ' " que é disponibilizado após instalarmos o **plugin**:  *Maven Surefire Report Plugin* no nosso  Jenkins. Definimos também que estes resultados devem ser publicados em: "target/site/*.html".
+Em primeiro lugar, deu-se permissões de execução ao *maven wrapper* tal como na *stage 2*, e depois produziu-se o relatório com os resultados destes testes. Definiu-se também que os resultados a publicar estavam presentes em *target/site/*.html*.
 
-Em segundo lugar, após darmos de novo permissões de execução ao Maven, usamos o comando "verify" para podermos obter a cobertura dos nossos testes. Estes resultados são depois arquivados em : "target/site/jacoco/index.html".
-Este index.html é arquivado na pasta *jacoco* que está disponível uma vez que temos esta "library" presente no nosso projeto que possibilita observar a cobertura de testes no nosso código em Java.
+Em segundo lugar, após nova permisão de execução, usou-se o comando *verify* para obter a cobertura dos testes da aplicação. Definiu-se também que os resultados a publicar estavam presentes em *target/site/jacoco/index.html*.
 
 #### **Stage 4 - Javadoc**
 
 ```sh
 stage ('Javadoc'){
-            steps {
-                dir('personalFinanceManagement') {
-                    echo 'Generating javadocs...'
-                    sh 'chmod +x mvnw'
-                    sh './mvnw javadoc:javadoc'
-                    publishHTML ([
-                                reportName: 'Javadoc',
-                                reportDir: 'target/site/apidocs/',
-                                reportFiles: 'index.html',
-                                keepAll: true,
-                                alwaysLinkToLastBuild: false,
-                                allowMissing: true
-                    ])
-                }
-            }
-        }
+  steps {
+    dir('personalFinanceManagement') {
+        echo 'Generating javadocs...'
+        sh 'chmod +x mvnw'
+        sh './mvnw javadoc:javadoc'
+        publishHTML ([
+                    reportName: 'Javadoc',
+                    reportDir: 'target/site/apidocs/',
+                    reportFiles: 'index.html',
+                    keepAll: true,
+                    alwaysLinkToLastBuild: false,
+                    allowMissing: true
+        ])
+    }
+  }
+}
 ```
 
-Este quarto *stage* tem como finalidade gerar o Javadoc para o código do projeto e disponibilizar o mesmo no Jenkins. Para isto, demos mais uma vez permissões de execução ao nosso Maven e para gerar o Javadoc, foi utilizado o comando: "sh './mvnw javadoc:javadoc' ". Uma vez obtido o Javadoc, este foi disponibilizado ao nosso Jenkins com a função "publishHTML", onde definimos as diferentes especificações do ficheiro a ser publicado ,dando-lhe um nome e definindo um dirtório de destino, bem como diferentes definições para este ficheiro:
+O quarto *stage* teve como finalidade gerar o *Javadoc* para o código do projeto e disponibilizar o mesmo no Jenkins. Para tal, mais uma vez, deu-se permissões de execução ao *wrapper* e para gerar o *Javadoc*, foi utilizado o comando *javadoc:javadoc*. De seguida, foi executada a função *publishHTML*, onde se definiu as diferentes especificações do ficheiro a ser publicado, bem como diferentes definições para este ficheiro:
 
-- **keepAll:true** : Colocado como *true* para arquivar todas as "builds" efetuadas com sucesso.
-- ** alwaysLinkToLastBuild: false** : Faz com que a última "build" só seja incluída no relatório se esta tiver sido efetuada com sucesso.
-- **allowMissing:true** : Ao colocar como *true* vai permitir que a build não falhe se este relatório não estiver presente.
+- **keepAll:true** : Colocado como *true* para arquivar todas os *builds* efetuadas com sucesso;
+- **alwaysLinkToLastBuild: false** : Levou a que o último *build* só seja incluído no relatório, caso tenha sido efetuado com sucesso;
+- **allowMissing:true** : Colocado como *true* para permitir que o *build* não falhe, caso o relatório não esteja presente.
 
 #### **Stage 5 - Archiving**
 
 ```sh
 stage('Archiving') {
-            steps {
-                dir('personalFinanceManagement') {
-                    sh 'dir'
-                    echo 'Archiving...'
-                    archiveArtifacts 'target/*.war'
-                }
-            }
-        }
+  steps {
+    dir('personalFinanceManagement') {
+        sh 'dir'
+        echo 'Archiving...'
+        archiveArtifacts 'target/*.war'
+    }
+  }
+}
 ```
 
-Para arquivarmos todos ficheiros gerados no nosso Jenkins foi necessário este *stage*.  Estes documentos encontram-se no diretório: "/target". Primeiro estableceu-se o acesso a esta pasta no Jenkinsfile e depois foram arquivados todos os ficheiros dentro desta pasta com a extensão ".war" com o comando: "archiveArtifacts 'target/*.war' ".
+Este *stage* foi necessário para arquivar os todos ficheiros gerados no Jenkins, estanto os documentos no diretório: */target*. Primeirol estableceu-se o acesso a esta pasta no Jenkinsfile e, depois, foram arquivados todos os ficheiros desta pasta com a extensão ".war" através da função *archiveArtifacts*.
 
 #### **Stage 6 - Docker Image**
 
 ```sh
 stage('Docker Image') {
-             steps {
-                dir ('scripts/web') {
-                    script {
-                        webAppImage = docker.build("raquelquerido/devops_g2_maven:web${env.BUILD_ID}")
-                    }
-                }
-                dir ('scripts/db') {
-                    script {
-                        dbImage = docker.build("raquelquerido/devops_g2_maven:db${env.BUILD_ID}")
-                    }
-                }
-            }
+    steps {
+      dir ('scripts/web') {
+        script {
+            webAppImage = docker.build("raquelquerido/devops_g2_maven:web${env.BUILD_ID}")
         }
+      }
+      dir ('scripts/db') {
+        script {
+            dbImage = docker.build("raquelquerido/devops_g2_maven:db${env.BUILD_ID}")
+        }
+      }
+  }
+}
 ```
 
-Este *stage* tem como objetivo criar duas imagens Docker com os conteúdos da nossa aplicação. Para isto será necessário obter as imagens que nos permitam correr a aplicação e a base de dados em *containers* diferentes. Para tal é necessário utilizar o comando "docker.build" e fazer a construção dos containers. Chamamos webAppImage á imagem Docker da aplicação, e chamamos dbImage á imagem Docker da base de dados.
+Este *stage* teve como objetivo criar duas imagens Docker com o conteúdo da aplicação e da base de dados. Para tal, foi necessário obter as imagens respectivas. Desta forma, é necessário utilizar o comando *docker.build*. Definiu-se a variável *webAppImage* para a imagem *Docker* da aplicação e *dbImage* para a imagem *Docker* da base de dados.
 
 #### **Stage 7 - Publish Image**
 
 ```sh
 stage('Publish Image') {
-            steps {
-                script{
-                    sh 'docker login -u="raquelquerido" -p="devops1313"'
-                    webAppImage.push()
-                    dbImage.push()
-                }
-            }
-        }
+  steps {
+    script{
+        sh 'docker login -u="raquelquerido" -p="devops1313"'
+        webAppImage.push()
+        dbImage.push()
+    }
+  }
+}
 ```
 
-Após termos as duas imagens Docker temos que as publicar no Dockerhub. Para isto tivemos que fornecer as credenciais de login do Docker Hub de um dos membros do grupo, e depois foi especificado o comando ".push()" do Docker para fazer o upload de ambas as imagens.
+Após construção das duas imagens *Docker*, fez-se a publicação no *Docker Hub*. Para tal, foi necessário fornecer as credenciais de *login* do *Docker Hub* e, depois, definir o comando *.push()* para fazer o upload de ambas as imagens.
 
 #### **Stage 8 - Ansible Deploy**
 
 ```sh
 stage('Ansible Deploy') {
-            steps {
-                dir('scripts') {
-                        ansiblePlaybook (
-                           become: true,
-                           disableHostKeyChecking: true,
-                           inventory: 'hosts',
-                           playbook: 'playbook1.yml'
-                   )
-               }
-            }
-        }
+    steps {
+      dir('scripts') {
+          ansiblePlaybook (
+              become: true,
+              disableHostKeyChecking: true,
+              inventory: 'hosts',
+              playbook: 'playbook1.yml'
+        )
+      }
     }
+  }
+}
 ```
 
-Por fim, temos a *stage* "Ansible Deploy" que tem como funcionalidade fazer a disponibilização (deploy) e a configuração da aplicação e da respetiva base de dados. Para isso acedemos ao dirétorio *scripts* e especificamos os seguintes comandos:
+Por fim, a *stage Ansible Deploy* tem como funcionalidade fazer o *deploy* e a configuração da aplicação web. Para tal, acedeu-se ao diretório *scripts* e especificou-se os seguintes comandos:
 
-- **become: true** :  Permite ao utilizador tornar-se em outro utilzador dessa máquina. Isto é permitido através de ferramentas de escalamento de previlégios (privilege escalation tools). Ao colocar true ativamos estas ferramentas.
-- **disableHostKeyChecking: true ** : Ao colocar esta linha o nosso Ansible não vai verificar se a chave publica do *host* coincide com a do utilizador, facilitando o acesso por ssh á nossa máquina.
-- **inventory: 'hosts' ** : Definir o "inventory" do nosso Ansible, que neste caso são os *hosts*. Isto indica os grupos presentes na nossa infraestrutura (que neste caso é apenas um) para efeitos de monitorização.
-- **playbook: 'playbook1.yml' ** : Neste comando definimos o playbook que deve ser executado pelo nosso Ansible.
-
-
-#### Configuração no jenkins server - job
-
-O Jenkins foi instalado na VM Ansible através do vagrantfile.
-No browser, em http://localhost:8081 e foi possível abrir a página do Jenkins.
-Não foi possível configurar as credenciais de acesso ao respositório uma vez que este é público. Apenas foram instalados os plugins standard.
-
-Desta forma foi possível proceder à criação de um novo “job” no Jenkins, designado "devops_g2_maven" em que se escolheu a opção "pipeline" e nas opções avançadas:
-"pipeline script from SCM" (escolhendo o GIT). Colocou-se o url do respositório GIT e as respetivas credenciais
-e, por fim, no Script Path colocou-se o diretório onde estava localizado o Jenkinsfile.
+- **become: true** :  Permite ao utilizador ter o escalamento de previlégios;
+- **disableHostKeyChecking: true** : Permite a não verificação da chave pública do *host*;
+- **inventory: 'hosts'** : Aponta para o ficheiro *inventory*;
+- **playbook: 'playbook1.yml'** : Define o *playbook* a ser executado pelo Ansible.
 
 
-#### Execução do build a partir do Jenkisnfile
+#### **2.5.2 Configuração no jenkins server - job**
 
-Após criação do job e se tiver feito push do ficheiro Jenkinsfile no repositório remoto, é necessário aceder à página do job no Jenkins e selecionar a funcionalidade **Build Now** na barra de tarefas do lado esquerdo da página. Desta forma, o build vai ser iniciado e acede-se à secção **Console Output** para poder verificar se ocorrem erros.
+O Jenkins foi instalado na VM Ansible através do *vagrantfile* e foi disponibilizado no endereço http://localhost:8081.
+Não foi necessário configurar as credenciais de acesso ao respositório uma vez que este é público. Inicialmente, apenas foram instalados os *plugins standard* do Jenkins.
 
-Numa primeira tentaitva, o build falhou na **stage Checkout** devido a um erro no acesso ao repositório remoto.
+Desta forma, foi possível proceder à criação de um novo *job* no Jenkins, designado ***devops_g2_maven***, no qual se acedeu à opção *pipeline* e foi escolhida a opção *pipeline script from SCM* (Git). Colocou-se o *url* do respositório remoto e, por fim, no *Script Path* colocou-se o diretório onde estava localizado o *Jenkinsfile*.
+
+
+#### **2.5.3 Execução do build a partir do Jenkisnfile**
+
+Após criação do job, é necessário aceder à página inicial do projeto e selecionar a funcionalidade ***Build Now*** na barra de tarefas do lado esquerdo da página. Desta forma, o build foi iniciado e acedeu-se à secção ***Console Output*** para poder verificar se ocorreram erros.
+
+Numa primeira tentaitva, o *build* falhou na ***stage Checkout*** devido a um erro no acesso ao repositório remoto.
 
 ![](https://i.imgur.com/4eiW5BF.png "Erro pipeline Git")
 
-Quando se consultou **Console Output**, foi verificada a seguinte mensagem de erro:
+Quando foi consultado o ***Console Output***, foi verificada a seguinte mensagem de erro:
 
 ````
 Cloning repository https://martalribeiro@bitbucket.org/martalribeiro/devops_g2_maven.git/
@@ -867,45 +864,45 @@ Caused by: hudson.plugins.git.GitException: Error performing git command: git in
 Caused by: java.io.IOException: Cannot run program "git" (in directory "/root/.jenkins/workspace/devops_g2_maven"): error=2, No such file or directory
 ````
 
-Esta mensagem de erro ocorreu porque a ferramenta Git não está instalada na VM ansible onde o Jenkins está a correr. Desta forma, adicionou-se o seguinte comando no vagrantfile para quando a VM for gerada, instalar o Git.
+Esta mensagem ocorreu porque o Git não está instalado na *VM ansible* onde o Jenkins está a correr. Desta forma, adicionou-se o seguinte comando no vagrantfile para quando a VM for gerada, instalar o Git.
 
 ````
 $ sudo apt install git -y
 ````
 
-Após esta alteração esta **stage** foi concluída com sucesso.
+Após esta alteração a ***stage*** foi concluída com sucesso.
 
-Numa segunda tentativa, o build falhou na **stage Javadoc** devido a um erro na publicação dos ficheiros HTML.
+Numa segunda tentativa, o *build* falhou na ***stage Javadoc*** devido a um erro na publicação dos ficheiros HTML.
 
 ![](https://i.imgur.com/nBYN9uW.png "Erro pipeline HTML")
 
-Quando se consultou **Console Output**, foi verificada a seguinte mensagem de erro:
+Quando foi consultado o ***Console Output***, foi verificada a seguinte mensagem de erro:
 
 ````
 java.lang.NoSuchMethodError: No such DSL method 'publishHTML' found among steps
 ````
 
-Esta mensagem de erro ocorreu porque o comando *publishHTML* não estava a ser reconhecido. Desta forma, instalou-se o plugin *HTML publisher* na secção **Gerir Plugins**.
+Esta mensagem ocorreu porque o comando *publishHTML* não estava a ser reconhecido. Desta forma, instalou-se o *plugin HTML publisher* na secção ***Gerir Plugins***.
 
 ![](https://i.imgur.com/UijqU0H.png "Plugin HTML")
 
-Após esta alteração esta **stage** foi concluída com sucesso.
+Após esta alteração a ***stage*** foi concluída com sucesso.
 
-Numa terceira tentativa, o build falhou na **stage Docker Image** devido a um erro no comando *docker.build*.
+Numa terceira tentativa, o *build* falhou na ***stage Docker Image*** devido a um erro no comando *docker.build*.
 
 ![](https://i.imgur.com/qlvelL4.png "Erro pipeline Docker")
 
-Quando se consultou **Console Output**, foi verificada a seguinte mensagem de erro:
+Quando foi consultado o ***Console Output***, foi verificada a seguinte mensagem de erro:
 
 ````
 groovy.lang.MissingPropertyException: No such property: docker for class: groovy.lang.Binding
 ````
 
-Esta mensagem de erro ocorreu porque o comando *docker* não estava a ser reconhecido. Desta forma, instalou-se o plugin *Docker Pipeline* na secção **Gerir Plugins**.
+Esta mensagem ocorreu porque o comando *docker* não estava a ser reconhecido. Desta forma, instalou-se o *plugin Docker Pipeline* na secção ***Gerir Plugins***.
 
 ![](https://i.imgur.com/5p1AtRb.png "Plugin Docker")
 
-Adicionaram-se também os seguintes comandos no vagrantfile para quando a VM for gerada, instalar a ferramenta *Docker* na **VM ansible** onde o *Jenkins* está a ser executado.
+Adicionaram-se também os seguintes comandos no *vagrantfile* para quando a VM for gerada, instalar a ferramenta *Docker* na ***VM ansible*** onde o Jenkins está a ser executado.
 
 ````
 # For docker
@@ -922,30 +919,30 @@ Adicionaram-se também os seguintes comandos no vagrantfile para quando a VM for
       sudo apt-get update
 ````
 
-Após esta alteração esta **stage** foi concluída com sucesso. Para aceder às imagem *Docker* apenas é necessário executar os seguintes comandos, com o Docker em execução:
+Após esta alteração a ***stage*** foi concluída com sucesso. Para aceder às imagem *Docker* apenas é necessário executar os seguintes comandos, com o Docker em execução:
 
 ````
 $ docker pull raquelquerido/devops_g2_maven:web{build}
 $ docker pull raquelquerido/devops_g2_maven:web{build}
 ````
 
-Numa quarta tentativa, o build falhou na **stage Ansible Deploy** devido a um erro na execução do *playbook* do *Ansible*.
+Numa quarta tentativa, o *build* falhou na ***stage Ansible Deploy*** devido a um erro na execução do *playbook* do Ansible.
 
 ![](https://i.imgur.com/91R2tJE.png "Erro pipeline Assemble")
 
-Quando se consultou **Console Output**, foi verificada a seguinte mensagem de erro:
+Quando foi consultado o ***Console Output***, foi verificada a seguinte mensagem de erro:
 
 ````
 java.lang.NoSuchMethodError: No such DSL method 'ansiblePlaybook' found among steps
 ````
 
-Esta mensagem de erro ocorreu porque o comando *ansiblePlaybook* não estava a ser reconhecido. Desta forma, instalou-se o plugin *Ansible* na secção **Gerir Plugins**.
+Esta mensagem ocorreu porque o comando *ansiblePlaybook* não estava a ser reconhecido. Desta forma, instalou-se o *plugin* Ansible na secção ***Gerir Plugins***.
 
 ![](https://i.imgur.com/2xGXuoY.png "Plugin Ansible")
 
-Após esta alteração esta **stage** foi concluída com sucesso.
+Após esta alteração a **stage** foi concluída com sucesso.
 
-> **Nota**: Nesta stage, apenas é feito o *deploy* da aplicação web. O *deploy* da base de dados foi já realizada aquando da execução do vagrantfile.
+> **Nota**: Nesta stage, apenas é feito o *deploy* da aplicação web. O *deploy* da base de dados foi já realizada aquando da execução do *vagrantfile*.
 
 
 Após todas as alterações e correções necessárias, a pipeline correu com sucesso.
@@ -959,54 +956,53 @@ http://localhost:8080/
 http://192.168.33.11:8080/
 ````
 
-É então possível navegar pela a aplicação através dos vários endereços url disponíveis. Da mesma forma, já tinha sido feito o *deploy* da base de dados e esta está disponível no endereço 192.168.33.12, no porto 5432. Através do pgAdmin podemos configurar a ligação de acesso ao servidor com esta informação e assim aceder ao conteúdo da base de dados.
+É então possível navegar pela a aplicação através dos vários endereços *url* disponíveis. Da mesma forma, estando concluído o *deploy* da base de dados, esta passa a estar disponível no endereço **192.168.33.12**, no porto **5432**. Através do *pgAdmin* pode-se configurar a ligação de acesso ao servidor e assim aceder ao conteúdo da base de dados.
 
 
 ## **3. Análise, Design e Implementação da alternativa**
 
-Para a alternativa, o projeto deve ser criado usando o Gradle e o “deploy” da aplicação e da base de dados deverá ser feito com o Docker.
+Para a alternativa, o projeto foi criado usando o Gradle e o *deploy* da aplicação e da base de dados deverá ser feito com o Docker.
 
-### **Gradle**
--> João
+### **3.1 Gradle**
 
-Para converter de Maven para Gradle, deve ser executado o seguinte comando no diretório que contém o ficheiro POM:
+Para converter de Maven para Gradle, executou-se o seguinte comando no diretório que contém o ficheiro *pom.xml*:
 
 ```sh
 $gradle init
 ```
 
-O comando vai converter a compilação do Maven para uma compilação Gradle, gerando um ficheiro settings.gradle e build.gradle com as dependências e configurações necessárias que estavam no POM.
+O comando converteu a compilação do Maven para uma compilação Gradle, gerando um ficheiro settings.gradle e build.gradle com as dependências e configurações que estavam definidas no *pom.xml*.
 
-Depois, executando o comando *gradle build*, é possível verificar que a aplicação está a compilar:  
+Depois, executando o comando *gradle build*, foi possível verificar que a aplicação está a compilar:  
 
 ```sh
 $gradle build
 ```
 
- Estando a compilar e, uma vez que a task necessária para correr os testes não é criada automaticamente com o *gradle init*, a mesma deve ser adicionada ao build.gradle:
+Estando a compilar e, uma vez que a task necessária para correr os testes não é criada automaticamente com o *gradle init*, a mesma foi adicionada ao *build.gradle*:
 
 ```sh
  test {
     useJUnitPlatform()
 }
 ```
- Ao ser feito o build, agora, os testes também vão ser executados, pelo que tudo deve funcionar corretamente e a compilação é efetuada com sucesso.
+Ao ser feito o *build* os testes foram executados, pelo que tudo funcionou corretamente e a compilação foi efetuada com sucesso.
 
- Depois de executar a aplicação Spring com o Gradle não estava a ser possível abrir a base de dados, uma vez que a mesma estava a ser criada em memória. Para abrir a base de dados H2 foi necessário passar a mesma para um ficheiro, adicionando a seguinte configuração ao application.properties:
+Depois de executar a aplicação Spring com o Gradle não foi possível abrir a base de dados, uma vez que a mesma estava a ser criada em memória. Para abrir a base de dados H2 foi necessário passar a mesma para um ficheiro, adicionando a seguinte configuração ao *application.properties*:
 
 ```sh
 spring.datasource.url=jdbc:h2:file:./data; DB_CLOSE_ON_EXIT=FALSE; AUTO_RECONNECT=TRUE; AUTO_SERVER=TRUE   
 ```
 
-Agora, com a aplicação a correr, é possível abrir a base de dados no browser, com o seguinte url:
+Com a aplicação a correr, foi possível abrir a base de dados no *browser*, com o seguinte *url*:
 
 ```sh
 localhost:8080/h2-console   
 ```
 
-Quando o build é feito, é possível verificar que a task jar é executada. Esta task vai gerar um ficheiro .jar com a aplicação, no entanto este tipo de ficheiros apenas contém bibliotecas, recursos e ficheiros acessórios, como ficheiros de propriedades.
+Quando o *build* foi feito, foi possível verificar que a *task jar* foi executadae e que gerou um ficheiro *.jar* com a aplicação. No entanto, este tipo de ficheiros apenas contém bibliotecas, recursos e ficheiros acessórios, como ficheiros de propriedades.
 
-Por essa razão, foi necessário adicionar o seguinte plugin ao build.gradle:
+Por essa razão, foi necessário adicionar o seguinte *plugin* ao *build.gradle*:
 
 ```sh
 plugins {
@@ -1015,18 +1011,16 @@ plugins {
 }
 ```
 
-Este plugin vai criar uma task "war" que será executada com o build e vai criar um ficheiro .war com a aplicação. Este ficheiro contém a aplicação web que pode ser implementada em qualquer contentor servlet/jsp. Este tipo de ficheiro contém jsp, html, javascript e outros ficheiros necessários para o desenvolvimento de aplicações web e será necessário, posteriormente, para correr a aplicação num contentor Docker.
+Este *plugin* criou uma *task war* que será executada com o *build* e criou um ficheiro *.war* com a aplicação. Este ficheiro contém a aplicação *web* que pode ser implementada em qualquer contentor *servlet/jsp*. Este tipo de ficheiro contém *jsp, html, javascript* e outros ficheiros necessários para o desenvolvimento de aplicações *web* e foi necessário, posteriormente, para correr a aplicação num contentor Docker.
 
-### Ansible
--> Explicar ideia
+### **3.2 Docker**
 
-### Docker
-Ao contrário do projeto com maven, que fazia o deploy para as virtual machines, **o objetivo da alternativa era fazer o deploy com o Docker colocando a aplicação a correr utilizando containers**.
+Ao contrário do projeto com maven, que fez o *deploy* para as VMs, o objetivo da alternativa foi fazer o *deploy* com o **Docker**, colocando a aplicação a correr em *containers*.
 
-#### Criação das Dockerfiles
-Primeiramente tivemos que criar as Dockerfiles, que adaptamos das utilizadas para o **Class Assignment 4** para o caso da web e da base de dados.
+#### **3.2.1 Criação das Dockerfiles
+Primeiramente, foi necessário criar as Dockerfiles, que foram adaptadas das utilizadas para o ***Class Assignment 4*** para o caso da aplicação *web* e da base de dados.
 
-A **Dockefile relativa à web**:
+A Dockefile relativa à ***web*** possui a seguinte informação:
 
 ```sh
 FROM tomcat
@@ -1047,12 +1041,12 @@ RUN cp build/libs/devops_g2_gradle-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 EXPOSE 8080
 ```
 
-As únicas **mudanças** foram:
-- colocar no **git clone** o link para o nosso repositório
-- no **working directory** entrar na root do nosso repositório
-- e mudar a **path de cópia do ficheiro war** para a correspondente no nosso projeto.
+As únicas alterações foram:
+- colocar no **git clone** o link para o repositório correcto;
+- no **working directory** entrar na root do repositório clonado;
+- mudar a ***path*** de cópia do ficheiro ***war*** para a path correspondente do projeto.
 
-A **Dockefile relativa à base de dados** ficou como se segue:
+A Dockefile relativa à **base de dados** não sofreu alterações e possui a seguinte informação:
 
 ```sh
 FROM ubuntu
@@ -1060,9 +1054,7 @@ FROM ubuntu
 RUN apt-get update -y && \
   apt-get install -y openjdk-8-jdk-headless && \
   apt-get install unzip -y && \
-  apt-get install wget -y && \
-  apt-get install iputils-ping -y && \
-  apt-get install python3 --yes
+  apt-get install wget -y
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app/
@@ -1074,7 +1066,7 @@ EXPOSE 9092
 CMD java -cp ./h2-1.4.200.jar org.h2.tools.Server -web -webAllowOthers -tcp -tcpAllowOthers -ifNotExists
 ```
 
-Já a **Dockefile relativa ao Ansible** ficou:
+A Dockefile relativa ao **ansible** consistiu apenas em comandos para instalação do Ansible. O objectivo seria correr o *playbook* neste *container* e possui a seguinte informação:
 
 ```sh
 FROM ubuntu
@@ -1127,52 +1119,53 @@ networks:
         - subnet: 192.168.33.0/24
 ```
 
-#### Docker-compose build & docker-compose up
+#### **3.2.2 Docker-compose build & docker-compose up**
 
 Uma vez construidas as **dockerfiles** e o **docker-compose.yml** corremos o comando:
+
 ```sh
 $ docker-compose build
 ```
-O que ele faz é basicamente ler a **docker-compose.yml** e procurar todos os **serviços** que contêm um **build** e correr um **docker build** para cada um deles. Neste caso ele encontrou 3 serviços: "web", "db" e "ansible"; fazendo assim 3 docker builds.
+Este vai ler o **docker-compose.yml** e procurar todos os serviços que contêm um *build* e correr um **docker build** para cada um deles. Neste caso, foram encontrados 3 serviços: *web*, *db* e *ansible*, fazendo assim 3 *docker builds*.
 
-Depois para **iniciar os containers correspondentes a cada um** tivemos que correr o comando:
+De seguida, iniciou-se os containers correspondentes e correu-se o comando:
 
 ```sh
 $ docker-compose up
 ```
-O que faz é **construir, (re)criar, iniciar e anexar cada serviço a um container.**
 
+### **3.2.3 Verificação no browser**
 
-### Verificar no browser
-Após aguardar alguns minutos conseguimos ver o **Spring Boot a ser inicializado**, significando que os links para aceder à web e à base de dados já estariam acessiveis pelo nosso browser.
+Após alguns minutos, conseguiu-se visualizar o **Spring Boot** a ser inicializado, significando que os links para aceder à *web* e à base de dados já estavam acessiveis pelo browser.
 
 ![alt text](https://imgur.com/EHvwG1f.png)
 
-Para sabermos o **ip** da virtual machine que temos a correr o docker podemos ir ver ao Docker Toolbox ou então correndo o comando:
+Para saber o **IP** da *VM* onde está a correr o docker, consultou-se o Docker Toolbox ou então correndo o comando:
 
 ```sh
 $ docker-machine default ip
 ```
 
-Utilizando este ip como base conseguimos assim aceder ao componente da **web** e realizar pedidos à nossa api.
+Utilizando este IP como base, conseguiu-se assim aceder ao componente ***web*** e realizar pedidos ao backend.
 
 ![alt text](https://imgur.com/BCcw3r0.png)
 
-Podemos também aceder à nossa **base de dados** e visualizar todos os elementos que temos armazenados na mesma.
+Pode-se também aceder à **base de dados** e visualizar todos os elementos que estão armazenados na mesma.
 
 ![alt text](https://imgur.com/iYdwPua.png)
 
-### Jenkinsfile
+### **3.3 Jenkinsfile**
 
-Relativamente ao Jenkinsfile utilizado na alternativa, salientam-se aqui as diferenças nos diversos "Stages":
+Relativamente ao Jenkinsfile utilizado na alternativa, salientam-se aqui as diferenças nos diversos **Stages** relativamente ao projeto principal:
 
 **Assemble**
+
 Em vez dos comandos:
 ```
 sh 'chmod +x mvnw'
 sh './mvnw package -Dmaven.test.skip=true '
 ```
-temos os mesmos adaptados para o Gradle:
+utilizaram-se os mesmos adaptados para o Gradle:
 ```
 sh 'chmod +x gradlew'
 sh './gradlew build -x test'
@@ -1180,7 +1173,7 @@ sh './gradlew build -x test'
 
 **Test**
 
-No caso da alternativa, não se colocou a questão relativa à cobertura de testes, tendo sido empregues os seguintes steps:
+No caso da alternativa, não se colocou a questão relativa à cobertura de testes, tendo sido empregues os seguintes *steps*:
 ```
 echo 'Running tests...'
 sh 'chmod +x gradlew'
@@ -1190,41 +1183,41 @@ junit 'build/test-results/test/*.xml'
 ```
 
 **Javadoc**
-A diferença relativamente à versão Maven foram apenas os seguintes comandos:
+
+Relativamente à versão Maven, foram apenas alterados os seguintes comandos:
 ```
 sh 'chmod +x gradlew'
 sh './gradlew javadoc'
 ```
-e o diretório: 'build/docs/javadoc/'.
+e o diretório: ***'build/docs/javadoc/'***.
 
 **Archiving**
 
-No Stage Archiving apenas se alterou o diretório em archiveArtifacts de 'target/*.war' para 'build/libs/'.
+No Stage Archiving apenas se alterou o diretório em *archiveArtifacts* de *'target/*.war'* para *'build/libs/'*.
 
 **Docker Image**
 
-Neste Stage foi utilizado outro repositório do DockerHub, nomeadamente: raquelquerido/devops_g2_gradle.
-Além disso adicionou-se um step para o Ansible:
+Neste *stage* foi utilizado o mesmo repositório do *Docker Hub*, nomeadamente: **raquelquerido/devops_g2_gradle**.
+Além disso, adicionou-se um *step* para o Ansible:
 ```
 dir ('docker/ansible') {
-                      script {
-                         ansibleImage = docker.build("raquelquerido/devops_g2_gradle:ansible")
-                    }
+  script {
+      ansibleImage = docker.build("raquelquerido/devops_g2_gradle:ansible")
+}
 ```
 
 **Publish Image**
 
-No Jenkinsfile este stage manteve-se igual à versão utilizada no Maven.
+No Jenkinsfile, esta *stage* manteve-se igual à versão utilizada no Maven.
 
-Por fim, na alternativa não se implementou o Stage relativo ao **Ansible**.
+Por fim, na alternativa não se implementou o *stage* relativo ao **Ansible**, dado não ter sido elaborado um playbook.
 
 
-## **4. Conclusion**
-No final....
+## **4. Atribuição de tarefas**
 
-## **5. Contributions**
 
-## **6. Sources**
+
+## **5. Sources**
 * https://git-scm.com/book/pt-br/
 * https://www.jenkins.io/doc/book/pipeline/
 * https://www.jenkins.io/doc/book/pipeline/syntax/
