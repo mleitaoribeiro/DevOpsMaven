@@ -451,7 +451,7 @@ $vagrant up
 
 Com as máquinas criadas com sucesso, usou-se o comando *ssh* para entrar dentro da VM's.
 
-### **2.3.2 Host2: Postgress - Autorizar Acesso Remoto**
+#### **2.3.2 Host2: Postgress - Autorizar Acesso Remoto**
 
 Antes de ser executado o *playbook* foi necessário fazer alguma configuração manual no *host2* onde está instalada a base de dados **PostgreSQL**. Dado que o **PostgreSql** está configurado para receber apenas conexões locais, de forma a permitir acesso remoto foi necessário alterar os ficheiros **postgresql.conf** e **pg_hba.conf**.
 
